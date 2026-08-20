@@ -36,17 +36,34 @@ export async function createOrderServerSide(input: CreateOrderInput, locale: str
     throw new Error('Majburiy maydonlar to‘ldirilmagan');
   }
 
+  const validItems = items.filter((i) => i.quantity > 0);
+  if (validItems.length === 0) {
+    throw new Error('Savatda kamida bitta mahsulot miqdori 1 donadan ko‘p bo‘lishi kerak');
+  }
+
   const normalizedPhone = normalizePhone(customerPhone);
+
+  // Duplicate Order Protection: Check if identical order from same phone exists in last 30 seconds
+  const thirtySecondsAgo = new Date(Date.now() - 30 * 1000);
+  const existingRecentOrder = await db.order.findFirst({
+    where: {
+      customerPhone: normalizedPhone,
+      createdAt: { gte: thirtySecondsAgo },
+    },
+  });
+
+  if (existingRecentOrder) {
+    return existingRecentOrder; // Return existing order to prevent double charging / double order creation
+  }
+
   const orderNumber = `SPS-${Math.floor(100000 + Math.random() * 900000)}`;
 
-  // Execute inside DB transaction for atomic inventory and snapshot safety
+  // Execute inside DB transaction with atomic stock decrement
   const order = await db.$transaction(async (tx) => {
     let grandTotal = 0;
     const itemSnapshots = [];
 
-    for (const itemInput of items) {
-      if (itemInput.quantity <= 0) continue;
-
+    for (const itemInput of validItems) {
       const product = await tx.product.findUnique({
         where: { id: itemInput.productId },
         include: { translations: true },
@@ -63,33 +80,40 @@ export async function createOrderServerSide(input: CreateOrderInput, locale: str
         });
       }
 
-      // Check Inventory
+      // Concurrency-Safe Atomic Inventory Check & Decrement
       if (product.trackInventory && !product.allowBackorder) {
-        const availableQty = variant ? variant.stockQty : product.stockQty;
-        if (availableQty < itemInput.quantity) {
-          throw new Error(`Sotuvda yetarli mahsulot yo‘q: ${product.sku}`);
-        }
-
-        // Decrement stock
         if (variant) {
-          await tx.productVariant.update({
-            where: { id: variant.id },
+          const updatedVariant = await tx.productVariant.updateMany({
+            where: {
+              id: variant.id,
+              stockQty: { gte: itemInput.quantity },
+            },
             data: { stockQty: { decrement: itemInput.quantity } },
           });
+
+          if (updatedVariant.count === 0) {
+            throw new Error(`Sotuvda yetarli variant mahsuloti yo‘q: ${variant.sku}`);
+          }
         } else {
-          await tx.product.update({
-            where: { id: product.id },
+          const updatedProduct = await tx.product.updateMany({
+            where: {
+              id: product.id,
+              stockQty: { gte: itemInput.quantity },
+            },
             data: { stockQty: { decrement: itemInput.quantity } },
           });
+
+          if (updatedProduct.count === 0) {
+            throw new Error(`Sotuvda yetarli mahsulot yo‘q: ${product.sku}`);
+          }
         }
       }
 
-      // Determine purchase-time price in UZS (Integer)
+      // Server-calculated unit price in integer UZS
       const unitPrice = variant ? variant.price : product.basePrice;
       const lineTotal = unitPrice * itemInput.quantity;
       grandTotal += lineTotal;
 
-      // Extract translation
       const trans = product.translations.find((t) => t.locale === locale) || product.translations[0];
       const productName = trans ? trans.name : product.sku;
 
@@ -105,7 +129,6 @@ export async function createOrderServerSide(input: CreateOrderInput, locale: str
       });
     }
 
-    // Create Order record
     const createdOrder = await tx.order.create({
       data: {
         orderNumber,
@@ -137,7 +160,7 @@ export async function createOrderServerSide(input: CreateOrderInput, locale: str
     return createdOrder;
   });
 
-  // Dispatch Telegram Alert asynchronously (isolated from order completion failure)
+  // Async Telegram Alert (Non-blocking)
   (async () => {
     try {
       let itemsText = '';

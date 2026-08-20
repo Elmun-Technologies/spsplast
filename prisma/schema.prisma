@@ -38,8 +38,8 @@ model AuditLog {
   id           String     @id @default(uuid())
   adminId      String?
   admin        AdminUser? @relation(fields: [adminId], references: [id], onDelete: SetNull)
-  action       String     // e.g. LOGIN, PRODUCT_CREATE, PRODUCT_UPDATE, ORDER_STATUS_CHANGE
-  entityType   String     // e.g. Product, Order, Category
+  action       String // e.g. LOGIN, PRODUCT_CREATE, PRODUCT_UPDATE, ORDER_STATUS_CHANGE
+  entityType   String // e.g. Product, Order, Category
   entityId     String?
   metadataJson String?
   createdAt    DateTime   @default(now())
@@ -68,7 +68,7 @@ model CategoryTranslation {
   id              String   @id @default(uuid())
   categoryId      String
   category        Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  locale          String   // uz, ru, en
+  locale          String // uz, ru, en
   name            String
   slug            String
   description     String?
@@ -84,14 +84,14 @@ model CategoryTranslation {
 // ------------------------------------------------------
 
 model AttributeDefinition {
-  id           String                     @id @default(uuid())
-  code         String                     @unique // e.g. thickness, cavities, material, color
-  type         String                     @default("TEXT") // TEXT, NUMBER, BOOLEAN, SELECT, MULTISELECT
-  unit         String?                    // e.g. mm, kg, quyish
-  filterable   Boolean                    @default(true)
-  searchable   Boolean                    @default(true)
-  variantAxis  Boolean                    @default(false)
-  sortOrder    Int                        @default(0)
+  id           String                  @id @default(uuid())
+  code         String                  @unique // e.g. thickness, cavities, material, color
+  type         String                  @default("TEXT") // TEXT, NUMBER, BOOLEAN, SELECT, MULTISELECT
+  unit         String? // e.g. mm, kg, quyish
+  filterable   Boolean                 @default(true)
+  searchable   Boolean                 @default(true)
+  variantAxis  Boolean                 @default(false)
+  sortOrder    Int                     @default(0)
   translations AttributeTranslation[]
   options      AttributeOption[]
   categories   CategoryAttribute[]
@@ -102,19 +102,19 @@ model AttributeTranslation {
   id          String              @id @default(uuid())
   attributeId String
   attribute   AttributeDefinition @relation(fields: [attributeId], references: [id], onDelete: Cascade)
-  locale      String              // uz, ru, en
-  name        String              // e.g. "Qalinligi", "Толщина"
+  locale      String // uz, ru, en
+  name        String // e.g. "Qalinligi", "Толщина"
 
   @@unique([attributeId, locale])
 }
 
 model AttributeOption {
-  id          String                       @id @default(uuid())
-  attributeId String
-  attribute   AttributeDefinition          @relation(fields: [attributeId], references: [id], onDelete: Cascade)
-  code        String                       // e.g. smooth, brick, travertin
-  sortOrder   Int                          @default(0)
-  translations AttributeOptionTranslation[]
+  id            String                       @id @default(uuid())
+  attributeId   String
+  attribute     AttributeDefinition          @relation(fields: [attributeId], references: [id], onDelete: Cascade)
+  code          String // e.g. smooth, brick, travertin
+  sortOrder     Int                          @default(0)
+  translations  AttributeOptionTranslation[]
   productValues ProductAttributeValue[]
   variantValues ProductVariantOption[]
 
@@ -125,8 +125,8 @@ model AttributeOptionTranslation {
   id       String          @id @default(uuid())
   optionId String
   option   AttributeOption @relation(fields: [optionId], references: [id], onDelete: Cascade)
-  locale   String          // uz, ru, en
-  label    String          // e.g. "Silliq", "Гладкий"
+  locale   String // uz, ru, en
+  label    String // e.g. "Silliq", "Гладкий"
 
   @@unique([optionId, locale])
 }
@@ -148,22 +148,22 @@ model CategoryAttribute {
 // ------------------------------------------------------
 
 model Product {
-  id              String                  @id @default(uuid())
-  sku             String                  @unique
-  status          String                  @default("ACTIVE") // DRAFT, ACTIVE, ARCHIVED
-  basePrice       Int                     // Base price in UZS (Integer to avoid float rounding)
-  compareAtPrice  Int?                    // Original price before discount
-  currency        String                  @default("UZS")
-  inStock         Boolean                 @default(true)
-  stockQty        Int                     @default(100)
-  trackInventory  Boolean                 @default(true)
-  allowBackorder  Boolean                 @default(false)
-  isBestseller    Boolean                 @default(false)
-  isNew           Boolean                 @default(false)
-  
+  id             String  @id @default(uuid())
+  sku            String  @unique
+  status         String  @default("ACTIVE") // DRAFT, ACTIVE, ARCHIVED
+  basePrice      Int // Base price in UZS (Integer to avoid float rounding)
+  compareAtPrice Int? // Original price before discount
+  currency       String  @default("UZS")
+  inStock        Boolean @default(true)
+  stockQty       Int     @default(100)
+  trackInventory Boolean @default(true)
+  allowBackorder Boolean @default(false)
+  isBestseller   Boolean @default(false)
+  isNew          Boolean @default(false)
+
   // Specific quick metrics for Mold/Construction
-  yieldPerCast    Int?                    // e.g. 6 (Cavities)
-  durabilityCasts Int?                    // e.g. 350 (Lifetime casts)
+  yieldPerCast    Int? // e.g. 6 (Cavities)
+  durabilityCasts Int? // e.g. 350 (Lifetime casts)
   videoUrl        String?
 
   translations    ProductTranslation[]
@@ -174,22 +174,22 @@ model Product {
   orderItems      OrderItem[]
   leads           Lead[]
 
-  publishedAt     DateTime?               @default(now())
-  createdAt       DateTime                @default(now())
-  updatedAt       DateTime                @updatedAt
+  publishedAt DateTime? @default(now())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
 
 model ProductTranslation {
-  id              String   @id @default(uuid())
-  productId       String
-  product         Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  locale          String   // uz, ru, en
-  name            String
-  slug            String
+  id               String  @id @default(uuid())
+  productId        String
+  product          Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  locale           String // uz, ru, en
+  name             String
+  slug             String
   shortDescription String?
-  description     String?
-  metaTitle       String?
-  metaDescription String?
+  description      String?
+  metaTitle        String?
+  metaDescription  String?
 
   @@unique([productId, locale])
   @@unique([locale, slug])
@@ -224,7 +224,7 @@ model ProductVariant {
   productId      String
   product        Product                @relation(fields: [productId], references: [id], onDelete: Cascade)
   sku            String                 @unique
-  price          Int                    // Variant price override in UZS
+  price          Int // Variant price override in UZS
   compareAtPrice Int?
   stockQty       Int                    @default(10)
   status         String                 @default("ACTIVE")
@@ -236,11 +236,11 @@ model ProductVariant {
 }
 
 model ProductVariantOption {
-  id          String          @id @default(uuid())
-  variantId   String
-  variant     ProductVariant  @relation(fields: [variantId], references: [id], onDelete: Cascade)
-  optionId    String
-  option      AttributeOption @relation(fields: [optionId], references: [id], onDelete: Cascade)
+  id        String          @id @default(uuid())
+  variantId String
+  variant   ProductVariant  @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  optionId  String
+  option    AttributeOption @relation(fields: [optionId], references: [id], onDelete: Cascade)
 
   @@unique([variantId, optionId])
 }
@@ -263,34 +263,34 @@ model ProductMedia {
 // ------------------------------------------------------
 
 model Order {
-  id            String      @id @default(uuid())
-  orderNumber   String      @unique
+  id            String  @id @default(uuid())
+  orderNumber   String  @unique
   customerName  String
   customerPhone String
   region        String
   city          String?
   address       String
-  deliveryType  String      @default("COURIER") // COURIER, PICKUP
-  deliveryFee   Int         @default(0)
-  paymentMethod String      @default("CASH")    // CASH, CLICK, PAYME, BANK_TRANSFER
-  status        String      @default("NEW")     // NEW, CONFIRMED, PROCESSING, READY, SHIPPED, DELIVERED, CANCELLED
-  totalAmount   Int         // Total in UZS
+  deliveryType  String  @default("COURIER") // COURIER, PICKUP
+  deliveryFee   Int     @default(0)
+  paymentMethod String  @default("CASH") // CASH, CLICK, PAYME, BANK_TRANSFER
+  status        String  @default("NEW") // NEW, CONFIRMED, PROCESSING, READY, SHIPPED, DELIVERED, CANCELLED
+  totalAmount   Int // Total in UZS
   notes         String?
-  
+
   // Marketing & Attribution snapshot
-  utmSource     String?
-  utmMedium     String?
-  utmCampaign   String?
-  utmContent    String?
-  utmTerm       String?
-  gclid         String?
-  fbclid        String?
-  referrer      String?
-  landingPage   String?
-  
-  items         OrderItem[]
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
+  utmSource   String?
+  utmMedium   String?
+  utmCampaign String?
+  utmContent  String?
+  utmTerm     String?
+  gclid       String?
+  fbclid      String?
+  referrer    String?
+  landingPage String?
+
+  items     OrderItem[]
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
 }
 
 model OrderItem {
@@ -304,9 +304,9 @@ model OrderItem {
   sku         String
   productName String
   variantName String?
-  unitPrice   Int             // Price per unit in UZS at time of purchase
+  unitPrice   Int // Price per unit in UZS at time of purchase
   quantity    Int
-  lineTotal   Int             // quantity * unitPrice
+  lineTotal   Int // quantity * unitPrice
 }
 
 // ------------------------------------------------------
@@ -314,17 +314,17 @@ model OrderItem {
 // ------------------------------------------------------
 
 model Lead {
-  id          String   @id @default(uuid())
-  name        String
-  phone       String
-  company     String?
-  type        String   @default("B2B_WHOLESALE") // B2B_WHOLESALE, CONSULTATION
-  message     String?
-  quantity    Int?
-  productId   String?
-  product     Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
-  status      String   @default("NEW")
-  
+  id        String   @id @default(uuid())
+  name      String
+  phone     String
+  company   String?
+  type      String   @default("B2B_WHOLESALE") // B2B_WHOLESALE, CONSULTATION
+  message   String?
+  quantity  Int?
+  productId String?
+  product   Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  status    String   @default("NEW")
+
   // Attribution
   utmSource   String?
   utmMedium   String?
@@ -332,29 +332,29 @@ model Lead {
   gclid       String?
   fbclid      String?
 
-  createdAt   DateTime @default(now())
+  createdAt DateTime @default(now())
 }
 
 model BlogPost {
-  id          String                @id @default(uuid())
-  author      String                @default("SPS Plast Mutaxassisi")
-  coverImage  String
-  isPublished Boolean               @default(true)
-  publishedAt DateTime              @default(now())
+  id           String                @id @default(uuid())
+  author       String                @default("SPS Plast Mutaxassisi")
+  coverImage   String
+  isPublished  Boolean               @default(true)
+  publishedAt  DateTime              @default(now())
   translations BlogPostTranslation[]
-  createdAt   DateTime              @default(now())
-  updatedAt   DateTime              @updatedAt
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
 }
 
 model BlogPostTranslation {
-  id         String   @id @default(uuid())
-  postId     String
-  post       BlogPost @relation(fields: [postId], references: [id], onDelete: Cascade)
-  locale     String   // uz, ru, en
-  slug       String
-  title      String
-  excerpt    String?
-  content    String
+  id      String   @id @default(uuid())
+  postId  String
+  post    BlogPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  locale  String // uz, ru, en
+  slug    String
+  title   String
+  excerpt String?
+  content String
 
   @@unique([postId, locale])
   @@unique([locale, slug])
@@ -374,16 +374,16 @@ model Project {
 }
 
 model Banner {
-  id          String   @id @default(uuid())
-  titleUz     String
-  titleRu     String
-  subTitleUz  String?
-  subTitleRu  String?
-  imageUrl    String
-  linkUrl     String?
-  position    String   @default("HERO")
-  isActive    Boolean  @default(true)
-  createdAt   DateTime @default(now())
+  id         String   @id @default(uuid())
+  titleUz    String
+  titleRu    String
+  subTitleUz String?
+  subTitleRu String?
+  imageUrl   String
+  linkUrl    String?
+  position   String   @default("HERO")
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
 }
 
 model Setting {

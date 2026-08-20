@@ -32,20 +32,24 @@ async function main() {
   await prisma.project.deleteMany();
   await prisma.banner.deleteMany();
 
-  // 1. Create Admin User (Bcrypt hashed)
-  const adminEmail = process.env.SEED_ADMIN_EMAIL || 'admin@spsplast.uz';
-  const adminPassword = process.env.SEED_ADMIN_PASSWORD || 'admin123_secure_password';
-  const passwordHash = await bcrypt.hash(adminPassword, 10);
+  // 1. Create Admin User (Safely from environment variables)
+  const adminEmail = process.env.SEED_ADMIN_EMAIL;
+  const adminPassword = process.env.SEED_ADMIN_PASSWORD;
 
-  await prisma.adminUser.create({
-    data: {
-      email: adminEmail,
-      name: 'SPS Plast Admin',
-      passwordHash,
-      role: 'ADMIN',
-    },
-  });
-  console.log(`Admin user created: ${adminEmail}`);
+  if (adminEmail && adminPassword) {
+    const passwordHash = await bcrypt.hash(adminPassword, 10);
+    await prisma.adminUser.create({
+      data: {
+        email: adminEmail,
+        name: 'SPS Plast Admin',
+        passwordHash,
+        role: 'ADMIN',
+      },
+    });
+    console.log(`Admin user created safely for: ${adminEmail}`);
+  } else {
+    console.warn('SEED_ADMIN_EMAIL or SEED_ADMIN_PASSWORD environment variables not provided. Skipping admin creation.');
+  }
 
   // 2. Create Dynamic Attributes
   const attrDimensions = await prisma.attributeDefinition.create({
@@ -157,7 +161,7 @@ async function main() {
   });
 
   // 4. Create Representative Mold Product
-  const p1 = await prisma.product.create({
+  await prisma.product.create({
     data: {
       sku: 'SPS-BR-001',
       status: 'ACTIVE',
@@ -216,7 +220,7 @@ async function main() {
   });
 
   // 5. Create Representative Thermopanel Product
-  const p2 = await prisma.product.create({
+  await prisma.product.create({
     data: {
       sku: 'SPS-TP-002',
       status: 'ACTIVE',
@@ -293,7 +297,7 @@ async function main() {
 
   await prisma.blogPost.create({
     data: {
-      author: 'SPS Plast Texnologi',
+      author: 'SPS Plast Mutaxassisi',
       coverImage: 'https://images.unsplash.com/photo-1584467735871-8e85353a8413?auto=format&fit=crop&w=800&q=80',
       isPublished: true,
       translations: {

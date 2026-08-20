@@ -1,9 +1,23 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { verifyPassword, createAdminSession, createAuditLog } from '@/lib/auth';
+import { checkRateLimit } from '@/lib/rateLimit';
 
 export async function POST(req: Request) {
   try {
+    const ipAddress = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || '127.0.0.1';
+    const rateLimitKey = `admin_login_${ipAddress}`;
+    
+    // Max 5 login attempts per IP per 15 minutes
+    const rateLimit = checkRateLimit(rateLimitKey, 5, 15 * 60 * 1000);
+    if (!rateLimit.allowed) {
+      const waitSeconds = Math.ceil(rateLimit.resetTimeMs / 1000);
+      return NextResponse.json(
+        { error: `Juda ko‘p noto‘g‘ri urunishlar. Iltimos ${waitSeconds} sekutdan so‘ng qayta urinib ko‘ring.` },
+        { status: 429 }
+      );
+    }
+
     const { email, password } = await req.json();
 
     if (!email || !password) {
@@ -23,7 +37,6 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Email yoki parol noto‘g‘ri' }, { status: 401 });
     }
 
-    const ipAddress = req.headers.get('x-forwarded-for') || undefined;
     const userAgent = req.headers.get('user-agent') || undefined;
 
     await createAdminSession(admin.id, ipAddress, userAgent);
