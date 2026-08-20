@@ -17,6 +17,7 @@ export interface CreateOrderInput {
   deliveryType?: string;
   paymentMethod?: string;
   notes?: string;
+  idempotencyKey?: string;
   items: CreateOrderItemInput[];
   utmSource?: string;
   utmMedium?: string;
@@ -29,16 +30,57 @@ export interface CreateOrderInput {
   landingPage?: string;
 }
 
-export async function createOrderServerSide(input: CreateOrderInput, locale: string = 'uz') {
-  const { customerName, customerPhone, region, city, address, deliveryType, paymentMethod, notes, items } = input;
+export const VALID_STATUS_TRANSITIONS: Record<string, string[]> = {
+  NEW: ['CONFIRMED', 'CANCELLED'],
+  CONFIRMED: ['PROCESSING', 'CANCELLED'],
+  PROCESSING: ['READY', 'CANCELLED'],
+  READY: ['SHIPPED', 'DELIVERED', 'CANCELLED'],
+  SHIPPED: ['DELIVERED', 'CANCELLED'],
+  DELIVERED: [],
+  CANCELLED: [],
+};
 
-  if (!customerName || !customerPhone || !items || items.length === 0) {
-    throw new Error('Majburiy maydonlar to‘ldirilmagan');
+export function isValidStatusTransition(fromStatus: string, toStatus: string): boolean {
+  if (fromStatus === toStatus) return true;
+  const allowed = VALID_STATUS_TRANSITIONS[fromStatus];
+  if (!allowed) return false;
+  return allowed.includes(toStatus);
+}
+
+export function generateOrderNumber(): string {
+  const now = new Date();
+  const dateStr = now.toISOString().slice(2, 10).replace(/-/g, '');
+  const randomStr = Math.floor(1000 + Math.random() * 9000).toString();
+  return `SPS-${dateStr}-${randomStr}`;
+}
+
+export async function createOrderServerSide(input: CreateOrderInput, locale: string = 'uz') {
+  const {
+    customerName,
+    customerPhone,
+    region,
+    city,
+    address,
+    deliveryType,
+    paymentMethod,
+    notes,
+    idempotencyKey,
+    items,
+  } = input;
+
+  if (!customerName || !customerName.trim() || !customerPhone || !items || items.length === 0) {
+    throw new Error('MAJBURIY_MAYDONLAR_BOSH: Majburiy maydonlar to‘ldirilmagan');
   }
 
-  const validItems = items.filter((i) => i.quantity > 0);
-  if (validItems.length === 0) {
-    throw new Error('Savatda kamida bitta mahsulot miqdori 1 donadan ko‘p bo‘lishi kerak');
+  // Idempotency check: if key provided and already exists, return previous order
+  if (idempotencyKey && idempotencyKey.trim() !== '') {
+    const existingByIdempotency = await db.order.findUnique({
+      where: { idempotencyKey },
+      include: { items: true, statusHistory: true },
+    });
+    if (existingByIdempotency) {
+      return existingByIdempotency;
+    }
   }
 
   const normalizedPhone = normalizePhone(customerPhone);
@@ -50,13 +92,20 @@ export async function createOrderServerSide(input: CreateOrderInput, locale: str
       customerPhone: normalizedPhone,
       createdAt: { gte: thirtySecondsAgo },
     },
+    include: { items: true, statusHistory: true },
   });
 
   if (existingRecentOrder) {
-    return existingRecentOrder; // Return existing order to prevent double charging / double order creation
+    return existingRecentOrder;
   }
 
-  const orderNumber = `SPS-${Math.floor(100000 + Math.random() * 900000)}`;
+  // Filter valid quantities > 0
+  const validItems = items.filter((i) => typeof i.quantity === 'number' && i.quantity > 0);
+  if (validItems.length === 0) {
+    throw new Error('MIQDOR_XATOSI: Savatda kamida bitta mahsulot miqdori 1 donadan ko‘p bo‘lishi kerak');
+  }
+
+  const orderNumber = generateOrderNumber();
 
   // Execute inside DB transaction with atomic stock decrement
   const order = await db.$transaction(async (tx) => {
@@ -70,7 +119,7 @@ export async function createOrderServerSide(input: CreateOrderInput, locale: str
       });
 
       if (!product || product.status !== 'ACTIVE') {
-        throw new Error(`Mahsulot topilmadi yoki sotuvda mavjud emas`);
+        throw new Error(`PRODUCT_UNAVAILABLE: Mahsulot topilmadi yoki sotuvda mavjud emas`);
       }
 
       let variant = null;
@@ -78,6 +127,10 @@ export async function createOrderServerSide(input: CreateOrderInput, locale: str
         variant = await tx.productVariant.findUnique({
           where: { id: itemInput.variantId },
         });
+
+        if (!variant || variant.status !== 'ACTIVE') {
+          throw new Error(`INVALID_VARIANT: Tanlangan variant sotuvda mavjud emas`);
+        }
       }
 
       // Concurrency-Safe Atomic Inventory Check & Decrement
@@ -92,7 +145,7 @@ export async function createOrderServerSide(input: CreateOrderInput, locale: str
           });
 
           if (updatedVariant.count === 0) {
-            throw new Error(`Sotuvda yetarli variant mahsuloti yo‘q: ${variant.sku}`);
+            throw new Error(`OUT_OF_STOCK: Sotuvda yetarli variant mahsuloti yo‘q: ${variant.sku}`);
           }
         } else {
           const updatedProduct = await tx.product.updateMany({
@@ -104,7 +157,7 @@ export async function createOrderServerSide(input: CreateOrderInput, locale: str
           });
 
           if (updatedProduct.count === 0) {
-            throw new Error(`Sotuvda yetarli mahsulot yo‘q: ${product.sku}`);
+            throw new Error(`OUT_OF_STOCK: Sotuvda yetarli mahsulot yo‘q: ${product.sku}`);
           }
         }
       }
@@ -132,9 +185,10 @@ export async function createOrderServerSide(input: CreateOrderInput, locale: str
     const createdOrder = await tx.order.create({
       data: {
         orderNumber,
-        customerName,
+        idempotencyKey: idempotencyKey && idempotencyKey.trim() !== '' ? idempotencyKey : null,
+        customerName: customerName.trim(),
         customerPhone: normalizedPhone,
-        region: region || 'Toshkent',
+        region: region || 'Toshkent shahri',
         city: city || '',
         address: address || '',
         deliveryType: deliveryType || 'COURIER',
@@ -153,8 +207,15 @@ export async function createOrderServerSide(input: CreateOrderInput, locale: str
         items: {
           create: itemSnapshots,
         },
+        statusHistory: {
+          create: {
+            fromStatus: null,
+            toStatus: 'NEW',
+            note: 'Buyurtma rasmiylashtirildi',
+          },
+        },
       },
-      include: { items: true },
+      include: { items: true, statusHistory: true },
     });
 
     return createdOrder;
@@ -165,18 +226,23 @@ export async function createOrderServerSide(input: CreateOrderInput, locale: str
     try {
       let itemsText = '';
       order.items.forEach((item, idx) => {
-        itemsText += `  ${idx + 1}. <b>${item.productName}</b> — ${item.quantity} dona x ${item.unitPrice.toLocaleString()} so‘m\n`;
+        itemsText += `  ${idx + 1}. <b>${item.productName}</b> (${item.sku}) — ${item.quantity} dona x ${item.unitPrice.toLocaleString()} so‘m\n`;
       });
+
+      const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || '';
+      const adminLink = siteUrl ? `\n\n🔗 <a href="${siteUrl}/admin/orders/${order.id}">Admin Paneldan ko‘rish</a>` : '';
 
       const telegramMsg =
         `🛒 <b>YANGI BUYURTMA #${order.orderNumber}</b>\n\n` +
         `👤 <b>Mijoz:</b> ${order.customerName}\n` +
         `📞 <b>Telefon:</b> ${order.customerPhone}\n` +
         `📍 <b>Manzil:</b> ${order.region}, ${order.address}\n` +
+        `🚚 <b>Yetkazib berish:</b> ${order.deliveryType}\n` +
         `💳 <b>To‘lov turi:</b> ${order.paymentMethod}\n\n` +
         `📦 <b>Mahsulotlar:</b>\n${itemsText}\n` +
         `💰 <b>Jami Summa:</b> <b>${order.totalAmount.toLocaleString()} so‘m</b>\n` +
-        (order.utmSource ? `🎯 <b>UTM:</b> ${order.utmSource} / ${order.utmMedium || ''}\n` : '');
+        (order.utmSource ? `🎯 <b>UTM:</b> ${order.utmSource} / ${order.utmMedium || ''}\n` : '') +
+        adminLink;
 
       await sendTelegramNotification(telegramMsg);
     } catch (e) {
@@ -185,4 +251,69 @@ export async function createOrderServerSide(input: CreateOrderInput, locale: str
   })();
 
   return order;
+}
+
+export async function updateOrderStatusServerSide(
+  orderId: string,
+  newStatus: string,
+  adminId?: string,
+  note?: string
+) {
+  const order = await db.order.findUnique({
+    where: { id: orderId },
+    include: { items: true, statusHistory: true },
+  });
+
+  if (!order) {
+    throw new Error('Buyurtma topilmadi');
+  }
+
+  if (order.status === newStatus) {
+    return order;
+  }
+
+  if (!isValidStatusTransition(order.status, newStatus)) {
+    throw new Error(`INVALID_TRANSITION: ${order.status} holatidan ${newStatus} holatiga o‘tish taqiqlangan`);
+  }
+
+  // Handle Cancellation and Inventory Restore
+  const isCancelling = newStatus === 'CANCELLED';
+  const alreadyCancelled = order.statusHistory.some((h) => h.toStatus === 'CANCELLED');
+
+  return await db.$transaction(async (tx) => {
+    // If cancelling for the first time, restore inventory safely
+    if (isCancelling && !alreadyCancelled) {
+      for (const item of order.items) {
+        if (item.variantId) {
+          await tx.productVariant.update({
+            where: { id: item.variantId },
+            data: { stockQty: { increment: item.quantity } },
+          });
+        } else if (item.productId) {
+          await tx.product.update({
+            where: { id: item.productId },
+            data: { stockQty: { increment: item.quantity } },
+          });
+        }
+      }
+    }
+
+    const updatedOrder = await tx.order.update({
+      where: { id: orderId },
+      data: {
+        status: newStatus,
+        statusHistory: {
+          create: {
+            fromStatus: order.status,
+            toStatus: newStatus,
+            adminId: adminId || null,
+            note: note || (isCancelling ? 'Buyurtma bekor qilindi, ombor zaxirasi tiklandi' : `Holat o‘zgartirildi: ${newStatus}`),
+          },
+        },
+      },
+      include: { items: true, statusHistory: true },
+    });
+
+    return updatedOrder;
+  });
 }

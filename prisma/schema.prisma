@@ -263,19 +263,21 @@ model ProductMedia {
 // ------------------------------------------------------
 
 model Order {
-  id            String  @id @default(uuid())
-  orderNumber   String  @unique
-  customerName  String
-  customerPhone String
-  region        String
-  city          String?
-  address       String
-  deliveryType  String  @default("COURIER") // COURIER, PICKUP
-  deliveryFee   Int     @default(0)
-  paymentMethod String  @default("CASH") // CASH, CLICK, PAYME, BANK_TRANSFER
-  status        String  @default("NEW") // NEW, CONFIRMED, PROCESSING, READY, SHIPPED, DELIVERED, CANCELLED
-  totalAmount   Int // Total in UZS
-  notes         String?
+  id             String  @id @default(uuid())
+  orderNumber    String  @unique
+  idempotencyKey String? @unique
+  customerName   String
+  customerPhone  String
+  region         String
+  city           String?
+  address        String
+  deliveryType   String  @default("COURIER") // COURIER, PICKUP
+  deliveryFee    Int     @default(0)
+  paymentMethod  String  @default("CASH") // CASH, CLICK, PAYME, BANK_TRANSFER
+  paymentStatus  String  @default("PENDING") // PENDING, PAID, FAILED, REFUNDED
+  status         String  @default("NEW") // NEW, CONFIRMED, PROCESSING, READY, SHIPPED, DELIVERED, CANCELLED
+  totalAmount    Int // Total in UZS
+  notes          String?
 
   // Marketing & Attribution snapshot
   utmSource   String?
@@ -288,9 +290,28 @@ model Order {
   referrer    String?
   landingPage String?
 
-  items     OrderItem[]
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
+  items         OrderItem[]
+  statusHistory OrderStatusHistory[]
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+
+  @@index([status])
+  @@index([customerPhone])
+  @@index([createdAt])
+}
+
+model OrderStatusHistory {
+  id         String   @id @default(uuid())
+  orderId    String
+  order      Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  fromStatus String?
+  toStatus   String
+  adminId    String?
+  note       String?
+  createdAt  DateTime @default(now())
+
+  @@index([orderId])
+  @@index([createdAt])
 }
 
 model OrderItem {
