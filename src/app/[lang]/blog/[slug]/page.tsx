@@ -12,14 +12,16 @@ export default async function BlogPostDetailPage({
   params: { lang: Locale; slug: string };
 }) {
   const dict = getDictionary(lang);
-  const post = await db.blogPost.findUnique({
-    where: { slug },
+  const postTrans = await db.blogPostTranslation.findFirst({
+    where: { slug, locale: lang },
+    include: { post: true },
   });
 
-  if (!post) notFound();
+  if (!postTrans || !postTrans.post || !postTrans.post.isPublished) {
+    notFound();
+  }
 
-  const title = lang === 'ru' ? post.titleRu : post.titleUz;
-  const content = lang === 'ru' ? post.contentRu : post.contentUz;
+  const post = postTrans.post;
 
   return (
     <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
@@ -32,7 +34,7 @@ export default async function BlogPostDetailPage({
       </Link>
 
       <div className="space-y-4">
-        <h1 className="text-3xl sm:text-5xl font-black text-white leading-tight">{title}</h1>
+        <h1 className="text-3xl sm:text-5xl font-black text-white leading-tight">{postTrans.title}</h1>
 
         <div className="flex items-center gap-6 text-xs text-gray-400 border-y border-brand-border/60 py-3">
           <span className="flex items-center gap-1">
@@ -47,11 +49,11 @@ export default async function BlogPostDetailPage({
       </div>
 
       <div className="relative aspect-[16/9] rounded-3xl overflow-hidden border border-brand-border shadow-2xl bg-black/40">
-        <Image src={post.coverImage} alt={title} fill className="object-cover" />
+        <Image src={post.coverImage} alt={postTrans.title} fill className="object-cover" />
       </div>
 
       <div className="prose prose-invert max-w-none text-gray-300 text-sm sm:text-base leading-relaxed space-y-4">
-        {content.split('\n\n').map((paragraph, i) => (
+        {postTrans.content.split('\n\n').map((paragraph, i) => (
           <p key={i}>{paragraph}</p>
         ))}
       </div>

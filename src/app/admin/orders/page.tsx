@@ -1,8 +1,15 @@
 import React from 'react';
+import { redirect } from 'next/navigation';
 import { db } from '@/lib/db';
+import { getAdminSession } from '@/lib/auth';
 import { formatPrice } from '@/lib/utils';
 
 export default async function AdminOrdersPage() {
+  const session = await getAdminSession();
+  if (!session) {
+    redirect('/admin/login');
+  }
+
   const orders = await db.order.findMany({
     include: { items: true },
     orderBy: { createdAt: 'desc' },
@@ -12,7 +19,7 @@ export default async function AdminOrdersPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-black text-white">Buyurtmalar Boshqaruvi</h1>
-        <p className="text-xs text-gray-400 mt-1">Jami buyurtmalar ro‘yxati</p>
+        <p className="text-xs text-gray-400 mt-1">Jami buyurtmalar ro‘yxati ({orders.length} ta)</p>
       </div>
 
       <div className="bg-brand-card border border-brand-border rounded-2xl overflow-hidden shadow-xl">
@@ -24,7 +31,7 @@ export default async function AdminOrdersPage() {
                 <th className="p-4">Xaridor</th>
                 <th className="p-4">Telefon</th>
                 <th className="p-4">Manzil & Izoh</th>
-                <th className="p-4">Mahsulotlar</th>
+                <th className="p-4">Mahsulotlar Snapshoti</th>
                 <th className="p-4">Summa</th>
                 <th className="p-4">UTM Source</th>
                 <th className="p-4">Status</th>
@@ -47,7 +54,7 @@ export default async function AdminOrdersPage() {
                     <ul className="space-y-1">
                       {o.items.map((item) => (
                         <li key={item.id} className="text-[11px]">
-                          • <span className="font-medium text-white">{item.title}</span> ({item.quantity} dona)
+                          • <span className="font-medium text-white">{item.productName}</span> ({item.quantity} dona x {formatPrice(item.unitPrice, 'uz')})
                         </li>
                       ))}
                     </ul>

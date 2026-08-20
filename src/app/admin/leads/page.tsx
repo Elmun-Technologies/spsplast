@@ -1,7 +1,14 @@
 import React from 'react';
+import { redirect } from 'next/navigation';
 import { db } from '@/lib/db';
+import { getAdminSession } from '@/lib/auth';
 
 export default async function AdminLeadsPage() {
+  const session = await getAdminSession();
+  if (!session) {
+    redirect('/admin/login');
+  }
+
   const leads = await db.lead.findMany({
     orderBy: { createdAt: 'desc' },
   });
@@ -10,7 +17,7 @@ export default async function AdminLeadsPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-black text-white">B2B va Konsultatsiya So‘rovlari</h1>
-        <p className="text-xs text-gray-400 mt-1">Ulgurji narx so‘ragan mijozlar ro‘yxati</p>
+        <p className="text-xs text-gray-400 mt-1">Ulgurji narx so‘ragan mijozlar ro‘yxati ({leads.length} ta)</p>
       </div>
 
       <div className="bg-brand-card border border-brand-border rounded-2xl overflow-hidden shadow-xl">

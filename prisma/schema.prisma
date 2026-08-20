@@ -7,120 +7,260 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// ------------------------------------------------------
+// ADMIN & AUTHENTICATION
+// ------------------------------------------------------
+
 model AdminUser {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  name      String
-  password  String
-  role      String   @default("ADMIN")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           String         @id @default(uuid())
+  email        String         @unique
+  name         String
+  passwordHash String
+  role         String         @default("ADMIN")
+  sessions     AdminSession[]
+  auditLogs    AuditLog[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
 }
+
+model AdminSession {
+  id        String    @id @default(uuid())
+  adminId   String
+  admin     AdminUser @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  tokenHash String    @unique
+  expiresAt DateTime
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime  @default(now())
+}
+
+model AuditLog {
+  id           String     @id @default(uuid())
+  adminId      String?
+  admin        AdminUser? @relation(fields: [adminId], references: [id], onDelete: SetNull)
+  action       String     // e.g. LOGIN, PRODUCT_CREATE, PRODUCT_UPDATE, ORDER_STATUS_CHANGE
+  entityType   String     // e.g. Product, Order, Category
+  entityId     String?
+  metadataJson String?
+  createdAt    DateTime   @default(now())
+}
+
+// ------------------------------------------------------
+// CATEGORIES & TRANSLATIONS
+// ------------------------------------------------------
 
 model Category {
-  id          String    @id @default(uuid())
-  slug        String    @unique
-  nameUz      String
-  nameRu      String
-  descriptionUz String?
-  descriptionRu String?
-  image       String?
-  parentId    String?
-  parent      Category?  @relation("CategoryToCategory", fields: [parentId], references: [id])
-  children    Category[] @relation("CategoryToCategory")
-  products    Product[]
-  sortOrder   Int       @default(0)
-  seoTitleUz  String?
-  seoTitleRu  String?
-  seoDescUz   String?
-  seoDescRu   String?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id           String                @id @default(uuid())
+  parentId     String?
+  parent       Category?             @relation("CategoryHierarchy", fields: [parentId], references: [id], onDelete: SetNull)
+  children     Category[]            @relation("CategoryHierarchy")
+  image        String?
+  sortOrder    Int                   @default(0)
+  status       String                @default("ACTIVE") // ACTIVE, ARCHIVED
+  translations CategoryTranslation[]
+  attributes   CategoryAttribute[]
+  products     ProductCategory[]
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
 }
+
+model CategoryTranslation {
+  id              String   @id @default(uuid())
+  categoryId      String
+  category        Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  locale          String   // uz, ru, en
+  name            String
+  slug            String
+  description     String?
+  metaTitle       String?
+  metaDescription String?
+
+  @@unique([categoryId, locale])
+  @@unique([locale, slug])
+}
+
+// ------------------------------------------------------
+// DYNAMIC ATTRIBUTE SYSTEM
+// ------------------------------------------------------
+
+model AttributeDefinition {
+  id           String                     @id @default(uuid())
+  code         String                     @unique // e.g. thickness, cavities, material, color
+  type         String                     @default("TEXT") // TEXT, NUMBER, BOOLEAN, SELECT, MULTISELECT
+  unit         String?                    // e.g. mm, kg, quyish
+  filterable   Boolean                    @default(true)
+  searchable   Boolean                    @default(true)
+  variantAxis  Boolean                    @default(false)
+  sortOrder    Int                        @default(0)
+  translations AttributeTranslation[]
+  options      AttributeOption[]
+  categories   CategoryAttribute[]
+  values       ProductAttributeValue[]
+}
+
+model AttributeTranslation {
+  id          String              @id @default(uuid())
+  attributeId String
+  attribute   AttributeDefinition @relation(fields: [attributeId], references: [id], onDelete: Cascade)
+  locale      String              // uz, ru, en
+  name        String              // e.g. "Qalinligi", "Толщина"
+
+  @@unique([attributeId, locale])
+}
+
+model AttributeOption {
+  id          String                       @id @default(uuid())
+  attributeId String
+  attribute   AttributeDefinition          @relation(fields: [attributeId], references: [id], onDelete: Cascade)
+  code        String                       // e.g. smooth, brick, travertin
+  sortOrder   Int                          @default(0)
+  translations AttributeOptionTranslation[]
+  productValues ProductAttributeValue[]
+  variantValues ProductVariantOption[]
+
+  @@unique([attributeId, code])
+}
+
+model AttributeOptionTranslation {
+  id       String          @id @default(uuid())
+  optionId String
+  option   AttributeOption @relation(fields: [optionId], references: [id], onDelete: Cascade)
+  locale   String          // uz, ru, en
+  label    String          // e.g. "Silliq", "Гладкий"
+
+  @@unique([optionId, locale])
+}
+
+model CategoryAttribute {
+  id          String              @id @default(uuid())
+  categoryId  String
+  category    Category            @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  attributeId String
+  attribute   AttributeDefinition @relation(fields: [attributeId], references: [id], onDelete: Cascade)
+  required    Boolean             @default(false)
+  sortOrder   Int                 @default(0)
+
+  @@unique([categoryId, attributeId])
+}
+
+// ------------------------------------------------------
+// PRODUCTS, VARIANTS, MEDIA & ATTRIBUTES
+// ------------------------------------------------------
 
 model Product {
-  id              String             @id @default(uuid())
-  slug            String             @unique
-  sku             String             @unique
-  titleUz         String
-  titleRu         String
-  descriptionUz   String
-  descriptionRu   String
-  price           Float
-  oldPrice        Float?
-  isBestseller    Boolean            @default(false)
-  isNew           Boolean            @default(false)
-  inStock         Boolean            @default(true)
-  stockQty        Int                @default(100)
+  id              String                  @id @default(uuid())
+  sku             String                  @unique
+  status          String                  @default("ACTIVE") // DRAFT, ACTIVE, ARCHIVED
+  basePrice       Int                     // Base price in UZS (Integer to avoid float rounding)
+  compareAtPrice  Int?                    // Original price before discount
+  currency        String                  @default("UZS")
+  inStock         Boolean                 @default(true)
+  stockQty        Int                     @default(100)
+  trackInventory  Boolean                 @default(true)
+  allowBackorder  Boolean                 @default(false)
+  isBestseller    Boolean                 @default(false)
+  isNew           Boolean                 @default(false)
   
-  // Specific attributes for Mold & Construction products
-  dimensions      String?            // e.g., "300x300x40 mm"
-  thickness       String?            // e.g., "40 mm"
-  material        String?            // e.g., "ABS plastik 2mm", "Polypropylene"
-  weight          String?            // e.g., "0.85 kg"
-  yieldPerCast    Int?               // Bir quyishda olinadigan mahsulot soni (e.g., 6)
-  durabilityCasts Int?               // Resurs (e.g., 300 quyish)
-  shape           String?            // e.g., "Kvadrat", "G'isht"
-  texture         String?            // e.g., "Silliq", "Yog'och", "Tosh"
-  videoUrl        String?            // YouTube / MP4 video link
-  
-  // Specific image comparison: Mold image -> Mold result (Tayyor mahsulot)
-  resultImage     String?            // Tayyor bruschatka/beton rasmi
-  resultTitleUz   String?
-  resultTitleRu   String?
+  // Specific quick metrics for Mold/Construction
+  yieldPerCast    Int?                    // e.g. 6 (Cavities)
+  durabilityCasts Int?                    // e.g. 350 (Lifetime casts)
+  videoUrl        String?
 
-  categoryId      String
-  category        Category           @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  
-  images          ProductImage[]
-  attributes      ProductAttribute[]
+  translations    ProductTranslation[]
+  categories      ProductCategory[]
   variants        ProductVariant[]
+  attributeValues ProductAttributeValue[]
+  media           ProductMedia[]
   orderItems      OrderItem[]
   leads           Lead[]
-  
-  seoTitleUz      String?
-  seoTitleRu      String?
-  seoDescUz       String?
-  seoDescRu       String?
 
-  createdAt       DateTime           @default(now())
-  updatedAt       DateTime           @updatedAt
+  publishedAt     DateTime?               @default(now())
+  createdAt       DateTime                @default(now())
+  updatedAt       DateTime                @updatedAt
 }
 
-model ProductImage {
-  id        String   @id @default(uuid())
-  productId String
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  url       String
-  altText   String?
-  order     Int      @default(0)
-  createdAt DateTime @default(now())
+model ProductTranslation {
+  id              String   @id @default(uuid())
+  productId       String
+  product         Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  locale          String   // uz, ru, en
+  name            String
+  slug            String
+  shortDescription String?
+  description     String?
+  metaTitle       String?
+  metaDescription String?
+
+  @@unique([productId, locale])
+  @@unique([locale, slug])
 }
 
-model ProductAttribute {
-  id        String   @id @default(uuid())
-  productId String
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  keyUz     String
-  keyRu     String
-  valueUz   String
-  valueRu   String
+model ProductCategory {
+  productId  String
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([productId, categoryId])
+}
+
+model ProductAttributeValue {
+  id           String              @id @default(uuid())
+  productId    String
+  product      Product             @relation(fields: [productId], references: [id], onDelete: Cascade)
+  attributeId  String
+  attribute    AttributeDefinition @relation(fields: [attributeId], references: [id], onDelete: Cascade)
+  textValue    String?
+  numberValue  Float?
+  booleanValue Boolean?
+  optionId     String?
+  option       AttributeOption?    @relation(fields: [optionId], references: [id], onDelete: SetNull)
+
+  @@unique([productId, attributeId, optionId])
 }
 
 model ProductVariant {
-  id          String      @id @default(uuid())
-  productId   String
-  product     Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
-  sku         String      @unique
-  nameUz      String
-  nameRu      String
-  price       Float
-  stockQty    Int         @default(10)
-  optionsJson String?     // e.g., {"color": "Qizil", "size": "400x400"}
-  orderItems  OrderItem[]
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  id             String                 @id @default(uuid())
+  productId      String
+  product        Product                @relation(fields: [productId], references: [id], onDelete: Cascade)
+  sku            String                 @unique
+  price          Int                    // Variant price override in UZS
+  compareAtPrice Int?
+  stockQty       Int                    @default(10)
+  status         String                 @default("ACTIVE")
+  options        ProductVariantOption[]
+  media          ProductMedia[]
+  orderItems     OrderItem[]
+  createdAt      DateTime               @default(now())
+  updatedAt      DateTime               @updatedAt
 }
+
+model ProductVariantOption {
+  id          String          @id @default(uuid())
+  variantId   String
+  variant     ProductVariant  @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  optionId    String
+  option      AttributeOption @relation(fields: [optionId], references: [id], onDelete: Cascade)
+
+  @@unique([variantId, optionId])
+}
+
+model ProductMedia {
+  id        String          @id @default(uuid())
+  productId String
+  product   Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
+  variantId String?
+  variant   ProductVariant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
+  type      String          @default("GALLERY") // MAIN, GALLERY, DIMENSION, DETAIL, USAGE, MOLD, FINISHED_RESULT, VIDEO
+  url       String
+  alt       String?
+  sortOrder Int             @default(0)
+  createdAt DateTime        @default(now())
+}
+
+// ------------------------------------------------------
+// ORDERS, ITEMS SNAPSHOT & ATTRIBUTION
+// ------------------------------------------------------
 
 model Order {
   id            String      @id @default(uuid())
@@ -131,13 +271,13 @@ model Order {
   city          String?
   address       String
   deliveryType  String      @default("COURIER") // COURIER, PICKUP
-  deliveryFee   Float       @default(0)
+  deliveryFee   Int         @default(0)
   paymentMethod String      @default("CASH")    // CASH, CLICK, PAYME, BANK_TRANSFER
   status        String      @default("NEW")     // NEW, CONFIRMED, PROCESSING, READY, SHIPPED, DELIVERED, CANCELLED
-  totalAmount   Float
+  totalAmount   Int         // Total in UZS
   notes         String?
   
-  // UTM & Attribution tracking
+  // Marketing & Attribution snapshot
   utmSource     String?
   utmMedium     String?
   utmCampaign   String?
@@ -145,6 +285,8 @@ model Order {
   utmTerm       String?
   gclid         String?
   fbclid        String?
+  referrer      String?
+  landingPage   String?
   
   items         OrderItem[]
   createdAt     DateTime    @default(now())
@@ -152,53 +294,70 @@ model Order {
 }
 
 model OrderItem {
-  id        String          @id @default(uuid())
-  orderId   String
-  order     Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  productId String?
-  product   Product?        @relation(fields: [productId], references: [id], onDelete: SetNull)
-  variantId String?
-  variant   ProductVariant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
-  title     String
-  price     Float
-  quantity  Int
+  id          String          @id @default(uuid())
+  orderId     String
+  order       Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId   String?
+  product     Product?        @relation(fields: [productId], references: [id], onDelete: SetNull)
+  variantId   String?
+  variant     ProductVariant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
+  sku         String
+  productName String
+  variantName String?
+  unitPrice   Int             // Price per unit in UZS at time of purchase
+  quantity    Int
+  lineTotal   Int             // quantity * unitPrice
 }
 
+// ------------------------------------------------------
+// LEADS, WHOLESALE & CONTENT
+// ------------------------------------------------------
+
 model Lead {
-  id            String   @id @default(uuid())
-  name          String
-  phone         String
-  company       String?
-  type          String   @default("B2B_WHOLESALE") // B2B_WHOLESALE, CONSULTATION, CALLBACK
-  message       String?
-  quantity      Int?
-  productId     String?
-  product       Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
-  status        String   @default("NEW") // NEW, CONTACTED, CLOSED
+  id          String   @id @default(uuid())
+  name        String
+  phone       String
+  company     String?
+  type        String   @default("B2B_WHOLESALE") // B2B_WHOLESALE, CONSULTATION
+  message     String?
+  quantity    Int?
+  productId   String?
+  product     Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  status      String   @default("NEW")
   
-  // UTM
-  utmSource     String?
-  utmMedium     String?
-  utmCampaign   String?
-  
-  createdAt     DateTime @default(now())
+  // Attribution
+  utmSource   String?
+  utmMedium   String?
+  utmCampaign String?
+  gclid       String?
+  fbclid      String?
+
+  createdAt   DateTime @default(now())
 }
 
 model BlogPost {
-  id            String   @id @default(uuid())
-  slug          String   @unique
-  titleUz       String
-  titleRu       String
-  contentUz     String
-  contentRu     String
-  excerptUz     String?
-  excerptRu     String?
-  coverImage    String
-  author        String   @default("SPS Plast Mutaxassisi")
-  isPublished   Boolean  @default(true)
-  publishedAt   DateTime @default(now())
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id          String                @id @default(uuid())
+  author      String                @default("SPS Plast Mutaxassisi")
+  coverImage  String
+  isPublished Boolean               @default(true)
+  publishedAt DateTime              @default(now())
+  translations BlogPostTranslation[]
+  createdAt   DateTime              @default(now())
+  updatedAt   DateTime              @updatedAt
+}
+
+model BlogPostTranslation {
+  id         String   @id @default(uuid())
+  postId     String
+  post       BlogPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  locale     String   // uz, ru, en
+  slug       String
+  title      String
+  excerpt    String?
+  content    String
+
+  @@unique([postId, locale])
+  @@unique([locale, slug])
 }
 
 model Project {
@@ -222,7 +381,7 @@ model Banner {
   subTitleRu  String?
   imageUrl    String
   linkUrl     String?
-  position    String   @default("HERO") // HERO, MIDDLE, PROMO
+  position    String   @default("HERO")
   isActive    Boolean  @default(true)
   createdAt   DateTime @default(now())
 }

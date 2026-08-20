@@ -2,13 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import { useCartStore } from '@/lib/store/cartStore';
 import { Button } from '@/components/ui/Button';
 import { formatPrice } from '@/lib/utils';
 import { getDictionary, Locale } from '@/lib/i18n';
+import { captureAttribution, getStoredAttribution } from '@/lib/attribution';
 import { trackEvent } from '@/lib/analytics';
-import { ShieldCheck, Truck, CreditCard, User, Phone, MapPin, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck, Phone, MapPin, User, CreditCard, CheckCircle2 } from 'lucide-react';
 
 const REGIONS = [
   'Toshkent shahri',
@@ -44,20 +44,8 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
-  // Extract UTM tags from URL or localStorage
-  const [utmParams, setUtmParams] = useState<Record<string, string>>({});
-
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const urlParams = new URLSearchParams(window.location.search);
-      setUtmParams({
-        utmSource: urlParams.get('utm_source') || '',
-        utmMedium: urlParams.get('utm_medium') || '',
-        utmCampaign: urlParams.get('utm_campaign') || '',
-        utmContent: urlParams.get('utm_content') || '',
-        utmTerm: urlParams.get('utm_term') || '',
-      });
-    }
+    captureAttribution();
   }, []);
 
   const totalPrice = getTotalPrice();
@@ -66,15 +54,12 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
     e.preventDefault();
     if (items.length === 0) return;
 
-    if (!customerPhone.startsWith('+998') || customerPhone.length < 12) {
-      setErrorMsg('Iltimos, to‘g‘ri O‘zbekiston telefon raqamini kiriting (+998XXXXXXXXX)');
-      return;
-    }
-
     setLoading(true);
     setErrorMsg('');
 
     try {
+      const attribution = getStoredAttribution();
+
       const payload = {
         customerName,
         customerPhone,
@@ -84,15 +69,13 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
         deliveryType,
         paymentMethod,
         notes,
-        totalAmount: totalPrice,
+        locale: lang,
         items: items.map((i) => ({
           productId: i.productId,
           variantId: i.variantId,
-          title: i.title,
-          price: i.price,
           quantity: i.quantity,
         })),
-        ...utmParams,
+        ...attribution,
       };
 
       const res = await fetch('/api/orders', {
@@ -108,15 +91,14 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
           transaction_id: data.order.orderNumber,
           value: totalPrice,
           currency: 'UZS',
-          items: items.map((i) => ({ item_id: i.productId, item_name: i.title, price: i.price, quantity: i.quantity })),
         });
 
         clearCart();
         router.push(`/${lang}/order-success/${data.order.id}`);
       } else {
-        setErrorMsg(data.error || 'Buyurtma berishda xatolik yuz berdi. Iltimos qaytadan urinib ko‘ring.');
+        setErrorMsg(data.error || 'Buyurtma berishda xatolik yuz berdi.');
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
       setErrorMsg('Tarmoq xatosi yuz berdi.');
     } finally {
@@ -137,7 +119,6 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
-      
       <div className="border-b border-brand-border pb-4">
         <h1 className="text-3xl font-black text-white">{dict.checkout.title}</h1>
         <p className="text-xs text-gray-400 mt-1 flex items-center gap-1">
@@ -154,10 +135,8 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
 
       <form onSubmit={handleOrderSubmit} className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
-        {/* Left Column: Guest Info Form */}
+        {/* Left Form */}
         <div className="lg:col-span-7 space-y-6">
-          
-          {/* Personal Info */}
           <div className="bg-brand-card border border-brand-border rounded-2xl p-6 space-y-4">
             <h3 className="text-base font-bold text-white flex items-center gap-2 border-b border-brand-border pb-3">
               <User className="w-4 h-4 text-brand-red" />
@@ -196,7 +175,6 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
             </div>
           </div>
 
-          {/* Delivery Info */}
           <div className="bg-brand-card border border-brand-border rounded-2xl p-6 space-y-4">
             <h3 className="text-base font-bold text-white flex items-center gap-2 border-b border-brand-border pb-3">
               <MapPin className="w-4 h-4 text-brand-red" />
@@ -248,13 +226,8 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
                 className="w-full bg-brand-dark border border-brand-border rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-red"
               />
             </div>
-
-            <div className="p-3 rounded-lg bg-brand-dark border border-brand-border text-xs text-amber-400">
-              * {dict.checkout.operatorDeliveryNote}
-            </div>
           </div>
 
-          {/* Payment Method */}
           <div className="bg-brand-card border border-brand-border rounded-2xl p-6 space-y-4">
             <h3 className="text-base font-bold text-white flex items-center gap-2 border-b border-brand-border pb-3">
               <CreditCard className="w-4 h-4 text-brand-red" />
@@ -316,24 +289,10 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
                 <span className="text-xs text-center">{dict.checkout.payBank}</span>
               </label>
             </div>
-
-            <div>
-              <label className="block text-xs font-semibold text-gray-300 mb-1">
-                {dict.checkout.notes}
-              </label>
-              <textarea
-                rows={2}
-                value={notes}
-                onChange={(e) => setNotes(e.target.value)}
-                placeholder="Eshik kodi, yetkazish vaqti..."
-                className="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-red"
-              />
-            </div>
           </div>
-
         </div>
 
-        {/* Right Column: Order Items Summary */}
+        {/* Right Summary */}
         <div className="lg:col-span-5 bg-brand-card border border-brand-border rounded-2xl p-6 space-y-6">
           <h3 className="text-lg font-bold text-white border-b border-brand-border pb-4">
             {dict.checkout.orderSummary}
@@ -345,9 +304,6 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
                 key={item.id}
                 className="flex items-center justify-between gap-3 p-2 rounded-lg bg-brand-dark border border-brand-border text-xs"
               >
-                <div className="relative w-12 h-12 rounded overflow-hidden shrink-0">
-                  <Image src={item.image} alt={item.title} fill className="object-cover" />
-                </div>
                 <div className="flex-1 min-w-0">
                   <p className="font-bold text-white truncate">{item.title}</p>
                   <p className="text-gray-400">
@@ -362,16 +318,6 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
           </div>
 
           <div className="pt-4 border-t border-brand-border space-y-3 text-sm">
-            <div className="flex justify-between text-gray-400">
-              <span>Mahsulotlar narxi:</span>
-              <span className="text-white font-medium">{formatPrice(totalPrice, lang)}</span>
-            </div>
-
-            <div className="flex justify-between text-gray-400">
-              <span>Yetkazib berish:</span>
-              <span className="text-emerald-400 font-medium">Operator aniqlaydi</span>
-            </div>
-
             <div className="flex justify-between text-xl font-black text-white pt-4 border-t border-brand-border">
               <span>{dict.cart.subtotal}:</span>
               <span className="text-brand-red">{formatPrice(totalPrice, lang)}</span>

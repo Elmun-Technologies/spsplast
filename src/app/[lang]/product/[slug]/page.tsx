@@ -1,37 +1,27 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import Image from 'next/image';
 import { db } from '@/lib/db';
 import { getDictionary, Locale } from '@/lib/i18n';
 import { ProductCard } from '@/components/product/ProductCard';
 import { MoldResultShowcase } from '@/components/product/MoldResultShowcase';
 import { ProductDetailClient } from './ProductDetailClient';
-import { CheckCircle2, ShieldCheck, Truck, Video } from 'lucide-react';
 
 interface ProductPageProps {
   params: { lang: Locale; slug: string };
 }
 
-// Dynamic SEO metadata generator
 export async function generateMetadata({ params: { lang, slug } }: ProductPageProps) {
-  const product = await db.product.findUnique({
-    where: { slug },
+  const trans = await db.productTranslation.findFirst({
+    where: { slug, locale: lang },
+    include: { product: { include: { media: true } } },
   });
 
-  if (!product) return {};
-
-  const title = lang === 'ru' ? product.titleRu : product.titleUz;
-  const desc = lang === 'ru' ? product.descriptionRu : product.descriptionUz;
+  if (!trans) return {};
 
   return {
-    title: `${title} | SPS PLAST`,
-    description: desc.slice(0, 160),
-    openGraph: {
-      title,
-      description: desc.slice(0, 160),
-      images: product.resultImage ? [product.resultImage] : [],
-    },
+    title: `${trans.name} | SPS PLAST`,
+    description: (trans.shortDescription || trans.description || '').slice(0, 160),
   };
 }
 
@@ -40,40 +30,75 @@ export default async function ProductDetailPage({
 }: ProductPageProps) {
   const dict = getDictionary(lang);
 
-  const product = await db.product.findUnique({
-    where: { slug },
+  const trans = await db.productTranslation.findFirst({
+    where: { slug, locale: lang },
     include: {
-      category: true,
-      images: { orderBy: { order: 'asc' } },
-      attributes: true,
+      product: {
+        include: {
+          media: { orderBy: { sortOrder: 'asc' } },
+          categories: {
+            include: {
+              category: {
+                include: { translations: { where: { locale: lang } } },
+              },
+            },
+          },
+          attributeValues: {
+            include: {
+              attribute: {
+                include: { translations: { where: { locale: lang } } },
+              },
+              option: {
+                include: { translations: { where: { locale: lang } } },
+              },
+            },
+          },
+        },
+      },
     },
   });
 
-  if (!product) notFound();
+  if (!trans || !trans.product || trans.product.status !== 'ACTIVE') {
+    notFound();
+  }
 
-  const relatedProducts = await db.product.findMany({
-    where: {
-      categoryId: product.categoryId,
-      id: { not: product.id },
-    },
-    include: { images: true },
-    take: 3,
-  });
+  const product = trans.product;
+  const categoryTrans = product.categories[0]?.category?.translations[0];
 
-  const title = lang === 'ru' ? product.titleRu : product.titleUz;
-  const description = lang === 'ru' ? product.descriptionRu : product.descriptionUz;
+  const moldMedia = product.media.find((m) => m.type === 'MOLD') || product.media[0];
+  const resultMedia = product.media.find((m) => m.type === 'FINISHED_RESULT');
 
-  // JSON-LD structured data for Google Merchant / Rich Snippets
+  const mappedProduct = {
+    id: product.id,
+    sku: product.sku,
+    titleUz: trans.name,
+    titleRu: trans.name,
+    descriptionUz: trans.description || '',
+    descriptionRu: trans.description || '',
+    price: product.basePrice,
+    oldPrice: product.compareAtPrice,
+    inStock: product.inStock,
+    isBestseller: product.isBestseller,
+    isNew: product.isNew,
+    yieldPerCast: product.yieldPerCast,
+    durabilityCasts: product.durabilityCasts,
+    dimensions: product.attributeValues.find((a) => a.attribute.code === 'dimensions')?.textValue || null,
+    material: product.attributeValues.find((a) => a.attribute.code === 'material')?.textValue || null,
+    images: product.media.map((m) => ({ url: m.url, altText: m.alt })),
+    moldImage: moldMedia?.url || null,
+    resultImage: resultMedia?.url || null,
+  };
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: title,
-    image: product.images.map((img) => img.url),
-    description: description,
+    name: trans.name,
+    image: product.media.map((img) => img.url),
+    description: trans.description || '',
     sku: product.sku,
     offers: {
       '@type': 'Offer',
-      price: product.price,
+      price: product.basePrice,
       priceCurrency: 'UZS',
       availability: product.inStock
         ? 'https://schema.org/InStock'
@@ -97,25 +122,32 @@ export default async function ProductDetailPage({
         <Link href={`/${lang}/catalog`} className="hover:text-white">
           {dict.nav.catalog}
         </Link>
+        {categoryTrans && (
+          <>
+            <span>/</span>
+            <Link
+              href={`/${lang}/catalog?category=${categoryTrans.slug}`}
+              className="hover:text-white"
+            >
+              {categoryTrans.name}
+            </Link>
+          </>
+        )}
         <span>/</span>
-        <Link href={`/${lang}/catalog?category=${product.category.slug}`} className="hover:text-white">
-          {lang === 'ru' ? product.category.nameRu : product.category.nameUz}
-        </Link>
-        <span>/</span>
-        <span className="text-white font-medium truncate max-w-xs">{title}</span>
+        <span className="text-white font-medium truncate max-w-xs">{trans.name}</span>
       </div>
 
-      {/* Interactive Main Product View Component */}
-      <ProductDetailClient product={product} lang={lang} />
+      {/* Interactive Main Product View Client Component */}
+      <ProductDetailClient product={mappedProduct} lang={lang} />
 
       {/* USP Mold Result Showcase Block */}
-      {product.resultImage && (
+      {mappedProduct.resultImage && mappedProduct.moldImage && (
         <section className="pt-6">
           <MoldResultShowcase
-            moldImage={product.images[0]?.url || 'https://images.unsplash.com/photo-1584467735871-8e85353a8413?auto=format&fit=crop&w=800&q=80'}
-            resultImage={product.resultImage}
-            moldTitle={title}
-            resultTitle={product.resultTitleUz || 'Tayyor Mahsulot Namunasi'}
+            moldImage={mappedProduct.moldImage}
+            resultImage={mappedProduct.resultImage}
+            moldTitle={trans.name}
+            resultTitle="Tayyor Mahsulot Namunasi"
             lang={lang}
           />
         </section>
@@ -156,18 +188,6 @@ export default async function ProductDetailPage({
           </div>
         </div>
       </section>
-
-      {/* Related Products */}
-      {relatedProducts.length > 0 && (
-        <section className="space-y-6 pt-6">
-          <h3 className="text-2xl font-black text-white">{dict.product.relatedProducts}</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {relatedProducts.map((p) => (
-              <ProductCard key={p.id} product={p} lang={lang} />
-            ))}
-          </div>
-        </section>
-      )}
 
     </div>
   );

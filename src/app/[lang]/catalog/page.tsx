@@ -1,6 +1,7 @@
 import React from 'react';
 import { db } from '@/lib/db';
 import { getDictionary, Locale } from '@/lib/i18n';
+import { getProductsServer } from '@/lib/services/productService';
 import { ProductCard } from '@/components/product/ProductCard';
 import Link from 'next/link';
 import { SlidersHorizontal, Search, Layers, X } from 'lucide-react';
@@ -23,51 +24,29 @@ export default async function CatalogPage({
 }: CatalogPageProps) {
   const dict = getDictionary(lang);
 
-  // Build Prisma filter query
-  const where: any = {};
-
-  if (searchParams.category) {
-    const cat = await db.category.findUnique({
-      where: { slug: searchParams.category },
-    });
-    if (cat) {
-      where.categoryId = cat.id;
-    }
-  }
-
-  if (searchParams.search) {
-    const q = searchParams.search.trim();
-    where.OR = [
-      { titleUz: { contains: q } },
-      { titleRu: { contains: q } },
-      { sku: { contains: q } },
-      { descriptionUz: { contains: q } },
-    ];
-  }
-
-  if (searchParams.inStock === 'true') {
-    where.inStock = true;
-  }
-
-  if (searchParams.isNew === 'true') {
-    where.isNew = true;
-  }
-
-  if (searchParams.isBestseller === 'true') {
-    where.isBestseller = true;
-  }
-
-  let orderBy: any = { createdAt: 'desc' };
-  if (searchParams.sort === 'price-asc') orderBy = { price: 'asc' };
-  if (searchParams.sort === 'price-desc') orderBy = { price: 'desc' };
-
-  const categories = await db.category.findMany({ orderBy: { sortOrder: 'asc' } });
-
-  const products = await db.product.findMany({
-    where,
-    include: { images: true },
-    orderBy,
+  const products = await getProductsServer({
+    locale: lang,
+    categorySlug: searchParams.category,
+    search: searchParams.search,
+    inStock: searchParams.inStock === 'true',
+    isNew: searchParams.isNew === 'true',
+    isBestseller: searchParams.isBestseller === 'true',
+    sort: searchParams.sort,
   });
+
+  const rawCategories = await db.category.findMany({
+    where: { status: 'ACTIVE' },
+    orderBy: { sortOrder: 'asc' },
+    include: {
+      translations: { where: { locale: lang } },
+    },
+  });
+
+  const categories = rawCategories.map((c) => ({
+    id: c.id,
+    slug: c.translations[0]?.slug || c.id,
+    name: c.translations[0]?.name || c.id,
+  }));
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -90,7 +69,6 @@ export default async function CatalogPage({
           </p>
         </div>
 
-        {/* Search Query Indicator */}
         {searchParams.search && (
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-brand-card border border-brand-red text-xs text-white">
             <Search className="w-3.5 h-3.5 text-brand-red" />
@@ -142,7 +120,7 @@ export default async function CatalogPage({
                             : 'text-gray-300 hover:bg-white/5'
                         }`}
                       >
-                        {lang === 'ru' ? cat.nameRu : cat.nameUz}
+                        {cat.name}
                       </Link>
                     </li>
                   );
@@ -198,7 +176,6 @@ export default async function CatalogPage({
               </div>
             </div>
 
-            {/* Reset Filters */}
             <div className="pt-2">
               <Link
                 href={`/${lang}/catalog`}

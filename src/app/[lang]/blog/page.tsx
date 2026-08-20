@@ -9,6 +9,9 @@ export default async function BlogPage({ params: { lang } }: { params: { lang: L
   const dict = getDictionary(lang);
   const posts = await db.blogPost.findMany({
     where: { isPublished: true },
+    include: {
+      translations: { where: { locale: lang } },
+    },
     orderBy: { publishedAt: 'desc' },
   });
 
@@ -28,13 +31,14 @@ export default async function BlogPage({ params: { lang } }: { params: { lang: L
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {posts.map((post) => {
-          const title = lang === 'ru' ? post.titleRu : post.titleUz;
-          const excerpt = lang === 'ru' ? post.excerptRu : post.excerptUz;
+          const trans = post.translations[0] || {};
+          const title = trans.title || 'Maqola';
+          const excerpt = trans.excerpt || '';
 
           return (
             <Link
               key={post.id}
-              href={`/${lang}/blog/${post.slug}`}
+              href={`/${lang}/blog/${trans.slug || post.id}`}
               className="group bg-brand-card border border-brand-border rounded-2xl overflow-hidden p-5 flex flex-col justify-between hover:border-brand-red transition-colors shadow-lg"
             >
               <div className="space-y-4">

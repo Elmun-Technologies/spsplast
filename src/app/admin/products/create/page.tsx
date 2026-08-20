@@ -14,49 +14,49 @@ export default function CreateProductPage() {
   const [sku, setSku] = useState('');
   const [price, setPrice] = useState('');
   const [oldPrice, setOldPrice] = useState('');
-  const [categoryId, setCategoryId] = useState('');
   const [descriptionUz, setDescriptionUz] = useState('');
   const [descriptionRu, setDescriptionRu] = useState('');
-  const [dimensions, setDimensions] = useState('');
-  const [material, setMaterial] = useState('');
   const [yieldPerCast, setYieldPerCast] = useState('');
   const [durabilityCasts, setDurabilityCasts] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
-  const [resultImage, setResultImage] = useState('');
+  const [moldImageUrl, setMoldImageUrl] = useState('');
+  const [resultImageUrl, setResultImageUrl] = useState('');
   const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setErrorMsg('');
 
     try {
       const res = await fetch('/api/products', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          sku,
           titleUz,
           titleRu: titleRu || titleUz,
-          sku,
           price: Number(price),
           oldPrice: oldPrice ? Number(oldPrice) : null,
-          categoryId: categoryId || 'cat_fallback',
           descriptionUz,
           descriptionRu: descriptionRu || descriptionUz,
-          dimensions,
-          material,
           yieldPerCast: yieldPerCast ? Number(yieldPerCast) : null,
           durabilityCasts: durabilityCasts ? Number(durabilityCasts) : null,
-          images: imageUrl ? [imageUrl] : [],
-          resultImage: resultImage || null,
-          inStock: true,
+          moldImageUrl: moldImageUrl || null,
+          resultImageUrl: resultImageUrl || null,
         }),
       });
 
+      const data = await res.json();
+
       if (res.ok) {
         router.push('/admin/products');
+      } else {
+        setErrorMsg(data.error || 'Mahsulot yaratishda xatolik');
       }
     } catch (err) {
       console.error(err);
+      setErrorMsg('Server xatosi');
     } finally {
       setLoading(false);
     }
@@ -70,6 +70,12 @@ export default function CreateProductPage() {
       </Link>
 
       <h1 className="text-3xl font-black text-white">Yangi Mahsulot Yaratish</h1>
+
+      {errorMsg && (
+        <div className="p-3 rounded-xl bg-red-500/20 border border-red-500/30 text-red-300 text-xs font-bold">
+          {errorMsg}
+        </div>
+      )}
 
       <form onSubmit={handleSubmit} className="bg-brand-card border border-brand-border rounded-2xl p-6 space-y-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -136,30 +142,6 @@ export default function CreateProductPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-semibold text-gray-300 mb-1">O‘lchami (mm)</label>
-            <input
-              type="text"
-              value={dimensions}
-              onChange={(e) => setDimensions(e.target.value)}
-              placeholder="400x400x50 mm"
-              className="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-red"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs font-semibold text-gray-300 mb-1">Material</label>
-            <input
-              type="text"
-              value={material}
-              onChange={(e) => setMaterial(e.target.value)}
-              placeholder="ABS Plastik 2mm"
-              className="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-red"
-            />
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
             <label className="block text-xs font-semibold text-gray-300 mb-1">Bir quyishda mahsulot soni</label>
             <input
               type="number"
@@ -184,22 +166,22 @@ export default function CreateProductPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-semibold text-gray-300 mb-1">Qolip Rasmi URL</label>
+            <label className="block text-xs font-semibold text-gray-300 mb-1">Qolip Rasmi URL (Role: MOLD)</label>
             <input
               type="text"
-              value={imageUrl}
-              onChange={(e) => setImageUrl(e.target.value)}
+              value={moldImageUrl}
+              onChange={(e) => setMoldImageUrl(e.target.value)}
               placeholder="https://..."
               className="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-red"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-300 mb-1">Tayyor Natija Rasmi URL (USP Result)</label>
+            <label className="block text-xs font-semibold text-gray-300 mb-1">Tayyor Natija Rasmi URL (Role: FINISHED_RESULT)</label>
             <input
               type="text"
-              value={resultImage}
-              onChange={(e) => setResultImage(e.target.value)}
+              value={resultImageUrl}
+              onChange={(e) => setResultImageUrl(e.target.value)}
               placeholder="https://..."
               className="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-red"
             />
@@ -207,7 +189,7 @@ export default function CreateProductPage() {
         </div>
 
         <div>
-          <label className="block text-xs font-semibold text-gray-300 mb-1">Tavsif (Description)</label>
+          <label className="block text-xs font-semibold text-gray-300 mb-1">Tavsif (O‘zbekcha)</label>
           <textarea
             rows={3}
             value={descriptionUz}

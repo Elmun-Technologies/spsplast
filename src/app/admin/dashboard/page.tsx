@@ -1,10 +1,17 @@
 import React from 'react';
+import { redirect } from 'next/navigation';
 import { db } from '@/lib/db';
+import { getAdminSession } from '@/lib/auth';
 import Link from 'next/link';
 import { formatPrice } from '@/lib/utils';
 import { ShoppingBag, Users, Package, TrendingUp, ArrowRight } from 'lucide-react';
 
 export default async function AdminDashboardPage() {
+  const session = await getAdminSession();
+  if (!session) {
+    redirect('/admin/login');
+  }
+
   const totalOrders = await db.order.count();
   const totalLeads = await db.lead.count();
   const totalProducts = await db.product.count();
@@ -21,13 +28,11 @@ export default async function AdminDashboardPage() {
 
   return (
     <div className="space-y-8">
-      
       <div>
         <h1 className="text-3xl font-black text-white">Boshqaruv Paneli (Dashboard)</h1>
-        <p className="text-xs text-gray-400 mt-1">SPS PLAST online magazin ko‘rsatkichlari</p>
+        <p className="text-xs text-gray-400 mt-1">SPS PLAST online magazin ko‘rsatkichlari (Admin: {session.admin.name})</p>
       </div>
 
-      {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="bg-brand-card border border-brand-border p-6 rounded-2xl space-y-2">
           <div className="flex items-center justify-between text-gray-400">
@@ -64,7 +69,6 @@ export default async function AdminDashboardPage() {
         </div>
       </div>
 
-      {/* Recent Orders Table */}
       <div className="bg-brand-card border border-brand-border rounded-2xl p-6 space-y-4">
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-bold text-white">So‘nggi Buyurtmalar</h2>
@@ -105,7 +109,6 @@ export default async function AdminDashboardPage() {
           </table>
         </div>
       </div>
-
     </div>
   );
 }
