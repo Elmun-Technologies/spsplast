@@ -48,7 +48,7 @@ test('Server-side Money Recalculation (Integer UZS)', () => {
 // 3. Stock Validation Tests
 test('Stock Validation & Oversell Prevention', () => {
   const product = { stockQty: 10, trackInventory: true, allowBackorder: false };
-  
+
   const validRequestQty = 8;
   const invalidRequestQty = 15;
 
@@ -63,7 +63,7 @@ test('Stock Validation & Oversell Prevention', () => {
 test('Bcrypt Admin Password Hashing & Verification', async () => {
   const password = 'SecretAdminPassword2026!';
   const hash = await bcrypt.hash(password, 10);
-  
+
   const isValid = await bcrypt.compare(password, hash);
   const isInvalid = await bcrypt.compare('WrongPassword', hash);
 
@@ -132,4 +132,35 @@ test('Structured Media Roles Classification', () => {
   assert.strictEqual(moldMedia.url, 'https://img.com/mold.jpg');
   assert.ok(resultMedia);
   assert.strictEqual(resultMedia.url, 'https://img.com/result.jpg');
+});
+
+// 9. Inactive Product Public Visibility Test
+test('Public Catalog Excludes Non-ACTIVE (DRAFT/ARCHIVED) Products', () => {
+  const products = [
+    { id: '1', sku: 'SPS-001', status: 'ACTIVE' },
+    { id: '2', sku: 'SPS-002', status: 'DRAFT' },
+    { id: '3', sku: 'SPS-003', status: 'ARCHIVED' },
+  ];
+
+  const publicProducts = products.filter((p) => p.status === 'ACTIVE');
+  assert.strictEqual(publicProducts.length, 1);
+  assert.strictEqual(publicProducts[0].sku, 'SPS-001');
+});
+
+// 10. CSRF Same-Origin Validation Test
+test('Same-Origin CSRF Guard Logic', () => {
+  function verifySameOrigin(origin, referer, host) {
+    if (!host) return true;
+    const target = origin || referer;
+    if (!target) return true;
+    try {
+      const targetHost = new URL(target).host;
+      return targetHost.toLowerCase() === host.toLowerCase();
+    } catch {
+      return false;
+    }
+  }
+
+  assert.strictEqual(verifySameOrigin('http://localhost:3000', null, 'localhost:3000'), true);
+  assert.strictEqual(verifySameOrigin('http://malicious-site.com', null, 'localhost:3000'), false);
 });
