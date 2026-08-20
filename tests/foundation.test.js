@@ -87,3 +87,49 @@ test('Login Rate Limiter Sliding Window', () => {
   assert.strictEqual(checkLimit(key, 3), true); // Attempt 3
   assert.strictEqual(checkLimit(key, 3), false); // Attempt 4 (Blocked)
 });
+
+// 6. Category Hierarchy Validation Tests
+test('Category Hierarchy Prevention of Self-Parenting', () => {
+  function validateCategoryParent(categoryId, parentId) {
+    if (categoryId && categoryId === parentId) {
+      throw new Error('Kategoriya o‘ziga o‘zi ota kategoriya bo‘la olmaydi');
+    }
+    return true;
+  }
+
+  assert.strictEqual(validateCategoryParent('cat_1', 'cat_2'), true);
+  assert.throws(() => validateCategoryParent('cat_1', 'cat_1'), /Kategoriya o‘ziga o‘zi ota kategoriya/);
+});
+
+// 7. Variant Combination Uniqueness Key Generator Tests
+test('Variant Combination Key Generation & Uniqueness', () => {
+  function generateCombinationKey(optionIds) {
+    return optionIds.slice().sort().join('|');
+  }
+
+  const combination1 = generateCombinationKey(['opt_white', 'opt_30mm']);
+  const combination2 = generateCombinationKey(['opt_30mm', 'opt_white']);
+  const combination3 = generateCombinationKey(['opt_beige', 'opt_30mm']);
+
+  assert.strictEqual(combination1, 'opt_30mm|opt_white');
+  assert.strictEqual(combination2, 'opt_30mm|opt_white');
+  assert.strictEqual(combination1 === combination2, true); // Duplicate detected
+  assert.notStrictEqual(combination1, combination3); // Unique
+});
+
+// 8. Media Roles Classification Tests (MOLD and FINISHED_RESULT)
+test('Structured Media Roles Classification', () => {
+  const mediaList = [
+    { type: 'MAIN', url: 'https://img.com/main.jpg' },
+    { type: 'MOLD', url: 'https://img.com/mold.jpg' },
+    { type: 'FINISHED_RESULT', url: 'https://img.com/result.jpg' },
+  ];
+
+  const moldMedia = mediaList.find((m) => m.type === 'MOLD');
+  const resultMedia = mediaList.find((m) => m.type === 'FINISHED_RESULT');
+
+  assert.ok(moldMedia);
+  assert.strictEqual(moldMedia.url, 'https://img.com/mold.jpg');
+  assert.ok(resultMedia);
+  assert.strictEqual(resultMedia.url, 'https://img.com/result.jpg');
+});
