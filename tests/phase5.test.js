@@ -91,3 +91,65 @@ test('Phase 5 — Search Query & SKU Matching', () => {
     assert.strictEqual(matchesSearchQuery(product, 'qolip'), true);
     assert.strictEqual(matchesSearchQuery(product, 'plastik'), false);
 });
+
+// 4. Phase 5.1 — Public Catalog Hides Archived & Draft Products
+function filterActiveProducts(products) {
+    if (!Array.isArray(products)) return [];
+    return products.filter((p) => p.status === 'ACTIVE');
+}
+
+test('Phase 5.1 — Archived & Draft Products Hidden From Storefront', () => {
+    const products = [
+        { id: '1', name: 'Active Product', status: 'ACTIVE' },
+        { id: '2', name: 'Draft Product', status: 'DRAFT' },
+        { id: '3', name: 'Archived Product', status: 'ARCHIVED' },
+    ];
+
+    const activeList = filterActiveProducts(products);
+    assert.strictEqual(activeList.length, 1);
+    assert.strictEqual(activeList[0].id, '1');
+});
+
+// 5. Phase 5.1 — Media Fallback Image Logic
+function getProductMainImage(product, fallbackUrl = '/images/placeholder-product.png') {
+    if (product && Array.isArray(product.images) && product.images.length > 0 && product.images[0].url) {
+        return product.images[0].url;
+    }
+    return fallbackUrl;
+}
+
+test('Phase 5.1 — Media Fallback When No Image Provided', () => {
+    const productWithImage = { images: [{ url: '/uploads/real.jpg' }] };
+    const productNoImage = { images: [] };
+
+    assert.strictEqual(getProductMainImage(productWithImage), '/uploads/real.jpg');
+    assert.strictEqual(getProductMainImage(productNoImage), '/images/placeholder-product.png');
+});
+
+// 6. Phase 5.1 — Category Attribute Filter Isolation
+function filterAttributesByCategory(attributeList, categoryCode) {
+    if (!Array.isArray(attributeList)) return [];
+    return attributeList.filter((attr) => {
+        if (!attr.categoryCodes || attr.categoryCodes.length === 0) return true;
+        return attr.categoryCodes.includes(categoryCode);
+    });
+}
+
+test('Phase 5.1 — Category-Specific Attribute Filter Isolation', () => {
+    const attributes = [
+        { id: '1', code: 'cavities', categoryCodes: ['BRUSCHATKA'] },
+        { id: '2', code: 'thickness', categoryCodes: ['TERMOPANEL'] },
+        { id: '3', code: 'material', categoryCodes: [] }, // applies to all
+    ];
+
+    const bruschatkaAttrs = filterAttributesByCategory(attributes, 'BRUSCHATKA');
+    const termopanelAttrs = filterAttributesByCategory(attributes, 'TERMOPANEL');
+
+    assert.strictEqual(bruschatkaAttrs.length, 2);
+    assert.strictEqual(bruschatkaAttrs.some((a) => a.code === 'cavities'), true);
+    assert.strictEqual(bruschatkaAttrs.some((a) => a.code === 'thickness'), false);
+
+    assert.strictEqual(termopanelAttrs.length, 2);
+    assert.strictEqual(termopanelAttrs.some((a) => a.code === 'thickness'), true);
+    assert.strictEqual(termopanelAttrs.some((a) => a.code === 'cavities'), false);
+});
