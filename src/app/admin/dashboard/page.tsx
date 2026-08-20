@@ -23,6 +23,7 @@ export default async function AdminDashboardPage() {
   });
 
   const totalRevenue = await db.order.aggregate({
+    where: { status: { not: 'CANCELLED' } },
     _sum: { totalAmount: true },
   });
 
