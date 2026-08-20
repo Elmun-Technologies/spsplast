@@ -5,6 +5,7 @@ import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { ArrowLeft, Save, Plus, X, Image as ImageIcon, Layers, Tag, Box, Settings } from 'lucide-react';
+import { ProductMediaUploader } from '@/components/admin/ProductMediaUploader';
 
 interface ProductData {
   id: string;
@@ -83,7 +84,7 @@ export default function EditProductPage() {
   const [attributes, setAttributes] = useState<any[]>([]);
   const [attributeValues, setAttributeValues] = useState<Record<string, any>>({});
 
-  const [media, setMedia] = useState<Array<{ id?: string; type: string; url: string; alt: string }>>([]);
+  const [media, setMedia] = useState<Array<{ id?: string; type: string; url: string; alt?: string; storageKey?: string; mimeType?: string; width?: number; height?: number; sizeBytes?: number }>>([]);
   const [newMediaType, setNewMediaType] = useState('GALLERY');
   const [newMediaUrl, setNewMediaUrl] = useState('');
 
@@ -298,11 +299,10 @@ export default function EditProductPage() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`flex items-center gap-2 px-4 py-3 text-sm font-medium whitespace-nowrap transition-colors ${
-                activeTab === tab.id
-                  ? 'text-brand-red border-b-2 border-brand-red bg-brand-dark/50'
-                  : 'text-gray-400 hover:text-white'
-              }`}
+              className={`flex items-center gap-2 px-4 py-3 text-sm font-medium whitespace-nowrap transition-colors ${activeTab === tab.id
+                ? 'text-brand-red border-b-2 border-brand-red bg-brand-dark/50'
+                : 'text-gray-400 hover:text-white'
+                }`}
             >
               {tab.icon}
               <span>{tab.label}</span>
@@ -478,11 +478,10 @@ export default function EditProductPage() {
                 {categories.map((cat) => (
                   <label
                     key={cat.id}
-                    className={`flex items-center gap-2 p-3 rounded-lg border cursor-pointer transition-colors ${
-                      selectedCategories.includes(cat.id)
-                        ? 'bg-brand-red/20 border-brand-red text-white'
-                        : 'bg-brand-dark border-brand-border text-gray-300 hover:border-gray-600'
-                    }`}
+                    className={`flex items-center gap-2 p-3 rounded-lg border cursor-pointer transition-colors ${selectedCategories.includes(cat.id)
+                      ? 'bg-brand-red/20 border-brand-red text-white'
+                      : 'bg-brand-dark border-brand-border text-gray-300 hover:border-gray-600'
+                      }`}
                   >
                     <input
                       type="checkbox"
@@ -606,55 +605,11 @@ export default function EditProductPage() {
           )}
 
           {activeTab === 'media' && (
-            <div className="space-y-4">
-              <p className="text-xs text-gray-400">Mahsulot rasmlari va videolari</p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                <select
-                  value={newMediaType}
-                  onChange={(e) => setNewMediaType(e.target.value)}
-                  className="bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-red"
-                >
-                  <option value="MAIN">Asosiy rasm</option>
-                  <option value="MOLD">Qolip rasmi</option>
-                  <option value="FINISHED_RESULT">Tayyor mahsulot</option>
-                  <option value="GALLERY">Galereya</option>
-                  <option value="DETAIL">Detal</option>
-                  <option value="VIDEO">Video</option>
-                </select>
-                <input
-                  type="text"
-                  value={newMediaUrl}
-                  onChange={(e) => setNewMediaUrl(e.target.value)}
-                  placeholder="Rasm URL"
-                  className="bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-red"
-                />
-                <Button type="button" onClick={addMedia} variant="ghost" className="gap-1">
-                  <Plus className="w-4 h-4" />
-                  <span>Qo'shish</span>
-                </Button>
-              </div>
-
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                {media.map((m, idx) => (
-                  <div key={idx} className="relative group">
-                    <div className="aspect-square rounded-lg overflow-hidden bg-brand-dark border border-brand-border">
-                      <img src={m.url} alt={m.alt || ''} className="w-full h-full object-cover" />
-                    </div>
-                    <div className="absolute top-1 left-1 px-1.5 py-0.5 rounded text-[10px] bg-black/70 text-white">
-                      {m.type}
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => removeMedia(idx)}
-                      className="absolute top-1 right-1 p-1 rounded bg-red-500/80 text-white opacity-0 group-hover:opacity-100 transition-opacity"
-                    >
-                      <X className="w-3 h-3" />
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <ProductMediaUploader
+              productId={productId}
+              media={media}
+              onChange={setMedia}
+            />
           )}
         </div>
       </div>

@@ -112,7 +112,19 @@ export async function DELETE(
   }
 
   try {
+    const mediaItem = await db.productMedia.findUnique({ where: { id: mediaId } });
     await db.productMedia.delete({ where: { id: mediaId } });
+
+    if (mediaItem?.storageKey) {
+      try {
+        const { getMediaStorageProvider } = await import('@/lib/storage');
+        const provider = getMediaStorageProvider();
+        await provider.delete(mediaItem.storageKey);
+      } catch (stErr) {
+        console.error('Failed to delete media file from storage:', stErr);
+      }
+    }
+
     return NextResponse.json({ success: true });
   } catch (error: any) {
     return NextResponse.json({ error: error.message || 'Server xatosi' }, { status: 500 });

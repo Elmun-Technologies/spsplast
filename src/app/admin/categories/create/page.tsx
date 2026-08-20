@@ -138,14 +138,58 @@ function CreateCategoryForm() {
         </div>
 
         <div>
-          <label className="block text-xs font-semibold text-gray-300 mb-1">Rasm URL</label>
-          <input
-            type="text"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
-            placeholder="https://..."
-            className="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-red"
-          />
+          <label className="block text-xs font-semibold text-gray-300 mb-1">Kategoriya rasmi</label>
+          <div className="flex items-center gap-3">
+            {image ? (
+              <div className="relative w-16 h-16 rounded-lg overflow-hidden border border-brand-border bg-brand-dark">
+                <img src={image} alt="Kategoriya rasmi" className="w-full h-full object-cover" />
+                <button
+                  type="button"
+                  onClick={() => setImage('')}
+                  className="absolute top-1 right-1 p-0.5 rounded-full bg-red-600 text-white text-xs"
+                >
+                  ✕
+                </button>
+              </div>
+            ) : null}
+            <div className="flex-1 space-y-2">
+              <input
+                type="text"
+                value={image}
+                onChange={(e) => setImage(e.target.value)}
+                placeholder="URL kiritish yoki rasm yuklash..."
+                className="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-red"
+              />
+              <label className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-brand-red text-white text-xs font-semibold cursor-pointer hover:bg-brand-red-dark transition-colors">
+                <span>Rasm yuklash</span>
+                <input
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  className="hidden"
+                  onChange={async (e) => {
+                    const file = e.target.files?.[0];
+                    if (!file) return;
+                    const formData = new FormData();
+                    formData.append('file', file);
+                    try {
+                      const res = await fetch('/api/admin/media/upload', {
+                        method: 'POST',
+                        body: formData,
+                      });
+                      const data = await res.json();
+                      if (res.ok && data.url) {
+                        setImage(data.url);
+                      } else {
+                        alert(data.error || 'Rasm yuklashda xatolik');
+                      }
+                    } catch (err) {
+                      alert('Rasm yuklashda server xatosi');
+                    }
+                  }}
+                />
+              </label>
+            </div>
+          </div>
         </div>
 
         <div>

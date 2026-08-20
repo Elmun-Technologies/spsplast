@@ -55,6 +55,7 @@ model Category {
   parent       Category?             @relation("CategoryHierarchy", fields: [parentId], references: [id], onDelete: SetNull)
   children     Category[]            @relation("CategoryHierarchy")
   image        String?
+  storageKey   String?
   sortOrder    Int                   @default(0)
   status       String                @default("ACTIVE") // ACTIVE, ARCHIVED
   translations CategoryTranslation[]
@@ -246,16 +247,21 @@ model ProductVariantOption {
 }
 
 model ProductMedia {
-  id        String          @id @default(uuid())
-  productId String
-  product   Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
-  variantId String?
-  variant   ProductVariant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
-  type      String          @default("GALLERY") // MAIN, GALLERY, DIMENSION, DETAIL, USAGE, MOLD, FINISHED_RESULT, VIDEO
-  url       String
-  alt       String?
-  sortOrder Int             @default(0)
-  createdAt DateTime        @default(now())
+  id         String          @id @default(uuid())
+  productId  String
+  product    Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
+  variantId  String?
+  variant    ProductVariant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
+  type       String          @default("GALLERY") // MAIN, GALLERY, DIMENSION, DETAIL, USAGE, MOLD, FINISHED_RESULT, VIDEO
+  url        String
+  storageKey String?
+  mimeType   String?
+  width      Int?
+  height     Int?
+  sizeBytes  Int?
+  alt        String?
+  sortOrder  Int             @default(0)
+  createdAt  DateTime        @default(now())
 }
 
 // ------------------------------------------------------
@@ -401,6 +407,7 @@ model Banner {
   subTitleUz String?
   subTitleRu String?
   imageUrl   String
+  storageKey String?
   linkUrl    String?
   position   String   @default("HERO")
   isActive   Boolean  @default(true)
