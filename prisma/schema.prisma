@@ -1,0 +1,235 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model AdminUser {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String
+  password  String
+  role      String   @default("ADMIN")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Category {
+  id          String    @id @default(uuid())
+  slug        String    @unique
+  nameUz      String
+  nameRu      String
+  descriptionUz String?
+  descriptionRu String?
+  image       String?
+  parentId    String?
+  parent      Category?  @relation("CategoryToCategory", fields: [parentId], references: [id])
+  children    Category[] @relation("CategoryToCategory")
+  products    Product[]
+  sortOrder   Int       @default(0)
+  seoTitleUz  String?
+  seoTitleRu  String?
+  seoDescUz   String?
+  seoDescRu   String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Product {
+  id              String             @id @default(uuid())
+  slug            String             @unique
+  sku             String             @unique
+  titleUz         String
+  titleRu         String
+  descriptionUz   String
+  descriptionRu   String
+  price           Float
+  oldPrice        Float?
+  isBestseller    Boolean            @default(false)
+  isNew           Boolean            @default(false)
+  inStock         Boolean            @default(true)
+  stockQty        Int                @default(100)
+  
+  // Specific attributes for Mold & Construction products
+  dimensions      String?            // e.g., "300x300x40 mm"
+  thickness       String?            // e.g., "40 mm"
+  material        String?            // e.g., "ABS plastik 2mm", "Polypropylene"
+  weight          String?            // e.g., "0.85 kg"
+  yieldPerCast    Int?               // Bir quyishda olinadigan mahsulot soni (e.g., 6)
+  durabilityCasts Int?               // Resurs (e.g., 300 quyish)
+  shape           String?            // e.g., "Kvadrat", "G'isht"
+  texture         String?            // e.g., "Silliq", "Yog'och", "Tosh"
+  videoUrl        String?            // YouTube / MP4 video link
+  
+  // Specific image comparison: Mold image -> Mold result (Tayyor mahsulot)
+  resultImage     String?            // Tayyor bruschatka/beton rasmi
+  resultTitleUz   String?
+  resultTitleRu   String?
+
+  categoryId      String
+  category        Category           @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  
+  images          ProductImage[]
+  attributes      ProductAttribute[]
+  variants        ProductVariant[]
+  orderItems      OrderItem[]
+  leads           Lead[]
+  
+  seoTitleUz      String?
+  seoTitleRu      String?
+  seoDescUz       String?
+  seoDescRu       String?
+
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+}
+
+model ProductImage {
+  id        String   @id @default(uuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url       String
+  altText   String?
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model ProductAttribute {
+  id        String   @id @default(uuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  keyUz     String
+  keyRu     String
+  valueUz   String
+  valueRu   String
+}
+
+model ProductVariant {
+  id          String      @id @default(uuid())
+  productId   String
+  product     Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  sku         String      @unique
+  nameUz      String
+  nameRu      String
+  price       Float
+  stockQty    Int         @default(10)
+  optionsJson String?     // e.g., {"color": "Qizil", "size": "400x400"}
+  orderItems  OrderItem[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model Order {
+  id            String      @id @default(uuid())
+  orderNumber   String      @unique
+  customerName  String
+  customerPhone String
+  region        String
+  city          String?
+  address       String
+  deliveryType  String      @default("COURIER") // COURIER, PICKUP
+  deliveryFee   Float       @default(0)
+  paymentMethod String      @default("CASH")    // CASH, CLICK, PAYME, BANK_TRANSFER
+  status        String      @default("NEW")     // NEW, CONFIRMED, PROCESSING, READY, SHIPPED, DELIVERED, CANCELLED
+  totalAmount   Float
+  notes         String?
+  
+  // UTM & Attribution tracking
+  utmSource     String?
+  utmMedium     String?
+  utmCampaign   String?
+  utmContent    String?
+  utmTerm       String?
+  gclid         String?
+  fbclid        String?
+  
+  items         OrderItem[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model OrderItem {
+  id        String          @id @default(uuid())
+  orderId   String
+  order     Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String?
+  product   Product?        @relation(fields: [productId], references: [id], onDelete: SetNull)
+  variantId String?
+  variant   ProductVariant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
+  title     String
+  price     Float
+  quantity  Int
+}
+
+model Lead {
+  id            String   @id @default(uuid())
+  name          String
+  phone         String
+  company       String?
+  type          String   @default("B2B_WHOLESALE") // B2B_WHOLESALE, CONSULTATION, CALLBACK
+  message       String?
+  quantity      Int?
+  productId     String?
+  product       Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  status        String   @default("NEW") // NEW, CONTACTED, CLOSED
+  
+  // UTM
+  utmSource     String?
+  utmMedium     String?
+  utmCampaign   String?
+  
+  createdAt     DateTime @default(now())
+}
+
+model BlogPost {
+  id            String   @id @default(uuid())
+  slug          String   @unique
+  titleUz       String
+  titleRu       String
+  contentUz     String
+  contentRu     String
+  excerptUz     String?
+  excerptRu     String?
+  coverImage    String
+  author        String   @default("SPS Plast Mutaxassisi")
+  isPublished   Boolean  @default(true)
+  publishedAt   DateTime @default(now())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Project {
+  id            String   @id @default(uuid())
+  titleUz       String
+  titleRu       String
+  descriptionUz String
+  descriptionRu String
+  location      String
+  productUsed   String
+  beforeImage   String?
+  afterImage    String
+  createdAt     DateTime @default(now())
+}
+
+model Banner {
+  id          String   @id @default(uuid())
+  titleUz     String
+  titleRu     String
+  subTitleUz  String?
+  subTitleRu  String?
+  imageUrl    String
+  linkUrl     String?
+  position    String   @default("HERO") // HERO, MIDDLE, PROMO
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+}
+
+model Setting {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  valueJson String
+  updatedAt DateTime @updatedAt
+}
