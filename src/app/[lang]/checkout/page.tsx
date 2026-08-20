@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCartStore } from '@/lib/store/cartStore';
 import { Button } from '@/components/ui/Button';
@@ -8,7 +8,7 @@ import { formatPrice } from '@/lib/utils';
 import { getDictionary, Locale } from '@/lib/i18n';
 import { captureAttribution, getStoredAttribution } from '@/lib/attribution';
 import { trackEvent } from '@/lib/analytics';
-import { ShieldCheck, Phone, MapPin, User, CreditCard, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck, Phone, MapPin, User, CreditCard, CheckCircle2, Truck, Store } from 'lucide-react';
 
 const REGIONS = [
   'Toshkent shahri',
@@ -40,9 +40,15 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
   const [deliveryType, setDeliveryType] = useState('COURIER');
   const [paymentMethod, setPaymentMethod] = useState('CASH');
   const [notes, setNotes] = useState('');
-  
+
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+
+  // Stable client-side idempotency key for this checkout attempt
+  const idempotencyKeyRef = useRef<string>('');
+  if (!idempotencyKeyRef.current) {
+    idempotencyKeyRef.current = `idem_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
+  }
 
   useEffect(() => {
     captureAttribution();
@@ -50,9 +56,28 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
 
   const totalPrice = getTotalPrice();
 
+  const mapErrorMessage = (rawError: string): string => {
+    if (rawError.includes('OUT_OF_STOCK')) {
+      return lang === 'ru'
+        ? 'Недостаточное количество товара на складе.'
+        : 'Mahsulot omborda yetarli miqdorda mavjud emas.';
+    }
+    if (rawError.includes('PRODUCT_UNAVAILABLE')) {
+      return lang === 'ru'
+        ? 'Товар недоступен для заказа.'
+        : 'Mahsulot hozirda sotuvda mavjud emas.';
+    }
+    if (rawError.includes('INVALID_VARIANT')) {
+      return lang === 'ru'
+        ? 'Выбранный вариант товара недоступен.'
+        : 'Tanlangan variant mavjud emas.';
+    }
+    return rawError;
+  };
+
   const handleOrderSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (items.length === 0) return;
+    if (items.length === 0 || loading) return;
 
     setLoading(true);
     setErrorMsg('');
@@ -65,11 +90,12 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
         customerPhone,
         region,
         city,
-        address,
+        address: deliveryType === 'PICKUP' ? 'SPS Plast Bosh Ombori (Olib ketish)' : address,
         deliveryType,
         paymentMethod,
         notes,
         locale: lang,
+        idempotencyKey: idempotencyKeyRef.current,
         items: items.map((i) => ({
           productId: i.productId,
           variantId: i.variantId,
@@ -96,7 +122,7 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
         clearCart();
         router.push(`/${lang}/order-success/${data.order.id}`);
       } else {
-        setErrorMsg(data.error || 'Buyurtma berishda xatolik yuz berdi.');
+        setErrorMsg(mapErrorMessage(data.error || 'Buyurtma berishda xatolik yuz berdi.'));
       }
     } catch (err: any) {
       console.error(err);
@@ -134,9 +160,11 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
       )}
 
       <form onSubmit={handleOrderSubmit} className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        
+
         {/* Left Form */}
         <div className="lg:col-span-7 space-y-6">
+
+          {/* 1. Xaridor Ma'lumotlari */}
           <div className="bg-brand-card border border-brand-border rounded-2xl p-6 space-y-4">
             <h3 className="text-base font-bold text-white flex items-center gap-2 border-b border-brand-border pb-3">
               <User className="w-4 h-4 text-brand-red" />
@@ -175,72 +203,109 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
             </div>
           </div>
 
+          {/* 2. Yetkazib Berish Usuli va Manzili */}
           <div className="bg-brand-card border border-brand-border rounded-2xl p-6 space-y-4">
             <h3 className="text-base font-bold text-white flex items-center gap-2 border-b border-brand-border pb-3">
               <MapPin className="w-4 h-4 text-brand-red" />
-              2. Yetkazib Berish Manzili
+              2. Yetkazib Berish Usuli va Manzil
             </h3>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-semibold text-gray-300 mb-1">
-                  {dict.checkout.region} *
-                </label>
-                <select
-                  value={region}
-                  onChange={(e) => setRegion(e.target.value)}
-                  className="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2.5 text-sm text-white focus:outline-none focus:border-brand-red"
-                >
-                  {REGIONS.map((reg) => (
-                    <option key={reg} value={reg}>
-                      {reg}
-                    </option>
-                  ))}
-                </select>
-              </div>
+            <div className="grid grid-cols-2 gap-3 pb-2">
+              <button
+                type="button"
+                onClick={() => setDeliveryType('COURIER')}
+                className={`p-3 rounded-xl border flex items-center justify-center gap-2 font-bold text-xs transition-all ${deliveryType === 'COURIER'
+                    ? 'border-brand-red bg-brand-red/10 text-white'
+                    : 'border-brand-border bg-brand-dark text-gray-400'
+                  }`}
+              >
+                <Truck className="w-4 h-4 text-brand-red" />
+                <span>Kuryer orqali yetkazish</span>
+              </button>
 
-              <div>
-                <label className="block text-xs font-semibold text-gray-300 mb-1">
-                  {dict.checkout.city}
-                </label>
-                <input
-                  type="text"
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                  placeholder="Yunusobod tumani"
-                  className="w-full bg-brand-dark border border-brand-border rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-red"
-                />
-              </div>
+              <button
+                type="button"
+                onClick={() => setDeliveryType('PICKUP')}
+                className={`p-3 rounded-xl border flex items-center justify-center gap-2 font-bold text-xs transition-all ${deliveryType === 'PICKUP'
+                    ? 'border-brand-red bg-brand-red/10 text-white'
+                    : 'border-brand-border bg-brand-dark text-gray-400'
+                  }`}
+              >
+                <Store className="w-4 h-4 text-emerald-400" />
+                <span>Ombordan olib ketish</span>
+              </button>
             </div>
 
-            <div>
-              <label className="block text-xs font-semibold text-gray-300 mb-1">
-                {dict.checkout.address} *
-              </label>
-              <input
-                type="text"
-                required
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                placeholder="Amir Temur ko‘chasi 45-uy"
-                className="w-full bg-brand-dark border border-brand-border rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-red"
-              />
-            </div>
+            {deliveryType === 'PICKUP' ? (
+              <div className="p-4 rounded-xl bg-brand-dark border border-brand-border text-xs text-gray-300 space-y-1">
+                <p className="font-bold text-white">SPS Plast Bosh Ombori:</p>
+                <p>Toshkent shahri, Sergeli tumani, Sanoat zonasi 4-daha</p>
+                <p className="text-emerald-400 font-semibold pt-1">Olib ketish bepul!</p>
+              </div>
+            ) : (
+              <>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-semibold text-gray-300 mb-1">
+                      {dict.checkout.region} *
+                    </label>
+                    <select
+                      value={region}
+                      onChange={(e) => setRegion(e.target.value)}
+                      className="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2.5 text-sm text-white focus:outline-none focus:border-brand-red"
+                    >
+                      {REGIONS.map((reg) => (
+                        <option key={reg} value={reg}>
+                          {reg}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-gray-300 mb-1">
+                      {dict.checkout.city}
+                    </label>
+                    <input
+                      type="text"
+                      value={city}
+                      onChange={(e) => setCity(e.target.value)}
+                      placeholder="Yunusobod tumani"
+                      className="w-full bg-brand-dark border border-brand-border rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-red"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-gray-300 mb-1">
+                    {dict.checkout.address} *
+                  </label>
+                  <input
+                    type="text"
+                    required={deliveryType === 'COURIER'}
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    placeholder="Amir Temur ko‘chasi 45-uy"
+                    className="w-full bg-brand-dark border border-brand-border rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-red"
+                  />
+                </div>
+              </>
+            )}
           </div>
 
+          {/* 3. To'lov Usuli */}
           <div className="bg-brand-card border border-brand-border rounded-2xl p-6 space-y-4">
             <h3 className="text-base font-bold text-white flex items-center gap-2 border-b border-brand-border pb-3">
               <CreditCard className="w-4 h-4 text-brand-red" />
               3. To‘lov Usuli
             </h3>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <label
-                className={`p-3 rounded-xl border flex flex-col items-center gap-2 cursor-pointer transition-all ${
-                  paymentMethod === 'CASH'
+                className={`p-3.5 rounded-xl border flex items-center justify-center gap-2 cursor-pointer transition-all ${paymentMethod === 'CASH'
                     ? 'border-brand-red bg-brand-red/10 text-white font-bold'
                     : 'border-brand-border bg-brand-dark text-gray-400'
-                }`}
+                  }`}
               >
                 <input
                   type="radio"
@@ -250,33 +315,14 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
                   onChange={() => setPaymentMethod('CASH')}
                   className="sr-only"
                 />
-                <span className="text-xs text-center">{dict.checkout.payCash}</span>
+                <span className="text-xs text-center">{dict.checkout.payCash} (Qabul qilinganda)</span>
               </label>
 
               <label
-                className={`p-3 rounded-xl border flex flex-col items-center gap-2 cursor-pointer transition-all ${
-                  paymentMethod === 'CLICK'
+                className={`p-3.5 rounded-xl border flex items-center justify-center gap-2 cursor-pointer transition-all ${paymentMethod === 'BANK_TRANSFER'
                     ? 'border-brand-red bg-brand-red/10 text-white font-bold'
                     : 'border-brand-border bg-brand-dark text-gray-400'
-                }`}
-              >
-                <input
-                  type="radio"
-                  name="payment"
-                  value="CLICK"
-                  checked={paymentMethod === 'CLICK'}
-                  onChange={() => setPaymentMethod('CLICK')}
-                  className="sr-only"
-                />
-                <span className="text-xs text-center">{dict.checkout.payClick}</span>
-              </label>
-
-              <label
-                className={`p-3 rounded-xl border flex flex-col items-center gap-2 cursor-pointer transition-all ${
-                  paymentMethod === 'BANK_TRANSFER'
-                    ? 'border-brand-red bg-brand-red/10 text-white font-bold'
-                    : 'border-brand-border bg-brand-dark text-gray-400'
-                }`}
+                  }`}
               >
                 <input
                   type="radio"
@@ -286,7 +332,7 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
                   onChange={() => setPaymentMethod('BANK_TRANSFER')}
                   className="sr-only"
                 />
-                <span className="text-xs text-center">{dict.checkout.payBank}</span>
+                <span className="text-xs text-center">{dict.checkout.payBank} (Bank o‘tkazmasi)</span>
               </label>
             </div>
           </div>
@@ -318,6 +364,13 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
           </div>
 
           <div className="pt-4 border-t border-brand-border space-y-3 text-sm">
+            <div className="flex justify-between text-gray-400">
+              <span>Yetkazib berish:</span>
+              <span className="text-emerald-400 font-semibold">
+                {deliveryType === 'PICKUP' ? 'Bepul (Ombordan)' : 'Operator tasdiqlaydi'}
+              </span>
+            </div>
+
             <div className="flex justify-between text-xl font-black text-white pt-4 border-t border-brand-border">
               <span>{dict.cart.subtotal}:</span>
               <span className="text-brand-red">{formatPrice(totalPrice, lang)}</span>
@@ -328,6 +381,7 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
             type="submit"
             size="lg"
             isLoading={loading}
+            disabled={loading}
             className="w-full gap-2 font-extrabold text-base shadow-red py-4"
           >
             <CheckCircle2 className="w-5 h-5" />

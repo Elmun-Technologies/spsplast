@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 export interface CartItem {
-  id: string; // unique cart item id (product.id or product.id + variant.id)
+  id: string; // unique deterministic cart key: productId or `${productId}-${variantId}`
   productId: string;
   variantId?: string;
   title: string;
@@ -22,6 +22,7 @@ interface CartStore {
   addItem: (item: Omit<CartItem, 'id'>) => void;
   removeItem: (id: string) => void;
   updateQuantity: (id: string, delta: number) => void;
+  setQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
   getTotalItems: () => number;
   getTotalPrice: () => number;
@@ -35,21 +36,25 @@ export const useCartStore = create<CartStore>()(
       openCart: () => set({ isOpen: true }),
       closeCart: () => set({ isOpen: false }),
       toggleCart: () => set((state) => ({ isOpen: !state.isOpen })),
-      
+
       addItem: (newItem) => {
-        const itemId = newItem.variantId 
+        const safeQty = typeof newItem.quantity === 'number' && !isNaN(newItem.quantity) && newItem.quantity > 0
+          ? Math.floor(newItem.quantity)
+          : 1;
+
+        const itemId = newItem.variantId
           ? `${newItem.productId}-${newItem.variantId}`
           : newItem.productId;
-        
+
         set((state) => {
           const existingIndex = state.items.findIndex((i) => i.id === itemId);
           if (existingIndex > -1) {
             const updated = [...state.items];
-            updated[existingIndex].quantity += newItem.quantity;
+            updated[existingIndex].quantity += safeQty;
             return { items: updated, isOpen: true };
           } else {
             return {
-              items: [...state.items, { ...newItem, id: itemId }],
+              items: [...state.items, { ...newItem, quantity: safeQty, id: itemId }],
               isOpen: true,
             };
           }
@@ -77,18 +82,35 @@ export const useCartStore = create<CartStore>()(
         });
       },
 
+      setQuantity: (id, quantity) => {
+        const safeQty = typeof quantity === 'number' && !isNaN(quantity) && quantity > 0
+          ? Math.floor(quantity)
+          : 1;
+
+        set((state) => ({
+          items: state.items.map((item) => (item.id === id ? { ...item, quantity: safeQty } : item)),
+        }));
+      },
+
       clearCart: () => set({ items: [] }),
 
       getTotalItems: () => {
-        return get().items.reduce((total, item) => total + item.quantity, 0);
+        return get().items.reduce((total, item) => total + (item.quantity || 0), 0);
       },
 
       getTotalPrice: () => {
-        return get().items.reduce((total, item) => total + item.price * item.quantity, 0);
+        return get().items.reduce((total, item) => total + (item.price || 0) * (item.quantity || 0), 0);
       },
     }),
     {
       name: 'spsplast-cart',
+      version: 1,
+      migrate: (persistedState: any, version: number) => {
+        if (version === 0) {
+          return { ...persistedState, items: persistedState.items || [] };
+        }
+        return persistedState as CartStore;
+      },
     }
   )
 );

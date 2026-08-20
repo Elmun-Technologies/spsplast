@@ -22,7 +22,7 @@ export default async function OrderSuccessPage({
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-16 text-center space-y-6">
-      
+
       <div className="w-20 h-20 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center mx-auto shadow-xl">
         <CheckCircle2 className="w-10 h-10" />
       </div>
@@ -38,14 +38,14 @@ export default async function OrderSuccessPage({
 
       <div className="bg-brand-card border border-brand-border rounded-2xl p-6 text-left space-y-4 text-xs sm:text-sm">
         <p className="text-gray-300 leading-relaxed">
-          Rahmat, <span className="font-bold text-white">{order?.customerName}</span>! Operatorimiz tez orada kiritilgan <span className="font-bold text-white">{order?.customerPhone}</span> raqamingiz bo‘yicha bog‘lanadi va yetkazib berish tafsilotlarini tasdiqlaydi.
+          Rahmat, <span className="font-bold text-white">{order?.customerName}</span>! Operatorimiz tez orada kiritilgan telefon raqamingiz bo‘yicha bog‘lanadi va yetkazib berish tafsilotlarini tasdiqlaydi.
         </p>
 
         {order && (
           <div className="border-t border-brand-border pt-4 space-y-2">
             <div className="flex justify-between text-gray-400">
-              <span>Manzil:</span>
-              <span className="text-white font-medium">{order.region}, {order.address}</span>
+              <span>Mintaqa:</span>
+              <span className="text-white font-medium">{order.region}</span>
             </div>
             <div className="flex justify-between text-gray-400">
               <span>Jami Summa:</span>
