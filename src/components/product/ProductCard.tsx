@@ -3,9 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ShoppingCart, Eye, CheckCircle, AlertCircle } from 'lucide-react';
-import { Badge } from '@/components/ui/Badge';
-import { Button } from '@/components/ui/Button';
+import { ArrowRight, ShoppingBag, Check, ImageOff, Heart } from 'lucide-react';
 import { useCartStore } from '@/lib/store/cartStore';
 import { formatPrice } from '@/lib/utils';
 import { Locale } from '@/lib/i18n';
@@ -21,6 +19,7 @@ export interface ProductCardData {
   oldPrice?: number | null;
   dimensions?: string | null;
   inStock: boolean;
+  hasVariants?: boolean;
   isBestseller?: boolean;
   isNew?: boolean;
   images: { url: string; altText?: string | null }[];
@@ -29,15 +28,21 @@ export interface ProductCardData {
 interface ProductCardProps {
   product: ProductCardData;
   lang: Locale;
+  featured?: boolean;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product, lang }) => {
+export const ProductCard: React.FC<ProductCardProps> = ({ product, lang, featured = false }) => {
   const addItem = useCartStore((s) => s.addItem);
-  const title = lang === 'ru' ? product.titleRu : product.titleUz;
-  const mainImage = product.images?.[0]?.url || 'https://images.unsplash.com/photo-1584467735871-8e85353a8413?auto=format&fit=crop&w=800&q=80';
+  const [added, setAdded] = React.useState(false);
+  const [imgError, setImgError] = React.useState(false);
+  const [isLiked, setIsLiked] = React.useState(false);
 
-  const discountPercent = product.oldPrice
-    ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100)
+  const title = lang === 'ru' ? product.titleRu : product.titleUz;
+  const mainImage = product.images?.[0]?.url;
+
+  const hasDiscount = product.oldPrice && product.oldPrice > product.price;
+  const discountPercent = hasDiscount
+    ? Math.round(((product.oldPrice! - product.price) / product.oldPrice!) * 100)
     : 0;
 
   const handleAddToCart = (e: React.MouseEvent) => {
@@ -46,10 +51,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, lang }) => {
 
     addItem({
       productId: product.id,
-      title: title,
+      title,
       sku: product.sku,
       price: product.price,
-      image: mainImage,
+      image: mainImage || '',
       quantity: 1,
       dimensions: product.dimensions || undefined,
     });
@@ -59,106 +64,160 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, lang }) => {
       item_name: title,
       price: product.price,
     });
+
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
+  };
+
+  const toggleFavorite = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsLiked(!isLiked);
   };
 
   return (
-    <div className="group relative bg-brand-card border border-brand-border rounded-2xl overflow-hidden hover:border-brand-red/60 transition-all duration-300 flex flex-col justify-between shadow-lg hover:shadow-2xl">
-      
-      {/* Top Media & Badges */}
-      <div className="relative aspect-[4/3] bg-black/40 overflow-hidden">
-        <Link href={`/${lang}/product/${product.slug}`} className="block w-full h-full">
+    <div
+      className={`group relative bg-white border border-neutral-200/60 hover:border-neutral-300 transition-all duration-300 rounded-3xl overflow-hidden flex flex-col justify-between text-[#111111] shadow-soft hover:shadow-card hover:-translate-y-1 ${featured ? 'md:col-span-2 md:row-span-2' : ''
+        }`}
+    >
+      {/* Top Badges — Rounded Pill Style */}
+      <div className="absolute top-4 left-4 z-20 flex flex-wrap items-center gap-1.5 pointer-events-none text-[11px] font-extrabold tracking-wide">
+        {product.isNew && (
+          <span className="bg-brand-blue text-white px-2.5 py-0.5 rounded-full shadow-xs">
+            {lang === 'ru' ? 'Новинка' : 'Yangi'}
+          </span>
+        )}
+        {product.isBestseller && !product.isNew && !hasDiscount && (
+          <span className="bg-[#111111] text-white px-2.5 py-0.5 rounded-full shadow-xs">
+            {lang === 'ru' ? 'Хит' : 'Top'}
+          </span>
+        )}
+      </div>
+
+      {/* Favorite Circle Button — Top Right */}
+      <button
+        onClick={toggleFavorite}
+        className="absolute top-4 right-4 z-20 w-8 h-8 rounded-full bg-white/90 backdrop-blur-xs shadow-soft flex items-center justify-center text-neutral-400 hover:text-brand-red transition-all hover:scale-110"
+        title="Saqlanganlarga qo'shish"
+      >
+        <Heart className={`w-4 h-4 ${isLiked ? 'fill-brand-red text-brand-red' : ''}`} />
+      </button>
+
+      {/* Image Area — Clean soft gray card background (`#F4F5F7`) */}
+      <Link
+        href={`/${lang}/product/${product.slug}`}
+        className="block relative aspect-[4/3] w-full bg-white m-0 overflow-hidden flex items-center justify-center p-6 group-hover:bg-[#F9FAFB] transition-colors"
+      >
+        {mainImage && !imgError ? (
           <Image
             src={mainImage}
             alt={title}
             fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover group-hover:scale-105 transition-transform duration-500"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+            onError={() => setImgError(true)}
+            className="object-contain p-6 group-hover:scale-105 transition-transform duration-500 ease-out"
           />
-        </Link>
-
-        {/* Badges Container */}
-        <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10 pointer-events-none">
-          {product.isNew && <Badge variant="red">Yangi / New</Badge>}
-          {product.isBestseller && <Badge variant="amber">Bestseller</Badge>}
-          {discountPercent > 0 && <Badge variant="green">-{discountPercent}% Chegirma</Badge>}
-        </div>
-
-        {/* Hover Quick Actions */}
-        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center gap-3 z-10 pointer-events-none">
-          <Link
-            href={`/${lang}/product/${product.slug}`}
-            className="pointer-events-auto p-3 rounded-full bg-brand-card/90 text-white border border-brand-border hover:bg-brand-red transition-colors shadow-lg"
-            title="Batafsil кўриш"
-          >
-            <Eye className="w-5 h-5" />
-          </Link>
-        </div>
-      </div>
-
-      {/* Card Info */}
-      <div className="p-4 flex flex-col flex-1 justify-between gap-3">
-        <div>
-          {/* SKU & Stock */}
-          <div className="flex items-center justify-between text-xs text-gray-400 mb-1.5">
-            <span className="font-mono bg-brand-dark px-2 py-0.5 rounded border border-brand-border">
-              {product.sku}
+        ) : (
+          <div className="w-full h-full flex flex-col items-center justify-center text-neutral-400 p-4 select-none">
+            <ImageOff className="w-9 h-9 mb-1 text-neutral-200" />
+            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-neutral-300">
+              SPS PLAST
             </span>
-            <span className="flex items-center gap-1 font-medium">
-              {product.inStock ? (
-                <>
-                  <CheckCircle className="w-3.5 h-3.5 text-emerald-400" />
-                  <span className="text-emerald-400">Mavjud</span>
-                </>
-              ) : (
-                <>
-                  <AlertCircle className="w-3.5 h-3.5 text-amber-400" />
-                  <span className="text-amber-400">Mavjud emas</span>
-                </>
-              )}
+          </div>
+        )}
+        
+        {/* Discount Badge on Image Bottom Left */}
+        {hasDiscount && (
+          <div className="absolute bottom-3 left-3 z-20">
+            <span className="bg-brand-red text-white px-2 py-1 rounded-lg shadow-sm text-xs font-bold">
+              -{discountPercent}%
+            </span>
+          </div>
+        )}
+      </Link>
+
+      {/* Product Content & Pricing */}
+      <div className="p-4 sm:p-5 flex flex-col flex-1 justify-between gap-3 bg-white">
+        <div>
+          {/* Stock Indicator & SKU */}
+          <div className="flex items-center justify-between text-[11px] text-[#888888] mb-2 font-medium">
+            <span className="truncate">SKU: {product.sku}</span>
+            <span className={product.inStock ? 'text-emerald-600 font-semibold flex items-center gap-1.5' : 'text-[#888888]'}>
+              {product.inStock
+                ? lang === 'ru'
+                  ? 'В наличии'
+                  : 'Mavjud'
+                : lang === 'ru'
+                  ? 'Нет в наличии'
+                  : 'Mavjud emas'}
             </span>
           </div>
 
           {/* Product Title */}
-          <Link
-            href={`/${lang}/product/${product.slug}`}
-            className="font-bold text-white text-base hover:text-brand-red transition-colors line-clamp-2"
-          >
-            {title}
+          <Link href={`/${lang}/product/${product.slug}`} className="block group/title">
+            <h3 className="font-semibold text-sm sm:text-[15px] text-[#333333] group-hover/title:text-brand-blue transition-colors line-clamp-2 leading-snug">
+              {title}
+            </h3>
           </Link>
 
-          {/* Dimension Info */}
+          {/* Dimensions */}
           {product.dimensions && (
-            <p className="text-xs text-gray-400 mt-1">
-              O‘lchami: <span className="text-gray-200 font-medium">{product.dimensions}</span>
+            <p className="text-xs text-[#888888] mt-2 font-medium">
+              <span className="text-[#888888]">Размер: </span>
+              <span className="text-[#333333] font-mono">{product.dimensions}</span>
             </p>
           )}
         </div>
 
-        {/* Price & Action */}
-        <div className="pt-3 border-t border-brand-border/60 flex items-center justify-between gap-2">
-          <div>
-            <p className="font-extrabold text-lg text-white">
-              {formatPrice(product.price, lang)}
-            </p>
-            {product.oldPrice && (
-              <p className="text-xs text-gray-400 line-through">
-                {formatPrice(product.oldPrice, lang)}
-              </p>
-            )}
+        {/* Price & Action Button */}
+        <div className="pt-2 flex flex-col gap-3 mt-auto">
+          <div className="flex flex-col gap-0.5">
+            <div className="flex items-baseline gap-2">
+              <span className="text-xl sm:text-2xl font-bold text-[#111111] tracking-tight">
+                {formatPrice(product.price, lang)}
+              </span>
+              {hasDiscount && (
+                <span className="text-sm text-[#98A2B3] line-through">
+                  {formatPrice(product.oldPrice!, lang)}
+                </span>
+              )}
+            </div>
           </div>
 
-          <Button
-            size="sm"
-            onClick={handleAddToCart}
-            disabled={!product.inStock}
-            className="gap-1.5 shrink-0"
-          >
-            <ShoppingCart className="w-4 h-4" />
-            <span>+ Savat</span>
-          </Button>
+          {/* Action CTA Button */}
+          {product.hasVariants ? (
+            <Link
+              href={`/${lang}/product/${product.slug}`}
+              className="w-full flex items-center justify-center gap-2 text-sm font-semibold text-[#111111] bg-[#F2F4F7] hover:bg-[#E4E7EC] py-2.5 px-3 rounded-xl transition-all"
+            >
+              <span>{lang === 'ru' ? 'Выбрать' : 'Tanlash'}</span>
+            </Link>
+          ) : (
+            <button
+              onClick={handleAddToCart}
+              disabled={!product.inStock}
+              className={`w-full flex items-center justify-center gap-2 text-sm font-semibold py-2.5 px-4 rounded-xl transition-all ${added
+                  ? 'bg-emerald-500 text-white shadow-soft'
+                  : product.inStock
+                    ? 'bg-brand-blue hover:bg-brand-blue-dark text-white shadow-soft hover:shadow-md'
+                    : 'bg-[#F2F4F7] text-[#98A2B3] cursor-not-allowed'
+                }`}
+            >
+              {added ? (
+                <>
+                  <Check className="w-4 h-4" />
+                  <span>{lang === 'ru' ? 'В корзине' : 'Savatda'}</span>
+                </>
+              ) : (
+                <>
+                  <ShoppingBag className="w-4 h-4" />
+                  <span>{lang === 'ru' ? 'В корзину' : 'Savatga'}</span>
+                </>
+              )}
+            </button>
+          )}
         </div>
       </div>
-
     </div>
   );
 };

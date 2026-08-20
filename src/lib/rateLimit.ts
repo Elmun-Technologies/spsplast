@@ -1,3 +1,5 @@
+import { db } from '@/lib/db';
+
 interface RateLimitRecord {
   count: number;
   resetAt: number;
@@ -6,10 +8,8 @@ interface RateLimitRecord {
 const tracker = new Map<string, RateLimitRecord>();
 
 /**
- * Lightweight sliding-window rate limiter.
- * @param key Unique key (e.g. IP address + route)
- * @param maxRequests Maximum allowed attempts within window
- * @param windowMs Time window in milliseconds (default: 15 minutes)
+ * Lightweight sliding-window in-memory rate limiter.
+ * Ideal for single-instance or quick checks.
  */
 export function checkRateLimit(
   key: string,
@@ -38,4 +38,59 @@ export function checkRateLimit(
     remaining: maxRequests - record.count,
     resetTimeMs: record.resetAt - now,
   };
+}
+
+/**
+ * Production-ready asynchronous DB-backed rate limiter.
+ * Works seamlessly across multi-instance serverless deployments without Redis requirement.
+ */
+export async function checkRateLimitAsync(
+  key: string,
+  maxRequests: number = 5,
+  windowMs: number = 15 * 60 * 1000
+): Promise<{ allowed: boolean; remaining: number; resetTimeMs: number }> {
+  // First run local check for ultra-fast rejection
+  const localCheck = checkRateLimit(key, maxRequests, windowMs);
+  if (!localCheck.allowed) {
+    return localCheck;
+  }
+
+  // Attempt DB state tracking for multi-instance persistence
+  try {
+    const windowStart = new Date(Date.now() - windowMs);
+    const recentCount = await db.integrationLog.count({
+      where: {
+        provider: 'RATELIMIT',
+        operation: key,
+        createdAt: { gte: windowStart },
+      },
+    });
+
+    if (recentCount >= maxRequests) {
+      return {
+        allowed: false,
+        remaining: 0,
+        resetTimeMs: windowMs,
+      };
+    }
+
+    // Record attempt
+    await db.integrationLog.create({
+      data: {
+        provider: 'RATELIMIT',
+        operation: key,
+        status: 'SUCCESS',
+        detailsJson: JSON.stringify({ ipKey: key, timestamp: Date.now() }),
+      },
+    });
+
+    return {
+      allowed: true,
+      remaining: maxRequests - recentCount - 1,
+      resetTimeMs: windowMs,
+    };
+  } catch (_err) {
+    // Fallback to in-memory check gracefully if DB is unresponsive
+    return localCheck;
+  }
 }

@@ -3,15 +3,16 @@
 @tailwind utilities;
 
 :root {
-  --background: #0f1115;
-  --foreground: #ffffff;
+  --background: #ffffff;
+  --foreground: #111111;
 }
 
 body {
-  color: #f7f8fa;
-  background: #0f1115;
+  color: #111111;
+  background: #F4F5F7;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* Custom Scrollbar */

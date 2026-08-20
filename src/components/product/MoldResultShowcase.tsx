@@ -1,80 +1,141 @@
+'use client';
+
 import React from 'react';
 import Image from 'next/image';
-import { ArrowRight, CheckCircle2 } from 'lucide-react';
-import { getDictionary, Locale } from '@/lib/i18n';
+import Link from 'next/link';
+import { ArrowRight, ImageOff } from 'lucide-react';
+import { Locale } from '@/lib/i18n';
+import { formatPrice } from '@/lib/utils';
 
 interface MoldResultShowcaseProps {
-  moldImage: string;
-  resultImage: string;
+  moldImage?: string;
+  resultImage?: string;
   moldTitle?: string;
   resultTitle?: string;
+  productSlug?: string;
+  productPrice?: number;
   lang: Locale;
 }
 
 export const MoldResultShowcase: React.FC<MoldResultShowcaseProps> = ({
   moldImage,
   resultImage,
-  moldTitle = 'Plastik Qolip',
-  resultTitle = 'Tayyor Beton / Bruschatka Mahsuloti',
+  moldTitle = 'Bruschatka Plastik Qolipi',
+  resultTitle = 'Tayyor Beton Bruschatka',
+  productSlug,
+  productPrice,
   lang,
 }) => {
-  const dict = getDictionary(lang);
+  const [moldErr, setMoldErr] = React.useState(false);
+  const [resultErr, setResultErr] = React.useState(false);
 
   return (
-    <div className="bg-gradient-to-r from-brand-card via-brand-card/90 to-brand-card border border-brand-border rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden my-8">
-      <div className="absolute top-0 right-0 w-64 h-64 bg-brand-red/5 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="text-center max-w-xl mx-auto mb-8">
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-red/10 border border-brand-red/20 text-brand-red text-xs font-extrabold uppercase tracking-wider mb-3">
-          <CheckCircle2 className="w-4 h-4" />
-          SPS PLAST Exclusive USP
-        </span>
-        <h3 className="text-2xl sm:text-3xl font-black text-white">
-          {dict.product.resultHeader}
-        </h3>
-        <p className="text-sm text-gray-400 mt-2">{dict.product.resultDesc}</p>
+    <section className="my-12 py-10 px-6 sm:px-8 bg-[#F6F7F8] border border-neutral-200 rounded-xs text-[#111111]">
+      {/* Section Header */}
+      <div className="max-w-3xl mb-8">
+        <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-brand-red/10 border border-brand-red/20 text-brand-red text-[11px] font-mono font-bold uppercase tracking-wider mb-2 rounded-xs">
+          <span className="w-1.5 h-1.5 bg-brand-red rounded-full"></span>
+          SPS Signature
+        </div>
+        <h2 className="text-2xl sm:text-4xl font-extrabold text-[#111111] tracking-tight font-sans">
+          {lang === 'ru' ? 'Выберите форму — увидите результат' : 'Qolipni tanlang — natijasini ko‘ring'}
+        </h2>
+        <p className="text-sm text-[#667085] mt-2 font-sans">
+          {lang === 'ru'
+            ? 'Сравните форму и готовое брусчатое изделие перед покупкой.'
+            : 'Qolip va undan tayyorlangan bruschatkani xarid qilishdan oldin solishtiring.'}
+        </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-11 gap-6 items-center">
-        {/* Left: Plastic Mold */}
-        <div className="md:col-span-5 flex flex-col items-center group">
-          <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border-2 border-brand-border group-hover:border-brand-red transition-all shadow-xl bg-black/50">
-            <Image
-              src={moldImage}
-              alt="Plastik Qolip"
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-500"
-            />
-            <div className="absolute bottom-3 left-3 bg-brand-dark/90 backdrop-blur-md px-3 py-1.5 rounded-lg border border-brand-border text-xs font-bold text-white">
-              1. Qolip (Mold)
+      {/* Comparison Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+        {/* Left: QOLIP */}
+        <div className="md:col-span-5 flex flex-col group bg-white border border-neutral-200 p-4 rounded-xs">
+          <div className="relative aspect-[4/3] w-full bg-[#F6F7F8] rounded-xs overflow-hidden p-4 flex items-center justify-center border border-neutral-100">
+            <div className="absolute top-3 left-3 z-10 bg-[#111111] text-white px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-wider rounded-xs">
+              QOLIP
             </div>
+            {moldImage && !moldErr ? (
+              <Image
+                src={moldImage}
+                alt={moldTitle}
+                fill
+                sizes="(max-width: 768px) 100vw, 40vw"
+                onError={() => setMoldErr(true)}
+                className="object-contain p-4 group-hover:scale-104 transition-transform duration-300"
+              />
+            ) : (
+              <div className="flex flex-col items-center justify-center text-neutral-400 p-4 select-none">
+                <ImageOff className="w-8 h-8 mb-1" />
+                <span className="text-[10px] font-mono font-bold uppercase text-neutral-500">Qolip Media</span>
+              </div>
+            )}
           </div>
-          <p className="text-xs text-gray-300 font-semibold mt-3">{moldTitle}</p>
+          <div className="mt-3 flex items-center justify-between">
+            <span className="text-xs font-mono text-[#667085] uppercase">SPS MATRITSA</span>
+            <span className="text-sm font-bold text-[#111111] truncate">{moldTitle}</span>
+          </div>
         </div>
 
-        {/* Middle: Arrow indicator */}
-        <div className="md:col-span-1 flex items-center justify-center my-2 md:my-0">
-          <div className="w-12 h-12 rounded-full bg-brand-red text-white flex items-center justify-center shadow-red animate-pulse">
-            <ArrowRight className="w-6 h-6 rotate-90 md:rotate-0" />
+        {/* Center: Arrow Indicator */}
+        <div className="md:col-span-2 flex flex-col items-center justify-center py-2">
+          <div className="w-10 h-10 rounded-full bg-white border border-neutral-300 text-brand-red flex items-center justify-center shadow-xs">
+            <ArrowRight className="w-5 h-5 rotate-90 md:rotate-0" />
           </div>
+          <span className="text-[10px] font-mono font-bold tracking-widest text-[#667085] uppercase mt-2">
+            NATIJA
+          </span>
         </div>
 
-        {/* Right: Finished Product */}
-        <div className="md:col-span-5 flex flex-col items-center group">
-          <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border-2 border-emerald-500/40 group-hover:border-emerald-400 transition-all shadow-xl bg-black/50">
-            <Image
-              src={resultImage}
-              alt="Tayyor Mahsulot"
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-500"
-            />
-            <div className="absolute bottom-3 left-3 bg-emerald-950/90 backdrop-blur-md px-3 py-1.5 rounded-lg border border-emerald-500/30 text-xs font-bold text-emerald-300">
-              2. Tayyor Natija (Result)
+        {/* Right: TAYYOR NATIJA */}
+        <div className="md:col-span-5 flex flex-col group bg-white border border-neutral-200 p-4 rounded-xs">
+          <div className="relative aspect-[4/3] w-full bg-[#F6F7F8] rounded-xs overflow-hidden p-4 flex items-center justify-center border border-neutral-100">
+            <div className="absolute top-3 left-3 z-10 bg-brand-red text-white px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-wider rounded-xs">
+              TAYYOR NATIJA
             </div>
+            {resultImage && !resultErr ? (
+              <Image
+                src={resultImage}
+                alt={resultTitle}
+                fill
+                sizes="(max-width: 768px) 100vw, 40vw"
+                onError={() => setResultErr(true)}
+                className="object-contain p-4 group-hover:scale-104 transition-transform duration-300"
+              />
+            ) : (
+              <div className="flex flex-col items-center justify-center text-neutral-400 p-4 select-none">
+                <ImageOff className="w-8 h-8 mb-1" />
+                <span className="text-[10px] font-mono font-bold uppercase text-neutral-500">Beton Natija</span>
+              </div>
+            )}
           </div>
-          <p className="text-xs text-emerald-400 font-semibold mt-3">{resultTitle}</p>
+          <div className="mt-3 flex items-center justify-between">
+            <span className="text-xs font-mono text-brand-red uppercase">BETON MAHSULOT</span>
+            <span className="text-sm font-bold text-[#111111] truncate">{resultTitle}</span>
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* Footer Info & CTA */}
+      <div className="mt-6 pt-4 border-t border-neutral-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          <h4 className="font-bold text-sm text-[#111111]">{moldTitle}</h4>
+          {productPrice && (
+            <p className="text-base font-extrabold text-[#111111] mt-0.5">
+              {formatPrice(productPrice, lang)}
+            </p>
+          )}
+        </div>
+        {productSlug && (
+          <Link
+            href={`/${lang}/product/${productSlug}`}
+            className="inline-flex items-center justify-center gap-2 bg-brand-red hover:bg-brand-red-dark text-white text-xs font-bold uppercase tracking-wider px-6 py-3 rounded-xs transition-colors shadow-xs"
+          >
+            <span>{lang === 'ru' ? 'Смотреть продукт' : 'Mahsulotni ko‘rish'}</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        )}
+      </div>
+    </section>
   );
 };

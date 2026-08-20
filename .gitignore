@@ -34,8 +34,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# SQLite local databases
+# SQLite local databases & backups
 *.db
 *.db-journal
 *.sqlite
 prisma/dev.db
+backups/

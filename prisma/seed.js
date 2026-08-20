@@ -160,115 +160,172 @@ async function main() {
     data: { categoryId: catBruschatka.id, attributeId: attrMaterial.id, required: true },
   });
 
-  // 4. Create Representative Mold Product
-  await prisma.product.create({
-    data: {
-      sku: 'SPS-BR-001',
-      status: 'ACTIVE',
-      basePrice: 18000,
-      compareAtPrice: 22000,
-      inStock: true,
-      stockQty: 500,
-      isBestseller: true,
-      isNew: true,
-      yieldPerCast: 6,
-      durabilityCasts: 350,
-      translations: {
-        create: [
-          {
-            locale: 'uz',
-            name: 'Bruschatka qolipi "6 ta g‘isht" (6 Kirpich)',
-            slug: 'bruschatka-qolipi-6-kirpich',
-            shortDescription: '2mm ABS plastikdan tayyorlangan 6 talik g‘isht qolipi',
-            description: 'Yuqori chidamlilikka ega ABS plastik qolipi. 300+ quyish resursiga ega.',
-          },
-          {
-            locale: 'ru',
-            name: 'Форма для брусчатки "6 кирпичей"',
-            slug: 'forma-dlya-bruschatki-6-kirpichey',
-            shortDescription: 'Форма из 2мм ABS пластика на 6 кирпичей',
-            description: 'Высокопрочная форма из ABS пластика. Ресурс более 300 заливок.',
-          },
-        ],
+  // 4. Create Representative Mold Products (Generate 12 items)
+  for (let i = 1; i <= 12; i++) {
+    await prisma.product.create({
+      data: {
+        sku: `SPS-BR-00${i}`,
+        status: 'ACTIVE',
+        basePrice: 15000 + i * 1000,
+        compareAtPrice: i % 3 === 0 ? 18000 + i * 1000 : null,
+        inStock: i % 5 !== 0,
+        stockQty: 500,
+        isBestseller: i <= 4,
+        isNew: i > 8,
+        yieldPerCast: 6,
+        durabilityCasts: 350,
+        translations: {
+          create: [
+            {
+              locale: 'uz',
+              name: `Bruschatka qolipi "Model ${i}"`,
+              slug: `bruschatka-qolipi-model-${i}`,
+              shortDescription: '2mm ABS plastikdan tayyorlangan yuqori sifatli qolip',
+              description: 'Yuqori chidamlilikka ega ABS plastik qolipi. 300+ quyish resursiga ega.',
+            },
+            {
+              locale: 'ru',
+              name: `Форма для брусчатки "Модель ${i}"`,
+              slug: `forma-dlya-bruschatki-model-${i}`,
+              shortDescription: 'Форма из 2мм ABS пластика',
+              description: 'Высокопрочная форма из ABS пластика. Ресурс более 300 заливок.',
+            },
+          ],
+        },
+        categories: {
+          create: [{ categoryId: catBruschatka.id }],
+        },
+        media: {
+          create: [
+            {
+              type: 'MOLD',
+              url: `https://images.unsplash.com/photo-1584467735871-8e85353a8413?auto=format&fit=crop&w=800&q=80&sig=${i}`,
+              alt: 'Qolip tasviri',
+              sortOrder: 1,
+            },
+            {
+              type: 'FINISHED_RESULT',
+              url: `https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=800&q=80&sig=${i}`,
+              alt: 'Tayyor quyilgan bruschatka natijasi',
+              sortOrder: 2,
+            },
+          ],
+        },
+        attributeValues: {
+          create: [
+            { attributeId: attrDimensions.id, textValue: '300x200x45 mm' },
+            { attributeId: attrMaterial.id, textValue: 'ABS Plastik 2mm' },
+          ],
+        },
       },
-      categories: {
-        create: [{ categoryId: catBruschatka.id }],
-      },
-      media: {
-        create: [
-          {
-            type: 'MOLD',
-            url: 'https://images.unsplash.com/photo-1584467735871-8e85353a8413?auto=format&fit=crop&w=800&q=80',
-            alt: 'Qolip tasviri',
-            sortOrder: 1,
-          },
-          {
-            type: 'FINISHED_RESULT',
-            url: 'https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=800&q=80',
-            alt: 'Tayyor quyilgan bruschatka natijasi',
-            sortOrder: 2,
-          },
-        ],
-      },
-      attributeValues: {
-        create: [
-          { attributeId: attrDimensions.id, textValue: '300x200x45 mm' },
-          { attributeId: attrMaterial.id, textValue: 'ABS Plastik 2mm' },
-        ],
-      },
-    },
-  });
+    });
+  }
 
-  // 5. Create Representative Thermopanel Product
-  await prisma.product.create({
-    data: {
-      sku: 'SPS-TP-002',
-      status: 'ACTIVE',
-      basePrice: 125000,
-      compareAtPrice: 145000,
-      inStock: true,
-      stockQty: 1200,
-      isBestseller: true,
-      isNew: false,
-      translations: {
-        create: [
-          {
-            locale: 'uz',
-            name: 'Fasad Termopanel "Travertin Tekstura"',
-            slug: 'termopanel-gishin-travertin',
-            shortDescription: 'Issiqlik saqlovchi va suv o‘tkazmaydigan fasad paneli',
-            description: 'Penopolistirol va mramor qoplamali zamonaviy termopanel.',
-          },
-          {
-            locale: 'ru',
-            name: 'Фасадная термопанель "Текстура Травертин"',
-            slug: 'termopanel-fakura-travertin',
-            shortDescription: 'Утепляющая фасадная панель с пенополистиролом',
-            description: 'Современная фасадная панель с мраморной крошкой.',
-          },
-        ],
+  // 5. Create Representative Thermopanel Products (Generate 8 items)
+  for (let i = 1; i <= 8; i++) {
+    await prisma.product.create({
+      data: {
+        sku: `SPS-TP-00${i}`,
+        status: 'ACTIVE',
+        basePrice: 120000 + i * 5000,
+        compareAtPrice: i % 2 === 0 ? 140000 + i * 5000 : null,
+        inStock: true,
+        stockQty: 1200,
+        isBestseller: i <= 3,
+        isNew: i > 6,
+        translations: {
+          create: [
+            {
+              locale: 'uz',
+              name: `Fasad Termopanel "Tekstura ${i}"`,
+              slug: `termopanel-tekstura-${i}`,
+              shortDescription: 'Issiqlik saqlovchi va suv o‘tkazmaydigan fasad paneli',
+              description: 'Penopolistirol va mramor qoplamali zamonaviy termopanel.',
+            },
+            {
+              locale: 'ru',
+              name: `Фасадная термопанель "Текстура ${i}"`,
+              slug: `termopanel-tekstura-${i}-ru`,
+              shortDescription: 'Утепляющая фасадная панель с пенополистиролом',
+              description: 'Современная фасадная панель с мраморной крошкой.',
+            },
+          ],
+        },
+        categories: {
+          create: [{ categoryId: catTermopanel.id }],
+        },
+        media: {
+          create: [
+            {
+              type: 'MAIN',
+              url: `https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80&sig=${i+10}`,
+              alt: 'Termopanel',
+              sortOrder: 1,
+            },
+          ],
+        },
+        attributeValues: {
+          create: [
+            { attributeId: attrDimensions.id, textValue: '1000x500x50 mm' },
+            { attributeId: attrMaterial.id, textValue: 'Penopolistirol + Mramor' },
+          ],
+        },
       },
-      categories: {
-        create: [{ categoryId: catTermopanel.id }],
+    });
+  }
+
+  // 5.5 Create Category 3 Products (Bordyur - Generate 6 items)
+  for (let i = 1; i <= 6; i++) {
+    await prisma.product.create({
+      data: {
+        sku: `SPS-BD-00${i}`,
+        status: 'ACTIVE',
+        basePrice: 25000 + i * 2000,
+        compareAtPrice: null,
+        inStock: true,
+        stockQty: 800,
+        isBestseller: i === 1,
+        isNew: false,
+        translations: {
+          create: [
+            {
+              locale: 'uz',
+              name: `Yo'l Bordyuri "Model ${i}"`,
+              slug: `bordyur-model-${i}`,
+              shortDescription: 'Mustahkam beton quyish uchun bordyur qolipi',
+              description: 'Sifatli va uzoq muddat xizmat qiladigan bordyur qolipi.',
+            },
+            {
+              locale: 'ru',
+              name: `Дорожный бордюр "Модель ${i}"`,
+              slug: `bordyur-model-${i}-ru`,
+              shortDescription: 'Форма для заливки прочных бордюров',
+              description: 'Качественная и долговечная форма для бордюров.',
+            },
+          ],
+        },
+        categories: {
+          create: [{ categoryId: catBordyur.id }],
+        },
+        media: {
+          create: [
+            {
+              type: 'MAIN',
+              url: `https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=800&q=80&sig=${i+20}`,
+              alt: 'Bordyur',
+              sortOrder: 1,
+            },
+          ],
+        },
+        attributeValues: {
+          create: [
+            { attributeId: attrDimensions.id, textValue: '500x200x80 mm' },
+            { attributeId: attrMaterial.id, textValue: 'ABS Plastik' },
+          ],
+        },
       },
-      media: {
-        create: [
-          {
-            type: 'MAIN',
-            url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
-            alt: 'Termopanel',
-            sortOrder: 1,
-          },
-        ],
-      },
-      attributeValues: {
-        create: [
-          { attributeId: attrDimensions.id, textValue: '1000x500x50 mm' },
-          { attributeId: attrMaterial.id, textValue: 'Penopolistirol + Mramor' },
-        ],
-      },
-    },
-  });
+    });
+  }
 
   // 6. Create Seed Banners, Projects & Blog Posts
   await prisma.banner.create({
