@@ -1,23 +1,37 @@
 import { MetadataRoute } from 'next';
 import { db } from '@/lib/db';
 
+export const dynamic = 'force-dynamic';
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://spsplast.uz';
 
-  const products = await db.product.findMany({
-    where: { status: 'ACTIVE' },
-    select: { updatedAt: true, translations: { select: { slug: true, locale: true } } },
-  });
+  type SlugEntry = { updatedAt: Date; translations: { slug: string; locale: string }[] };
 
-  const categories = await db.category.findMany({
-    where: { status: 'ACTIVE' },
-    select: { updatedAt: true, translations: { select: { slug: true, locale: true } } },
-  });
+  let products: SlugEntry[] = [];
+  let categories: SlugEntry[] = [];
+  let posts: SlugEntry[] = [];
 
-  const posts = await db.blogPost.findMany({
-    where: { isPublished: true },
-    select: { updatedAt: true, translations: { select: { slug: true, locale: true } } },
-  });
+  try {
+    [products, categories, posts] = await Promise.all([
+      db.product.findMany({
+        where: { status: 'ACTIVE' },
+        select: { updatedAt: true, translations: { select: { slug: true, locale: true } } },
+      }),
+      db.category.findMany({
+        where: { status: 'ACTIVE' },
+        select: { updatedAt: true, translations: { select: { slug: true, locale: true } } },
+      }),
+      db.blogPost.findMany({
+        where: { isPublished: true },
+        select: { updatedAt: true, translations: { select: { slug: true, locale: true } } },
+      }),
+    ]);
+  } catch {
+    products = [];
+    categories = [];
+    posts = [];
+  }
 
   const locales = ['uz', 'ru'];
   const routes: MetadataRoute.Sitemap = [];
