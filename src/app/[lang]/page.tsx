@@ -18,6 +18,8 @@ import {
   Truck,
   PackageCheck,
   Headphones,
+  Clock,
+  Sparkles,
 } from 'lucide-react';
 
 interface HomePageProps {
@@ -122,103 +124,130 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
     <div className="bg-[#F8F9FA] text-gray-900 min-h-screen pb-12">
 
       {/* ==========================================
-          1. HERO SECTION (Clean Commerce Banner & Deal of the Day)
+          1. HERO BENTO SECTION (Asymmetric Commerce Layout)
          ========================================== */}
-      <section className="pt-4 pb-4">
+      <section className="pt-4 pb-3">
         <Container>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
-            {/* Main Hero Banner (Dark SPS section - max 20%) */}
-            <div className="lg:col-span-8 bg-[#1A1D24] text-white rounded-xl p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden border border-gray-800">
-              <div className="space-y-3 max-w-lg z-10">
-                <div className="inline-block">
-                  <Badge variant="red" size="sm">
-                    {lang === 'ru' ? 'Прямо с завода' : 'Zavoddan to‘g‘ridan-to‘g‘ri'}
-                  </Badge>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-3.5 items-stretch">
+            
+            {/* Main Double-Bezel Hero Banner (8 cols) */}
+            <div className="lg:col-span-8 bg-[#161920] p-1.5 rounded-2xl border border-gray-800 shadow-sm flex flex-col justify-between relative overflow-hidden">
+              <div className="bg-[#1A1D24] rounded-xl p-6 sm:p-8 flex flex-col justify-between h-full relative overflow-hidden border border-white/5">
+                {/* Background Accent Mesh */}
+                <div className="absolute top-0 right-0 w-80 h-80 bg-brand-red/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div className="space-y-3.5 max-w-lg z-10">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-red/20 border border-brand-red/40 rounded-full text-brand-red text-[11px] font-bold tracking-wide uppercase">
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>{lang === 'ru' ? 'Прямо с завода SPS PLAST' : 'Zavoddan to‘g‘ridan-to‘g‘ri'}</span>
+                  </div>
+
+                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight text-white font-sans">
+                    {lang === 'ru'
+                      ? 'Пластиковые формы и термопанели высокого качества'
+                      : 'Bruschatka qoliplari va fasad termopanellari'}
+                  </h1>
+
+                  <p className="text-xs sm:text-sm text-gray-300 leading-relaxed font-normal">
+                    {lang === 'ru'
+                      ? 'Европейское сырье, выдержка более 300 заливок, прямые заводские цены без посредников.'
+                      : 'Yevropa xomashyosi, 300+ marotaba quyish kafolati va vositachilarsiz arzon factory narxlar.'}
+                  </p>
                 </div>
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight leading-tight text-white">
-                  {lang === 'ru'
-                    ? 'Пластиковые формы и термопанели SPS Plast'
-                    : 'SPS Plast plastik qoliplari va termopanellari'}
-                </h1>
-                <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
-                  {lang === 'ru'
-                    ? 'Качественные матрицы для брусчатки, фасадные панели и декоративные формы с гарантией качества.'
-                    : 'Bruschatka, fasad panellari va dekorativ buyumlar uchun yuqori sifatli qoliplar.'}
-                </p>
-              </div>
 
-              <div className="pt-6 z-10 flex flex-wrap items-center gap-3">
-                <Link
-                  href={`/${lang}/catalog`}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-red hover:bg-brand-red-dark text-white font-semibold text-xs sm:text-sm rounded-lg transition-colors shadow-xs"
-                >
-                  <span>{lang === 'ru' ? 'Перейти в каталог' : 'Katalogga o‘tish'}</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-                <Link
-                  href={`/${lang}/catalog/bruschatka-qoliplari`}
-                  className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-white/10 hover:bg-white/15 text-white font-medium text-xs sm:text-sm rounded-lg border border-white/20 transition-colors"
-                >
-                  <span>{lang === 'ru' ? 'Формы брусчатки' : 'Bruschatka qoliplari'}</span>
-                </Link>
-              </div>
-            </div>
-
-            {/* Right: Deal of the Day Card */}
-            <div className="lg:col-span-4 bg-white rounded-xl p-4 sm:p-5 flex flex-col border border-gray-200 shadow-xs">
-              <div className="flex items-center justify-between pb-3 mb-3 border-b border-gray-100">
-                <span className="text-xs font-bold uppercase tracking-wider text-gray-900">
-                  {lang === 'ru' ? 'Товар дня' : 'Kun mahsuloti'}
-                </span>
-                <span className="text-xs font-mono font-semibold bg-red-50 text-brand-red px-2 py-0.5 rounded border border-red-100">
-                  -40%
-                </span>
-              </div>
-
-              {dealOfTheDay && (
-                <div className="flex-1 flex flex-col justify-between">
+                {/* Hero Dual Action Buttons */}
+                <div className="pt-6 z-10 flex flex-wrap items-center gap-3">
                   <Link
-                    href={`/${lang}/product/${dealOfTheDay.slug}`}
-                    className="block relative aspect-square w-full bg-[#F8F9FA] rounded-lg border border-gray-100 overflow-hidden p-3 group mb-3"
+                    href={`/${lang}/catalog`}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-red hover:bg-brand-red-dark text-white font-bold text-xs sm:text-sm rounded-lg transition-all shadow-xs group"
                   >
-                    {dealOfTheDay.images?.[0]?.url && (
-                      <Image
-                        src={dealOfTheDay.images[0].url}
-                        alt={dealOfTheDay.titleUz}
-                        fill
-                        className="object-contain p-2 group-hover:scale-105 transition-transform duration-300"
-                      />
-                    )}
+                    <span>{lang === 'ru' ? 'Перейти в каталог' : 'Katalogga o‘tish'}</span>
+                    <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
+                      <ArrowRight className="w-3 h-3" />
+                    </div>
                   </Link>
 
-                  <div className="space-y-1">
-                    <Link
-                      href={`/${lang}/product/${dealOfTheDay.slug}`}
-                      className="text-xs sm:text-sm font-semibold text-gray-900 hover:text-brand-red line-clamp-2 leading-snug"
-                    >
-                      {lang === 'ru' ? dealOfTheDay.titleRu : dealOfTheDay.titleUz}
-                    </Link>
-                    <Price
-                      price={dealOfTheDay.price}
-                      oldPrice={dealOfTheDay.oldPrice}
-                      lang={lang}
-                      size="md"
-                    />
+                  <Link
+                    href={`/${lang}/catalog/bruschatka-qoliplari`}
+                    className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-white/10 hover:bg-white/15 text-white font-semibold text-xs sm:text-sm rounded-lg border border-white/15 transition-colors"
+                  >
+                    <span>{lang === 'ru' ? 'Формы брусчатки' : 'Bruschatka qoliplari'}</span>
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Deal of the Day Card (4 cols) */}
+            <div className="lg:col-span-4 bg-[#F8F9FA] p-1.5 rounded-2xl border border-gray-200 shadow-xs flex flex-col">
+              <div className="bg-white rounded-xl p-4 sm:p-5 flex flex-col justify-between h-full border border-gray-100">
+                
+                {/* Timer Header */}
+                <div className="flex items-center justify-between pb-3 mb-3 border-b border-gray-100">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-brand-red animate-pulse"></span>
+                    <span className="text-xs font-bold uppercase tracking-wider text-gray-900">
+                      {lang === 'ru' ? 'Товар дня' : 'Kun mahsuloti'}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-1 text-[11px] font-mono font-bold bg-red-50 text-brand-red px-2 py-0.5 rounded border border-red-100">
+                    <Clock className="w-3 h-3" />
+                    <span>23:59:59</span>
                   </div>
                 </div>
-              )}
+
+                {dealOfTheDay && (
+                  <div className="flex-1 flex flex-col justify-between gap-3">
+                    <Link
+                      href={`/${lang}/product/${dealOfTheDay.slug}`}
+                      className="block relative aspect-square w-full bg-[#F8F9FA] rounded-lg border border-gray-100 overflow-hidden p-3 group"
+                    >
+                      {dealOfTheDay.images?.[0]?.url && (
+                        <Image
+                          src={dealOfTheDay.images[0].url}
+                          alt={dealOfTheDay.titleUz}
+                          fill
+                          className="object-contain p-2 group-hover:scale-105 transition-transform duration-300"
+                        />
+                      )}
+                      <span className="absolute top-2 left-2 bg-brand-red text-white text-[10px] font-bold px-1.5 py-0.5 rounded shadow-xs">
+                        -40% OFF
+                      </span>
+                    </Link>
+
+                    <div className="space-y-1">
+                      <Link
+                        href={`/${lang}/product/${dealOfTheDay.slug}`}
+                        className="text-xs sm:text-sm font-semibold text-gray-900 hover:text-brand-red line-clamp-2 leading-snug"
+                      >
+                        {lang === 'ru' ? dealOfTheDay.titleRu : dealOfTheDay.titleUz}
+                      </Link>
+                      
+                      <Price
+                        price={dealOfTheDay.price}
+                        oldPrice={dealOfTheDay.oldPrice}
+                        lang={lang}
+                        size="md"
+                      />
+                    </div>
+                  </div>
+                )}
+
+              </div>
             </div>
+
           </div>
         </Container>
       </section>
 
       {/* ==========================================
-          2. COMMERCE FEATURES STRIP (Trust Factors)
+          2. TRUST FACTORS STRIP (Double-Bezel Cards)
          ========================================== */}
       <section className="py-2">
         <Container>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 bg-white border border-gray-200 rounded-xl p-3 sm:p-4 shadow-xs">
-            <div className="flex items-center gap-3 p-2">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
+            
+            <div className="bg-white border border-gray-200 rounded-xl p-3 sm:p-3.5 flex items-center gap-3 shadow-xs hover:border-gray-300 transition-colors">
               <div className="w-9 h-9 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center text-brand-red shrink-0">
                 <Truck className="w-4 h-4" />
               </div>
@@ -226,27 +255,27 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
                 <h4 className="text-xs font-bold text-gray-900">
                   {lang === 'ru' ? 'Доставка по Узбекистану' : 'O‘zbekiston bo‘ylab yetkazish'}
                 </h4>
-                <p className="text-[11px] text-gray-500">
-                  {lang === 'ru' ? 'Быстро и надежно' : 'Tez va xavfsiz yuk tashish'}
+                <p className="text-[10px] text-gray-500 font-medium">
+                  {lang === 'ru' ? 'Быстро va ishonchli' : 'Pochta va kuryer orqali'}
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 p-2">
+            <div className="bg-white border border-gray-200 rounded-xl p-3 sm:p-3.5 flex items-center gap-3 shadow-xs hover:border-gray-300 transition-colors">
               <div className="w-9 h-9 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center text-brand-red shrink-0">
                 <ShieldCheck className="w-4 h-4" />
               </div>
               <div>
                 <h4 className="text-xs font-bold text-gray-900">
-                  {lang === 'ru' ? 'Гарантия качества' : 'Sifat kafolati'}
+                  {lang === 'ru' ? 'Гарантия качества 300+' : 'Sifat kafolati 300+'}
                 </h4>
-                <p className="text-[11px] text-gray-500">
-                  {lang === 'ru' ? 'Пластик высшего сорта' : 'Oliy navli plastmassa'}
+                <p className="text-[10px] text-gray-500 font-medium">
+                  {lang === 'ru' ? 'Официальный стандарт' : 'Oliy navli plastmassa'}
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 p-2">
+            <div className="bg-white border border-gray-200 rounded-xl p-3 sm:p-3.5 flex items-center gap-3 shadow-xs hover:border-gray-300 transition-colors">
               <div className="w-9 h-9 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center text-brand-red shrink-0">
                 <PackageCheck className="w-4 h-4" />
               </div>
@@ -254,25 +283,26 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
                 <h4 className="text-xs font-bold text-gray-900">
                   {lang === 'ru' ? 'Прямой производитель' : 'To‘g‘ridan-to‘g‘ri ishlab chiqaruvchi'}
                 </h4>
-                <p className="text-[11px] text-gray-500">
-                  {lang === 'ru' ? 'Без посредников' : 'Vositachilarsiz arzon narx'}
+                <p className="text-[10px] text-gray-500 font-medium">
+                  {lang === 'ru' ? 'Без посредников' : 'Vositachilarsiz hamyonbop'}
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 p-2">
+            <div className="bg-white border border-gray-200 rounded-xl p-3 sm:p-3.5 flex items-center gap-3 shadow-xs hover:border-gray-300 transition-colors">
               <div className="w-9 h-9 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center text-brand-red shrink-0">
                 <Headphones className="w-4 h-4" />
               </div>
               <div>
                 <h4 className="text-xs font-bold text-gray-900">
-                  {lang === 'ru' ? 'Консультация и поддержка' : 'Maslahat va qo‘llab-quvvatlash'}
+                  {lang === 'ru' ? 'Поддержка и консультация' : 'Mutaxassis maslahati'}
                 </h4>
-                <p className="text-[11px] text-gray-500">
-                  {lang === 'ru' ? 'Помощь в выборе' : 'Mutaxassis maslahati'}
+                <p className="text-[10px] text-gray-500 font-medium">
+                  {lang === 'ru' ? 'Помощь в выборе' : 'Bepul professional maslahat'}
                 </p>
               </div>
             </div>
+
           </div>
         </Container>
       </section>
@@ -280,7 +310,7 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
       {/* ==========================================
           3. CATEGORIES GRID
          ========================================== */}
-      <section className="py-6">
+      <section className="py-5">
         <Container>
           <SectionHeader
             title={lang === 'ru' ? 'Категории товаров' : 'Mahsulot kategoriyalari'}
@@ -299,7 +329,7 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
       {/* ==========================================
           4. BESTSELLERS PRODUCT GRID
          ========================================== */}
-      <section className="py-4">
+      <section className="py-3">
         <Container>
           <SectionHeader
             title={lang === 'ru' ? 'Популярные товары' : 'Ommabop mahsulotlar'}
@@ -319,7 +349,7 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
           5. CATEGORY ROWS (Dense Commerce Layout)
          ========================================== */}
       {/* Row 1: Bruschatka qoliplari */}
-      <section className="py-4">
+      <section className="py-3">
         <Container>
           <SectionHeader
             title={lang === 'ru' ? 'Формы для брусчатки' : 'Bruschatka qoliplari'}
@@ -335,7 +365,7 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
       </section>
 
       {/* Row 2: Termopanellar */}
-      <section className="py-4">
+      <section className="py-3">
         <Container>
           <SectionHeader
             title={lang === 'ru' ? 'Термопанели' : 'Termopanellar'}
@@ -351,7 +381,7 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
       </section>
 
       {/* Row 3: 3D Panellar */}
-      <section className="py-4">
+      <section className="py-3">
         <Container>
           <SectionHeader
             title={lang === 'ru' ? '3D Панели' : '3D Panellar'}
@@ -367,7 +397,7 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
       </section>
 
       {/* Row 4: Dekorativ G'ishtlar */}
-      <section className="py-4">
+      <section className="py-3">
         <Container>
           <SectionHeader
             title={lang === 'ru' ? 'Декоративный кирпич' : 'Dekorativ G\'ishtlar'}
@@ -406,7 +436,7 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
       {/* ==========================================
           7. FAQ SECTION
          ========================================== */}
-      <section className="py-6">
+      <section className="py-5">
         <Container>
           <div className="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 shadow-xs">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -415,10 +445,10 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
                 <h2 className="text-lg font-bold text-gray-900">
                   SPS PLAST — SIFATLI QOLIPLAR VA TERMOPANELLAR
                 </h2>
-                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed font-normal">
                   SPS Plast O‘zbekistondagi yetakchi plastmassa matritsalar hamda fasad termopanellarini ishlab chiqaruvchi zavod hisoblanadi. Mahsulotlarimiz yuqori bosimli vakuum-formovka va zamonaviy uskunalar yordamida tayyorlanadi.
                 </p>
-                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed font-normal">
                   Bruschatka, bordyur, dekorativ plitkalar hamda fasad tizimlari uchun arzon va sifatli qoliplarni onlayn buyurtma qilishingiz mumkin.
                 </p>
                 <div className="pt-2 flex flex-wrap gap-2 text-xs font-semibold text-brand-red">
