@@ -136,7 +136,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
     const hasPhone = Boolean(COMPANY_CONTACTS.phoneDisplay && COMPANY_CONTACTS.phoneRaw);
 
     return (
-        <header className="sticky top-0 z-50 w-full bg-white text-gray-900 border-b border-gray-200 shadow-xs">
+        <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md text-gray-900 border-b border-gray-200/80 shadow-xs">
             {/* 1. TOP UTILITY STRIP */}
             <div className="bg-[#1A1D24] text-gray-300 py-1 px-4 sm:px-6 lg:px-8 text-xs border-b border-gray-800">
                 <div className="max-w-[1440px] mx-auto flex items-center justify-between">
