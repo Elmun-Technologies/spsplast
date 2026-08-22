@@ -7,25 +7,18 @@ import { getProductsServer } from '@/lib/services/productService';
 import { ProductCard } from '@/components/product/ProductCard';
 import { CategoryCard } from '@/components/product/CategoryCard';
 import { MoldResultShowcase } from '@/components/product/MoldResultShowcase';
+import { Container } from '@/components/ui/Container';
+import { SectionHeader } from '@/components/ui/SectionHeader';
+import { Badge } from '@/components/ui/Badge';
+import { Price } from '@/components/ui/Price';
 import {
   ArrowRight,
-  PhoneCall,
-  Factory,
   ChevronDown,
-  ArrowUpRight,
-  Truck,
-  MapPin,
-  PackageCheck,
   ShieldCheck,
-  Tag,
-  Award,
-  Sparkles,
-  Percent,
-  Clock,
-  ChevronRight,
-  ChevronLeft,
+  Truck,
+  PackageCheck,
+  Headphones,
 } from 'lucide-react';
-import { formatPrice } from '@/lib/utils';
 
 interface HomePageProps {
   params: { lang: Locale };
@@ -126,389 +119,356 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
   const dealOfTheDay = bestsellers[0] || allProducts[0];
 
   return (
-    <div className="bg-[#F8F9FA] text-[#111111] min-h-screen pb-20">
+    <div className="bg-[#F8F9FA] text-gray-900 min-h-screen pb-12">
+
       {/* ==========================================
-          1. NEW COMMERCE HERO (Santehnika Online Style)
-          Desktop height: ~420–520px. 
-          Structure: LEFT Banner (8 cols), RIGHT Products of the day (4 cols)
+          1. HERO SECTION (Clean Commerce Banner & Deal of the Day)
          ========================================== */}
-      <section className="pt-6 lg:pt-8 pb-6">
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch min-h-[380px] lg:min-h-[400px]">
-
-            {/* LEFT HERO (8 cols): Main Promotional Banner */}
-            <div className="lg:col-span-8 bg-[#2A313C] rounded-3xl p-8 sm:p-12 relative overflow-hidden flex flex-col justify-center text-white shadow-card">
-              {/* Decorative Background Elements */}
-              <div className="absolute inset-0 opacity-20 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 100% 100%, #ffffff 0%, transparent 50%)' }}></div>
-              <div className="relative z-10 space-y-5 max-w-xl">
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-semibold rounded-full shadow-sm">
-                  <span>Скидки до 60%</span>
+      <section className="pt-4 pb-4">
+        <Container>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
+            {/* Main Hero Banner (Dark SPS section - max 20%) */}
+            <div className="lg:col-span-8 bg-[#1A1D24] text-white rounded-xl p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden border border-gray-800">
+              <div className="space-y-3 max-w-lg z-10">
+                <div className="inline-block">
+                  <Badge variant="red" size="sm">
+                    {lang === 'ru' ? 'Прямо с завода' : 'Zavoddan to‘g‘ridan-to‘g‘ri'}
+                  </Badge>
                 </div>
-
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight leading-tight text-white">
                   {lang === 'ru'
-                    ? 'Созданы для ежедневного наслаждения'
-                    : 'Har kunlik qulaylik uchun yaratilgan'}
+                    ? 'Пластиковые формы и термопанели SPS Plast'
+                    : 'SPS Plast plastik qoliplari va termopanellari'}
                 </h1>
-
-                <p className="text-sm sm:text-base text-neutral-300 max-w-md leading-relaxed">
+                <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
                   {lang === 'ru'
-                    ? 'Формы для брусчатки и термопанели напрямую от производителя. Качество гарантировано.'
-                    : 'Bruschatka qoliplari va termopanellar. Kafolatlangan sifat.'}
+                    ? 'Качественные матрицы для брусчатки, фасадные панели и декоративные формы с гарантией качества.'
+                    : 'Bruschatka, fasad panellari va dekorativ buyumlar uchun yuqori sifatli qoliplar.'}
                 </p>
+              </div>
 
-                <div className="pt-4">
-                  <Link
-                    href={`/${lang}/catalog`}
-                    className="inline-flex px-8 py-3.5 bg-white hover:bg-neutral-100 text-[#111111] font-semibold text-sm rounded-xl transition-all shadow-soft items-center gap-2"
-                  >
-                    <span>{lang === 'ru' ? 'К товарам' : 'Mahsulotlarga'}</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
+              <div className="pt-6 z-10 flex flex-wrap items-center gap-3">
+                <Link
+                  href={`/${lang}/catalog`}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-red hover:bg-brand-red-dark text-white font-semibold text-xs sm:text-sm rounded-lg transition-colors shadow-xs"
+                >
+                  <span>{lang === 'ru' ? 'Перейти в каталог' : 'Katalogga o‘tish'}</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  href={`/${lang}/catalog/bruschatka-qoliplari`}
+                  className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-white/10 hover:bg-white/15 text-white font-medium text-xs sm:text-sm rounded-lg border border-white/20 transition-colors"
+                >
+                  <span>{lang === 'ru' ? 'Формы брусчатки' : 'Bruschatka qoliplari'}</span>
+                </Link>
               </div>
             </div>
 
-            {/* RIGHT HERO (4 cols): "Товары дня" (Products of the day) */}
-            <div className="lg:col-span-4 bg-white rounded-3xl p-6 sm:p-8 flex flex-col border border-neutral-100 shadow-soft relative overflow-hidden">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-bold text-[#111111]">
-                  {lang === 'ru' ? 'Товары дня' : 'Kun mahsulotlari'}
-                </h2>
-                <div className="text-sm font-semibold bg-[#F4F5F7] px-3 py-1.5 rounded-lg text-brand-red">
-                  08 : 30 : 31
-                </div>
+            {/* Right: Deal of the Day Card */}
+            <div className="lg:col-span-4 bg-white rounded-xl p-4 sm:p-5 flex flex-col border border-gray-200 shadow-xs">
+              <div className="flex items-center justify-between pb-3 mb-3 border-b border-gray-100">
+                <span className="text-xs font-bold uppercase tracking-wider text-gray-900">
+                  {lang === 'ru' ? 'Товар дня' : 'Kun mahsuloti'}
+                </span>
+                <span className="text-xs font-mono font-semibold bg-red-50 text-brand-red px-2 py-0.5 rounded border border-red-100">
+                  -40%
+                </span>
               </div>
 
-              {bestsellers[0] && (
-                <div className="flex-1 flex flex-col">
-                  <div className="flex items-start justify-between mb-4">
-                    <div>
-                      <div className="bg-[#FF3B30] text-white text-xs font-bold px-2 py-0.5 rounded-full inline-block mb-2">
-                        -40%
-                      </div>
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-2xl font-bold text-[#111111]">{formatPrice(bestsellers[0].price, lang)}</span>
-                      </div>
-                      {bestsellers[0].oldPrice && (
-                        <span className="text-sm text-[#98A2B3] line-through block mt-1">{formatPrice(bestsellers[0].oldPrice, lang)}</span>
-                      )}
-                    </div>
-                  </div>
-                  <Link href={`/${lang}/product/${bestsellers[0].slug}`} className="text-sm text-[#333333] hover:text-brand-blue line-clamp-2 mb-4 font-medium">
-                    {lang === 'ru' ? bestsellers[0].titleRu : bestsellers[0].titleUz}
-                  </Link>
-                  <div className="relative flex-1 bg-[#F9FAFB] rounded-2xl flex items-center justify-center p-4 min-h-[160px] group">
-                    {bestsellers[0].images?.[0]?.url && (
+              {dealOfTheDay && (
+                <div className="flex-1 flex flex-col justify-between">
+                  <Link
+                    href={`/${lang}/product/${dealOfTheDay.slug}`}
+                    className="block relative aspect-square w-full bg-[#F8F9FA] rounded-lg border border-gray-100 overflow-hidden p-3 group mb-3"
+                  >
+                    {dealOfTheDay.images?.[0]?.url && (
                       <Image
-                        src={bestsellers[0].images[0].url}
-                        alt="Product"
+                        src={dealOfTheDay.images[0].url}
+                        alt={dealOfTheDay.titleUz}
                         fill
-                        className="object-contain p-4 group-hover:scale-105 transition-transform"
+                        className="object-contain p-2 group-hover:scale-105 transition-transform duration-300"
                       />
                     )}
+                  </Link>
+
+                  <div className="space-y-1">
+                    <Link
+                      href={`/${lang}/product/${dealOfTheDay.slug}`}
+                      className="text-xs sm:text-sm font-semibold text-gray-900 hover:text-brand-red line-clamp-2 leading-snug"
+                    >
+                      {lang === 'ru' ? dealOfTheDay.titleRu : dealOfTheDay.titleUz}
+                    </Link>
+                    <Price
+                      price={dealOfTheDay.price}
+                      oldPrice={dealOfTheDay.oldPrice}
+                      lang={lang}
+                      size="md"
+                    />
                   </div>
                 </div>
               )}
             </div>
-
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* ==========================================
-          2. QUICK CATEGORY NAVIGATION
-          Immediately under hero. 
+          2. COMMERCE FEATURES STRIP (Trust Factors)
          ========================================== */}
-      <section className="py-6 px-4 sm:px-8 max-w-[1440px] mx-auto">
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-          {categories.slice(0, 6).map((cat) => (
-            <CategoryCard key={cat.id} category={cat} lang={lang} />
-          ))}
-          <Link
-            href={`/${lang}/catalog`}
-            className="group relative bg-[#F9FAFB] hover:bg-[#F3F4F6] transition-all duration-300 rounded-3xl p-4 sm:p-5 flex flex-col justify-center items-center border border-neutral-100 hover:border-neutral-200 shadow-sm hover:shadow-md overflow-hidden min-h-[160px]"
-          >
-            <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-brand-blue shadow-sm mb-3 group-hover:scale-110 transition-transform">
-              <ArrowRight className="w-5 h-5" />
+      <section className="py-2">
+        <Container>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 bg-white border border-gray-200 rounded-xl p-3 sm:p-4 shadow-xs">
+            <div className="flex items-center gap-3 p-2">
+              <div className="w-9 h-9 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center text-brand-red shrink-0">
+                <Truck className="w-4 h-4" />
+              </div>
+              <div>
+                <h4 className="text-xs font-bold text-gray-900">
+                  {lang === 'ru' ? 'Доставка по Узбекистану' : 'O‘zbekiston bo‘ylab yetkazish'}
+                </h4>
+                <p className="text-[11px] text-gray-500">
+                  {lang === 'ru' ? 'Быстро и надежно' : 'Tez va xavfsiz yuk tashish'}
+                </p>
+              </div>
             </div>
-            <span className="font-semibold text-sm text-[#333333] group-hover:text-brand-blue">
-              {lang === 'ru' ? 'Смотреть все' : 'Barchasini ko‘rish'}
-            </span>
-          </Link>
-        </div>
-      </section>
 
-      {/* ==========================================
-          PROMO BANNER
-         ========================================== */}
-      <section className="py-8 px-4 sm:px-8 max-w-[1440px] mx-auto">
-        <div className="bg-[#386532] rounded-3xl overflow-hidden relative min-h-[220px] flex items-center p-8 shadow-card">
-          <div className="absolute inset-0 opacity-40 bg-[url('/noise.png')] mix-blend-overlay"></div>
-          <div className="relative z-10 max-w-lg text-white space-y-4">
-            <h2 className="text-4xl font-black leading-tight">
-              {lang === 'ru' ? 'Созрели для ремонта?' : 'Ta\'mirga tayyormisiz?'}
-            </h2>
-            <div className="inline-block bg-[#F4E3BA] text-[#4A3219] font-black text-xl px-4 py-2 transform -rotate-2 border-2 border-dashed border-[#4A3219] shadow-sm">
-              Скидки до 70%
+            <div className="flex items-center gap-3 p-2">
+              <div className="w-9 h-9 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center text-brand-red shrink-0">
+                <ShieldCheck className="w-4 h-4" />
+              </div>
+              <div>
+                <h4 className="text-xs font-bold text-gray-900">
+                  {lang === 'ru' ? 'Гарантия качества' : 'Sifat kafolati'}
+                </h4>
+                <p className="text-[11px] text-gray-500">
+                  {lang === 'ru' ? 'Пластик высшего сорта' : 'Oliy navli plastmassa'}
+                </p>
+              </div>
             </div>
-            <div className="pt-2">
-              <Link href={`/${lang}/catalog`} className="inline-block bg-[#E5F5A4] hover:bg-[#D5E594] text-[#111111] font-bold px-6 py-3 rounded-xl transition-colors shadow-sm">
-                Смотреть подборку
-              </Link>
+
+            <div className="flex items-center gap-3 p-2">
+              <div className="w-9 h-9 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center text-brand-red shrink-0">
+                <PackageCheck className="w-4 h-4" />
+              </div>
+              <div>
+                <h4 className="text-xs font-bold text-gray-900">
+                  {lang === 'ru' ? 'Прямой производитель' : 'To‘g‘ridan-to‘g‘ri ishlab chiqaruvchi'}
+                </h4>
+                <p className="text-[11px] text-gray-500">
+                  {lang === 'ru' ? 'Без посредников' : 'Vositachilarsiz arzon narx'}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 p-2">
+              <div className="w-9 h-9 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center text-brand-red shrink-0">
+                <Headphones className="w-4 h-4" />
+              </div>
+              <div>
+                <h4 className="text-xs font-bold text-gray-900">
+                  {lang === 'ru' ? 'Консультация и поддержка' : 'Maslahat va qo‘llab-quvvatlash'}
+                </h4>
+                <p className="text-[11px] text-gray-500">
+                  {lang === 'ru' ? 'Помощь в выборе' : 'Mutaxassis maslahati'}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* ==========================================
-          3. PRODUCT SECTION STARTS EARLY: BESTSELLERS
+          3. CATEGORIES GRID
          ========================================== */}
-      <section className="py-8 px-4 sm:px-8 max-w-[1440px] mx-auto">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#111111]">
-            {lang === 'ru' ? 'Популярные товары' : 'Ommabop mahsulotlar'}
-          </h2>
-          <Link
-            href={`/${lang}/catalog`}
-            className="text-sm font-semibold text-brand-blue hover:underline flex items-center gap-1"
-          >
-            <span>{lang === 'ru' ? 'Все товары' : 'Barcha mahsulotlar'}</span>
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {bestsellers.map((product) => (
-            <ProductCard key={product.id} product={product} lang={lang} />
-          ))}
-        </div>
+      <section className="py-6">
+        <Container>
+          <SectionHeader
+            title={lang === 'ru' ? 'Категории товаров' : 'Mahsulot kategoriyalari'}
+            subtitle={lang === 'ru' ? 'Выберите нужный раздел каталога' : 'Kerakli bo‘limni tanlang'}
+            linkText={lang === 'ru' ? 'Все категории' : 'Barcha kategoriyalar'}
+            linkHref={`/${lang}/catalog`}
+          />
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+            {categories.slice(0, 6).map((cat) => (
+              <CategoryCard key={cat.id} category={cat} lang={lang} />
+            ))}
+          </div>
+        </Container>
       </section>
 
       {/* ==========================================
-          4. CATEGORY PRODUCT ROWS
+          4. BESTSELLERS PRODUCT GRID
+         ========================================== */}
+      <section className="py-4">
+        <Container>
+          <SectionHeader
+            title={lang === 'ru' ? 'Популярные товары' : 'Ommabop mahsulotlar'}
+            subtitle={lang === 'ru' ? 'Самые покупаемые позиции' : 'Eng ko‘p sotiladigan qoliplar'}
+            linkText={lang === 'ru' ? 'Смотреть все' : 'Barchasini ko‘rish'}
+            linkHref={`/${lang}/catalog`}
+          />
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5">
+            {bestsellers.map((product) => (
+              <ProductCard key={product.id} product={product} lang={lang} />
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* ==========================================
+          5. CATEGORY ROWS (Dense Commerce Layout)
          ========================================== */}
       {/* Row 1: Bruschatka qoliplari */}
-      <section className="py-10 px-4 sm:px-8 max-w-[1440px] mx-auto">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#111111]">
-            {lang === 'ru' ? 'Формы для брусчатки' : 'Bruschatka qoliplari'}
-          </h2>
-          <Link
-            href={`/${lang}/catalog/bruschatka-qoliplari`}
-            className="text-sm font-semibold text-brand-blue hover:underline flex items-center gap-1"
-          >
-            <span>{lang === 'ru' ? 'Смотреть все' : 'Barchasini ko‘rish'}</span>
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {block1Products.map((product) => (
-            <ProductCard key={product.id} product={product} lang={lang} />
-          ))}
-        </div>
+      <section className="py-4">
+        <Container>
+          <SectionHeader
+            title={lang === 'ru' ? 'Формы для брусчатки' : 'Bruschatka qoliplari'}
+            linkText={lang === 'ru' ? 'Все брусчатки' : 'Barcha qoliplar'}
+            linkHref={`/${lang}/catalog/bruschatka-qoliplari`}
+          />
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5">
+            {block1Products.map((product) => (
+              <ProductCard key={product.id} product={product} lang={lang} />
+            ))}
+          </div>
+        </Container>
       </section>
 
       {/* Row 2: Termopanellar */}
-      <section className="py-10 px-4 sm:px-8 max-w-[1440px] mx-auto">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#111111]">
-            {lang === 'ru' ? 'Термопанели' : 'Termopanellar'}
-          </h2>
-          <Link
-            href={`/${lang}/catalog/termopanel`}
-            className="text-sm font-semibold text-brand-blue hover:underline flex items-center gap-1"
-          >
-            <span>{lang === 'ru' ? 'Смотреть все' : 'Barchasini ko‘rish'}</span>
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {block2Products.map((product) => (
-            <ProductCard key={product.id} product={product} lang={lang} />
-          ))}
-        </div>
+      <section className="py-4">
+        <Container>
+          <SectionHeader
+            title={lang === 'ru' ? 'Термопанели' : 'Termopanellar'}
+            linkText={lang === 'ru' ? 'Все термопанели' : 'Barcha panellar'}
+            linkHref={`/${lang}/catalog/termopanel`}
+          />
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5">
+            {block2Products.map((product) => (
+              <ProductCard key={product.id} product={product} lang={lang} />
+            ))}
+          </div>
+        </Container>
       </section>
 
       {/* Row 3: 3D Panellar */}
-      <section className="py-10 px-4 sm:px-8 max-w-[1440px] mx-auto">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#111111]">
-            {lang === 'ru' ? '3D Панели' : '3D Panellar'}
-          </h2>
-          <Link
-            href={`/${lang}/catalog/3d-panellar`}
-            className="text-sm font-semibold text-brand-blue hover:underline flex items-center gap-1"
-          >
-            <span>{lang === 'ru' ? 'Смотреть все' : 'Barchasini ko‘rish'}</span>
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {block3Products.map((product) => (
-            <ProductCard key={product.id} product={product} lang={lang} />
-          ))}
-        </div>
+      <section className="py-4">
+        <Container>
+          <SectionHeader
+            title={lang === 'ru' ? '3D Панели' : '3D Panellar'}
+            linkText={lang === 'ru' ? 'Все 3D панели' : 'Barcha 3D panellar'}
+            linkHref={`/${lang}/catalog/3d-panellar`}
+          />
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5">
+            {block3Products.map((product) => (
+              <ProductCard key={product.id} product={product} lang={lang} />
+            ))}
+          </div>
+        </Container>
       </section>
 
       {/* Row 4: Dekorativ G'ishtlar */}
-      <section className="py-10 px-4 sm:px-8 max-w-[1440px] mx-auto bg-white rounded-[40px] shadow-sm my-8">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#111111]">
-            {lang === 'ru' ? 'Декоративный кирпич' : 'Dekorativ G\'ishtlar'}
-          </h2>
-          <Link
-            href={`/${lang}/catalog/dekorativ-gishtlar`}
-            className="text-sm font-semibold text-brand-blue hover:underline flex items-center gap-1"
-          >
-            <span>{lang === 'ru' ? 'Смотреть все' : 'Barchasini ko‘rish'}</span>
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {block4Products.map((product) => (
-            <ProductCard key={product.id} product={product} lang={lang} />
-          ))}
-        </div>
+      <section className="py-4">
+        <Container>
+          <SectionHeader
+            title={lang === 'ru' ? 'Декоративный кирпич' : 'Dekorativ G\'ishtlar'}
+            linkText={lang === 'ru' ? 'Весь декор' : 'Barcha dekorlar'}
+            linkHref={`/${lang}/catalog/dekorativ-gishtlar`}
+          />
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5">
+            {block4Products.map((product) => (
+              <ProductCard key={product.id} product={product} lang={lang} />
+            ))}
+          </div>
+        </Container>
       </section>
 
       {/* ==========================================
-          6. MOLD → FINISHED RESULT SHOWCASE (Interactive comparison)
+          6. MOLD → FINISHED RESULT SHOWCASE
          ========================================== */}
       {featuredMold && (
-        <section className="max-w-[1440px] mx-auto px-4 sm:px-8 py-6">
-          <MoldResultShowcase
-            moldImage={featuredMold.moldImage || featuredMold.images?.[0]?.url || ''}
-            resultImage={featuredMold.resultImage || featuredMold.images?.[0]?.url || ''}
-            moldTitle={featuredMold.titleUz}
-            resultTitle={
-              lang === 'ru' ? 'Готовая брусчатка после заливки' : 'Tayyor quyilgan bruschatka'
-            }
-            productSlug={featuredMold.slug}
-            productPrice={featuredMold.price}
-            lang={lang}
-          />
+        <section className="py-4">
+          <Container>
+            <MoldResultShowcase
+              moldImage={featuredMold.moldImage || featuredMold.images?.[0]?.url || ''}
+              resultImage={featuredMold.resultImage || featuredMold.images?.[0]?.url || ''}
+              moldTitle={featuredMold.titleUz}
+              resultTitle={
+                lang === 'ru' ? 'Готовая брусчатка после заливки' : 'Tayyor quyilgan bruschatka'
+              }
+              productSlug={featuredMold.slug}
+              productPrice={featuredMold.price}
+              lang={lang}
+            />
+          </Container>
         </section>
       )}
 
       {/* ==========================================
-          8. SERVICES & USEFUL CARDS
+          7. FAQ SECTION
          ========================================== */}
-      <section className="py-10 px-4 sm:px-8 max-w-[1440px] mx-auto">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <section className="py-6">
+        <Container>
+          <div className="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 shadow-xs">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+              {/* SEO Content */}
+              <div className="lg:col-span-6 space-y-3">
+                <h2 className="text-lg font-bold text-gray-900">
+                  SPS PLAST — SIFATLI QOLIPLAR VA TERMOPANELLAR
+                </h2>
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                  SPS Plast O‘zbekistondagi yetakchi plastmassa matritsalar hamda fasad termopanellarini ishlab chiqaruvchi zavod hisoblanadi. Mahsulotlarimiz yuqori bosimli vakuum-formovka va zamonaviy uskunalar yordamida tayyorlanadi.
+                </p>
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                  Bruschatka, bordyur, dekorativ plitkalar hamda fasad tizimlari uchun arzon va sifatli qoliplarni onlayn buyurtma qilishingiz mumkin.
+                </p>
+                <div className="pt-2 flex flex-wrap gap-2 text-xs font-semibold text-brand-red">
+                  <Link href={`/${lang}/catalog`} className="hover:underline bg-gray-50 px-2.5 py-1 rounded border border-gray-200">#Qoliplar</Link>
+                  <Link href={`/${lang}/catalog/bruschatka-qoliplari`} className="hover:underline bg-gray-50 px-2.5 py-1 rounded border border-gray-200">#Bruschatka</Link>
+                  <Link href={`/${lang}/catalog/termopanel`} className="hover:underline bg-gray-50 px-2.5 py-1 rounded border border-gray-200">#Termopanel</Link>
+                </div>
+              </div>
 
-          <div className="bg-[#F3F4F8] rounded-3xl p-6 flex flex-col justify-between min-h-[220px] relative overflow-hidden group hover:shadow-md transition-all duration-300 border border-neutral-200/60">
-            <div>
-              <h3 className="font-extrabold text-xl text-[#111111] tracking-tight">Qo‘llanma va Jurnal</h3>
-              <p className="text-xs text-[#667085] mt-2 leading-relaxed">
-                Bruschatka quyish va fasad montaji sirlarini o‘rganing.
-              </p>
-            </div>
-            <div className="w-10 h-10 rounded-full bg-white border border-neutral-200/80 flex items-center justify-center text-neutral-700 group-hover:bg-brand-red group-hover:text-white transition-all shadow-xs shrink-0 mt-6">
-              <ArrowUpRight className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              {/* Accordion FAQ */}
+              <div className="lg:col-span-6 space-y-2.5">
+                <h3 className="text-base font-bold text-gray-900 mb-3">
+                  {lang === 'ru' ? 'Часто задаваемые вопросы' : 'Ko‘p beriladigan savollar'}
+                </h3>
+
+                <details className="group bg-[#F8F9FA] border border-gray-200 p-3.5 rounded-lg cursor-pointer">
+                  <summary className="flex items-center justify-between font-semibold text-xs sm:text-sm text-gray-900 list-none">
+                    <span>Qoliplarning xizmat ko‘rsatish resursi qancha?</span>
+                    <ChevronDown className="w-4 h-4 text-gray-400 group-open:rotate-180 transition-transform" />
+                  </summary>
+                  <p className="text-xs text-gray-600 mt-2 pt-2 border-t border-gray-200/60 leading-relaxed">
+                    ABS va polipropilen materialdan tayyorlangan qoliplarimiz to‘g‘ri ishlatilganda 300 marotabadan ortiq quyish resursiga ega.
+                  </p>
+                </details>
+
+                <details className="group bg-[#F8F9FA] border border-gray-200 p-3.5 rounded-lg cursor-pointer">
+                  <summary className="flex items-center justify-between font-semibold text-xs sm:text-sm text-gray-900 list-none">
+                    <span>Viloyatlarga yetkazib berish shartlari qanday?</span>
+                    <ChevronDown className="w-4 h-4 text-gray-400 group-open:rotate-180 transition-transform" />
+                  </summary>
+                  <p className="text-xs text-gray-600 mt-2 pt-2 border-t border-gray-200/60 leading-relaxed">
+                    Respublikaning barcha viloyatlariga pochta yoki yuk tashish xizmatlari orqali tezkor va xavfsiz yetkazib beramiz.
+                  </p>
+                </details>
+
+                <details className="group bg-[#F8F9FA] border border-gray-200 p-3.5 rounded-lg cursor-pointer">
+                  <summary className="flex items-center justify-between font-semibold text-xs sm:text-sm text-gray-900 list-none">
+                    <span>Ulgurji xaridorlar uchun chegirmalar bormi?</span>
+                    <ChevronDown className="w-4 h-4 text-gray-400 group-open:rotate-180 transition-transform" />
+                  </summary>
+                  <p className="text-xs text-gray-600 mt-2 pt-2 border-t border-gray-200/60 leading-relaxed">
+                    Ha, 100 donadan ortiq buyurtmalar uchun dilerlik va ulgurji narxlar amal qiladi.
+                  </p>
+                </details>
+              </div>
             </div>
           </div>
-
-          <div className="bg-[#F3F4F8] rounded-3xl p-6 flex flex-col justify-between min-h-[220px] relative overflow-hidden group hover:shadow-md transition-all duration-300 border border-neutral-200/60">
-            <div>
-              <h3 className="font-extrabold text-xl text-[#111111] tracking-tight">Zavod va Ombormiz</h3>
-              <p className="text-xs text-[#667085] mt-2 leading-relaxed">
-                Toshkent shahridagi bosh ombor va ishlab chiqarish sexlarimiz.
-              </p>
-            </div>
-            <div className="w-10 h-10 rounded-full bg-white border border-neutral-200/80 flex items-center justify-center text-neutral-700 group-hover:bg-brand-red group-hover:text-white transition-all shadow-xs shrink-0 mt-6">
-              <ArrowUpRight className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </div>
-          </div>
-
-          <div className="bg-[#F3F4F8] rounded-3xl p-6 flex flex-col justify-between min-h-[220px] relative overflow-hidden group hover:shadow-md transition-all duration-300 border border-neutral-200/60">
-            <div>
-              <h3 className="font-extrabold text-xl text-[#111111] tracking-tight">O‘rnatish va Texnologiya</h3>
-              <p className="text-xs text-[#667085] mt-2 leading-relaxed">
-                Tajribali ustalarimiz quyish texnologiyasini o‘rgatishadi.
-              </p>
-            </div>
-            <div className="w-10 h-10 rounded-full bg-white border border-neutral-200/80 flex items-center justify-center text-neutral-700 group-hover:bg-brand-red group-hover:text-white transition-all shadow-xs shrink-0 mt-6">
-              <ArrowUpRight className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </div>
-          </div>
-
-          <div className="bg-[#F3F4F8] rounded-3xl p-6 flex flex-col justify-between min-h-[220px] relative overflow-hidden group hover:shadow-md transition-all duration-300 border border-neutral-200/60">
-            <div>
-              <h3 className="font-extrabold text-xl text-[#111111] tracking-tight">Arzon yetkazib berish</h3>
-              <p className="text-xs text-[#667085] mt-2 leading-relaxed">
-                Viloyatlarga qulay va tezkor yuk tashish xizmatlari.
-              </p>
-            </div>
-            <div className="w-10 h-10 rounded-full bg-white border border-neutral-200/80 flex items-center justify-center text-neutral-700 group-hover:bg-brand-red group-hover:text-white transition-all shadow-xs shrink-0 mt-6">
-              <ArrowUpRight className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </div>
-          </div>
-
-        </div>
+        </Container>
       </section>
 
-      {/* ==========================================
-          9. FAQ + SEO SECTION (Cleaned up)
-         ========================================== */}
-      <section className="py-12 px-4 sm:px-8 max-w-[1440px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-          {/* SEO Paragraphs & Useful Internal Links */}
-          <div className="lg:col-span-6 space-y-4 text-[#111111]">
-            <h2 className="text-2xl font-bold font-sans">
-              SPS PLAST — SIFATLI QOLIPLAR VA TERMOPANELLAR
-            </h2>
-            <p className="text-sm text-[#667085] leading-relaxed">
-              SPS Plast O‘zbekistondagi yetakchi plastmassa matritsalar hamda fasad termopanellarini ishlab chiqaruvchi zavod hisoblanadi. Mahsulotlarimiz yuqori bosimli vakuum-formovka va zamonaviy uskunalar yordamida tayyorlanadi.
-            </p>
-            <p className="text-sm text-[#667085] leading-relaxed">
-              Bruschatka, bordyur, dekorativ plitkalar hamda fasad tizimlari uchun arzon va sifatli qoliplarni onlayn buyurtma qilishingiz mumkin. O‘zbekiston bo‘ylab yetkazib beramiz.
-            </p>
-            {/* Useful SEO Links */}
-            <div className="pt-2 flex flex-wrap gap-2 text-sm font-semibold text-brand-blue">
-              <Link href={`/${lang}/catalog`} className="hover:underline bg-white px-3 py-1.5 rounded-lg border border-neutral-200">#Qoliplar</Link>
-              <Link href={`/${lang}/catalog/bruschatka-qoliplari`} className="hover:underline bg-white px-3 py-1.5 rounded-lg border border-neutral-200">#Bruschatka</Link>
-              <Link href={`/${lang}/catalog/termopanel`} className="hover:underline bg-white px-3 py-1.5 rounded-lg border border-neutral-200">#Termopanel</Link>
-            </div>
-          </div>
-
-          {/* Accordion FAQ */}
-          <div className="lg:col-span-6 space-y-3">
-            <h3 className="text-xl font-bold text-[#111111] mb-4">
-              Вопросы и ответы
-            </h3>
-
-            <details className="group bg-white border border-neutral-200 p-4 rounded-2xl cursor-pointer shadow-sm">
-              <summary className="flex items-center justify-between font-semibold text-[#111111] list-none">
-                <span>Qoliplarning xizmat ko‘rsatish resursi qancha?</span>
-                <ChevronDown className="w-5 h-5 text-neutral-400 group-open:rotate-180 transition-transform" />
-              </summary>
-              <p className="text-sm text-[#667085] mt-3 pt-3 border-t border-neutral-100 leading-relaxed font-sans">
-                ABS va polipropilen materialdan tayyorlangan qoliplarimiz to‘g‘ri ishlatilganda 300 marotabadan ortiq quyish resursiga ega.
-              </p>
-            </details>
-
-            <details className="group bg-white border border-neutral-200 p-4 rounded-2xl cursor-pointer shadow-sm">
-              <summary className="flex items-center justify-between font-semibold text-[#111111] list-none">
-                <span>Viloyatlarga yetkazib berish shartlari qanday?</span>
-                <ChevronDown className="w-5 h-5 text-neutral-400 group-open:rotate-180 transition-transform" />
-              </summary>
-              <p className="text-sm text-[#667085] mt-3 pt-3 border-t border-neutral-100 leading-relaxed font-sans">
-                Respublikaning barcha viloyatlariga pochta yoki yuk tashish xizmatlari orqali tezkor va xavfsiz yetkazib beramiz.
-              </p>
-            </details>
-
-            <details className="group bg-white border border-neutral-200 p-4 rounded-2xl cursor-pointer shadow-sm">
-              <summary className="flex items-center justify-between font-semibold text-[#111111] list-none">
-                <span>Ulgurji xaridorlar uchun chegirmalar bormi?</span>
-                <ChevronDown className="w-5 h-5 text-neutral-400 group-open:rotate-180 transition-transform" />
-              </summary>
-              <p className="text-sm text-[#667085] mt-3 pt-3 border-t border-neutral-100 leading-relaxed font-sans">
-                Ha, 100 donadan ortiq buyurtmalar uchun dilerlik va ulgurji narxlar amal qiladi.
-              </p>
-            </details>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

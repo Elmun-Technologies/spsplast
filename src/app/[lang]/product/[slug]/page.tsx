@@ -3,9 +3,10 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { db } from '@/lib/db';
 import { getDictionary, Locale } from '@/lib/i18n';
-import { ProductCard } from '@/components/product/ProductCard';
 import { MoldResultShowcase } from '@/components/product/MoldResultShowcase';
 import { ProductDetailClient } from './ProductDetailClient';
+import { Container } from '@/components/ui/Container';
+import { ChevronRight } from 'lucide-react';
 
 interface ProductPageProps {
   params: { lang: Locale; slug: string };
@@ -107,88 +108,89 @@ export default async function ProductDetailPage({
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+    <div className="bg-[#F8F9FA] min-h-screen py-6 text-gray-900 space-y-8">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* Breadcrumb */}
-      <div className="flex items-center gap-2 text-xs text-gray-400">
-        <Link href={`/${lang}`} className="hover:text-white">
-          {dict.nav.home}
-        </Link>
-        <span>/</span>
-        <Link href={`/${lang}/catalog`} className="hover:text-white">
-          {dict.nav.catalog}
-        </Link>
-        {categoryTrans && (
-          <>
-            <span>/</span>
-            <Link
-              href={`/${lang}/catalog?category=${categoryTrans.slug}`}
-              className="hover:text-white"
-            >
-              {categoryTrans.name}
-            </Link>
-          </>
+      <Container>
+        {/* Breadcrumbs */}
+        <nav className="flex items-center gap-1.5 text-xs text-gray-500 mb-4 font-medium">
+          <Link href={`/${lang}`} className="hover:text-brand-red transition-colors">
+            {dict.nav.home}
+          </Link>
+          <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
+          <Link href={`/${lang}/catalog`} className="hover:text-brand-red transition-colors">
+            {dict.nav.catalog}
+          </Link>
+          {categoryTrans && (
+            <>
+              <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
+              <Link
+                href={`/${lang}/catalog?category=${categoryTrans.slug}`}
+                className="hover:text-brand-red transition-colors"
+              >
+                {categoryTrans.name}
+              </Link>
+            </>
+          )}
+          <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
+          <span className="text-gray-900 font-semibold truncate max-w-xs">{trans.name}</span>
+        </nav>
+
+        {/* Product Interactive Main View */}
+        <ProductDetailClient product={mappedProduct} lang={lang} />
+
+        {/* Mold Result Showcase */}
+        {mappedProduct.resultImage && mappedProduct.moldImage && (
+          <section className="pt-6">
+            <MoldResultShowcase
+              moldImage={mappedProduct.moldImage}
+              resultImage={mappedProduct.resultImage}
+              moldTitle={trans.name}
+              resultTitle="Tayyor Mahsulot Namunasi"
+              lang={lang}
+            />
+          </section>
         )}
-        <span>/</span>
-        <span className="text-white font-medium truncate max-w-xs">{trans.name}</span>
-      </div>
 
-      {/* Interactive Main Product View Client Component */}
-      <ProductDetailClient product={mappedProduct} lang={lang} />
+        {/* How it works Step Infographic */}
+        <section className="mt-8 bg-white border border-gray-200 rounded-xl p-6 sm:p-8 space-y-6 shadow-xs">
+          <div className="text-center max-w-lg mx-auto">
+            <h3 className="text-lg sm:text-xl font-bold text-gray-900">
+              {dict.product.howItWorks}
+            </h3>
+            <p className="text-xs text-gray-500 mt-1">Beton quyish texnologiyasi va foydalanish bosqichlari</p>
+          </div>
 
-      {/* USP Mold Result Showcase Block */}
-      {mappedProduct.resultImage && mappedProduct.moldImage && (
-        <section className="pt-6">
-          <MoldResultShowcase
-            moldImage={mappedProduct.moldImage}
-            resultImage={mappedProduct.resultImage}
-            moldTitle={trans.name}
-            resultTitle="Tayyor Mahsulot Namunasi"
-            lang={lang}
-          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+            <div className="p-4 rounded-lg bg-[#F8F9FA] border border-gray-200 space-y-2">
+              <span className="w-7 h-7 rounded-full bg-brand-red text-white text-xs font-bold flex items-center justify-center">1</span>
+              <h4 className="font-bold text-gray-900 text-xs sm:text-sm">{dict.product.step1}</h4>
+              <p className="text-xs text-gray-600">Beton va plastifikatorni to‘g‘ri nisbatda aralashtiring.</p>
+            </div>
+
+            <div className="p-4 rounded-lg bg-[#F8F9FA] border border-gray-200 space-y-2">
+              <span className="w-7 h-7 rounded-full bg-brand-red text-white text-xs font-bold flex items-center justify-center">2</span>
+              <h4 className="font-bold text-gray-900 text-xs sm:text-sm">{dict.product.step2}</h4>
+              <p className="text-xs text-gray-600">Qolipni maxsus moy bilan surtib, qolipga tekis quying.</p>
+            </div>
+
+            <div className="p-4 rounded-lg bg-[#F8F9FA] border border-gray-200 space-y-2">
+              <span className="w-7 h-7 rounded-full bg-brand-red text-white text-xs font-bold flex items-center justify-center">3</span>
+              <h4 className="font-bold text-gray-900 text-xs sm:text-sm">{dict.product.step3}</h4>
+              <p className="text-xs text-gray-600">24 soat davomida soyada quriting.</p>
+            </div>
+
+            <div className="p-4 rounded-lg bg-[#F8F9FA] border border-gray-200 space-y-2">
+              <span className="w-7 h-7 rounded-full bg-brand-red text-white text-xs font-bold flex items-center justify-center">4</span>
+              <h4 className="font-bold text-gray-900 text-xs sm:text-sm">{dict.product.step4}</h4>
+              <p className="text-xs text-gray-600">Qolipdan osongina tayyor mahsulotni ajratib oling.</p>
+            </div>
+          </div>
         </section>
-      )}
-
-      {/* How it works 4 Steps Infographic */}
-      <section className="bg-brand-card/70 border border-brand-border rounded-3xl p-8 space-y-6">
-        <div className="text-center max-w-lg mx-auto">
-          <h3 className="text-xl sm:text-2xl font-black text-white">
-            {dict.product.howItWorks}
-          </h3>
-          <p className="text-xs text-gray-400 mt-1">Beton quyish texnologiyasi va foydalanish bosqichlari</p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-4">
-          <div className="p-4 rounded-xl bg-brand-dark border border-brand-border space-y-2">
-            <span className="w-8 h-8 rounded-full bg-brand-red text-white text-xs font-bold flex items-center justify-center">1</span>
-            <h4 className="font-bold text-white text-sm">{dict.product.step1}</h4>
-            <p className="text-xs text-gray-400">Beton va plastifikatorni to‘g‘ri nisbatda aralashtiring.</p>
-          </div>
-
-          <div className="p-4 rounded-xl bg-brand-dark border border-brand-border space-y-2">
-            <span className="w-8 h-8 rounded-full bg-brand-red text-white text-xs font-bold flex items-center justify-center">2</span>
-            <h4 className="font-bold text-white text-sm">{dict.product.step2}</h4>
-            <p className="text-xs text-gray-400">Qolipni maxsus moy bilan surtib, qolipga tekis quying.</p>
-          </div>
-
-          <div className="p-4 rounded-xl bg-brand-dark border border-brand-border space-y-2">
-            <span className="w-8 h-8 rounded-full bg-brand-red text-white text-xs font-bold flex items-center justify-center">3</span>
-            <h4 className="font-bold text-white text-sm">{dict.product.step3}</h4>
-            <p className="text-xs text-gray-400">24 soat davomida soyada quriting.</p>
-          </div>
-
-          <div className="p-4 rounded-xl bg-brand-dark border border-brand-border space-y-2">
-            <span className="w-8 h-8 rounded-full bg-brand-red text-white text-xs font-bold flex items-center justify-center">4</span>
-            <h4 className="font-bold text-white text-sm">{dict.product.step4}</h4>
-            <p className="text-xs text-gray-400">Qolipdan osongina tayyor mahsulotni ajratib oling.</p>
-          </div>
-        </div>
-      </section>
-
+      </Container>
     </div>
   );
 }

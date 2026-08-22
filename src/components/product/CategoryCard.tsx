@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowUpRight, LayoutGrid } from 'lucide-react';
+import { ChevronRight, LayoutGrid } from 'lucide-react';
 import { Locale } from '@/lib/i18n';
 
 interface CategoryCardProps {
@@ -32,42 +32,41 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
   return (
     <Link
       href={`/${lang}/catalog/${category.slug}`}
-      className="group relative bg-[#F9FAFB] hover:bg-[#F3F4F6] transition-all duration-300 rounded-3xl p-4 sm:p-5 flex flex-col justify-between border border-neutral-100 hover:border-neutral-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 overflow-hidden"
+      className="group relative bg-white hover:bg-gray-50 border border-gray-200 hover:border-gray-300 transition-colors duration-150 rounded-xl p-3.5 flex flex-col justify-between shadow-xs overflow-hidden"
     >
-      {/* Title & Floating Action Arrow Button */}
+      {/* Title & Chevron Indicator */}
       <div className="flex items-start justify-between gap-2 z-10">
         <div>
-          <h3 className="font-semibold text-sm sm:text-[15px] text-[#333333] group-hover:text-brand-blue transition-colors leading-snug">
+          <h3 className="font-semibold text-xs sm:text-sm text-gray-900 group-hover:text-brand-red transition-colors leading-snug">
             {name}
           </h3>
           {category._count?.products !== undefined && (
-            <p className="text-[11px] text-[#888888] font-medium mt-1">
+            <p className="text-[11px] text-gray-500 font-medium mt-0.5">
               {category._count.products} {lang === 'ru' ? 'товаров' : 'ta mahsulot'}
             </p>
           )}
         </div>
 
-        {/* Circular Action Button like Santekhnika Online */}
-        <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white border border-neutral-200/60 flex items-center justify-center text-neutral-500 group-hover:bg-brand-blue group-hover:border-brand-blue group-hover:text-white transition-all shadow-sm shrink-0">
-          <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+        <div className="w-7 h-7 rounded-lg bg-gray-100 border border-gray-200 flex items-center justify-center text-gray-600 group-hover:bg-brand-red group-hover:border-brand-red group-hover:text-white transition-colors shrink-0">
+          <ChevronRight className="w-4 h-4" />
         </div>
       </div>
 
       {/* Category Image Area */}
-      <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden mt-4 bg-transparent flex items-center justify-center transition-transform group-hover:scale-105">
+      <div className="relative aspect-[4/3] w-full rounded-lg overflow-hidden mt-3 bg-[#F8F9FA] flex items-center justify-center border border-gray-100 group-hover:border-gray-200 transition-colors">
         {category.image && !imgError ? (
           <Image
             src={category.image}
             alt={name}
             fill
-            sizes="(max-width: 768px) 50vw, 25vw"
+            sizes="(max-width: 768px) 50vw, 20vw"
             onError={() => setImgError(true)}
-            className="object-contain p-2"
+            className="object-contain p-2 group-hover:scale-105 transition-transform duration-300"
           />
         ) : (
-          <div className="w-full h-full flex flex-col items-center justify-center text-neutral-300 select-none">
-            <LayoutGrid className="w-10 h-10 mb-2 text-neutral-300" />
-            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-neutral-300">
+          <div className="w-full h-full flex flex-col items-center justify-center text-gray-300 select-none">
+            <LayoutGrid className="w-8 h-8 mb-1 text-gray-300" />
+            <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-gray-400">
               SPS PLAST
             </span>
           </div>

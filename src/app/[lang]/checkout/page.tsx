@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCartStore } from '@/lib/store/cartStore';
 import { Button } from '@/components/ui/Button';
+import { Container } from '@/components/ui/Container';
 import { formatPrice } from '@/lib/utils';
 import { getDictionary, Locale } from '@/lib/i18n';
 import { captureAttribution, getStoredAttribution } from '@/lib/attribution';
@@ -134,262 +135,265 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
 
   if (items.length === 0) {
     return (
-      <div className="max-w-md mx-auto my-20 p-8 bg-brand-card border border-brand-border rounded-2xl text-center space-y-4">
-        <p className="text-white font-bold">{dict.cart.empty}</p>
-        <Button onClick={() => router.push(`/${lang}/catalog`)}>
-          Katalogni ko‘rish
-        </Button>
+      <div className="bg-[#F8F9FA] min-h-screen py-16 text-gray-900">
+        <Container>
+          <div className="max-w-md mx-auto p-8 bg-white border border-gray-200 rounded-xl text-center space-y-3 shadow-xs">
+            <p className="text-gray-900 font-bold">{dict.cart.empty}</p>
+            <Button onClick={() => router.push(`/${lang}/catalog`)} className="bg-brand-red text-white">
+              Katalogni ko‘rish
+            </Button>
+          </div>
+        </Container>
       </div>
     );
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
-      <div className="border-b border-brand-border pb-4">
-        <h1 className="text-3xl font-black text-white">{dict.checkout.title}</h1>
-        <p className="text-xs text-gray-400 mt-1 flex items-center gap-1">
-          <ShieldCheck className="w-4 h-4 text-emerald-400" />
-          {dict.checkout.guestCheckout}
-        </p>
-      </div>
-
-      {errorMsg && (
-        <div className="p-4 rounded-xl bg-red-500/20 border border-red-500/40 text-red-300 text-sm font-semibold">
-          {errorMsg}
+    <div className="bg-[#F8F9FA] min-h-screen py-8 text-gray-900">
+      <Container>
+        <div className="border-b border-gray-200 pb-4 mb-6">
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">{dict.checkout.title}</h1>
+          <p className="text-xs text-gray-500 mt-0.5 flex items-center gap-1">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+            {dict.checkout.guestCheckout}
+          </p>
         </div>
-      )}
 
-      <form onSubmit={handleOrderSubmit} className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-
-        {/* Left Form */}
-        <div className="lg:col-span-7 space-y-6">
-
-          {/* 1. Xaridor Ma'lumotlari */}
-          <div className="bg-brand-card border border-brand-border rounded-2xl p-6 space-y-4">
-            <h3 className="text-base font-bold text-white flex items-center gap-2 border-b border-brand-border pb-3">
-              <User className="w-4 h-4 text-brand-red" />
-              1. Xaridor Ma’lumotlari
-            </h3>
-
-            <div>
-              <label className="block text-xs font-semibold text-gray-300 mb-1">
-                {dict.checkout.name} *
-              </label>
-              <input
-                type="text"
-                required
-                value={customerName}
-                onChange={(e) => setCustomerName(e.target.value)}
-                placeholder="Jasur Rahimov"
-                className="w-full bg-brand-dark border border-brand-border rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-red"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-semibold text-gray-300 mb-1">
-                {dict.checkout.phone} *
-              </label>
-              <div className="relative">
-                <input
-                  type="tel"
-                  required
-                  value={customerPhone}
-                  onChange={(e) => setCustomerPhone(e.target.value)}
-                  placeholder="+998901234567"
-                  className="w-full bg-brand-dark border border-brand-border rounded-lg px-4 py-2.5 pl-10 text-sm text-white focus:outline-none focus:border-brand-red"
-                />
-                <Phone className="w-4 h-4 text-gray-400 absolute left-3.5 top-3" />
-              </div>
-            </div>
+        {errorMsg && (
+          <div className="p-3.5 rounded-lg bg-red-50 border border-red-200 text-red-700 text-xs font-semibold mb-6">
+            {errorMsg}
           </div>
+        )}
 
-          {/* 2. Yetkazib Berish Usuli va Manzili */}
-          <div className="bg-brand-card border border-brand-border rounded-2xl p-6 space-y-4">
-            <h3 className="text-base font-bold text-white flex items-center gap-2 border-b border-brand-border pb-3">
-              <MapPin className="w-4 h-4 text-brand-red" />
-              2. Yetkazib Berish Usuli va Manzil
-            </h3>
+        <form onSubmit={handleOrderSubmit} className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          {/* Left Form */}
+          <div className="lg:col-span-7 space-y-4">
+            {/* 1. Xaridor Ma'lumotlari */}
+            <div className="bg-white border border-gray-200 rounded-xl p-5 space-y-3.5 shadow-xs">
+              <h3 className="text-sm font-bold text-gray-900 flex items-center gap-2 border-b border-gray-100 pb-2.5">
+                <User className="w-4 h-4 text-brand-red" />
+                1. Xaridor Ma’lumotlari
+              </h3>
 
-            <div className="grid grid-cols-2 gap-3 pb-2">
-              <button
-                type="button"
-                onClick={() => setDeliveryType('COURIER')}
-                className={`p-3 rounded-xl border flex items-center justify-center gap-2 font-bold text-xs transition-all ${deliveryType === 'COURIER'
-                    ? 'border-brand-red bg-brand-red/10 text-white'
-                    : 'border-brand-border bg-brand-dark text-gray-400'
-                  }`}
-              >
-                <Truck className="w-4 h-4 text-brand-red" />
-                <span>Kuryer orqali yetkazish</span>
-              </button>
+              <div>
+                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                  {dict.checkout.name} *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={customerName}
+                  onChange={(e) => setCustomerName(e.target.value)}
+                  placeholder="Jasur Rahimov"
+                  className="w-full bg-[#F8F9FA] border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:border-brand-red focus:bg-white"
+                />
+              </div>
 
-              <button
-                type="button"
-                onClick={() => setDeliveryType('PICKUP')}
-                className={`p-3 rounded-xl border flex items-center justify-center gap-2 font-bold text-xs transition-all ${deliveryType === 'PICKUP'
-                    ? 'border-brand-red bg-brand-red/10 text-white'
-                    : 'border-brand-border bg-brand-dark text-gray-400'
-                  }`}
-              >
-                <Store className="w-4 h-4 text-emerald-400" />
-                <span>Ombordan olib ketish</span>
-              </button>
+              <div>
+                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                  {dict.checkout.phone} *
+                </label>
+                <div className="relative">
+                  <input
+                    type="tel"
+                    required
+                    value={customerPhone}
+                    onChange={(e) => setCustomerPhone(e.target.value)}
+                    placeholder="+998901234567"
+                    className="w-full bg-[#F8F9FA] border border-gray-300 rounded-lg px-3 py-2 pl-9 text-xs text-gray-900 focus:outline-none focus:border-brand-red focus:bg-white"
+                  />
+                  <Phone className="w-3.5 h-3.5 text-gray-400 absolute left-3 top-2.5" />
+                </div>
+              </div>
             </div>
 
-            {deliveryType === 'PICKUP' ? (
-              <div className="p-4 rounded-xl bg-brand-dark border border-brand-border text-xs text-gray-300 space-y-1">
-                <p className="font-bold text-white">SPS Plast Bosh Ombori:</p>
-                <p>Toshkent shahri, Sergeli tumani, Sanoat zonasi 4-daha</p>
-                <p className="text-emerald-400 font-semibold pt-1">Olib ketish bepul!</p>
+            {/* 2. Yetkazib Berish Usuli va Manzili */}
+            <div className="bg-white border border-gray-200 rounded-xl p-5 space-y-3.5 shadow-xs">
+              <h3 className="text-sm font-bold text-gray-900 flex items-center gap-2 border-b border-gray-100 pb-2.5">
+                <MapPin className="w-4 h-4 text-brand-red" />
+                2. Yetkazib Berish Usuli va Manzil
+              </h3>
+
+              <div className="grid grid-cols-2 gap-2.5 pb-1">
+                <button
+                  type="button"
+                  onClick={() => setDeliveryType('COURIER')}
+                  className={`p-2.5 rounded-lg border flex items-center justify-center gap-2 font-bold text-xs transition-all ${deliveryType === 'COURIER'
+                      ? 'border-brand-red bg-red-50 text-brand-red'
+                      : 'border-gray-200 bg-[#F8F9FA] text-gray-600'
+                    }`}
+                >
+                  <Truck className="w-4 h-4 text-brand-red" />
+                  <span>Kuryer orqali yetkazish</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setDeliveryType('PICKUP')}
+                  className={`p-2.5 rounded-lg border flex items-center justify-center gap-2 font-bold text-xs transition-all ${deliveryType === 'PICKUP'
+                      ? 'border-brand-red bg-red-50 text-brand-red'
+                      : 'border-gray-200 bg-[#F8F9FA] text-gray-600'
+                    }`}
+                >
+                  <Store className="w-4 h-4 text-emerald-600" />
+                  <span>Ombordan olib ketish</span>
+                </button>
               </div>
-            ) : (
-              <>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-300 mb-1">
-                      {dict.checkout.region} *
-                    </label>
-                    <select
-                      value={region}
-                      onChange={(e) => setRegion(e.target.value)}
-                      className="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2.5 text-sm text-white focus:outline-none focus:border-brand-red"
-                    >
-                      {REGIONS.map((reg) => (
-                        <option key={reg} value={reg}>
-                          {reg}
-                        </option>
-                      ))}
-                    </select>
+
+              {deliveryType === 'PICKUP' ? (
+                <div className="p-3 rounded-lg bg-[#F8F9FA] border border-gray-200 text-xs text-gray-600 space-y-0.5">
+                  <p className="font-bold text-gray-900">SPS Plast Bosh Ombori:</p>
+                  <p>Toshkent shahri, Sergeli tumani, Sanoat zonasi 4-daha</p>
+                  <p className="text-emerald-700 font-semibold pt-0.5">Olib ketish bepul!</p>
+                </div>
+              ) : (
+                <>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-700 mb-1">
+                        {dict.checkout.region} *
+                      </label>
+                      <select
+                        value={region}
+                        onChange={(e) => setRegion(e.target.value)}
+                        className="w-full bg-[#F8F9FA] border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:border-brand-red focus:bg-white"
+                      >
+                        {REGIONS.map((reg) => (
+                          <option key={reg} value={reg}>
+                            {reg}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-700 mb-1">
+                        {dict.checkout.city}
+                      </label>
+                      <input
+                        type="text"
+                        value={city}
+                        onChange={(e) => setCity(e.target.value)}
+                        placeholder="Yunusobod tumani"
+                        className="w-full bg-[#F8F9FA] border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:border-brand-red focus:bg-white"
+                      />
+                    </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-gray-300 mb-1">
-                      {dict.checkout.city}
+                    <label className="block text-xs font-semibold text-gray-700 mb-1">
+                      {dict.checkout.address} *
                     </label>
                     <input
                       type="text"
-                      value={city}
-                      onChange={(e) => setCity(e.target.value)}
-                      placeholder="Yunusobod tumani"
-                      className="w-full bg-brand-dark border border-brand-border rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-red"
+                      required={deliveryType === 'COURIER'}
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                      placeholder="Amir Temur ko‘chasi 45-uy"
+                      className="w-full bg-[#F8F9FA] border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:border-brand-red focus:bg-white"
                     />
                   </div>
-                </div>
+                </>
+              )}
+            </div>
 
-                <div>
-                  <label className="block text-xs font-semibold text-gray-300 mb-1">
-                    {dict.checkout.address} *
-                  </label>
+            {/* 3. To'lov Usuli */}
+            <div className="bg-white border border-gray-200 rounded-xl p-5 space-y-3.5 shadow-xs">
+              <h3 className="text-sm font-bold text-gray-900 flex items-center gap-2 border-b border-gray-100 pb-2.5">
+                <CreditCard className="w-4 h-4 text-brand-red" />
+                3. To‘lov Usuli
+              </h3>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <label
+                  className={`p-3 rounded-lg border flex items-center justify-center gap-2 cursor-pointer transition-all ${paymentMethod === 'CASH'
+                      ? 'border-brand-red bg-red-50 text-brand-red font-bold'
+                      : 'border-gray-200 bg-[#F8F9FA] text-gray-600'
+                    }`}
+                >
                   <input
-                    type="text"
-                    required={deliveryType === 'COURIER'}
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    placeholder="Amir Temur ko‘chasi 45-uy"
-                    className="w-full bg-brand-dark border border-brand-border rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-red"
+                    type="radio"
+                    name="payment"
+                    value="CASH"
+                    checked={paymentMethod === 'CASH'}
+                    onChange={() => setPaymentMethod('CASH')}
+                    className="sr-only"
                   />
-                </div>
-              </>
-            )}
+                  <span className="text-xs text-center">{dict.checkout.payCash} (Qabul qilinganda)</span>
+                </label>
+
+                <label
+                  className={`p-3 rounded-lg border flex items-center justify-center gap-2 cursor-pointer transition-all ${paymentMethod === 'BANK_TRANSFER'
+                      ? 'border-brand-red bg-red-50 text-brand-red font-bold'
+                      : 'border-gray-200 bg-[#F8F9FA] text-gray-600'
+                    }`}
+                >
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="BANK_TRANSFER"
+                    checked={paymentMethod === 'BANK_TRANSFER'}
+                    onChange={() => setPaymentMethod('BANK_TRANSFER')}
+                    className="sr-only"
+                  />
+                  <span className="text-xs text-center">{dict.checkout.payBank} (Bank o‘tkazmasi)</span>
+                </label>
+              </div>
+            </div>
           </div>
 
-          {/* 3. To'lov Usuli */}
-          <div className="bg-brand-card border border-brand-border rounded-2xl p-6 space-y-4">
-            <h3 className="text-base font-bold text-white flex items-center gap-2 border-b border-brand-border pb-3">
-              <CreditCard className="w-4 h-4 text-brand-red" />
-              3. To‘lov Usuli
+          {/* Right Summary */}
+          <div className="lg:col-span-5 bg-white border border-gray-200 rounded-xl p-5 space-y-4 shadow-xs">
+            <h3 className="text-base font-bold text-gray-900 border-b border-gray-100 pb-3">
+              {dict.checkout.orderSummary}
             </h3>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <label
-                className={`p-3.5 rounded-xl border flex items-center justify-center gap-2 cursor-pointer transition-all ${paymentMethod === 'CASH'
-                    ? 'border-brand-red bg-brand-red/10 text-white font-bold'
-                    : 'border-brand-border bg-brand-dark text-gray-400'
-                  }`}
-              >
-                <input
-                  type="radio"
-                  name="payment"
-                  value="CASH"
-                  checked={paymentMethod === 'CASH'}
-                  onChange={() => setPaymentMethod('CASH')}
-                  className="sr-only"
-                />
-                <span className="text-xs text-center">{dict.checkout.payCash} (Qabul qilinganda)</span>
-              </label>
-
-              <label
-                className={`p-3.5 rounded-xl border flex items-center justify-center gap-2 cursor-pointer transition-all ${paymentMethod === 'BANK_TRANSFER'
-                    ? 'border-brand-red bg-brand-red/10 text-white font-bold'
-                    : 'border-brand-border bg-brand-dark text-gray-400'
-                  }`}
-              >
-                <input
-                  type="radio"
-                  name="payment"
-                  value="BANK_TRANSFER"
-                  checked={paymentMethod === 'BANK_TRANSFER'}
-                  onChange={() => setPaymentMethod('BANK_TRANSFER')}
-                  className="sr-only"
-                />
-                <span className="text-xs text-center">{dict.checkout.payBank} (Bank o‘tkazmasi)</span>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        {/* Right Summary */}
-        <div className="lg:col-span-5 bg-brand-card border border-brand-border rounded-2xl p-6 space-y-6">
-          <h3 className="text-lg font-bold text-white border-b border-brand-border pb-4">
-            {dict.checkout.orderSummary}
-          </h3>
-
-          <div className="space-y-3 max-h-80 overflow-y-auto pr-1">
-            {items.map((item) => (
-              <div
-                key={item.id}
-                className="flex items-center justify-between gap-3 p-2 rounded-lg bg-brand-dark border border-brand-border text-xs"
-              >
-                <div className="flex-1 min-w-0">
-                  <p className="font-bold text-white truncate">{item.title}</p>
-                  <p className="text-gray-400">
-                    {item.quantity} dona x {formatPrice(item.price, lang)}
-                  </p>
+            <div className="space-y-2 max-h-72 overflow-y-auto pr-1">
+              {items.map((item) => (
+                <div
+                  key={item.id}
+                  className="flex items-center justify-between gap-3 p-2.5 rounded-lg bg-[#F8F9FA] border border-gray-200 text-xs"
+                >
+                  <div className="flex-1 min-w-0">
+                    <p className="font-bold text-gray-900 truncate">{item.title}</p>
+                    <p className="text-gray-500">
+                      {item.quantity} dona x {formatPrice(item.price, lang)}
+                    </p>
+                  </div>
+                  <span className="font-bold text-gray-900">
+                    {formatPrice(item.price * item.quantity, lang)}
+                  </span>
                 </div>
-                <span className="font-bold text-white">
-                  {formatPrice(item.price * item.quantity, lang)}
+              ))}
+            </div>
+
+            <div className="pt-3 border-t border-gray-100 space-y-2 text-xs">
+              <div className="flex justify-between text-gray-600">
+                <span>Yetkazib berish:</span>
+                <span className="text-emerald-700 font-semibold">
+                  {deliveryType === 'PICKUP' ? 'Bepul (Ombordan)' : 'Operator tasdiqlaydi'}
                 </span>
               </div>
-            ))}
-          </div>
 
-          <div className="pt-4 border-t border-brand-border space-y-3 text-sm">
-            <div className="flex justify-between text-gray-400">
-              <span>Yetkazib berish:</span>
-              <span className="text-emerald-400 font-semibold">
-                {deliveryType === 'PICKUP' ? 'Bepul (Ombordan)' : 'Operator tasdiqlaydi'}
-              </span>
+              <div className="flex justify-between text-lg font-bold text-gray-900 pt-3 border-t border-gray-100">
+                <span>{dict.cart.subtotal}:</span>
+                <span className="text-brand-red">{formatPrice(totalPrice, lang)}</span>
+              </div>
             </div>
 
-            <div className="flex justify-between text-xl font-black text-white pt-4 border-t border-brand-border">
-              <span>{dict.cart.subtotal}:</span>
-              <span className="text-brand-red">{formatPrice(totalPrice, lang)}</span>
-            </div>
+            <Button
+              type="submit"
+              size="lg"
+              isLoading={loading}
+              disabled={loading}
+              className="w-full gap-2 font-bold text-sm bg-brand-red hover:bg-brand-red-dark text-white rounded-lg shadow-xs py-3"
+            >
+              <CheckCircle2 className="w-4 h-4" />
+              <span>{dict.checkout.confirmOrder}</span>
+            </Button>
           </div>
-
-          <Button
-            type="submit"
-            size="lg"
-            isLoading={loading}
-            disabled={loading}
-            className="w-full gap-2 font-extrabold text-base shadow-red py-4"
-          >
-            <CheckCircle2 className="w-5 h-5" />
-            <span>{dict.checkout.confirmOrder}</span>
-          </Button>
-        </div>
-
-      </form>
+        </form>
+      </Container>
     </div>
   );
 }

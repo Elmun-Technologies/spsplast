@@ -4,11 +4,12 @@ import { db } from '@/lib/db';
 import { getDictionary, Locale } from '@/lib/i18n';
 import { getProductsServer } from '@/lib/services/productService';
 import { ProductCard } from '@/components/product/ProductCard';
-import { Search, Layers } from 'lucide-react';
+import { Container } from '@/components/ui/Container';
+import { Search, Layers, ChevronRight } from 'lucide-react';
 
 interface SearchPageProps {
     params: { lang: Locale };
-    searchParams: { q?: string; sort?: string };
+    searchParams: { q?: string; category?: string; sort?: string };
 }
 
 export async function generateMetadata({ searchParams }: SearchPageProps) {
@@ -28,11 +29,13 @@ export default async function SearchPage({
 }: SearchPageProps) {
     const dict = getDictionary(lang);
     const query = searchParams.q?.trim() || '';
+    const categorySlug = searchParams.category?.trim();
 
     const products = query
         ? await getProductsServer({
             locale: lang,
             search: query,
+            categorySlug,
             sort: searchParams.sort,
         })
         : [];
@@ -47,79 +50,81 @@ export default async function SearchPage({
     });
 
     return (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
-            {/* Breadcrumb */}
-            <div className="flex items-center gap-2 text-xs text-gray-400">
-                <Link href={`/${lang}`} className="hover:text-white">
-                    {dict.nav.home}
-                </Link>
-                <span>/</span>
-                <span className="text-white font-medium">Qidiruv</span>
-            </div>
+        <div className="bg-[#F8F9FA] min-h-screen py-8 text-gray-900">
+            <Container>
+                {/* Breadcrumbs */}
+                <nav className="flex items-center gap-1.5 text-xs text-gray-500 mb-4 font-medium">
+                    <Link href={`/${lang}`} className="hover:text-brand-red transition-colors">
+                        {dict.nav.home}
+                    </Link>
+                    <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
+                    <span className="text-gray-900 font-semibold">Qidiruv</span>
+                </nav>
 
-            {/* Header */}
-            <div className="border-b border-brand-border pb-6 space-y-2">
-                <div className="flex items-center gap-3">
-                    <div className="p-2.5 rounded-xl bg-brand-red/10 border border-brand-red/30 text-brand-red">
-                        <Search className="w-6 h-6" />
-                    </div>
-                    <div>
-                        <h1 className="text-2xl sm:text-3xl font-black text-white">
-                            {query ? `Qidiruv natijalari: "${query}"` : 'Mahsulot qidirish'}
-                        </h1>
-                        <p className="text-xs text-gray-400">
-                            {query
-                                ? `Topilgan mahsulotlar: ${products.length} dona`
-                                : 'Qidiruv so‘zini kiriting'}
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            {/* Main Grid or Empty State */}
-            {products.length === 0 ? (
-                <div className="bg-brand-card border border-brand-border rounded-3xl p-12 text-center space-y-6">
-                    <div className="w-16 h-16 rounded-full bg-brand-dark border border-brand-border flex items-center justify-center mx-auto text-gray-400">
-                        <Layers className="w-8 h-8 text-brand-red" />
-                    </div>
-
-                    <div className="space-y-2 max-w-md mx-auto">
-                        <h3 className="text-lg font-bold text-white">
-                            {query ? `"${query}" bo‘yicha hech narsa topilmadi` : 'Qidiruv kalit so‘zini kiriting'}
-                        </h3>
-                        <p className="text-xs text-gray-400">
-                            Mahsulot nomi, SKU kodi yoki o‘lchamlarini tekshirib ko‘ring yoki ommabop kategoriyalardan tanlang.
-                        </p>
-                    </div>
-
-                    <div className="pt-4 border-t border-brand-border/60">
-                        <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">
-                            Ommabop kategoriyalar
-                        </h4>
-                        <div className="flex flex-wrap justify-center gap-2">
-                            {rawCategories.map((c) => {
-                                const name = c.translations[0]?.name || c.id;
-                                const slug = c.translations[0]?.slug || c.id;
-                                return (
-                                    <Link
-                                        key={c.id}
-                                        href={`/${lang}/catalog?category=${slug}`}
-                                        className="px-4 py-2 rounded-xl bg-brand-dark border border-brand-border text-xs font-medium text-gray-300 hover:border-brand-red hover:text-white transition-colors"
-                                    >
-                                        {name}
-                                    </Link>
-                                );
-                            })}
+                {/* Header Card */}
+                <div className="bg-white border border-gray-200 rounded-xl p-5 mb-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center text-brand-red shrink-0">
+                            <Search className="w-5 h-5" />
+                        </div>
+                        <div>
+                            <h1 className="text-lg sm:text-xl font-bold text-gray-900">
+                                {query ? `Qidiruv natijalari: "${query}"` : 'Mahsulot qidirish'}
+                            </h1>
+                            <p className="text-xs text-gray-500 mt-0.5">
+                                {query
+                                    ? `Topilgan mahsulotlar: ${products.length} dona`
+                                    : 'Qidiruv kalit so‘zini kiriting'}
+                            </p>
                         </div>
                     </div>
                 </div>
-            ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {products.map((product) => (
-                        <ProductCard key={product.id} product={product} lang={lang} />
-                    ))}
-                </div>
-            )}
+
+                {/* Main Grid or Empty State */}
+                {products.length === 0 ? (
+                    <div className="bg-white border border-gray-200 rounded-xl p-10 sm:p-12 text-center space-y-4 shadow-xs">
+                        <div className="w-14 h-14 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center mx-auto text-gray-400">
+                            <Layers className="w-7 h-7 text-brand-red" />
+                        </div>
+
+                        <div className="space-y-1 max-w-md mx-auto">
+                            <h3 className="text-base font-bold text-gray-900">
+                                {query ? `"${query}" bo‘yicha hech narsa topilmadi` : 'Qidiruv so‘zini kiriting'}
+                            </h3>
+                            <p className="text-xs text-gray-500">
+                                Mahsulot nomi, SKU kodi yoki o‘lchamlarini tekshirib ko‘ring yoki ommabop kategoriyalardan birini tanlang.
+                            </p>
+                        </div>
+
+                        <div className="pt-4 border-t border-gray-100">
+                            <h4 className="text-[11px] font-bold text-gray-500 uppercase tracking-wider mb-3">
+                                Ommabop kategoriyalar
+                            </h4>
+                            <div className="flex flex-wrap justify-center gap-2">
+                                {rawCategories.map((c) => {
+                                    const name = c.translations[0]?.name || c.id;
+                                    const slug = c.translations[0]?.slug || c.id;
+                                    return (
+                                        <Link
+                                            key={c.id}
+                                            href={`/${lang}/catalog?category=${slug}`}
+                                            className="px-3 py-1.5 rounded-lg bg-gray-50 hover:bg-white border border-gray-200 text-xs font-medium text-gray-700 hover:text-brand-red transition-colors"
+                                        >
+                                            {name}
+                                        </Link>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3.5">
+                        {products.map((product) => (
+                            <ProductCard key={product.id} product={product} lang={lang} />
+                        ))}
+                    </div>
+                )}
+            </Container>
         </div>
     );
 }

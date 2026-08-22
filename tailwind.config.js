@@ -9,23 +9,33 @@ module.exports = {
     extend: {
       colors: {
         brand: {
-          blue: '#3b82f6', // Tailwind blue-500
-          'blue-dark': '#2563eb', // Tailwind blue-600
-          'blue-hover': '#60a5fa',
-          red: '#FF3B30',
-          'red-dark': '#d32f2f',
-          gray: '#8a94a6',
-          light: '#f7f8fa',
-          muted: '#e2e8f0',
+          red: '#E61C24',
+          'red-dark': '#C4141B',
+          'red-light': '#FEF2F2',
+          dark: '#1A1D24',
+          'dark-surface': '#222630',
+          blue: '#2563eb',
+          'blue-dark': '#1d4ed8',
+          gray: '#6B7280',
+          light: '#F8F9FA',
+          muted: '#E5E7EB',
         },
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
       },
       boxShadow: {
-        soft: '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
-        card: '0 10px 30px -10px rgba(0, 0, 0, 0.08)',
-        red: '0 4px 20px -2px rgba(255, 59, 48, 0.3)',
+        xs: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+        sm: '0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.08)',
+        md: '0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05)',
+        soft: '0 1px 3px 0 rgba(0, 0, 0, 0.05)',
+        card: '0 2px 8px 0 rgba(0, 0, 0, 0.06)',
+        red: '0 2px 8px 0 rgba(230, 28, 36, 0.25)',
+      },
+      borderRadius: {
+        lg: '8px',
+        xl: '12px',
+        '2xl': '16px',
       },
     },
   },

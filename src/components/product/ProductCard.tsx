@@ -3,11 +3,13 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, ShoppingBag, Check, ImageOff, Heart } from 'lucide-react';
+import { ShoppingBag, Check, ImageOff, Heart } from 'lucide-react';
 import { useCartStore } from '@/lib/store/cartStore';
-import { formatPrice } from '@/lib/utils';
 import { Locale } from '@/lib/i18n';
 import { trackEvent } from '@/lib/analytics';
+import { Price } from '@/components/ui/Price';
+import { StockBadge } from '@/components/ui/StockBadge';
+import { Badge } from '@/components/ui/Badge';
 
 export interface ProductCardData {
   id: string;
@@ -40,9 +42,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, lang, feature
   const title = lang === 'ru' ? product.titleRu : product.titleUz;
   const mainImage = product.images?.[0]?.url;
 
-  const hasDiscount = product.oldPrice && product.oldPrice > product.price;
-  const discountPercent = hasDiscount
-    ? Math.round(((product.oldPrice! - product.price) / product.oldPrice!) * 100)
+  const hasDiscount = Boolean(product.oldPrice && product.oldPrice > product.price);
+  const discountPercent = hasDiscount && product.oldPrice
+    ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100)
     : 0;
 
   const handleAddToCart = (e: React.MouseEvent) => {
@@ -77,36 +79,40 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, lang, feature
 
   return (
     <div
-      className={`group relative bg-white border border-neutral-200/60 hover:border-neutral-300 transition-all duration-300 rounded-3xl overflow-hidden flex flex-col justify-between text-[#111111] shadow-soft hover:shadow-card hover:-translate-y-1 ${featured ? 'md:col-span-2 md:row-span-2' : ''
-        }`}
+      className={`group relative bg-white border border-gray-200 hover:border-gray-300 transition-all duration-200 rounded-xl overflow-hidden flex flex-col justify-between text-gray-900 shadow-xs hover:shadow-sm ${featured ? 'md:col-span-2 md:row-span-2' : ''}`}
     >
-      {/* Top Badges — Rounded Pill Style */}
-      <div className="absolute top-4 left-4 z-20 flex flex-wrap items-center gap-1.5 pointer-events-none text-[11px] font-extrabold tracking-wide">
+      {/* Top Badges */}
+      <div className="absolute top-2.5 left-2.5 z-10 flex flex-wrap items-center gap-1 pointer-events-none">
+        {hasDiscount && (
+          <Badge variant="red">
+            -{discountPercent}%
+          </Badge>
+        )}
         {product.isNew && (
-          <span className="bg-brand-blue text-white px-2.5 py-0.5 rounded-full shadow-xs">
+          <Badge variant="blue">
             {lang === 'ru' ? 'Новинка' : 'Yangi'}
-          </span>
+          </Badge>
         )}
         {product.isBestseller && !product.isNew && !hasDiscount && (
-          <span className="bg-[#111111] text-white px-2.5 py-0.5 rounded-full shadow-xs">
+          <Badge variant="dark">
             {lang === 'ru' ? 'Хит' : 'Top'}
-          </span>
+          </Badge>
         )}
       </div>
 
-      {/* Favorite Circle Button — Top Right */}
+      {/* Favorite Button */}
       <button
         onClick={toggleFavorite}
-        className="absolute top-4 right-4 z-20 w-8 h-8 rounded-full bg-white/90 backdrop-blur-xs shadow-soft flex items-center justify-center text-neutral-400 hover:text-brand-red transition-all hover:scale-110"
-        title="Saqlanganlarga qo'shish"
+        className="absolute top-2.5 right-2.5 z-10 w-8 h-8 rounded-full bg-white/90 border border-gray-200 flex items-center justify-center text-gray-400 hover:text-brand-red transition-all shadow-xs"
+        title={lang === 'ru' ? 'В избранное' : 'Saqlash'}
       >
         <Heart className={`w-4 h-4 ${isLiked ? 'fill-brand-red text-brand-red' : ''}`} />
       </button>
 
-      {/* Image Area — Clean soft gray card background (`#F4F5F7`) */}
+      {/* Product Image Area */}
       <Link
         href={`/${lang}/product/${product.slug}`}
-        className="block relative aspect-[4/3] w-full bg-white m-0 overflow-hidden flex items-center justify-center p-6 group-hover:bg-[#F9FAFB] transition-colors"
+        className="block relative aspect-square w-full bg-[#F8F9FA] overflow-hidden flex items-center justify-center p-4 border-b border-gray-100 group-hover:bg-[#F3F4F6] transition-colors"
       >
         {mainImage && !imgError ? (
           <Image
@@ -115,80 +121,56 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, lang, feature
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
             onError={() => setImgError(true)}
-            className="object-contain p-6 group-hover:scale-105 transition-transform duration-500 ease-out"
+            className="object-contain p-2 group-hover:scale-105 transition-transform duration-300 ease-out"
           />
         ) : (
-          <div className="w-full h-full flex flex-col items-center justify-center text-neutral-400 p-4 select-none">
-            <ImageOff className="w-9 h-9 mb-1 text-neutral-200" />
-            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-neutral-300">
+          <div className="w-full h-full flex flex-col items-center justify-center text-gray-300 select-none">
+            <ImageOff className="w-8 h-8 mb-1 text-gray-300" />
+            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-gray-400">
               SPS PLAST
-            </span>
-          </div>
-        )}
-        
-        {/* Discount Badge on Image Bottom Left */}
-        {hasDiscount && (
-          <div className="absolute bottom-3 left-3 z-20">
-            <span className="bg-brand-red text-white px-2 py-1 rounded-lg shadow-sm text-xs font-bold">
-              -{discountPercent}%
             </span>
           </div>
         )}
       </Link>
 
-      {/* Product Content & Pricing */}
-      <div className="p-4 sm:p-5 flex flex-col flex-1 justify-between gap-3 bg-white">
+      {/* Product Details */}
+      <div className="p-3.5 flex flex-col flex-1 justify-between gap-2.5">
         <div>
-          {/* Stock Indicator & SKU */}
-          <div className="flex items-center justify-between text-[11px] text-[#888888] mb-2 font-medium">
+          {/* Stock & SKU Header */}
+          <div className="flex items-center justify-between text-[11px] text-gray-500 mb-1 font-medium">
             <span className="truncate">SKU: {product.sku}</span>
-            <span className={product.inStock ? 'text-emerald-600 font-semibold flex items-center gap-1.5' : 'text-[#888888]'}>
-              {product.inStock
-                ? lang === 'ru'
-                  ? 'В наличии'
-                  : 'Mavjud'
-                : lang === 'ru'
-                  ? 'Нет в наличии'
-                  : 'Mavjud emas'}
-            </span>
+            <StockBadge inStock={product.inStock} lang={lang} />
           </div>
 
-          {/* Product Title */}
+          {/* Title */}
           <Link href={`/${lang}/product/${product.slug}`} className="block group/title">
-            <h3 className="font-semibold text-sm sm:text-[15px] text-[#333333] group-hover/title:text-brand-blue transition-colors line-clamp-2 leading-snug">
+            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 group-hover/title:text-brand-red transition-colors line-clamp-2 leading-snug">
               {title}
             </h3>
           </Link>
 
           {/* Dimensions */}
           {product.dimensions && (
-            <p className="text-xs text-[#888888] mt-2 font-medium">
-              <span className="text-[#888888]">Размер: </span>
-              <span className="text-[#333333] font-mono">{product.dimensions}</span>
+            <p className="text-[11px] text-gray-500 mt-1 font-medium">
+              <span>{lang === 'ru' ? 'Размер: ' : 'O‘lchami: '}</span>
+              <span className="text-gray-700 font-mono">{product.dimensions}</span>
             </p>
           )}
         </div>
 
-        {/* Price & Action Button */}
-        <div className="pt-2 flex flex-col gap-3 mt-auto">
-          <div className="flex flex-col gap-0.5">
-            <div className="flex items-baseline gap-2">
-              <span className="text-xl sm:text-2xl font-bold text-[#111111] tracking-tight">
-                {formatPrice(product.price, lang)}
-              </span>
-              {hasDiscount && (
-                <span className="text-sm text-[#98A2B3] line-through">
-                  {formatPrice(product.oldPrice!, lang)}
-                </span>
-              )}
-            </div>
-          </div>
+        {/* Pricing & CTA */}
+        <div className="pt-1 flex flex-col gap-2.5 mt-auto">
+          <Price
+            price={product.price}
+            oldPrice={product.oldPrice}
+            lang={lang}
+            size="md"
+          />
 
-          {/* Action CTA Button */}
           {product.hasVariants ? (
             <Link
               href={`/${lang}/product/${product.slug}`}
-              className="w-full flex items-center justify-center gap-2 text-sm font-semibold text-[#111111] bg-[#F2F4F7] hover:bg-[#E4E7EC] py-2.5 px-3 rounded-xl transition-all"
+              className="w-full flex items-center justify-center gap-1.5 text-xs font-semibold text-gray-800 bg-gray-100 hover:bg-gray-200 border border-gray-200 py-2 px-3 rounded-lg transition-colors"
             >
               <span>{lang === 'ru' ? 'Выбрать' : 'Tanlash'}</span>
             </Link>
@@ -196,21 +178,21 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, lang, feature
             <button
               onClick={handleAddToCart}
               disabled={!product.inStock}
-              className={`w-full flex items-center justify-center gap-2 text-sm font-semibold py-2.5 px-4 rounded-xl transition-all ${added
-                  ? 'bg-emerald-500 text-white shadow-soft'
+              className={`w-full flex items-center justify-center gap-1.5 text-xs font-semibold py-2 px-3 rounded-lg transition-colors ${added
+                  ? 'bg-emerald-600 text-white shadow-xs'
                   : product.inStock
-                    ? 'bg-brand-blue hover:bg-brand-blue-dark text-white shadow-soft hover:shadow-md'
-                    : 'bg-[#F2F4F7] text-[#98A2B3] cursor-not-allowed'
+                    ? 'bg-brand-red hover:bg-brand-red-dark text-white shadow-xs'
+                    : 'bg-gray-100 text-gray-400 border border-gray-200 cursor-not-allowed'
                 }`}
             >
               {added ? (
                 <>
-                  <Check className="w-4 h-4" />
+                  <Check className="w-3.5 h-3.5" />
                   <span>{lang === 'ru' ? 'В корзине' : 'Savatda'}</span>
                 </>
               ) : (
                 <>
-                  <ShoppingBag className="w-4 h-4" />
+                  <ShoppingBag className="w-3.5 h-3.5" />
                   <span>{lang === 'ru' ? 'В корзину' : 'Savatga'}</span>
                 </>
               )}

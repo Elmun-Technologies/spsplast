@@ -3,8 +3,10 @@ import { db } from '@/lib/db';
 import { getDictionary, Locale } from '@/lib/i18n';
 import { getProductsServer } from '@/lib/services/productService';
 import { ProductCard } from '@/components/product/ProductCard';
+import { Container } from '@/components/ui/Container';
+import { Badge } from '@/components/ui/Badge';
 import Link from 'next/link';
-import { SlidersHorizontal, Search, Layers, X } from 'lucide-react';
+import { SlidersHorizontal, Search, Layers, X, ChevronRight } from 'lucide-react';
 
 interface CatalogPageProps {
   params: { lang: Locale };
@@ -48,174 +50,205 @@ export default async function CatalogPage({
     name: c.translations[0]?.name || c.id,
   }));
 
-  return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      
-      {/* Breadcrumb */}
-      <div className="flex items-center gap-2 text-xs text-gray-400 mb-6">
-        <Link href={`/${lang}`} className="hover:text-white">
-          {dict.nav.home}
-        </Link>
-        <span>/</span>
-        <span className="text-white font-medium">{dict.nav.catalog}</span>
-      </div>
+  const selectedCategory = categories.find((c) => c.slug === searchParams.category);
 
-      {/* Catalog Title & Search Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 pb-6 border-b border-brand-border">
-        <div>
-          <h1 className="text-3xl font-black text-white">{dict.nav.catalog}</h1>
-          <p className="text-xs text-gray-400 mt-1">
-            Topilgan mahsulotlar soni: <span className="text-brand-red font-bold">{products.length}</span> dona
-          </p>
+  return (
+    <div className="bg-[#F8F9FA] min-h-screen py-6 text-gray-900">
+      <Container>
+        {/* Breadcrumbs */}
+        <nav className="flex items-center gap-1.5 text-xs text-gray-500 mb-4 font-medium">
+          <Link href={`/${lang}`} className="hover:text-brand-red transition-colors">
+            {dict.nav.home}
+          </Link>
+          <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
+          <span className="text-gray-900 font-semibold">{dict.nav.catalog}</span>
+          {selectedCategory && (
+            <>
+              <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
+              <span className="text-brand-red font-semibold">{selectedCategory.name}</span>
+            </>
+          )}
+        </nav>
+
+        {/* Page Title & Active Filters */}
+        <div className="bg-white border border-gray-200 rounded-xl p-5 mb-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h1 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">
+              {selectedCategory ? selectedCategory.name : dict.nav.catalog}
+            </h1>
+            <p className="text-xs text-gray-500 mt-0.5">
+              Jami topilgan mahsulotlar: <span className="text-gray-900 font-bold">{products.length}</span> ta
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2">
+            {searchParams.search && (
+              <Badge variant="red" className="gap-1 normal-case font-normal text-xs py-1 px-2.5">
+                <Search className="w-3 h-3" />
+                <span>"{searchParams.search}"</span>
+                <Link href={`/${lang}/catalog`} className="ml-1 hover:text-white">
+                  <X className="w-3 h-3" />
+                </Link>
+              </Badge>
+            )}
+            {selectedCategory && (
+              <Badge variant="dark" className="gap-1 normal-case font-normal text-xs py-1 px-2.5">
+                <span>{selectedCategory.name}</span>
+                <Link href={`/${lang}/catalog`} className="ml-1 hover:text-red-400">
+                  <X className="w-3 h-3" />
+                </Link>
+              </Badge>
+            )}
+            {searchParams.inStock === 'true' && (
+              <Badge variant="green" className="normal-case font-normal text-xs py-1 px-2.5">
+                Faqat mavjud
+              </Badge>
+            )}
+          </div>
         </div>
 
-        {searchParams.search && (
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-brand-card border border-brand-red text-xs text-white">
-            <Search className="w-3.5 h-3.5 text-brand-red" />
-            <span>Qidiruv: "{searchParams.search}"</span>
-            <Link href={`/${lang}/catalog`} className="p-0.5 hover:text-brand-red">
-              <X className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-        )}
-      </div>
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          {/* Left Sidebar Filter */}
+          <aside className="lg:col-span-1 space-y-4">
+            <div className="bg-white border border-gray-200 rounded-xl p-4 space-y-5 shadow-xs">
+              <div className="flex items-center justify-between pb-3 border-b border-gray-100">
+                <div className="flex items-center gap-2 font-bold text-gray-900 text-sm">
+                  <SlidersHorizontal className="w-4 h-4 text-brand-red" />
+                  <span>Filtrlar</span>
+                </div>
+                <Link
+                  href={`/${lang}/catalog`}
+                  className="text-[11px] text-gray-500 hover:text-brand-red transition-colors"
+                >
+                  Tozalash
+                </Link>
+              </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-        
-        {/* Left Sidebar Filter */}
-        <aside className="lg:col-span-1 space-y-6">
-          <div className="bg-brand-card border border-brand-border rounded-2xl p-5 space-y-6">
-            <div className="flex items-center gap-2 font-bold text-white text-base pb-3 border-b border-brand-border">
-              <SlidersHorizontal className="w-4 h-4 text-brand-red" />
-              <span>Filtrlash</span>
-            </div>
+              {/* Categories Navigation Tree */}
+              <div className="space-y-1.5">
+                <h4 className="text-[11px] font-bold uppercase tracking-wider text-gray-500 mb-2">
+                  Kategoriyalar
+                </h4>
+                <ul className="space-y-1 text-xs font-medium">
+                  <li>
+                    <Link
+                      href={`/${lang}/catalog`}
+                      className={`block px-2.5 py-1.5 rounded-lg transition-colors ${
+                        !searchParams.category
+                          ? 'bg-brand-red text-white font-bold'
+                          : 'text-gray-700 hover:bg-gray-100'
+                      }`}
+                    >
+                      Barchasi
+                    </Link>
+                  </li>
+                  {categories.map((cat) => {
+                    const isSelected = searchParams.category === cat.slug;
+                    return (
+                      <li key={cat.id}>
+                        <Link
+                          href={`/${lang}/catalog?category=${cat.slug}`}
+                          className={`block px-2.5 py-1.5 rounded-lg transition-colors ${
+                            isSelected
+                              ? 'bg-brand-red text-white font-bold'
+                              : 'text-gray-700 hover:bg-gray-100'
+                          }`}
+                        >
+                          {cat.name}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
 
-            {/* Category Filter */}
-            <div className="space-y-2">
-              <h4 className="text-xs font-extrabold uppercase text-gray-400 tracking-wider">
-                Kategoriyalar
-              </h4>
-              <ul className="space-y-1 text-xs">
-                <li>
+              {/* Quick Status Toggles */}
+              <div className="space-y-2 pt-3 border-t border-gray-100">
+                <h4 className="text-[11px] font-bold uppercase tracking-wider text-gray-500 mb-2">
+                  Status
+                </h4>
+                <div className="space-y-2 text-xs text-gray-700 font-medium">
                   <Link
-                    href={`/${lang}/catalog`}
-                    className={`block px-3 py-2 rounded-lg font-medium transition-colors ${
-                      !searchParams.category
-                        ? 'bg-brand-red text-white font-bold'
-                        : 'text-gray-300 hover:bg-white/5'
-                    }`}
+                    href={`/${lang}/catalog?${new URLSearchParams({
+                      ...searchParams,
+                      inStock: searchParams.inStock === 'true' ? 'false' : 'true',
+                    }).toString()}`}
+                    className="flex items-center gap-2 cursor-pointer hover:text-gray-900"
                   >
-                    Barcha kategoriyalar
+                    <input
+                      type="checkbox"
+                      checked={searchParams.inStock === 'true'}
+                      readOnly
+                      className="rounded border-gray-300 text-brand-red focus:ring-brand-red"
+                    />
+                    <span>Faqat omborda mavjud</span>
                   </Link>
-                </li>
-                {categories.map((cat) => {
-                  const isSelected = searchParams.category === cat.slug;
-                  return (
-                    <li key={cat.id}>
-                      <Link
-                        href={`/${lang}/catalog?category=${cat.slug}`}
-                        className={`block px-3 py-2 rounded-lg font-medium transition-colors ${
-                          isSelected
-                            ? 'bg-brand-red text-white font-bold'
-                            : 'text-gray-300 hover:bg-white/5'
-                        }`}
-                      >
-                        {cat.name}
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
+
+                  <Link
+                    href={`/${lang}/catalog?${new URLSearchParams({
+                      ...searchParams,
+                      isNew: searchParams.isNew === 'true' ? 'false' : 'true',
+                    }).toString()}`}
+                    className="flex items-center gap-2 cursor-pointer hover:text-gray-900"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={searchParams.isNew === 'true'}
+                      readOnly
+                      className="rounded border-gray-300 text-brand-red focus:ring-brand-red"
+                    />
+                    <span>Yangi kelgan mahsulotlar</span>
+                  </Link>
+
+                  <Link
+                    href={`/${lang}/catalog?${new URLSearchParams({
+                      ...searchParams,
+                      isBestseller: searchParams.isBestseller === 'true' ? 'false' : 'true',
+                    }).toString()}`}
+                    className="flex items-center gap-2 cursor-pointer hover:text-gray-900"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={searchParams.isBestseller === 'true'}
+                      readOnly
+                      className="rounded border-gray-300 text-brand-red focus:ring-brand-red"
+                    />
+                    <span>Eng ko‘p sotilgan (Top)</span>
+                  </Link>
+                </div>
+              </div>
+
             </div>
+          </aside>
 
-            {/* Quick Status Checkboxes */}
-            <div className="space-y-2 pt-4 border-t border-brand-border">
-              <h4 className="text-xs font-extrabold uppercase text-gray-400 tracking-wider">
-                Status bo‘yicha
-              </h4>
-
-              <div className="space-y-2 text-xs text-gray-300 font-medium">
+          {/* Right Product Grid */}
+          <main className="lg:col-span-3">
+            {products.length === 0 ? (
+              <div className="bg-white border border-gray-200 rounded-xl p-12 text-center space-y-3 shadow-xs">
+                <div className="w-12 h-12 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center mx-auto text-gray-400">
+                  <Layers className="w-6 h-6" />
+                </div>
+                <h3 className="text-base font-bold text-gray-900">Mahsulotlar topilmadi</h3>
+                <p className="text-xs text-gray-500 max-w-sm mx-auto">
+                  Siz tanlagan mezonlarga mos mahsulotlar topilmadi. Qidiruv so‘zini yoki filtrlarni o‘zgartirib ko‘ring.
+                </p>
                 <Link
-                  href={`/${lang}/catalog?inStock=${searchParams.inStock === 'true' ? 'false' : 'true'}`}
-                  className="flex items-center gap-2 cursor-pointer hover:text-white"
+                  href={`/${lang}/catalog`}
+                  className="inline-block px-4 py-2 bg-brand-red text-white text-xs font-bold rounded-lg shadow-xs hover:bg-brand-red-dark transition-colors"
                 >
-                  <input
-                    type="checkbox"
-                    checked={searchParams.inStock === 'true'}
-                    readOnly
-                    className="rounded border-brand-border bg-brand-dark text-brand-red focus:ring-brand-red"
-                  />
-                  <span>Faqat mavjud mahsulotlar</span>
-                </Link>
-
-                <Link
-                  href={`/${lang}/catalog?isNew=${searchParams.isNew === 'true' ? 'false' : 'true'}`}
-                  className="flex items-center gap-2 cursor-pointer hover:text-white"
-                >
-                  <input
-                    type="checkbox"
-                    checked={searchParams.isNew === 'true'}
-                    readOnly
-                    className="rounded border-brand-border bg-brand-dark text-brand-red focus:ring-brand-red"
-                  />
-                  <span>Yangi kelganlar (New)</span>
-                </Link>
-
-                <Link
-                  href={`/${lang}/catalog?isBestseller=${searchParams.isBestseller === 'true' ? 'false' : 'true'}`}
-                  className="flex items-center gap-2 cursor-pointer hover:text-white"
-                >
-                  <input
-                    type="checkbox"
-                    checked={searchParams.isBestseller === 'true'}
-                    readOnly
-                    className="rounded border-brand-border bg-brand-dark text-brand-red focus:ring-brand-red"
-                  />
-                  <span>Bestsellerlar</span>
+                  Filtrlarni tozalash
                 </Link>
               </div>
-            </div>
-
-            <div className="pt-2">
-              <Link
-                href={`/${lang}/catalog`}
-                className="block text-center text-xs text-gray-400 hover:text-brand-red underline font-medium"
-              >
-                Filtrlarni tozalash
-              </Link>
-            </div>
-
-          </div>
-        </aside>
-
-        {/* Right Product Grid */}
-        <main className="lg:col-span-3">
-          {products.length === 0 ? (
-            <div className="bg-brand-card border border-brand-border rounded-2xl p-12 text-center space-y-4">
-              <div className="w-16 h-16 rounded-full bg-brand-dark border border-brand-border flex items-center justify-center mx-auto text-gray-500">
-                <Layers className="w-8 h-8" />
+            ) : (
+              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                {products.map((product) => (
+                  <ProductCard key={product.id} product={product} lang={lang} />
+                ))}
               </div>
-              <h3 className="text-lg font-bold text-white">Mahsulot topilmadi</h3>
-              <p className="text-xs text-gray-400 max-w-sm mx-auto">
-                Siz kiritgan filtrlarga mos mahsulotlar topilmadi. Qidiruv so‘zini o‘zgartirib ko‘ring.
-              </p>
-              <Link
-                href={`/${lang}/catalog`}
-                className="inline-block px-4 py-2 bg-brand-red text-white text-xs font-bold rounded-lg"
-              >
-                Barcha mahsulotlarni ko‘rish
-              </Link>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {products.map((product) => (
-                <ProductCard key={product.id} product={product} lang={lang} />
-              ))}
-            </div>
-          )}
-        </main>
-
-      </div>
+            )}
+          </main>
+        </div>
+      </Container>
     </div>
   );
 }

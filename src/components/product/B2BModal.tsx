@@ -77,12 +77,12 @@ export const B2BModal: React.FC<B2BModalProps> = ({
   return (
     <Modal isOpen={isOpen} onClose={handleReset} title={dict.b2bModal.title}>
       {success ? (
-        <div className="text-center py-6 space-y-4">
-          <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center mx-auto text-xl font-bold">
+        <div className="text-center py-6 space-y-3">
+          <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 border border-emerald-200 flex items-center justify-center mx-auto text-xl font-bold">
             ✓
           </div>
-          <h4 className="text-lg font-bold text-white">So‘rovingiz qabul qilindi!</h4>
-          <p className="text-xs text-gray-300">
+          <h4 className="text-base font-bold text-gray-900">So‘rovingiz qabul qilindi!</h4>
+          <p className="text-xs text-gray-600">
             Mutaxassisimiz tez orada siz bilan bog‘lanib, ulgurji narx va maxsus chegirmalarni taqdim etadi.
           </p>
           <Button onClick={handleReset} className="w-full mt-4">
@@ -90,17 +90,17 @@ export const B2BModal: React.FC<B2BModalProps> = ({
           </Button>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <p className="text-xs text-gray-400 mb-2">{dict.b2bModal.subtitle}</p>
+        <form onSubmit={handleSubmit} className="space-y-3">
+          <p className="text-xs text-gray-500 mb-2">{dict.b2bModal.subtitle}</p>
 
           {productName && (
-            <div className="p-2.5 rounded-lg bg-brand-dark border border-brand-border text-xs text-brand-red font-semibold">
+            <div className="p-2.5 rounded-lg bg-red-50 border border-red-100 text-xs text-brand-red font-semibold">
               Mahsulot: {productName}
             </div>
           )}
 
           <div>
-            <label className="block text-xs font-semibold text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-gray-700 mb-1">
               Ismingiz *
             </label>
             <input
@@ -109,12 +109,12 @@ export const B2BModal: React.FC<B2BModalProps> = ({
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Masalan: Sardor"
-              className="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-red"
+              className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:border-brand-red"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-gray-700 mb-1">
               Telefon raqamingiz *
             </label>
             <input
@@ -123,12 +123,12 @@ export const B2BModal: React.FC<B2BModalProps> = ({
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder="+998901234567"
-              className="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-red"
+              className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:border-brand-red"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-gray-700 mb-1">
               {dict.b2bModal.company}
             </label>
             <input
@@ -136,12 +136,12 @@ export const B2BModal: React.FC<B2BModalProps> = ({
               value={company}
               onChange={(e) => setCompany(e.target.value)}
               placeholder="Masalan: ООО Bruschatka Plus"
-              className="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-red"
+              className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:border-brand-red"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-gray-700 mb-1">
               {dict.b2bModal.quantity}
             </label>
             <input
@@ -149,12 +149,12 @@ export const B2BModal: React.FC<B2BModalProps> = ({
               value={quantity}
               onChange={(e) => setQuantity(e.target.value)}
               placeholder="100"
-              className="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-red"
+              className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:border-brand-red"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-gray-700 mb-1">
               Qo‘shimcha savol yoki talablar
             </label>
             <textarea
@@ -162,7 +162,7 @@ export const B2BModal: React.FC<B2BModalProps> = ({
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Yetkazib berish joyi, to‘lov shakli..."
-              className="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-red"
+              className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:border-brand-red"
             />
           </div>
 
