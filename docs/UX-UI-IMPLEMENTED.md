@@ -62,6 +62,44 @@
 
 ---
 
+## P3 — Davom (ketma-ket)
+
+### Compare — Taqqoslash
+- `compareStore.ts` — 4 tagacha, persist
+- `CompareBar.tsx` — bottom fixed, 3xl, 4 rasm, clear, Taqqoslash button
+- `compare/page.tsx` — table: narx, SKU, o'lcham, material, mavjudlik, savatga
+- Header da compare icon + count, ProductCard da compare button
+
+### Product Reviews
+- `ProductReviews.tsx` — mock 3 ta sharh, avg rating, yulduz, verified badge, form (ism, rating, text), submitted state
+- Product page da alohida section + ProductTabs ichida ham reviews tab
+
+### B2B Banner
+- `B2BBanner.tsx` — qora gradient, 100+ -5%, 500+ -10%, shartnoma badge, 2 CTA
+- Home da showcase dan keyin
+
+### PWA
+- `public/manifest.json` + icons 192/512 (AI generated)
+- `layout.tsx` da manifest, themeColor, appleWebApp, openGraph
+- `PWAInstallBanner.tsx` — beforeinstallprompt, Download + Keyinroq, localStorage dismissed
+- Layout ga qo'shildi
+
+### Analytics Enhanced
+- `analytics.ts` — gtag, fbq, ym, dataLayer, enriched page_path, helpers: viewItem, viewItemList, addToCart, viewCart, beginCheckout, purchase, search, lead
+
+### Light Theme Consistency
+- `delivery-payment`, `privacy`, `terms`, `returns`, `production`, `projects`, `blog` — dark dan light ga: `bg-[#F8F9FA]`, `bg-white`, `Breadcrumbs`, Container, shadow-sm, i18n
+
+### Material Filter
+- `productService` da material filter qo'shildi (attribute code material)
+- Catalog da Material filter UI: ABS, Polipropilen, Silikon
+
+### Related + Cross-sell
+- Product page da `RelatedProducts` — shu kategoriyadan 4 ta
+- Cart da `RecentlyViewed` + `FreeShippingProgress` allaqachon
+
+---
+
 ## Nima qilindi (P0) — oldingi
 
 ### 1. Tailwind Design Tokens Fix
