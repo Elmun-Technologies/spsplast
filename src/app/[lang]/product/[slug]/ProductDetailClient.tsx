@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { ShoppingCart, Building2, Truck, ShieldCheck, Check } from 'lucide-react';
+import { ShoppingCart, Building2, Truck, ShieldCheck, Check, Share2, Calculator, X } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { Price } from '@/components/ui/Price';
@@ -31,15 +31,27 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
   const [b2bModalOpen, setB2bModalOpen] = useState(false);
+  const [showSticky, setShowSticky] = useState(false);
+  const [calcArea, setCalcArea] = useState('');
+  const [showCalc, setShowCalc] = useState(false);
 
   const title = lang === 'ru' ? product.titleRu : product.titleUz;
   const description = lang === 'ru' ? product.descriptionRu : product.descriptionUz;
 
-  // Bulk Tier Pricing Calculations
+  // Sticky ATC on scroll
+  useEffect(() => {
+    const onScroll = () => {
+      setShowSticky(window.scrollY > 400);
+    };
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Bulk Tier Pricing
   const basePrice = product.price;
   const getTierPrice = (qty: number) => {
-    if (qty >= 50) return Math.round(basePrice * 0.9); // 10% discount for 50+
-    if (qty >= 10) return Math.round(basePrice * 0.95); // 5% discount for 10+
+    if (qty >= 50) return Math.round(basePrice * 0.9);
+    if (qty >= 10) return Math.round(basePrice * 0.95);
     return basePrice;
   };
 
@@ -64,71 +76,200 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
     });
 
     setAdded(true);
-    setTimeout(() => setAdded(false), 2000);
+    setTimeout(() => setAdded(false), 2500);
   };
+
+  const handleShare = async () => {
+    const url = window.location.href;
+    if (navigator.share) {
+      try {
+        await navigator.share({ title, url });
+      } catch {}
+    } else {
+      await navigator.clipboard.writeText(url);
+    }
+    trackEvent('share', { method: 'copy', content_type: 'product', item_id: product.id });
+  };
+
+  // Simple calculator: area / 0.09 = qty for 30x30 (approx)
+  const calcQty = () => {
+    const area = parseFloat(calcArea);
+    if (!area || isNaN(area)) return 0;
+    // Assume 30x30 = 0.09 m2 per piece, if dimensions known parse? Simplified: 11 pcs per m2
+    return Math.ceil(area * 11);
+  };
+
+  const calcTotal = calcQty() * currentUnitPrice;
 
   return (
     <>
-      <div className="bg-[#F8F9FA] p-1.5 rounded-2xl border border-gray-200/80 shadow-xs">
-        <div className="bg-white rounded-xl p-5 sm:p-6 border border-gray-100">
+      {/* Sticky ATC Bar */}
+      <div
+        className={`fixed bottom-0 left-0 right-0 z-30 bg-white border-t border-gray-200 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] transition-transform duration-300 lg:bottom-auto lg:top-0 lg:shadow-sm ${
+          showSticky ? 'translate-y-0' : 'translate-y-full lg:-translate-y-full'
+        }`}
+      >
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="w-12 h-12 rounded-lg bg-[#F8F9FA] border border-gray-200 p-1 shrink-0 hidden sm:block">
+              <div className="relative w-full h-full">
+                <Image src={images[0]} alt={title} fill className="object-contain p-1" />
+              </div>
+            </div>
+            <div className="min-w-0">
+              <div className="text-sm font-bold text-gray-900 truncate max-w-[200px] sm:max-w-[300px]">{title}</div>
+              <div className="text-xs text-gray-500">SKU: {product.sku}</div>
+            </div>
+            <div className="hidden md:block ml-4">
+              <Price price={currentUnitPrice} lang={lang} size="md" />
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 shrink-0">
+            <div className="hidden sm:flex">
+              <QuantitySelector quantity={quantity} onDecrease={() => setQuantity(Math.max(1, quantity - 1))} onIncrease={() => setQuantity(quantity + 1)} />
+            </div>
+            <button
+              onClick={handleAddToCart}
+              disabled={!product.inStock}
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm transition-all min-h-[44px] ${
+                added ? 'bg-emerald-600 text-white' : 'bg-brand-red hover:bg-brand-red-dark text-white shadow-red'
+              }`}
+            >
+              {added ? <Check className="w-4 h-4" /> : <ShoppingCart className="w-4 h-4" />}
+              <span className="hidden sm:inline">{added ? (lang === 'ru' ? 'В корзине' : 'Savatda') : (lang === 'ru' ? 'В корзину' : 'Savatga')}</span>
+              <span className="sm:hidden">{added ? '✓' : '+'}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-[#F8F9FA] p-2 sm:p-3 rounded-2xl border border-gray-200/80 shadow-xs">
+        <div className="bg-white rounded-xl p-4 sm:p-6 border border-gray-100">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
-            
             {/* Gallery Column */}
             <div className="lg:col-span-6 space-y-3">
-              <div className="relative aspect-square w-full rounded-xl overflow-hidden border border-gray-200 bg-[#F8F9FA] flex items-center justify-center p-4">
+              <div className="relative aspect-square w-full rounded-xl overflow-hidden border border-gray-200 bg-[#F8F9FA] flex items-center justify-center p-4 group">
                 <Image
                   src={images[activeImageIndex]}
                   alt={title}
                   fill
                   priority
-                  className="object-contain p-4"
+                  className="object-contain p-6 group-hover:scale-105 transition-transform duration-500"
                 />
 
                 <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
                   {product.isNew && <Badge variant="blue">Yangi</Badge>}
                   {product.isBestseller && <Badge variant="dark">Top Xit</Badge>}
+                  {product.oldPrice && product.oldPrice > product.price && (
+                    <Badge variant="red">
+                      -{Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100)}%
+                    </Badge>
+                  )}
                 </div>
+
+                <button
+                  onClick={handleShare}
+                  className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+                  aria-label="Ulashish"
+                >
+                  <Share2 className="w-4 h-4" />
+                </button>
               </div>
 
               {images.length > 1 && (
-                <div className="flex items-center gap-2 overflow-x-auto pb-1">
+                <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-thin">
                   {images.map((imgUrl: string, idx: number) => (
                     <button
                       key={idx}
                       onClick={() => setActiveImageIndex(idx)}
-                      className={`relative w-16 h-16 rounded-lg overflow-hidden border shrink-0 bg-[#F8F9FA] transition-all p-1 ${
+                      className={`relative w-20 h-20 rounded-xl overflow-hidden border-2 shrink-0 bg-[#F8F9FA] transition-all p-1 ${
                         activeImageIndex === idx
-                          ? 'border-brand-red ring-1 ring-brand-red'
-                          : 'border-gray-200 opacity-70 hover:opacity-100'
+                          ? 'border-brand-red ring-2 ring-brand-red/20'
+                          : 'border-gray-200 opacity-70 hover:opacity-100 hover:border-gray-300'
                       }`}
                     >
-                      <Image src={imgUrl} alt={`${title} ${idx + 1}`} fill className="object-contain p-1" />
+                      <Image src={imgUrl} alt={`${title} ${idx + 1}`} fill className="object-contain p-2" />
                     </button>
                   ))}
                 </div>
               )}
+
+              {/* Calculator Toggle */}
+              <div className="pt-2">
+                <button
+                  onClick={() => setShowCalc(!showCalc)}
+                  className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-gray-900 text-white font-bold text-sm hover:bg-black transition-colors"
+                >
+                  <Calculator className="w-4 h-4" />
+                  <span>{lang === 'ru' ? 'Калькулятор: сколько нужно?' : 'Kalkulyator: qancha kerak?'}</span>
+                </button>
+
+                {showCalc && (
+                  <div className="mt-3 p-4 rounded-xl bg-[#F8F9FA] border border-gray-200 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <h4 className="text-sm font-bold text-gray-900">{lang === 'ru' ? 'Расчет по площади' : 'Maydon bo‘yicha hisob'}</h4>
+                      <button onClick={() => setShowCalc(false)} className="p-1 hover:bg-gray-200 rounded-lg">
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                    <div>
+                      <label className="text-xs font-semibold text-gray-700">m² (kvadrat)</label>
+                      <input
+                        type="number"
+                        value={calcArea}
+                        onChange={(e) => setCalcArea(e.target.value)}
+                        placeholder="Masalan: 50"
+                        className="mt-1 w-full px-3 py-2.5 rounded-lg border border-gray-300 text-sm focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 outline-none"
+                      />
+                    </div>
+                    {calcQty() > 0 && (
+                      <div className="p-3 rounded-lg bg-white border border-gray-200 text-sm space-y-1">
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Kerakli qolip:</span>
+                          <span className="font-bold text-gray-900">{calcQty()} dona</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Taxminiy narx:</span>
+                          <span className="font-bold text-brand-red">{formatPrice(calcTotal, lang)}</span>
+                        </div>
+                        <Button size="sm" className="w-full mt-2" onClick={() => setQuantity(calcQty())}>
+                          {calcQty()} donani savatga qo‘shish
+                        </Button>
+                      </div>
+                    )}
+                    <p className="text-xs text-gray-500">* 30x30 o‘lcham uchun 1 m² ≈ 11 dona. Boshqa o‘lchamlar uchun operator bilan maslahatlashing.</p>
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Details & Actions Column */}
             <div className="lg:col-span-6 space-y-5">
-              <div className="space-y-2">
-                <div className="flex items-center justify-between text-xs text-gray-500">
-                  <span className="font-mono bg-gray-100 px-2 py-0.5 rounded border border-gray-200 text-gray-700">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono bg-gray-100 px-2.5 py-1 rounded-lg border border-gray-200 text-gray-700 text-xs font-bold">
                     SKU: {product.sku}
                   </span>
                   <StockBadge inStock={product.inStock} lang={lang} />
                 </div>
 
-                <h1 className="text-xl sm:text-2xl font-bold text-gray-900 leading-tight">
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 leading-tight tracking-tight">
                   {title}
                 </h1>
+
+                {description && (
+                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed">{description}</p>
+                )}
               </div>
 
               {/* Price Box & Bulk Discount Tier */}
-              <div className="p-4 rounded-xl bg-[#F8F9FA] border border-gray-200 space-y-3">
+              <div className="p-5 rounded-2xl bg-[#F8F9FA] border border-gray-200 space-y-4">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <div>
-                    <span className="text-[11px] text-gray-500 font-semibold uppercase block mb-0.5">Narxi (dona)</span>
+                    <span className="text-xs text-gray-500 font-bold uppercase tracking-wider block mb-1">
+                      {lang === 'ru' ? 'Цена за шт' : 'Narxi (dona)'}
+                    </span>
                     <Price price={currentUnitPrice} oldPrice={currentUnitPrice < basePrice ? basePrice : product.oldPrice} lang={lang} size="xl" showDiscountBadge />
                   </div>
 
@@ -136,122 +277,130 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                     variant="outline"
                     size="sm"
                     onClick={() => setB2bModalOpen(true)}
-                    className="gap-1.5 border-brand-red text-brand-red hover:bg-brand-red hover:text-white text-xs font-bold shrink-0"
+                    className="gap-2 border-brand-red text-brand-red hover:bg-brand-red hover:text-white text-sm font-bold shrink-0 rounded-xl"
                   >
-                    <Building2 className="w-3.5 h-3.5" />
-                    <span>Ulgurji Narx So‘rash</span>
+                    <Building2 className="w-4 h-4" />
+                    <span>{lang === 'ru' ? 'Оптовая цена' : 'Ulgurji narx'}</span>
                   </Button>
                 </div>
 
                 {/* Bulk Wholesale Tier Preview Table */}
-                <div className="pt-2.5 border-t border-gray-200/80">
-                  <div className="text-[11px] font-bold uppercase tracking-wider text-gray-500 mb-1.5">
+                <div className="pt-3 border-t border-gray-200/80">
+                  <div className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2.5">
                     {lang === 'ru' ? 'Оптовые скидки от объема' : 'Ulgurji hajm chegirmalari'}
                   </div>
-                  <div className="grid grid-cols-3 gap-2 text-center text-xs">
-                    <div className={`p-2 rounded border transition-colors ${quantity < 10 ? 'bg-white border-brand-red font-bold text-gray-900 shadow-xs' : 'bg-gray-100 border-gray-200 text-gray-600'}`}>
-                      <div className="text-[10px] text-gray-500">1 – 9 dona</div>
-                      <div className="font-semibold">{formatPrice(basePrice, lang)}</div>
+                  <div className="grid grid-cols-3 gap-2.5 text-center">
+                    <div className={`p-3 rounded-xl border-2 transition-all ${quantity < 10 ? 'bg-white border-brand-red shadow-sm' : 'bg-white border-gray-200 text-gray-600'}`}>
+                      <div className="text-xs text-gray-500 font-medium">1 – 9 dona</div>
+                      <div className="font-bold text-sm mt-1 text-gray-900">{formatPrice(basePrice, lang)}</div>
                     </div>
-                    <div className={`p-2 rounded border transition-colors ${quantity >= 10 && quantity < 50 ? 'bg-white border-brand-red font-bold text-gray-900 shadow-xs' : 'bg-gray-100 border-gray-200 text-gray-600'}`}>
-                      <div className="text-[10px] text-gray-500">10 – 49 dona</div>
-                      <div className="font-semibold text-emerald-700">{formatPrice(Math.round(basePrice * 0.95), lang)} (-5%)</div>
+                    <div className={`p-3 rounded-xl border-2 transition-all ${quantity >= 10 && quantity < 50 ? 'bg-white border-brand-red shadow-sm' : 'bg-white border-gray-200 text-gray-600'}`}>
+                      <div className="text-xs text-gray-500 font-medium">10 – 49 dona</div>
+                      <div className="font-bold text-sm mt-1 text-emerald-700">{formatPrice(Math.round(basePrice * 0.95), lang)}</div>
+                      <div className="text-[10px] font-bold text-emerald-600 mt-0.5">-5% CHEGIRMA</div>
                     </div>
-                    <div className={`p-2 rounded border transition-colors ${quantity >= 50 ? 'bg-white border-brand-red font-bold text-gray-900 shadow-xs' : 'bg-gray-100 border-gray-200 text-gray-600'}`}>
-                      <div className="text-[10px] text-gray-500">50+ dona</div>
-                      <div className="font-semibold text-brand-red">{formatPrice(Math.round(basePrice * 0.9), lang)} (-10%)</div>
+                    <div className={`p-3 rounded-xl border-2 transition-all ${quantity >= 50 ? 'bg-white border-brand-red shadow-sm' : 'bg-white border-gray-200 text-gray-600'}`}>
+                      <div className="text-xs text-gray-500 font-medium">50+ dona</div>
+                      <div className="font-bold text-sm mt-1 text-brand-red">{formatPrice(Math.round(basePrice * 0.9), lang)}</div>
+                      <div className="text-[10px] font-bold text-brand-red mt-0.5">-10% CHEGIRMA</div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {description && (
-                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">{description}</p>
-              )}
-
               {/* Specifications Table */}
-              <div className="border border-gray-200 rounded-lg bg-white p-3.5 space-y-2 text-xs">
-                <h4 className="font-bold text-gray-900 uppercase tracking-wider mb-1.5 border-b border-gray-100 pb-1">
-                  Xususiyatlari va Parametrlari
+              <div className="border border-gray-200 rounded-2xl bg-white p-4 space-y-2.5">
+                <h4 className="font-bold text-gray-900 uppercase tracking-wider text-sm border-b border-gray-100 pb-2.5">
+                  {lang === 'ru' ? 'Характеристики' : 'Xususiyatlari va parametrlari'}
                 </h4>
 
                 {product.dimensions && (
-                  <div className="flex justify-between py-1 border-b border-gray-100">
-                    <span className="text-gray-500">O‘lchami:</span>
-                    <span className="text-gray-900 font-mono font-medium">{product.dimensions}</span>
+                  <div className="flex justify-between py-2 border-b border-gray-50 text-sm">
+                    <span className="text-gray-500">{lang === 'ru' ? 'Размер' : 'O‘lchami'}:</span>
+                    <span className="text-gray-900 font-mono font-bold">{product.dimensions}</span>
                   </div>
                 )}
 
                 {product.material && (
-                  <div className="flex justify-between py-1 border-b border-gray-100">
-                    <span className="text-gray-500">Material turi:</span>
-                    <span className="text-gray-900 font-medium">{product.material}</span>
+                  <div className="flex justify-between py-2 border-b border-gray-50 text-sm">
+                    <span className="text-gray-500">{lang === 'ru' ? 'Материал' : 'Material turi'}:</span>
+                    <span className="text-gray-900 font-semibold">{product.material}</span>
                   </div>
                 )}
 
                 {product.yieldPerCast && (
-                  <div className="flex justify-between py-1 border-b border-gray-100">
-                    <span className="text-gray-500">Bitta quyishda dona:</span>
+                  <div className="flex justify-between py-2 border-b border-gray-50 text-sm">
+                    <span className="text-gray-500">{lang === 'ru' ? 'За 1 заливку' : 'Bitta quyishda'}:</span>
                     <span className="text-brand-red font-bold">{product.yieldPerCast} dona</span>
                   </div>
                 )}
 
                 {product.durabilityCasts && (
-                  <div className="flex justify-between py-1">
-                    <span className="text-gray-500">Xizmat resursi:</span>
+                  <div className="flex justify-between py-2 text-sm">
+                    <span className="text-gray-500">{lang === 'ru' ? 'Ресурс' : 'Xizmat resursi'}:</span>
                     <span className="text-emerald-600 font-bold">{product.durabilityCasts}+ marotaba</span>
+                  </div>
+                )}
+
+                {product.weight && (
+                  <div className="flex justify-between py-2 border-t border-gray-50 text-sm">
+                    <span className="text-gray-500">{lang === 'ru' ? 'Вес' : 'Og‘irligi'}:</span>
+                    <span className="text-gray-900 font-medium">{product.weight}</span>
                   </div>
                 )}
               </div>
 
               {/* Quantity & Cart Action */}
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                 <QuantitySelector
                   quantity={quantity}
                   onDecrease={() => setQuantity(Math.max(1, quantity - 1))}
                   onIncrease={() => setQuantity(quantity + 1)}
+                  className="justify-center sm:justify-start"
                 />
 
                 <button
                   onClick={handleAddToCart}
                   disabled={!product.inStock}
-                  className={`flex-1 flex items-center justify-between gap-2 text-xs sm:text-sm font-bold py-2.5 pl-4 pr-2 rounded-lg transition-colors ${
+                  className={`flex-1 flex items-center justify-center gap-2 text-sm sm:text-base font-bold py-3.5 px-6 rounded-xl transition-all min-h-[52px] ${
                     added
-                      ? 'bg-emerald-600 text-white shadow-xs'
+                      ? 'bg-emerald-600 text-white shadow-sm'
                       : product.inStock
-                      ? 'bg-brand-red hover:bg-brand-red-dark text-white shadow-xs'
+                      ? 'bg-brand-red hover:bg-brand-red-dark text-white shadow-red hover:shadow-lg active:scale-[0.98]'
                       : 'bg-gray-100 text-gray-400 border border-gray-200 cursor-not-allowed'
                   }`}
                 >
+                  {added ? <Check className="w-5 h-5" /> : <ShoppingCart className="w-5 h-5" />}
                   <span>
                     {added
-                      ? (lang === 'ru' ? 'В корзине' : 'Savatga qo‘shildi')
+                      ? (lang === 'ru' ? 'В корзине ✓' : 'Savatga qo‘shildi ✓')
                       : (lang === 'ru' ? 'Добавить в корзину' : 'Savatga qo‘shish')}
                   </span>
-
-                  <div className="w-7 h-7 rounded-md bg-white/20 flex items-center justify-center shrink-0">
-                    {added ? (
-                      <Check className="w-4 h-4 text-white" />
-                    ) : (
-                      <ShoppingCart className="w-4 h-4 text-white" />
-                    )}
-                  </div>
                 </button>
               </div>
 
               {/* Guarantees */}
-              <div className="grid grid-cols-2 gap-2.5 pt-1 text-[11px] text-gray-500 font-medium">
-                <div className="flex items-center gap-2 p-2 rounded-lg bg-[#F8F9FA] border border-gray-200">
-                  <Truck className="w-4 h-4 text-brand-red shrink-0" />
-                  <span>Express yetkazib berish</span>
+              <div className="grid grid-cols-2 gap-3 text-sm">
+                <div className="flex items-center gap-2.5 p-3 rounded-xl bg-[#F8F9FA] border border-gray-200">
+                  <div className="w-9 h-9 rounded-lg bg-white border border-gray-200 flex items-center justify-center shrink-0">
+                    <Truck className="w-5 h-5 text-brand-red" />
+                  </div>
+                  <div>
+                    <div className="font-bold text-gray-900 text-xs">Express</div>
+                    <div className="text-xs text-gray-500">1-3 kunda yetkazish</div>
+                  </div>
                 </div>
 
-                <div className="flex items-center gap-2 p-2 rounded-lg bg-[#F8F9FA] border border-gray-200">
-                  <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>100% Sifat va Kafolat</span>
+                <div className="flex items-center gap-2.5 p-3 rounded-xl bg-[#F8F9FA] border border-gray-200">
+                  <div className="w-9 h-9 rounded-lg bg-white border border-gray-200 flex items-center justify-center shrink-0">
+                    <ShieldCheck className="w-5 h-5 text-emerald-600" />
+                  </div>
+                  <div>
+                    <div className="font-bold text-gray-900 text-xs">100% Kafolat</div>
+                    <div className="text-xs text-gray-500">300+ quyish resursi</div>
+                  </div>
                 </div>
               </div>
-
             </div>
           </div>
         </div>

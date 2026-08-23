@@ -11,6 +11,7 @@ import { Container } from '@/components/ui/Container';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Badge } from '@/components/ui/Badge';
 import { Price } from '@/components/ui/Price';
+import { DealCountdown } from '@/components/ui/DealCountdown';
 import {
   ArrowRight,
   ChevronDown,
@@ -18,7 +19,6 @@ import {
   Truck,
   PackageCheck,
   Headphones,
-  Clock,
   Sparkles,
   ShoppingBag,
 } from 'lucide-react';
@@ -186,10 +186,7 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
                   </span>
                 </div>
 
-                <div className="flex items-center gap-1 text-[11px] font-mono font-bold bg-red-50 text-brand-red px-2 py-0.5 rounded border border-red-100">
-                  <Clock className="w-3.5 h-3.5" />
-                  <span>23:59:59</span>
-                </div>
+                <DealCountdown lang={lang} />
               </div>
 
               {dealOfTheDay && (
@@ -245,60 +242,60 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
       {/* ==========================================
           2. TRUST FACTORS STRIP
          ========================================== */}
-      <section className="py-2">
+      <section className="py-3">
         <Container>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 bg-white border border-gray-200 rounded-xl p-3.5 sm:p-4 shadow-xs">
-            <div className="flex items-center gap-3 p-1">
-              <div className="w-10 h-10 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center text-brand-red shrink-0 shadow-xs">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 bg-white border border-gray-200 rounded-xl p-4 shadow-xs">
+            <div className="flex items-center gap-3 p-1.5">
+              <div className="w-11 h-11 rounded-xl bg-red-50 border border-red-100 flex items-center justify-center text-brand-red shrink-0">
                 <Truck className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="text-xs font-bold text-gray-900">
+                <h4 className="text-sm font-bold text-gray-900">
                   {lang === 'ru' ? 'Доставка по Узбекистану' : 'O‘zbekiston bo‘ylab yetkazish'}
                 </h4>
-                <p className="text-[11px] text-gray-500 font-medium">
+                <p className="text-xs text-gray-500 font-medium mt-0.5">
                   {lang === 'ru' ? 'Pochta va kuryer orqali' : 'Pochta va kuryer orqali'}
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 p-1">
-              <div className="w-10 h-10 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center text-brand-red shrink-0 shadow-xs">
+            <div className="flex items-center gap-3 p-1.5">
+              <div className="w-11 h-11 rounded-xl bg-red-50 border border-red-100 flex items-center justify-center text-brand-red shrink-0">
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="text-xs font-bold text-gray-900">
+                <h4 className="text-sm font-bold text-gray-900">
                   {lang === 'ru' ? 'Гарантия качества 300+' : 'Sifat kafolati 300+'}
                 </h4>
-                <p className="text-[11px] text-gray-500 font-medium">
+                <p className="text-xs text-gray-500 font-medium mt-0.5">
                   {lang === 'ru' ? 'Официальный стандарт' : 'Oliy navli plastmassa'}
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 p-1">
-              <div className="w-10 h-10 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center text-brand-red shrink-0 shadow-xs">
+            <div className="flex items-center gap-3 p-1.5">
+              <div className="w-11 h-11 rounded-xl bg-red-50 border border-red-100 flex items-center justify-center text-brand-red shrink-0">
                 <PackageCheck className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="text-xs font-bold text-gray-900">
+                <h4 className="text-sm font-bold text-gray-900">
                   {lang === 'ru' ? 'Прямой производитель' : 'To‘g‘ridan-to‘g‘ri ishlab chiqaruvchi'}
                 </h4>
-                <p className="text-[11px] text-gray-500 font-medium">
+                <p className="text-xs text-gray-500 font-medium mt-0.5">
                   {lang === 'ru' ? 'Без посредников' : 'Vositachilarsiz hamyonbop'}
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 p-1">
-              <div className="w-10 h-10 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center text-brand-red shrink-0 shadow-xs">
+            <div className="flex items-center gap-3 p-1.5">
+              <div className="w-11 h-11 rounded-xl bg-red-50 border border-red-100 flex items-center justify-center text-brand-red shrink-0">
                 <Headphones className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="text-xs font-bold text-gray-900">
-                  {lang === 'ru' ? 'Поддержка va maslahat' : 'Mutaxassis maslahati'}
+                <h4 className="text-sm font-bold text-gray-900">
+                  {lang === 'ru' ? 'Поддержка и консультация' : 'Mutaxassis maslahati'}
                 </h4>
-                <p className="text-[11px] text-gray-500 font-medium">
+                <p className="text-xs text-gray-500 font-medium mt-0.5">
                   {lang === 'ru' ? 'Помощь в выборе' : 'Bepul professional maslahat'}
                 </p>
               </div>
