@@ -25,13 +25,16 @@ export default function LangLayout({
 
   return (
     <div className="min-h-screen flex flex-col bg-brand-dark text-white font-sans antialiased selection:bg-brand-red selection:text-white">
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] px-4 py-2 bg-brand-red text-white rounded-xl text-sm font-bold">
+        {lang === 'ru' ? 'Перейти к содержимому' : 'Asosiy kontentga o‘tish'}
+      </a>
       <SWRegister />
       <Header lang={lang} />
       <CartDrawer lang={lang} />
       <CompareBar lang={lang} />
       <PWAInstallBanner />
       <AIAssistant lang={lang} />
-      <main className="flex-1 pb-24 lg:pb-0">{children}</main>
+      <main id="main-content" className="flex-1 pb-24 lg:pb-0">{children}</main>
       <StickyMobileContact lang={lang} />
       <Footer lang={lang} />
     </div>

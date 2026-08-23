@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { SlidersHorizontal, X, ChevronDown, Grid, List, Search } from 'lucide-react';
 import Link from 'next/link';
@@ -8,7 +8,9 @@ import { ProductCard } from '@/components/product/ProductCard';
 import { Container } from '@/components/ui/Container';
 import { Badge } from '@/components/ui/Badge';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import { EmptyState } from '@/components/ui/EmptyState';
 import { Locale } from '@/lib/i18n';
+import { trackEvent } from '@/lib/analytics';
 
 interface CatalogClientProps {
   lang: Locale;
@@ -44,6 +46,16 @@ export const CatalogClient: React.FC<CatalogClientProps> = ({
   const [priceMin, setPriceMin] = useState(searchParams.minPrice || '');
   const [priceMax, setPriceMax] = useState(searchParams.maxPrice || '');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+
+  useEffect(() => {
+    if (products.length > 0) {
+      trackEvent('view_item_list', {
+        item_list_name: selectedCategory?.name || 'catalog',
+        item_list_id: selectedCategory?.slug || 'all',
+        items: products.slice(0, 10).map((p: any) => ({ item_id: p.id, item_name: p.titleUz || p.titleRu })),
+      });
+    }
+  }, [products, selectedCategory]);
 
   const updateParam = (key: string, value: string | null) => {
     const params = new URLSearchParams(sp.toString());
@@ -275,18 +287,7 @@ export const CatalogClient: React.FC<CatalogClientProps> = ({
           {/* Products */}
           <main className="lg:col-span-3 space-y-6">
             {products.length === 0 ? (
-              <div className="bg-white border border-gray-200 rounded-2xl p-12 text-center space-y-4 shadow-sm">
-                <div className="w-16 h-16 rounded-2xl bg-gray-100 border border-gray-200 flex items-center justify-center mx-auto">
-                  <SlidersHorizontal className="w-8 h-8 text-gray-400" />
-                </div>
-                <h3 className="text-lg font-bold text-gray-900">{lang === 'ru' ? 'Ничего не найдено' : 'Mahsulotlar topilmadi'}</h3>
-                <p className="text-sm text-gray-500 max-w-sm mx-auto">
-                  {lang === 'ru' ? 'Попробуйте изменить фильтры или поиск.' : 'Filtr yoki qidiruvni o‘zgartirib ko‘ring.'}
-                </p>
-                <Link href={`/${lang}/catalog`} className="inline-flex px-5 py-2.5 bg-brand-red text-white text-sm font-bold rounded-xl hover:bg-brand-red-dark">
-                  {lang === 'ru' ? 'Сбросить фильтры' : 'Filtrlarni tozalash'}
-                </Link>
-              </div>
+              <EmptyState lang={lang} type="catalog" />
             ) : (
               <>
                 <div className={viewMode === 'grid' ? 'grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4' : 'grid grid-cols-1 gap-3'}>

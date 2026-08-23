@@ -8,6 +8,7 @@ import { useCompareStore } from '@/lib/store/compareStore';
 import { useCartStore } from '@/lib/store/cartStore';
 import { Container } from '@/components/ui/Container';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import { EmptyState } from '@/components/ui/EmptyState';
 import { Button } from '@/components/ui/Button';
 import { formatPrice } from '@/lib/utils';
 import { Locale, getDictionary } from '@/lib/i18n';
@@ -25,16 +26,7 @@ export default function ComparePage({ params: { lang } }: { params: { lang: Loca
       <div className="bg-[#F8F9FA] min-h-screen py-8">
         <Container>
           <Breadcrumbs lang={lang} items={[{ label: lang === 'ru' ? 'Сравнение' : 'Taqqoslash', active: true }]} className="mb-4" />
-          <div className="bg-white border border-gray-200 rounded-2xl p-12 text-center space-y-4">
-            <div className="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto">
-              <ArrowRightLeft className="w-8 h-8 text-gray-400" />
-            </div>
-            <h2 className="text-lg font-bold text-gray-900">{lang === 'ru' ? 'Нет товаров для сравнения' : 'Taqqoslash uchun mahsulot yo‘q'}</h2>
-            <p className="text-sm text-gray-500">{lang === 'ru' ? 'Добавьте до 4 товаров' : '4 tagacha mahsulot qo‘shing'}</p>
-            <Link href={`/${lang}/catalog`}>
-              <Button className="rounded-xl mt-2">{lang === 'ru' ? 'В каталог' : 'Katalogga'}</Button>
-            </Link>
-          </div>
+          <EmptyState lang={lang} type="compare" />
         </Container>
       </div>
     );

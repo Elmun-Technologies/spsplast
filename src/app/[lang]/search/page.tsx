@@ -6,7 +6,8 @@ import { getProductsServer } from '@/lib/services/productService';
 import { ProductCard } from '@/components/product/ProductCard';
 import { Container } from '@/components/ui/Container';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-import { Search, Layers } from 'lucide-react';
+import { EmptyState } from '@/components/ui/EmptyState';
+import { Search } from 'lucide-react';
 
 interface SearchPageProps {
     params: { lang: Locale };
@@ -84,41 +85,7 @@ export default async function SearchPage({
                 </div>
 
                 {products.length === 0 ? (
-                    <div className="bg-white border border-gray-200 rounded-2xl p-10 sm:p-12 text-center space-y-5 shadow-sm">
-                        <div className="w-16 h-16 rounded-2xl bg-gray-100 border border-gray-200 flex items-center justify-center mx-auto text-gray-400">
-                            <Layers className="w-8 h-8 text-brand-red" />
-                        </div>
-
-                        <div className="space-y-2 max-w-md mx-auto">
-                            <h3 className="text-lg font-bold text-gray-900">
-                                {query ? `"${query}" bo‘yicha topilmadi` : 'Qidiruv so‘zini kiriting'}
-                            </h3>
-                            <p className="text-sm text-gray-500">
-                                SKU, o‘lcham yoki nom bo‘yicha qidirib ko‘ring.
-                            </p>
-                        </div>
-
-                        <div className="pt-6 border-t border-gray-100">
-                            <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">
-                                Ommabop kategoriyalar
-                            </h4>
-                            <div className="flex flex-wrap justify-center gap-2">
-                                {rawCategories.map((c) => {
-                                    const name = c.translations[0]?.name || c.id;
-                                    const slug = c.translations[0]?.slug || c.id;
-                                    return (
-                                        <Link
-                                            key={c.id}
-                                            href={`/${lang}/catalog?category=${slug}`}
-                                            className="px-4 py-2 rounded-xl bg-gray-50 hover:bg-white border border-gray-200 text-sm font-medium text-gray-700 hover:text-brand-red transition-colors"
-                                        >
-                                            {name}
-                                        </Link>
-                                    );
-                                })}
-                            </div>
-                        </div>
-                    </div>
+                    <EmptyState lang={lang} type="search" query={query} />
                 ) : (
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
                         {products.map((product) => (

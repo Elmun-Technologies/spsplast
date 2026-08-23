@@ -9,6 +9,7 @@ import { useCartStore } from '@/lib/store/cartStore';
 import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import { EmptyState } from '@/components/ui/EmptyState';
 import { formatPrice } from '@/lib/utils';
 import { Locale, getDictionary } from '@/lib/i18n';
 import { trackEvent } from '@/lib/analytics';
@@ -48,18 +49,7 @@ export default function WishlistPage({ params: { lang } }: { params: { lang: Loc
         </div>
 
         {wishlistItems.length === 0 ? (
-          <div className="bg-white border border-gray-200 rounded-2xl p-12 text-center space-y-4 shadow-sm">
-            <div className="w-16 h-16 rounded-2xl bg-gray-100 border border-gray-200 flex items-center justify-center mx-auto">
-              <Heart className="w-8 h-8 text-gray-400" />
-            </div>
-            <h3 className="text-lg font-bold text-gray-900">{lang === 'ru' ? 'Список пуст' : 'Sevimlilar bo‘sh'}</h3>
-            <p className="text-sm text-gray-500 max-w-sm mx-auto">
-              {lang === 'ru' ? 'Добавляйте товары в избранное, чтобы не потерять.' : 'Yoqqan mahsulotlarni yurakchani bosib saqlang.'}
-            </p>
-            <Link href={`/${lang}/catalog`}>
-              <Button className="mt-2 rounded-xl">{lang === 'ru' ? 'Перейти в каталог' : 'Katalogga o‘tish'}</Button>
-            </Link>
-          </div>
+          <EmptyState lang={lang} type="wishlist" />
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {wishlistItems.map((item) => (

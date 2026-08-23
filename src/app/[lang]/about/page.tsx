@@ -31,7 +31,7 @@ export default function AboutPage({ params: { lang } }: { params: { lang: Locale
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-white border border-gray-200 rounded-2xl p-6 sm:p-8 shadow-sm">
             <div className="relative aspect-[4/3] rounded-xl overflow-hidden border border-gray-200 bg-[#F8F9FA] shadow-xs">
               <Image
-                src="https://images.unsplash.com/photo-1541888946425-d0fbb186a5b7?auto=format&fit=crop&w=1200&q=80"
+                src="/images/factory-1.jpg"
                 alt="SPS Plast Factory"
                 fill
                 className="object-cover"

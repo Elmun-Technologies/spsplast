@@ -27,7 +27,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
 
   const images = product.images.length > 0
     ? product.images.map((i: any) => i.url)
-    : ['https://images.unsplash.com/photo-1584467735871-8e85353a8413?auto=format&fit=crop&w=800&q=80'];
+    : ['/images/molds-warehouse.jpg'];
 
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
@@ -41,14 +41,23 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
   const title = lang === 'ru' ? product.titleRu : product.titleUz;
   const description = lang === 'ru' ? product.descriptionRu : product.descriptionUz;
 
-  // Sticky ATC on scroll
+  // Sticky ATC on scroll + view_item analytics
   useEffect(() => {
     const onScroll = () => {
       setShowSticky(window.scrollY > 400);
     };
     window.addEventListener('scroll', onScroll);
+
+    // view_item
+    trackEvent('view_item', {
+      item_id: product.id,
+      item_name: title,
+      price: product.price,
+      item_category: product.category || '',
+    });
+
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  }, [product.id]);
 
   // Bulk Tier Pricing
   const basePrice = product.price;

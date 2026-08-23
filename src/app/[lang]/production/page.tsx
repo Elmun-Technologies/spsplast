@@ -71,7 +71,7 @@ export default function ProductionPage({ params: { lang } }: { params: { lang: L
             <div className="grid grid-cols-2 gap-4">
               <div className="relative aspect-square rounded-2xl overflow-hidden border border-gray-200 bg-white shadow-sm">
                 <Image
-                  src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80"
+                  src="/images/factory-1.jpg"
                   alt="Production line 1"
                   fill
                   className="object-cover"
@@ -79,7 +79,7 @@ export default function ProductionPage({ params: { lang } }: { params: { lang: L
               </div>
               <div className="relative aspect-square rounded-2xl overflow-hidden border border-gray-200 bg-white shadow-sm">
                 <Image
-                  src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80"
+                  src="/images/molds-warehouse.jpg"
                   alt="Production line 2"
                   fill
                   className="object-cover"
