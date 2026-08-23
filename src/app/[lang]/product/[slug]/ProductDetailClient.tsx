@@ -9,6 +9,7 @@ import { Price } from '@/components/ui/Price';
 import { StockBadge } from '@/components/ui/StockBadge';
 import { QuantitySelector } from '@/components/ui/QuantitySelector';
 import { B2BModal } from '@/components/product/B2BModal';
+import { OneClickModal } from '@/components/product/OneClickModal';
 import { useCartStore } from '@/lib/store/cartStore';
 import { formatPrice } from '@/lib/utils';
 import { getDictionary, Locale } from '@/lib/i18n';
@@ -31,6 +32,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
   const [b2bModalOpen, setB2bModalOpen] = useState(false);
+  const [oneClickOpen, setOneClickOpen] = useState(false);
   const [showSticky, setShowSticky] = useState(false);
   const [calcArea, setCalcArea] = useState('');
   const [showCalc, setShowCalc] = useState(false);
@@ -351,32 +353,50 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
               </div>
 
               {/* Quantity & Cart Action */}
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                <QuantitySelector
-                  quantity={quantity}
-                  onDecrease={() => setQuantity(Math.max(1, quantity - 1))}
-                  onIncrease={() => setQuantity(quantity + 1)}
-                  className="justify-center sm:justify-start"
-                />
+              <div className="space-y-3">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                  <QuantitySelector
+                    quantity={quantity}
+                    onDecrease={() => setQuantity(Math.max(1, quantity - 1))}
+                    onIncrease={() => setQuantity(quantity + 1)}
+                    className="justify-center sm:justify-start"
+                  />
 
-                <button
-                  onClick={handleAddToCart}
-                  disabled={!product.inStock}
-                  className={`flex-1 flex items-center justify-center gap-2 text-sm sm:text-base font-bold py-3.5 px-6 rounded-xl transition-all min-h-[52px] ${
-                    added
-                      ? 'bg-emerald-600 text-white shadow-sm'
-                      : product.inStock
-                      ? 'bg-brand-red hover:bg-brand-red-dark text-white shadow-red hover:shadow-lg active:scale-[0.98]'
-                      : 'bg-gray-100 text-gray-400 border border-gray-200 cursor-not-allowed'
-                  }`}
-                >
-                  {added ? <Check className="w-5 h-5" /> : <ShoppingCart className="w-5 h-5" />}
-                  <span>
-                    {added
-                      ? (lang === 'ru' ? 'В корзине ✓' : 'Savatga qo‘shildi ✓')
-                      : (lang === 'ru' ? 'Добавить в корзину' : 'Savatga qo‘shish')}
-                  </span>
-                </button>
+                  <button
+                    onClick={handleAddToCart}
+                    disabled={!product.inStock}
+                    className={`flex-1 flex items-center justify-center gap-2 text-sm sm:text-base font-bold py-3.5 px-6 rounded-xl transition-all min-h-[52px] ${
+                      added
+                        ? 'bg-emerald-600 text-white shadow-sm'
+                        : product.inStock
+                        ? 'bg-brand-red hover:bg-brand-red-dark text-white shadow-red hover:shadow-lg active:scale-[0.98]'
+                        : 'bg-gray-100 text-gray-400 border border-gray-200 cursor-not-allowed'
+                    }`}
+                  >
+                    {added ? <Check className="w-5 h-5" /> : <ShoppingCart className="w-5 h-5" />}
+                    <span>
+                      {added
+                        ? (lang === 'ru' ? 'В корзине ✓' : 'Savatga qo‘shildi ✓')
+                        : (lang === 'ru' ? 'Добавить в корзину' : 'Savatga qo‘shish')}
+                    </span>
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    onClick={() => setOneClickOpen(true)}
+                    disabled={!product.inStock}
+                    className="py-3 px-4 rounded-xl bg-gray-900 text-white font-bold text-sm hover:bg-black transition-colors disabled:opacity-40 disabled:cursor-not-allowed min-h-[44px]"
+                  >
+                    {lang === 'ru' ? 'Заказ в 1 клик' : '1-klikda buyurtma'}
+                  </button>
+                  <button
+                    onClick={() => setB2bModalOpen(true)}
+                    className="py-3 px-4 rounded-xl bg-white border-2 border-gray-200 text-gray-900 font-bold text-sm hover:border-gray-900 hover:bg-gray-50 transition-colors min-h-[44px]"
+                  >
+                    {lang === 'ru' ? 'Опт' : 'Ulgurji'}
+                  </button>
+                </div>
               </div>
 
               {/* Guarantees */}
@@ -412,6 +432,19 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
         lang={lang}
         productName={title}
         productId={product.id}
+      />
+
+      <OneClickModal
+        isOpen={oneClickOpen}
+        onClose={() => setOneClickOpen(false)}
+        lang={lang}
+        product={{
+          id: product.id,
+          title,
+          price: currentUnitPrice,
+          sku: product.sku,
+          image: images[0],
+        }}
       />
     </>
   );

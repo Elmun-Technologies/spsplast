@@ -6,7 +6,8 @@ import { getDictionary, Locale } from '@/lib/i18n';
 import { MoldResultShowcase } from '@/components/product/MoldResultShowcase';
 import { ProductDetailClient } from './ProductDetailClient';
 import { Container } from '@/components/ui/Container';
-import { ChevronRight } from 'lucide-react';
+import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import { RecentlyViewed, RecentlyViewedTracker } from '@/components/product/RecentlyViewed';
 
 interface ProductPageProps {
   params: { lang: Locale; slug: string };
@@ -72,6 +73,7 @@ export default async function ProductDetailPage({
   const mappedProduct = {
     id: product.id,
     sku: product.sku,
+    slug: trans.slug,
     titleUz: trans.name,
     titleRu: trans.name,
     descriptionUz: trans.description || '',
@@ -85,111 +87,106 @@ export default async function ProductDetailPage({
     durabilityCasts: product.durabilityCasts,
     dimensions: product.attributeValues.find((a) => a.attribute.code === 'dimensions')?.textValue || null,
     material: product.attributeValues.find((a) => a.attribute.code === 'material')?.textValue || null,
+    weight: product.attributeValues.find((a) => a.attribute.code === 'weight')?.textValue || null,
     images: product.media.map((m) => ({ url: m.url, altText: m.alt })),
     moldImage: moldMedia?.url || null,
     resultImage: resultMedia?.url || null,
   };
 
-  const jsonLd = {
+  const breadcrumbItems = [
+    { label: dict.nav.catalog, href: `/${lang}/catalog` },
+    ...(categoryTrans ? [{ label: categoryTrans.name, href: `/${lang}/catalog?category=${categoryTrans.slug}` }] : []),
+    { label: trans.name, active: true },
+  ];
+
+  const jsonLdProduct = {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: trans.name,
     image: product.media.map((img) => img.url),
     description: trans.description || '',
     sku: product.sku,
+    brand: { '@type': 'Brand', name: 'SPS PLAST' },
     offers: {
       '@type': 'Offer',
       price: product.basePrice,
       priceCurrency: 'UZS',
-      availability: product.inStock
-        ? 'https://schema.org/InStock'
-        : 'https://schema.org/OutOfStock',
+      availability: product.inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+      seller: { '@type': 'Organization', name: 'SPS PLAST' },
     },
+  };
+
+  const jsonLdBreadcrumb = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: dict.nav.home, item: `/${lang}` },
+      { '@type': 'ListItem', position: 2, name: dict.nav.catalog, item: `/${lang}/catalog` },
+      ...(categoryTrans
+        ? [{ '@type': 'ListItem', position: 3, name: categoryTrans.name, item: `/${lang}/catalog?category=${categoryTrans.slug}` }]
+        : []),
+      { '@type': 'ListItem', position: categoryTrans ? 4 : 3, name: trans.name },
+    ],
   };
 
   return (
     <div className="bg-[#F8F9FA] min-h-screen py-6 text-gray-900 space-y-8">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdProduct) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
+
+      <RecentlyViewedTracker
+        product={{
+          id: mappedProduct.id,
+          slug: mappedProduct.slug,
+          title: trans.name,
+          price: mappedProduct.price,
+          image: mappedProduct.images[0]?.url || '',
+          sku: mappedProduct.sku,
+        }}
       />
 
       <Container>
-        {/* Breadcrumbs */}
-        <nav className="flex items-center gap-1.5 text-xs text-gray-500 mb-4 font-medium">
-          <Link href={`/${lang}`} className="hover:text-brand-red transition-colors">
-            {dict.nav.home}
-          </Link>
-          <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
-          <Link href={`/${lang}/catalog`} className="hover:text-brand-red transition-colors">
-            {dict.nav.catalog}
-          </Link>
-          {categoryTrans && (
-            <>
-              <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
-              <Link
-                href={`/${lang}/catalog?category=${categoryTrans.slug}`}
-                className="hover:text-brand-red transition-colors"
-              >
-                {categoryTrans.name}
-              </Link>
-            </>
-          )}
-          <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
-          <span className="text-gray-900 font-semibold truncate max-w-xs">{trans.name}</span>
-        </nav>
+        <Breadcrumbs lang={lang} items={breadcrumbItems} className="mb-5" />
 
-        {/* Product Interactive Main View */}
         <ProductDetailClient product={mappedProduct} lang={lang} />
 
-        {/* Mold Result Showcase */}
         {mappedProduct.resultImage && mappedProduct.moldImage && (
           <section className="pt-6">
             <MoldResultShowcase
               moldImage={mappedProduct.moldImage}
               resultImage={mappedProduct.resultImage}
               moldTitle={trans.name}
-              resultTitle="Tayyor Mahsulot Namunasi"
+              resultTitle={lang === 'ru' ? 'Готовый образец' : 'Tayyor mahsulot namunasi'}
               lang={lang}
             />
           </section>
         )}
 
-        {/* How it works Step Infographic */}
-        <section className="mt-8 bg-white border border-gray-200 rounded-xl p-6 sm:p-8 space-y-6 shadow-xs">
-          <div className="text-center max-w-lg mx-auto">
-            <h3 className="text-lg sm:text-xl font-bold text-gray-900">
-              {dict.product.howItWorks}
-            </h3>
-            <p className="text-xs text-gray-500 mt-1">Beton quyish texnologiyasi va foydalanish bosqichlari</p>
+        <section className="mt-8 bg-white border border-gray-200 rounded-2xl p-6 sm:p-8 space-y-6 shadow-sm">
+          <div className="text-center max-w-2xl mx-auto">
+            <h3 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">{dict.product.howItWorks}</h3>
+            <p className="text-sm text-gray-500 mt-2">{lang === 'ru' ? 'Технология заливки бетона' : 'Beton quyish texnologiyasi va bosqichlari'}</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
-            <div className="p-4 rounded-lg bg-[#F8F9FA] border border-gray-200 space-y-2">
-              <span className="w-7 h-7 rounded-full bg-brand-red text-white text-xs font-bold flex items-center justify-center">1</span>
-              <h4 className="font-bold text-gray-900 text-xs sm:text-sm">{dict.product.step1}</h4>
-              <p className="text-xs text-gray-600">Beton va plastifikatorni to‘g‘ri nisbatda aralashtiring.</p>
-            </div>
-
-            <div className="p-4 rounded-lg bg-[#F8F9FA] border border-gray-200 space-y-2">
-              <span className="w-7 h-7 rounded-full bg-brand-red text-white text-xs font-bold flex items-center justify-center">2</span>
-              <h4 className="font-bold text-gray-900 text-xs sm:text-sm">{dict.product.step2}</h4>
-              <p className="text-xs text-gray-600">Qolipni maxsus moy bilan surtib, qolipga tekis quying.</p>
-            </div>
-
-            <div className="p-4 rounded-lg bg-[#F8F9FA] border border-gray-200 space-y-2">
-              <span className="w-7 h-7 rounded-full bg-brand-red text-white text-xs font-bold flex items-center justify-center">3</span>
-              <h4 className="font-bold text-gray-900 text-xs sm:text-sm">{dict.product.step3}</h4>
-              <p className="text-xs text-gray-600">24 soat davomida soyada quriting.</p>
-            </div>
-
-            <div className="p-4 rounded-lg bg-[#F8F9FA] border border-gray-200 space-y-2">
-              <span className="w-7 h-7 rounded-full bg-brand-red text-white text-xs font-bold flex items-center justify-center">4</span>
-              <h4 className="font-bold text-gray-900 text-xs sm:text-sm">{dict.product.step4}</h4>
-              <p className="text-xs text-gray-600">Qolipdan osongina tayyor mahsulotni ajratib oling.</p>
-            </div>
+            {[
+              { step: 1, title: dict.product.step1, desc: lang === 'ru' ? 'Смешайте бетон с пластификатором в правильной пропорции.' : 'Beton va plastifikatorni to‘g‘ri nisbatda aralashtiring.' },
+              { step: 2, title: dict.product.step2, desc: lang === 'ru' ? 'Смажьте форму маслом и залейте равномерно.' : 'Qolipni maxsus moy bilan surtib, tekis quying.' },
+              { step: 3, title: dict.product.step3, desc: lang === 'ru' ? 'Сушите 24 часа в тени.' : '24 soat davomida soyada quriting.' },
+              { step: 4, title: dict.product.step4, desc: lang === 'ru' ? 'Легко извлеките готовое изделие.' : 'Tayyor mahsulotni qolipdan osongina ajratib oling.' },
+            ].map((item) => (
+              <div key={item.step} className="p-5 rounded-xl bg-[#F8F9FA] border border-gray-200 space-y-3 hover:border-gray-300 transition-colors">
+                <span className="w-8 h-8 rounded-full bg-brand-red text-white text-sm font-bold flex items-center justify-center shadow-red">
+                  {item.step}
+                </span>
+                <h4 className="font-bold text-gray-900 text-sm">{item.title}</h4>
+                <p className="text-sm text-gray-600 leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
           </div>
         </section>
+
+        <RecentlyViewed lang={lang} currentProductId={mappedProduct.id} />
       </Container>
     </div>
   );

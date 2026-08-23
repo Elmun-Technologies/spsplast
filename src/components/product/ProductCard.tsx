@@ -3,8 +3,9 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ShoppingBag, Check, ImageOff, ArrowRight, Share2 } from 'lucide-react';
+import { ShoppingBag, Check, ImageOff, ArrowRight, Share2, Heart } from 'lucide-react';
 import { useCartStore } from '@/lib/store/cartStore';
+import { useWishlistStore } from '@/lib/store/wishlistStore';
 import { Locale } from '@/lib/i18n';
 import { trackEvent } from '@/lib/analytics';
 import { Price } from '@/components/ui/Price';
@@ -35,6 +36,8 @@ interface ProductCardProps {
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product, lang, featured = false }) => {
   const addItem = useCartStore((s) => s.addItem);
+  const toggleWishlist = useWishlistStore((s) => s.toggleWishlist);
+  const isWishlisted = useWishlistStore((s) => s.isWishlisted(product.id));
   const [added, setAdded] = React.useState(false);
   const [imgError, setImgError] = React.useState(false);
   const [imgLoaded, setImgLoaded] = React.useState(false);
@@ -70,6 +73,20 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, lang, feature
 
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
+  };
+
+  const handleWishlist = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleWishlist({
+      id: product.id,
+      slug: product.slug,
+      title,
+      price: product.price,
+      image: mainImage || '',
+      sku: product.sku,
+    });
+    trackEvent(isWishlisted ? 'remove_from_wishlist' : 'add_to_wishlist', { item_id: product.id });
   };
 
   const handleShare = async (e: React.MouseEvent) => {
@@ -111,14 +128,25 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, lang, feature
         )}
       </div>
 
-      {/* Share Button - replaces fake wishlist */}
-      <button
-        onClick={handleShare}
-        className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-white/90 border border-gray-200 flex items-center justify-center text-gray-500 hover:text-gray-900 hover:bg-white transition-all shadow-xs hover:scale-105"
-        aria-label="Ulashish"
-      >
-        <Share2 className="w-4 h-4" />
-      </button>
+      {/* Top right actions: wishlist + share */}
+      <div className="absolute top-3 right-3 z-10 flex flex-col gap-2">
+        <button
+          onClick={handleWishlist}
+          className={`w-8 h-8 rounded-full border flex items-center justify-center shadow-xs transition-all hover:scale-105 ${
+            isWishlisted ? 'bg-brand-red border-brand-red text-white' : 'bg-white/90 border-gray-200 text-gray-400 hover:text-brand-red'
+          }`}
+          aria-label={isWishlisted ? 'Sevimlilardan olib tashlash' : 'Sevimlilarga qo‘shish'}
+        >
+          <Heart className={`w-4 h-4 ${isWishlisted ? 'fill-white' : ''}`} />
+        </button>
+        <button
+          onClick={handleShare}
+          className="w-8 h-8 rounded-full bg-white/90 border border-gray-200 flex items-center justify-center text-gray-500 hover:text-gray-900 hover:bg-white transition-all shadow-xs hover:scale-105"
+          aria-label="Ulashish"
+        >
+          <Share2 className="w-4 h-4" />
+        </button>
+      </div>
 
       {/* Product Photography Display Frame */}
       <Link

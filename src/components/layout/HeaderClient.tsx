@@ -16,8 +16,10 @@ import {
     ShieldCheck,
     Truck,
     Folder,
+    Heart,
 } from 'lucide-react';
 import { useCartStore } from '@/lib/store/cartStore';
+import { useWishlistStore } from '@/lib/store/wishlistStore';
 import { Locale, getDictionary } from '@/lib/i18n';
 import { trackEvent } from '@/lib/analytics';
 import { COMPANY_CONTACTS } from '@/lib/constants/contacts';
@@ -57,6 +59,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
 
     const cartTotalItems = useCartStore((s) => s.getTotalItems());
     const toggleCart = useCartStore((s) => s.toggleCart);
+    const wishlistCount = useWishlistStore((s) => s.getCount());
+    const wishlistItems = useWishlistStore((s) => s.items);
 
     const megaMenuRef = useRef<HTMLDivElement>(null);
     const searchRef = useRef<HTMLFormElement>(null);
@@ -385,6 +389,19 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
 
                     {/* RIGHT: Actions */}
                     <div className="flex items-center gap-2.5 shrink-0">
+                        <Link
+                            href={`/${lang}/wishlist`}
+                            className="relative flex items-center justify-center w-11 h-11 rounded-xl bg-gray-100 border border-gray-200 text-gray-700 hover:text-brand-red hover:border-red-200 hover:bg-red-50 transition-colors"
+                            aria-label="Wishlist"
+                        >
+                            <Heart className={`w-5 h-5 ${wishlistCount > 0 ? 'fill-brand-red text-brand-red' : ''}`} />
+                            {wishlistCount > 0 && (
+                                <span className="absolute -top-1.5 -right-1.5 bg-brand-red text-white text-xs font-bold min-w-[18px] h-[18px] rounded-full flex items-center justify-center border-2 border-white px-0.5">
+                                    {wishlistCount}
+                                </span>
+                            )}
+                        </Link>
+
                         <button
                             onClick={toggleCart}
                             className="flex items-center gap-2 px-4 py-2.5 bg-brand-red hover:bg-brand-red-dark text-white rounded-xl transition-colors font-bold text-sm uppercase tracking-wider shadow-red min-h-[44px]"
