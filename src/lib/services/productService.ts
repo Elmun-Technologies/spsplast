@@ -9,6 +9,11 @@ export async function getProductsServer({
   isBestseller,
   sort,
   limit,
+  page = 1,
+  pageSize = 24,
+  minPrice,
+  maxPrice,
+  material,
 }: {
   locale?: string;
   categorySlug?: string;
@@ -18,6 +23,11 @@ export async function getProductsServer({
   isBestseller?: boolean;
   sort?: string;
   limit?: number;
+  page?: number;
+  pageSize?: number;
+  minPrice?: number;
+  maxPrice?: number;
+  material?: string;
 }) {
   const where: any = { status: 'ACTIVE' };
 
@@ -35,13 +45,13 @@ export async function getProductsServer({
   if (search) {
     const q = search.trim();
     where.OR = [
-      { sku: { contains: q } },
+      { sku: { contains: q, mode: 'insensitive' } },
       {
         translations: {
           some: {
             OR: [
-              { name: { contains: q } },
-              { description: { contains: q } },
+              { name: { contains: q, mode: 'insensitive' } },
+              { description: { contains: q, mode: 'insensitive' } },
             ],
           },
         },
@@ -53,38 +63,63 @@ export async function getProductsServer({
   if (isNew) where.isNew = true;
   if (isBestseller) where.isBestseller = true;
 
+  if (minPrice !== undefined || maxPrice !== undefined) {
+    where.basePrice = {};
+    if (minPrice !== undefined) where.basePrice.gte = minPrice;
+    if (maxPrice !== undefined) where.basePrice.lte = maxPrice;
+  }
+
+  if (material) {
+    where.attributeValues = {
+      some: {
+        attribute: { code: 'material' },
+        textValue: { contains: material, mode: 'insensitive' },
+      },
+    };
+  }
+
   let orderBy: any = { createdAt: 'desc' };
   if (sort === 'price-asc') orderBy = { basePrice: 'asc' };
   if (sort === 'price-desc') orderBy = { basePrice: 'desc' };
+  if (sort === 'newest') orderBy = { createdAt: 'desc' };
+  if (sort === 'bestseller') orderBy = [{ isBestseller: 'desc' }, { createdAt: 'desc' }];
+  if (sort === 'name-asc') orderBy = { sku: 'asc' };
 
-  const products = await db.product.findMany({
-    where,
-    orderBy,
-    take: limit,
-    include: {
-      translations: { where: { locale } },
-      media: { orderBy: { sortOrder: 'asc' } },
-      categories: {
-        include: {
-          category: {
-            include: { translations: { where: { locale } } },
+  const take = limit || pageSize;
+  const skip = limit ? 0 : (page - 1) * pageSize;
+
+  const [products, total] = await Promise.all([
+    db.product.findMany({
+      where,
+      orderBy,
+      skip,
+      take,
+      include: {
+        translations: { where: { locale } },
+        media: { orderBy: { sortOrder: 'asc' } },
+        categories: {
+          include: {
+            category: {
+              include: { translations: { where: { locale } } },
+            },
+          },
+        },
+        attributeValues: {
+          include: {
+            attribute: {
+              include: { translations: { where: { locale } } },
+            },
+            option: {
+              include: { translations: { where: { locale } } },
+            },
           },
         },
       },
-      attributeValues: {
-        include: {
-          attribute: {
-            include: { translations: { where: { locale } } },
-          },
-          option: {
-            include: { translations: { where: { locale } } },
-          },
-        },
-      },
-    },
-  });
+    }),
+    db.product.count({ where }),
+  ]);
 
-  return products.map((p) => {
+  const mapped = products.map((p) => {
     const trans = p.translations[0] || {};
     const moldMedia = p.media.find((m) => m.type === 'MOLD') || p.media[0];
     const resultMedia = p.media.find((m) => m.type === 'FINISHED_RESULT');
@@ -98,6 +133,7 @@ export async function getProductsServer({
       price: p.basePrice,
       oldPrice: p.compareAtPrice,
       dimensions: p.attributeValues.find((a) => a.attribute.code === 'dimensions')?.textValue || null,
+      material: p.attributeValues.find((a) => a.attribute.code === 'material')?.textValue || null,
       inStock: p.inStock,
       isBestseller: p.isBestseller,
       isNew: p.isNew,
@@ -106,8 +142,22 @@ export async function getProductsServer({
       moldImage: moldMedia?.url || null,
       resultImage: resultMedia?.url || null,
       images: p.media.map((m) => ({ url: m.url, type: m.type, alt: m.alt })),
+      category: p.categories[0]?.category?.translations[0]
+        ? {
+            slug: p.categories[0].category.translations[0].slug,
+            nameUz: p.categories[0].category.translations[0].name,
+          }
+        : null,
     };
   });
+
+  return {
+    products: mapped,
+    total,
+    totalPages: Math.ceil(total / take),
+    page,
+    pageSize: take,
+  };
 }
 
 export async function getProductById(id: string, locale: string = 'uz') {

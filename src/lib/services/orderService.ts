@@ -162,8 +162,11 @@ export async function createOrderServerSide(input: CreateOrderInput, locale: str
         }
       }
 
-      // Server-calculated unit price in integer UZS
-      const unitPrice = variant ? variant.price : product.basePrice;
+      // Server-calculated unit price with bulk tier (must match frontend)
+      const baseUnitPrice = variant ? variant.price : product.basePrice;
+      let unitPrice = baseUnitPrice;
+      if (itemInput.quantity >= 50) unitPrice = Math.round(baseUnitPrice * 0.9);
+      else if (itemInput.quantity >= 10) unitPrice = Math.round(baseUnitPrice * 0.95);
       const lineTotal = unitPrice * itemInput.quantity;
       grandTotal += lineTotal;
 

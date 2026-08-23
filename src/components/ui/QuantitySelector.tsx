@@ -11,6 +11,7 @@ interface QuantitySelectorProps {
   min?: number;
   max?: number;
   className?: string;
+  variant?: 'light' | 'dark';
 }
 
 export const QuantitySelector: React.FC<QuantitySelectorProps> = ({
@@ -20,11 +21,17 @@ export const QuantitySelector: React.FC<QuantitySelectorProps> = ({
   min = 1,
   max = 9999,
   className,
+  variant = 'light',
 }) => {
+  const isDark = variant === 'dark';
+
   return (
     <div
       className={cn(
-        'inline-flex items-center border border-brand-border rounded-lg bg-brand-card overflow-hidden',
+        'inline-flex items-center rounded-lg border overflow-hidden select-none',
+        isDark
+          ? 'border-brand-border bg-brand-card'
+          : 'border-gray-300 bg-white shadow-xs',
         className
       )}
     >
@@ -32,12 +39,23 @@ export const QuantitySelector: React.FC<QuantitySelectorProps> = ({
         type="button"
         onClick={onDecrease}
         disabled={quantity <= min}
-        className="p-2 text-gray-300 hover:text-white hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+        aria-label="Kamaytirish"
+        className={cn(
+          'p-2.5 transition-colors disabled:opacity-30 disabled:cursor-not-allowed',
+          isDark
+            ? 'text-gray-300 hover:text-white hover:bg-white/10'
+            : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+        )}
       >
         <Minus className="w-4 h-4" />
       </button>
 
-      <span className="px-4 text-sm font-semibold text-white min-w-[40px] text-center select-none">
+      <span
+        className={cn(
+          'px-4 text-sm font-bold min-w-[44px] text-center tabular-nums',
+          isDark ? 'text-white' : 'text-gray-900'
+        )}
+      >
         {quantity}
       </span>
 
@@ -45,7 +63,13 @@ export const QuantitySelector: React.FC<QuantitySelectorProps> = ({
         type="button"
         onClick={onIncrease}
         disabled={quantity >= max}
-        className="p-2 text-gray-300 hover:text-white hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+        aria-label="Oshirish"
+        className={cn(
+          'p-2.5 transition-colors disabled:opacity-30 disabled:cursor-not-allowed',
+          isDark
+            ? 'text-gray-300 hover:text-white hover:bg-white/10'
+            : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+        )}
       >
         <Plus className="w-4 h-4" />
       </button>

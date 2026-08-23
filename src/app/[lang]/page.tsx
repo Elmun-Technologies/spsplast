@@ -11,6 +11,9 @@ import { Container } from '@/components/ui/Container';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Badge } from '@/components/ui/Badge';
 import { Price } from '@/components/ui/Price';
+import { DealCountdown } from '@/components/ui/DealCountdown';
+import { RecentlyViewed } from '@/components/product/RecentlyViewed';
+import { B2BBanner } from '@/components/product/B2BBanner';
 import {
   ArrowRight,
   ChevronDown,
@@ -18,7 +21,6 @@ import {
   Truck,
   PackageCheck,
   Headphones,
-  Clock,
   Sparkles,
   ShoppingBag,
 } from 'lucide-react';
@@ -27,10 +29,12 @@ interface HomePageProps {
   params: { lang: Locale };
 }
 
+export const revalidate = 60; // ISR 60s for high traffic
+export const dynamic = 'force-static';
+
 export default async function HomePage({ params: { lang } }: HomePageProps) {
   const dict = getDictionary(lang);
 
-  // 1. Fetch Active Categories from DB
   const rawCategories = await db.category.findMany({
     where: { status: 'ACTIVE' },
     orderBy: { sortOrder: 'asc' },
@@ -54,27 +58,27 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
     };
   });
 
-  // 2. Fetch Bestseller Products (~8 items)
-  let bestsellers = await getProductsServer({
+  let bestsellersData = await getProductsServer({
     locale: lang,
     isBestseller: true,
     limit: 8,
   });
+  let bestsellers = bestsellersData.products;
 
   if (!bestsellers || bestsellers.length === 0) {
-    bestsellers = await getProductsServer({
+    const fallback = await getProductsServer({
       locale: lang,
       limit: 8,
     });
+    bestsellers = fallback.products;
   }
 
-  // 3. Fetch Category-specific Product Rows
-  const allProducts = await getProductsServer({
+  const allProductsData = await getProductsServer({
     locale: lang,
     limit: 48,
   });
+  const allProducts = allProductsData.products;
 
-  // Filter category products
   const bruschatkaProducts = allProducts.filter((p) => {
     const cat = (p as any).category;
     return (
@@ -121,82 +125,162 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
   const featuredMold = allProducts.find((p) => p.resultImage) || allProducts[0];
   const dealOfTheDay = bestsellers[0] || allProducts[0];
 
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Qoliplarning xizmat ko‘rsatish resursi qancha?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'ABS va polipropilen materialdan tayyorlangan qoliplarimiz to‘g‘ri ishlatilganda 300 marotabadan ortiq quyish resursiga ega.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Viloyatlarga yetkazib berish shartlari qanday?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Respublikaning barcha viloyatlariga pochta yoki yuk tashish xizmatlari orqali tezkor va xavfsiz yetkazib beramiz.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Ulgurji xaridorlar uchun chegirmalar bormi?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Ha, 100 donadan ortiq buyurtmalar uchun dilerlik va ulgurji narxlar amal qiladi.',
+        },
+      },
+    ],
+  };
+
+  const orgJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'SPS PLAST',
+    url: 'https://spsplast.uz',
+    logo: 'https://spsplast.uz/logo.png',
+    description: 'SPS Plast — O‘zbekistonda bruschatka qoliplari va termopanellar ishlab chiqaruvchi zavod',
+  };
+
   return (
     <div className="bg-[#F8F9FA] text-gray-900 min-h-screen pb-12">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
 
-      {/* ==========================================
-          1. HERO SECTION (High-Impact Hero & Deal of the Day)
-         ========================================== */}
       <section className="pt-4 pb-3">
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
-            
-            {/* Left Main Hero Banner (8 cols) */}
-            <div className="lg:col-span-8 bg-[#161920] text-white rounded-2xl p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden border border-gray-800 shadow-md">
-              {/* Radial Glowing Mesh */}
-              <div className="absolute top-0 right-0 w-96 h-96 bg-brand-red/15 rounded-full blur-3xl pointer-events-none"></div>
+            {/* Industrial Hero */}
+            <div className="lg:col-span-8 bg-[#0F1115] text-white rounded-[20px] p-6 sm:p-8 lg:p-10 flex flex-col justify-between relative overflow-hidden border border-[#1E222A] shadow-lg industrial-grid-dark noise">
+              {/* Top line */}
+              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-red/50 to-transparent" />
 
-              <div className="space-y-4 max-w-lg z-10">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-red/20 border border-brand-red/40 rounded-full text-brand-red text-xs font-bold tracking-wide uppercase">
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>{lang === 'ru' ? 'Прямо с завода SPS PLAST' : 'Zavoddan to‘g‘ridan-to‘g‘ri'}</span>
-                </div>
-
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight text-white font-sans">
-                  {lang === 'ru'
-                    ? 'Пластиковые формы и термопанели высокого качества'
-                    : 'Bruschatka qoliplari va fasad termopanellari'}
-                </h1>
-
-                <p className="text-xs sm:text-sm text-gray-300 leading-relaxed font-normal">
-                  {lang === 'ru'
-                    ? 'Европейское сырье, выдержка более 300 заливок, прямые заводские цены без посредников.'
-                    : 'Yevropa xomashyosi, 300+ marotaba quyish kafolati va vositachilarsiz arzon factory narxlar.'}
-                </p>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="pt-6 z-10 flex flex-wrap items-center gap-3">
-                <Link
-                  href={`/${lang}/catalog`}
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-brand-red hover:bg-brand-red-dark text-white font-bold text-xs sm:text-sm rounded-lg transition-all shadow-red group"
-                >
-                  <span>{lang === 'ru' ? 'Перейти в каталог' : 'Katalogga o‘tish'}</span>
-                  <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </div>
-                </Link>
-
-                <Link
-                  href={`/${lang}/catalog/bruschatka-qoliplari`}
-                  className="inline-flex items-center gap-2 px-5 py-3 bg-white/10 hover:bg-white/15 text-white font-semibold text-xs sm:text-sm rounded-lg border border-white/15 transition-colors"
-                >
-                  <span>{lang === 'ru' ? 'Формы брусчатки' : 'Bruschatka qoliplari'}</span>
-                </Link>
-              </div>
-            </div>
-
-            {/* Right: Deal of the Day Card (4 cols) */}
-            <div className="lg:col-span-4 bg-white rounded-2xl p-4 sm:p-5 flex flex-col justify-between border border-gray-200 shadow-sm">
-              <div className="flex items-center justify-between pb-3 mb-3 border-b border-gray-100">
-                <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-brand-red animate-pulse"></span>
-                  <span className="text-xs font-bold uppercase tracking-wider text-gray-900">
-                    {lang === 'ru' ? 'Товар дня' : 'Kun mahsuloti'}
+              <div className="relative z-10 space-y-5 max-w-[560px]">
+                <div className="flex items-center gap-3">
+                  <div className="h-px w-8 bg-brand-red" />
+                  <span className="text-[11px] font-mono font-bold tracking-[0.2em] text-gray-400 uppercase">
+                    EST. 2014 • TASHKENT • UZBEKISTAN
                   </span>
                 </div>
 
-                <div className="flex items-center gap-1 text-[11px] font-mono font-bold bg-red-50 text-brand-red px-2 py-0.5 rounded border border-red-100">
-                  <Clock className="w-3.5 h-3.5" />
-                  <span>23:59:59</span>
+                <div className="space-y-3">
+                  <h1 className="text-[28px] sm:text-[36px] lg:text-[42px] font-black tracking-[-0.03em] leading-[0.95] text-white uppercase">
+                    {lang === 'ru' ? (
+                      <>
+                        <span className="block">Формы для</span>
+                        <span className="block text-brand-red">брусчатки</span>
+                        <span className="block">и термопанелей</span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="block">Bruschatka</span>
+                        <span className="block text-brand-red">qoliplari</span>
+                        <span className="block">va termopanellar</span>
+                      </>
+                    )}
+                  </h1>
+
+                  <div className="flex items-start gap-3 pt-2">
+                    <div className="w-1 h-12 bg-brand-red rounded-full shrink-0 mt-1" />
+                    <p className="text-[15px] leading-[1.5] text-gray-300 font-medium">
+                      {lang === 'ru'
+                        ? 'Заводское производство. ABS пластик 2-3мм. Ресурс 300+ заливок. Прямые цены без посредников. Поставки для 300+ цехов по Узбекистану.'
+                        : 'Zavod ishlab chiqarishi. 2-3mm ABS plastik. 300+ quyish resursi. Vositachilarsiz arzon narx. O‘zbekiston bo‘yicha 300+ sexga yetkazib berish.'}
+                    </p>
+                  </div>
                 </div>
+
+                <div className="grid grid-cols-3 gap-4 pt-2 border-t border-white/10">
+                  <div>
+                    <div className="text-xl font-black text-white tracking-tight">500K+</div>
+                    <div className="text-[11px] font-mono text-gray-500 uppercase tracking-wider">Sotilgan qolip</div>
+                  </div>
+                  <div>
+                    <div className="text-xl font-black text-white tracking-tight">300+</div>
+                    <div className="text-[11px] font-mono text-gray-500 uppercase tracking-wider">Mijoz sexlar</div>
+                  </div>
+                  <div>
+                    <div className="text-xl font-black text-brand-red tracking-tight">10 yil</div>
+                    <div className="text-[11px] font-mono text-gray-500 uppercase tracking-wider">Tajriba</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="relative z-10 pt-8 flex flex-wrap items-center gap-3">
+                <Link
+                  href={`/${lang}/catalog`}
+                  className="inline-flex items-center gap-3 px-7 py-3.5 bg-white text-black font-bold text-sm rounded-full hover:bg-brand-red hover:text-white transition-all group btn-press min-h-[48px]"
+                >
+                  <span>{lang === 'ru' ? 'Каталог' : 'Katalogni ko‘rish'}</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                </Link>
+
+                <Link
+                  href={`/${lang}/contact`}
+                  className="inline-flex items-center gap-2 px-6 py-3.5 bg-transparent border border-white/20 text-white font-semibold text-sm rounded-full hover:bg-white/10 hover:border-white/30 transition-colors min-h-[48px]"
+                >
+                  <span>{lang === 'ru' ? 'Консультация' : 'Maslahat olish'}</span>
+                </Link>
+
+                <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-gray-500 ml-2">
+                  <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span>{lang === 'ru' ? 'Склад: в наличии' : 'Omborda mavjud'}</span>
+                </div>
+              </div>
+
+              {/* Industrial corner mark */}
+              <div className="absolute bottom-0 right-0 p-4 opacity-20">
+                <div className="text-[80px] font-black leading-none text-white/10 tracking-tighter">SPS</div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-4 bg-white rounded-[20px] p-5 flex flex-col border border-gray-200 shadow-sm relative overflow-hidden">
+              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-brand-red/50 via-transparent to-transparent" />
+
+              <div className="flex items-center justify-between pb-4 mb-4 border-b border-gray-100">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-full bg-gray-900 flex items-center justify-center">
+                    <div className="w-2.5 h-2.5 rounded-full bg-brand-red animate-pulse" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-black uppercase tracking-wider text-gray-900">
+                      {lang === 'ru' ? 'Товар дня' : 'Kun tanlovi'}
+                    </div>
+                    <div className="text-[11px] font-mono text-gray-500 uppercase">{lang === 'ru' ? 'Лимитированная скидка' : 'Cheklangan aksiya'}</div>
+                  </div>
+                </div>
+
+                <DealCountdown lang={lang} />
               </div>
 
               {dealOfTheDay && (
                 <div className="flex-1 flex flex-col justify-between gap-3">
                   <Link
                     href={`/${lang}/product/${dealOfTheDay.slug}`}
-                    className="block relative aspect-square w-full bg-[#F4F5F7] rounded-xl border border-gray-100 overflow-hidden p-3 group"
+                    className="block relative aspect-[4/3] w-full bg-[#F4F5F7] rounded-xl border border-gray-100 overflow-hidden p-3 group"
                   >
                     {dealOfTheDay.images?.[0]?.url && (
                       <Image
@@ -206,7 +290,7 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
                         className="object-contain p-2 group-hover:scale-105 transition-transform duration-300"
                       />
                     )}
-                    <span className="absolute top-2 left-2 bg-brand-red text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-xs">
+                    <span className="absolute top-2 left-2 bg-brand-red text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-xs">
                       -40% OFF
                     </span>
                   </Link>
@@ -214,102 +298,74 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
                   <div className="space-y-1.5">
                     <Link
                       href={`/${lang}/product/${dealOfTheDay.slug}`}
-                      className="text-xs sm:text-sm font-bold text-gray-900 hover:text-brand-red line-clamp-2 leading-snug"
+                      className="text-sm font-bold text-gray-900 hover:text-brand-red line-clamp-2 leading-snug"
                     >
                       {lang === 'ru' ? dealOfTheDay.titleRu : dealOfTheDay.titleUz}
                     </Link>
 
-                    <Price
-                      price={dealOfTheDay.price}
-                      oldPrice={dealOfTheDay.oldPrice}
-                      lang={lang}
-                      size="md"
-                    />
+                    <Price price={dealOfTheDay.price} oldPrice={dealOfTheDay.oldPrice} lang={lang} size="md" />
                   </div>
 
                   <Link
                     href={`/${lang}/product/${dealOfTheDay.slug}`}
-                    className="w-full flex items-center justify-center gap-2 text-xs font-bold bg-brand-red hover:bg-brand-red-dark text-white py-2.5 px-3 rounded-lg transition-colors shadow-red mt-1"
+                    className="w-full flex items-center justify-center gap-2 text-sm font-bold bg-brand-red hover:bg-brand-red-dark text-white py-3 px-4 rounded-xl transition-colors shadow-red mt-1 min-h-[44px]"
                   >
-                    <ShoppingBag className="w-3.5 h-3.5" />
+                    <ShoppingBag className="w-4 h-4" />
                     <span>{lang === 'ru' ? 'Купить по акции' : 'Aksiya bo‘yicha sotib olish'}</span>
                   </Link>
                 </div>
               )}
             </div>
-
           </div>
         </Container>
       </section>
 
-      {/* ==========================================
-          2. TRUST FACTORS STRIP
-         ========================================== */}
-      <section className="py-2">
+      <section className="py-4">
         <Container>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 bg-white border border-gray-200 rounded-xl p-3.5 sm:p-4 shadow-xs">
-            <div className="flex items-center gap-3 p-1">
-              <div className="w-10 h-10 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center text-brand-red shrink-0 shadow-xs">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-gray-200 border border-gray-200 rounded-[16px] overflow-hidden shadow-sm">
+            <div className="flex items-center gap-4 p-5 bg-white hover:bg-[#FCFCFD] transition-colors">
+              <div className="w-12 h-12 rounded-full bg-gray-900 flex items-center justify-center text-white shrink-0">
                 <Truck className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="text-xs font-bold text-gray-900">
-                  {lang === 'ru' ? 'Доставка по Узбекистану' : 'O‘zbekiston bo‘ylab yetkazish'}
-                </h4>
-                <p className="text-[11px] text-gray-500 font-medium">
-                  {lang === 'ru' ? 'Pochta va kuryer orqali' : 'Pochta va kuryer orqali'}
-                </p>
+                <h4 className="text-sm font-bold text-gray-900 tracking-tight">{lang === 'ru' ? 'Доставка 1-3 дня' : 'Yetkazish 1-3 kun'}</h4>
+                <p className="text-xs text-gray-500 mt-0.5 font-medium">Toshkent 24 soat, viloyatlar 1-3 kun</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 p-1">
-              <div className="w-10 h-10 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center text-brand-red shrink-0 shadow-xs">
+            <div className="flex items-center gap-4 p-5 bg-white hover:bg-[#FCFCFD] transition-colors">
+              <div className="w-12 h-12 rounded-full bg-white border-2 border-gray-900 flex items-center justify-center text-gray-900 shrink-0">
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="text-xs font-bold text-gray-900">
-                  {lang === 'ru' ? 'Гарантия качества 300+' : 'Sifat kafolati 300+'}
-                </h4>
-                <p className="text-[11px] text-gray-500 font-medium">
-                  {lang === 'ru' ? 'Официальный стандарт' : 'Oliy navli plastmassa'}
-                </p>
+                <h4 className="text-sm font-bold text-gray-900 tracking-tight">300+ {lang === 'ru' ? 'заливок' : 'quyish'}</h4>
+                <p className="text-xs text-gray-500 mt-0.5 font-medium">ABS plastik, laboratoriya testi</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 p-1">
-              <div className="w-10 h-10 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center text-brand-red shrink-0 shadow-xs">
+            <div className="flex items-center gap-4 p-5 bg-white hover:bg-[#FCFCFD] transition-colors">
+              <div className="w-12 h-12 rounded-full bg-brand-red flex items-center justify-center text-white shrink-0">
                 <PackageCheck className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="text-xs font-bold text-gray-900">
-                  {lang === 'ru' ? 'Прямой производитель' : 'To‘g‘ridan-to‘g‘ri ishlab chiqaruvchi'}
-                </h4>
-                <p className="text-[11px] text-gray-500 font-medium">
-                  {lang === 'ru' ? 'Без посредников' : 'Vositachilarsiz hamyonbop'}
-                </p>
+                <h4 className="text-sm font-bold text-gray-900 tracking-tight">{lang === 'ru' ? 'Завод, без посредников' : 'Zavod, vositachisiz'}</h4>
+                <p className="text-xs text-gray-500 mt-0.5 font-medium">To'g'ridan-to'g'ri narx, ulgurji -10%</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 p-1">
-              <div className="w-10 h-10 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center text-brand-red shrink-0 shadow-xs">
+            <div className="flex items-center gap-4 p-5 bg-white hover:bg-[#FCFCFD] transition-colors">
+              <div className="w-12 h-12 rounded-full bg-[#F8F9FA] border border-gray-200 flex items-center justify-center text-gray-700 shrink-0">
                 <Headphones className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="text-xs font-bold text-gray-900">
-                  {lang === 'ru' ? 'Поддержка va maslahat' : 'Mutaxassis maslahati'}
-                </h4>
-                <p className="text-[11px] text-gray-500 font-medium">
-                  {lang === 'ru' ? 'Помощь в выборе' : 'Bepul professional maslahat'}
-                </p>
+                <h4 className="text-sm font-bold text-gray-900 tracking-tight">{lang === 'ru' ? 'Тех. поддержка' : 'Texnik yordam'}</h4>
+                <p className="text-xs text-gray-500 mt-0.5 font-medium">Tanlashda bepul maslahat</p>
               </div>
             </div>
           </div>
         </Container>
       </section>
 
-      {/* ==========================================
-          3. CATEGORIES GRID
-         ========================================== */}
       <section className="py-5">
         <Container>
           <SectionHeader
@@ -326,9 +382,6 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
         </Container>
       </section>
 
-      {/* ==========================================
-          4. BESTSELLERS PRODUCT GRID
-         ========================================== */}
       <section className="py-4">
         <Container>
           <SectionHeader
@@ -337,7 +390,7 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
             linkText={lang === 'ru' ? 'Смотреть все' : 'Barchasini ko‘rish'}
             linkHref={`/${lang}/catalog`}
           />
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {bestsellers.map((product) => (
               <ProductCard key={product.id} product={product} lang={lang} />
             ))}
@@ -345,18 +398,14 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
         </Container>
       </section>
 
-      {/* ==========================================
-          5. CATEGORY ROWS (Dense Commerce Layout)
-         ========================================== */}
-      {/* Row 1: Bruschatka qoliplari */}
       <section className="py-4">
         <Container>
           <SectionHeader
             title={lang === 'ru' ? 'Формы для брусчатки' : 'Bruschatka qoliplari'}
             linkText={lang === 'ru' ? 'Все брусчатки' : 'Barcha qoliplar'}
-            linkHref={`/${lang}/catalog/bruschatka-qoliplari`}
+            linkHref={`/${lang}/catalog?category=bruschatka-qoliplari`}
           />
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {block1Products.map((product) => (
               <ProductCard key={product.id} product={product} lang={lang} />
             ))}
@@ -364,15 +413,14 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
         </Container>
       </section>
 
-      {/* Row 2: Termopanellar */}
       <section className="py-4">
         <Container>
           <SectionHeader
             title={lang === 'ru' ? 'Термопанели' : 'Termopanellar'}
             linkText={lang === 'ru' ? 'Все термопанели' : 'Barcha panellar'}
-            linkHref={`/${lang}/catalog/termopanel`}
+            linkHref={`/${lang}/catalog?category=termopanel`}
           />
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {block2Products.map((product) => (
               <ProductCard key={product.id} product={product} lang={lang} />
             ))}
@@ -380,15 +428,14 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
         </Container>
       </section>
 
-      {/* Row 3: 3D Panellar */}
       <section className="py-4">
         <Container>
           <SectionHeader
             title={lang === 'ru' ? '3D Панели' : '3D Panellar'}
             linkText={lang === 'ru' ? 'Все 3D панели' : 'Barcha 3D panellar'}
-            linkHref={`/${lang}/catalog/3d-panellar`}
+            linkHref={`/${lang}/catalog?category=3d-panellar`}
           />
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {block3Products.map((product) => (
               <ProductCard key={product.id} product={product} lang={lang} />
             ))}
@@ -396,15 +443,14 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
         </Container>
       </section>
 
-      {/* Row 4: Dekorativ G'ishtlar */}
       <section className="py-4">
         <Container>
           <SectionHeader
             title={lang === 'ru' ? 'Декоративный кирпич' : 'Dekorativ G\'ishtlar'}
             linkText={lang === 'ru' ? 'Весь декор' : 'Barcha dekorlar'}
-            linkHref={`/${lang}/catalog/dekorativ-gishtlar`}
+            linkHref={`/${lang}/catalog?category=dekorativ-gishtlar`}
           />
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {block4Products.map((product) => (
               <ProductCard key={product.id} product={product} lang={lang} />
             ))}
@@ -412,9 +458,6 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
         </Container>
       </section>
 
-      {/* ==========================================
-          6. MOLD → FINISHED RESULT SHOWCASE
-         ========================================== */}
       {featuredMold && (
         <section className="py-4">
           <Container>
@@ -422,9 +465,7 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
               moldImage={featuredMold.moldImage || featuredMold.images?.[0]?.url || ''}
               resultImage={featuredMold.resultImage || featuredMold.images?.[0]?.url || ''}
               moldTitle={featuredMold.titleUz}
-              resultTitle={
-                lang === 'ru' ? 'Готовая брусчатка после заливки' : 'Tayyor quyilgan bruschatka'
-              }
+              resultTitle={lang === 'ru' ? 'Готовая брусчатка после заливки' : 'Tayyor quyilgan bruschatka'}
               productSlug={featuredMold.slug}
               productPrice={featuredMold.price}
               lang={lang}
@@ -433,63 +474,58 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
         </section>
       )}
 
-      {/* ==========================================
-          7. FAQ SECTION
-         ========================================== */}
+      <B2BBanner lang={lang} />
+
+      <RecentlyViewed lang={lang} />
+
       <section className="py-6">
         <Container>
-          <div className="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 shadow-xs">
+          <div className="bg-white border border-gray-200 rounded-2xl p-6 sm:p-7 shadow-sm">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-              {/* SEO Content */}
-              <div className="lg:col-span-6 space-y-3">
-                <h2 className="text-lg font-bold text-gray-900">
-                  SPS PLAST — SIFATLI QOLIPLAR VA TERMOPANELLAR
-                </h2>
-                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed font-normal">
+              <div className="lg:col-span-6 space-y-4">
+                <h2 className="text-xl font-bold text-gray-900 tracking-tight">SPS PLAST — SIFATLI QOLIPLAR VA TERMOPANELLAR</h2>
+                <p className="text-sm text-gray-600 leading-relaxed">
                   SPS Plast O‘zbekistondagi yetakchi plastmassa matritsalar hamda fasad termopanellarini ishlab chiqaruvchi zavod hisoblanadi. Mahsulotlarimiz yuqori bosimli vakuum-formovka va zamonaviy uskunalar yordamida tayyorlanadi.
                 </p>
-                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed font-normal">
+                <p className="text-sm text-gray-600 leading-relaxed">
                   Bruschatka, bordyur, dekorativ plitkalar hamda fasad tizimlari uchun arzon va sifatli qoliplarni onlayn buyurtma qilishingiz mumkin.
                 </p>
-                <div className="pt-2 flex flex-wrap gap-2 text-xs font-semibold text-brand-red">
-                  <Link href={`/${lang}/catalog`} className="hover:underline bg-gray-50 px-2.5 py-1 rounded border border-gray-200">#Qoliplar</Link>
-                  <Link href={`/${lang}/catalog/bruschatka-qoliplari`} className="hover:underline bg-gray-50 px-2.5 py-1 rounded border border-gray-200">#Bruschatka</Link>
-                  <Link href={`/${lang}/catalog/termopanel`} className="hover:underline bg-gray-50 px-2.5 py-1 rounded border border-gray-200">#Termopanel</Link>
+                <div className="pt-2 flex flex-wrap gap-2 text-xs font-bold text-brand-red">
+                  <Link href={`/${lang}/catalog`} className="hover:bg-red-50 bg-gray-50 px-3 py-1.5 rounded-full border border-gray-200 transition-colors">#Qoliplar</Link>
+                  <Link href={`/${lang}/catalog?category=bruschatka-qoliplari`} className="hover:bg-red-50 bg-gray-50 px-3 py-1.5 rounded-full border border-gray-200 transition-colors">#Bruschatka</Link>
+                  <Link href={`/${lang}/catalog?category=termopanel`} className="hover:bg-red-50 bg-gray-50 px-3 py-1.5 rounded-full border border-gray-200 transition-colors">#Termopanel</Link>
                 </div>
               </div>
 
-              {/* Accordion FAQ */}
-              <div className="lg:col-span-6 space-y-2.5">
-                <h3 className="text-base font-bold text-gray-900 mb-3">
-                  {lang === 'ru' ? 'Часто задаваемые вопросы' : 'Ko‘p beriladigan savollar'}
-                </h3>
+              <div className="lg:col-span-6 space-y-3">
+                <h3 className="text-base font-bold text-gray-900 mb-3">{lang === 'ru' ? 'Часто задаваемые вопросы' : 'Ko‘p beriladigan savollar'}</h3>
 
-                <details className="group bg-[#F8F9FA] border border-gray-200 p-3.5 rounded-lg cursor-pointer">
-                  <summary className="flex items-center justify-between font-semibold text-xs sm:text-sm text-gray-900 list-none">
+                <details className="group bg-[#F8F9FA] border border-gray-200 p-4 rounded-xl cursor-pointer open:bg-white open:shadow-sm transition-all">
+                  <summary className="flex items-center justify-between font-semibold text-sm text-gray-900 list-none">
                     <span>Qoliplarning xizmat ko‘rsatish resursi qancha?</span>
                     <ChevronDown className="w-4 h-4 text-gray-400 group-open:rotate-180 transition-transform" />
                   </summary>
-                  <p className="text-xs text-gray-600 mt-2 pt-2 border-t border-gray-200/60 leading-relaxed">
+                  <p className="text-sm text-gray-600 mt-3 pt-3 border-t border-gray-200/60 leading-relaxed">
                     ABS va polipropilen materialdan tayyorlangan qoliplarimiz to‘g‘ri ishlatilganda 300 marotabadan ortiq quyish resursiga ega.
                   </p>
                 </details>
 
-                <details className="group bg-[#F8F9FA] border border-gray-200 p-3.5 rounded-lg cursor-pointer">
-                  <summary className="flex items-center justify-between font-semibold text-xs sm:text-sm text-gray-900 list-none">
+                <details className="group bg-[#F8F9FA] border border-gray-200 p-4 rounded-xl cursor-pointer open:bg-white open:shadow-sm transition-all">
+                  <summary className="flex items-center justify-between font-semibold text-sm text-gray-900 list-none">
                     <span>Viloyatlarga yetkazib berish shartlari qanday?</span>
                     <ChevronDown className="w-4 h-4 text-gray-400 group-open:rotate-180 transition-transform" />
                   </summary>
-                  <p className="text-xs text-gray-600 mt-2 pt-2 border-t border-gray-200/60 leading-relaxed">
+                  <p className="text-sm text-gray-600 mt-3 pt-3 border-t border-gray-200/60 leading-relaxed">
                     Respublikaning barcha viloyatlariga pochta yoki yuk tashish xizmatlari orqali tezkor va xavfsiz yetkazib beramiz.
                   </p>
                 </details>
 
-                <details className="group bg-[#F8F9FA] border border-gray-200 p-3.5 rounded-lg cursor-pointer">
-                  <summary className="flex items-center justify-between font-semibold text-xs sm:text-sm text-gray-900 list-none">
+                <details className="group bg-[#F8F9FA] border border-gray-200 p-4 rounded-xl cursor-pointer open:bg-white open:shadow-sm transition-all">
+                  <summary className="flex items-center justify-between font-semibold text-sm text-gray-900 list-none">
                     <span>Ulgurji xaridorlar uchun chegirmalar bormi?</span>
                     <ChevronDown className="w-4 h-4 text-gray-400 group-open:rotate-180 transition-transform" />
                   </summary>
-                  <p className="text-xs text-gray-600 mt-2 pt-2 border-t border-gray-200/60 leading-relaxed">
+                  <p className="text-sm text-gray-600 mt-3 pt-3 border-t border-gray-200/60 leading-relaxed">
                     Ha, 100 donadan ortiq buyurtmalar uchun dilerlik va ulgurji narxlar amal qiladi.
                   </p>
                 </details>
@@ -498,7 +534,6 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
           </div>
         </Container>
       </section>
-
     </div>
   );
 }
