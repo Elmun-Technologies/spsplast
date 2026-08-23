@@ -5,6 +5,7 @@ import { Footer } from '@/components/layout/Footer';
 import { StickyMobileContact } from '@/components/layout/StickyMobileContact';
 import { CartDrawer } from '@/components/cart/CartDrawer';
 import { CompareBar } from '@/components/product/CompareBar';
+import { PWAInstallBanner } from '@/components/layout/PWAInstallBanner';
 import { isValidLocale, Locale } from '@/lib/i18n';
 
 export default function LangLayout({
@@ -25,6 +26,7 @@ export default function LangLayout({
       <Header lang={lang} />
       <CartDrawer lang={lang} />
       <CompareBar lang={lang} />
+      <PWAInstallBanner />
       <main className="flex-1 pb-24 lg:pb-0">{children}</main>
       <StickyMobileContact lang={lang} />
       <Footer lang={lang} />
