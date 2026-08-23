@@ -13,6 +13,7 @@ import { Badge } from '@/components/ui/Badge';
 import { Price } from '@/components/ui/Price';
 import { DealCountdown } from '@/components/ui/DealCountdown';
 import { RecentlyViewed } from '@/components/product/RecentlyViewed';
+import { B2BBanner } from '@/components/product/B2BBanner';
 import {
   ArrowRight,
   ChevronDown,
@@ -418,6 +419,8 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
           </Container>
         </section>
       )}
+
+      <B2BBanner lang={lang} />
 
       <RecentlyViewed lang={lang} />
 

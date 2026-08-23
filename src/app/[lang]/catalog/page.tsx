@@ -16,6 +16,7 @@ interface CatalogPageProps {
     page?: string;
     minPrice?: string;
     maxPrice?: string;
+    material?: string;
   };
 }
 
@@ -41,6 +42,7 @@ export default async function CatalogPage({
     pageSize: 24,
     minPrice,
     maxPrice,
+    material: searchParams.material,
   });
 
   const rawCategories = await db.category.findMany({

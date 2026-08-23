@@ -13,6 +13,7 @@ export async function getProductsServer({
   pageSize = 24,
   minPrice,
   maxPrice,
+  material,
 }: {
   locale?: string;
   categorySlug?: string;
@@ -26,6 +27,7 @@ export async function getProductsServer({
   pageSize?: number;
   minPrice?: number;
   maxPrice?: number;
+  material?: string;
 }) {
   const where: any = { status: 'ACTIVE' };
 
@@ -65,6 +67,15 @@ export async function getProductsServer({
     where.basePrice = {};
     if (minPrice !== undefined) where.basePrice.gte = minPrice;
     if (maxPrice !== undefined) where.basePrice.lte = maxPrice;
+  }
+
+  if (material) {
+    where.attributeValues = {
+      some: {
+        attribute: { code: 'material' },
+        textValue: { contains: material, mode: 'insensitive' },
+      },
+    };
   }
 
   let orderBy: any = { createdAt: 'desc' };
@@ -122,6 +133,7 @@ export async function getProductsServer({
       price: p.basePrice,
       oldPrice: p.compareAtPrice,
       dimensions: p.attributeValues.find((a) => a.attribute.code === 'dimensions')?.textValue || null,
+      material: p.attributeValues.find((a) => a.attribute.code === 'material')?.textValue || null,
       inStock: p.inStock,
       isBestseller: p.isBestseller,
       isNew: p.isNew,

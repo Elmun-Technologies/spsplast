@@ -215,6 +215,27 @@ export const CatalogClient: React.FC<CatalogClientProps> = ({
                 </button>
               </div>
 
+              {/* Material */}
+              <div className="space-y-2 pt-4 border-t border-gray-100">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-gray-500">{lang === 'ru' ? 'Материал' : 'Material'}</h4>
+                <div className="space-y-1.5">
+                  {[
+                    { value: '', label: lang === 'ru' ? 'Все' : 'Barchasi' },
+                    { value: 'ABS', label: 'ABS Plastik' },
+                    { value: 'polipropilen', label: 'Polipropilen' },
+                    { value: 'silikon', label: 'Silikon' },
+                  ].map((mat) => (
+                    <button
+                      key={mat.value}
+                      onClick={() => updateParam('material', mat.value || null)}
+                      className={`w-full text-left px-3 py-2 rounded-xl text-sm transition-colors ${searchParams.material === mat.value || (!searchParams.material && mat.value === '') ? 'bg-gray-900 text-white' : 'text-gray-700 hover:bg-gray-100'}`}
+                    >
+                      {mat.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               {/* Status */}
               <div className="space-y-3 pt-4 border-t border-gray-100">
                 <h4 className="text-xs font-bold uppercase tracking-wider text-gray-500">Status</h4>

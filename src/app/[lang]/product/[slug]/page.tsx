@@ -95,6 +95,7 @@ export default async function ProductDetailPage({
     images: product.media.map((m) => ({ url: m.url, altText: m.alt })),
     moldImage: moldMedia?.url || null,
     resultImage: resultMedia?.url || null,
+    videoUrl: product.videoUrl || null,
   };
 
   const breadcrumbItems = [

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { ShoppingCart, Building2, Truck, ShieldCheck, Check, Share2, Calculator, X } from 'lucide-react';
+import { ShoppingCart, Building2, Truck, ShieldCheck, Check, Share2, Calculator, X, Play } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { Price } from '@/components/ui/Price';
@@ -195,7 +195,30 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                       <Image src={imgUrl} alt={`${title} ${idx + 1}`} fill className="object-contain p-2" />
                     </button>
                   ))}
+                  {product.videoUrl && (
+                    <a
+                      href={product.videoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="relative w-20 h-20 rounded-xl overflow-hidden border-2 border-red-200 bg-red-50 flex flex-col items-center justify-center gap-1 shrink-0 hover:bg-red-100 transition-colors"
+                    >
+                      <Play className="w-6 h-6 text-brand-red fill-brand-red" />
+                      <span className="text-[10px] font-bold text-brand-red">VIDEO</span>
+                    </a>
+                  )}
                 </div>
+              )}
+
+              {product.videoUrl && images.length <= 1 && (
+                <a
+                  href={product.videoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 p-3 rounded-xl bg-red-50 border border-red-200 text-brand-red font-bold text-sm hover:bg-red-100 transition-colors"
+                >
+                  <Play className="w-5 h-5 fill-brand-red" />
+                  {lang === 'ru' ? 'Смотреть видео заливки' : 'Quyish videosini ko‘rish'}
+                </a>
               )}
 
               {/* Calculator Toggle */}
