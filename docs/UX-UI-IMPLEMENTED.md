@@ -1,12 +1,68 @@
-# SPS PLAST — UX/UI P0 Quick Wins — Implemented
+# SPS PLAST — UX/UI Audit Implementation Log
 
 **Sana:** 2026-08-23
 **Branch:** arena/01a02f08-spsplast
-**Status:** ✅ Implemented & TypeChecked (implicit any pre-existing ignored)
+**Status:** ✅ P0 + P1 + P2 Implemented & TypeChecked
 
 ---
 
-## Nima qilindi (P0)
+## P1 & P2 — Qo'shimcha qilindi (ketma-ket davom)
+
+### Catalog — Sort, Pagination, Price Filter, View Toggle
+- **File:** `src/lib/services/productService.ts` — pagination (page, pageSize, total, totalPages), price filter (minPrice, maxPrice), sort (newest, bestseller, price-asc/desc, name-asc), case-insensitive search
+- **File:** `src/components/catalog/CatalogClient.tsx` (yangi) — client side filter UI: sort dropdown, grid/list toggle, category chips, price min/max, active filter badges, pagination (5 sahifa, prev/next)
+- **File:** `src/app/[lang]/catalog/page.tsx` — serverdan total, totalPages olib clientga uzatadi
+- **Natija:** 24 mahsulot/sahifa, sort, narx filter, URL sync
+
+### Breadcrumbs
+- **File:** `src/components/ui/Breadcrumbs.tsx` (yangi) — Home icon + chevron, truncate, active state
+- Ishlatildi: Catalog, Search, Product Detail, Cart, Wishlist
+- **Natija:** Navigatsiya, SEO breadcrumb JSON-LD
+
+### Recently Viewed
+- **File:** `src/lib/store/recentStore.ts` (yangi) — Zustand persist, 12 ta mahsulot, viewedAt
+- **File:** `src/components/product/RecentlyViewed.tsx` (yangi) — grid 6 ta, clear button, Tracker component product page da auto add
+- **Natija:** Qayta ko'rish, conversion +
+
+### Wishlist Real
+- **File:** `src/lib/store/wishlistStore.ts` (yangi) — persist, toggle, count
+- **File:** `src/app/[lang]/wishlist/page.tsx` (yangi) — sevimlilar sahifasi, savatga qo'shish, o'chirish
+- **File:** `src/components/product/ProductCard.tsx` — yurakcha endi real, fill-brand-red
+- **File:** `src/components/layout/HeaderClient.tsx` — header da wishlist icon + count
+- **Natija:** Fake wishlist muammosi hal, ishonch
+
+### Before-After Slider
+- **File:** `src/components/product/BeforeAfterSlider.tsx` (yangi) — drag slider, touch, position %, line + handle, label QOLIP/BETON NATIJA
+- **File:** `src/components/product/MoldResultShowcase.tsx` — slider/split toggle, Sparkles badge, rounded-2xl
+- **Natija:** "Qolip → Natija" killer feature interaktiv
+
+### One-Click Modal
+- **File:** `src/components/product/OneClickModal.tsx` (yangi) — name + phone mask, product card, success state, trackEvent one_click_order, API /api/orders
+- **File:** `src/app/[lang]/product/[slug]/ProductDetailClient.tsx` — 1-klik + Ulgurji 2 button grid
+- **Natija:** CRO, B2B/B2C tez buyurtma
+
+### Product Tabs
+- **File:** `src/components/product/ProductTabs.tsx` (yangi) — 4 tab: Tavsif, Xususiyatlar, Yetkazib berish, Sharhlar, COMPANY_CONTACTS, specs grid
+- **File:** `ProductDetailClient` — tabs qo'shildi main card dan keyin
+- **Natija:** Ma'lumot arxitekturasi, SEO
+
+### Free Shipping Progress
+- **File:** `src/components/cart/FreeShippingProgress.tsx` (yangi) — progress bar, 1,000,000 UZS threshold, Gift/Truck icon, remaining
+- **File:** `src/app/[lang]/cart/page.tsx` — summary da progress + trust (14 kun qaytarish, 300+ kafolat, Click/Payme)
+- **Natija:** AOV oshirish, urgency
+
+### Quick View Modal
+- **File:** `src/components/product/QuickViewModal.tsx` (yangi) — rasm + title + price + qty + ATC + batafsil link
+- **File:** `ProductCard` — Eye icon, quick view trigger
+- **Natija:** CTR, tez ko'rish
+
+### Home FAQ JSON-LD & SEO
+- **File:** `src/app/[lang]/page.tsx` — FAQPage + Organization JSON-LD, RecentlyViewed qo'shildi
+- **Natija:** SEO rich results
+
+---
+
+## Nima qilindi (P0) — oldingi
 
 ### 1. Tailwind Design Tokens Fix
 **File:** `tailwind.config.js`
