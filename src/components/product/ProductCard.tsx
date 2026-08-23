@@ -3,9 +3,10 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ShoppingBag, Check, ImageOff, ArrowRight, Share2, Heart, Eye } from 'lucide-react';
+import { ShoppingBag, Check, ImageOff, ArrowRight, Share2, Heart, Eye, ArrowRightLeft } from 'lucide-react';
 import { useCartStore } from '@/lib/store/cartStore';
 import { useWishlistStore } from '@/lib/store/wishlistStore';
+import { useCompareStore } from '@/lib/store/compareStore';
 import { Locale } from '@/lib/i18n';
 import { trackEvent } from '@/lib/analytics';
 import { Price } from '@/components/ui/Price';
@@ -39,6 +40,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, lang, feature
   const addItem = useCartStore((s) => s.addItem);
   const toggleWishlist = useWishlistStore((s) => s.toggleWishlist);
   const isWishlisted = useWishlistStore((s) => s.isWishlisted(product.id));
+  const toggleCompare = useCompareStore((s) => s.toggleCompare);
+  const isCompared = useCompareStore((s) => s.isCompared(product.id));
   const [added, setAdded] = React.useState(false);
   const [imgError, setImgError] = React.useState(false);
   const [imgLoaded, setImgLoaded] = React.useState(false);
@@ -91,6 +94,23 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, lang, feature
     trackEvent(isWishlisted ? 'remove_from_wishlist' : 'add_to_wishlist', { item_id: product.id });
   };
 
+  const handleCompare = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleCompare({
+      id: product.id,
+      slug: product.slug,
+      title,
+      price: product.price,
+      oldPrice: product.oldPrice,
+      image: mainImage || '',
+      sku: product.sku,
+      dimensions: product.dimensions || null,
+      inStock: product.inStock,
+    });
+    trackEvent(isCompared ? 'remove_from_compare' : 'add_to_compare', { item_id: product.id });
+  };
+
   const handleShare = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -130,8 +150,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, lang, feature
         )}
       </div>
 
-      {/* Top right actions: wishlist + share + quick view */}
-      <div className="absolute top-3 right-3 z-10 flex flex-col gap-2">
+      {/* Top right actions: wishlist + compare + quick view + share */}
+      <div className="absolute top-3 right-3 z-10 flex flex-col gap-1.5">
         <button
           onClick={handleWishlist}
           className={`w-8 h-8 rounded-full border flex items-center justify-center shadow-xs transition-all hover:scale-105 ${
@@ -140,6 +160,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, lang, feature
           aria-label={isWishlisted ? 'Sevimlilardan olib tashlash' : 'Sevimlilarga qo‘shish'}
         >
           <Heart className={`w-4 h-4 ${isWishlisted ? 'fill-white' : ''}`} />
+        </button>
+        <button
+          onClick={handleCompare}
+          className={`w-8 h-8 rounded-full border flex items-center justify-center shadow-xs transition-all hover:scale-105 ${
+            isCompared ? 'bg-gray-900 border-gray-900 text-white' : 'bg-white/90 border-gray-200 text-gray-400 hover:text-gray-900'
+          }`}
+          aria-label="Taqqoslash"
+        >
+          <ArrowRightLeft className="w-4 h-4" />
         </button>
         <button
           onClick={(e) => {

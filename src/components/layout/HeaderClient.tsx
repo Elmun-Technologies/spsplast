@@ -17,9 +17,11 @@ import {
     Truck,
     Folder,
     Heart,
+    ArrowRightLeft,
 } from 'lucide-react';
 import { useCartStore } from '@/lib/store/cartStore';
 import { useWishlistStore } from '@/lib/store/wishlistStore';
+import { useCompareStore } from '@/lib/store/compareStore';
 import { Locale, getDictionary } from '@/lib/i18n';
 import { trackEvent } from '@/lib/analytics';
 import { COMPANY_CONTACTS } from '@/lib/constants/contacts';
@@ -60,7 +62,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
     const cartTotalItems = useCartStore((s) => s.getTotalItems());
     const toggleCart = useCartStore((s) => s.toggleCart);
     const wishlistCount = useWishlistStore((s) => s.getCount());
-    const wishlistItems = useWishlistStore((s) => s.items);
+    const compareCount = useCompareStore((s) => s.getCount());
 
     const megaMenuRef = useRef<HTMLDivElement>(null);
     const searchRef = useRef<HTMLFormElement>(null);
@@ -389,6 +391,19 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
 
                     {/* RIGHT: Actions */}
                     <div className="flex items-center gap-2.5 shrink-0">
+                        <Link
+                            href={`/${lang}/compare`}
+                            className="relative hidden sm:flex items-center justify-center w-11 h-11 rounded-xl bg-gray-100 border border-gray-200 text-gray-700 hover:text-gray-900 hover:border-gray-300 hover:bg-white transition-colors"
+                            aria-label="Compare"
+                        >
+                            <ArrowRightLeft className="w-5 h-5" />
+                            {compareCount > 0 && (
+                                <span className="absolute -top-1.5 -right-1.5 bg-gray-900 text-white text-xs font-bold min-w-[18px] h-[18px] rounded-full flex items-center justify-center border-2 border-white px-0.5">
+                                    {compareCount}
+                                </span>
+                            )}
+                        </Link>
+
                         <Link
                             href={`/${lang}/wishlist`}
                             className="relative flex items-center justify-center w-11 h-11 rounded-xl bg-gray-100 border border-gray-200 text-gray-700 hover:text-brand-red hover:border-red-200 hover:bg-red-50 transition-colors"

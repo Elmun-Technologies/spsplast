@@ -6,7 +6,7 @@ import { useCartStore } from '@/lib/store/cartStore';
 import { trackEvent } from '@/lib/analytics';
 import { COMPANY_CONTACTS } from '@/lib/constants/contacts';
 
-export const StickyMobileContact: React.FC = () => {
+export const StickyMobileContact: React.FC<{ lang?: string }> = () => {
   const cartTotalItems = useCartStore((s) => s.getTotalItems());
   const toggleCart = useCartStore((s) => s.toggleCart);
   const [contactOpen, setContactOpen] = useState(false);

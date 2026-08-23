@@ -8,6 +8,10 @@ import { ProductDetailClient } from './ProductDetailClient';
 import { Container } from '@/components/ui/Container';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { RecentlyViewed, RecentlyViewedTracker } from '@/components/product/RecentlyViewed';
+import { ProductReviews } from '@/components/product/ProductReviews';
+import { ProductCard } from '@/components/product/ProductCard';
+import { SectionHeader } from '@/components/ui/SectionHeader';
+import { getProductsServer } from '@/lib/services/productService';
 
 interface ProductPageProps {
   params: { lang: Locale; slug: string };
@@ -187,7 +191,41 @@ export default async function ProductDetailPage({
         </section>
 
         <RecentlyViewed lang={lang} currentProductId={mappedProduct.id} />
+
+        {/* Reviews */}
+        <section className="pt-4">
+          <ProductReviews lang={lang} productId={mappedProduct.id} />
+        </section>
+
+        {/* Related Products */}
+        <RelatedProducts lang={lang} categorySlug={categoryTrans?.slug} currentProductId={mappedProduct.id} />
       </Container>
     </div>
   );
+}
+
+async function RelatedProducts({ lang, categorySlug, currentProductId }: { lang: Locale; categorySlug?: string; currentProductId: string }) {
+  if (!categorySlug) return null;
+  try {
+    const data = await getProductsServer({ locale: lang, categorySlug, limit: 8 });
+    const related = data.products.filter((p: any) => p.id !== currentProductId).slice(0, 4);
+    if (related.length === 0) return null;
+    return (
+      <section className="pt-6">
+        <SectionHeader
+          title={lang === 'ru' ? 'Похожие товары' : 'O‘xshash mahsulotlar'}
+          subtitle={lang === 'ru' ? 'Вам также может подойти' : 'Sizga ham mos kelishi mumkin'}
+          linkText={lang === 'ru' ? 'Все' : 'Barchasi'}
+          linkHref={`/${lang}/catalog?category=${categorySlug}`}
+        />
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {related.map((p: any) => (
+            <ProductCard key={p.id} product={p} lang={lang} />
+          ))}
+        </div>
+      </section>
+    );
+  } catch {
+    return null;
+  }
 }
