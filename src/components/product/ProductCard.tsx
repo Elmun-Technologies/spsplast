@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ShoppingBag, Check, ImageOff, ArrowRight, Share2, Heart } from 'lucide-react';
+import { ShoppingBag, Check, ImageOff, ArrowRight, Share2, Heart, Eye } from 'lucide-react';
 import { useCartStore } from '@/lib/store/cartStore';
 import { useWishlistStore } from '@/lib/store/wishlistStore';
 import { Locale } from '@/lib/i18n';
@@ -11,6 +11,7 @@ import { trackEvent } from '@/lib/analytics';
 import { Price } from '@/components/ui/Price';
 import { StockBadge } from '@/components/ui/StockBadge';
 import { Badge } from '@/components/ui/Badge';
+import { QuickViewModal } from './QuickViewModal';
 
 export interface ProductCardData {
   id: string;
@@ -41,6 +42,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, lang, feature
   const [added, setAdded] = React.useState(false);
   const [imgError, setImgError] = React.useState(false);
   const [imgLoaded, setImgLoaded] = React.useState(false);
+  const [quickOpen, setQuickOpen] = React.useState(false);
 
   const title = lang === 'ru' ? product.titleRu : product.titleUz;
   const mainImage = product.images?.[0]?.url;
@@ -128,7 +130,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, lang, feature
         )}
       </div>
 
-      {/* Top right actions: wishlist + share */}
+      {/* Top right actions: wishlist + share + quick view */}
       <div className="absolute top-3 right-3 z-10 flex flex-col gap-2">
         <button
           onClick={handleWishlist}
@@ -140,6 +142,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, lang, feature
           <Heart className={`w-4 h-4 ${isWishlisted ? 'fill-white' : ''}`} />
         </button>
         <button
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setQuickOpen(true);
+          }}
+          className="w-8 h-8 rounded-full bg-white/90 border border-gray-200 flex items-center justify-center text-gray-500 hover:text-gray-900 hover:bg-white transition-all shadow-xs hover:scale-105"
+          aria-label="Tezkor ko‘rish"
+        >
+          <Eye className="w-4 h-4" />
+        </button>
+        <button
           onClick={handleShare}
           className="w-8 h-8 rounded-full bg-white/90 border border-gray-200 flex items-center justify-center text-gray-500 hover:text-gray-900 hover:bg-white transition-all shadow-xs hover:scale-105"
           aria-label="Ulashish"
@@ -147,6 +160,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, lang, feature
           <Share2 className="w-4 h-4" />
         </button>
       </div>
+
+      <QuickViewModal isOpen={quickOpen} onClose={() => setQuickOpen(false)} lang={lang} product={product} />
 
       {/* Product Photography Display Frame */}
       <Link

@@ -10,6 +10,7 @@ import { StockBadge } from '@/components/ui/StockBadge';
 import { QuantitySelector } from '@/components/ui/QuantitySelector';
 import { B2BModal } from '@/components/product/B2BModal';
 import { OneClickModal } from '@/components/product/OneClickModal';
+import { ProductTabs } from '@/components/product/ProductTabs';
 import { useCartStore } from '@/lib/store/cartStore';
 import { formatPrice } from '@/lib/utils';
 import { getDictionary, Locale } from '@/lib/i18n';
@@ -424,6 +425,21 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="mt-6">
+        <ProductTabs
+          lang={lang}
+          description={description}
+          specs={{
+            dimensions: product.dimensions,
+            material: product.material,
+            weight: product.weight,
+            yieldPerCast: product.yieldPerCast,
+            durabilityCasts: product.durabilityCasts,
+            sku: product.sku,
+          }}
+        />
       </div>
 
       <B2BModal

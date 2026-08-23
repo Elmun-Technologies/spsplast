@@ -9,6 +9,8 @@ import { QuantitySelector } from '@/components/ui/QuantitySelector';
 import { Button } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
 import { Modal } from '@/components/ui/Modal';
+import { FreeShippingProgress } from '@/components/cart/FreeShippingProgress';
+import { RecentlyViewed } from '@/components/product/RecentlyViewed';
 import { formatPrice } from '@/lib/utils';
 import { getDictionary, Locale } from '@/lib/i18n';
 import { trackEvent } from '@/lib/analytics';
@@ -27,15 +29,15 @@ export default function CartPage({ params: { lang } }: { params: { lang: Locale 
   };
 
   return (
-    <div className="bg-[#F8F9FA] min-h-screen py-8 text-gray-900">
+    <div className="bg-[#F8F9FA] min-h-screen py-6 text-gray-900">
       <Container>
         <div className="flex items-center justify-between border-b border-gray-200 pb-4 mb-6">
           <div className="flex items-center gap-2.5">
             <ShoppingBag className="w-6 h-6 text-brand-red" />
-            <h1 className="text-xl sm:text-2xl font-bold text-gray-900">{dict.cart.title}</h1>
+            <h1 className="text-2xl font-bold text-gray-900 tracking-tight">{dict.cart.title}</h1>
             {items.length > 0 && (
-              <span className="px-2.5 py-0.5 rounded-full bg-gray-100 border border-gray-200 text-xs font-bold text-gray-700">
-                {items.length} ta tur
+              <span className="px-3 py-1 rounded-full bg-gray-900 text-white text-xs font-bold">
+                {items.length} ta tur • {items.reduce((a, b) => a + b.quantity, 0)} dona
               </span>
             )}
           </div>
@@ -43,28 +45,26 @@ export default function CartPage({ params: { lang } }: { params: { lang: Locale 
           {items.length > 0 && (
             <button
               onClick={() => setShowClearConfirm(true)}
-              className="text-sm text-gray-500 hover:text-red-600 font-semibold transition-colors px-3 py-1.5 rounded-lg hover:bg-red-50"
+              className="text-sm text-gray-500 hover:text-red-600 font-semibold px-3 py-2 rounded-xl hover:bg-red-50 transition-colors"
             >
-              {lang === 'ru' ? 'Очистить корзину' : 'Savatni tozalash'}
+              {lang === 'ru' ? 'Очистить' : 'Tozalash'}
             </button>
           )}
         </div>
 
         <Modal isOpen={showClearConfirm} onClose={() => setShowClearConfirm(false)} title={lang === 'ru' ? 'Очистить корзину?' : 'Savatni tozalash?'}>
           <div className="space-y-4">
-            <div className="flex items-start gap-3 p-3 bg-amber-50 border border-amber-200 rounded-xl">
+            <div className="flex items-start gap-3 p-4 bg-amber-50 border border-amber-200 rounded-xl">
               <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
               <p className="text-sm text-amber-900">
-                {lang === 'ru'
-                  ? 'Вы уверены, что хотите удалить все товары из корзины? Это действие нельзя отменить.'
-                  : 'Barcha mahsulotlarni savatdan o‘chirishga ishonchingiz komilmi? Bu amalni bekor qilib bo‘lmaydi.'}
+                {lang === 'ru' ? 'Удалить все товары? Действие нельзя отменить.' : 'Barcha mahsulotlarni o‘chirishga ishonchingiz komilmi?'}
               </p>
             </div>
             <div className="flex gap-2.5">
-              <Button variant="secondary" className="flex-1" onClick={() => setShowClearConfirm(false)}>
+              <Button variant="secondary" className="flex-1 rounded-xl" onClick={() => setShowClearConfirm(false)}>
                 {lang === 'ru' ? 'Отмена' : 'Bekor qilish'}
               </Button>
-              <Button variant="danger" className="flex-1" onClick={handleClear}>
+              <Button variant="danger" className="flex-1 rounded-xl" onClick={handleClear}>
                 {lang === 'ru' ? 'Очистить' : 'Tozalash'}
               </Button>
             </div>
@@ -72,98 +72,104 @@ export default function CartPage({ params: { lang } }: { params: { lang: Locale 
         </Modal>
 
         {items.length === 0 ? (
-          <div className="bg-white border border-gray-200 rounded-xl p-12 text-center space-y-3 shadow-xs">
-            <div className="w-14 h-14 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center mx-auto text-gray-400">
-              <ShoppingBag className="w-7 h-7" />
+          <div className="bg-white border border-gray-200 rounded-2xl p-12 text-center space-y-4 shadow-sm">
+            <div className="w-16 h-16 rounded-2xl bg-gray-100 border border-gray-200 flex items-center justify-center mx-auto">
+              <ShoppingBag className="w-8 h-8 text-gray-400" />
             </div>
-            <h3 className="text-base font-bold text-gray-900">{dict.cart.empty}</h3>
-            <p className="text-xs text-gray-500">Katalogimizdan kerakli mahsulotlarni tanlang</p>
+            <h3 className="text-lg font-bold text-gray-900">{dict.cart.empty}</h3>
+            <p className="text-sm text-gray-500">Katalogimizdan tanlang</p>
             <Link href={`/${lang}/catalog`}>
-              <Button size="md" className="mt-2 bg-brand-red text-white">
+              <Button size="md" className="mt-2 rounded-xl">
                 {dict.cart.continueShopping}
               </Button>
             </Link>
+            <div className="pt-6">
+              <RecentlyViewed lang={lang} />
+            </div>
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-            {/* Cart Table List */}
-            <div className="lg:col-span-8 space-y-3">
+            <div className="lg:col-span-8 space-y-4">
+              <FreeShippingProgress total={totalPrice} lang={lang} freeThreshold={1000000} />
+
               {items.map((item) => (
                 <div
                   key={item.id}
-                  className="bg-white border border-gray-200 rounded-xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xs"
+                  className="bg-white border border-gray-200 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm hover:shadow-md transition-shadow"
                 >
                   <div className="flex items-center gap-3.5 w-full sm:w-auto">
-                    <div className="relative w-16 h-16 rounded-lg overflow-hidden shrink-0 bg-[#F8F9FA] border border-gray-200 p-1">
-                      <Image src={item.image} alt={item.title} fill className="object-contain p-1" />
+                    <div className="relative w-20 h-20 rounded-xl overflow-hidden shrink-0 bg-[#F8F9FA] border border-gray-200 p-2">
+                      <Image src={item.image} alt={item.title} fill className="object-contain p-2" />
                     </div>
 
-                    <div>
-                      <h3 className="font-bold text-gray-900 text-sm">{item.title}</h3>
-                      <p className="text-xs text-gray-500 font-mono">Artikul: {item.sku}</p>
-                      <p className="text-sm font-bold text-brand-red mt-0.5">
-                        {formatPrice(item.price, lang)}
-                      </p>
+                    <div className="min-w-0">
+                      <h3 className="font-bold text-gray-900 text-sm sm:text-base truncate max-w-[220px]">{item.title}</h3>
+                      <p className="text-xs text-gray-500 font-mono mt-0.5">SKU: {item.sku}</p>
+                      <p className="text-sm font-bold text-brand-red mt-1">{formatPrice(item.price, lang)}</p>
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between sm:justify-end gap-5 w-full sm:w-auto border-t sm:border-t-0 border-gray-100 pt-3 sm:pt-0">
-                    <QuantitySelector
-                      quantity={item.quantity}
-                      onDecrease={() => updateQuantity(item.id, -1)}
-                      onIncrease={() => updateQuantity(item.id, 1)}
-                    />
+                  <div className="flex items-center justify-between sm:justify-end gap-4 w-full sm:w-auto border-t sm:border-t-0 border-gray-100 pt-3 sm:pt-0">
+                    <QuantitySelector quantity={item.quantity} onDecrease={() => updateQuantity(item.id, -1)} onIncrease={() => updateQuantity(item.id, 1)} />
 
-                    <p className="font-bold text-sm text-gray-900 min-w-[90px] text-right">
-                      {formatPrice(item.price * item.quantity, lang)}
-                    </p>
+                    <p className="font-bold text-base text-gray-900 min-w-[100px] text-right">{formatPrice(item.price * item.quantity, lang)}</p>
 
                     <button
                       onClick={() => removeItem(item.id)}
-                      className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                      className="p-2.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-colors"
                       aria-label={dict.cart.remove}
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <Trash2 className="w-5 h-5" />
                     </button>
                   </div>
                 </div>
               ))}
+
+              <RecentlyViewed lang={lang} />
             </div>
 
-            {/* Cart Summary Card */}
-            <div className="lg:col-span-4 bg-white border border-gray-200 rounded-xl p-5 space-y-4 shadow-xs">
-              <h3 className="text-base font-bold text-gray-900 border-b border-gray-100 pb-3">
-                Xarid Xulosasi
-              </h3>
+            <div className="lg:col-span-4 space-y-4">
+              <div className="bg-white border border-gray-200 rounded-2xl p-6 space-y-4 shadow-sm lg:sticky lg:top-24">
+                <h3 className="text-base font-bold text-gray-900 border-b border-gray-100 pb-3">
+                  {lang === 'ru' ? 'Итог заказа' : 'Buyurtma xulosasi'}
+                </h3>
 
-              <div className="space-y-2.5 text-xs">
-                <div className="flex justify-between text-gray-600">
-                  <span>Mahsulotlar turlari:</span>
-                  <span className="text-gray-900 font-semibold">{items.length} ta</span>
+                <div className="space-y-3 text-sm">
+                  <div className="flex justify-between text-gray-600">
+                    <span>{lang === 'ru' ? 'Товары' : 'Mahsulotlar'}:</span>
+                    <span className="font-semibold text-gray-900">{items.length} ta tur</span>
+                  </div>
+                  <div className="flex justify-between text-gray-600">
+                    <span>{lang === 'ru' ? 'Доставка' : 'Yetkazib berish'}:</span>
+                    <span className="text-emerald-700 font-semibold">{lang === 'ru' ? 'Уточнит оператор' : 'Operator aniqlaydi'}</span>
+                  </div>
+                  <div className="flex justify-between text-xl font-bold text-gray-900 pt-4 border-t border-gray-200">
+                    <span>{dict.cart.subtotal}:</span>
+                    <span className="text-brand-red">{formatPrice(totalPrice, lang)}</span>
+                  </div>
                 </div>
 
-                <div className="flex justify-between text-gray-600">
-                  <span>Yetkazib berish:</span>
-                  <span className="text-emerald-700 font-medium">Operator aniqlaydi</span>
-                </div>
+                <Link
+                  href={`/${lang}/checkout`}
+                  onClick={() => trackEvent('begin_checkout', { value: totalPrice, num_items: items.length })}
+                  className="block"
+                >
+                  <Button size="lg" className="w-full gap-2 font-bold text-base rounded-xl shadow-red min-h-[52px]">
+                    <span>{dict.cart.checkout}</span>
+                    <ArrowRight className="w-5 h-5" />
+                  </Button>
+                </Link>
 
-                <div className="flex justify-between text-base font-bold text-gray-900 pt-3 border-t border-gray-100">
-                  <span>{dict.cart.subtotal}:</span>
-                  <span className="text-brand-red">{formatPrice(totalPrice, lang)}</span>
+                <Link href={`/${lang}/catalog`} className="block text-center text-sm text-gray-500 hover:text-gray-900 font-medium">
+                  {dict.cart.continueShopping}
+                </Link>
+
+                <div className="pt-3 border-t border-gray-100 text-xs text-gray-500 space-y-1">
+                  <p>✓ 14 kun qaytarish</p>
+                  <p>✓ 300+ quyish kafolati</p>
+                  <p>✓ Click / Payme / Naqd</p>
                 </div>
               </div>
-
-              <Link
-                href={`/${lang}/checkout`}
-                onClick={() =>
-                  trackEvent('begin_checkout', { value: totalPrice, num_items: items.length })
-                }
-              >
-                <Button size="lg" className="w-full gap-2 font-bold text-sm bg-brand-red hover:bg-brand-red-dark text-white rounded-lg shadow-xs">
-                  <span>{dict.cart.checkout}</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
-              </Link>
             </div>
           </div>
         )}
