@@ -6,6 +6,8 @@ import { StickyMobileContact } from '@/components/layout/StickyMobileContact';
 import { CartDrawer } from '@/components/cart/CartDrawer';
 import { CompareBar } from '@/components/product/CompareBar';
 import { PWAInstallBanner } from '@/components/layout/PWAInstallBanner';
+import { AIAssistant } from '@/components/ui/AIAssistant';
+import { SWRegister } from '@/components/layout/SWRegister';
 import { isValidLocale, Locale } from '@/lib/i18n';
 
 export default function LangLayout({
@@ -23,10 +25,12 @@ export default function LangLayout({
 
   return (
     <div className="min-h-screen flex flex-col bg-brand-dark text-white font-sans antialiased selection:bg-brand-red selection:text-white">
+      <SWRegister />
       <Header lang={lang} />
       <CartDrawer lang={lang} />
       <CompareBar lang={lang} />
       <PWAInstallBanner />
+      <AIAssistant lang={lang} />
       <main className="flex-1 pb-24 lg:pb-0">{children}</main>
       <StickyMobileContact lang={lang} />
       <Footer lang={lang} />
