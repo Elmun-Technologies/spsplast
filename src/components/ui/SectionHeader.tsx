@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { ChevronRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface SectionHeaderProps {
@@ -23,18 +23,26 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
   children,
 }) => {
   return (
-    <div className={cn('flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6 pb-2 border-b border-gray-200/80', className)}>
-      <div>
-        {badge && (
-          <span className="inline-block text-xs font-semibold uppercase tracking-wider text-brand-red mb-1">
-            {badge}
-          </span>
-        )}
-        <h2 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">
+    <div className={cn('flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-7', className)}>
+      <div className="space-y-1.5">
+        <div className="flex items-center gap-3">
+          <div className="h-px w-8 bg-gray-900" />
+          {badge && (
+            <span className="text-[11px] font-mono font-bold uppercase tracking-[0.15em] text-brand-red">
+              {badge}
+            </span>
+          )}
+          {subtitle && (
+            <span className="text-[11px] font-mono uppercase tracking-wider text-gray-400 hidden sm:inline">
+              / {subtitle}
+            </span>
+          )}
+        </div>
+        <h2 className="text-[22px] sm:text-[28px] font-black text-gray-900 tracking-[-0.02em] leading-none uppercase">
           {title}
         </h2>
         {subtitle && (
-          <p className="text-xs sm:text-sm text-gray-500 mt-1 font-normal">
+          <p className="text-sm text-gray-500 font-medium sm:hidden">
             {subtitle}
           </p>
         )}
@@ -45,10 +53,10 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
         {linkText && linkHref && (
           <Link
             href={linkHref}
-            className="inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-brand-red hover:text-brand-red-dark transition-colors group"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-900 text-white text-xs font-bold uppercase tracking-wider hover:bg-black transition-colors group btn-press min-h-[36px]"
           >
             <span>{linkText}</span>
-            <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
           </Link>
         )}
       </div>

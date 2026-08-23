@@ -4,6 +4,8 @@ import { getDictionary, Locale } from '@/lib/i18n';
 import { getProductsServer } from '@/lib/services/productService';
 import { CatalogClient } from '@/components/catalog/CatalogClient';
 
+export const revalidate = 30;
+
 interface CatalogPageProps {
   params: { lang: Locale };
   searchParams: {
