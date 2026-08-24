@@ -24,7 +24,7 @@ export const B2BBanner: React.FC<B2BBannerProps> = ({ lang }) => {
             <div className="absolute bottom-0 left-0 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
             <div className="relative z-10 space-y-3 max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white text-xs font-bold uppercase tracking-wider">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white/10 border border-white/20 text-white text-xs font-semibold tracking-wide">
                 <Building2 className="w-4 h-4 text-brand-red" />
                 B2B Wholesale
               </div>

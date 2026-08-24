@@ -108,7 +108,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, lang, feature
 
   return (
     <div
-      className={`group relative bg-white border border-[#E5E7EB] rounded-[16px] overflow-hidden flex flex-col justify-between transition-all duration-300 hover:border-[#111827] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] ${featured ? 'md:col-span-2 md:row-span-2' : ''}`}
+      className={`group relative bg-white border border-[#E5E7EB] rounded-xl overflow-hidden flex flex-col justify-between transition-all duration-300 hover:border-[#111827] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] ${featured ? 'md:col-span-2 md:row-span-2' : ''}`}
     >
       {/* Industrial top line on hover */}
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-gray-900 opacity-0 group-hover:opacity-100 transition-opacity z-10" />
@@ -116,7 +116,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, lang, feature
       {/* Badges — industrial mono */}
       <div className="absolute top-3 left-3 z-10 flex flex-col gap-1.5 pointer-events-none">
         {hasDiscount && (
-          <div className="inline-flex items-center px-2.5 py-1 rounded-full bg-[#E61C24] text-white text-[11px] font-mono font-bold tracking-wider">
+          <div className="inline-flex items-center px-2.5 py-1 rounded-md bg-[#E61C24] text-white text-xs font-mono font-bold tracking-wider">
             -{discountPercent}%
           </div>
         )}

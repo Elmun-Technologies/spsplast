@@ -38,7 +38,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
             </span>
           )}
         </div>
-        <h2 className="text-[22px] sm:text-[28px] font-black text-gray-900 tracking-[-0.02em] leading-none uppercase">
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-[-0.025em] leading-tight">
           {title}
         </h2>
         {subtitle && (
