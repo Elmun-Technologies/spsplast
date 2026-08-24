@@ -35,14 +35,20 @@ export const dynamic = 'force-static';
 export default async function HomePage({ params: { lang } }: HomePageProps) {
   const dict = getDictionary(lang);
 
-  const rawCategories = await db.category.findMany({
-    where: { status: 'ACTIVE' },
-    orderBy: { sortOrder: 'asc' },
-    include: {
-      translations: { where: { locale: lang } },
-      _count: { select: { products: true } },
-    },
-  });
+  // These independent reads used to block one another. Fetch the homepage payload together
+  // so the slowest query, rather than the sum of all queries, determines TTFB.
+  const [rawCategories, bestsellersResult, allProductsResult] = await Promise.all([
+    db.category.findMany({
+      where: { status: 'ACTIVE' },
+      orderBy: { sortOrder: 'asc' },
+      include: {
+        translations: { where: { locale: lang } },
+        _count: { select: { products: true } },
+      },
+    }),
+    getProductsServer({ locale: lang, isBestseller: true, limit: 8 }),
+    getProductsServer({ locale: lang, limit: 48 }),
+  ]);
 
   const categories = rawCategories.map((c) => {
     const trans = c.translations[0] || {};
@@ -58,26 +64,13 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
     };
   });
 
-  let bestsellersData = await getProductsServer({
-    locale: lang,
-    isBestseller: true,
-    limit: 8,
-  });
-  let bestsellers = bestsellersData.products;
+  let bestsellers = bestsellersResult.products;
+  const allProducts = allProductsResult.products;
 
+  // Keep the fallback in the same request path only when it is actually needed.
   if (!bestsellers || bestsellers.length === 0) {
-    const fallback = await getProductsServer({
-      locale: lang,
-      limit: 8,
-    });
-    bestsellers = fallback.products;
+    bestsellers = allProducts.slice(0, 8);
   }
-
-  const allProductsData = await getProductsServer({
-    locale: lang,
-    limit: 48,
-  });
-  const allProducts = allProductsData.products;
 
   const bruschatkaProducts = allProducts.filter((p) => {
     const cat = (p as any).category;
@@ -174,7 +167,7 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
             {/* Industrial Hero */}
-            <div className="lg:col-span-8 bg-[#0F1115] text-white rounded-[20px] p-6 sm:p-8 lg:p-10 flex flex-col justify-between relative overflow-hidden border border-[#1E222A] shadow-lg industrial-grid-dark noise">
+            <div className="lg:col-span-8 bg-[#161920] text-white rounded-xl p-6 sm:p-8 lg:p-10 flex flex-col justify-between relative overflow-hidden border border-[#292d36] shadow-lg noise">
               {/* Top line */}
               <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-red/50 to-transparent" />
 
@@ -187,7 +180,7 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
                 </div>
 
                 <div className="space-y-3">
-                  <h1 className="text-[28px] sm:text-[36px] lg:text-[42px] font-black tracking-[-0.03em] leading-[0.95] text-white uppercase">
+                  <h1 className="text-[30px] sm:text-[38px] lg:text-[46px] font-extrabold tracking-[-0.035em] leading-[1.02] text-white">
                     {lang === 'ru' ? (
                       <>
                         <span className="block">Формы для</span>
@@ -232,7 +225,7 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
               <div className="relative z-10 pt-8 flex flex-wrap items-center gap-3">
                 <Link
                   href={`/${lang}/catalog`}
-                  className="inline-flex items-center gap-3 px-7 py-3.5 bg-white text-black font-bold text-sm rounded-full hover:bg-brand-red hover:text-white transition-all group btn-press min-h-[48px]"
+                  className="inline-flex items-center gap-3 px-7 py-3.5 bg-white text-black font-bold text-sm rounded-lg hover:bg-brand-red hover:text-white transition-all group btn-press min-h-[48px]"
                 >
                   <span>{lang === 'ru' ? 'Каталог' : 'Katalogni ko‘rish'}</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -240,7 +233,7 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
 
                 <Link
                   href={`/${lang}/contact`}
-                  className="inline-flex items-center gap-2 px-6 py-3.5 bg-transparent border border-white/20 text-white font-semibold text-sm rounded-full hover:bg-white/10 hover:border-white/30 transition-colors min-h-[48px]"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 bg-transparent border border-white/25 text-white font-semibold text-sm rounded-lg hover:bg-white/10 hover:border-white/40 transition-colors min-h-[48px]"
                 >
                   <span>{lang === 'ru' ? 'Консультация' : 'Maslahat olish'}</span>
                 </Link>
@@ -257,7 +250,7 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
               </div>
             </div>
 
-            <div className="lg:col-span-4 bg-white rounded-[20px] p-5 flex flex-col border border-gray-200 shadow-sm relative overflow-hidden">
+            <div className="lg:col-span-4 bg-white rounded-xl p-5 flex flex-col border border-gray-200 shadow-sm relative overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-brand-red/50 via-transparent to-transparent" />
 
               <div className="flex items-center justify-between pb-4 mb-4 border-b border-gray-100">

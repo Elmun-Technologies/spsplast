@@ -52,7 +52,7 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
             <a
               href={`tel:${COMPANY_CONTACTS.phoneRaw}`}
               onClick={() => trackEvent('phone_click', { location: 'footer' })}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white text-black font-bold text-sm uppercase tracking-wider hover:bg-brand-red hover:text-white transition-colors rounded-xl"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white text-black font-bold text-sm hover:bg-brand-red hover:text-white transition-colors rounded-lg"
             >
               <Phone className="w-4 h-4" />
               <span>{COMPANY_CONTACTS.phoneDisplay}</span>
@@ -72,7 +72,7 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
         </div>
 
         {/* Multi-column Editorial Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 py-12 border-b border-neutral-800/80">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 py-8 border-b border-neutral-800/80">
 
           {/* Col 1: About */}
           <div className="lg:col-span-2 space-y-4">
