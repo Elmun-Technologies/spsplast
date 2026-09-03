@@ -41,7 +41,7 @@ export const PWAInstallBanner: React.FC = () => {
       </div>
       <div className="flex-1">
         <div className="text-sm font-bold text-white">Ilovani o'rnating</div>
-        <div className="text-xs text-gray-400 mt-1 leading-relaxed">SPS Plast ni tezroq ochish va offline savat uchun PWA o'rnating</div>
+        <div className="text-xs text-gray-400 mt-1 leading-relaxed">SPS ni tezroq ochish va offline savat uchun PWA o'rnating</div>
         <div className="flex gap-2 mt-3">
           <Button size="sm" onClick={handleInstall} className="rounded-xl gap-1.5">
             <Download className="w-4 h-4" />

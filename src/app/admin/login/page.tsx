@@ -7,7 +7,7 @@ import { Lock, Mail, ShieldAlert } from 'lucide-react';
 
 export default function AdminLoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState('admin@spsplast.uz');
+  const [email, setEmail] = useState('admin@sps.uz');
   const [password, setPassword] = useState('admin123');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -46,7 +46,7 @@ export default function AdminLoginPage() {
           <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-red to-brand-red-light flex items-center justify-center mx-auto text-white font-extrabold text-xl shadow-red">
             SPS
           </div>
-          <h1 className="text-2xl font-black text-white">SPS PLAST Admin Panel</h1>
+          <h1 className="text-2xl font-black text-white">SPS Admin Panel</h1>
           <p className="text-xs text-gray-400">Dasturiy boshqaruv tizimiga kirish</p>
         </div>
 
@@ -92,7 +92,7 @@ export default function AdminLoginPage() {
         </form>
 
         <p className="text-[11px] text-center text-gray-500">
-          Demo login: <span className="text-gray-300 font-mono">admin@spsplast.uz</span> / <span className="text-gray-300 font-mono">admin123</span>
+          Demo login: <span className="text-gray-300 font-mono">admin@sps.uz</span> / <span className="text-gray-300 font-mono">admin123</span>
         </p>
 
       </div>

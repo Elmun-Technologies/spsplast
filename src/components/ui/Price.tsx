@@ -25,6 +25,9 @@ export const Price: React.FC<PriceProps> = ({
     ? Math.round(((oldPrice - price) / oldPrice) * 100)
     : 0;
 
+  // Price not yet configured -> show "request a quote" instead of 0 so'm
+  const askPrice = !price || price <= 0;
+
   const sizeStyles = {
     sm: {
       current: 'text-sm font-bold',
@@ -46,9 +49,15 @@ export const Price: React.FC<PriceProps> = ({
 
   return (
     <div className={cn('flex flex-wrap items-baseline gap-1.5', className)}>
-      <span className={cn('text-gray-900 tracking-tight', sizeStyles[size].current)}>
-        {formatPrice(price, lang)}
-      </span>
+      {askPrice ? (
+        <span className={cn('text-gray-900 tracking-tight', sizeStyles[size].current)}>
+          {lang === 'ru' ? 'Цена по запросу' : 'Narx so‘rash'}
+        </span>
+      ) : (
+        <span className={cn('text-gray-900 tracking-tight', sizeStyles[size].current)}>
+          {formatPrice(price, lang)}
+        </span>
+      )}
       {hasDiscount && oldPrice && (
         <span className={cn(sizeStyles[size].old)}>
           {formatPrice(oldPrice, lang)}

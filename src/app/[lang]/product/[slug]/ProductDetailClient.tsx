@@ -27,7 +27,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
 
   const images = product.images.length > 0
     ? product.images.map((i: any) => i.url)
-    : ['/images/molds-warehouse.jpg'];
+    : ['/catalog/catalog-053.jpg'];
 
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
@@ -61,6 +61,8 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
 
   // Bulk Tier Pricing
   const basePrice = product.price;
+  // Price not configured (0) -> price-on-request catalog item
+  const askPrice = !product.price || product.price <= 0;
   const getTierPrice = (qty: number) => {
     if (qty >= 50) return Math.round(basePrice * 0.9);
     if (qty >= 10) return Math.round(basePrice * 0.95);
@@ -396,19 +398,23 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                   />
 
                   <button
-                    onClick={handleAddToCart}
                     disabled={!product.inStock}
+                    onClick={() => (askPrice ? setB2bModalOpen(true) : handleAddToCart())}
                     className={`flex-1 flex items-center justify-center gap-2 text-sm sm:text-base font-bold py-3.5 px-6 rounded-xl transition-all min-h-[52px] ${
-                      added
+                      askPrice
+                        ? 'bg-gray-900 hover:bg-black text-white shadow-sm'
+                        : added
                         ? 'bg-emerald-600 text-white shadow-sm'
                         : product.inStock
                         ? 'bg-brand-red hover:bg-brand-red-dark text-white shadow-red hover:shadow-lg active:scale-[0.98]'
                         : 'bg-gray-100 text-gray-400 border border-gray-200 cursor-not-allowed'
                     }`}
                   >
-                    {added ? <Check className="w-5 h-5" /> : <ShoppingCart className="w-5 h-5" />}
+                    <ShoppingCart className="w-5 h-5" />
                     <span>
-                      {added
+                      {askPrice
+                        ? (lang === 'ru' ? 'Запросить цену' : 'Narx so‘rash')
+                        : added
                         ? (lang === 'ru' ? 'В корзине ✓' : 'Savatga qo‘shildi ✓')
                         : (lang === 'ru' ? 'Добавить в корзину' : 'Savatga qo‘shish')}
                     </span>
@@ -450,7 +456,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                   </div>
                   <div>
                     <div className="font-bold text-gray-900 text-xs">100% Kafolat</div>
-                    <div className="text-xs text-gray-500">300+ quyish resursi</div>
+                    <div className="text-xs text-gray-500">Resurs modelga bog’liq</div>
                   </div>
                 </div>
               </div>

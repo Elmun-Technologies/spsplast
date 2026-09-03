@@ -63,7 +63,7 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({ category, lang }) =>
             <div className="w-10 h-10 rounded-xl bg-white border border-[#E5E7EB] flex items-center justify-center mb-2">
               <LayoutGrid className="w-5 h-5 text-[#9CA3AF]" />
             </div>
-            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#9CA3AF]">SPS PLAST</span>
+            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#9CA3AF]">SPS</span>
           </div>
         )}
       </div>

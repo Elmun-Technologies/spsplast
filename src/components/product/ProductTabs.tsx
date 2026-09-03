@@ -52,8 +52,8 @@ export const ProductTabs: React.FC<ProductTabsProps> = ({ lang, description, spe
             ) : (
               <p className="text-sm text-gray-500">
                 {lang === 'ru'
-                  ? 'Высококачественная пластиковая форма для производства брусчатки и бетонных изделий. Европейское сырье, гарантия 300+ заливок.'
-                  : 'Bruschatka va beton mahsulotlari uchun yuqori sifatli plastik qolip. Yevropa xomashyosi, 300+ quyish kafolati.'}
+                  ? 'Высококачественная пластиковая форма для производства брусчатки и бетонных изделий. Качественное сырьё, ресурс зависит от модели.'
+                  : 'Bruschatka va beton mahsulotlari uchun yuqori sifatli plastik qolip. Sifatli xomashyo, resurs modelga bog‘liq.'}
               </p>
             )}
             <div className="mt-6 p-4 rounded-xl bg-[#F8F9FA] border border-gray-200">
@@ -130,7 +130,7 @@ export const ProductTabs: React.FC<ProductTabsProps> = ({ lang, description, spe
                 </div>
                 <h4 className="font-bold text-sm text-gray-900">{lang === 'ru' ? 'Гарантия' : 'Kafolat'}</h4>
                 <p className="text-xs text-gray-600 leading-relaxed">
-                  {lang === 'ru' ? 'Гарантия 300+ заливок, возврат в течение 14 дней если брак.' : '300+ quyish kafolati, 14 kun ichida nuqson bo‘lsa qaytarish.'}
+                  {lang === 'ru' ? 'Sifatli xomashyo. Nuqson bo‘lsa qaytarish shartlari mavjud.' : 'Sifatli xomashyo. Nuqson bo‘lsa qaytarish shartlari mavjud.'}
                 </p>
               </div>
               <div className="p-4 rounded-xl bg-[#F8F9FA] border border-gray-200 space-y-2">

@@ -122,7 +122,7 @@ export const B2BModal: React.FC<B2BModalProps> = ({
               required
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              placeholder="+998901234567"
+              placeholder="+998983007772"
               className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-gray-900 focus:outline-none focus:border-brand-red"
             />
           </div>

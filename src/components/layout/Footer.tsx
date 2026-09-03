@@ -30,12 +30,12 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
               </span>
             </div>
             <h2 className="text-4xl sm:text-7xl font-black text-white uppercase tracking-tighter font-sans leading-none">
-              SPS PLAST
+              SPS
             </h2>
             <div className="flex flex-wrap items-center gap-3 mt-4">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-neutral-900 border border-neutral-800 text-xs text-neutral-300">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                300+ quyish kafolati
+                Sifatli xomashyo
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-neutral-900 border border-neutral-800 text-xs text-neutral-300">
                 <Truck className="w-3.5 h-3.5 text-brand-red" />
@@ -111,17 +111,22 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
               </li>
               <li>
                 <Link href={`/${lang}/catalog?category=bruschatka-qoliplari`} className="hover:text-white transition-colors">
-                  Bruschatka qoliplari
+                  {lang === 'ru' ? 'Формы для брусчатки' : 'Bruschatka qoliplari'}
                 </Link>
               </li>
               <li>
-                <Link href={`/${lang}/catalog?category=termopanel`} className="hover:text-white transition-colors">
-                  Termopanellar
+                <Link href={`/${lang}/catalog?category=plitka-qoliplari`} className="hover:text-white transition-colors">
+                  {lang === 'ru' ? 'Формы для плитки' : 'Plitka qoliplari'}
                 </Link>
               </li>
               <li>
                 <Link href={`/${lang}/catalog?category=bordyur-qoliplari`} className="hover:text-white transition-colors">
-                  Bordyur qoliplari
+                  {lang === 'ru' ? 'Формы для бордюров' : 'Bordyur qoliplari'}
+                </Link>
+              </li>
+              <li>
+                <Link href={`/${lang}/catalog?category=fasad-dekor`} className="hover:text-white transition-colors">
+                  {lang === 'ru' ? 'Фасадный декор' : 'Fasad dekor'}
                 </Link>
               </li>
             </ul>
@@ -189,7 +194,7 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
 
         {/* Bottom Rights + Payments */}
         <div className="pt-8 flex flex-col lg:flex-row items-center justify-between gap-4 text-xs font-mono text-neutral-400">
-          <p>© {new Date().getFullYear()} SPS PLAST. {dict.footer.rights}</p>
+          <p>© {new Date().getFullYear()} SPS. {dict.footer.rights}</p>
           <div className="flex flex-wrap items-center gap-4">
             <div className="flex items-center gap-2">
               <span className="px-2 py-1 bg-neutral-900 border border-neutral-800 rounded text-[10px]">CLICK</span>

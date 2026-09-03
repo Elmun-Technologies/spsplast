@@ -128,7 +128,7 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
         customerPhone: customerPhone.replace(/\s/g, ''),
         region,
         city,
-        address: deliveryType === 'PICKUP' ? 'SPS Plast Bosh Ombori (Olib ketish)' : address,
+        address: deliveryType === 'PICKUP' ? 'SPS Bosh Ombori (Olib ketish)' : address,
         deliveryType,
         paymentMethod,
         notes: notes + (appliedCoupon ? ` | Promokod: ${appliedCoupon.code} -${appliedCoupon.discountPercent}%` : ''),
@@ -281,7 +281,7 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
                 <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-sm text-emerald-900 space-y-1">
                   <p className="font-bold text-gray-900 flex items-center gap-2">
                     <Store className="w-4 h-4 text-emerald-600" />
-                    SPS Plast Bosh Ombori
+                    SPS Bosh Ombori
                   </p>
                   <p>{COMPANY_CONTACTS.addressUz}</p>
                   <p className="text-emerald-700 font-semibold">Olib ketish bepul! 09:00 - 18:00</p>

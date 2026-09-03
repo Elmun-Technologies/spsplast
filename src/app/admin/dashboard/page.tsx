@@ -31,7 +31,7 @@ export default async function AdminDashboardPage() {
     <div className="space-y-8">
       <div>
         <h1 className="text-3xl font-black text-white">Boshqaruv Paneli (Dashboard)</h1>
-        <p className="text-xs text-gray-400 mt-1">SPS PLAST online magazin ko‘rsatkichlari (Admin: {session.admin.name})</p>
+        <p className="text-xs text-gray-400 mt-1">SPS online magazin ko‘rsatkichlari (Admin: {session.admin.name})</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

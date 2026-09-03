@@ -9,18 +9,18 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: 'SPS PLAST — Termopanel, Bruschatka va Beton Qoliplari',
-  description: 'O‘zbekistonda termopanel, bruschatka qoliplari va beton mahsulotlari uchun sifatli plastik qoliplar ishlab chiqarish. 300+ quyish kafolati, zavod narxlari.',
+  title: 'SPS — Bruschatka, Bordyur va Plitka Qoliplari, Fasad Dekor',
+  description: 'SPS — O‘zbekistonda bruschatka, bordyur va trotuar plitka qoliplari hamda fasad dekor elementlarini ishlab chiqaruvchi zavod. Sifatli xomashyo, zavod narxlari.',
   manifest: '/manifest.json',
   themeColor: '#E61C24',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'SPS PLAST',
+    title: 'SPS',
   },
   openGraph: {
-    title: 'SPS PLAST — Qoliplar Zavodi',
-    description: 'Bruschatka qoliplari, termopanellar, bordyur qoliplari — zavoddan to‘g‘ridan-to‘g‘ri',
+    title: 'SPS — Qoliplar va Fasad Dekor Zavodi',
+    description: 'Bruschatka qoliplari, bordyur qoliplari, plitka qoliplari va fasad dekor — zavoddan to‘g‘ridan-to‘g‘ri',
     type: 'website',
     locale: 'uz_UZ',
   },

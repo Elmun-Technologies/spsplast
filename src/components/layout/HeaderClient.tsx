@@ -165,7 +165,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                     <div className="flex items-center gap-3 text-xs font-medium text-gray-300">
                         <div className="flex items-center gap-1.5">
                             <ShieldCheck className="w-3.5 h-3.5 text-brand-red shrink-0" />
-                            <span>{lang === 'ru' ? 'SPS Plast — завод производитель' : 'SPS Plast — Ishlab chiqaruvchi zavod'}</span>
+                            <span>{lang === 'ru' ? 'SPS — завод производитель' : 'SPS — Ishlab chiqaruvchi zavod'}</span>
                         </div>
                         <span className="hidden sm:inline text-gray-600">|</span>
                         <div className="hidden sm:flex items-center gap-1.5 text-gray-400">
@@ -180,7 +180,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                             <a
                                 href={`tel:${COMPANY_CONTACTS.phoneRaw}`}
                                 onClick={() => trackEvent('phone_click', { location: 'topbar' })}
-                                aria-label="Call SPS Plast"
+                                aria-label="Call SPS"
                                 className="hidden sm:flex items-center gap-1.5 text-gray-300 hover:text-white transition-colors font-mono text-xs"
                             >
                                 <Phone className="w-3 h-3 text-brand-red" />
@@ -201,17 +201,17 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
             {/* 2. MAIN HEADER BAR */}
             <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
                 <div className="flex items-center justify-between gap-4 md:gap-6">
-                    {/* LEFT: SPS Plast Brand */}
+                    {/* LEFT: SPS Brand */}
                     <Link href={`/${lang}`} className="flex items-center gap-2.5 shrink-0 group">
                         <div className="w-9 h-9 bg-brand-red flex items-center justify-center font-black text-white text-sm tracking-tight rounded-lg group-hover:bg-brand-red-dark transition-colors shadow-xs">
                             SPS
                         </div>
                         <div className="flex flex-col">
                             <span className="font-black text-lg tracking-tight leading-none text-gray-900 uppercase font-sans">
-                                SPS PLAST
+                                SPS
                             </span>
                             <span className="text-[9px] font-mono tracking-wider text-gray-500 uppercase mt-0.5">
-                                QOLIPLAR ZAVODI
+                                STONE PROFY SERVISE
                             </span>
                         </div>
                     </Link>

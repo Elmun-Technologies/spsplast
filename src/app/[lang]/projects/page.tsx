@@ -29,7 +29,7 @@ export default async function ProjectsPage({ params: { lang } }: { params: { lan
               {lang === 'ru' ? 'Выполненные проекты' : 'Bajarilgan loyihalar'}
             </h1>
             <p className="text-sm text-gray-600">
-              {lang === 'ru' ? 'Дома и объекты с брусчаткой из наших форм.' : 'SPS Plast qoliplaridan quyilgan bruschatka bilan bezatilgan uylar va loyihalar.'}
+              {lang === 'ru' ? 'Дома и объекты с брусчаткой из наших форм.' : 'SPS qoliplaridan quyilgan bruschatka bilan bezatilgan uylar va loyihalar.'}
             </p>
           </div>
 

@@ -131,7 +131,7 @@ export default async function OrderSuccessPage({ params: { lang, orderId } }: Or
               </div>
               <div>
                 <div className="text-xs font-bold text-gray-900">100% kafolat</div>
-                <div className="text-xs text-gray-500">300+ quyish</div>
+                <div className="text-xs text-gray-500">Sifatli material</div>
               </div>
             </div>
           </div>

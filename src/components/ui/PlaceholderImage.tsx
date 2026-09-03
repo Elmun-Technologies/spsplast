@@ -26,7 +26,7 @@ export const PlaceholderImage: React.FC<PlaceholderImageProps> = ({
                 <ImageOff className="w-5 h-5" />
             </div>
             <span className="text-[11px] font-medium tracking-wide uppercase text-gray-400 text-center">
-                SPS PLAST
+                SPS
             </span>
             <span className="text-[10px] text-gray-500 text-center mt-0.5">
                 {label}
