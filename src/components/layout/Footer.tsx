@@ -111,17 +111,22 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
               </li>
               <li>
                 <Link href={`/${lang}/catalog?category=bruschatka-qoliplari`} className="hover:text-white transition-colors">
-                  Bruschatka qoliplari
+                  {lang === 'ru' ? 'Формы для брусчатки' : 'Bruschatka qoliplari'}
                 </Link>
               </li>
               <li>
-                <Link href={`/${lang}/catalog?category=termopanel`} className="hover:text-white transition-colors">
-                  Termopanellar
+                <Link href={`/${lang}/catalog?category=plitka-qoliplari`} className="hover:text-white transition-colors">
+                  {lang === 'ru' ? 'Формы для плитки' : 'Plitka qoliplari'}
                 </Link>
               </li>
               <li>
                 <Link href={`/${lang}/catalog?category=bordyur-qoliplari`} className="hover:text-white transition-colors">
-                  Bordyur qoliplari
+                  {lang === 'ru' ? 'Формы для бордюров' : 'Bordyur qoliplari'}
+                </Link>
+              </li>
+              <li>
+                <Link href={`/${lang}/catalog?category=fasad-dekor`} className="hover:text-white transition-colors">
+                  {lang === 'ru' ? 'Фасадный декор' : 'Fasad dekor'}
                 </Link>
               </li>
             </ul>
