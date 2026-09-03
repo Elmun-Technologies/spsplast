@@ -162,6 +162,8 @@ export default async function ProductDetailPage({
               resultImage={mappedProduct.resultImage}
               moldTitle={trans.name}
               resultTitle={lang === 'ru' ? 'Готовый образец' : 'Tayyor mahsulot namunasi'}
+              productSlug={mappedProduct.slug}
+              productPrice={mappedProduct.price || undefined}
               lang={lang}
             />
           </section>

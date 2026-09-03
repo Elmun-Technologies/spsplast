@@ -27,7 +27,7 @@ export interface ProductCardData {
   hasVariants?: boolean;
   isBestseller?: boolean;
   isNew?: boolean;
-  images: { url: string; altText?: string | null }[];
+  images: { url: string; altText?: string | null; type?: string | null }[];
 }
 
 interface ProductCardProps {
@@ -53,7 +53,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, lang, feature
 
   const title = lang === 'ru' ? product.titleRu : product.titleUz;
   const mainImage = product.images?.[0]?.url;
-  const hoverImage = product.images?.[1]?.url;
+  // Prefer the finished-result photo as the hover image (QOLIP -> NATIJA), else fall back to the 2nd image
+  const hoverImage = product.images?.find((i) => i.type === 'FINISHED_RESULT')?.url || product.images?.[1]?.url;
 
   const hasDiscount = Boolean(product.oldPrice && product.oldPrice > product.price);
   const discountPercent = hasDiscount && product.oldPrice ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100) : 0;
