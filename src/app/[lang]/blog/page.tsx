@@ -33,7 +33,7 @@ export default async function BlogPage({ params: { lang } }: { params: { lang: L
               {lang === 'ru' ? 'Полезные статьи' : 'Foydali maqolalar'}
             </span>
             <h1 className="text-3xl sm:text-5xl font-black text-gray-900 tracking-tight">
-              {lang === 'ru' ? 'Блог и руководства SPS Plast' : 'SPS Plast blogi va qo‘llanmalari'}
+              {lang === 'ru' ? 'Блог и руководства SPS' : 'SPS blogi va qo‘llanmalari'}
             </h1>
             <p className="text-sm text-gray-600">
               {lang === 'ru' ? 'Советы по производству брусчатки, выбору форм и заливке бетона.' : 'Bruschatka ishlab chiqarishni boshlash, qolip tanlash va beton quyish sirlari haqida mutaxassis maslahatlari.'}

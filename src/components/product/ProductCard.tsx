@@ -12,6 +12,7 @@ import { trackEvent } from '@/lib/analytics';
 import { Price } from '@/components/ui/Price';
 import { StockBadge } from '@/components/ui/StockBadge';
 import { QuickViewModal } from './QuickViewModal';
+import { B2BModal } from './B2BModal';
 
 export interface ProductCardData {
   id: string;
@@ -45,6 +46,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, lang, feature
   const [imgError, setImgError] = React.useState(false);
   const [imgLoaded, setImgLoaded] = React.useState(false);
   const [quickOpen, setQuickOpen] = React.useState(false);
+  const [b2bOpen, setB2bOpen] = React.useState(false);
+
+  // If price is not set (0), this is a price-on-request catalog item -> route to B2B inquiry
+  const askPrice = !product.price || product.price <= 0;
 
   const title = lang === 'ru' ? product.titleRu : product.titleUz;
   const mainImage = product.images?.[0]?.url;
@@ -165,6 +170,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, lang, feature
       </div>
 
       <QuickViewModal isOpen={quickOpen} onClose={() => setQuickOpen(false)} lang={lang} product={product} />
+      <B2BModal isOpen={b2bOpen} onClose={() => setB2bOpen(false)} lang={lang} productName={title} productId={product.id} />
 
       {/* Image — industrial grid + premium */}
       <Link
@@ -198,7 +204,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, lang, feature
             <div className="w-12 h-12 rounded-xl bg-white border border-[#E5E7EB] flex items-center justify-center mb-2">
               <ImageOff className="w-6 h-6 text-[#9CA3AF]" />
             </div>
-            <span className="text-[11px] font-mono font-bold tracking-widest text-[#9CA3AF] uppercase">SPS PLAST</span>
+            <span className="text-[11px] font-mono font-bold tracking-widest text-[#9CA3AF] uppercase">SPS</span>
           </div>
         )}
 
@@ -240,6 +246,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, lang, feature
               <span>{lang === 'ru' ? 'Выбрать' : 'Tanlash'}</span>
               <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-0.5 transition-transform" />
             </Link>
+          ) : askPrice ? (
+            <button
+              onClick={() => setB2bOpen(true)}
+              className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-full text-sm font-bold transition-all min-h-[44px] btn-press bg-[#111827] hover:bg-black text-white"
+            >
+              <ShoppingBag className="w-4 h-4" />
+              <span>{lang === 'ru' ? 'Запросить цену' : 'Narx so‘rash'}</span>
+            </button>
           ) : (
             <button
               onClick={handleAddToCart}

@@ -85,35 +85,37 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
   const termopanelProducts = allProducts.filter((p) => {
     const cat = (p as any).category;
     return (
-      cat?.slug?.includes('termopanel') ||
-      cat?.nameUz?.toLowerCase().includes('termopanel') ||
-      p.titleUz?.toLowerCase().includes('termopanel') ||
-      p.titleRu?.toLowerCase().includes('термопанел')
+      cat?.slug?.includes('fasad') ||
+      cat?.nameUz?.toLowerCase().includes('fasad') ||
+      p.titleUz?.toLowerCase().includes('fasad') ||
+      p.titleRu?.toLowerCase().includes('фасад')
     );
   }).slice(0, 4);
 
-  const panellar3DProducts = allProducts.filter((p) => {
+  const bordyurProducts = allProducts.filter((p) => {
     const cat = (p as any).category;
     return (
-      cat?.slug?.includes('3d') ||
-      p.titleUz?.toLowerCase().includes('3d') ||
-      p.titleRu?.toLowerCase().includes('3d')
+      cat?.slug?.includes('bordyur') ||
+      cat?.nameUz?.toLowerCase().includes('bordyur') ||
+      p.titleUz?.toLowerCase().includes('bordyur') ||
+      p.titleRu?.toLowerCase().includes('бордюр')
     );
   }).slice(0, 4);
 
-  const dekorProducts = allProducts.filter((p) => {
+  const plitkaProducts = allProducts.filter((p) => {
     const cat = (p as any).category;
     return (
-      cat?.slug?.includes('dekor') ||
-      p.titleUz?.toLowerCase().includes('dekor') ||
-      p.titleRu?.toLowerCase().includes('декор')
+      cat?.slug?.includes('plitka') ||
+      cat?.nameUz?.toLowerCase().includes('plitka') ||
+      p.titleUz?.toLowerCase().includes('plitka') ||
+      p.titleRu?.toLowerCase().includes('плитка')
     );
   }).slice(0, 4);
 
   const block1Products = bruschatkaProducts.length > 0 ? bruschatkaProducts : allProducts.slice(0, 4);
   const block2Products = termopanelProducts.length > 0 ? termopanelProducts : allProducts.slice(4, 8);
-  const block3Products = panellar3DProducts.length > 0 ? panellar3DProducts : allProducts.slice(8, 12);
-  const block4Products = dekorProducts.length > 0 ? dekorProducts : allProducts.slice(12, 16);
+  const block3Products = bordyurProducts.length > 0 ? bordyurProducts : allProducts.slice(8, 12);
+  const block4Products = plitkaProducts.length > 0 ? plitkaProducts : allProducts.slice(12, 16);
 
   const featuredMold = allProducts.find((p) => p.resultImage) || allProducts[0];
   const dealOfTheDay = bestsellers[0] || allProducts[0];
@@ -124,10 +126,10 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
     mainEntity: [
       {
         '@type': 'Question',
-        name: 'Qoliplarning xizmat ko‘rsatish resursi qancha?',
+        name: 'Qoliplar qanday materialdan tayyorlanadi?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'ABS va polipropilen materialdan tayyorlangan qoliplarimiz to‘g‘ri ishlatilganda 300 marotabadan ortiq quyish resursiga ega.',
+          text: 'Qoliplarimiz chidamli polipropilen va ABS plastikdan tayyorlanadi. Aniq resurs mahsulot modeliga va ishlatish shartlariga bog‘liq — savol bilan murojaat qiling.',
         },
       },
       {
@@ -152,10 +154,10 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
   const orgJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'SPS PLAST',
-    url: 'https://spsplast.uz',
-    logo: 'https://spsplast.uz/logo.png',
-    description: 'SPS Plast — O‘zbekistonda bruschatka qoliplari va termopanellar ishlab chiqaruvchi zavod',
+    name: 'SPS STONE PROFY SERVISE',
+    url: 'https://sps.uz',
+    logo: 'https://sps.uz/logo.png',
+    description: 'SPS — O‘zbekistonda bruschatka, bordyur va trotuar plitka qoliplari hamda fasad dekor elementlarini ishlab chiqaruvchi zavod',
   };
 
   return (
@@ -175,7 +177,7 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
                 <div className="flex items-center gap-3">
                   <div className="h-px w-8 bg-brand-red" />
                   <span className="text-[11px] font-mono font-bold tracking-[0.2em] text-gray-400 uppercase">
-                    EST. 2014 • TASHKENT • UZBEKISTAN
+                    TASHKENT • UZBEKISTAN
                   </span>
                 </div>
 
@@ -200,24 +202,24 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
                     <div className="w-1 h-12 bg-brand-red rounded-full shrink-0 mt-1" />
                     <p className="text-[15px] leading-[1.5] text-gray-300 font-medium">
                       {lang === 'ru'
-                        ? 'Заводское производство. ABS пластик 2-3мм. Ресурс 300+ заливок. Прямые цены без посредников. Поставки для 300+ цехов по Узбекистану.'
-                        : 'Zavod ishlab chiqarishi. 2-3mm ABS plastik. 300+ quyish resursi. Vositachilarsiz arzon narx. O‘zbekiston bo‘yicha 300+ sexga yetkazib berish.'}
+                        ? 'Собственное производство форм для брусчатки, бордюров и тротуарной плитки. Прямые цены производителя, работаем с цехами по всему Узбекистану.'
+                        : 'Bruschatka, bordyur va trotuar plitka qoliplarining o‘z ishlab chiqarishimiz. Ishlab chiqaruvchi narxlari, O‘zbekiston bo‘ylab sexlar bilan ishlaymiz.'}
                     </p>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-3 gap-4 pt-2 border-t border-white/10">
                   <div>
-                    <div className="text-xl font-black text-white tracking-tight">500K+</div>
-                    <div className="text-[11px] font-mono text-gray-500 uppercase tracking-wider">Sotilgan qolip</div>
+                    <div className="text-xl font-black text-white tracking-tight">Polipropilen</div>
+                    <div className="text-[11px] font-mono text-gray-500 uppercase tracking-wider">Material</div>
                   </div>
                   <div>
-                    <div className="text-xl font-black text-white tracking-tight">300+</div>
-                    <div className="text-[11px] font-mono text-gray-500 uppercase tracking-wider">Mijoz sexlar</div>
+                    <div className="text-xl font-black text-white tracking-tight">ABS</div>
+                    <div className="text-[11px] font-mono text-gray-500 uppercase tracking-wider">Alyernativa</div>
                   </div>
                   <div>
-                    <div className="text-xl font-black text-brand-red tracking-tight">10 yil</div>
-                    <div className="text-[11px] font-mono text-gray-500 uppercase tracking-wider">Tajriba</div>
+                    <div className="text-xl font-black text-brand-red tracking-tight">1 m²</div>
+                    <div className="text-[11px] font-mono text-gray-500 uppercase tracking-wider">Aniq hisob</div>
                   </div>
                 </div>
               </div>
@@ -331,8 +333,8 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="text-sm font-bold text-gray-900 tracking-tight">300+ {lang === 'ru' ? 'заливок' : 'quyish'}</h4>
-                <p className="text-xs text-gray-500 mt-0.5 font-medium">ABS plastik, laboratoriya testi</p>
+                <h4 className="text-sm font-bold text-gray-900 tracking-tight">{lang === 'ru' ? 'Прочный материал' : 'Mustahkam material'}</h4>
+                <p className="text-xs text-gray-500 mt-0.5 font-medium">Polipropilen va ABS, uzoq resurs</p>
               </div>
             </div>
 
@@ -409,9 +411,9 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
       <section className="py-4">
         <Container>
           <SectionHeader
-            title={lang === 'ru' ? 'Термопанели' : 'Termopanellar'}
-            linkText={lang === 'ru' ? 'Все термопанели' : 'Barcha panellar'}
-            linkHref={`/${lang}/catalog?category=termopanel`}
+            title={lang === 'ru' ? 'Фасадные декор-элементы' : 'Fasad dekor elementlari'}
+            linkText={lang === 'ru' ? 'Все декоры' : 'Barcha dekorlar'}
+            linkHref={`/${lang}/catalog?category=fasad-dekor`}
           />
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {block2Products.map((product) => (
@@ -424,9 +426,9 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
       <section className="py-4">
         <Container>
           <SectionHeader
-            title={lang === 'ru' ? '3D Панели' : '3D Panellar'}
-            linkText={lang === 'ru' ? 'Все 3D панели' : 'Barcha 3D panellar'}
-            linkHref={`/${lang}/catalog?category=3d-panellar`}
+            title={lang === 'ru' ? 'Бордюры и дорожные формы' : 'Bordyur va yo‘l qoliplari'}
+            linkText={lang === 'ru' ? 'Все формы' : 'Barcha qoliplar'}
+            linkHref={`/${lang}/catalog?category=bordyur-qoliplari`}
           />
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {block3Products.map((product) => (
@@ -439,9 +441,9 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
       <section className="py-4">
         <Container>
           <SectionHeader
-            title={lang === 'ru' ? 'Декоративный кирпич' : 'Dekorativ G\'ishtlar'}
-            linkText={lang === 'ru' ? 'Весь декор' : 'Barcha dekorlar'}
-            linkHref={`/${lang}/catalog?category=dekorativ-gishtlar`}
+            title={lang === 'ru' ? 'Тротуарная плитка' : 'Trotuar plitka qoliplari'}
+            linkText={lang === 'ru' ? 'Все плитки' : 'Barcha plitkalar'}
+            linkHref={`/${lang}/catalog?category=plitka-qoliplari`}
           />
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {block4Products.map((product) => (
@@ -476,12 +478,12 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
           <div className="bg-white border border-gray-200 rounded-2xl p-6 sm:p-7 shadow-sm">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
               <div className="lg:col-span-6 space-y-4">
-                <h2 className="text-xl font-bold text-gray-900 tracking-tight">SPS PLAST — SIFATLI QOLIPLAR VA TERMOPANELLAR</h2>
+                <h2 className="text-xl font-bold text-gray-900 tracking-tight">SPS — SIFATLI QOLIPLAR VA FASAD DEKOR ELEMENTLARI</h2>
                 <p className="text-sm text-gray-600 leading-relaxed">
-                  SPS Plast O‘zbekistondagi yetakchi plastmassa matritsalar hamda fasad termopanellarini ishlab chiqaruvchi zavod hisoblanadi. Mahsulotlarimiz yuqori bosimli vakuum-formovka va zamonaviy uskunalar yordamida tayyorlanadi.
+                  SPS — bruschatka, bordyur va trotuar plitka uchun plastik qoliplar hamda fasad dekor elementlarini ishlab chiqaruvchi zavod. Mahsulotlarimiz polipropilen va ABS plastikdan tayyorlanadi.
                 </p>
                 <p className="text-sm text-gray-600 leading-relaxed">
-                  Bruschatka, bordyur, dekorativ plitkalar hamda fasad tizimlari uchun arzon va sifatli qoliplarni onlayn buyurtma qilishingiz mumkin.
+                  Bruschatka, bordyur, dekorativ plitkalar hamda fasad tizimlari uchun sifatli qoliplarni onlayn buyurtma qilishingiz mumkin.
                 </p>
                 <div className="pt-2 flex flex-wrap gap-2 text-xs font-bold text-brand-red">
                   <Link href={`/${lang}/catalog`} className="hover:bg-red-50 bg-gray-50 px-3 py-1.5 rounded-full border border-gray-200 transition-colors">#Qoliplar</Link>
@@ -495,11 +497,11 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
 
                 <details className="group bg-[#F8F9FA] border border-gray-200 p-4 rounded-xl cursor-pointer open:bg-white open:shadow-sm transition-all">
                   <summary className="flex items-center justify-between font-semibold text-sm text-gray-900 list-none">
-                    <span>Qoliplarning xizmat ko‘rsatish resursi qancha?</span>
+                    <span>Qoliplar qanday materialdan tayyorlanadi?</span>
                     <ChevronDown className="w-4 h-4 text-gray-400 group-open:rotate-180 transition-transform" />
                   </summary>
                   <p className="text-sm text-gray-600 mt-3 pt-3 border-t border-gray-200/60 leading-relaxed">
-                    ABS va polipropilen materialdan tayyorlangan qoliplarimiz to‘g‘ri ishlatilganda 300 marotabadan ortiq quyish resursiga ega.
+                    Qoliplarimiz chidamli polipropilen va ABS plastikdan tayyorlanadi. Aniq resurs mahsulot modeliga va ishlatish shartlariga bog‘liq.
                   </p>
                 </details>
 

@@ -18,7 +18,7 @@ export default function AboutPage({ params: { lang } }: { params: { lang: Locale
               {lang === 'ru' ? 'О компании' : 'Kompaniya haqida'}
             </span>
             <h1 className="text-3xl sm:text-5xl font-black text-gray-900 tracking-tight leading-tight">
-              SPS PLAST — {lang === 'ru' ? 'Промышленные пластиковые формы' : 'Sanoat darajasidagi plastik qoliplar'}
+              SPS — {lang === 'ru' ? 'Производитель форм и фасадного декора' : 'Qoliplar va fasad dekor ishlab chiqaruvchi'}
             </h1>
             <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
               {lang === 'ru'
@@ -31,8 +31,8 @@ export default function AboutPage({ params: { lang } }: { params: { lang: Locale
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-white border border-gray-200 rounded-2xl p-6 sm:p-8 shadow-sm">
             <div className="relative aspect-[4/3] rounded-xl overflow-hidden border border-gray-200 bg-[#F8F9FA] shadow-xs">
               <Image
-                src="/images/factory-1.jpg"
-                alt="SPS Plast Factory"
+                src="/catalog/catalog-053.jpg"
+                alt="SPS Factory"
                 fill
                 className="object-cover"
               />
@@ -44,18 +44,18 @@ export default function AboutPage({ params: { lang } }: { params: { lang: Locale
               </h2>
               <p className="text-sm text-gray-600 leading-relaxed">
                 {lang === 'ru'
-                  ? 'Компания SPS Plast ежедневно производит более 2000 пластиковых форм на современном автоматизированном вакуумно-формовочном оборудовании. Наше преимущество — высококачественное сырье ABS и гарантия 300+ заливок для бетонных цехов.'
-                  : 'SPS Plast kompaniyasi o‘zining zamonaviy avtomatlashtirilgan vakuum-formovka uskunalari yordamida har kuni 2000 dan ortiq plastik qoliplarni ishlab chiqaradi. Bizning asosiy ustunligimiz — bu birinchi navli chidamli ABS plastik xomashyosi hamda beton sexlari uchun 300+ marta sifatli mahsulot quyish kafolatidir.'}
+                  ? 'SPS — производитель форм для брусчатки, бордюров и тротуарной плитки, а также фасадных декор-элементов. Мы используем качественное сырье — политперок и ABS пластик — и работаем с бетонными цехами по всему Узбекистану.'
+                  : 'SPS — bruschatka, bordyur va trotuar plitka qoliplari hamda fasad dekor elementlarini ishlab chiqaruvchi zavod. Yaxshi xomashyo — polipropilen va ABS plastikdan foydalanamiz, O‘zbekiston bo‘ylab beton sexlari bilan ishlaymiz.'}
               </p>
 
               <div className="grid grid-cols-2 gap-4 pt-2">
                 <div className="p-4 rounded-xl bg-[#F8F9FA] border border-gray-200">
-                  <p className="text-3xl font-black text-brand-red">10+ Yil</p>
-                  <p className="text-xs font-semibold text-gray-600 mt-1">{lang === 'ru' ? 'Опыт на рынке' : 'Bozordagi tajriba'}</p>
+                  <p className="text-3xl font-black text-brand-red">Polipropilen</p>
+                  <p className="text-xs font-semibold text-gray-600 mt-1">{lang === 'ru' ? 'Наш основной материал' : 'Asosiy materialimiz'}</p>
                 </div>
                 <div className="p-4 rounded-xl bg-gray-900 border border-gray-800 text-white">
-                  <p className="text-3xl font-black text-white">500,000+</p>
-                  <p className="text-xs text-gray-400 mt-1">{lang === 'ru' ? 'Проданных форм' : 'Sotilgan qoliplar'}</p>
+                  <p className="text-3xl font-black text-white">ABS</p>
+                  <p className="text-xs text-gray-400 mt-1">{lang === 'ru' ? 'Альтернативный материал' : 'Muqobil material'}</p>
                 </div>
               </div>
 
@@ -97,7 +97,7 @@ export default function AboutPage({ params: { lang } }: { params: { lang: Locale
               </div>
               <h3 className="text-base font-bold text-gray-900">B2B Hamkorlik</h3>
               <p className="text-sm text-gray-600 leading-relaxed">
-                {lang === 'ru' ? 'Официальный поставщик 300+ цехов по всей республике.' : 'Respublika bo‘yicha 300 dan ortiq yirik va o‘rta bruschatka sexlarining rasmiy ta’minotchisi.'}
+                {lang === 'ru' ? 'Работаем с бетонными цехами и строительными компаниями по всему Узбекистану.' : 'O‘zbekiston bo‘ylab beton sexlari va qurilish kompaniyalari bilan ishlaymiz.'}
               </p>
             </div>
           </div>

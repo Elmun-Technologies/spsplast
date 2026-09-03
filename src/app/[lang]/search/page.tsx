@@ -17,7 +17,7 @@ interface SearchPageProps {
 export async function generateMetadata({ searchParams }: SearchPageProps) {
     const query = searchParams.q || '';
     return {
-        title: query ? `Qidiruv: "${query}" | SPS PLAST` : 'Qidiruv | SPS PLAST',
+        title: query ? `Qidiruv: "${query}" | SPS` : 'Qidiruv | SPS',
         robots: {
             index: false,
             follow: true,

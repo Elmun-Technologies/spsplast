@@ -19,7 +19,7 @@ export default function TermsPage({ params: { lang } }: { params: { lang: Locale
           <section className="space-y-3">
             <h2 className="text-lg font-bold text-gray-900">1. Shartnoma obyekti</h2>
             <p className="text-sm text-gray-600 leading-relaxed">
-              SPS PLAST (Sotuvchi) ushbu internet-magazin orqali Xaridorga plastik qoliplar va qurilish mahsulotlarini sotish va yetkazib berish xizmatini ko‘rsatadi.
+              SPS (Sotuvchi) ushbu internet-magazin orqali Xaridorga plastik qoliplar va qurilish mahsulotlarini sotish va yetkazib berish xizmatini ko‘rsatadi.
             </p>
           </section>
 

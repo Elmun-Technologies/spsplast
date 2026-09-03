@@ -4,7 +4,7 @@ import Link from 'next/link';
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
-    title: 'Integratsiyalar sozlamalari | SPS Plast Admin',
+    title: 'Integratsiyalar sozlamalari | SPS Admin',
 };
 
 export default async function AdminIntegrationsPage() {

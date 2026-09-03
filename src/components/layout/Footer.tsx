@@ -30,12 +30,12 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
               </span>
             </div>
             <h2 className="text-4xl sm:text-7xl font-black text-white uppercase tracking-tighter font-sans leading-none">
-              SPS PLAST
+              SPS
             </h2>
             <div className="flex flex-wrap items-center gap-3 mt-4">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-neutral-900 border border-neutral-800 text-xs text-neutral-300">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                300+ quyish kafolati
+                Sifatli xomashyo
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-neutral-900 border border-neutral-800 text-xs text-neutral-300">
                 <Truck className="w-3.5 h-3.5 text-brand-red" />
@@ -189,7 +189,7 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
 
         {/* Bottom Rights + Payments */}
         <div className="pt-8 flex flex-col lg:flex-row items-center justify-between gap-4 text-xs font-mono text-neutral-400">
-          <p>© {new Date().getFullYear()} SPS PLAST. {dict.footer.rights}</p>
+          <p>© {new Date().getFullYear()} SPS. {dict.footer.rights}</p>
           <div className="flex flex-wrap items-center gap-4">
             <div className="flex items-center gap-2">
               <span className="px-2 py-1 bg-neutral-900 border border-neutral-800 rounded text-[10px]">CLICK</span>

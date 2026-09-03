@@ -23,8 +23,8 @@ export default function ProductionPage({ params: { lang } }: { params: { lang: L
             </h1>
             <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
               {lang === 'ru'
-                ? 'Этапы производства, качество сырья и автоматизированное вакуум-формовочное оборудование на заводе SPS Plast.'
-                : 'SPS Plast zavodida ishlab chiqarish bosqichlari, xomashyo sifati va avtomatlashtirilgan vakuum formovka uskunalari bilan tanishing.'}
+                ? 'Этапы производства, качество сырья и оборудование на заводе SPS.'
+                : 'SPS zavodida ishlab chiqarish bosqichlari, xomashyo sifati va uskunalar bilan tanishing.'}
             </p>
           </div>
 
@@ -33,11 +33,11 @@ export default function ProductionPage({ params: { lang } }: { params: { lang: L
               {[
                 {
                   icon: Cpu,
-                  title: lang === 'ru' ? '1. Вакуум-формовка и CNC' : '1. Vakuum-formovka va CNC',
+                  title: lang === 'ru' ? '1. Формовка' : '1. Qolip tayyorlash',
                   desc:
                     lang === 'ru'
-                      ? 'Матрицы изготавливаются на немецких ЧПУ станках с точностью 0.05мм. Готовый бетон идеально ровный.'
-                      : 'Matritsalarimiz Germaniya CNC uskunalarida 0.05mm aniqlikda tayyorlanadi. Beton mutlaqo tekis va geometrik mukammal.',
+                      ? 'Формы для брусчатки, бордюров и плитки изготавливаются с точной геометрией, которая даёт ровный готовый бетон.'
+                      : 'Bruschatka, bordyur va plitka qoliplari aniq geometriya bilan tayyorlanadi, bu esa tekis tayyor beton beradi.',
                 },
                 {
                   icon: Layers,
@@ -49,11 +49,11 @@ export default function ProductionPage({ params: { lang } }: { params: { lang: L
                 },
                 {
                   icon: Wrench,
-                  title: lang === 'ru' ? '3. Легкое извлечение' : '3. Oson ajralish (Easy Release)',
+                  title: lang === 'ru' ? '3. Лёгкое извлечение' : '3. Oson ajralish',
                   desc:
                     lang === 'ru'
-                      ? 'Специальная гладкость внутренней поверхности предотвращает прилипание бетона и ускоряет процесс в 2 раза.'
-                      : 'Ichki yuzaning maxsus silliqligi beton yopishishini oldini oladi va 2 barobar tezlashtiradi.',
+                      ? 'Гладкая внутренняя поверхность помогает бетону легко отделяться от формы.'
+                      : 'Ichki yuzaning silliqligi betonning qolipdan oson ajralishiga yordam beradi.',
                 },
               ].map((item) => (
                 <div key={item.title} className="bg-white border border-gray-200 rounded-2xl p-5 space-y-2 shadow-sm">
@@ -71,7 +71,7 @@ export default function ProductionPage({ params: { lang } }: { params: { lang: L
             <div className="grid grid-cols-2 gap-4">
               <div className="relative aspect-square rounded-2xl overflow-hidden border border-gray-200 bg-white shadow-sm">
                 <Image
-                  src="/images/factory-1.jpg"
+                  src="/catalog/catalog-053.jpg"
                   alt="Production line 1"
                   fill
                   className="object-cover"
@@ -79,7 +79,7 @@ export default function ProductionPage({ params: { lang } }: { params: { lang: L
               </div>
               <div className="relative aspect-square rounded-2xl overflow-hidden border border-gray-200 bg-white shadow-sm">
                 <Image
-                  src="/images/molds-warehouse.jpg"
+                  src="/catalog/catalog-027.jpg"
                   alt="Production line 2"
                   fill
                   className="object-cover"
@@ -88,8 +88,8 @@ export default function ProductionPage({ params: { lang } }: { params: { lang: L
               <div className="col-span-2 bg-gray-900 text-white rounded-2xl p-5 flex items-center gap-3">
                 <ShieldCheck className="w-8 h-8 text-emerald-400 shrink-0" />
                 <div>
-                  <div className="font-bold text-sm">300+ quyish kafolati</div>
-                  <div className="text-xs text-gray-400">Har bir partiya laboratoriya testidan o'tadi</div>
+                  <div className="font-bold text-sm">{lang === 'ru' ? 'Качественное сырье' : 'Sifatli xomashyo'}</div>
+                  <div className="text-xs text-gray-400">{lang === 'ru' ? 'Полипропилен и ABS пластик' : 'Polipropilen va ABS plastik'}</div>
                 </div>
               </div>
             </div>

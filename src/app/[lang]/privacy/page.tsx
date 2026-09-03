@@ -19,7 +19,7 @@ export default function PrivacyPage({ params: { lang } }: { params: { lang: Loca
           <section className="space-y-3">
             <h2 className="text-lg font-bold text-gray-900">1. Umumiy qoidalar</h2>
             <p className="text-sm text-gray-600 leading-relaxed">
-              Ushbu Maxfiylik siyosati SPS PLAST MCHJ saytidan (spsplast.uz) foydalanuvchilarning shaxsiy ma’lumotlarini yig‘ish, saqlash va qayta ishlash tartibini belgilaydi.
+              Ushbu Maxfiylik siyosati SPS MCHJ saytidan (sps.uz) foydalanuvchilarning shaxsiy ma’lumotlarini yig‘ish, saqlash va qayta ishlash tartibini belgilaydi.
             </p>
           </section>
 

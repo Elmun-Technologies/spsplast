@@ -239,7 +239,7 @@ export default function CartPage({ params: { lang } }: { params: { lang: Locale 
 
                 <div className="pt-3 border-t border-gray-100 text-xs text-gray-500 space-y-1">
                   <p>✓ 14 kun qaytarish</p>
-                  <p>✓ 300+ quyish kafolati</p>
+                  <p>✓ Sifatli xomashyo (Polipropilen/ABS)</p>
                   <p>✓ Click / Payme / Naqd / Bank</p>
                 </div>
               </div>

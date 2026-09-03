@@ -66,7 +66,7 @@ export default function ContactPage({ params: { lang } }: { params: { lang: Loca
               {lang === 'ru' ? 'Контакты' : 'Bog‘lanish'}
             </span>
             <h1 className="text-3xl sm:text-5xl font-black text-gray-900 tracking-tight">
-              SPS PLAST {lang === 'ru' ? 'Свяжитесь с нами' : 'Bilan aloqaga chiqing'}
+              SPS {lang === 'ru' ? 'Свяжитесь с нами' : 'Bilan aloqaga chiqing'}
             </h1>
             <p className="text-sm sm:text-base text-gray-600">
               {lang === 'ru'

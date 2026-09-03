@@ -26,7 +26,7 @@ export async function generateMetadata({ params: { lang, slug } }: ProductPagePr
   if (!trans) return {};
 
   return {
-    title: `${trans.name} | SPS PLAST`,
+    title: `${trans.name} | SPS`,
     description: (trans.shortDescription || trans.description || '').slice(0, 160),
   };
 }
@@ -111,13 +111,13 @@ export default async function ProductDetailPage({
     image: product.media.map((img) => img.url),
     description: trans.description || '',
     sku: product.sku,
-    brand: { '@type': 'Brand', name: 'SPS PLAST' },
+    brand: { '@type': 'Brand', name: 'SPS' },
     offers: {
       '@type': 'Offer',
       price: product.basePrice,
       priceCurrency: 'UZS',
       availability: product.inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
-      seller: { '@type': 'Organization', name: 'SPS PLAST' },
+      seller: { '@type': 'Organization', name: 'SPS' },
     },
   };
 

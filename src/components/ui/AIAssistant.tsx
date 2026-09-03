@@ -88,8 +88,8 @@ function getBotResponse(input: string, lang: Locale): Message {
       role: 'assistant',
       text:
         lang === 'ru'
-          ? 'Наши формы из первичного ABS пластика 2-3мм, не вторсырье. Ресурс 300+ заливок при правильном использовании. Устойчивы к щелочам и вибрации, легкое извлечение.'
-          : 'Qoliplarimiz birlamchi ABS plastik 2-3mm, ikkilamchi emas. To‘g‘ri ishlatilganda 300+ quyish resursi. Ishqor va vibratsiyaga chidamli, oson ajraladi.',
+          ? 'Наши формы изготовлены из полипропилена и АБС пластика. Ресурс зависит от модели и условий использования — уточните у менеджера.'
+          : 'Qoliplarimiz polipropilen va ABS plastikdan tayyorlanadi. Resurs modelga va ishlatish shartlariga bog‘liq — menejerdan aniqlashtiring.',
     };
   }
 
@@ -113,7 +113,7 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({ lang }) => {
     {
       id: 'welcome',
       role: 'assistant',
-      text: lang === 'ru' ? 'Привет! Я помощник SPS Plast. Чем могу помочь?' : 'Salom! Men SPS Plast yordamchisiman. Qanday yordam bera olaman?',
+      text: lang === 'ru' ? 'Привет! Я помощник SPS. Чем могу помочь?' : 'Salom! Men SPS yordamchisiman. Qanday yordam bera olaman?',
       actions: QUICK_QUESTIONS.slice(0, 3).map((q) => ({ label: lang === 'ru' ? q.ru : q.uz })),
     },
   ]);
@@ -159,7 +159,7 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({ lang }) => {
                 <Sparkles className="w-4 h-4" />
               </div>
               <div>
-                <div className="text-sm font-bold">SPS Plast AI</div>
+                <div className="text-sm font-bold">SPS AI</div>
                 <div className="text-xs text-gray-400 flex items-center gap-1">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                   {lang === 'ru' ? 'Онлайн' : 'Onlayn'}

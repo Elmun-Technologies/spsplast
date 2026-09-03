@@ -16,7 +16,7 @@ export default function DeliveryPaymentPage({ params: { lang } }: { params: { la
         <div className="max-w-4xl space-y-8">
           <div>
             <h1 className="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight">{dict.footer.deliveryTerms}</h1>
-            <p className="text-sm text-gray-500 mt-2">SPS Plast — ishonchli yetkazib berish va qulay to'lov</p>
+            <p className="text-sm text-gray-500 mt-2">SPS — ishonchli yetkazib berish va qulay to'lov</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">

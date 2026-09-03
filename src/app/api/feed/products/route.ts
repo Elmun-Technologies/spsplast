@@ -44,16 +44,16 @@ export async function GET(req: Request) {
         return `
     <offer id="${p.id}" available="${p.inStock ? 'true' : 'false'}">
       <name>${title}</name>
-      <vendor>SPS PLAST</vendor>
+      <vendor>SPS</vendor>
       <vendorCode>${p.sku}</vendorCode>
       <price>${p.basePrice}</price>
       ${p.compareAtPrice ? `<oldprice>${p.compareAtPrice}</oldprice>` : ''}
       <currencyId>UZS</currencyId>
       <picture>${p.media[0]?.url || ''}</picture>
-      <url>https://spsplast.uz/${lang}/product/${trans?.slug || p.sku}</url>
+      <url>https://sps.uz/${lang}/product/${trans?.slug || p.sku}</url>
       <description>${desc}</description>
       <param name="Material">ABS</param>
-      <param name="Resurs">300+ marta</param>
+      <param name="Resurs">resurs modelga bog‘liq</param>
     </offer>`;
       })
       .join('');
@@ -61,9 +61,9 @@ export async function GET(req: Request) {
     const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <yml_catalog date="${new Date().toISOString()}">
   <shop>
-    <name>SPS PLAST</name>
-    <company>SPS PLAST MCHJ</company>
-    <url>https://spsplast.uz</url>
+    <name>SPS</name>
+    <company>SPS MCHJ</company>
+    <url>https://sps.uz</url>
     <currencies><currency id="UZS" rate="1"/></currencies>
     <categories>
       <category id="1">Bruschatka qoliplari</category>

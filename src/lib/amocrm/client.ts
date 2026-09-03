@@ -144,7 +144,7 @@ export class AmoCrmClient {
             const updatePayload = [
                 {
                     id: Number(existingLeadId),
-                    name: `SPS Plast Order #${data.orderNumber}`,
+                    name: `SPS Order #${data.orderNumber}`,
                     price: data.totalAmount,
                 },
             ];
@@ -164,7 +164,7 @@ export class AmoCrmClient {
         // Create new lead with complex embedded contact if creating new
         const createPayload = [
             {
-                name: `SPS Plast Order #${data.orderNumber}`,
+                name: `SPS Order #${data.orderNumber}`,
                 price: data.totalAmount,
                 _embedded: {
                     contacts: [

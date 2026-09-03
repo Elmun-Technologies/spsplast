@@ -58,11 +58,11 @@ export const B2BBanner: React.FC<B2BBannerProps> = ({ lang }) => {
                 <ArrowRight className="w-4 h-4" />
               </Button>
               <a
-                href="tel:+998901234567"
+                href="tel:+998983007772"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 text-white font-bold text-sm hover:bg-white/15 transition-colors min-h-[48px]"
               >
                 <Phone className="w-4 h-4" />
-                <span>+998 (90) 123-45-67</span>
+                <span>+998 (98) 300-77-72</span>
               </a>
             </div>
           </div>

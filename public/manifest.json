@@ -1,7 +1,7 @@
 {
-  "name": "SPS PLAST — Qoliplar va Termopanellar",
-  "short_name": "SPS PLAST",
-  "description": "O‘zbekistonda bruschatka qoliplari va termopanellar ishlab chiqaruvchi zavod — 300+ quyish kafolati",
+  "name": "SPS — Qoliplar va Fasad Dekor",
+  "short_name": "SPS",
+  "description": "O‘zbekistonda bruschatka, bordyur va plitka qoliplari hamda fasad dekor elementlarini ishlab chiqaruvchi zavod.",
   "start_url": "/uz",
   "display": "standalone",
   "background_color": "#F8F9FA",
