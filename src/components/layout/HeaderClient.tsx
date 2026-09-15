@@ -167,40 +167,40 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
     const hasPhone = Boolean(COMPANY_CONTACTS.phoneDisplay && COMPANY_CONTACTS.phoneRaw);
 
     return (
-        <header className="sticky top-0 z-50 w-full bg-white text-gray-900 border-b border-gray-200 shadow-sm">
+        <header className="sticky top-0 z-50 w-full bg-surface text-ink border-b border-line">
             {/* 1. TOP UTILITY STRIP */}
-            <div className="bg-[#1A1D24] text-gray-300 py-1.5 px-4 sm:px-6 lg:px-8 text-xs border-b border-gray-800">
-                <div className="max-w-[1440px] mx-auto flex items-center justify-between">
+            <div className="bg-surface-page py-2 px-4 sm:px-6 lg:px-10 text-[12px] border-b border-line">
+                <div className="max-w-[1400px] mx-auto flex items-center justify-between">
                     {/* Left Trust Indicator */}
-                    <div className="flex items-center gap-3 text-xs font-medium text-gray-300">
+                    <div className="flex items-center gap-3 font-medium text-ink-soft">
                         <div className="flex items-center gap-1.5">
-                            <ShieldCheck className="w-3.5 h-3.5 text-brand-red shrink-0" />
-                            <span>{lang === 'ru' ? 'SPS — завод производитель' : 'SPS — Ishlab chiqaruvchi zavod'}</span>
+                            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                            <span>{lang === 'ru' ? 'Завод-производитель' : 'Ishlab chiqaruvchi zavod'}</span>
                         </div>
-                        <span className="hidden sm:inline text-gray-600">|</span>
-                        <div className="hidden sm:flex items-center gap-1.5 text-gray-400">
-                            <Truck className="w-3.5 h-3.5 text-emerald-400" />
-                            <span>{lang === 'ru' ? 'Быстрая доставка по Узбекистану' : 'O‘zbekiston bo‘ylab arzon va tezkor yetkazish'}</span>
+                        <span className="hidden sm:inline text-[#D7DEE8]">|</span>
+                        <div className="hidden sm:flex items-center gap-1.5 text-ink-sub">
+                            <Truck className="w-3.5 h-3.5" />
+                            <span>{lang === 'ru' ? 'Доставка по Узбекистану' : 'O‘zbekiston bo‘ylab yetkazish'}</span>
                         </div>
                     </div>
 
                     {/* Right: Phone & Language */}
-                    <div className="flex items-center gap-4 text-xs">
+                    <div className="flex items-center gap-3">
                         {hasPhone && (
                             <a
                                 href={`tel:${COMPANY_CONTACTS.phoneRaw}`}
                                 onClick={() => trackEvent('phone_click', { location: 'topbar' })}
                                 aria-label="Call SPS"
-                                className="hidden sm:flex items-center gap-1.5 text-gray-300 hover:text-white transition-colors font-mono text-xs"
+                                className="hidden sm:flex items-center gap-1.5 text-ink-soft hover:text-brand-red transition-colors font-semibold"
                             >
-                                <Phone className="w-3 h-3 text-brand-red" />
+                                <Phone className="w-3.5 h-3.5" />
                                 <span>{COMPANY_CONTACTS.phoneDisplay}</span>
                             </a>
                         )}
 
                         <Link
                             href={switchLangUrl}
-                            className="px-2.5 py-1 border border-gray-700 hover:border-brand-red text-gray-300 hover:text-white transition-colors uppercase font-mono text-xs font-bold tracking-wider rounded"
+                            className="px-3 py-1 rounded-full bg-surface border border-line hover:border-brand-red hover:text-brand-red text-ink-soft transition-colors text-[12px] font-semibold"
                         >
                             {currentOtherLang.toUpperCase()}
                         </Link>
@@ -209,19 +209,19 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
             </div>
 
             {/* 2. MAIN HEADER BAR */}
-            <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 py-3.5">
                 <div className="flex items-center justify-between gap-4 md:gap-6">
                     {/* LEFT: SPS Brand */}
                     <Link href={`/${lang}`} className="flex items-center gap-2.5 shrink-0 group">
-                        <div className="w-9 h-9 bg-brand-red flex items-center justify-center font-black text-white text-sm tracking-tight rounded-lg group-hover:bg-brand-red-dark transition-colors shadow-xs">
+                        <div className="w-10 h-10 rounded-[14px] bg-brand-red flex items-center justify-center font-bold text-white text-[13px] tracking-tight group-hover:bg-brand-red-dark transition-colors">
                             SPS
                         </div>
-                        <div className="flex flex-col">
-                            <span className="font-black text-lg tracking-tight leading-none text-gray-900 uppercase font-sans">
-                                SPS
+                        <div className="hidden xs:flex sm:flex flex-col">
+                            <span className="font-bold text-[17px] tracking-[-0.02em] leading-none text-ink">
+                                SPS Plast
                             </span>
-                            <span className="text-[9px] font-mono tracking-wider text-gray-500 uppercase mt-0.5">
-                                STONE PROFY SERVISE
+                            <span className="text-[10px] tracking-[0.06em] text-ink-sub mt-1">
+                                Qoliplar va fasad dekor
                             </span>
                         </div>
                     </Link>
@@ -233,15 +233,15 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                         className="hidden md:flex flex-1 max-w-[640px] relative items-center"
                         role="search"
                     >
-                        <div className="relative w-full flex items-center bg-[#F8F9FA] border border-gray-300 rounded-xl overflow-hidden focus-within:border-brand-red focus-within:bg-white transition-colors shadow-xs">
+                        <div className="relative w-full flex items-center bg-surface-soft border border-transparent rounded-full overflow-hidden focus-within:bg-surface focus-within:border-line focus-within:shadow-card transition-all">
                             {/* Category Filter Selector inside Search */}
-                            <div className="relative border-r border-gray-200 shrink-0">
+                            <div className="relative shrink-0 hidden lg:block">
                                 <label htmlFor="cat-filter" className="sr-only">Category</label>
                                 <select
                                     id="cat-filter"
                                     value={selectedCategorySlug}
                                     onChange={(e) => setSelectedCategorySlug(e.target.value)}
-                                    className="bg-transparent text-sm font-semibold text-gray-700 py-3 pl-3 pr-7 focus:outline-none cursor-pointer appearance-none min-w-[140px]"
+                                    className="bg-transparent text-[13px] font-medium text-ink-soft py-3 pl-5 pr-8 focus:outline-none cursor-pointer appearance-none min-w-[150px]"
                                 >
                                     <option value="">{lang === 'ru' ? 'Все категории' : 'Barcha bo‘limlar'}</option>
                                     {categories.map((cat) => (
@@ -250,12 +250,12 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                                         </option>
                                     ))}
                                 </select>
-                                <ChevronDown className="w-3.5 h-3.5 text-gray-400 absolute right-2 top-3.5 pointer-events-none" />
+                                <ChevronDown className="w-3.5 h-3.5 text-ink-sub absolute right-3.5 top-3.5 pointer-events-none" />
                             </div>
 
                             {/* Main Search Input */}
                             <div className="relative flex-1 flex items-center">
-                                <Search className="w-4 h-4 text-gray-400 absolute left-3 pointer-events-none" />
+                                <Search className="w-4 h-4 text-ink-sub absolute left-4 pointer-events-none" />
                                 <input
                                     type="text"
                                     value={searchQuery}
@@ -285,15 +285,15 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                                     }}
                                     placeholder={lang === 'ru' ? 'Поиск по названию, артикулу...' : 'Mahsulot nomi, SKU yoki o‘lcham...'}
                                     aria-label="Qidiruv"
-                                    className="w-full bg-transparent text-gray-900 text-sm py-3 pl-9 pr-10 focus:outline-none"
+                                    className="w-full bg-transparent text-ink text-sm py-3 pl-11 pr-10 focus:outline-none placeholder:text-ink-sub"
                                 />
                                 {isSearching ? (
-                                    <div className="absolute right-3 w-4 h-4 border-2 border-gray-300 border-t-brand-red rounded-full animate-spin" />
+                                    <div className="absolute right-3 w-4 h-4 border-2 border-[#DDE3EB] border-t-brand-red rounded-full animate-spin" />
                                 ) : searchQuery ? (
                                     <button
                                         type="button"
                                         onClick={() => setSearchQuery('')}
-                                        className="absolute right-2 p-1 text-gray-400 hover:text-gray-700 rounded-full hover:bg-gray-100"
+                                        className="absolute right-2 p-1 text-ink-sub hover:text-ink-soft rounded-full hover:bg-surface-soft"
                                         aria-label="Clear search"
                                     >
                                         <X className="w-4 h-4" />
@@ -304,19 +304,19 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                             {/* Search Submit Button */}
                             <button
                                 type="submit"
-                                className="px-5 py-3 bg-brand-red hover:bg-brand-red-dark text-white text-sm font-bold uppercase tracking-wider transition-colors shrink-0 flex items-center gap-1.5 min-h-[44px]"
+                                className="m-1.5 w-11 h-11 shrink-0 rounded-full bg-ink hover:bg-black text-white transition-colors flex items-center justify-center"
+                                aria-label={lang === 'ru' ? 'Найти' : 'Qidirish'}
                             >
-                                <Search className="w-4 h-4 md:hidden" />
-                                <span>{lang === 'ru' ? 'ПОИСК' : 'QIDIRISH'}</span>
+                                <Search className="w-[18px] h-[18px]" />
                             </button>
                         </div>
 
                         {/* Search Suggestions Popup */}
                         {showSuggestions && (
-                            <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-xl shadow-xl z-50 overflow-hidden text-sm">
+                            <div className="absolute top-full left-0 right-0 mt-2 bg-surface border border-line rounded-[20px] shadow-pop z-50 overflow-hidden text-sm">
                                 {!searchQuery.trim() ? (
                                     <div className="p-4 space-y-3">
-                                        <div className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+                                        <div className="text-xs font-bold text-ink-sub uppercase tracking-wider">
                                             {lang === 'ru' ? 'Популярные запросы' : 'Ommabop qidiruvlar'}
                                         </div>
                                         <div className="flex flex-wrap gap-2">
@@ -325,7 +325,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                                                     key={term}
                                                     type="button"
                                                     onClick={() => handlePopularClick(term)}
-                                                    className="px-3 py-1.5 rounded-full bg-gray-100 hover:bg-red-50 hover:text-brand-red border border-gray-200 text-gray-700 font-medium transition-colors text-xs"
+                                                    className="px-3 py-1.5 rounded-full bg-surface-soft hover:bg-[#FEF0F0] hover:text-brand-red text-ink-soft font-medium transition-colors text-xs"
                                                 >
                                                     {term}
                                                 </button>
@@ -335,8 +335,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                                 ) : (
                                     <div>
                                         {suggestions.categories.length > 0 && (
-                                            <div className="p-2 border-b border-gray-100 bg-gray-50">
-                                                <div className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 px-1">
+                                            <div className="p-2 border-b border-line-soft">
+                                                <div className="text-[11px] font-bold text-ink-sub uppercase tracking-wider mb-1 px-2">
                                                     {lang === 'ru' ? 'Категории' : 'Kategoriyalar'}
                                                 </div>
                                                 {suggestions.categories.map((c, idx) => (
@@ -344,7 +344,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                                                         key={c.id}
                                                         href={`/${lang}/catalog?category=${c.slug}`}
                                                         onClick={() => setShowSuggestions(false)}
-                                                        className={`flex items-center gap-2 p-2 rounded-lg hover:bg-white text-gray-900 font-semibold text-sm ${selectedIndex === idx ? 'bg-white ring-1 ring-brand-red/20' : ''}`}
+                                                        className={`flex items-center gap-2 p-2 rounded-[16px] hover:bg-surface-soft text-ink font-semibold text-sm ${selectedIndex === idx ? 'bg-surface-soft' : ''}`}
                                                     >
                                                         <Folder className="w-4 h-4 text-brand-red" />
                                                         <span>{c.name}</span>
@@ -355,7 +355,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
 
                                         {suggestions.products.length > 0 ? (
                                             <div>
-                                                <div className="p-2 bg-gray-50 border-b border-gray-100 text-xs font-bold text-gray-500 uppercase tracking-wider">
+                                                <div className="p-2 px-3 border-b border-line-soft text-[11px] font-bold text-ink-sub uppercase tracking-wider">
                                                     {lang === 'ru' ? 'Товары' : 'Mahsulotlar'}
                                                 </div>
                                                 {suggestions.products.map((p, idx) => {
@@ -367,18 +367,18 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                                                             key={p.id}
                                                             href={`/${lang}/product/${p.slug}`}
                                                             onClick={() => setShowSuggestions(false)}
-                                                            className={`flex items-center gap-3 p-3 hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-0 ${selectedIndex === globalIdx ? 'bg-red-50' : ''}`}
+                                                            className={`flex items-center gap-3 p-3 hover:bg-surface-soft transition-colors border-b border-line-soft last:border-0 ${selectedIndex === globalIdx ? 'bg-surface-soft' : ''}`}
                                                         >
-                                                            <div className="w-11 h-11 relative bg-[#F8F9FA] rounded-lg border border-gray-200 shrink-0 p-1">
+                                                            <div className="w-11 h-11 relative bg-surface-soft rounded-[16px] shrink-0 p-1">
                                                                 {image ? (
                                                                     <Image src={image} alt={title} fill sizes="44px" className="object-contain p-0.5" />
                                                                 ) : (
-                                                                    <div className="w-full h-full flex items-center justify-center text-[10px] font-bold text-gray-400">SPS</div>
+                                                                    <div className="w-full h-full flex items-center justify-center text-[10px] font-bold text-ink-sub">SPS</div>
                                                                 )}
                                                             </div>
                                                             <div className="flex-1 min-w-0">
-                                                                <div className="text-sm font-semibold text-gray-900 truncate">{title}</div>
-                                                                <div className="text-xs font-mono text-gray-500">SKU: {p.sku}</div>
+                                                                <div className="text-sm font-semibold text-ink truncate">{title}</div>
+                                                                <div className="text-[11px] text-ink-sub">SKU: {p.sku}</div>
                                                             </div>
                                                             <div className="text-sm font-bold text-brand-red shrink-0">
                                                                 {p.price?.toLocaleString()} so'm
@@ -389,8 +389,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                                             </div>
                                         ) : !isSearching ? (
                                             <div className="p-6 text-center">
-                                                <div className="text-sm text-gray-900 font-medium">Natija topilmadi</div>
-                                                <div className="text-xs text-gray-500 mt-1">Qidiruv so'zini o'zgartirib ko'ring</div>
+                                                <div className="text-sm text-ink font-medium">Natija topilmadi</div>
+                                                <div className="text-xs text-ink-sub mt-1">Qidiruv so'zini o'zgartirib ko'ring</div>
                                             </div>
                                         ) : null}
                                     </div>
@@ -403,12 +403,12 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                     <div className="flex items-center gap-2.5 shrink-0">
                         <Link
                             href={`/${lang}/compare`}
-                            className="relative hidden sm:flex items-center justify-center w-11 h-11 rounded-xl bg-gray-100 border border-gray-200 text-gray-700 hover:text-gray-900 hover:border-gray-300 hover:bg-white transition-colors"
+                            className="relative hidden sm:flex items-center justify-center w-11 h-11 rounded-full bg-surface-soft text-ink-soft hover:bg-[#E9EDF3] hover:text-ink transition-colors"
                             aria-label="Compare"
                         >
-                            <ArrowRightLeft className="w-5 h-5" />
+                            <ArrowRightLeft className="w-[18px] h-[18px]" />
                             {compareCount > 0 && (
-                                <span className="absolute -top-1.5 -right-1.5 bg-gray-900 text-white text-xs font-bold min-w-[18px] h-[18px] rounded-full flex items-center justify-center border-2 border-white px-0.5">
+                                <span className="absolute -top-0.5 -right-0.5 bg-ink text-white text-[11px] font-bold min-w-[18px] h-[18px] rounded-full flex items-center justify-center border-2 border-white px-0.5">
                                     {compareCount}
                                 </span>
                             )}
@@ -416,12 +416,12 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
 
                         <Link
                             href={`/${lang}/wishlist`}
-                            className="relative flex items-center justify-center w-11 h-11 rounded-xl bg-gray-100 border border-gray-200 text-gray-700 hover:text-brand-red hover:border-red-200 hover:bg-red-50 transition-colors"
+                            className="relative flex items-center justify-center w-11 h-11 rounded-full bg-surface-soft text-ink-soft hover:bg-[#E9EDF3] hover:text-brand-red transition-colors"
                             aria-label="Wishlist"
                         >
-                            <Heart className={`w-5 h-5 ${wishlistCount > 0 ? 'fill-brand-red text-brand-red' : ''}`} />
+                            <Heart className={`w-[18px] h-[18px] ${wishlistCount > 0 ? 'fill-brand-red text-brand-red' : ''}`} />
                             {wishlistCount > 0 && (
-                                <span className="absolute -top-1.5 -right-1.5 bg-brand-red text-white text-xs font-bold min-w-[18px] h-[18px] rounded-full flex items-center justify-center border-2 border-white px-0.5">
+                                <span className="absolute -top-0.5 -right-0.5 bg-brand-red text-white text-[11px] font-bold min-w-[18px] h-[18px] rounded-full flex items-center justify-center border-2 border-white px-0.5">
                                     {wishlistCount}
                                 </span>
                             )}
@@ -429,26 +429,26 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
 
                         <button
                             onClick={toggleCart}
-                            className="flex items-center gap-2 px-4 py-2.5 bg-brand-red hover:bg-brand-red-dark text-white rounded-xl transition-colors font-bold text-sm uppercase tracking-wider shadow-red min-h-[44px]"
+                            className="flex items-center gap-2 px-4 sm:px-5 h-11 bg-brand-red hover:bg-brand-red-dark text-white rounded-full transition-colors font-semibold text-sm shadow-[0_8px_20px_-10px_rgba(230,28,36,0.8)]"
                             aria-label={dict.cart.title}
                         >
                             <div className="relative">
-                                <ShoppingBag className="w-5 h-5" />
+                                <ShoppingBag className="w-[18px] h-[18px]" />
                                 {cartTotalItems > 0 && (
-                                    <span className="absolute -top-2.5 -right-2.5 bg-gray-900 text-white text-xs font-bold min-w-[18px] h-[18px] rounded-full flex items-center justify-center border-2 border-white px-0.5">
+                                    <span className="absolute -top-2.5 -right-2.5 bg-surface text-brand-red text-[11px] font-bold min-w-[18px] h-[18px] rounded-full flex items-center justify-center px-0.5">
                                         {cartTotalItems}
                                     </span>
                                 )}
                             </div>
-                            <span className="hidden sm:inline">{lang === 'ru' ? 'КОРЗИНА' : 'SAVAT'}</span>
+                            <span className="hidden sm:inline">{lang === 'ru' ? 'Корзина' : 'Savat'}</span>
                         </button>
 
                         <button
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                            className="md:hidden p-2.5 text-gray-700 hover:text-brand-red bg-gray-100 border border-gray-200 rounded-xl min-h-[44px] min-w-[44px] flex items-center justify-center"
+                            className="md:hidden w-11 h-11 rounded-full bg-surface-soft text-ink-soft hover:text-ink flex items-center justify-center"
                             aria-label="Toggle Menu"
                         >
-                            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                            {mobileMenuOpen ? <X className="w-[18px] h-[18px]" /> : <Menu className="w-[18px] h-[18px]" />}
                         </button>
                     </div>
                 </div>
@@ -462,39 +462,40 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                             onChange={(e) => setSearchQuery(e.target.value)}
                             placeholder={lang === 'ru' ? 'Поиск товаров...' : 'Mahsulot nomi yoki SKU qidiring...'}
                             aria-label="Qidiruv"
-                            className="w-full bg-[#F8F9FA] border border-gray-300 text-gray-900 text-sm py-3 pl-10 pr-20 rounded-xl focus:outline-none focus:border-brand-red focus:bg-white min-h-[44px]"
+                            className="w-full bg-surface-soft text-ink text-sm py-3 pl-11 pr-14 rounded-full focus:outline-none focus:bg-surface focus:ring-1 focus:ring-line min-h-[46px] placeholder:text-ink-sub"
                         />
-                        <Search className="w-4 h-4 text-gray-400 absolute left-3.5" />
+                        <Search className="w-4 h-4 text-ink-sub absolute left-4" />
                         <button
                             type="submit"
-                            className="absolute right-1.5 px-4 py-2 bg-brand-red text-white text-xs font-bold uppercase rounded-lg min-h-[36px]"
+                            className="absolute right-1 w-9 h-9 rounded-full bg-ink text-white flex items-center justify-center"
+                            aria-label={lang === 'ru' ? 'Найти' : 'Qidirish'}
                         >
-                            {lang === 'ru' ? 'Поиск' : 'Qidirish'}
+                            <Search className="w-4 h-4" />
                         </button>
                     </form>
                 </div>
             </div>
 
             {/* 3. CATEGORY NAV BAR */}
-            <div className="border-t border-b border-gray-200 bg-[#F8F9FA] relative" ref={megaMenuRef}>
-                <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-                    <div className="flex items-center gap-4 py-2 overflow-x-auto no-scrollbar">
+            <div className="border-t border-line bg-surface relative" ref={megaMenuRef}>
+                <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 flex items-center justify-between">
+                    <div className="flex items-center gap-2 py-2.5 overflow-x-auto no-scrollbar">
                         {/* MEGA MENU TRIGGER */}
                         <button
                             onClick={() => setMegaMenuOpen(!megaMenuOpen)}
-                            className="flex items-center gap-2 px-4 py-2 bg-gray-900 hover:bg-gray-800 text-white font-bold text-sm uppercase tracking-wider transition-colors cursor-pointer rounded-lg shrink-0 min-h-[36px]"
+                            className="flex items-center gap-2 px-5 h-10 bg-ink hover:bg-black text-white font-semibold text-sm transition-colors cursor-pointer rounded-full shrink-0"
                             aria-expanded={megaMenuOpen}
                             aria-label="Katalog"
                         >
-                            <LayoutGrid className="w-4 h-4 text-brand-red" />
-                            <span>{lang === 'ru' ? 'КАТАЛОГ' : 'KATALOG'}</span>
+                            <LayoutGrid className="w-4 h-4" />
+                            <span>{lang === 'ru' ? 'Каталог' : 'Katalog'}</span>
                             <ChevronDown
                                 className={`w-3.5 h-3.5 transition-transform duration-200 ${megaMenuOpen ? 'rotate-180' : ''}`}
                             />
                         </button>
 
                         {/* CATEGORY LINKS CHIPS */}
-                        <nav className="flex items-center gap-2 text-sm font-semibold text-gray-700 shrink-0">
+                        <nav className="flex items-center gap-1 text-sm font-medium text-ink-soft shrink-0">
                             {categories.slice(0, 6).map((cat) => {
                                 const slug = getCategorySlug(cat);
                                 const name = getCategoryName(cat);
@@ -502,7 +503,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                                     <Link
                                         key={cat.id}
                                         href={`/${lang}/catalog/${slug}`}
-                                        className="hover:text-brand-red hover:bg-white px-3 py-1.5 rounded-lg border border-transparent hover:border-gray-200 transition-colors whitespace-nowrap"
+                                        className="hover:text-brand-red hover:bg-surface-soft px-3 py-2 rounded-full transition-colors whitespace-nowrap"
                                     >
                                         {name}
                                     </Link>
@@ -514,8 +515,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
 
                 {/* MEGA MENU DROPDOWN PANEL */}
                 {megaMenuOpen && (
-                    <div className="absolute top-full left-0 right-0 bg-white border-b border-gray-200 shadow-xl z-50 animate-in fade-in duration-150">
-                        <div className="max-w-[1440px] mx-auto p-5 sm:p-6">
+                    <div className="absolute top-full left-0 right-0 bg-surface border-b border-line shadow-pop z-50 animate-in fade-in duration-150">
+                        <div className="max-w-[1400px] mx-auto p-5 sm:p-7">
                             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
                                 {categories.length > 0 ? (
                                     categories.map((cat) => {
@@ -528,10 +529,10 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                                                 <Link
                                                     href={`/${lang}/catalog/${parentSlug}`}
                                                     onClick={() => setMegaMenuOpen(false)}
-                                                    className="flex items-center gap-2 font-bold text-sm text-gray-900 hover:text-brand-red transition-colors pb-2 border-b border-gray-200 uppercase tracking-wide group"
+                                                    className="flex items-center gap-2 font-semibold text-sm text-ink hover:text-brand-red transition-colors pb-2 border-b border-line group"
                                                 >
                                                     {cat.image && (
-                                                        <div className="w-7 h-7 relative rounded-lg bg-gray-50 overflow-hidden shrink-0 border border-gray-200">
+                                                        <div className="w-8 h-8 relative rounded-[16px] bg-surface-soft overflow-hidden shrink-0">
                                                             <Image
                                                                 src={cat.image}
                                                                 alt={parentName}
@@ -542,7 +543,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                                                         </div>
                                                     )}
                                                     <span>{parentName}</span>
-                                                    <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-brand-red group-hover:translate-x-0.5 transition-all ml-auto" />
+                                                    <ArrowRight className="w-4 h-4 text-ink-sub group-hover:text-brand-red group-hover:translate-x-0.5 transition-all ml-auto" />
                                                 </Link>
 
                                                 {children.length > 0 && (
@@ -555,7 +556,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                                                                     <Link
                                                                         href={`/${lang}/catalog/${childSlug}`}
                                                                         onClick={() => setMegaMenuOpen(false)}
-                                                                        className="text-sm text-gray-600 hover:text-brand-red transition-colors block py-1 font-medium"
+                                                                        className="text-[13px] text-ink-soft hover:text-brand-red transition-colors block py-1.5"
                                                                     >
                                                                         {childName}
                                                                     </Link>
@@ -568,7 +569,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                                         );
                                     })
                                 ) : (
-                                    <div className="col-span-full py-6 text-center text-sm text-gray-500">
+                                    <div className="col-span-full py-6 text-center text-sm text-ink-sub">
                                         Kategoriyalar mavjud emas
                                     </div>
                                 )}
@@ -580,8 +581,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
 
             {/* MOBILE DRAWER MENU */}
             {mobileMenuOpen && (
-                <div className="md:hidden bg-white border-t border-gray-200 px-4 py-5 space-y-4 shadow-xl max-h-[70vh] overflow-y-auto">
-                    <div className="font-bold text-xs uppercase tracking-wider text-gray-500 pb-2 border-b border-gray-200">
+                <div className="md:hidden bg-surface border-t border-line px-4 py-5 space-y-4 shadow-pop max-h-[70vh] overflow-y-auto">
+                    <div className="font-bold text-xs uppercase tracking-wider text-ink-sub pb-2 border-b border-line">
                         {lang === 'ru' ? 'Категории' : 'Kategoriyalar'}
                     </div>
                     <nav className="flex flex-col space-y-2 text-sm">
@@ -589,14 +590,14 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                             const slug = getCategorySlug(cat);
                             const name = getCategoryName(cat);
                             return (
-                                <div key={cat.id} className="border-b border-gray-100 pb-2">
+                                <div key={cat.id} className="border-b border-line-soft pb-2">
                                     <Link
                                         href={`/${lang}/catalog/${slug}`}
                                         onClick={() => setMobileMenuOpen(false)}
-                                        className="font-bold text-gray-900 hover:text-brand-red transition-colors flex items-center justify-between py-2"
+                                        className="font-semibold text-ink hover:text-brand-red transition-colors flex items-center justify-between py-2"
                                     >
                                         <span>{name}</span>
-                                        <ArrowRight className="w-4 h-4 text-gray-400" />
+                                        <ArrowRight className="w-4 h-4 text-ink-sub" />
                                     </Link>
 
                                     {cat.children && cat.children.length > 0 && (
@@ -609,7 +610,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                                                         key={child.id}
                                                         href={`/${lang}/catalog/${childSlug}`}
                                                         onClick={() => setMobileMenuOpen(false)}
-                                                        className="block text-sm text-gray-600 hover:text-brand-red py-1"
+                                                        className="block text-[13px] text-ink-soft hover:text-brand-red py-1.5"
                                                     >
                                                         • {childName}
                                                     </Link>
@@ -621,7 +622,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                             );
                         })}
                     </nav>
-                    <div className="pt-4 border-t border-gray-200">
+                    <div className="pt-4 border-t border-line">
                         <a href={`tel:${COMPANY_CONTACTS.phoneRaw}`} className="flex items-center gap-2 text-sm font-bold text-brand-red">
                             <Phone className="w-4 h-4" />
                             {COMPANY_CONTACTS.phoneDisplay}

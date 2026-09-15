@@ -65,21 +65,21 @@ export const EmptyState: React.FC<EmptyStateProps> = ({ lang, type, query }) => 
   const Icon = cfg.icon;
 
   return (
-    <div className="bg-white border border-gray-200 rounded-2xl p-10 sm:p-14 text-center shadow-sm max-w-2xl mx-auto">
+    <div className="bg-surface rounded-[20px] border border-line shadow-card p-10 sm:p-14 text-center shadow-card max-w-2xl mx-auto">
       {/* Custom industrial illustration — no AI feel, pure CSS */}
       <div className="relative w-24 h-24 mx-auto mb-6">
-        <div className="absolute inset-0 bg-[#F8F9FA] border-2 border-dashed border-gray-200 rounded-2xl rotate-3" />
-        <div className="absolute inset-0 bg-white border border-gray-200 rounded-2xl shadow-sm flex items-center justify-center -rotate-2">
-          <Icon className="w-10 h-10 text-gray-300" />
+        <div className="absolute inset-0 bg-surface-soft border-2 border-dashed border-line rounded-[20px] rotate-3" />
+        <div className="absolute inset-0 bg-surface rounded-[20px] border border-line shadow-card shadow-card flex items-center justify-center -rotate-2">
+          <Icon className="w-10 h-10 text-ink-sub" />
         </div>
-        <div className="absolute -top-1 -right-1 w-6 h-6 bg-gray-900 text-white rounded-full flex items-center justify-center text-xs font-bold">!</div>
+        <div className="absolute -top-1 -right-1 w-6 h-6 bg-ink text-white rounded-full flex items-center justify-center text-xs font-bold">!</div>
       </div>
 
-      <h3 className="text-xl font-bold text-gray-900 tracking-tight">{lang === 'ru' ? (cfg as any).titleRu : (cfg as any).titleUz}</h3>
-      <p className="text-sm text-gray-500 mt-2 max-w-sm mx-auto leading-relaxed">{lang === 'ru' ? (cfg as any).descRu : (cfg as any).descUz}</p>
+      <h3 className="text-xl font-bold text-ink tracking-tight">{lang === 'ru' ? (cfg as any).titleRu : (cfg as any).titleUz}</h3>
+      <p className="text-sm text-ink-sub mt-2 max-w-sm mx-auto leading-relaxed">{lang === 'ru' ? (cfg as any).descRu : (cfg as any).descUz}</p>
 
       <Link href={cfg.href} className="inline-flex mt-6">
-        <Button className="rounded-xl gap-2 font-bold min-h-[44px]">
+        <Button className="rounded-[16px] gap-2 font-bold min-h-[44px]">
           <span>{cfg.cta}</span>
         </Button>
       </Link>

@@ -36,19 +36,19 @@ export default async function BlogPostDetailPage({
       <div className="space-y-4">
         <h1 className="text-3xl sm:text-5xl font-black text-white leading-tight">{postTrans.title}</h1>
 
-        <div className="flex items-center gap-6 text-xs text-gray-400 border-y border-brand-border/60 py-3">
+        <div className="flex items-center gap-6 text-xs text-ink-sub border-y border-brand-border/60 py-3">
           <span className="flex items-center gap-1">
             <User className="w-4 h-4 text-brand-red" />
             {post.author}
           </span>
           <span className="flex items-center gap-1">
-            <Calendar className="w-4 h-4 text-gray-500" />
+            <Calendar className="w-4 h-4 text-ink-sub" />
             {new Date(post.publishedAt).toLocaleDateString()}
           </span>
         </div>
       </div>
 
-      <div className="relative aspect-[16/9] rounded-3xl overflow-hidden border border-brand-border shadow-2xl bg-black/40">
+      <div className="relative aspect-[16/9] rounded-3xl overflow-hidden border border-brand-border shadow-pop bg-black/40">
         <Image src={post.coverImage} alt={postTrans.title} fill className="object-cover" />
       </div>
 

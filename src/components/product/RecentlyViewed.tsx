@@ -31,7 +31,7 @@ export const RecentlyViewed: React.FC<RecentlyViewedProps> = ({ lang, currentPro
         >
           <button
             onClick={clearRecent}
-            className="text-xs text-gray-500 hover:text-red-600 flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-red-50 transition-colors"
+            className="text-xs text-ink-sub hover:text-red-600 flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-red-50 transition-colors"
           >
             <X className="w-3 h-3" />
             {lang === 'ru' ? 'Очистить' : 'Tozalash'}
@@ -43,17 +43,17 @@ export const RecentlyViewed: React.FC<RecentlyViewedProps> = ({ lang, currentPro
             <Link
               key={p.id}
               href={`/${lang}/product/${p.slug}`}
-              className="group bg-white border border-gray-200 rounded-xl p-3 hover:border-gray-300 hover:shadow-sm transition-all"
+              className="group bg-surface rounded-[18px] border border-line shadow-card p-3 hover:border-[#DDE3EB] hover:shadow-card transition-all"
             >
-              <div className="relative aspect-square bg-[#F8F9FA] rounded-lg border border-gray-100 overflow-hidden p-2 mb-2">
+              <div className="relative aspect-square bg-surface-soft rounded-lg border border-line-soft overflow-hidden p-2 mb-2">
                 {p.image ? (
                   <Image src={p.image} alt={p.title} fill sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw" className="object-contain p-2 group-hover:scale-105 transition-transform" />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-[10px] font-bold text-gray-400">SPS</div>
+                  <div className="w-full h-full flex items-center justify-center text-[10px] font-bold text-ink-sub">SPS</div>
                 )}
               </div>
               <div className="space-y-1">
-                <div className="text-xs font-bold text-gray-900 line-clamp-2 leading-snug min-h-[32px] group-hover:text-brand-red">
+                <div className="text-xs font-bold text-ink line-clamp-2 leading-snug min-h-[32px] group-hover:text-brand-red">
                   {p.title}
                 </div>
                 <div className="text-xs font-bold text-brand-red">{formatPrice(p.price, lang)}</div>

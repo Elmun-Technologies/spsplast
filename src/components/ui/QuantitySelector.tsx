@@ -31,7 +31,7 @@ export const QuantitySelector: React.FC<QuantitySelectorProps> = ({
         'inline-flex items-center rounded-lg border overflow-hidden select-none',
         isDark
           ? 'border-brand-border bg-brand-card'
-          : 'border-gray-300 bg-white shadow-xs',
+          : 'border-[#DDE3EB] bg-surface shadow-xs',
         className
       )}
     >
@@ -43,8 +43,8 @@ export const QuantitySelector: React.FC<QuantitySelectorProps> = ({
         className={cn(
           'p-2.5 transition-colors disabled:opacity-30 disabled:cursor-not-allowed',
           isDark
-            ? 'text-gray-300 hover:text-white hover:bg-white/10'
-            : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+            ? 'text-ink-sub hover:text-white hover:bg-surface/10'
+            : 'text-ink-soft hover:text-ink hover:bg-surface-soft'
         )}
       >
         <Minus className="w-4 h-4" />
@@ -53,7 +53,7 @@ export const QuantitySelector: React.FC<QuantitySelectorProps> = ({
       <span
         className={cn(
           'px-4 text-sm font-bold min-w-[44px] text-center tabular-nums',
-          isDark ? 'text-white' : 'text-gray-900'
+          isDark ? 'text-white' : 'text-ink'
         )}
       >
         {quantity}
@@ -67,8 +67,8 @@ export const QuantitySelector: React.FC<QuantitySelectorProps> = ({
         className={cn(
           'p-2.5 transition-colors disabled:opacity-30 disabled:cursor-not-allowed',
           isDark
-            ? 'text-gray-300 hover:text-white hover:bg-white/10'
-            : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+            ? 'text-ink-sub hover:text-white hover:bg-surface/10'
+            : 'text-ink-soft hover:text-ink hover:bg-surface-soft'
         )}
       >
         <Plus className="w-4 h-4" />

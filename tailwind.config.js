@@ -8,6 +8,22 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        // Clean commerce surfaces (reference: light page, white cards, hairline borders)
+        surface: {
+          DEFAULT: '#FFFFFF',
+          page: '#F6F7F9',
+          soft: '#F3F5F8',
+          softer: '#F7F8FA',
+        },
+        line: {
+          DEFAULT: '#EBEFF4',
+          soft: '#F1F4F8',
+        },
+        ink: {
+          DEFAULT: '#0F172A',
+          soft: '#475569',
+          sub: '#8B95A7',
+        },
         brand: {
           red: '#E61C24',
           'red-dark': '#C4141B',
@@ -46,13 +62,17 @@ module.exports = {
         sans: ['var(--font-inter)', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
       },
       boxShadow: {
+        // Soft, low-contrast elevation — replaces the heavier "industrial" shadows
+        card: '0 1px 2px rgba(16, 24, 40, 0.04), 0 1px 3px rgba(16, 24, 40, 0.05)',
+        lift: '0 12px 28px -8px rgba(16, 24, 40, 0.14)',
+        pop: '0 24px 60px -20px rgba(16, 24, 40, 0.25)',
         xs: '0 1px 2px 0 rgba(0, 0, 0, 0.04)',
         sm: '0 1px 3px 0 rgba(0, 0, 0, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.06)',
         md: '0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.04)',
         lg: '0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04)',
-        card: '0 2px 8px 0 rgba(0, 0, 0, 0.06)',
-        'card-hover': '0 8px 24px -4px rgba(0, 0, 0, 0.12)',
-        red: '0 4px 14px 0 rgba(230, 28, 36, 0.28)',
+        // card / card-hover kept as aliases so existing markup keeps working
+        'card-hover': '0 12px 28px -8px rgba(16, 24, 40, 0.14)',
+        red: '0 8px 20px -8px rgba(230, 28, 36, 0.55)',
       },
       borderRadius: {
         lg: '8px',

@@ -48,27 +48,27 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({ isOpen, onClose,
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={title} maxWidth="lg">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="relative aspect-square bg-[#F8F9FA] rounded-xl border border-gray-200 overflow-hidden p-4">
-          {image ? <Image src={image} alt={title} fill sizes="(max-width: 768px) 100vw, 400px" className="object-contain p-4" /> : <div className="w-full h-full flex items-center justify-center text-xs font-bold text-gray-400">SPS</div>}
+        <div className="relative aspect-square bg-surface-soft rounded-[16px] border border-line overflow-hidden p-4">
+          {image ? <Image src={image} alt={title} fill sizes="(max-width: 768px) 100vw, 400px" className="object-contain p-4" /> : <div className="w-full h-full flex items-center justify-center text-xs font-bold text-ink-sub">SPS</div>}
         </div>
 
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-mono bg-gray-100 px-2.5 py-1 rounded-lg border border-gray-200">SKU: {product.sku}</span>
+            <span className="text-xs font-mono bg-surface-soft px-2.5 py-1 rounded-lg border border-line">SKU: {product.sku}</span>
             <StockBadge inStock={product.inStock} lang={lang} />
           </div>
 
-          <h3 className="text-lg font-bold text-gray-900 leading-tight">{title}</h3>
+          <h3 className="text-lg font-bold text-ink leading-tight">{title}</h3>
 
           <Price price={product.price} oldPrice={product.oldPrice} lang={lang} size="lg" showDiscountBadge />
 
-          {product.dimensions && <p className="text-sm text-gray-600">O‘lchami: <span className="font-mono font-bold text-gray-900">{product.dimensions}</span></p>}
+          {product.dimensions && <p className="text-sm text-ink-soft">O‘lchami: <span className="font-mono font-bold text-ink">{product.dimensions}</span></p>}
 
           <div className="flex items-center gap-3 pt-2">
             <QuantitySelector quantity={qty} onDecrease={() => setQty(Math.max(1, qty - 1))} onIncrease={() => setQty(qty + 1)} />
             <button
               onClick={handleAdd}
-              className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-bold text-sm min-h-[44px] ${added ? 'bg-emerald-600 text-white' : 'bg-brand-red text-white hover:bg-brand-red-dark'}`}
+              className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-full font-semibold text-sm min-h-[46px] ${added ? 'bg-emerald-600 text-white' : 'bg-brand-red text-white hover:bg-brand-red-dark'}`}
             >
               {added ? <Check className="w-4 h-4" /> : <ShoppingCart className="w-4 h-4" />}
               {added ? 'Savatda' : 'Savatga'}
@@ -76,7 +76,7 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({ isOpen, onClose,
           </div>
 
           <Link href={`/${lang}/product/${product.slug}`} onClick={onClose} className="block">
-            <Button variant="outline" className="w-full rounded-xl gap-2">
+            <Button variant="outline" className="w-full gap-2">
               <Eye className="w-4 h-4" />
               {lang === 'ru' ? 'Подробнее' : 'Batafsil ko‘rish'}
             </Button>

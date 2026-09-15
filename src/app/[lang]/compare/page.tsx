@@ -23,7 +23,7 @@ export default function ComparePage({ params: { lang } }: { params: { lang: Loca
 
   if (items.length === 0) {
     return (
-      <div className="bg-[#F8F9FA] min-h-screen py-8">
+      <div className="bg-surface-page min-h-screen py-8">
         <Container>
           <Breadcrumbs lang={lang} items={[{ label: lang === 'ru' ? 'Сравнение' : 'Taqqoslash', active: true }]} className="mb-4" />
           <EmptyState lang={lang} type="compare" />
@@ -35,33 +35,33 @@ export default function ComparePage({ params: { lang } }: { params: { lang: Loca
   const specs = ['price', 'dimensions', 'material', 'sku', 'inStock'];
 
   return (
-    <div className="bg-[#F8F9FA] min-h-screen py-6">
+    <div className="bg-surface-page min-h-screen py-6">
       <Container>
         <Breadcrumbs lang={lang} items={[{ label: lang === 'ru' ? 'Сравнение' : 'Taqqoslash', active: true }]} className="mb-4" />
 
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">{lang === 'ru' ? `Сравнение (${items.length})` : `Taqqoslash (${items.length})`}</h1>
+          <h1 className="text-2xl font-bold text-ink">{lang === 'ru' ? `Сравнение (${items.length})` : `Taqqoslash (${items.length})`}</h1>
           <button onClick={clear} className="text-sm text-red-600 hover:underline">
             {lang === 'ru' ? 'Очистить все' : 'Barchasini tozalash'}
           </button>
         </div>
 
-        <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm overflow-x-auto">
+        <div className="bg-surface rounded-[20px] border border-line shadow-card overflow-hidden shadow-card overflow-x-auto">
           <table className="w-full min-w-[600px] text-sm">
             <thead>
-              <tr className="border-b border-gray-200 bg-[#F8F9FA]">
-                <th className="p-4 text-left text-xs font-bold text-gray-500 uppercase w-32">{lang === 'ru' ? 'Параметр' : 'Parametr'}</th>
+              <tr className="border-b border-line bg-surface-soft">
+                <th className="p-4 text-left text-xs font-bold text-ink-sub uppercase w-32">{lang === 'ru' ? 'Параметр' : 'Parametr'}</th>
                 {items.map((item) => (
                   <th key={item.id} className="p-4 text-left min-w-[180px]">
                     <div className="relative">
-                      <button onClick={() => remove(item.id)} className="absolute -top-2 -right-2 w-6 h-6 bg-gray-900 text-white rounded-full flex items-center justify-center">
+                      <button onClick={() => remove(item.id)} className="absolute -top-2 -right-2 w-6 h-6 bg-ink text-white rounded-full flex items-center justify-center">
                         <X className="w-4 h-4" />
                       </button>
                       <Link href={`/${lang}/product/${item.slug}`} className="block">
-                        <div className="relative aspect-square bg-[#F8F9FA] rounded-xl border border-gray-200 p-3 mb-2">
+                        <div className="relative aspect-square bg-surface-soft rounded-[16px] border border-line p-3 mb-2">
                           <Image src={item.image} alt={item.title} fill sizes="(max-width: 640px) 45vw, 180px" className="object-contain p-2" />
                         </div>
-                        <div className="font-bold text-gray-900 line-clamp-2 leading-snug hover:text-brand-red">{item.title}</div>
+                        <div className="font-bold text-ink line-clamp-2 leading-snug hover:text-brand-red">{item.title}</div>
                       </Link>
                     </div>
                   </th>
@@ -69,18 +69,18 @@ export default function ComparePage({ params: { lang } }: { params: { lang: Loca
               </tr>
             </thead>
             <tbody>
-              <tr className="border-b border-gray-100">
-                <td className="p-4 font-semibold text-gray-600 bg-[#F8F9FA]">{lang === 'ru' ? 'Цена' : 'Narx'}</td>
+              <tr className="border-b border-line-soft">
+                <td className="p-4 font-semibold text-ink-soft bg-surface-soft">{lang === 'ru' ? 'Цена' : 'Narx'}</td>
                 {items.map((item) => (
                   <td key={item.id} className="p-4">
                     <div className="font-bold text-brand-red text-base">{formatPrice(item.price, lang)}</div>
-                    {item.oldPrice && <div className="text-xs text-gray-400 line-through">{formatPrice(item.oldPrice, lang)}</div>}
+                    {item.oldPrice && <div className="text-xs text-ink-sub line-through">{formatPrice(item.oldPrice, lang)}</div>}
                     <button
                       onClick={() => {
                         addItem({ productId: item.id, title: item.title, sku: item.sku, price: item.price, image: item.image, quantity: 1 });
                         trackEvent('add_to_cart', { from: 'compare' });
                       }}
-                      className="mt-2 w-full py-2 bg-brand-red text-white rounded-xl text-xs font-bold hover:bg-brand-red-dark flex items-center justify-center gap-1"
+                      className="mt-2 w-full py-2 bg-brand-red text-white rounded-[16px] text-xs font-bold hover:bg-brand-red-dark flex items-center justify-center gap-1"
                     >
                       <ShoppingBag className="w-3.5 h-3.5" />
                       Savatga
@@ -88,24 +88,24 @@ export default function ComparePage({ params: { lang } }: { params: { lang: Loca
                   </td>
                 ))}
               </tr>
-              <tr className="border-b border-gray-100">
-                <td className="p-4 font-semibold text-gray-600 bg-[#F8F9FA]">SKU</td>
+              <tr className="border-b border-line-soft">
+                <td className="p-4 font-semibold text-ink-soft bg-surface-soft">SKU</td>
                 {items.map((item) => (
                   <td key={item.id} className="p-4 font-mono text-xs">
                     {item.sku}
                   </td>
                 ))}
               </tr>
-              <tr className="border-b border-gray-100">
-                <td className="p-4 font-semibold text-gray-600 bg-[#F8F9FA]">{lang === 'ru' ? 'Размер' : 'O‘lcham'}</td>
+              <tr className="border-b border-line-soft">
+                <td className="p-4 font-semibold text-ink-soft bg-surface-soft">{lang === 'ru' ? 'Размер' : 'O‘lcham'}</td>
                 {items.map((item) => (
                   <td key={item.id} className="p-4">
                     {item.dimensions || '-'}
                   </td>
                 ))}
               </tr>
-              <tr className="border-b border-gray-100">
-                <td className="p-4 font-semibold text-gray-600 bg-[#F8F9FA]">{lang === 'ru' ? 'Материал' : 'Material'}</td>
+              <tr className="border-b border-line-soft">
+                <td className="p-4 font-semibold text-ink-soft bg-surface-soft">{lang === 'ru' ? 'Материал' : 'Material'}</td>
                 {items.map((item) => (
                   <td key={item.id} className="p-4">
                     {item.material || '-'}
@@ -113,7 +113,7 @@ export default function ComparePage({ params: { lang } }: { params: { lang: Loca
                 ))}
               </tr>
               <tr>
-                <td className="p-4 font-semibold text-gray-600 bg-[#F8F9FA]">{lang === 'ru' ? 'Наличие' : 'Mavjudlik'}</td>
+                <td className="p-4 font-semibold text-ink-soft bg-surface-soft">{lang === 'ru' ? 'Наличие' : 'Mavjudlik'}</td>
                 {items.map((item) => (
                   <td key={item.id} className="p-4">
                     {item.inStock ? (
@@ -121,7 +121,7 @@ export default function ComparePage({ params: { lang } }: { params: { lang: Loca
                         <Check className="w-3 h-3" /> Mavjud
                       </span>
                     ) : (
-                      <span className="inline-flex px-2 py-1 rounded-full bg-gray-100 text-gray-500 border border-gray-200 text-xs">Yo‘q</span>
+                      <span className="inline-flex px-2 py-1 rounded-full bg-surface-soft text-ink-sub border border-line text-xs">Yo‘q</span>
                     )}
                   </td>
                 ))}

@@ -12,6 +12,11 @@ import { Container } from '@/components/ui/Container';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { useCartStore } from '@/lib/store/cartStore';
 import { Locale } from '@/lib/i18n';
+import { Button } from '@/components/ui/Button';
+import { Badge } from '@/components/ui/Badge';
+import { Price } from '@/components/ui/Price';
+import { StockBadge } from '@/components/ui/StockBadge';
+import { CategoryCard } from '@/components/product/CategoryCard';
 
 const categories: CategoryTreeItem[] = [
   {
@@ -153,30 +158,30 @@ export const MockStorefront: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-brand-dark text-white font-sans antialiased selection:bg-brand-red selection:text-white">
+    <div className="min-h-screen flex flex-col bg-surface-page text-ink font-sans antialiased selection:bg-brand-red selection:text-white">
       <HeaderClient lang={lang} categories={categories} />
       <CartDrawer lang={lang} />
 
-      <main className="flex-1 pb-24 lg:pb-0 bg-[#F8F9FA] text-gray-900">
-        <div className="bg-white border-b border-gray-200">
+      <main className="flex-1 pb-24 lg:pb-0 bg-surface-page text-ink">
+        <div className="bg-surface border-b border-line">
           <Container>
             <div className="py-4 flex flex-wrap items-center justify-between gap-3">
               <div>
-                <h1 className="text-lg font-bold text-gray-900">UI optimizatsiya — preview</h1>
-                <p className="text-sm text-gray-500">
+                <h1 className="text-[22px] font-bold text-ink tracking-[-0.02em]">Dizayn tizimi — preview</h1>
+                <p className="text-sm text-ink-sub">
                   Real komponentlar, mock ma’lumot bilan. Baza (DB) ulanmagan muhitda UX/UI tekshirish uchun.
                 </p>
               </div>
               <div className="flex flex-wrap items-center gap-2">
                 <button
                   onClick={() => setLang(lang === 'uz' ? 'ru' : 'uz')}
-                  className="px-3 py-2 rounded-xl border border-gray-300 text-sm font-semibold hover:bg-gray-50"
+                  className="px-4 py-2.5 rounded-full bg-surface-soft text-sm font-semibold text-ink-soft hover:text-ink transition-colors min-h-[44px]"
                 >
                   Til: {lang.toUpperCase()}
                 </button>
                 <button
                   onClick={seedCart}
-                  className="px-3 py-2 rounded-xl bg-gray-900 text-white text-sm font-bold hover:bg-black"
+                  className="px-4 py-2.5 rounded-full bg-ink text-white text-sm font-semibold hover:bg-black transition-colors min-h-[44px]"
                 >
                   Savatga 3 mahsulot qo‘shish
                 </button>
@@ -185,13 +190,13 @@ export const MockStorefront: React.FC = () => {
           </Container>
         </div>
 
-        <section className="py-6">
+        <section className="py-8">
           <Container>
             <SectionHeader
               title="ProductCard — katalog / bosh sahifa"
               subtitle="Hover (pointer) yoki doimiy ko‘rinadigan (touch) amallar, lazy modal, hover rasm faqat hover’da yuklanadi"
             />
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
               {demoProducts.map((p) => (
                 <ProductCard key={p.id} product={p} lang={lang} />
               ))}
@@ -199,13 +204,88 @@ export const MockStorefront: React.FC = () => {
           </Container>
         </section>
 
-        <section className="py-6">
+        <section className="py-8">
           <Container>
             <SectionHeader
               title="Mahsulot sahifasi — sticky ATC, gallery, kalkulyator"
               subtitle="Rasm o‘lchamlari (sizes) tuzatildi, sticky bar endi header bilan to‘qnashmaydi"
             />
             <ProductDetailClient product={detailProduct} lang={lang} />
+          </Container>
+        </section>
+
+        <section className="py-8">
+          <Container>
+            <SectionHeader
+              title="Dizayn tizimi — asosiy elementlar"
+              subtitle="Oq kartalar, yumshoq soyalar, pill tugmalar va katta radiuslar (yangi tokenlar)"
+            />
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5 mb-5">
+              <div className="bg-surface rounded-[20px] p-6 shadow-card">
+                <p className="text-[12px] font-semibold text-ink-sub mb-3">Ranglar</p>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    ['brand-red', 'bg-brand-red'],
+                    ['ink', 'bg-ink'],
+                    ['ink-soft', 'bg-ink-soft'],
+                    ['ink-sub', 'bg-ink-sub'],
+                    ['surface-soft', 'bg-surface-soft border border-line'],
+                    ['line', 'bg-line'],
+                  ].map(([label, cls]) => (
+                    <span key={label} className="flex items-center gap-2 text-[12px] text-ink-soft">
+                      <span className={`w-5 h-5 rounded-full ${cls}`} />
+                      {label}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="bg-surface rounded-[20px] p-6 shadow-card">
+                <p className="text-[12px] font-semibold text-ink-sub mb-3">Tugmalar</p>
+                <div className="flex flex-wrap items-center gap-2">
+                  <Button size="sm">Savatga</Button>
+                  <Button variant="secondary" size="sm">Batafsil</Button>
+                  <Button variant="outline" size="sm">Taqqoslash</Button>
+                  <Button variant="ghost" size="sm">Bekor qilish</Button>
+                </div>
+              </div>
+
+              <div className="bg-surface rounded-[20px] p-6 shadow-card">
+                <p className="text-[12px] font-semibold text-ink-sub mb-3">Nishonlar</p>
+                <div className="flex flex-wrap items-center gap-2">
+                  <Badge>-20%</Badge>
+                  <Badge variant="redSoft">Aksiya</Badge>
+                  <Badge variant="greenSoft">Yangi</Badge>
+                  <Badge variant="gray">Top</Badge>
+                  <StockBadge inStock lang={lang} />
+                  <StockBadge inStock={false} lang={lang} />
+                </div>
+                <div className="mt-4">
+                  <Price price={189000} oldPrice={236000} lang={lang} size="md" showDiscountBadge />
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+              {categories.slice(0, 3).map((c) => (
+                <CategoryCard
+                  key={c.id}
+                  lang={lang}
+                  category={{
+                    id: c.id,
+                    slug: c.translations[0].slug,
+                    nameUz: c.translations[0].name,
+                    nameRu: c.translations[1]?.name || c.translations[0].name,
+                    image: c.image,
+                    _count: { products: c.children?.length ? c.children.length * 4 : 6 },
+                  }}
+                />
+              ))}
+              <div className="bg-surface rounded-[20px] p-5 shadow-lift col-span-1 sm:col-span-3 flex items-center gap-3">
+                <span className="text-[12px] font-semibold text-ink-sub">shadow-lift — hover holati</span>
+              </div>
+            </div>
           </Container>
         </section>
       </main>

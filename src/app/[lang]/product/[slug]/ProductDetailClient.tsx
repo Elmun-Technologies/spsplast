@@ -138,20 +138,20 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
     <>
       {/* Sticky ATC Bar */}
       <div
-        className={`fixed bottom-0 left-0 right-0 z-30 bg-white border-t border-gray-200 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] transition-transform duration-300 ${
+        className={`fixed bottom-0 left-0 right-0 z-30 bg-surface border-t border-line shadow-[0_-12px_30px_-20px_rgba(16,24,40,0.35)] transition-transform duration-300 ${
           showSticky ? 'translate-y-0' : 'translate-y-full'
         }`}
       >
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-3">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 py-3 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3 min-w-0">
-            <div className="w-12 h-12 rounded-lg bg-[#F8F9FA] border border-gray-200 p-1 shrink-0 hidden sm:block">
+            <div className="w-12 h-12 rounded-[14px] bg-surface-soft p-1 shrink-0 hidden sm:block">
               <div className="relative w-full h-full">
                 <Image src={images[0]} alt={title} fill sizes="48px" className="object-contain p-1" />
               </div>
             </div>
             <div className="min-w-0">
-              <div className="text-sm font-bold text-gray-900 truncate max-w-[200px] sm:max-w-[300px]">{title}</div>
-              <div className="text-xs text-gray-500">SKU: {product.sku}</div>
+              <div className="text-sm font-semibold text-ink truncate max-w-[200px] sm:max-w-[300px]">{title}</div>
+              <div className="text-xs text-ink-sub">SKU: {product.sku}</div>
             </div>
             <div className="hidden md:block ml-4">
               <Price price={currentUnitPrice} lang={lang} size="md" />
@@ -165,7 +165,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
             <button
               onClick={handleAddToCart}
               disabled={!product.inStock}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm transition-all min-h-[44px] ${
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-sm transition-all min-h-[46px] ${
                 added ? 'bg-emerald-600 text-white' : 'bg-brand-red hover:bg-brand-red-dark text-white shadow-red'
               }`}
             >
@@ -180,12 +180,12 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
       {/* Sentinel: the sticky ATC bar appears once this scrolls out of view */}
       <div id="atc-sentinel" aria-hidden="true" className="h-px w-full" />
 
-      <div className="bg-[#F8F9FA] p-2 sm:p-3 rounded-2xl border border-gray-200/80 shadow-xs">
-        <div className="bg-white rounded-xl p-4 sm:p-6 border border-gray-100">
+      <div className="bg-surface-soft p-2 sm:p-3 rounded-[24px]">
+        <div className="bg-surface rounded-[20px] p-4 sm:p-7 shadow-card">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
             {/* Gallery Column */}
             <div className="lg:col-span-6 space-y-3">
-              <div className="relative aspect-square w-full rounded-xl overflow-hidden border border-gray-200 bg-[#F8F9FA] flex items-center justify-center p-4 group">
+              <div className="relative aspect-square w-full rounded-[18px] overflow-hidden bg-surface-soft flex items-center justify-center p-4 group">
                 <Image
                   src={images[activeImageIndex]}
                   alt={title}
@@ -207,7 +207,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
 
                 <button
                   onClick={handleShare}
-                  className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+                  className="absolute top-3 right-3 w-10 h-10 rounded-full bg-surface/95 shadow-card flex items-center justify-center text-ink-soft hover:text-ink transition-colors"
                   aria-label="Ulashish"
                 >
                   <Share2 className="w-4 h-4" />
@@ -220,10 +220,10 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                     <button
                       key={idx}
                       onClick={() => setActiveImageIndex(idx)}
-                      className={`relative w-20 h-20 rounded-xl overflow-hidden border-2 shrink-0 bg-[#F8F9FA] transition-all p-1 ${
+                      className={`relative w-20 h-20 rounded-[16px] overflow-hidden border-2 shrink-0 bg-surface-soft transition-all p-1 ${
                         activeImageIndex === idx
-                          ? 'border-brand-red ring-2 ring-brand-red/20'
-                          : 'border-gray-200 opacity-70 hover:opacity-100 hover:border-gray-300'
+                          ? 'border-brand-red'
+                          : 'border-transparent opacity-70 hover:opacity-100'
                       }`}
                     >
                       <Image src={imgUrl} alt={`${title} ${idx + 1}`} fill sizes="80px" className="object-contain p-2" />
@@ -234,7 +234,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                       href={product.videoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="relative w-20 h-20 rounded-xl overflow-hidden border-2 border-red-200 bg-red-50 flex flex-col items-center justify-center gap-1 shrink-0 hover:bg-red-100 transition-colors"
+                      className="relative w-20 h-20 rounded-[16px] overflow-hidden bg-[#FEF0F0] flex flex-col items-center justify-center gap-1 shrink-0 hover:bg-[#FCE4E4] transition-colors"
                     >
                       <Play className="w-6 h-6 text-brand-red fill-brand-red" />
                       <span className="text-[10px] font-bold text-brand-red">VIDEO</span>
@@ -248,7 +248,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                   href={product.videoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 p-3 rounded-xl bg-red-50 border border-red-200 text-brand-red font-bold text-sm hover:bg-red-100 transition-colors"
+                  className="flex items-center gap-2 p-3.5 rounded-[16px] bg-[#FEF0F0] text-brand-red font-semibold text-sm hover:bg-[#FCE4E4] transition-colors"
                 >
                   <Play className="w-5 h-5 fill-brand-red" />
                   {lang === 'ru' ? 'Смотреть видео заливки' : 'Quyish videosini ko‘rish'}
@@ -259,38 +259,38 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
               <div className="pt-2">
                 <button
                   onClick={() => setShowCalc(!showCalc)}
-                  className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-gray-900 text-white font-bold text-sm hover:bg-black transition-colors"
+                  className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-full bg-ink text-white font-semibold text-sm hover:bg-black transition-colors"
                 >
                   <Calculator className="w-4 h-4" />
                   <span>{lang === 'ru' ? 'Калькулятор: сколько нужно?' : 'Kalkulyator: qancha kerak?'}</span>
                 </button>
 
                 {showCalc && (
-                  <div className="mt-3 p-4 rounded-xl bg-[#F8F9FA] border border-gray-200 space-y-3">
+                  <div className="mt-3 p-4 rounded-[16px] bg-surface-soft space-y-3">
                     <div className="flex items-center justify-between">
-                      <h4 className="text-sm font-bold text-gray-900">{lang === 'ru' ? 'Расчет по площади' : 'Maydon bo‘yicha hisob'}</h4>
-                      <button onClick={() => setShowCalc(false)} className="p-1 hover:bg-gray-200 rounded-lg">
+                      <h4 className="text-sm font-semibold text-ink">{lang === 'ru' ? 'Расчёт по площади' : 'Maydon bo‘yicha hisob'}</h4>
+                      <button onClick={() => setShowCalc(false)} className="p-1.5 hover:bg-[#E7ECF3] rounded-full text-ink-soft transition-colors">
                         <X className="w-4 h-4" />
                       </button>
                     </div>
                     <div>
-                      <label className="text-xs font-semibold text-gray-700">m² (kvadrat)</label>
+                      <label className="text-xs font-semibold text-ink-soft">m² (kvadrat)</label>
                       <input
                         type="number"
                         value={calcArea}
                         onChange={(e) => setCalcArea(e.target.value)}
                         placeholder="Masalan: 50"
-                        className="mt-1 w-full px-3 py-2.5 rounded-lg border border-gray-300 text-sm focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 outline-none"
+                        className="mt-1 w-full px-3 py-2.5 rounded-lg border border-[#DDE3EB] text-sm focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 outline-none"
                       />
                     </div>
                     {calcQty() > 0 && (
-                      <div className="p-3 rounded-lg bg-white border border-gray-200 text-sm space-y-1">
+                      <div className="p-3 rounded-lg bg-surface border border-line text-sm space-y-1">
                         <div className="flex justify-between">
-                          <span className="text-gray-600">Kerakli qolip:</span>
-                          <span className="font-bold text-gray-900">{calcQty()} dona</span>
+                          <span className="text-ink-soft">Kerakli qolip:</span>
+                          <span className="font-bold text-ink">{calcQty()} dona</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-gray-600">Taxminiy narx:</span>
+                          <span className="text-ink-soft">Taxminiy narx:</span>
                           <span className="font-bold text-brand-red">{formatPrice(calcTotal, lang)}</span>
                         </div>
                         <Button size="sm" className="w-full mt-2" onClick={() => setQuantity(calcQty())}>
@@ -298,7 +298,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                         </Button>
                       </div>
                     )}
-                    <p className="text-xs text-gray-500">* 30x30 o‘lcham uchun 1 m² ≈ 11 dona. Boshqa o‘lchamlar uchun operator bilan maslahatlashing.</p>
+                    <p className="text-xs text-ink-sub">* 30x30 o‘lcham uchun 1 m² ≈ 11 dona. Boshqa o‘lchamlar uchun operator bilan maslahatlashing.</p>
                   </div>
                 )}
               </div>
@@ -308,26 +308,26 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
             <div className="lg:col-span-6 space-y-5">
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="font-mono bg-gray-100 px-2.5 py-1 rounded-lg border border-gray-200 text-gray-700 text-xs font-bold">
+                  <span className="font-mono bg-surface-soft px-2.5 py-1 rounded-lg border border-line text-ink-soft text-xs font-bold">
                     SKU: {product.sku}
                   </span>
                   <StockBadge inStock={product.inStock} lang={lang} />
                 </div>
 
-                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 leading-tight tracking-tight">
+                <h1 className="text-2xl sm:text-3xl font-bold text-ink leading-tight tracking-tight">
                   {title}
                 </h1>
 
                 {description && (
-                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed">{description}</p>
+                  <p className="text-sm sm:text-base text-ink-soft leading-relaxed">{description}</p>
                 )}
               </div>
 
               {/* Price Box & Bulk Discount Tier */}
-              <div className="p-5 rounded-2xl bg-[#F8F9FA] border border-gray-200 space-y-4">
+              <div className="p-5 rounded-[20px] bg-surface-soft space-y-4">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <div>
-                    <span className="text-xs text-gray-500 font-bold uppercase tracking-wider block mb-1">
+                    <span className="text-[12px] text-ink-sub font-medium block mb-1">
                       {lang === 'ru' ? 'Цена за шт' : 'Narxi (dona)'}
                     </span>
                     <Price price={currentUnitPrice} oldPrice={currentUnitPrice < basePrice ? basePrice : product.oldPrice} lang={lang} size="xl" showDiscountBadge />
@@ -337,7 +337,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                     variant="outline"
                     size="sm"
                     onClick={() => setB2bModalOpen(true)}
-                    className="gap-2 border-brand-red text-brand-red hover:bg-brand-red hover:text-white text-sm font-bold shrink-0 rounded-xl"
+                    className="gap-2 border-brand-red text-brand-red hover:bg-brand-red hover:text-white text-sm shrink-0"
                   >
                     <Building2 className="w-4 h-4" />
                     <span>{lang === 'ru' ? 'Оптовая цена' : 'Ulgurji narx'}</span>
@@ -345,22 +345,22 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                 </div>
 
                 {/* Bulk Wholesale Tier Preview Table */}
-                <div className="pt-3 border-t border-gray-200/80">
-                  <div className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2.5">
+                <div className="pt-3 border-t border-line">
+                  <div className="text-xs font-bold uppercase tracking-wider text-ink-sub mb-2.5">
                     {lang === 'ru' ? 'Оптовые скидки от объема' : 'Ulgurji hajm chegirmalari'}
                   </div>
                   <div className="grid grid-cols-3 gap-2.5 text-center">
-                    <div className={`p-3 rounded-xl border-2 transition-all ${quantity < 10 ? 'bg-white border-brand-red shadow-sm' : 'bg-white border-gray-200 text-gray-600'}`}>
-                      <div className="text-xs text-gray-500 font-medium">1 – 9 dona</div>
-                      <div className="font-bold text-sm mt-1 text-gray-900">{formatPrice(basePrice, lang)}</div>
+                    <div className={`p-3.5 rounded-[18px] transition-all ${quantity < 10 ? 'bg-surface shadow-card ring-1 ring-brand-red' : 'bg-surface-soft text-ink-soft'}`}>
+                      <div className="text-xs text-ink-sub font-medium">1 – 9 dona</div>
+                      <div className="font-bold text-sm mt-1 text-ink">{formatPrice(basePrice, lang)}</div>
                     </div>
-                    <div className={`p-3 rounded-xl border-2 transition-all ${quantity >= 10 && quantity < 50 ? 'bg-white border-brand-red shadow-sm' : 'bg-white border-gray-200 text-gray-600'}`}>
-                      <div className="text-xs text-gray-500 font-medium">10 – 49 dona</div>
+                    <div className={`p-3.5 rounded-[18px] transition-all ${quantity >= 10 && quantity < 50 ? 'bg-surface shadow-card ring-1 ring-brand-red' : 'bg-surface-soft text-ink-soft'}`}>
+                      <div className="text-xs text-ink-sub font-medium">10 – 49 dona</div>
                       <div className="font-bold text-sm mt-1 text-emerald-700">{formatPrice(Math.round(basePrice * 0.95), lang)}</div>
                       <div className="text-[10px] font-bold text-emerald-600 mt-0.5">-5% CHEGIRMA</div>
                     </div>
-                    <div className={`p-3 rounded-xl border-2 transition-all ${quantity >= 50 ? 'bg-white border-brand-red shadow-sm' : 'bg-white border-gray-200 text-gray-600'}`}>
-                      <div className="text-xs text-gray-500 font-medium">50+ dona</div>
+                    <div className={`p-3.5 rounded-[18px] transition-all ${quantity >= 50 ? 'bg-surface shadow-card ring-1 ring-brand-red' : 'bg-surface-soft text-ink-soft'}`}>
+                      <div className="text-xs text-ink-sub font-medium">50+ dona</div>
                       <div className="font-bold text-sm mt-1 text-brand-red">{formatPrice(Math.round(basePrice * 0.9), lang)}</div>
                       <div className="text-[10px] font-bold text-brand-red mt-0.5">-10% CHEGIRMA</div>
                     </div>
@@ -369,43 +369,43 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
               </div>
 
               {/* Specifications Table */}
-              <div className="border border-gray-200 rounded-2xl bg-white p-4 space-y-2.5">
-                <h4 className="font-bold text-gray-900 uppercase tracking-wider text-sm border-b border-gray-100 pb-2.5">
+              <div className="rounded-[20px] bg-surface-soft p-5 space-y-2.5">
+                <h4 className="font-semibold text-ink text-[15px] pb-2.5 border-b border-line">
                   {lang === 'ru' ? 'Характеристики' : 'Xususiyatlari va parametrlari'}
                 </h4>
 
                 {product.dimensions && (
                   <div className="flex justify-between py-2 border-b border-gray-50 text-sm">
-                    <span className="text-gray-500">{lang === 'ru' ? 'Размер' : 'O‘lchami'}:</span>
-                    <span className="text-gray-900 font-mono font-bold">{product.dimensions}</span>
+                    <span className="text-ink-sub">{lang === 'ru' ? 'Размер' : 'O‘lchami'}:</span>
+                    <span className="text-ink font-mono font-bold">{product.dimensions}</span>
                   </div>
                 )}
 
                 {product.material && (
                   <div className="flex justify-between py-2 border-b border-gray-50 text-sm">
-                    <span className="text-gray-500">{lang === 'ru' ? 'Материал' : 'Material turi'}:</span>
-                    <span className="text-gray-900 font-semibold">{product.material}</span>
+                    <span className="text-ink-sub">{lang === 'ru' ? 'Материал' : 'Material turi'}:</span>
+                    <span className="text-ink font-semibold">{product.material}</span>
                   </div>
                 )}
 
                 {product.yieldPerCast && (
                   <div className="flex justify-between py-2 border-b border-gray-50 text-sm">
-                    <span className="text-gray-500">{lang === 'ru' ? 'За 1 заливку' : 'Bitta quyishda'}:</span>
+                    <span className="text-ink-sub">{lang === 'ru' ? 'За 1 заливку' : 'Bitta quyishda'}:</span>
                     <span className="text-brand-red font-bold">{product.yieldPerCast} dona</span>
                   </div>
                 )}
 
                 {product.durabilityCasts && (
                   <div className="flex justify-between py-2 text-sm">
-                    <span className="text-gray-500">{lang === 'ru' ? 'Ресурс' : 'Xizmat resursi'}:</span>
+                    <span className="text-ink-sub">{lang === 'ru' ? 'Ресурс' : 'Xizmat resursi'}:</span>
                     <span className="text-emerald-600 font-bold">{product.durabilityCasts}+ marotaba</span>
                   </div>
                 )}
 
                 {product.weight && (
                   <div className="flex justify-between py-2 border-t border-gray-50 text-sm">
-                    <span className="text-gray-500">{lang === 'ru' ? 'Вес' : 'Og‘irligi'}:</span>
-                    <span className="text-gray-900 font-medium">{product.weight}</span>
+                    <span className="text-ink-sub">{lang === 'ru' ? 'Вес' : 'Og‘irligi'}:</span>
+                    <span className="text-ink font-medium">{product.weight}</span>
                   </div>
                 )}
               </div>
@@ -423,14 +423,14 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                   <button
                     disabled={!product.inStock}
                     onClick={() => (askPrice ? setB2bModalOpen(true) : handleAddToCart())}
-                    className={`flex-1 flex items-center justify-center gap-2 text-sm sm:text-base font-bold py-3.5 px-6 rounded-xl transition-all min-h-[52px] ${
+                    className={`flex-1 flex items-center justify-center gap-2 text-sm sm:text-base font-semibold py-3.5 px-6 rounded-full transition-all min-h-[52px] ${
                       askPrice
-                        ? 'bg-gray-900 hover:bg-black text-white shadow-sm'
+                        ? 'bg-ink hover:bg-black text-white shadow-card'
                         : added
-                        ? 'bg-emerald-600 text-white shadow-sm'
+                        ? 'bg-emerald-600 text-white shadow-card'
                         : product.inStock
-                        ? 'bg-brand-red hover:bg-brand-red-dark text-white shadow-red hover:shadow-lg active:scale-[0.98]'
-                        : 'bg-gray-100 text-gray-400 border border-gray-200 cursor-not-allowed'
+                        ? 'bg-brand-red hover:bg-brand-red-dark text-white shadow-red active:scale-[0.98]'
+                        : 'bg-surface-soft text-ink-sub border border-line cursor-not-allowed'
                     }`}
                   >
                     <ShoppingCart className="w-5 h-5" />
@@ -448,13 +448,13 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                   <button
                     onClick={() => setOneClickOpen(true)}
                     disabled={!product.inStock}
-                    className="py-3 px-4 rounded-xl bg-gray-900 text-white font-bold text-sm hover:bg-black transition-colors disabled:opacity-40 disabled:cursor-not-allowed min-h-[44px]"
+                    className="py-3 px-4 rounded-full bg-ink text-white font-semibold text-sm hover:bg-black transition-colors disabled:opacity-40 disabled:cursor-not-allowed min-h-[46px]"
                   >
                     {lang === 'ru' ? 'Заказ в 1 клик' : '1-klikda buyurtma'}
                   </button>
                   <button
                     onClick={() => setB2bModalOpen(true)}
-                    className="py-3 px-4 rounded-xl bg-white border-2 border-gray-200 text-gray-900 font-bold text-sm hover:border-gray-900 hover:bg-gray-50 transition-colors min-h-[44px]"
+                    className="py-3 px-4 rounded-full bg-surface-soft text-ink font-semibold text-sm hover:bg-[#E9EDF3] transition-colors min-h-[46px]"
                   >
                     {lang === 'ru' ? 'Опт' : 'Ulgurji'}
                   </button>
@@ -463,23 +463,23 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
 
               {/* Guarantees */}
               <div className="grid grid-cols-2 gap-3 text-sm">
-                <div className="flex items-center gap-2.5 p-3 rounded-xl bg-[#F8F9FA] border border-gray-200">
-                  <div className="w-9 h-9 rounded-lg bg-white border border-gray-200 flex items-center justify-center shrink-0">
+                <div className="flex items-center gap-2.5 p-3.5 rounded-[16px] bg-surface-soft">
+                  <div className="w-9 h-9 rounded-lg bg-surface border border-line flex items-center justify-center shrink-0">
                     <Truck className="w-5 h-5 text-brand-red" />
                   </div>
                   <div>
-                    <div className="font-bold text-gray-900 text-xs">Express</div>
-                    <div className="text-xs text-gray-500">1-3 kunda yetkazish</div>
+                    <div className="font-bold text-ink text-xs">Express</div>
+                    <div className="text-xs text-ink-sub">1-3 kunda yetkazish</div>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2.5 p-3 rounded-xl bg-[#F8F9FA] border border-gray-200">
-                  <div className="w-9 h-9 rounded-lg bg-white border border-gray-200 flex items-center justify-center shrink-0">
+                <div className="flex items-center gap-2.5 p-3.5 rounded-[16px] bg-surface-soft">
+                  <div className="w-9 h-9 rounded-lg bg-surface border border-line flex items-center justify-center shrink-0">
                     <ShieldCheck className="w-5 h-5 text-emerald-600" />
                   </div>
                   <div>
-                    <div className="font-bold text-gray-900 text-xs">100% Kafolat</div>
-                    <div className="text-xs text-gray-500">Resurs modelga bog’liq</div>
+                    <div className="font-bold text-ink text-xs">100% Kafolat</div>
+                    <div className="text-xs text-ink-sub">Resurs modelga bog’liq</div>
                   </div>
                 </div>
               </div>

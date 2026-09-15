@@ -21,9 +21,9 @@ export const FreeShippingProgress: React.FC<FreeShippingProgressProps> = ({
   const isFree = total >= freeThreshold;
 
   return (
-    <div className={`p-4 rounded-xl border-2 ${isFree ? 'bg-emerald-50 border-emerald-200' : 'bg-blue-50 border-blue-200'}`}>
+    <div className={`p-4 rounded-[16px] border-2 ${isFree ? 'bg-emerald-50 border-emerald-200' : 'bg-blue-50 border-blue-200'}`}>
       <div className="flex items-center gap-2.5 mb-3">
-        <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${isFree ? 'bg-emerald-600 text-white' : 'bg-blue-600 text-white'}`}>
+        <div className={`w-9 h-9 rounded-[16px] flex items-center justify-center ${isFree ? 'bg-emerald-600 text-white' : 'bg-blue-600 text-white'}`}>
           {isFree ? <Gift className="w-5 h-5" /> : <Truck className="w-5 h-5" />}
         </div>
         <div>
@@ -40,14 +40,14 @@ export const FreeShippingProgress: React.FC<FreeShippingProgressProps> = ({
         </div>
       </div>
 
-      <div className="w-full h-2.5 bg-white rounded-full border border-gray-200 overflow-hidden">
+      <div className="w-full h-2.5 bg-surface rounded-full border border-line overflow-hidden">
         <div
           className={`h-full rounded-full transition-all duration-500 ${isFree ? 'bg-emerald-600' : 'bg-blue-600'}`}
           style={{ width: `${progress}%` }}
         />
       </div>
 
-      <div className="flex justify-between text-xs text-gray-500 mt-1.5 font-medium">
+      <div className="flex justify-between text-xs text-ink-sub mt-1.5 font-medium">
         <span>{formatPrice(total, lang)}</span>
         <span>{formatPrice(freeThreshold, lang)}</span>
       </div>

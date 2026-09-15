@@ -56,7 +56,7 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
   return (
     <div
       ref={containerRef}
-      className={`relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-gray-200 bg-[#F8F9FA] select-none touch-none ${className || ''}`}
+      className={`relative aspect-[4/3] w-full overflow-hidden rounded-[20px] border border-line bg-surface-soft select-none touch-none ${className || ''}`}
       onMouseMove={onMouseMove}
       onMouseDown={onMouseDown}
       onTouchMove={onTouchMove}
@@ -67,12 +67,12 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
         {!afterErr ? (
           <Image src={afterImage} alt={afterLabel} fill className="object-contain p-6" onError={() => setAfterErr(true)} />
         ) : (
-          <div className="w-full h-full flex flex-col items-center justify-center text-gray-400">
+          <div className="w-full h-full flex flex-col items-center justify-center text-ink-sub">
             <ImageOff className="w-8 h-8 mb-1" />
             <span className="text-xs font-bold">NATIJА</span>
           </div>
         )}
-        <span className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-brand-red text-white text-xs font-bold shadow-sm">
+        <span className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-brand-red text-white text-xs font-bold shadow-card">
           {afterLabel}
         </span>
       </div>
@@ -81,22 +81,22 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
       <div className="absolute inset-0 overflow-hidden" style={{ width: `${position}%` }}>
         <div className="absolute inset-0 w-full h-full" style={{ width: `${(100 / position) * 100}%` }}>
           {!beforeErr ? (
-            <Image src={beforeImage} alt={beforeLabel} fill className="object-contain p-6 bg-white" onError={() => setBeforeErr(true)} />
+            <Image src={beforeImage} alt={beforeLabel} fill className="object-contain p-6 bg-surface" onError={() => setBeforeErr(true)} />
           ) : (
-            <div className="w-full h-full flex flex-col items-center justify-center text-gray-400 bg-white">
+            <div className="w-full h-full flex flex-col items-center justify-center text-ink-sub bg-surface">
               <ImageOff className="w-8 h-8 mb-1" />
               <span className="text-xs font-bold">QOLIP</span>
             </div>
           )}
         </div>
-        <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-gray-900 text-white text-xs font-bold shadow-sm">
+        <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-ink text-white text-xs font-bold shadow-card">
           {beforeLabel}
         </span>
       </div>
 
       {/* Slider line + handle */}
-      <div className="absolute top-0 bottom-0 w-0.5 bg-white shadow-[0_0_0_1px_rgba(0,0,0,0.1)]" style={{ left: `${position}%` }}>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white border-2 border-brand-red shadow-lg flex items-center justify-center text-brand-red cursor-ew-resize hover:scale-110 transition-transform">
+      <div className="absolute top-0 bottom-0 w-0.5 bg-surface shadow-[0_0_0_1px_rgba(0,0,0,0.1)]" style={{ left: `${position}%` }}>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-surface border-2 border-brand-red shadow-lg flex items-center justify-center text-brand-red cursor-ew-resize hover:scale-110 transition-transform">
           <MoveHorizontal className="w-5 h-5" />
         </div>
       </div>

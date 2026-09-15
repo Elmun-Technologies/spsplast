@@ -23,7 +23,7 @@ export default async function BlogPage({ params: { lang } }: { params: { lang: L
   }
 
   return (
-    <div className="bg-[#F8F9FA] min-h-screen text-gray-900 py-8">
+    <div className="bg-surface-page min-h-screen text-ink py-8">
       <Container>
         <Breadcrumbs lang={lang} items={[{ label: lang === 'ru' ? 'Блог' : 'Blog', active: true }]} className="mb-6" />
 
@@ -32,17 +32,17 @@ export default async function BlogPage({ params: { lang } }: { params: { lang: L
             <span className="inline-flex px-3 py-1 rounded-full bg-red-50 border border-red-200 text-brand-red text-xs font-bold uppercase tracking-wider">
               {lang === 'ru' ? 'Полезные статьи' : 'Foydali maqolalar'}
             </span>
-            <h1 className="text-3xl sm:text-5xl font-black text-gray-900 tracking-tight">
+            <h1 className="text-3xl sm:text-5xl font-black text-ink tracking-tight">
               {lang === 'ru' ? 'Блог и руководства SPS' : 'SPS blogi va qo‘llanmalari'}
             </h1>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-ink-soft">
               {lang === 'ru' ? 'Советы по производству брусчатки, выбору форм и заливке бетона.' : 'Bruschatka ishlab chiqarishni boshlash, qolip tanlash va beton quyish sirlari haqida mutaxassis maslahatlari.'}
             </p>
           </div>
 
           {posts.length === 0 ? (
-            <div className="bg-white border border-gray-200 rounded-2xl p-12 text-center">
-              <p className="font-bold text-gray-900">{lang === 'ru' ? 'Скоро новые статьи' : 'Tez orada yangi maqolalar'}</p>
+            <div className="bg-surface border border-line rounded-[20px] p-12 text-center">
+              <p className="font-bold text-ink">{lang === 'ru' ? 'Скоро новые статьи' : 'Tez orada yangi maqolalar'}</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -55,14 +55,14 @@ export default async function BlogPage({ params: { lang } }: { params: { lang: L
                   <Link
                     key={post.id}
                     href={`/${lang}/blog/${trans.slug || post.id}`}
-                    className="group bg-white border border-gray-200 rounded-2xl overflow-hidden p-5 flex flex-col justify-between hover:border-gray-300 hover:shadow-sm transition-all"
+                    className="group bg-surface border border-line rounded-[20px] overflow-hidden p-5 flex flex-col justify-between hover:border-[#DDE3EB] hover:shadow-sm transition-all"
                   >
                     <div className="space-y-4">
-                      <div className="relative aspect-[16/9] rounded-xl overflow-hidden bg-[#F8F9FA] border border-gray-100">
+                      <div className="relative aspect-[16/9] rounded-[16px] overflow-hidden bg-surface-soft border border-line-soft">
                         <Image src={post.coverImage} alt={title} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover group-hover:scale-105 transition-transform duration-500" />
                       </div>
 
-                      <div className="flex items-center gap-4 text-xs text-gray-500">
+                      <div className="flex items-center gap-4 text-xs text-ink-sub">
                         <span className="flex items-center gap-1">
                           <User className="w-3.5 h-3.5 text-brand-red" />
                           {post.author}
@@ -73,12 +73,12 @@ export default async function BlogPage({ params: { lang } }: { params: { lang: L
                         </span>
                       </div>
 
-                      <h3 className="text-base font-bold text-gray-900 group-hover:text-brand-red transition-colors line-clamp-2 leading-snug">{title}</h3>
+                      <h3 className="text-base font-bold text-ink group-hover:text-brand-red transition-colors line-clamp-2 leading-snug">{title}</h3>
 
-                      <p className="text-sm text-gray-600 line-clamp-3 leading-relaxed">{excerpt}</p>
+                      <p className="text-sm text-ink-soft line-clamp-3 leading-relaxed">{excerpt}</p>
                     </div>
 
-                    <div className="flex items-center gap-1.5 text-sm font-bold text-brand-red pt-4 mt-4 border-t border-gray-100 group-hover:gap-2 transition-all">
+                    <div className="flex items-center gap-1.5 text-sm font-bold text-brand-red pt-4 mt-4 border-t border-line-soft group-hover:gap-2 transition-all">
                       <span>{lang === 'ru' ? 'Читать подробнее' : 'Batafsil o‘qish'}</span>
                       <ArrowRight className="w-4 h-4" />
                     </div>

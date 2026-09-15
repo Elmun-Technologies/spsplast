@@ -7,6 +7,9 @@
 Maqsad: UI'ni tezlashtirish (bundle, rasm, render), mobil UX nuqsonlarini tuzatish va
 dizayn izchilligini tiklash. Funksional xatti-harakat o'zgartirilmagan.
 
+> **Davomi:** vizual dizayn yangilanishi (yangi tokenlar, oq kartalar, pill tugmalar)
+> alohida hujjatda — qarang: [`docs/UI-DESIGN-SYSTEM.md`](./UI-DESIGN-SYSTEM.md).
+
 ---
 
 ## 1. Bundle / Kod bo'lish (code splitting)

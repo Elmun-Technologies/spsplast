@@ -170,14 +170,14 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
 
   if (items.length === 0) {
     return (
-      <div className="bg-[#F8F9FA] min-h-screen py-16 text-gray-900">
+      <div className="bg-surface-page min-h-screen py-16 text-ink">
         <Container>
-          <div className="max-w-md mx-auto p-8 bg-white border border-gray-200 rounded-2xl text-center space-y-4 shadow-sm">
-            <div className="w-14 h-14 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center mx-auto">
-              <Store className="w-7 h-7 text-gray-400" />
+          <div className="max-w-md mx-auto p-8 bg-surface rounded-[20px] border border-line shadow-card text-center space-y-4 shadow-card">
+            <div className="w-14 h-14 rounded-[16px] bg-surface-soft border border-line flex items-center justify-center mx-auto">
+              <Store className="w-7 h-7 text-ink-sub" />
             </div>
-            <p className="text-gray-900 font-bold">{dict.cart.empty}</p>
-            <Button onClick={() => router.push(`/${lang}/catalog`)} className="bg-brand-red text-white w-full rounded-xl">
+            <p className="text-ink font-bold">{dict.cart.empty}</p>
+            <Button onClick={() => router.push(`/${lang}/catalog`)} className="bg-brand-red text-white w-full rounded-[16px]">
               {lang === 'ru' ? 'Перейти в каталог' : 'Katalogni ko‘rish'}
             </Button>
           </div>
@@ -187,28 +187,28 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
   }
 
   return (
-    <div className="bg-[#F8F9FA] min-h-screen py-6 sm:py-8 text-gray-900">
+    <div className="bg-surface-page min-h-screen py-6 sm:py-8 text-ink">
       <Container>
         <div className="mb-6">
-          <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
-            <span className="px-2.5 py-1 rounded-full bg-gray-900 text-white text-xs font-bold">1</span>
-            <span className="font-medium text-gray-900">{lang === 'ru' ? 'Корзина' : 'Savat'}</span>
+          <div className="flex items-center gap-2 text-sm text-ink-sub mb-3">
+            <span className="px-2.5 py-1 rounded-full bg-ink text-white text-xs font-bold">1</span>
+            <span className="font-medium text-ink">{lang === 'ru' ? 'Корзина' : 'Savat'}</span>
             <span className="w-6 h-px bg-gray-300" />
             <span className="px-2.5 py-1 rounded-full bg-brand-red text-white text-xs font-bold">2</span>
-            <span className="font-bold text-gray-900">{dict.checkout.title}</span>
+            <span className="font-bold text-ink">{dict.checkout.title}</span>
             <span className="w-6 h-px bg-gray-300" />
-            <span className="px-2.5 py-1 rounded-full bg-gray-200 text-gray-500 text-xs font-bold">3</span>
-            <span className="text-gray-500">{lang === 'ru' ? 'Подтверждение' : 'Tasdiqlash'}</span>
+            <span className="px-2.5 py-1 rounded-full bg-[#E7ECF3] text-ink-sub text-xs font-bold">3</span>
+            <span className="text-ink-sub">{lang === 'ru' ? 'Подтверждение' : 'Tasdiqlash'}</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-gray-900 tracking-tight uppercase">{dict.checkout.title}</h1>
-          <p className="text-sm text-gray-500 mt-1.5 flex items-center gap-1.5">
+          <h1 className="text-2xl sm:text-3xl font-black text-ink tracking-tight uppercase">{dict.checkout.title}</h1>
+          <p className="text-sm text-ink-sub mt-1.5 flex items-center gap-1.5">
             <ShieldCheck className="w-4 h-4 text-emerald-600" />
             {dict.checkout.guestCheckout} • {COMPANY_CONTACTS.phoneDisplay}
           </p>
         </div>
 
         {errorMsg && (
-          <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-800 text-sm font-medium mb-6 flex items-start gap-2.5">
+          <div className="p-4 rounded-[16px] bg-red-50 border border-red-200 text-red-800 text-sm font-medium mb-6 flex items-start gap-2.5">
             <AlertCircle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
             <span>{errorMsg}</span>
           </div>
@@ -216,8 +216,8 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
 
         <form onSubmit={handleOrderSubmit} className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           <div className="lg:col-span-7 space-y-5">
-            <div className="bg-white border border-gray-200 rounded-2xl p-5 sm:p-6 space-y-4 shadow-sm">
-              <h3 className="text-base font-bold text-gray-900 flex items-center gap-2 border-b border-gray-100 pb-3">
+            <div className="bg-surface rounded-[20px] border border-line shadow-card p-5 sm:p-6 space-y-4 shadow-card">
+              <h3 className="text-base font-bold text-ink flex items-center gap-2 border-b border-line-soft pb-3">
                 <span className="w-7 h-7 rounded-lg bg-brand-red text-white flex items-center justify-center text-xs font-bold">1</span>
                 <User className="w-4 h-4 text-brand-red" />
                 {lang === 'ru' ? 'Данные покупателя' : 'Xaridor ma’lumotlari'}
@@ -225,20 +225,20 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="sm:col-span-2">
-                  <label className="block text-sm font-semibold text-gray-700 mb-1.5">{dict.checkout.name} *</label>
+                  <label className="block text-sm font-semibold text-ink-soft mb-1.5">{dict.checkout.name} *</label>
                   <input
                     type="text"
                     required
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
                     placeholder="Jasur Rahimov"
-                    className={`w-full bg-white border rounded-xl px-4 py-3 text-[16px] md:text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-brand-red/20 focus:border-brand-red min-h-[48px] ${fieldErrors.name ? 'border-red-300 bg-red-50' : 'border-gray-300'}`}
+                    className={`w-full bg-surface border rounded-[16px] px-4 py-3 text-[16px] md:text-sm text-ink focus:outline-none focus:ring-2 focus:ring-brand-red/20 focus:border-brand-red min-h-[48px] ${fieldErrors.name ? 'border-red-300 bg-red-50' : 'border-[#DDE3EB]'}`}
                   />
                   {fieldErrors.name && <p className="text-xs text-red-600 mt-1">{fieldErrors.name}</p>}
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="block text-sm font-semibold text-gray-700 mb-1.5">{dict.checkout.phone} *</label>
+                  <label className="block text-sm font-semibold text-ink-soft mb-1.5">{dict.checkout.phone} *</label>
                   <div className="relative">
                     <input
                       type="tel"
@@ -246,17 +246,17 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
                       value={customerPhone}
                       onChange={(e) => setCustomerPhone(formatPhone(e.target.value))}
                       placeholder="+998 90 123 45 67"
-                      className={`w-full bg-white border rounded-xl px-4 py-3 pl-11 text-[16px] md:text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-brand-red/20 focus:border-brand-red min-h-[48px] font-mono ${fieldErrors.phone ? 'border-red-300 bg-red-50' : 'border-gray-300'}`}
+                      className={`w-full bg-surface border rounded-[16px] px-4 py-3 pl-11 text-[16px] md:text-sm text-ink focus:outline-none focus:ring-2 focus:ring-brand-red/20 focus:border-brand-red min-h-[48px] font-mono ${fieldErrors.phone ? 'border-red-300 bg-red-50' : 'border-[#DDE3EB]'}`}
                     />
-                    <Phone className="w-4 h-4 text-gray-400 absolute left-4 top-4" />
+                    <Phone className="w-4 h-4 text-ink-sub absolute left-4 top-4" />
                   </div>
-                  {fieldErrors.phone ? <p className="text-xs text-red-600 mt-1">{fieldErrors.phone}</p> : <p className="text-xs text-gray-500 mt-1">Format: +998 90 123 45 67</p>}
+                  {fieldErrors.phone ? <p className="text-xs text-red-600 mt-1">{fieldErrors.phone}</p> : <p className="text-xs text-ink-sub mt-1">Format: +998 90 123 45 67</p>}
                 </div>
               </div>
             </div>
 
-            <div className="bg-white border border-gray-200 rounded-2xl p-5 sm:p-6 space-y-4 shadow-sm">
-              <h3 className="text-base font-bold text-gray-900 flex items-center gap-2 border-b border-gray-100 pb-3">
+            <div className="bg-surface rounded-[20px] border border-line shadow-card p-5 sm:p-6 space-y-4 shadow-card">
+              <h3 className="text-base font-bold text-ink flex items-center gap-2 border-b border-line-soft pb-3">
                 <span className="w-7 h-7 rounded-lg bg-brand-red text-white flex items-center justify-center text-xs font-bold">2</span>
                 <MapPin className="w-4 h-4 text-brand-red" />
                 {lang === 'ru' ? 'Доставка' : 'Yetkazib berish'}
@@ -266,17 +266,17 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
                 <button
                   type="button"
                   onClick={() => setDeliveryType('COURIER')}
-                  className={`p-4 rounded-xl border-2 flex flex-col items-center gap-2 font-bold text-sm transition-all text-center ${deliveryType === 'COURIER' ? 'border-brand-red bg-red-50 text-brand-red shadow-sm' : 'border-gray-200 bg-gray-50 text-gray-600 hover:border-gray-300'}`}
+                  className={`p-4 rounded-[16px] border-2 flex flex-col items-center gap-2 font-bold text-sm transition-all text-center ${deliveryType === 'COURIER' ? 'border-brand-red bg-red-50 text-brand-red shadow-card' : 'border-line bg-surface-soft text-ink-soft hover:border-[#DDE3EB]'}`}
                 >
                   <Truck className="w-6 h-6" />
                   <span>{lang === 'ru' ? 'Курьером' : 'Kuryer orqali'}</span>
-                  <span className="text-xs font-normal text-gray-500">1-3 kun</span>
+                  <span className="text-xs font-normal text-ink-sub">1-3 kun</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => setDeliveryType('PICKUP')}
-                  className={`p-4 rounded-xl border-2 flex flex-col items-center gap-2 font-bold text-sm transition-all text-center ${deliveryType === 'PICKUP' ? 'border-brand-red bg-red-50 text-brand-red shadow-sm' : 'border-gray-200 bg-gray-50 text-gray-600 hover:border-gray-300'}`}
+                  className={`p-4 rounded-[16px] border-2 flex flex-col items-center gap-2 font-bold text-sm transition-all text-center ${deliveryType === 'PICKUP' ? 'border-brand-red bg-red-50 text-brand-red shadow-card' : 'border-line bg-surface-soft text-ink-soft hover:border-[#DDE3EB]'}`}
                 >
                   <Store className="w-6 h-6" />
                   <span>{lang === 'ru' ? 'Самовывоз' : 'Olib ketish'}</span>
@@ -285,8 +285,8 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
               </div>
 
               {deliveryType === 'PICKUP' ? (
-                <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-sm text-emerald-900 space-y-1">
-                  <p className="font-bold text-gray-900 flex items-center gap-2">
+                <div className="p-4 rounded-[16px] bg-emerald-50 border border-emerald-200 text-sm text-emerald-900 space-y-1">
+                  <p className="font-bold text-ink flex items-center gap-2">
                     <Store className="w-4 h-4 text-emerald-600" />
                     SPS Bosh Ombori
                   </p>
@@ -297,8 +297,8 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-1.5">{dict.checkout.region} *</label>
-                      <select value={region} onChange={(e) => setRegion(e.target.value)} className="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-[16px] md:text-sm text-gray-900 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 min-h-[48px]">
+                      <label className="block text-sm font-semibold text-ink-soft mb-1.5">{dict.checkout.region} *</label>
+                      <select value={region} onChange={(e) => setRegion(e.target.value)} className="w-full bg-surface border border-[#DDE3EB] rounded-[16px] px-4 py-3 text-[16px] md:text-sm text-ink focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 min-h-[48px]">
                         {REGIONS.map((reg) => (
                           <option key={reg} value={reg}>
                             {reg}
@@ -308,20 +308,20 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
                     </div>
 
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-1.5">{dict.checkout.city}</label>
-                      <input type="text" value={city} onChange={(e) => setCity(e.target.value)} placeholder="Yunusobod tumani" className="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-[16px] md:text-sm text-gray-900 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 min-h-[48px]" />
+                      <label className="block text-sm font-semibold text-ink-soft mb-1.5">{dict.checkout.city}</label>
+                      <input type="text" value={city} onChange={(e) => setCity(e.target.value)} placeholder="Yunusobod tumani" className="w-full bg-surface border border-[#DDE3EB] rounded-[16px] px-4 py-3 text-[16px] md:text-sm text-ink focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 min-h-[48px]" />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-1.5">{dict.checkout.address} *</label>
+                    <label className="block text-sm font-semibold text-ink-soft mb-1.5">{dict.checkout.address} *</label>
                     <input
                       type="text"
                       required={deliveryType === 'COURIER'}
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
                       placeholder="Amir Temur ko‘chasi 45-uy, 12-xonadon"
-                      className={`w-full bg-white border rounded-xl px-4 py-3 text-[16px] md:text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-brand-red/20 min-h-[48px] ${fieldErrors.address ? 'border-red-300 bg-red-50' : 'border-gray-300 focus:border-brand-red'}`}
+                      className={`w-full bg-surface border rounded-[16px] px-4 py-3 text-[16px] md:text-sm text-ink focus:outline-none focus:ring-2 focus:ring-brand-red/20 min-h-[48px] ${fieldErrors.address ? 'border-red-300 bg-red-50' : 'border-[#DDE3EB] focus:border-brand-red'}`}
                     />
                     {fieldErrors.address && <p className="text-xs text-red-600 mt-1">{fieldErrors.address}</p>}
                   </div>
@@ -329,62 +329,62 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
               )}
             </div>
 
-            <div className="bg-white border border-gray-200 rounded-2xl p-5 sm:p-6 space-y-4 shadow-sm">
-              <h3 className="text-base font-bold text-gray-900 flex items-center gap-2 border-b border-gray-100 pb-3">
+            <div className="bg-surface rounded-[20px] border border-line shadow-card p-5 sm:p-6 space-y-4 shadow-card">
+              <h3 className="text-base font-bold text-ink flex items-center gap-2 border-b border-line-soft pb-3">
                 <span className="w-7 h-7 rounded-lg bg-brand-red text-white flex items-center justify-center text-xs font-bold">3</span>
                 <CreditCard className="w-4 h-4 text-brand-red" />
                 {lang === 'ru' ? 'Оплата' : 'To‘lov usuli'}
               </h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <label className={`p-4 rounded-xl border-2 flex items-start gap-3 cursor-pointer transition-all ${paymentMethod === 'CASH' ? 'border-brand-red bg-red-50 shadow-sm' : 'border-gray-200 bg-white hover:border-gray-300'}`}>
+                <label className={`p-4 rounded-[16px] border-2 flex items-start gap-3 cursor-pointer transition-all ${paymentMethod === 'CASH' ? 'border-brand-red bg-red-50 shadow-card' : 'border-line bg-surface hover:border-[#DDE3EB]'}`}>
                   <input type="radio" name="payment" value="CASH" checked={paymentMethod === 'CASH'} onChange={() => setPaymentMethod('CASH')} className="mt-1 accent-brand-red" />
                   <div className="flex-1">
-                    <div className={`text-sm font-bold ${paymentMethod === 'CASH' ? 'text-brand-red' : 'text-gray-900'}`}>
+                    <div className={`text-sm font-bold ${paymentMethod === 'CASH' ? 'text-brand-red' : 'text-ink'}`}>
                       <Wallet className="w-4 h-4 inline mr-1.5" />
                       {dict.checkout.payCash}
                     </div>
-                    <div className="text-xs text-gray-500 mt-1">{lang === 'ru' ? 'Оплата при получении' : 'Qabul qilganda to‘lash'}</div>
+                    <div className="text-xs text-ink-sub mt-1">{lang === 'ru' ? 'Оплата при получении' : 'Qabul qilganda to‘lash'}</div>
                   </div>
                 </label>
 
-                <label className={`p-4 rounded-xl border-2 flex items-start gap-3 cursor-pointer transition-all ${paymentMethod === 'CLICK' ? 'border-brand-red bg-red-50 shadow-sm' : 'border-gray-200 bg-white hover:border-gray-300'}`}>
+                <label className={`p-4 rounded-[16px] border-2 flex items-start gap-3 cursor-pointer transition-all ${paymentMethod === 'CLICK' ? 'border-brand-red bg-red-50 shadow-card' : 'border-line bg-surface hover:border-[#DDE3EB]'}`}>
                   <input type="radio" name="payment" value="CLICK" checked={paymentMethod === 'CLICK'} onChange={() => setPaymentMethod('CLICK')} className="mt-1 accent-brand-red" />
                   <div className="flex-1">
-                    <div className={`text-sm font-bold ${paymentMethod === 'CLICK' ? 'text-brand-red' : 'text-gray-900'}`}>Click / Payme</div>
-                    <div className="text-xs text-gray-500 mt-1">{lang === 'ru' ? 'Ссылка после подтверждения' : 'Tasdiqdan keyin link SMS orqali'}</div>
+                    <div className={`text-sm font-bold ${paymentMethod === 'CLICK' ? 'text-brand-red' : 'text-ink'}`}>Click / Payme</div>
+                    <div className="text-xs text-ink-sub mt-1">{lang === 'ru' ? 'Ссылка после подтверждения' : 'Tasdiqdan keyin link SMS orqali'}</div>
                   </div>
                 </label>
 
-                <label className={`p-4 rounded-xl border-2 flex items-start gap-3 cursor-pointer transition-all sm:col-span-2 ${paymentMethod === 'BANK_TRANSFER' ? 'border-brand-red bg-red-50 shadow-sm' : 'border-gray-200 bg-white hover:border-gray-300'}`}>
+                <label className={`p-4 rounded-[16px] border-2 flex items-start gap-3 cursor-pointer transition-all sm:col-span-2 ${paymentMethod === 'BANK_TRANSFER' ? 'border-brand-red bg-red-50 shadow-card' : 'border-line bg-surface hover:border-[#DDE3EB]'}`}>
                   <input type="radio" name="payment" value="BANK_TRANSFER" checked={paymentMethod === 'BANK_TRANSFER'} onChange={() => setPaymentMethod('BANK_TRANSFER')} className="mt-1 accent-brand-red" />
                   <div className="flex-1">
-                    <div className={`text-sm font-bold ${paymentMethod === 'BANK_TRANSFER' ? 'text-brand-red' : 'text-gray-900'}`}>
+                    <div className={`text-sm font-bold ${paymentMethod === 'BANK_TRANSFER' ? 'text-brand-red' : 'text-ink'}`}>
                       <Building2 className="w-4 h-4 inline mr-1.5" />
                       {dict.checkout.payBank}
                     </div>
-                    <div className="text-xs text-gray-500 mt-1">{lang === 'ru' ? 'Для юр. лиц, договор и счет-фактура' : 'Yuridik shaxslar uchun, shartnoma va hisob-faktura'}</div>
+                    <div className="text-xs text-ink-sub mt-1">{lang === 'ru' ? 'Для юр. лиц, договор и счет-фактура' : 'Yuridik shaxslar uchun, shartnoma va hisob-faktura'}</div>
                   </div>
                 </label>
               </div>
 
               {paymentMethod === 'CLICK' && (
-                <div className="p-3 rounded-xl bg-blue-50 border border-blue-200 text-xs text-blue-900">
+                <div className="p-3 rounded-[16px] bg-blue-50 border border-blue-200 text-xs text-blue-900">
                   {lang === 'ru' ? 'После подтверждения заказа оператором, вы получите SMS с ссылкой для оплаты через Click/Payme.' : 'Buyurtma operator tomonidan tasdiqlangandan so‘ng, Click/Payme orqali to‘lash uchun SMS havola olasiz.'}
                 </div>
               )}
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1.5 flex items-center gap-1.5">
-                  <FileText className="w-4 h-4 text-gray-400" />
+                <label className="block text-sm font-semibold text-ink-soft mb-1.5 flex items-center gap-1.5">
+                  <FileText className="w-4 h-4 text-ink-sub" />
                   {dict.checkout.notes} (ixtiyoriy)
                 </label>
-                <textarea rows={3} value={notes} onChange={(e) => setNotes(e.target.value)} placeholder={lang === 'ru' ? 'Комментарий к заказу...' : 'Buyurtmaga izoh...'} className="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-[16px] md:text-sm text-gray-900 focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20" />
+                <textarea rows={3} value={notes} onChange={(e) => setNotes(e.target.value)} placeholder={lang === 'ru' ? 'Комментарий к заказу...' : 'Buyurtmaga izoh...'} className="w-full bg-surface border border-[#DDE3EB] rounded-[16px] px-4 py-3 text-[16px] md:text-sm text-ink focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20" />
               </div>
 
-              <label className="flex items-start gap-2.5 p-3 rounded-xl bg-gray-50 border border-gray-200 cursor-pointer">
+              <label className="flex items-start gap-2.5 p-3 rounded-[16px] bg-surface-soft border border-line cursor-pointer">
                 <input type="checkbox" checked={agree} onChange={(e) => setAgree(e.target.checked)} className="mt-0.5 w-4 h-4 accent-brand-red" />
-                <span className="text-xs text-gray-600 leading-relaxed">
+                <span className="text-xs text-ink-soft leading-relaxed">
                   {lang === 'ru' ? (
                     <>
                       Я согласен с <a href={`/${lang}/terms`} className="text-brand-red underline">публичной офертой</a> и <a href={`/${lang}/privacy`} className="text-brand-red underline">политикой конфиденциальности</a>
@@ -403,37 +403,37 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
           <div className="lg:col-span-5 space-y-4">
             <FreeShippingProgress total={totalPrice} lang={lang} freeThreshold={1000000} />
 
-            <div className="bg-white border border-gray-200 rounded-2xl p-5 sm:p-6 space-y-5 shadow-sm lg:sticky lg:top-24">
-              <h3 className="text-lg font-bold text-gray-900 border-b border-gray-100 pb-3">{dict.checkout.orderSummary}</h3>
+            <div className="bg-surface rounded-[20px] border border-line shadow-card p-5 sm:p-6 space-y-5 shadow-card lg:sticky lg:top-24">
+              <h3 className="text-lg font-bold text-ink border-b border-line-soft pb-3">{dict.checkout.orderSummary}</h3>
 
               <div className="space-y-2.5 max-h-80 overflow-y-auto pr-1 -mr-1">
                 {items.map((item) => (
-                  <div key={item.id} className="flex items-center justify-between gap-3 p-3 rounded-xl bg-[#F8F9FA] border border-gray-200 text-sm">
+                  <div key={item.id} className="flex items-center justify-between gap-3 p-3 rounded-[16px] bg-surface-soft border border-line text-sm">
                     <div className="flex-1 min-w-0">
-                      <p className="font-bold text-gray-900 truncate">{item.title}</p>
-                      <p className="text-xs text-gray-500">{item.quantity} dona × {formatPrice(item.price, lang)}</p>
+                      <p className="font-bold text-ink truncate">{item.title}</p>
+                      <p className="text-xs text-ink-sub">{item.quantity} dona × {formatPrice(item.price, lang)}</p>
                     </div>
-                    <span className="font-bold text-gray-900 shrink-0">{formatPrice(item.price * item.quantity, lang)}</span>
+                    <span className="font-bold text-ink shrink-0">{formatPrice(item.price * item.quantity, lang)}</span>
                   </div>
                 ))}
               </div>
 
               <div className="space-y-3 text-sm">
-                <div className="flex justify-between text-gray-600">
+                <div className="flex justify-between text-ink-soft">
                   <span>{lang === 'ru' ? 'Товары' : 'Mahsulotlar'}:</span>
-                  <span className="font-semibold text-gray-900">{items.length} ta tur, {totalQuantity} dona</span>
+                  <span className="font-semibold text-ink">{items.length} ta tur, {totalQuantity} dona</span>
                 </div>
-                <div className="flex justify-between text-gray-600">
+                <div className="flex justify-between text-ink-soft">
                   <span>{lang === 'ru' ? 'Доставка' : 'Yetkazib berish'}:</span>
                   <span className="text-emerald-700 font-semibold">{deliveryType === 'PICKUP' ? (lang === 'ru' ? 'Бесплатно' : 'Bepul') : lang === 'ru' ? 'Уточнит оператор' : 'Operator aniqlaydi'}</span>
                 </div>
-                <div className="flex justify-between text-gray-600">
+                <div className="flex justify-between text-ink-soft">
                   <span>{lang === 'ru' ? 'Оплата' : 'To‘lov'}:</span>
-                  <span className="font-medium text-gray-900">{paymentMethod === 'CASH' ? dict.checkout.payCash : paymentMethod === 'CLICK' ? 'Click / Payme' : dict.checkout.payBank}</span>
+                  <span className="font-medium text-ink">{paymentMethod === 'CASH' ? dict.checkout.payCash : paymentMethod === 'CLICK' ? 'Click / Payme' : dict.checkout.payBank}</span>
                 </div>
 
                 {appliedCoupon && (
-                  <div className="flex justify-between text-emerald-700 font-bold p-2.5 rounded-xl bg-emerald-50 border border-emerald-200">
+                  <div className="flex justify-between text-emerald-700 font-bold p-2.5 rounded-[16px] bg-emerald-50 border border-emerald-200">
                     <span className="flex items-center gap-1.5">
                       <Tag className="w-4 h-4" />
                       {appliedCoupon.code} -{appliedCoupon.discountPercent}%
@@ -442,20 +442,20 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
                   </div>
                 )}
 
-                <div className="flex justify-between text-xl font-black text-gray-900 pt-4 border-t border-gray-200 uppercase">
+                <div className="flex justify-between text-xl font-black text-ink pt-4 border-t border-line uppercase">
                   <span>{dict.cart.subtotal}:</span>
                   <span className="text-brand-red">{formatPrice(finalTotal, lang)}</span>
                 </div>
-                {couponDiscount > 0 && <div className="text-xs text-gray-400 line-through text-right">{formatPrice(totalPrice, lang)}</div>}
-                <p className="text-xs text-gray-500">{lang === 'ru' ? 'Без учета доставки' : 'Yetkazib berish narxisiz'}</p>
+                {couponDiscount > 0 && <div className="text-xs text-ink-sub line-through text-right">{formatPrice(totalPrice, lang)}</div>}
+                <p className="text-xs text-ink-sub">{lang === 'ru' ? 'Без учета доставки' : 'Yetkazib berish narxisiz'}</p>
               </div>
 
-              <Button type="submit" size="lg" isLoading={loading} disabled={loading} className="w-full gap-2 font-bold text-base bg-brand-red hover:bg-brand-red-dark text-white rounded-xl shadow-red py-4 min-h-[52px]">
+              <Button type="submit" size="lg" isLoading={loading} disabled={loading} className="w-full gap-2 text-base py-4 min-h-[52px]">
                 <CheckCircle2 className="w-5 h-5" />
                 <span>{dict.checkout.confirmOrder}</span>
               </Button>
 
-              <div className="flex items-center justify-center gap-2 text-xs text-gray-500 pt-2">
+              <div className="flex items-center justify-center gap-2 text-xs text-ink-sub pt-2">
                 <ShieldCheck className="w-4 h-4 text-emerald-600" />
                 <span>{lang === 'ru' ? 'Безопасный заказ' : 'Xavfsiz buyurtma'}</span>
                 <span className="w-1 h-1 rounded-full bg-gray-300" />
@@ -463,10 +463,10 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
               </div>
 
               <div className="flex items-center justify-center gap-1.5 pt-2">
-                <span className="px-2 py-1 rounded bg-gray-100 border border-gray-200 text-[10px] font-bold">CLICK</span>
-                <span className="px-2 py-1 rounded bg-gray-100 border border-gray-200 text-[10px] font-bold">PAYME</span>
-                <span className="px-2 py-1 rounded bg-gray-100 border border-gray-200 text-[10px] font-bold">UZUM</span>
-                <span className="px-2 py-1 rounded bg-gray-900 text-white text-[10px] font-bold">SSL</span>
+                <span className="px-2 py-1 rounded bg-surface-soft border border-line text-[10px] font-bold">CLICK</span>
+                <span className="px-2 py-1 rounded bg-surface-soft border border-line text-[10px] font-bold">PAYME</span>
+                <span className="px-2 py-1 rounded bg-surface-soft border border-line text-[10px] font-bold">UZUM</span>
+                <span className="px-2 py-1 rounded bg-ink text-white text-[10px] font-bold">SSL</span>
               </div>
             </div>
           </div>

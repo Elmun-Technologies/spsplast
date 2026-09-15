@@ -14,17 +14,17 @@ export default function Error({ error, reset }: { error: Error; reset: () => voi
   const isDev = process.env.NODE_ENV !== 'production';
 
   return (
-    <div className="bg-[#F8F9FA] min-h-screen py-16">
+    <div className="bg-surface-page min-h-screen py-16">
       <Container>
-        <div className="max-w-md mx-auto bg-white border border-gray-200 rounded-2xl p-8 text-center space-y-4 shadow-sm">
-          <div className="w-14 h-14 rounded-2xl bg-red-50 border border-red-200 flex items-center justify-center mx-auto">
+        <div className="max-w-md mx-auto bg-surface border border-line rounded-[20px] p-8 text-center space-y-4 shadow-sm">
+          <div className="w-14 h-14 rounded-[20px] bg-red-50 border border-red-200 flex items-center justify-center mx-auto">
             <AlertTriangle className="w-7 h-7 text-brand-red" />
           </div>
-          <h1 className="text-lg font-bold text-gray-900">
+          <h1 className="text-lg font-bold text-ink">
             {isRu ? 'Что-то пошло не так' : 'Xatolik yuz berdi'}
           </h1>
           {/* Raw error text is only shown in development — production users get an actionable message */}
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-ink-sub">
             {isDev && error?.message
               ? error.message
               : isRu
@@ -33,14 +33,14 @@ export default function Error({ error, reset }: { error: Error; reset: () => voi
           </p>
 
           <div className="flex flex-col gap-2">
-            <Button onClick={reset} className="w-full rounded-xl gap-2 min-h-[48px]">
+            <Button onClick={reset} className="w-full rounded-[16px] gap-2 min-h-[48px]">
               <RefreshCw className="w-4 h-4" />
               {isRu ? 'Загрузить снова' : 'Qayta yuklash'}
             </Button>
 
             <Link
               href={`/${isRu ? 'ru' : 'uz'}`}
-              className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-gray-300 bg-white text-sm font-bold text-gray-900 hover:bg-gray-50 min-h-[48px]"
+              className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-[16px] border border-[#DDE3EB] bg-surface text-sm font-bold text-ink hover:bg-surface-soft min-h-[48px]"
             >
               {isRu ? 'На главную' : 'Bosh sahifaga'}
             </Link>

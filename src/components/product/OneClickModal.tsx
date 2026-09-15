@@ -84,34 +84,34 @@ export const OneClickModal: React.FC<OneClickModalProps> = ({ isOpen, onClose, l
     <Modal isOpen={isOpen} onClose={reset} title={lang === 'ru' ? 'Заказ в 1 клик' : '1-klikda buyurtma'}>
       {success ? (
         <div className="text-center py-6 space-y-4">
-          <div className="w-16 h-16 rounded-2xl bg-emerald-100 text-emerald-600 border border-emerald-200 flex items-center justify-center mx-auto">
+          <div className="w-16 h-16 rounded-[20px] bg-emerald-100 text-emerald-600 border border-emerald-200 flex items-center justify-center mx-auto">
             <CheckCircle2 className="w-8 h-8" />
           </div>
           <div>
-            <h4 className="text-lg font-bold text-gray-900">{lang === 'ru' ? 'Заказ принят!' : 'Buyurtma qabul qilindi!'}</h4>
-            <p className="text-sm text-gray-600 mt-1">
+            <h4 className="text-lg font-bold text-ink">{lang === 'ru' ? 'Заказ принят!' : 'Buyurtma qabul qilindi!'}</h4>
+            <p className="text-sm text-ink-soft mt-1">
               {lang === 'ru' ? 'Оператор свяжется с вами в течение 15 минут.' : 'Operator 15 daqiqa ichida siz bilan bog‘lanadi.'}
             </p>
           </div>
-          <Button onClick={reset} className="w-full rounded-xl">
+          <Button onClick={reset} className="w-full rounded-[16px]">
             {lang === 'ru' ? 'Отлично' : 'Tushunarli'}
           </Button>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="p-3 rounded-xl bg-[#F8F9FA] border border-gray-200 flex items-center gap-3">
-            <div className="w-12 h-12 rounded-lg bg-white border border-gray-200 flex items-center justify-center text-xs font-bold text-gray-500">
+          <div className="p-3 rounded-[16px] bg-surface-soft border border-line flex items-center gap-3">
+            <div className="w-12 h-12 rounded-lg bg-surface border border-line flex items-center justify-center text-xs font-bold text-ink-sub">
               SPS
             </div>
             <div className="flex-1 min-w-0">
-              <div className="text-sm font-bold text-gray-900 truncate">{product.title}</div>
-              <div className="text-xs text-gray-500">SKU: {product.sku} • {formatPrice(product.price, lang)}</div>
+              <div className="text-sm font-bold text-ink truncate">{product.title}</div>
+              <div className="text-xs text-ink-sub">SKU: {product.sku} • {formatPrice(product.price, lang)}</div>
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1.5 flex items-center gap-1.5">
-              <User className="w-4 h-4 text-gray-400" />
+            <label className="block text-sm font-semibold text-ink-soft mb-1.5 flex items-center gap-1.5">
+              <User className="w-4 h-4 text-ink-sub" />
               {lang === 'ru' ? 'Ваше имя' : 'Ismingiz'} *
             </label>
             <input
@@ -120,13 +120,13 @@ export const OneClickModal: React.FC<OneClickModalProps> = ({ isOpen, onClose, l
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Jasur"
-              className="w-full px-4 py-3 rounded-xl border border-gray-300 text-[16px] md:text-sm focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 outline-none min-h-[48px]"
+              className="w-full px-4 py-3 rounded-[16px] border border-[#DDE3EB] text-[16px] md:text-sm focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 outline-none min-h-[48px]"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1.5 flex items-center gap-1.5">
-              <Phone className="w-4 h-4 text-gray-400" />
+            <label className="block text-sm font-semibold text-ink-soft mb-1.5 flex items-center gap-1.5">
+              <Phone className="w-4 h-4 text-ink-sub" />
               {lang === 'ru' ? 'Телефон' : 'Telefon'} *
             </label>
             <input
@@ -135,16 +135,16 @@ export const OneClickModal: React.FC<OneClickModalProps> = ({ isOpen, onClose, l
               value={phone}
               onChange={(e) => setPhone(formatPhone(e.target.value))}
               placeholder="+998 90 123 45 67"
-              className="w-full px-4 py-3 rounded-xl border border-gray-300 text-[16px] md:text-sm focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 outline-none min-h-[48px] font-mono"
+              className="w-full px-4 py-3 rounded-[16px] border border-[#DDE3EB] text-[16px] md:text-sm focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 outline-none min-h-[48px] font-mono"
             />
           </div>
 
-          <Button type="submit" isLoading={loading} className="w-full rounded-xl min-h-[48px] font-bold gap-2">
+          <Button type="submit" isLoading={loading} className="w-full rounded-[16px] min-h-[48px] font-bold gap-2">
             <ShoppingBag className="w-4 h-4" />
             {lang === 'ru' ? 'Заказать' : 'Buyurtma berish'}
           </Button>
 
-          <p className="text-xs text-gray-500 text-center">
+          <p className="text-xs text-ink-sub text-center">
             {lang === 'ru' ? 'Без предоплаты, оплата при получении' : 'Oldindan to‘lovsiz, qabul qilganda to‘laysiz'}
           </p>
         </form>

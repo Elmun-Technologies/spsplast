@@ -12,6 +12,10 @@ interface PriceProps {
   className?: string;
 }
 
+/**
+ * Price typography: the current price carries the weight, the old price is a
+ * small grey strike-through, the discount is a solid red pill.
+ */
 export const Price: React.FC<PriceProps> = ({
   price,
   oldPrice,
@@ -30,41 +34,44 @@ export const Price: React.FC<PriceProps> = ({
 
   const sizeStyles = {
     sm: {
-      current: 'text-sm font-bold',
-      old: 'text-xs text-gray-400 line-through',
+      current: 'text-[15px] font-bold',
+      old: 'text-[12px] text-ink-sub line-through',
+      badge: 'text-[10px] px-2 py-0.5',
     },
     md: {
-      current: 'text-base font-bold',
-      old: 'text-xs text-gray-400 line-through',
+      current: 'text-[19px] font-extrabold',
+      old: 'text-[13px] text-ink-sub line-through',
+      badge: 'text-[11px] px-2 py-0.5',
     },
     lg: {
-      current: 'text-lg sm:text-xl font-extrabold',
-      old: 'text-xs sm:text-sm text-gray-400 line-through',
+      current: 'text-xl sm:text-2xl font-extrabold',
+      old: 'text-[13px] sm:text-sm text-ink-sub line-through',
+      badge: 'text-[11px] px-2.5 py-1',
     },
     xl: {
-      current: 'text-2xl sm:text-3xl font-extrabold',
-      old: 'text-sm sm:text-base text-gray-400 line-through',
+      current: 'text-[28px] sm:text-[34px] font-extrabold',
+      old: 'text-sm sm:text-base text-ink-sub line-through',
+      badge: 'text-xs px-3 py-1',
     },
   };
 
   return (
-    <div className={cn('flex flex-wrap items-baseline gap-1.5', className)}>
-      {askPrice ? (
-        <span className={cn('text-gray-900 tracking-tight', sizeStyles[size].current)}>
-          {lang === 'ru' ? 'Цена по запросу' : 'Narx so‘rash'}
-        </span>
-      ) : (
-        <span className={cn('text-gray-900 tracking-tight', sizeStyles[size].current)}>
-          {formatPrice(price, lang)}
-        </span>
-      )}
+    <div className={cn('flex flex-wrap items-baseline gap-x-2 gap-y-1', className)}>
+      <span className={cn('text-ink tracking-[-0.02em]', sizeStyles[size].current)}>
+        {askPrice ? (lang === 'ru' ? 'Цена по запросу' : 'Narx so‘rash') : formatPrice(price, lang)}
+      </span>
+
       {hasDiscount && oldPrice && (
-        <span className={cn(sizeStyles[size].old)}>
-          {formatPrice(oldPrice, lang)}
-        </span>
+        <span className={cn(sizeStyles[size].old)}>{formatPrice(oldPrice, lang)}</span>
       )}
+
       {hasDiscount && showDiscountBadge && (
-        <span className="bg-brand-red text-white text-[10px] font-bold px-1.5 py-0.5 rounded">
+        <span
+          className={cn(
+            'inline-flex items-center rounded-full bg-brand-red text-white font-bold leading-none',
+            sizeStyles[size].badge
+          )}
+        >
           -{discountPercent}%
         </span>
       )}
