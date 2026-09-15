@@ -1,18 +1,25 @@
 import './globals.css';
 import { Inter } from 'next/font/google';
 
+/**
+ * Inter ships as a variable font, so instead of asking Google for six static
+ * weights (6 files x 2 subsets = 12 preloads) we load one variable file per
+ * subset. Same visual result for `font-black`/`font-extrabold`, far less
+ * font CSS and fewer font requests on the critical path.
+ */
 const inter = Inter({
   subsets: ['latin', 'cyrillic'],
   display: 'swap',
   variable: '--font-inter',
-  weight: ['400', '500', '600', '700', '800', '900'],
+  preload: true,
+  adjustFontFallback: true,
+  fallback: ['system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
 });
 
 export const metadata = {
   title: 'SPS — Bruschatka, Bordyur va Plitka Qoliplari, Fasad Dekor',
   description: 'SPS — O‘zbekistonda bruschatka, bordyur va trotuar plitka qoliplari hamda fasad dekor elementlarini ishlab chiqaruvchi zavod. Sifatli xomashyo, zavod narxlari.',
   manifest: '/manifest.json',
-  themeColor: '#E61C24',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
@@ -44,11 +51,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="uz" className={inter.variable}>
-      <head>
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#E61C24" />
-      </head>
-      <body className={`${inter.className} antialiased`}>{children}</body>
+      <body className={`${inter.variable} font-sans antialiased`}>{children}</body>
     </html>
   );
 }

@@ -1,14 +1,16 @@
 import React from 'react';
+import nextDynamic from 'next/dynamic';
 import { notFound } from 'next/navigation';
 import { Header } from '@/components/layout/Header';
-import { Footer } from '@/components/layout/Footer';
 import { StickyMobileContact } from '@/components/layout/StickyMobileContact';
 import { CartDrawer } from '@/components/cart/CartDrawer';
-import { CompareBar } from '@/components/product/CompareBar';
-import { PWAInstallBanner } from '@/components/layout/PWAInstallBanner';
-import { AIAssistant } from '@/components/ui/AIAssistant';
+import { DeferredWidgets } from '@/components/layout/DeferredWidgets';
 import { SWRegister } from '@/components/layout/SWRegister';
 import { isValidLocale, Locale } from '@/lib/i18n';
+
+// Footer is below the fold on every page: keep it out of the initial bundle
+// (it is still server-rendered, so crawlers and no-JS users see it).
+const Footer = nextDynamic(() => import('@/components/layout/Footer').then((m) => m.Footer));
 
 export default function LangLayout({
   children,
@@ -31,12 +33,11 @@ export default function LangLayout({
       <SWRegister />
       <Header lang={lang} />
       <CartDrawer lang={lang} />
-      <CompareBar lang={lang} />
-      <PWAInstallBanner />
-      <AIAssistant lang={lang} />
       <main id="main-content" className="flex-1 pb-24 lg:pb-0">{children}</main>
       <StickyMobileContact lang={lang} />
       <Footer lang={lang} />
+      {/* AI assistant, PWA prompt & compare bar are code-split and mounted after idle */}
+      <DeferredWidgets lang={lang} />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useTransition } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { SlidersHorizontal, X, ChevronDown, Grid, List, Search } from 'lucide-react';
 import Link from 'next/link';
@@ -43,9 +43,14 @@ export const CatalogClient: React.FC<CatalogClientProps> = ({
 }) => {
   const router = useRouter();
   const sp = useSearchParams();
+  // Filter changes are a server round-trip: keep the current grid on screen
+  // (dimmed) instead of blocking the UI, and let the user keep clicking.
+  const [isPending, startTransition] = useTransition();
   const [priceMin, setPriceMin] = useState(searchParams.minPrice || '');
   const [priceMax, setPriceMax] = useState(searchParams.maxPrice || '');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  // On phones the filter panel used to push the product grid below the fold.
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   useEffect(() => {
     if (products.length > 0) {
@@ -65,7 +70,7 @@ export const CatalogClient: React.FC<CatalogClientProps> = ({
       params.set(key, value);
     }
     if (key !== 'page') params.delete('page');
-    router.push(`?${params.toString()}`, { scroll: false });
+    startTransition(() => router.push(`?${params.toString()}`, { scroll: false }));
   };
 
   const handlePriceFilter = () => {
@@ -75,8 +80,20 @@ export const CatalogClient: React.FC<CatalogClientProps> = ({
     if (priceMax) params.set('maxPrice', priceMax);
     else params.delete('maxPrice');
     params.delete('page');
-    router.push(`?${params.toString()}`);
+    startTransition(() => router.push(`?${params.toString()}`));
   };
+
+  // Number of active filters, shown as a badge on the mobile filter toggle
+  const activeFilterCount = [
+    searchParams.category,
+    searchParams.material,
+    searchParams.minPrice,
+    searchParams.maxPrice,
+    searchParams.inStock === 'true' ? '1' : undefined,
+    searchParams.isNew === 'true' ? '1' : undefined,
+    searchParams.isBestseller === 'true' ? '1' : undefined,
+    searchParams.search,
+  ].filter(Boolean).length;
 
   const breadcrumbs = [
     { label: lang === 'ru' ? 'Каталог' : 'Katalog', href: `/${lang}/catalog`, active: !selectedCategory },
@@ -99,6 +116,24 @@ export const CatalogClient: React.FC<CatalogClientProps> = ({
           </div>
 
           <div className="flex flex-wrap items-center gap-2.5">
+            {/* Mobile filters toggle — keeps the product grid above the fold */}
+            <button
+              type="button"
+              onClick={() => setFiltersOpen((v) => !v)}
+              aria-expanded={filtersOpen}
+              aria-controls="catalog-filters"
+              className="lg:hidden inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-gray-300 bg-white text-sm font-bold text-gray-900 min-h-[44px]"
+            >
+              <SlidersHorizontal className="w-4 h-4 text-brand-red" />
+              {lang === 'ru' ? 'Фильтры' : 'Filtrlar'}
+              {activeFilterCount > 0 && (
+                <span className="min-w-[20px] h-5 px-1 rounded-full bg-brand-red text-white text-xs font-bold flex items-center justify-center">
+                  {activeFilterCount}
+                </span>
+              )}
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform ${filtersOpen ? 'rotate-180' : ''}`} />
+            </button>
+
             {/* Sort */}
             <div className="relative">
               <select
@@ -163,7 +198,10 @@ export const CatalogClient: React.FC<CatalogClientProps> = ({
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           {/* Sidebar */}
-          <aside className="lg:col-span-1 space-y-4">
+          <aside
+            id="catalog-filters"
+            className={`lg:col-span-1 space-y-4 ${filtersOpen ? 'block' : 'hidden lg:block'}`}
+          >
             <div className="bg-white border border-gray-200 rounded-2xl p-5 space-y-6 shadow-sm lg:sticky lg:top-24">
               <div className="flex items-center justify-between pb-3 border-b border-gray-100">
                 <div className="flex items-center gap-2 font-bold text-gray-900">
@@ -285,12 +323,14 @@ export const CatalogClient: React.FC<CatalogClientProps> = ({
           </aside>
 
           {/* Products */}
-          <main className="lg:col-span-3 space-y-6">
+          <main className="lg:col-span-3 space-y-6" aria-busy={isPending}>
             {products.length === 0 ? (
               <EmptyState lang={lang} type="catalog" />
             ) : (
               <>
-                <div className={viewMode === 'grid' ? 'grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4' : 'grid grid-cols-1 gap-3'}>
+                <div
+                  className={`${viewMode === 'grid' ? 'grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4' : 'grid grid-cols-1 gap-3'} transition-opacity duration-200 ${isPending ? 'opacity-60 pointer-events-none' : 'opacity-100'}`}
+                >
                   {products.map((product: any) => (
                     <ProductCard key={product.id} product={product} lang={lang} />
                   ))}

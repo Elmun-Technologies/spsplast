@@ -1,17 +1,20 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { db } from '@/lib/db';
 import { getDictionary, Locale } from '@/lib/i18n';
-import { MoldResultShowcase } from '@/components/product/MoldResultShowcase';
 import { ProductDetailClient } from './ProductDetailClient';
 import { Container } from '@/components/ui/Container';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { RecentlyViewed, RecentlyViewedTracker } from '@/components/product/RecentlyViewed';
-import { ProductReviews } from '@/components/product/ProductReviews';
 import { ProductCard } from '@/components/product/ProductCard';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { getProductsServer } from '@/lib/services/productService';
+
+// Below-the-fold widgets: separate chunks, still server-rendered for SEO.
+const MoldResultShowcase = dynamic(() => import('@/components/product/MoldResultShowcase').then((m) => m.MoldResultShowcase));
+const ProductReviews = dynamic(() => import('@/components/product/ProductReviews').then((m) => m.ProductReviews));
 
 interface ProductPageProps {
   params: { lang: Locale; slug: string };
@@ -196,7 +199,7 @@ export default async function ProductDetailPage({
         <RecentlyViewed lang={lang} currentProductId={mappedProduct.id} />
 
         {/* Reviews */}
-        <section className="pt-4">
+        <section className="pt-4 cv-auto">
           <ProductReviews lang={lang} productId={mappedProduct.id} />
         </section>
 

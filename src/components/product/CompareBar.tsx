@@ -35,7 +35,7 @@ export const CompareBar: React.FC<CompareBarProps> = ({ lang }) => {
         <div className="hidden sm:flex items-center gap-2">
           {items.slice(0, 4).map((item) => (
             <div key={item.id} className="relative w-10 h-10 rounded-lg bg-white border border-gray-200 p-1">
-              <Image src={item.image} alt={item.title} fill className="object-contain p-1" />
+              <Image src={item.image} alt={item.title} fill sizes="40px" className="object-contain p-1" />
               <button
                 onClick={() => remove(item.id)}
                 className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-red-600 text-white rounded-full flex items-center justify-center"

@@ -59,7 +59,7 @@ export default async function BlogPage({ params: { lang } }: { params: { lang: L
                   >
                     <div className="space-y-4">
                       <div className="relative aspect-[16/9] rounded-xl overflow-hidden bg-[#F8F9FA] border border-gray-100">
-                        <Image src={post.coverImage} alt={title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <Image src={post.coverImage} alt={title} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover group-hover:scale-105 transition-transform duration-500" />
                       </div>
 
                       <div className="flex items-center gap-4 text-xs text-gray-500">

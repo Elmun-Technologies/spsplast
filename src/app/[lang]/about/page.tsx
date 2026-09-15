@@ -34,6 +34,7 @@ export default function AboutPage({ params: { lang } }: { params: { lang: Locale
                 src="/catalog/catalog-053.jpg"
                 alt="SPS Factory"
                 fill
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover"
               />
             </div>

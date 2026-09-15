@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import { ShoppingBag, Check, ImageOff, ArrowRight, Share2, Heart, Eye, ArrowRightLeft } from 'lucide-react';
 import { useCartStore } from '@/lib/store/cartStore';
 import { useWishlistStore } from '@/lib/store/wishlistStore';
@@ -11,8 +12,22 @@ import { Locale } from '@/lib/i18n';
 import { trackEvent } from '@/lib/analytics';
 import { Price } from '@/components/ui/Price';
 import { StockBadge } from '@/components/ui/StockBadge';
-import { QuickViewModal } from './QuickViewModal';
-import { B2BModal } from './B2BModal';
+import { useCanHover } from '@/lib/hooks/useMediaQuery';
+
+/**
+ * Modal dialogs are opened from a hover action, so their code does not need to
+ * be part of the catalog/home bundle. They are loaded on demand the first time
+ * a card actually opens one.
+ */
+const QuickViewModal = dynamic(
+  () => import('./QuickViewModal').then((m) => m.QuickViewModal),
+  { ssr: false }
+);
+
+const B2BModal = dynamic(
+  () => import('./B2BModal').then((m) => m.B2BModal),
+  { ssr: false }
+);
 
 export interface ProductCardData {
   id: string;
@@ -36,7 +51,7 @@ interface ProductCardProps {
   featured?: boolean;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product, lang, featured = false }) => {
+const ProductCardBase: React.FC<ProductCardProps> = ({ product, lang, featured = false }) => {
   const addItem = useCartStore((s) => s.addItem);
   const toggleWishlist = useWishlistStore((s) => s.toggleWishlist);
   const isWishlisted = useWishlistStore((s) => s.isWishlisted(product.id));
@@ -45,8 +60,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, lang, feature
   const [added, setAdded] = React.useState(false);
   const [imgError, setImgError] = React.useState(false);
   const [imgLoaded, setImgLoaded] = React.useState(false);
+  const [hovered, setHovered] = React.useState(false);
   const [quickOpen, setQuickOpen] = React.useState(false);
   const [b2bOpen, setB2bOpen] = React.useState(false);
+  const addedTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Only devices with a real pointer get the hover image and hover actions.
+  const canHover = useCanHover();
+
+  React.useEffect(() => () => {
+    if (addedTimer.current) clearTimeout(addedTimer.current);
+  }, []);
 
   // If price is not set (0), this is a price-on-request catalog item -> route to B2B inquiry
   const askPrice = !product.price || product.price <= 0;
@@ -55,6 +79,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, lang, feature
   const mainImage = product.images?.[0]?.url;
   // Prefer the finished-result photo as the hover image (QOLIP -> NATIJA), else fall back to the 2nd image
   const hoverImage = product.images?.find((i) => i.type === 'FINISHED_RESULT')?.url || product.images?.[1]?.url;
+  // The hover image is only mounted after a real hover, so touch devices never download it.
+  const showHoverImage = Boolean(hoverImage) && canHover && hovered;
 
   const hasDiscount = Boolean(product.oldPrice && product.oldPrice > product.price);
   const discountPercent = hasDiscount && product.oldPrice ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100) : 0;
@@ -73,7 +99,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, lang, feature
     });
     trackEvent('add_to_cart', { item_id: product.id, item_name: title, price: product.price });
     setAdded(true);
-    setTimeout(() => setAdded(false), 2000);
+    if (addedTimer.current) clearTimeout(addedTimer.current);
+    addedTimer.current = setTimeout(() => setAdded(false), 2000);
   };
 
   const handleWishlist = (e: React.MouseEvent) => {
@@ -115,6 +142,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, lang, feature
   return (
     <div
       className={`group relative bg-white border border-[#E5E7EB] rounded-xl overflow-hidden flex flex-col justify-between transition-all duration-300 hover:border-[#111827] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] ${featured ? 'md:col-span-2 md:row-span-2' : ''}`}
+      onMouseEnter={canHover ? () => setHovered(true) : undefined}
+      onMouseLeave={canHover ? () => setHovered(false) : undefined}
     >
       {/* Industrial top line on hover */}
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-gray-900 opacity-0 group-hover:opacity-100 transition-opacity z-10" />
@@ -138,40 +167,50 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, lang, feature
         )}
       </div>
 
-      {/* Actions — appear on hover, industrial */}
-      <div className="absolute top-3 right-3 z-10 flex flex-col gap-1.5 opacity-0 group-hover:opacity-100 translate-x-1 group-hover:translate-x-0 transition-all duration-200">
+      {/*
+        Actions — hover-revealed on pointer devices, always visible on touch
+        (`hover-reveal` in globals.css) so wishlist/quick view stay reachable.
+        Solid backgrounds instead of backdrop-blur: 4 blurred layers per card
+        is a real paint cost on mobile GPUs.
+      */}
+      <div className="hover-reveal absolute top-3 right-3 z-10 flex flex-col gap-1.5 opacity-0 group-hover:opacity-100 translate-x-1 group-hover:translate-x-0 transition-all duration-200">
         <button
           onClick={handleWishlist}
-          className={`w-9 h-9 rounded-full border flex items-center justify-center backdrop-blur-md transition-all ${isWishlisted ? 'bg-[#E61C24] border-[#E61C24] text-white' : 'bg-white/90 border-[#E5E7EB] text-[#6B7280] hover:text-[#E61C24] hover:border-[#E61C24]/30'}`}
-          aria-label="Wishlist"
+          className={`w-9 h-9 rounded-full border flex items-center justify-center transition-all ${isWishlisted ? 'bg-[#E61C24] border-[#E61C24] text-white' : 'bg-white border-[#E5E7EB] text-[#6B7280] hover:text-[#E61C24] hover:border-[#E61C24]/30'}`}
+          aria-label={lang === 'ru' ? 'В избранное' : 'Sevimlilarga'}
         >
           <Heart className={`w-4 h-4 ${isWishlisted ? 'fill-white' : ''}`} />
         </button>
         <button
           onClick={handleCompare}
-          className={`w-9 h-9 rounded-full border flex items-center justify-center backdrop-blur-md transition-all ${isCompared ? 'bg-[#111827] border-[#111827] text-white' : 'bg-white/90 border-[#E5E7EB] text-[#6B7280] hover:text-[#111827]'}`}
-          aria-label="Compare"
+          className={`w-9 h-9 rounded-full border flex items-center justify-center transition-all ${isCompared ? 'bg-[#111827] border-[#111827] text-white' : 'bg-white border-[#E5E7EB] text-[#6B7280] hover:text-[#111827]'}`}
+          aria-label={lang === 'ru' ? 'Сравнить' : 'Taqqoslash'}
         >
           <ArrowRightLeft className="w-4 h-4" />
         </button>
         <button
           onClick={(e) => { e.preventDefault(); e.stopPropagation(); setQuickOpen(true); }}
-          className="w-9 h-9 rounded-full bg-white/90 border border-[#E5E7EB] flex items-center justify-center text-[#6B7280] hover:text-[#111827] backdrop-blur-md transition-all"
-          aria-label="Quick view"
+          className="w-9 h-9 rounded-full bg-white border border-[#E5E7EB] flex items-center justify-center text-[#6B7280] hover:text-[#111827] transition-all"
+          aria-label={lang === 'ru' ? 'Быстрый просмотр' : 'Tez ko‘rish'}
         >
           <Eye className="w-4 h-4" />
         </button>
         <button
           onClick={handleShare}
-          className="w-9 h-9 rounded-full bg-white/90 border border-[#E5E7EB] flex items-center justify-center text-[#6B7280] hover:text-[#111827] backdrop-blur-md transition-all"
-          aria-label="Share"
+          className="w-9 h-9 rounded-full bg-white border border-[#E5E7EB] flex items-center justify-center text-[#6B7280] hover:text-[#111827] transition-all"
+          aria-label={lang === 'ru' ? 'Поделиться' : 'Ulashish'}
         >
           <Share2 className="w-4 h-4" />
         </button>
       </div>
 
-      <QuickViewModal isOpen={quickOpen} onClose={() => setQuickOpen(false)} lang={lang} product={product} />
-      <B2BModal isOpen={b2bOpen} onClose={() => setB2bOpen(false)} lang={lang} productName={title} productId={product.id} />
+      {/* Modals are mounted only while open (and code-split) */}
+      {quickOpen && (
+        <QuickViewModal isOpen onClose={() => setQuickOpen(false)} lang={lang} product={product} />
+      )}
+      {b2bOpen && (
+        <B2BModal isOpen onClose={() => setB2bOpen(false)} lang={lang} productName={title} productId={product.id} />
+      )}
 
       {/* Image — industrial grid + premium */}
       <Link
@@ -185,17 +224,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, lang, feature
               src={mainImage}
               alt={title}
               fill
-              sizes="(max-width: 768px) 50vw, 25vw"
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
               onError={() => setImgError(true)}
               onLoad={() => setImgLoaded(true)}
               className="object-contain p-5 group-hover:scale-[1.03] transition-transform duration-500 ease-out"
             />
-            {hoverImage && (
+            {showHoverImage && (
               <Image
-                src={hoverImage}
+                src={hoverImage as string}
                 alt={`${title} hover`}
                 fill
-                sizes="25vw"
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 className="object-contain p-5 opacity-0 group-hover:opacity-100 transition-opacity duration-400 bg-white"
               />
             )}
@@ -270,3 +309,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, lang, feature
     </div>
   );
 };
+
+/**
+ * Catalog pages render this card 24x, and the parent (CatalogClient) re-renders
+ * on every keystroke inside the price filter inputs. Memoising keeps those
+ * interactions instant.
+ */
+export const ProductCard = React.memo(ProductCardBase);
+ProductCard.displayName = 'ProductCard';

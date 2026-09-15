@@ -102,11 +102,15 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
             return;
         }
 
+        const controller = new AbortController();
+
         const timer = setTimeout(async () => {
             setIsSearching(true);
             try {
                 const categoryParam = selectedCategorySlug ? `&category=${encodeURIComponent(selectedCategorySlug)}` : '';
-                const res = await fetch(`/api/search?q=${encodeURIComponent(searchQuery.trim())}${categoryParam}`);
+                const res = await fetch(`/api/search?q=${encodeURIComponent(searchQuery.trim())}${categoryParam}`, {
+                    signal: controller.signal,
+                });
                 if (res.ok) {
                     const data = await res.json();
                     setSuggestions({
@@ -116,13 +120,19 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                     setShowSuggestions(true);
                 }
             } catch (err) {
-                console.error('Search suggestion error:', err);
+                // Aborted requests are expected (typing fast / navigation) — stay silent
+                if ((err as Error)?.name !== 'AbortError') {
+                    console.error('Search suggestion error:', err);
+                }
             } finally {
                 setIsSearching(false);
             }
         }, 250);
 
-        return () => clearTimeout(timer);
+        return () => {
+            clearTimeout(timer);
+            controller.abort();
+        };
     }, [searchQuery, selectedCategorySlug]);
 
     const handleSearchSubmit = (e: React.FormEvent) => {
@@ -361,7 +371,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                                                         >
                                                             <div className="w-11 h-11 relative bg-[#F8F9FA] rounded-lg border border-gray-200 shrink-0 p-1">
                                                                 {image ? (
-                                                                    <Image src={image} alt={title} fill className="object-contain p-0.5" />
+                                                                    <Image src={image} alt={title} fill sizes="44px" className="object-contain p-0.5" />
                                                                 ) : (
                                                                     <div className="w-full h-full flex items-center justify-center text-[10px] font-bold text-gray-400">SPS</div>
                                                                 )}
@@ -526,6 +536,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                                                                 src={cat.image}
                                                                 alt={parentName}
                                                                 fill
+                                                                sizes="28px"
                                                                 className="object-contain p-1"
                                                             />
                                                         </div>

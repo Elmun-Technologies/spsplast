@@ -54,7 +54,7 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({ category, lang }) =>
             src={category.image}
             alt={name}
             fill
-            sizes="20vw"
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw"
             onError={() => setImgError(true)}
             className="object-contain p-4 group-hover:scale-[1.04] transition-transform duration-500"
           />

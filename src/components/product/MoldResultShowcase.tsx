@@ -87,7 +87,7 @@ export const MoldResultShowcase: React.FC<MoldResultShowcaseProps> = ({
                 <Badge variant="dark" size="sm">QOLIP</Badge>
               </div>
               {moldImage && !moldErr ? (
-                <Image src={moldImage} alt={moldTitle} fill sizes="40vw" onError={() => setMoldErr(true)} className="object-contain p-3" />
+                <Image src={moldImage} alt={moldTitle} fill sizes="(max-width: 768px) 100vw, 40vw" onError={() => setMoldErr(true)} className="object-contain p-3" />
               ) : (
                 <div className="flex flex-col items-center justify-center text-gray-400 p-4">
                   <ImageOff className="w-7 h-7 mb-1" />
@@ -114,7 +114,7 @@ export const MoldResultShowcase: React.FC<MoldResultShowcaseProps> = ({
                 <Badge variant="red" size="sm">BETON NATIJA</Badge>
               </div>
               {resultImage && !resultErr ? (
-                <Image src={resultImage} alt={resultTitle} fill sizes="40vw" onError={() => setResultErr(true)} className="object-contain p-3" />
+                <Image src={resultImage} alt={resultTitle} fill sizes="(max-width: 768px) 100vw, 40vw" onError={() => setResultErr(true)} className="object-contain p-3" />
               ) : (
                 <div className="flex flex-col items-center justify-center text-gray-400 p-4">
                   <ImageOff className="w-7 h-7 mb-1" />

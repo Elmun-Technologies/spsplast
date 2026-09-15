@@ -3,7 +3,6 @@ const nextConfig = {
   reactStrictMode: true,
   compress: true,
   poweredByHeader: false,
-  swcMinify: true,
   images: {
     remotePatterns: [
       { protocol: 'http', hostname: 'localhost' },
@@ -40,6 +39,15 @@ const nextConfig = {
       {
         source: '/icons/(.*)',
         headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+      },
+      {
+        // Catalog photography is static and heavy: let browsers/CDN reuse it.
+        source: '/catalog/(.*)',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=604800, stale-while-revalidate=604800' }],
+      },
+      {
+        source: '/images/(.*)',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=604800, stale-while-revalidate=604800' }],
       },
       {
         source: '/manifest.json',

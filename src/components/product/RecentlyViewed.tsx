@@ -16,7 +16,8 @@ interface RecentlyViewedProps {
 }
 
 export const RecentlyViewed: React.FC<RecentlyViewedProps> = ({ lang, currentProductId }) => {
-  const { items, clearRecent } = useRecentStore();
+  const items = useRecentStore((s) => s.items);
+  const clearRecent = useRecentStore((s) => s.clearRecent);
   const filtered = items.filter((i) => i.id !== currentProductId).slice(0, 6);
 
   if (filtered.length === 0) return null;
@@ -46,7 +47,7 @@ export const RecentlyViewed: React.FC<RecentlyViewedProps> = ({ lang, currentPro
             >
               <div className="relative aspect-square bg-[#F8F9FA] rounded-lg border border-gray-100 overflow-hidden p-2 mb-2">
                 {p.image ? (
-                  <Image src={p.image} alt={p.title} fill className="object-contain p-2 group-hover:scale-105 transition-transform" />
+                  <Image src={p.image} alt={p.title} fill sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw" className="object-contain p-2 group-hover:scale-105 transition-transform" />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-[10px] font-bold text-gray-400">SPS</div>
                 )}

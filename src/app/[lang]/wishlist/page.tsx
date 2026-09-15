@@ -56,7 +56,7 @@ export default function WishlistPage({ params: { lang } }: { params: { lang: Loc
               <div key={item.id} className="group bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-sm transition-all">
                 <Link href={`/${lang}/product/${item.slug}`} className="block relative aspect-[4/3] bg-[#F8F9FA] p-4 border-b border-gray-100">
                   {item.image ? (
-                    <Image src={item.image} alt={item.title} fill className="object-contain p-3 group-hover:scale-105 transition-transform" />
+                    <Image src={item.image} alt={item.title} fill sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw" className="object-contain p-3 group-hover:scale-105 transition-transform" />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-xs font-bold text-gray-400">SPS</div>
                   )}

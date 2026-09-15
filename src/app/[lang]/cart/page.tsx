@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ShoppingBag, Trash2, ArrowRight, AlertTriangle, Tag, X, Check } from 'lucide-react';
@@ -19,13 +19,27 @@ import { trackEvent } from '@/lib/analytics';
 
 export default function CartPage({ params: { lang } }: { params: { lang: Locale } }) {
   const dict = getDictionary(lang);
-  const { items, updateQuantity, removeItem, clearCart, getTotalPrice } = useCartStore();
-  const { appliedCoupon, error: couponError, applyCoupon, removeCoupon, getDiscount, availableCoupons } = useCouponStore();
+  // Narrow selectors: the page no longer re-renders for unrelated store updates
+  // (e.g. the cart drawer opening), and totals are derived from the item list.
+  const items = useCartStore((s) => s.items);
+  const updateQuantity = useCartStore((s) => s.updateQuantity);
+  const removeItem = useCartStore((s) => s.removeItem);
+  const clearCart = useCartStore((s) => s.clearCart);
+  const appliedCoupon = useCouponStore((s) => s.appliedCoupon);
+  const couponError = useCouponStore((s) => s.error);
+  const applyCoupon = useCouponStore((s) => s.applyCoupon);
+  const removeCoupon = useCouponStore((s) => s.removeCoupon);
+  const availableCoupons = useCouponStore((s) => s.availableCoupons);
+
   const [showClearConfirm, setShowClearConfirm] = useState(false);
   const [couponInput, setCouponInput] = useState('');
 
-  const totalPrice = getTotalPrice();
-  const discount = getDiscount(totalPrice);
+  const totalQuantity = useMemo(() => items.reduce((a, b) => a + b.quantity, 0), [items]);
+  const totalPrice = useMemo(() => items.reduce((sum, i) => sum + i.price * i.quantity, 0), [items]);
+  const discount = useMemo(
+    () => (appliedCoupon ? Math.round((totalPrice * appliedCoupon.discountPercent) / 100) : 0),
+    [appliedCoupon, totalPrice]
+  );
   const finalTotal = totalPrice - discount;
 
   const handleClear = () => {
@@ -52,7 +66,7 @@ export default function CartPage({ params: { lang } }: { params: { lang: Locale 
             <h1 className="text-2xl font-bold text-gray-900 tracking-tight">{dict.cart.title}</h1>
             {items.length > 0 && (
               <span className="px-3 py-1 rounded-full bg-gray-900 text-white text-xs font-bold">
-                {items.length} ta tur • {items.reduce((a, b) => a + b.quantity, 0)} dona
+                {items.length} ta tur • {totalQuantity} dona
               </span>
             )}
           </div>
@@ -114,7 +128,7 @@ export default function CartPage({ params: { lang } }: { params: { lang: Locale 
                 >
                   <div className="flex items-center gap-3.5 w-full sm:w-auto">
                     <div className="relative w-20 h-20 rounded-xl overflow-hidden shrink-0 bg-[#F8F9FA] border border-gray-200 p-2">
-                      <Image src={item.image} alt={item.title} fill className="object-contain p-2" />
+                      <Image src={item.image} alt={item.title} fill sizes="96px" className="object-contain p-2" />
                     </div>
 
                     <div className="min-w-0">
@@ -203,7 +217,7 @@ export default function CartPage({ params: { lang } }: { params: { lang: Locale 
                 <div className="space-y-3 text-sm pt-4 border-t border-gray-100">
                   <div className="flex justify-between text-gray-600">
                     <span>{lang === 'ru' ? 'Товары' : 'Mahsulotlar'}:</span>
-                    <span className="font-semibold text-gray-900">{items.length} ta tur • {items.reduce((a, b) => a + b.quantity, 0)} dona</span>
+                    <span className="font-semibold text-gray-900">{items.length} ta tur • {totalQuantity} dona</span>
                   </div>
                   <div className="flex justify-between text-gray-600">
                     <span>{lang === 'ru' ? 'Доставка' : 'Yetkazib berish'}:</span>

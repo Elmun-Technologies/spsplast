@@ -3,13 +3,18 @@
 import React, { useState } from 'react';
 import { Phone, Send, ShoppingCart, MessageSquare, ChevronUp, X } from 'lucide-react';
 import { useCartStore } from '@/lib/store/cartStore';
+import { useUIStore } from '@/lib/store/uiStore';
 import { trackEvent } from '@/lib/analytics';
 import { COMPANY_CONTACTS } from '@/lib/constants/contacts';
 
 export const StickyMobileContact: React.FC<{ lang?: string }> = () => {
   const cartTotalItems = useCartStore((s) => s.getTotalItems());
   const toggleCart = useCartStore((s) => s.toggleCart);
+  const bottomBarOwner = useUIStore((s) => s.bottomBarOwner);
   const [contactOpen, setContactOpen] = useState(false);
+
+  // Yields the bottom edge to the product page's sticky "add to cart" bar.
+  const hidden = bottomBarOwner === 'product';
 
   return (
     <>
@@ -73,11 +78,15 @@ export const StickyMobileContact: React.FC<{ lang?: string }> = () => {
         </div>
       )}
 
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-gray-200 px-3 py-2.5 shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
+      <div
+        className={`lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-200 px-3 py-2.5 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] transition-transform duration-300 ${hidden ? 'translate-y-full' : 'translate-y-0'}`}
+        aria-hidden={hidden}
+      >
         <div className="flex items-center gap-2.5 max-w-md mx-auto">
           {/* Contact Dropdown Trigger */}
           <button
             onClick={() => setContactOpen(!contactOpen)}
+            tabIndex={hidden ? -1 : undefined}
             className="flex flex-1 items-center justify-center gap-2 py-3 px-4 rounded-xl bg-gray-900 text-white font-bold text-sm hover:bg-black transition-colors"
           >
             <Phone className="w-4 h-4" />
@@ -88,6 +97,7 @@ export const StickyMobileContact: React.FC<{ lang?: string }> = () => {
           {/* Cart Trigger - bigger touch target 44px */}
           <button
             onClick={toggleCart}
+            tabIndex={hidden ? -1 : undefined}
             className="relative flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-brand-red text-white hover:bg-brand-red-dark transition-colors font-bold text-sm shadow-red min-h-[44px]"
             aria-label="Savatni ochish"
           >

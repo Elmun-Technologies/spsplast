@@ -59,7 +59,7 @@ export default function ComparePage({ params: { lang } }: { params: { lang: Loca
                       </button>
                       <Link href={`/${lang}/product/${item.slug}`} className="block">
                         <div className="relative aspect-square bg-[#F8F9FA] rounded-xl border border-gray-200 p-3 mb-2">
-                          <Image src={item.image} alt={item.title} fill className="object-contain p-2" />
+                          <Image src={item.image} alt={item.title} fill sizes="(max-width: 640px) 45vw, 180px" className="object-contain p-2" />
                         </div>
                         <div className="font-bold text-gray-900 line-clamp-2 leading-snug hover:text-brand-red">{item.title}</div>
                       </Link>

@@ -17,10 +17,14 @@ interface CartDrawerProps {
 
 export const CartDrawer: React.FC<CartDrawerProps> = ({ lang }) => {
   const dict = getDictionary(lang);
-  const { items, isOpen, closeCart, updateQuantity, removeItem, getTotalPrice } = useCartStore();
+  const items = useCartStore((s) => s.items);
+  const isOpen = useCartStore((s) => s.isOpen);
+  const closeCart = useCartStore((s) => s.closeCart);
+  const updateQuantity = useCartStore((s) => s.updateQuantity);
+  const removeItem = useCartStore((s) => s.removeItem);
   const [visible, setVisible] = useState(false);
 
-  const totalPrice = getTotalPrice();
+  const totalPrice = items.reduce((sum, i) => sum + i.price * i.quantity, 0);
 
   useEffect(() => {
     if (isOpen) {
@@ -111,7 +115,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ lang }) => {
                   className="flex gap-3 p-3 rounded-xl bg-white border border-gray-200 items-center justify-between shadow-xs hover:shadow-sm transition-shadow"
                 >
                   <div className="relative w-14 h-14 rounded-lg border border-gray-200 overflow-hidden shrink-0 bg-[#F8F9FA] p-1">
-                    <Image src={item.image} alt={item.title} fill className="object-contain p-1" />
+                    <Image src={item.image} alt={item.title} fill sizes="64px" className="object-contain p-1" />
                   </div>
 
                   <div className="flex-1 min-w-0">

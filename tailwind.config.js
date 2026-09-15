@@ -42,7 +42,8 @@ module.exports = {
         '7xl': ['72px', { lineHeight: '1' }],
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        // `var(--font-inter)` is injected by next/font (variable font, self-hosted)
+        sans: ['var(--font-inter)', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
       },
       boxShadow: {
         xs: '0 1px 2px 0 rgba(0, 0, 0, 0.04)',

@@ -2,16 +2,21 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import { ShoppingCart, Building2, Truck, ShieldCheck, Check, Share2, Calculator, X, Play } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { Price } from '@/components/ui/Price';
 import { StockBadge } from '@/components/ui/StockBadge';
 import { QuantitySelector } from '@/components/ui/QuantitySelector';
-import { B2BModal } from '@/components/product/B2BModal';
-import { OneClickModal } from '@/components/product/OneClickModal';
+
+// Dialogs are opened by an explicit click: keep them out of the initial bundle
+// and mount them only while open.
+const B2BModal = dynamic(() => import('@/components/product/B2BModal').then((m) => m.B2BModal), { ssr: false });
+const OneClickModal = dynamic(() => import('@/components/product/OneClickModal').then((m) => m.OneClickModal), { ssr: false });
 import { ProductTabs } from '@/components/product/ProductTabs';
 import { useCartStore } from '@/lib/store/cartStore';
+import { useUIStore } from '@/lib/store/uiStore';
 import { formatPrice } from '@/lib/utils';
 import { getDictionary, Locale } from '@/lib/i18n';
 import { trackEvent } from '@/lib/analytics';
@@ -24,6 +29,7 @@ interface ProductDetailClientProps {
 export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ product, lang }) => {
   const dict = getDictionary(lang);
   const addItem = useCartStore((s) => s.addItem);
+  const setBottomBarOwner = useUIStore((s) => s.setBottomBarOwner);
 
   const images = product.images.length > 0
     ? product.images.map((i: any) => i.url)
@@ -41,13 +47,8 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
   const title = lang === 'ru' ? product.titleRu : product.titleUz;
   const description = lang === 'ru' ? product.descriptionRu : product.descriptionUz;
 
-  // Sticky ATC on scroll + view_item analytics
+  // Sticky ATC bar + view_item analytics
   useEffect(() => {
-    const onScroll = () => {
-      setShowSticky(window.scrollY > 400);
-    };
-    window.addEventListener('scroll', onScroll);
-
     // view_item
     trackEvent('view_item', {
       item_id: product.id,
@@ -56,8 +57,26 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
       item_category: product.category || '',
     });
 
-    return () => window.removeEventListener('scroll', onScroll);
+    // A scroll listener re-renders this whole page on every scroll event.
+    // A sentinel + IntersectionObserver only fires when the bar actually has
+    // to appear/disappear.
+    const sentinel = document.getElementById('atc-sentinel');
+    if (!sentinel) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setShowSticky(!entry.isIntersecting),
+      { rootMargin: '-400px 0px 0px 0px', threshold: 0 }
+    );
+    observer.observe(sentinel);
+    return () => observer.disconnect();
   }, [product.id]);
+
+  // While the sticky ATC bar owns the bottom edge on mobile, the global sticky
+  // contact bar hides itself so the two never stack on top of each other.
+  useEffect(() => {
+    setBottomBarOwner(showSticky ? 'product' : null);
+    return () => setBottomBarOwner(null);
+  }, [showSticky, setBottomBarOwner]);
 
   // Bulk Tier Pricing
   const basePrice = product.price;
@@ -119,15 +138,15 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
     <>
       {/* Sticky ATC Bar */}
       <div
-        className={`fixed bottom-0 left-0 right-0 z-30 bg-white border-t border-gray-200 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] transition-transform duration-300 lg:bottom-auto lg:top-0 lg:shadow-sm ${
-          showSticky ? 'translate-y-0' : 'translate-y-full lg:-translate-y-full'
+        className={`fixed bottom-0 left-0 right-0 z-30 bg-white border-t border-gray-200 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] transition-transform duration-300 ${
+          showSticky ? 'translate-y-0' : 'translate-y-full'
         }`}
       >
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3 min-w-0">
             <div className="w-12 h-12 rounded-lg bg-[#F8F9FA] border border-gray-200 p-1 shrink-0 hidden sm:block">
               <div className="relative w-full h-full">
-                <Image src={images[0]} alt={title} fill className="object-contain p-1" />
+                <Image src={images[0]} alt={title} fill sizes="48px" className="object-contain p-1" />
               </div>
             </div>
             <div className="min-w-0">
@@ -158,6 +177,9 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
         </div>
       </div>
 
+      {/* Sentinel: the sticky ATC bar appears once this scrolls out of view */}
+      <div id="atc-sentinel" aria-hidden="true" className="h-px w-full" />
+
       <div className="bg-[#F8F9FA] p-2 sm:p-3 rounded-2xl border border-gray-200/80 shadow-xs">
         <div className="bg-white rounded-xl p-4 sm:p-6 border border-gray-100">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
@@ -169,6 +191,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                   alt={title}
                   fill
                   priority
+                  sizes="(max-width: 1024px) 100vw, 600px"
                   className="object-contain p-6 group-hover:scale-105 transition-transform duration-500"
                 />
 
@@ -203,7 +226,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                           : 'border-gray-200 opacity-70 hover:opacity-100 hover:border-gray-300'
                       }`}
                     >
-                      <Image src={imgUrl} alt={`${title} ${idx + 1}`} fill className="object-contain p-2" />
+                      <Image src={imgUrl} alt={`${title} ${idx + 1}`} fill sizes="80px" className="object-contain p-2" />
                     </button>
                   ))}
                   {product.videoUrl && (
@@ -480,26 +503,30 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
         />
       </div>
 
-      <B2BModal
-        isOpen={b2bModalOpen}
-        onClose={() => setB2bModalOpen(false)}
-        lang={lang}
-        productName={title}
-        productId={product.id}
-      />
+      {b2bModalOpen && (
+        <B2BModal
+          isOpen
+          onClose={() => setB2bModalOpen(false)}
+          lang={lang}
+          productName={title}
+          productId={product.id}
+        />
+      )}
 
-      <OneClickModal
-        isOpen={oneClickOpen}
-        onClose={() => setOneClickOpen(false)}
-        lang={lang}
-        product={{
-          id: product.id,
-          title,
-          price: currentUnitPrice,
-          sku: product.sku,
-          image: images[0],
-        }}
-      />
+      {oneClickOpen && (
+        <OneClickModal
+          isOpen
+          onClose={() => setOneClickOpen(false)}
+          lang={lang}
+          product={{
+            id: product.id,
+            title,
+            price: currentUnitPrice,
+            sku: product.sku,
+            image: images[0],
+          }}
+        />
+      )}
     </>
   );
 };

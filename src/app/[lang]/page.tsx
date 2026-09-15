@@ -1,19 +1,16 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import nextDynamic from 'next/dynamic';
 import { db } from '@/lib/db';
-import { getDictionary, Locale } from '@/lib/i18n';
+import { Locale } from '@/lib/i18n';
 import { getProductsServer } from '@/lib/services/productService';
 import { ProductCard } from '@/components/product/ProductCard';
 import { CategoryCard } from '@/components/product/CategoryCard';
-import { MoldResultShowcase } from '@/components/product/MoldResultShowcase';
 import { Container } from '@/components/ui/Container';
 import { SectionHeader } from '@/components/ui/SectionHeader';
-import { Badge } from '@/components/ui/Badge';
 import { Price } from '@/components/ui/Price';
 import { DealCountdown } from '@/components/ui/DealCountdown';
-import { RecentlyViewed } from '@/components/product/RecentlyViewed';
-import { B2BBanner } from '@/components/product/B2BBanner';
 import {
   ArrowRight,
   ChevronDown,
@@ -25,6 +22,15 @@ import {
   ShoppingBag,
 } from 'lucide-react';
 
+/**
+ * Below-the-fold sections are lazily imported: their JS is served as separate
+ * chunks (still SSR'd for SEO) instead of competing with the hero + first
+ * product grid for bandwidth during the initial load.
+ */
+const MoldResultShowcase = nextDynamic(() => import('@/components/product/MoldResultShowcase').then((m) => m.MoldResultShowcase));
+const RecentlyViewed = nextDynamic(() => import('@/components/product/RecentlyViewed').then((m) => m.RecentlyViewed));
+const B2BBanner = nextDynamic(() => import('@/components/product/B2BBanner').then((m) => m.B2BBanner));
+
 interface HomePageProps {
   params: { lang: Locale };
 }
@@ -33,8 +39,6 @@ export const revalidate = 60; // ISR 60s for high traffic
 export const dynamic = 'force-static';
 
 export default async function HomePage({ params: { lang } }: HomePageProps) {
-  const dict = getDictionary(lang);
-
   // These independent reads used to block one another. Fetch the homepage payload together
   // so the slowest query, rather than the sum of all queries, determines TTFB.
   const [rawCategories, bestsellersResult, allProductsResult] = await Promise.all([
@@ -119,6 +123,13 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
 
   const featuredMold = allProducts.find((p) => p.resultImage) || allProducts[0];
   const dealOfTheDay = bestsellers[0] || allProducts[0];
+
+  // Real discount coming from the catalog data — never advertise a number that
+  // the actual price does not carry.
+  const dealDiscountPercent =
+    dealOfTheDay?.oldPrice && dealOfTheDay.oldPrice > dealOfTheDay.price
+      ? Math.round(((dealOfTheDay.oldPrice - dealOfTheDay.price) / dealOfTheDay.oldPrice) * 100)
+      : 0;
 
   const faqJsonLd = {
     '@context': 'https://schema.org',
@@ -282,12 +293,16 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
                         src={dealOfTheDay.images[0].url}
                         alt={dealOfTheDay.titleUz}
                         fill
+                        priority
+                        sizes="(max-width: 1024px) 100vw, 420px"
                         className="object-contain p-2 group-hover:scale-105 transition-transform duration-300"
                       />
                     )}
-                    <span className="absolute top-2 left-2 bg-brand-red text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-xs">
-                      -40% OFF
-                    </span>
+                    {dealDiscountPercent > 0 && (
+                      <span className="absolute top-2 left-2 bg-brand-red text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-xs">
+                        -{dealDiscountPercent}%
+                      </span>
+                    )}
                   </Link>
 
                   <div className="space-y-1.5">
@@ -393,7 +408,7 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
         </Container>
       </section>
 
-      <section className="py-4">
+      <section className="py-4 cv-auto">
         <Container>
           <SectionHeader
             title={lang === 'ru' ? 'Формы для брусчатки' : 'Bruschatka qoliplari'}
@@ -408,7 +423,7 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
         </Container>
       </section>
 
-      <section className="py-4">
+      <section className="py-4 cv-auto">
         <Container>
           <SectionHeader
             title={lang === 'ru' ? 'Фасадные декор-элементы' : 'Fasad dekor elementlari'}
@@ -423,7 +438,7 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
         </Container>
       </section>
 
-      <section className="py-4">
+      <section className="py-4 cv-auto">
         <Container>
           <SectionHeader
             title={lang === 'ru' ? 'Бордюры и дорожные формы' : 'Bordyur va yo‘l qoliplari'}
@@ -438,7 +453,7 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
         </Container>
       </section>
 
-      <section className="py-4">
+      <section className="py-4 cv-auto">
         <Container>
           <SectionHeader
             title={lang === 'ru' ? 'Тротуарная плитка' : 'Trotuar plitka qoliplari'}
@@ -473,7 +488,7 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
 
       <RecentlyViewed lang={lang} />
 
-      <section className="py-6">
+      <section className="py-6 cv-auto">
         <Container>
           <div className="bg-white border border-gray-200 rounded-2xl p-6 sm:p-7 shadow-sm">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">

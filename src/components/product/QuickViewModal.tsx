@@ -49,7 +49,7 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({ isOpen, onClose,
     <Modal isOpen={isOpen} onClose={onClose} title={title} maxWidth="lg">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="relative aspect-square bg-[#F8F9FA] rounded-xl border border-gray-200 overflow-hidden p-4">
-          {image ? <Image src={image} alt={title} fill className="object-contain p-4" /> : <div className="w-full h-full flex items-center justify-center text-xs font-bold text-gray-400">SPS</div>}
+          {image ? <Image src={image} alt={title} fill sizes="(max-width: 768px) 100vw, 400px" className="object-contain p-4" /> : <div className="w-full h-full flex items-center justify-center text-xs font-bold text-gray-400">SPS</div>}
         </div>
 
         <div className="space-y-4">

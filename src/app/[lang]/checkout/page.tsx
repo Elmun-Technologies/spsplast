@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCartStore } from '@/lib/store/cartStore';
 import { Button } from '@/components/ui/Button';
@@ -66,8 +66,11 @@ function validatePhone(phone: string) {
 export default function CheckoutPage({ params: { lang } }: { params: { lang: Locale } }) {
   const dict = getDictionary(lang);
   const router = useRouter();
-  const { items, getTotalPrice, clearCart } = useCartStore();
-  const { appliedCoupon, getDiscount } = useCouponStore();
+  // Narrow selectors keep the (large) checkout form from re-rendering when
+  // unrelated cart state changes.
+  const items = useCartStore((s) => s.items);
+  const clearCart = useCartStore((s) => s.clearCart);
+  const appliedCoupon = useCouponStore((s) => s.appliedCoupon);
 
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('+998');
@@ -92,8 +95,12 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
     captureAttribution();
   }, []);
 
-  const totalPrice = getTotalPrice();
-  const couponDiscount = getDiscount(totalPrice);
+  const totalPrice = useMemo(() => items.reduce((sum, i) => sum + i.price * i.quantity, 0), [items]);
+  const couponDiscount = useMemo(
+    () => (appliedCoupon ? Math.round((totalPrice * appliedCoupon.discountPercent) / 100) : 0),
+    [appliedCoupon, totalPrice]
+  );
+  const totalQuantity = useMemo(() => items.reduce((a, b) => a + b.quantity, 0), [items]);
   const finalTotal = totalPrice - couponDiscount;
 
   const mapErrorMessage = (rawError: string): string => {
@@ -414,7 +421,7 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
               <div className="space-y-3 text-sm">
                 <div className="flex justify-between text-gray-600">
                   <span>{lang === 'ru' ? 'Товары' : 'Mahsulotlar'}:</span>
-                  <span className="font-semibold text-gray-900">{items.length} ta tur, {items.reduce((a, b) => a + b.quantity, 0)} dona</span>
+                  <span className="font-semibold text-gray-900">{items.length} ta tur, {totalQuantity} dona</span>
                 </div>
                 <div className="flex justify-between text-gray-600">
                   <span>{lang === 'ru' ? 'Доставка' : 'Yetkazib berish'}:</span>
