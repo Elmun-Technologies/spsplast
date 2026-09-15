@@ -1,7 +1,6 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import dynamic from 'next/dynamic';
-import Link from 'next/link';
 import { db } from '@/lib/db';
 import { getDictionary, Locale } from '@/lib/i18n';
 import { ProductDetailClient } from './ProductDetailClient';

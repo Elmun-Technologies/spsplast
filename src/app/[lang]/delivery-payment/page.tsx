@@ -21,7 +21,7 @@ export default function DeliveryPaymentPage({ params: { lang } }: { params: { la
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div className="bg-surface border border-line rounded-[20px] p-6 space-y-3 shadow-card">
-              <div className="w-11 h-11 rounded-[16px] bg-red-50 border border-red-100 flex items-center justify-center">
+              <div className="w-11 h-11 rounded-[16px] bg-[#FEF0F0] flex items-center justify-center">
                 <Truck className="w-6 h-6 text-brand-red" />
               </div>
               <h3 className="text-lg font-bold text-ink">Yetkazib berish shartlari</h3>

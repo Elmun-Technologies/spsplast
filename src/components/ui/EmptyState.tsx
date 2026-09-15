@@ -68,7 +68,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({ lang, type, query }) => 
     <div className="bg-surface rounded-[20px] border border-line shadow-card p-10 sm:p-14 text-center shadow-card max-w-2xl mx-auto">
       {/* Custom industrial illustration — no AI feel, pure CSS */}
       <div className="relative w-24 h-24 mx-auto mb-6">
-        <div className="absolute inset-0 bg-surface-soft border-2 border-dashed border-line rounded-[20px] rotate-3" />
+        <div className="absolute inset-0 bg-surface-soft border border-dashed border-line rounded-[20px] rotate-3" />
         <div className="absolute inset-0 bg-surface rounded-[20px] border border-line shadow-card shadow-card flex items-center justify-center -rotate-2">
           <Icon className="w-10 h-10 text-ink-sub" />
         </div>

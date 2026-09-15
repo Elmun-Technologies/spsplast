@@ -147,7 +147,7 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({ lang }) => {
           aria-label="AI yordamchi"
         >
           <Bot className="w-7 h-7" />
-          <span className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white animate-pulse" />
+          <span className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-500 rounded-full ring-2 ring-white animate-pulse" />
         </button>
       )}
 
@@ -201,7 +201,7 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({ lang }) => {
                 <button
                   key={idx}
                   onClick={() => sendMessage(lang === 'ru' ? q.ru : q.uz)}
-                  className="px-2.5 py-1 rounded-full bg-surface-page border border-line text-xs text-ink-soft hover:border-brand-red hover:text-brand-red hover:bg-red-50 transition-colors"
+                  className="px-2.5 py-1 rounded-full bg-surface-page border border-line text-xs text-ink-soft hover:border-brand-red hover:text-brand-red hover:bg-[#FEF0F0] transition-colors"
                 >
                   {lang === 'ru' ? q.ru : q.uz}
                 </button>

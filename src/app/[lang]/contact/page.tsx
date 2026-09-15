@@ -62,7 +62,7 @@ export default function ContactPage({ params: { lang } }: { params: { lang: Loca
       <Container>
         <div className="py-12 space-y-10">
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <span className="inline-flex px-3 py-1 rounded-full bg-red-50 border border-red-200 text-brand-red text-xs font-bold uppercase tracking-wider">
+            <span className="inline-flex px-3 py-1 rounded-full bg-[#FEF0F0] text-brand-red text-[12px] font-semibold">
               {lang === 'ru' ? 'Контакты' : 'Bog‘lanish'}
             </span>
             <h1 className="text-[30px] sm:text-[42px] font-bold text-ink tracking-[-0.03em] leading-[1.1]">
@@ -87,7 +87,7 @@ export default function ContactPage({ params: { lang } }: { params: { lang: Loca
                   <a
                     href={`tel:${COMPANY_CONTACTS.phoneRaw}`}
                     onClick={() => trackEvent('phone_click', { location: 'contact_page' })}
-                    className="flex items-center gap-3 p-4 rounded-[16px] bg-surface-soft border border-line hover:border-brand-red hover:bg-red-50 text-ink transition-colors group"
+                    className="flex items-center gap-3 p-4 rounded-[16px] bg-surface-soft border border-line hover:border-brand-red hover:bg-[#FEF0F0] text-ink transition-colors group"
                   >
                     <div className="w-11 h-11 rounded-[16px] bg-surface border border-line group-hover:border-red-200 flex items-center justify-center shrink-0 shadow-card">
                       <Phone className="w-5 h-5 text-brand-red" />
@@ -161,7 +161,7 @@ export default function ContactPage({ params: { lang } }: { params: { lang: Loca
 
               {sent ? (
                 <div className="text-center py-12 space-y-4">
-                  <div className="w-16 h-16 rounded-[20px] bg-emerald-100 text-emerald-600 border border-emerald-200 flex items-center justify-center mx-auto">
+                  <div className="w-16 h-16 rounded-[20px] bg-emerald-100 text-emerald-600 border flex items-center justify-center mx-auto">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
                   <h4 className="text-xl font-bold text-ink">{lang === 'ru' ? 'Сообщение получено!' : 'Xabaringiz qabul qilindi!'}</h4>

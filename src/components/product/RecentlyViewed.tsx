@@ -7,7 +7,6 @@ import { Clock, X } from 'lucide-react';
 import { useRecentStore } from '@/lib/store/recentStore';
 import { Locale } from '@/lib/i18n';
 import { formatPrice } from '@/lib/utils';
-import { Container } from '@/components/ui/Container';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 
 interface RecentlyViewedProps {
@@ -23,8 +22,8 @@ export const RecentlyViewed: React.FC<RecentlyViewedProps> = ({ lang, currentPro
   if (filtered.length === 0) return null;
 
   return (
-    <section className="py-6">
-      <Container>
+    <section className="py-6 sm:py-8">
+      <div>
         <SectionHeader
           title={lang === 'ru' ? 'Вы недавно смотрели' : 'Yaqinda ko‘rilganlar'}
           subtitle={lang === 'ru' ? 'Вернитесь к просмотренным товарам' : 'Ko‘rgan mahsulotlaringizga qayting'}
@@ -61,7 +60,7 @@ export const RecentlyViewed: React.FC<RecentlyViewedProps> = ({ lang, currentPro
             </Link>
           ))}
         </div>
-      </Container>
+      </div>
     </section>
   );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { db } from '@/lib/db';
-import { getDictionary, Locale } from '@/lib/i18n';
+import { Locale } from '@/lib/i18n';
 import { getProductsServer } from '@/lib/services/productService';
 import { CatalogClient } from '@/components/catalog/CatalogClient';
 
@@ -26,8 +26,6 @@ export default async function CatalogPage({
   params: { lang },
   searchParams,
 }: CatalogPageProps) {
-  const dict = getDictionary(lang);
-
   const page = parseInt(searchParams.page || '1', 10) || 1;
   const minPrice = searchParams.minPrice ? parseInt(searchParams.minPrice, 10) : undefined;
   const maxPrice = searchParams.maxPrice ? parseInt(searchParams.maxPrice, 10) : undefined;

@@ -15,7 +15,7 @@ export default function ProductionPage({ params: { lang } }: { params: { lang: L
 
         <div className="max-w-5xl space-y-10">
           <div className="text-center max-w-3xl mx-auto space-y-4">
-            <span className="inline-flex px-3 py-1 rounded-full bg-red-50 border border-red-200 text-brand-red text-xs font-bold uppercase tracking-wider">
+            <span className="inline-flex px-3 py-1 rounded-full bg-[#FEF0F0] text-brand-red text-[12px] font-semibold">
               Zavod va Texnologiya
             </span>
             <h1 className="text-[30px] sm:text-[42px] font-bold text-ink tracking-[-0.03em] leading-[1.1]">
@@ -58,7 +58,7 @@ export default function ProductionPage({ params: { lang } }: { params: { lang: L
               ].map((item) => (
                 <div key={item.title} className="bg-surface border border-line rounded-[20px] p-5 space-y-2 shadow-card">
                   <h2 className="text-base font-bold text-ink flex items-center gap-2.5">
-                    <span className="w-9 h-9 rounded-[16px] bg-red-50 border border-red-100 flex items-center justify-center">
+                    <span className="w-9 h-9 rounded-[16px] bg-[#FEF0F0] flex items-center justify-center">
                       <item.icon className="w-5 h-5 text-brand-red" />
                     </span>
                     {item.title}
@@ -74,6 +74,7 @@ export default function ProductionPage({ params: { lang } }: { params: { lang: L
                   src="/catalog/catalog-053.jpg"
                   alt="Production line 1"
                   fill
+                  sizes="(max-width: 640px) 50vw, 33vw"
                   className="object-cover"
                 />
               </div>
@@ -82,6 +83,7 @@ export default function ProductionPage({ params: { lang } }: { params: { lang: L
                   src="/catalog/catalog-027.jpg"
                   alt="Production line 2"
                   fill
+                  sizes="(max-width: 640px) 50vw, 33vw"
                   className="object-cover"
                 />
               </div>
@@ -89,7 +91,7 @@ export default function ProductionPage({ params: { lang } }: { params: { lang: L
                 <ShieldCheck className="w-8 h-8 text-emerald-400 shrink-0" />
                 <div>
                   <div className="font-bold text-sm">{lang === 'ru' ? 'Качественное сырье' : 'Sifatli xomashyo'}</div>
-                  <div className="text-xs text-ink-sub">{lang === 'ru' ? 'Полипропилен и ABS пластик' : 'Polipropilen va ABS plastik'}</div>
+                  <div className="text-xs text-white/60">{lang === 'ru' ? 'Полипропилен и ABS пластик' : 'Polipropilen va ABS plastik'}</div>
                 </div>
               </div>
             </div>

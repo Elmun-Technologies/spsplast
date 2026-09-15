@@ -21,7 +21,7 @@ export const FreeShippingProgress: React.FC<FreeShippingProgressProps> = ({
   const isFree = total >= freeThreshold;
 
   return (
-    <div className={`p-4 rounded-[16px] border-2 ${isFree ? 'bg-emerald-50 border-emerald-200' : 'bg-blue-50 border-blue-200'}`}>
+    <div className={`p-4 rounded-[16px] ${isFree ? 'bg-emerald-50 ' : 'bg-blue-50 border-blue-200'}`}>
       <div className="flex items-center gap-2.5 mb-3">
         <div className={`w-9 h-9 rounded-[16px] flex items-center justify-center ${isFree ? 'bg-emerald-600 text-white' : 'bg-blue-600 text-white'}`}>
           {isFree ? <Gift className="w-5 h-5" /> : <Truck className="w-5 h-5" />}

@@ -466,7 +466,9 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
 
       <B2BBanner lang={lang} />
 
-      <RecentlyViewed lang={lang} />
+      <Container>
+        <RecentlyViewed lang={lang} />
+      </Container>
 
       <section className="py-6 sm:py-8 cv-auto">
         <Container>

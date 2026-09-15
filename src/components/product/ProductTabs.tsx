@@ -97,13 +97,13 @@ export const ProductTabs: React.FC<ProductTabsProps> = ({ lang, description, spe
                 </div>
               )}
               {specs.yieldPerCast && (
-                <div className="flex justify-between p-3 rounded-[16px] bg-surface border-2 border-brand-red/20">
+                <div className="flex justify-between p-3.5 rounded-[16px] bg-[#FEF0F0]">
                   <span className="text-ink-soft">{lang === 'ru' ? 'За 1 заливку' : '1 quyishda'}</span>
                   <span className="font-bold text-brand-red">{specs.yieldPerCast} dona</span>
                 </div>
               )}
               {specs.durabilityCasts && (
-                <div className="flex justify-between p-3 rounded-[16px] bg-emerald-50 border border-emerald-200">
+                <div className="flex justify-between p-3 rounded-[16px] bg-emerald-50 border ">
                   <span className="text-emerald-700">{lang === 'ru' ? 'Ресурс' : 'Resurs'}</span>
                   <span className="font-bold text-emerald-700">{specs.durabilityCasts}+ marta</span>
                 </div>

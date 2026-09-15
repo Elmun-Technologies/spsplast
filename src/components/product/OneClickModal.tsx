@@ -84,7 +84,7 @@ export const OneClickModal: React.FC<OneClickModalProps> = ({ isOpen, onClose, l
     <Modal isOpen={isOpen} onClose={reset} title={lang === 'ru' ? 'Заказ в 1 клик' : '1-klikda buyurtma'}>
       {success ? (
         <div className="text-center py-6 space-y-4">
-          <div className="w-16 h-16 rounded-[20px] bg-emerald-100 text-emerald-600 border border-emerald-200 flex items-center justify-center mx-auto">
+          <div className="w-16 h-16 rounded-[20px] bg-emerald-100 text-emerald-600 border flex items-center justify-center mx-auto">
             <CheckCircle2 className="w-8 h-8" />
           </div>
           <div>

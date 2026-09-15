@@ -14,7 +14,7 @@ export default function AboutPage({ params: { lang } }: { params: { lang: Locale
         <div className="py-12 space-y-12">
           {/* Hero */}
           <div className="text-center max-w-3xl mx-auto space-y-4">
-            <span className="inline-flex px-3 py-1 rounded-full bg-red-50 border border-red-200 text-brand-red text-xs font-bold uppercase tracking-wider">
+            <span className="inline-flex px-3 py-1 rounded-full bg-[#FEF0F0] text-brand-red text-[12px] font-semibold">
               {lang === 'ru' ? 'О компании' : 'Kompaniya haqida'}
             </span>
             <h1 className="text-[30px] sm:text-[42px] font-bold text-ink tracking-[-0.03em] leading-[1.1]">
@@ -56,11 +56,11 @@ export default function AboutPage({ params: { lang } }: { params: { lang: Locale
                 </div>
                 <div className="p-5 rounded-[18px] bg-ink text-white">
                   <p className="text-[26px] font-bold text-white tracking-[-0.02em]">ABS</p>
-                  <p className="text-xs text-ink-sub mt-1">{lang === 'ru' ? 'Альтернативный материал' : 'Muqobil material'}</p>
+                  <p className="text-xs text-white/60 mt-1">{lang === 'ru' ? 'Альтернативный материал' : 'Muqobil material'}</p>
                 </div>
               </div>
 
-              <div className="p-4 rounded-[16px] bg-emerald-50 border border-emerald-200 text-sm text-emerald-900">
+              <div className="p-4 rounded-[16px] bg-emerald-50 text-sm text-emerald-900">
                 <div className="font-bold flex items-center gap-2">
                   <ShieldCheck className="w-4 h-4" />
                   {COMPANY_CONTACTS.addressUz}
@@ -73,7 +73,7 @@ export default function AboutPage({ params: { lang } }: { params: { lang: Locale
           {/* Values */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             <div className="bg-surface border border-line p-6 rounded-[20px] space-y-3 shadow-card hover:shadow-lift transition-shadow">
-              <div className="w-11 h-11 rounded-[16px] bg-red-50 border border-red-100 flex items-center justify-center">
+              <div className="w-11 h-11 rounded-[16px] bg-[#FEF0F0] flex items-center justify-center">
                 <Factory className="w-6 h-6 text-brand-red" />
               </div>
               <h3 className="text-base font-bold text-ink">{lang === 'ru' ? 'Промышленные стандарты' : 'Sanoat standartlari'}</h3>

@@ -22,7 +22,7 @@ export default async function ProjectsPage({ params: { lang } }: { params: { lan
 
         <div className="space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <span className="inline-flex px-3 py-1 rounded-full bg-red-50 border border-red-200 text-brand-red text-xs font-bold uppercase tracking-wider">
+            <span className="inline-flex px-3 py-1 rounded-full bg-[#FEF0F0] text-brand-red text-[12px] font-semibold">
               Real Obyektlar
             </span>
             <h1 className="text-[30px] sm:text-[42px] font-bold text-ink tracking-[-0.03em] leading-[1.1]">
@@ -43,7 +43,7 @@ export default async function ProjectsPage({ params: { lang } }: { params: { lan
               {projects.map((proj) => (
                 <div key={proj.id} className="bg-surface border border-line rounded-[20px] overflow-hidden shadow-card hover:shadow-lift transition-shadow flex flex-col">
                   <div className="relative aspect-[4/3] bg-surface-soft border-b border-line">
-                    <Image src={proj.afterImage} alt={proj.titleUz} fill className="object-cover" />
+                    <Image src={proj.afterImage} alt={proj.titleUz} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover" />
                     <div className="absolute top-3 left-3 bg-emerald-600 text-white text-xs font-bold px-2.5 py-1 rounded-full">Tayyor Natija</div>
                   </div>
                   <div className="p-5 space-y-3 flex-1 flex flex-col justify-between">

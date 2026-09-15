@@ -74,7 +74,7 @@ export default function CartPage({ params: { lang } }: { params: { lang: Locale 
           {items.length > 0 && (
             <button
               onClick={() => setShowClearConfirm(true)}
-              className="text-sm text-ink-sub hover:text-red-600 font-semibold px-3 py-2 rounded-[16px] hover:bg-red-50 transition-colors"
+              className="text-sm text-ink-sub hover:text-brand-red font-semibold px-3 py-2 rounded-[16px] hover:bg-[#FEF0F0] transition-colors"
             >
               {lang === 'ru' ? 'Очистить' : 'Tozalash'}
             </button>
@@ -145,7 +145,7 @@ export default function CartPage({ params: { lang } }: { params: { lang: Locale 
 
                     <button
                       onClick={() => removeItem(item.id)}
-                      className="p-2.5 text-ink-sub hover:text-red-600 hover:bg-red-50 rounded-[16px] transition-colors"
+                      className="p-2.5 text-ink-sub hover:text-brand-red hover:bg-[#FEF0F0] rounded-[16px] transition-colors"
                       aria-label={dict.cart.remove}
                     >
                       <Trash2 className="w-5 h-5" />
@@ -172,7 +172,7 @@ export default function CartPage({ params: { lang } }: { params: { lang: Locale 
                   </label>
 
                   {appliedCoupon ? (
-                    <div className="flex items-center justify-between p-3 rounded-[16px] bg-emerald-50 border border-emerald-200">
+                    <div className="flex items-center justify-between p-3 rounded-[16px] bg-emerald-50 border ">
                       <div>
                         <div className="text-sm font-bold text-emerald-900 flex items-center gap-1.5">
                           <Check className="w-4 h-4" />

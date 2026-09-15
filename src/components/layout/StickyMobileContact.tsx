@@ -33,7 +33,7 @@ export const StickyMobileContact: React.FC<{ lang?: string }> = () => {
               <a
                 href={`tel:${COMPANY_CONTACTS.phoneRaw}`}
                 onClick={() => trackEvent('phone_click', { location: 'sticky_mobile_sheet' })}
-                className="flex items-center gap-3 p-3 rounded-[16px] bg-emerald-50 border border-emerald-200 text-emerald-900 hover:bg-emerald-100 transition-colors"
+                className="flex items-center gap-3 p-3 rounded-[16px] bg-emerald-50 border text-emerald-900 hover:bg-emerald-100 transition-colors"
               >
                 <div className="w-10 h-10 rounded-[14px] bg-emerald-600 flex items-center justify-center text-white">
                   <Phone className="w-5 h-5" />
@@ -104,7 +104,7 @@ export const StickyMobileContact: React.FC<{ lang?: string }> = () => {
             <ShoppingCart className="w-5 h-5" />
             <span>Savat</span>
             {cartTotalItems > 0 && (
-              <span className="absolute -top-1.5 -right-1.5 min-w-[20px] h-5 bg-ink text-white rounded-full text-xs font-bold flex items-center justify-center px-1 border-2 border-white">
+              <span className="absolute -top-1.5 -right-1.5 min-w-[20px] h-5 bg-ink text-white rounded-full text-xs font-bold flex items-center justify-center px-1 ring-2 ring-white">
                 {cartTotalItems}
               </span>
             )}

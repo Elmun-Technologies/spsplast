@@ -70,7 +70,7 @@ export default async function SearchPage({
 
                 <div className="bg-surface rounded-[20px] border border-line shadow-card p-5 mb-6 shadow-card flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
-                        <div className="w-11 h-11 rounded-[16px] bg-red-50 border border-red-100 flex items-center justify-center text-brand-red shrink-0">
+                        <div className="w-11 h-11 rounded-[16px] bg-[#FEF0F0] flex items-center justify-center text-brand-red shrink-0">
                             <Search className="w-5 h-5" />
                         </div>
                         <div>

@@ -208,7 +208,7 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
         </div>
 
         {errorMsg && (
-          <div className="p-4 rounded-[16px] bg-red-50 border border-red-200 text-red-800 text-sm font-medium mb-6 flex items-start gap-2.5">
+          <div className="p-4 rounded-[16px] bg-[#FEF0F0] text-red-800 text-sm font-medium mb-6 flex items-start gap-2.5">
             <AlertCircle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
             <span>{errorMsg}</span>
           </div>
@@ -232,7 +232,7 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
                     placeholder="Jasur Rahimov"
-                    className={`w-full bg-surface border rounded-[16px] px-4 py-3 text-[16px] md:text-sm text-ink focus:outline-none focus:ring-2 focus:ring-brand-red/20 focus:border-brand-red min-h-[48px] ${fieldErrors.name ? 'border-red-300 bg-red-50' : 'border-[#DDE3EB]'}`}
+                    className={`w-full bg-surface border rounded-[16px] px-4 py-3 text-[16px] md:text-sm text-ink focus:outline-none focus:ring-2 focus:ring-brand-red/20 focus:border-brand-red min-h-[48px] ${fieldErrors.name ? 'ring-1 ring-red-300 bg-[#FEF0F0]' : 'border-[#DDE3EB]'}`}
                   />
                   {fieldErrors.name && <p className="text-xs text-red-600 mt-1">{fieldErrors.name}</p>}
                 </div>
@@ -266,7 +266,7 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
                 <button
                   type="button"
                   onClick={() => setDeliveryType('COURIER')}
-                  className={`p-4 rounded-[16px] border-2 flex flex-col items-center gap-2 font-bold text-sm transition-all text-center ${deliveryType === 'COURIER' ? 'border-brand-red bg-red-50 text-brand-red shadow-card' : 'border-line bg-surface-soft text-ink-soft hover:border-[#DDE3EB]'}`}
+                  className={`p-4 rounded-[16px] flex flex-col items-center gap-2 font-bold text-sm transition-all text-center ${deliveryType === 'COURIER' ? 'border-brand-red bg-[#FEF0F0] text-brand-red shadow-card' : 'border-line bg-surface-soft text-ink-soft hover:border-[#DDE3EB]'}`}
                 >
                   <Truck className="w-6 h-6" />
                   <span>{lang === 'ru' ? 'Курьером' : 'Kuryer orqali'}</span>
@@ -276,7 +276,7 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
                 <button
                   type="button"
                   onClick={() => setDeliveryType('PICKUP')}
-                  className={`p-4 rounded-[16px] border-2 flex flex-col items-center gap-2 font-bold text-sm transition-all text-center ${deliveryType === 'PICKUP' ? 'border-brand-red bg-red-50 text-brand-red shadow-card' : 'border-line bg-surface-soft text-ink-soft hover:border-[#DDE3EB]'}`}
+                  className={`p-4 rounded-[16px] flex flex-col items-center gap-2 font-bold text-sm transition-all text-center ${deliveryType === 'PICKUP' ? 'border-brand-red bg-[#FEF0F0] text-brand-red shadow-card' : 'border-line bg-surface-soft text-ink-soft hover:border-[#DDE3EB]'}`}
                 >
                   <Store className="w-6 h-6" />
                   <span>{lang === 'ru' ? 'Самовывоз' : 'Olib ketish'}</span>
@@ -285,7 +285,7 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
               </div>
 
               {deliveryType === 'PICKUP' ? (
-                <div className="p-4 rounded-[16px] bg-emerald-50 border border-emerald-200 text-sm text-emerald-900 space-y-1">
+                <div className="p-4 rounded-[16px] bg-emerald-50 border text-sm text-emerald-900 space-y-1">
                   <p className="font-bold text-ink flex items-center gap-2">
                     <Store className="w-4 h-4 text-emerald-600" />
                     SPS Bosh Ombori
@@ -321,7 +321,7 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
                       placeholder="Amir Temur ko‘chasi 45-uy, 12-xonadon"
-                      className={`w-full bg-surface border rounded-[16px] px-4 py-3 text-[16px] md:text-sm text-ink focus:outline-none focus:ring-2 focus:ring-brand-red/20 min-h-[48px] ${fieldErrors.address ? 'border-red-300 bg-red-50' : 'border-[#DDE3EB] focus:border-brand-red'}`}
+                      className={`w-full bg-surface border rounded-[16px] px-4 py-3 text-[16px] md:text-sm text-ink focus:outline-none focus:ring-2 focus:ring-brand-red/20 min-h-[48px] ${fieldErrors.address ? 'ring-1 ring-red-300 bg-[#FEF0F0]' : 'border-[#DDE3EB] focus:border-brand-red'}`}
                     />
                     {fieldErrors.address && <p className="text-xs text-red-600 mt-1">{fieldErrors.address}</p>}
                   </div>
@@ -337,7 +337,7 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
               </h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <label className={`p-4 rounded-[16px] border-2 flex items-start gap-3 cursor-pointer transition-all ${paymentMethod === 'CASH' ? 'border-brand-red bg-red-50 shadow-card' : 'border-line bg-surface hover:border-[#DDE3EB]'}`}>
+                <label className={`p-4 rounded-[16px] flex items-start gap-3 cursor-pointer transition-all ${paymentMethod === 'CASH' ? 'border-brand-red bg-[#FEF0F0] shadow-card' : 'border-line bg-surface hover:border-[#DDE3EB]'}`}>
                   <input type="radio" name="payment" value="CASH" checked={paymentMethod === 'CASH'} onChange={() => setPaymentMethod('CASH')} className="mt-1 accent-brand-red" />
                   <div className="flex-1">
                     <div className={`text-sm font-bold ${paymentMethod === 'CASH' ? 'text-brand-red' : 'text-ink'}`}>
@@ -348,7 +348,7 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
                   </div>
                 </label>
 
-                <label className={`p-4 rounded-[16px] border-2 flex items-start gap-3 cursor-pointer transition-all ${paymentMethod === 'CLICK' ? 'border-brand-red bg-red-50 shadow-card' : 'border-line bg-surface hover:border-[#DDE3EB]'}`}>
+                <label className={`p-4 rounded-[16px] flex items-start gap-3 cursor-pointer transition-all ${paymentMethod === 'CLICK' ? 'border-brand-red bg-[#FEF0F0] shadow-card' : 'border-line bg-surface hover:border-[#DDE3EB]'}`}>
                   <input type="radio" name="payment" value="CLICK" checked={paymentMethod === 'CLICK'} onChange={() => setPaymentMethod('CLICK')} className="mt-1 accent-brand-red" />
                   <div className="flex-1">
                     <div className={`text-sm font-bold ${paymentMethod === 'CLICK' ? 'text-brand-red' : 'text-ink'}`}>Click / Payme</div>
@@ -356,7 +356,7 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
                   </div>
                 </label>
 
-                <label className={`p-4 rounded-[16px] border-2 flex items-start gap-3 cursor-pointer transition-all sm:col-span-2 ${paymentMethod === 'BANK_TRANSFER' ? 'border-brand-red bg-red-50 shadow-card' : 'border-line bg-surface hover:border-[#DDE3EB]'}`}>
+                <label className={`p-4 rounded-[16px] flex items-start gap-3 cursor-pointer transition-all sm:col-span-2 ${paymentMethod === 'BANK_TRANSFER' ? 'border-brand-red bg-[#FEF0F0] shadow-card' : 'border-line bg-surface hover:border-[#DDE3EB]'}`}>
                   <input type="radio" name="payment" value="BANK_TRANSFER" checked={paymentMethod === 'BANK_TRANSFER'} onChange={() => setPaymentMethod('BANK_TRANSFER')} className="mt-1 accent-brand-red" />
                   <div className="flex-1">
                     <div className={`text-sm font-bold ${paymentMethod === 'BANK_TRANSFER' ? 'text-brand-red' : 'text-ink'}`}>
@@ -433,7 +433,7 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
                 </div>
 
                 {appliedCoupon && (
-                  <div className="flex justify-between text-emerald-700 font-bold p-2.5 rounded-[16px] bg-emerald-50 border border-emerald-200">
+                  <div className="flex justify-between text-emerald-700 font-bold p-2.5 rounded-[16px] bg-emerald-50 border ">
                     <span className="flex items-center gap-1.5">
                       <Tag className="w-4 h-4" />
                       {appliedCoupon.code} -{appliedCoupon.discountPercent}%

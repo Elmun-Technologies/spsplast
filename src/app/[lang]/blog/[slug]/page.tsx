@@ -49,7 +49,7 @@ export default async function BlogPostDetailPage({
       </div>
 
       <div className="relative aspect-[16/9] rounded-[24px] overflow-hidden bg-surface-soft">
-        <Image src={post.coverImage} alt={postTrans.title} fill className="object-cover" />
+        <Image src={post.coverImage} alt={postTrans.title} fill sizes="(max-width: 1024px) 100vw, 896px" priority className="object-cover" />
       </div>
 
       <div className="max-w-none text-ink-soft text-[15px] sm:text-base leading-[1.75] space-y-4">

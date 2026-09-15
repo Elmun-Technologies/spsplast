@@ -220,7 +220,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                     <button
                       key={idx}
                       onClick={() => setActiveImageIndex(idx)}
-                      className={`relative w-20 h-20 rounded-[16px] overflow-hidden border-2 shrink-0 bg-surface-soft transition-all p-1 ${
+                      className={`relative w-20 h-20 rounded-[16px] overflow-hidden shrink-0 bg-surface-soft transition-all p-1 border-2 ${
                         activeImageIndex === idx
                           ? 'border-brand-red'
                           : 'border-transparent opacity-70 hover:opacity-100'
@@ -337,7 +337,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                     variant="outline"
                     size="sm"
                     onClick={() => setB2bModalOpen(true)}
-                    className="gap-2 border-brand-red text-brand-red hover:bg-brand-red hover:text-white text-sm shrink-0"
+                    className="gap-2 border-brand-red text-brand-red hover:bg-brand-red hover:text-white text-[13px] shrink-0"
                   >
                     <Building2 className="w-4 h-4" />
                     <span>{lang === 'ru' ? 'Оптовая цена' : 'Ulgurji narx'}</span>

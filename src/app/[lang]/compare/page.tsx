@@ -117,7 +117,7 @@ export default function ComparePage({ params: { lang } }: { params: { lang: Loca
                 {items.map((item) => (
                   <td key={item.id} className="p-4">
                     {item.inStock ? (
-                      <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold">
+                      <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-emerald-50 text-emerald-700 border text-xs font-bold">
                         <Check className="w-3 h-3" /> Mavjud
                       </span>
                     ) : (

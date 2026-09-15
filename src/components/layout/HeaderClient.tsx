@@ -288,7 +288,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                                     className="w-full bg-transparent text-ink text-sm py-3 pl-11 pr-10 focus:outline-none placeholder:text-ink-sub"
                                 />
                                 {isSearching ? (
-                                    <div className="absolute right-3 w-4 h-4 border-2 border-[#DDE3EB] border-t-brand-red rounded-full animate-spin" />
+                                    <div className="absolute right-3 w-4 h-4 border-[#DDE3EB] border-t-brand-red rounded-full animate-spin" />
                                 ) : searchQuery ? (
                                     <button
                                         type="button"
@@ -408,7 +408,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                         >
                             <ArrowRightLeft className="w-[18px] h-[18px]" />
                             {compareCount > 0 && (
-                                <span className="absolute -top-0.5 -right-0.5 bg-ink text-white text-[11px] font-bold min-w-[18px] h-[18px] rounded-full flex items-center justify-center border-2 border-white px-0.5">
+                                <span className="absolute -top-0.5 -right-0.5 bg-ink text-white text-[11px] font-bold min-w-[18px] h-[18px] rounded-full flex items-center justify-center px-0.5 ring-2 ring-white">
                                     {compareCount}
                                 </span>
                             )}
@@ -421,7 +421,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                         >
                             <Heart className={`w-[18px] h-[18px] ${wishlistCount > 0 ? 'fill-brand-red text-brand-red' : ''}`} />
                             {wishlistCount > 0 && (
-                                <span className="absolute -top-0.5 -right-0.5 bg-brand-red text-white text-[11px] font-bold min-w-[18px] h-[18px] rounded-full flex items-center justify-center border-2 border-white px-0.5">
+                                <span className="absolute -top-0.5 -right-0.5 bg-brand-red text-white text-[11px] font-bold min-w-[18px] h-[18px] rounded-full flex items-center justify-center px-0.5 ring-2 ring-white">
                                     {wishlistCount}
                                 </span>
                             )}
@@ -435,7 +435,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                             <div className="relative">
                                 <ShoppingBag className="w-[18px] h-[18px]" />
                                 {cartTotalItems > 0 && (
-                                    <span className="absolute -top-2.5 -right-2.5 bg-surface text-brand-red text-[11px] font-bold min-w-[18px] h-[18px] rounded-full flex items-center justify-center px-0.5">
+                                    <span className="absolute -top-2.5 -right-2.5 bg-surface text-brand-red text-[11px] font-bold min-w-[18px] h-[18px] rounded-full flex items-center justify-center px-0.5 border-2 border-white">
                                         {cartTotalItems}
                                     </span>
                                 )}

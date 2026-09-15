@@ -96,7 +96,7 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
 
       {/* Slider line + handle */}
       <div className="absolute top-0 bottom-0 w-0.5 bg-surface shadow-[0_0_0_1px_rgba(0,0,0,0.1)]" style={{ left: `${position}%` }}>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-surface border-2 border-brand-red shadow-lg flex items-center justify-center text-brand-red cursor-ew-resize hover:scale-110 transition-transform">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-surface shadow-pop flex items-center justify-center text-brand-red cursor-ew-resize hover:scale-110 transition-transform">
           <MoveHorizontal className="w-5 h-5" />
         </div>
       </div>

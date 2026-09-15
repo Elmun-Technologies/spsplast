@@ -79,7 +79,7 @@ export const ProductReviews: React.FC<ProductReviewsProps> = ({ lang, productId 
                   <div className="flex items-center gap-1.5">
                     <span className="text-sm font-bold text-ink">{r.name}</span>
                     {r.verified && (
-                      <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold">
+                      <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border text-[10px] font-bold">
                         <CheckCircle2 className="w-3 h-3" /> Tasdiqlangan
                       </span>
                     )}
@@ -101,7 +101,7 @@ export const ProductReviews: React.FC<ProductReviewsProps> = ({ lang, productId 
       <div className="pt-5 border-t border-line-soft">
         <h4 className="font-bold text-ink text-sm mb-3">{lang === 'ru' ? 'Оставить отзыв' : 'Sharh qoldirish'}</h4>
         {submitted && (
-          <div className="mb-3 p-3 rounded-[16px] bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm font-medium">
+          <div className="mb-3 p-3 rounded-[16px] bg-emerald-50 border text-emerald-800 text-sm font-medium">
             {lang === 'ru' ? 'Спасибо за отзыв!' : 'Sharh uchun rahmat! Tez orada e’lon qilinadi.'}
           </div>
         )}

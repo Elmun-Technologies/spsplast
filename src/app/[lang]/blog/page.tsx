@@ -29,7 +29,7 @@ export default async function BlogPage({ params: { lang } }: { params: { lang: L
 
         <div className="space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <span className="inline-flex px-3 py-1 rounded-full bg-red-50 border border-red-200 text-brand-red text-xs font-bold uppercase tracking-wider">
+            <span className="inline-flex px-3 py-1 rounded-full bg-[#FEF0F0] text-brand-red text-[12px] font-semibold">
               {lang === 'ru' ? 'Полезные статьи' : 'Foydali maqolalar'}
             </span>
             <h1 className="text-[30px] sm:text-[42px] font-bold text-ink tracking-[-0.03em] leading-[1.1]">

@@ -39,7 +39,7 @@ export default function WishlistPage({ params: { lang } }: { params: { lang: Loc
         <Breadcrumbs lang={lang} items={[{ label: lang === 'ru' ? 'Избранное' : 'Sevimlilar', active: true }]} className="mb-4" />
 
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-11 h-11 rounded-[16px] bg-red-50 border border-red-100 flex items-center justify-center">
+          <div className="w-11 h-11 rounded-[16px] bg-[#FEF0F0] flex items-center justify-center">
             <Heart className="w-6 h-6 text-brand-red fill-brand-red" />
           </div>
           <div>
@@ -76,7 +76,7 @@ export default function WishlistPage({ params: { lang } }: { params: { lang: Loc
                     </button>
                     <button
                       onClick={() => remove(item.id)}
-                      className="flex items-center justify-center gap-1 py-2.5 bg-surface-soft border border-line rounded-[16px] text-xs font-bold text-ink-soft hover:text-red-600 hover:bg-red-50"
+                      className="flex items-center justify-center gap-1 py-2.5 bg-surface-soft border border-line rounded-[16px] text-xs font-bold text-ink-soft hover:text-brand-red hover:bg-[#FEF0F0]"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                       O‘chirish
