@@ -31,7 +31,7 @@ export const RecentlyViewed: React.FC<RecentlyViewedProps> = ({ lang, currentPro
         >
           <button
             onClick={clearRecent}
-            className="text-xs text-ink-sub hover:text-red-600 flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-red-50 transition-colors"
+            className="text-[12px] text-ink-sub hover:text-brand-red flex items-center gap-1 px-2.5 py-1.5 rounded-full hover:bg-[#FEF0F0] transition-colors"
           >
             <X className="w-3 h-3" />
             {lang === 'ru' ? 'Очистить' : 'Tozalash'}
@@ -45,7 +45,7 @@ export const RecentlyViewed: React.FC<RecentlyViewedProps> = ({ lang, currentPro
               href={`/${lang}/product/${p.slug}`}
               className="group bg-surface rounded-[18px] border border-line shadow-card p-3 hover:border-[#DDE3EB] hover:shadow-card transition-all"
             >
-              <div className="relative aspect-square bg-surface-soft rounded-lg border border-line-soft overflow-hidden p-2 mb-2">
+              <div className="relative aspect-square bg-surface-soft rounded-[16px] overflow-hidden p-2 mb-2">
                 {p.image ? (
                   <Image src={p.image} alt={p.title} fill sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw" className="object-contain p-2 group-hover:scale-105 transition-transform" />
                 ) : (

@@ -17,7 +17,7 @@ export default function AboutPage({ params: { lang } }: { params: { lang: Locale
             <span className="inline-flex px-3 py-1 rounded-full bg-red-50 border border-red-200 text-brand-red text-xs font-bold uppercase tracking-wider">
               {lang === 'ru' ? 'О компании' : 'Kompaniya haqida'}
             </span>
-            <h1 className="text-3xl sm:text-5xl font-black text-ink tracking-tight leading-tight">
+            <h1 className="text-[30px] sm:text-[42px] font-bold text-ink tracking-[-0.03em] leading-[1.1]">
               SPS — {lang === 'ru' ? 'Производитель форм и фасадного декора' : 'Qoliplar va fasad dekor ishlab chiqaruvchi'}
             </h1>
             <p className="text-sm sm:text-base text-ink-soft leading-relaxed">
@@ -28,8 +28,8 @@ export default function AboutPage({ params: { lang } }: { params: { lang: Locale
           </div>
 
           {/* Grid Image Showcase */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-surface border border-line rounded-[20px] p-6 sm:p-8 shadow-sm">
-            <div className="relative aspect-[4/3] rounded-[16px] overflow-hidden border border-line bg-surface-soft shadow-xs">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-surface border border-line rounded-[20px] p-6 sm:p-8 shadow-card">
+            <div className="relative aspect-[4/3] rounded-[16px] overflow-hidden border border-line bg-surface-soft shadow-card">
               <Image
                 src="/catalog/catalog-053.jpg"
                 alt="SPS Factory"
@@ -51,11 +51,11 @@ export default function AboutPage({ params: { lang } }: { params: { lang: Locale
 
               <div className="grid grid-cols-2 gap-4 pt-2">
                 <div className="p-4 rounded-[16px] bg-surface-soft border border-line">
-                  <p className="text-3xl font-black text-brand-red">Polipropilen</p>
+                  <p className="text-[26px] font-bold text-brand-red tracking-[-0.02em]">Polipropilen</p>
                   <p className="text-xs font-semibold text-ink-soft mt-1">{lang === 'ru' ? 'Наш основной материал' : 'Asosiy materialimiz'}</p>
                 </div>
-                <div className="p-4 rounded-[16px] bg-ink border border-gray-800 text-white">
-                  <p className="text-3xl font-black text-white">ABS</p>
+                <div className="p-5 rounded-[18px] bg-ink text-white">
+                  <p className="text-[26px] font-bold text-white tracking-[-0.02em]">ABS</p>
                   <p className="text-xs text-ink-sub mt-1">{lang === 'ru' ? 'Альтернативный материал' : 'Muqobil material'}</p>
                 </div>
               </div>
@@ -72,7 +72,7 @@ export default function AboutPage({ params: { lang } }: { params: { lang: Locale
 
           {/* Values */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            <div className="bg-surface border border-line p-6 rounded-[20px] space-y-3 shadow-xs hover:shadow-sm transition-shadow">
+            <div className="bg-surface border border-line p-6 rounded-[20px] space-y-3 shadow-card hover:shadow-lift transition-shadow">
               <div className="w-11 h-11 rounded-[16px] bg-red-50 border border-red-100 flex items-center justify-center">
                 <Factory className="w-6 h-6 text-brand-red" />
               </div>
@@ -82,7 +82,7 @@ export default function AboutPage({ params: { lang } }: { params: { lang: Locale
               </p>
             </div>
 
-            <div className="bg-surface border border-line p-6 rounded-[20px] space-y-3 shadow-xs hover:shadow-sm transition-shadow">
+            <div className="bg-surface border border-line p-6 rounded-[20px] space-y-3 shadow-card hover:shadow-lift transition-shadow">
               <div className="w-11 h-11 rounded-[16px] bg-emerald-50 border border-emerald-100 flex items-center justify-center">
                 <ShieldCheck className="w-6 h-6 text-emerald-600" />
               </div>
@@ -92,7 +92,7 @@ export default function AboutPage({ params: { lang } }: { params: { lang: Locale
               </p>
             </div>
 
-            <div className="bg-surface border border-line p-6 rounded-[20px] space-y-3 shadow-xs hover:shadow-sm transition-shadow">
+            <div className="bg-surface border border-line p-6 rounded-[20px] space-y-3 shadow-card hover:shadow-lift transition-shadow">
               <div className="w-11 h-11 rounded-[16px] bg-blue-50 border border-blue-100 flex items-center justify-center">
                 <Users className="w-6 h-6 text-blue-600" />
               </div>

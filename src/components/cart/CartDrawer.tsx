@@ -95,7 +95,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ lang }) => {
           <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-3 bg-surface-soft">
             {items.length === 0 ? (
               <div className="text-center py-16 space-y-4">
-                <div className="w-16 h-16 rounded-[20px] bg-surface border border-line flex items-center justify-center mx-auto text-ink-sub shadow-xs">
+                <div className="w-16 h-16 rounded-[20px] bg-surface border border-line flex items-center justify-center mx-auto text-ink-sub shadow-card">
                   <ShoppingBag className="w-8 h-8" />
                 </div>
                 <div>
@@ -112,9 +112,9 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ lang }) => {
               items.map((item) => (
                 <div
                   key={item.id}
-                  className="flex gap-3 p-3 rounded-[16px] bg-surface border border-line items-center justify-between shadow-xs hover:shadow-card transition-shadow"
+                  className="flex gap-3 p-3 rounded-[16px] bg-surface border border-line items-center justify-between shadow-card hover:shadow-lift transition-shadow"
                 >
-                  <div className="relative w-14 h-14 rounded-lg border border-line overflow-hidden shrink-0 bg-surface-soft p-1">
+                  <div className="relative w-14 h-14 rounded-[14px] overflow-hidden shrink-0 bg-surface-soft p-1">
                     <Image src={item.image} alt={item.title} fill sizes="64px" className="object-contain p-1" />
                   </div>
 
@@ -129,7 +129,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ lang }) => {
                   <div className="flex flex-col items-end gap-2 shrink-0">
                     <button
                       onClick={() => removeItem(item.id)}
-                      className="text-ink-sub hover:text-red-600 hover:bg-red-50 transition-colors p-1.5 rounded-lg"
+                      className="text-ink-sub hover:text-brand-red hover:bg-[#FEF0F0] transition-colors p-1.5 rounded-full"
                       title={dict.cart.remove}
                       aria-label={dict.cart.remove}
                     >

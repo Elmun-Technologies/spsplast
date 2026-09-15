@@ -18,7 +18,7 @@ export default function ProductionPage({ params: { lang } }: { params: { lang: L
             <span className="inline-flex px-3 py-1 rounded-full bg-red-50 border border-red-200 text-brand-red text-xs font-bold uppercase tracking-wider">
               Zavod va Texnologiya
             </span>
-            <h1 className="text-3xl sm:text-5xl font-black text-ink tracking-tight">
+            <h1 className="text-[30px] sm:text-[42px] font-bold text-ink tracking-[-0.03em] leading-[1.1]">
               {lang === 'ru' ? 'Как мы производим?' : 'Biz qanday ishlab chiqaramiz?'}
             </h1>
             <p className="text-sm sm:text-base text-ink-soft leading-relaxed">
@@ -56,7 +56,7 @@ export default function ProductionPage({ params: { lang } }: { params: { lang: L
                       : 'Ichki yuzaning silliqligi betonning qolipdan oson ajralishiga yordam beradi.',
                 },
               ].map((item) => (
-                <div key={item.title} className="bg-surface border border-line rounded-[20px] p-5 space-y-2 shadow-sm">
+                <div key={item.title} className="bg-surface border border-line rounded-[20px] p-5 space-y-2 shadow-card">
                   <h2 className="text-base font-bold text-ink flex items-center gap-2.5">
                     <span className="w-9 h-9 rounded-[16px] bg-red-50 border border-red-100 flex items-center justify-center">
                       <item.icon className="w-5 h-5 text-brand-red" />
@@ -69,7 +69,7 @@ export default function ProductionPage({ params: { lang } }: { params: { lang: L
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <div className="relative aspect-square rounded-[20px] overflow-hidden border border-line bg-surface shadow-sm">
+              <div className="relative aspect-square rounded-[20px] overflow-hidden border border-line bg-surface shadow-card">
                 <Image
                   src="/catalog/catalog-053.jpg"
                   alt="Production line 1"
@@ -77,7 +77,7 @@ export default function ProductionPage({ params: { lang } }: { params: { lang: L
                   className="object-cover"
                 />
               </div>
-              <div className="relative aspect-square rounded-[20px] overflow-hidden border border-line bg-surface shadow-sm">
+              <div className="relative aspect-square rounded-[20px] overflow-hidden border border-line bg-surface shadow-card">
                 <Image
                   src="/catalog/catalog-027.jpg"
                   alt="Production line 2"

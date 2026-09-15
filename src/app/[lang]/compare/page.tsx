@@ -40,7 +40,7 @@ export default function ComparePage({ params: { lang } }: { params: { lang: Loca
         <Breadcrumbs lang={lang} items={[{ label: lang === 'ru' ? 'Сравнение' : 'Taqqoslash', active: true }]} className="mb-4" />
 
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold text-ink">{lang === 'ru' ? `Сравнение (${items.length})` : `Taqqoslash (${items.length})`}</h1>
+          <h1 className="text-[26px] sm:text-[30px] font-bold text-ink tracking-[-0.025em] leading-tight">{lang === 'ru' ? `Сравнение (${items.length})` : `Taqqoslash (${items.length})`}</h1>
           <button onClick={clear} className="text-sm text-red-600 hover:underline">
             {lang === 'ru' ? 'Очистить все' : 'Barchasini tozalash'}
           </button>
@@ -80,7 +80,7 @@ export default function ComparePage({ params: { lang } }: { params: { lang: Loca
                         addItem({ productId: item.id, title: item.title, sku: item.sku, price: item.price, image: item.image, quantity: 1 });
                         trackEvent('add_to_cart', { from: 'compare' });
                       }}
-                      className="mt-2 w-full py-2 bg-brand-red text-white rounded-[16px] text-xs font-bold hover:bg-brand-red-dark flex items-center justify-center gap-1"
+                      className="mt-2 w-full py-2.5 min-h-[44px] bg-brand-red text-white rounded-full text-[13px] font-semibold hover:bg-brand-red-dark transition-colors flex items-center justify-center gap-1.5"
                     >
                       <ShoppingBag className="w-3.5 h-3.5" />
                       Savatga

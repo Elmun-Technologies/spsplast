@@ -10,9 +10,9 @@ export default function TermsPage({ params: { lang } }: { params: { lang: Locale
     <div className="bg-surface-page min-h-screen text-ink py-8">
       <Container>
         <Breadcrumbs lang={lang} items={[{ label: dict.footer.terms, active: true }]} className="mb-6" />
-        <div className="max-w-3xl bg-surface border border-line rounded-[20px] p-6 sm:p-8 shadow-sm space-y-6">
+        <div className="max-w-3xl bg-surface border border-line rounded-[20px] p-6 sm:p-8 shadow-card space-y-6">
           <div>
-            <h1 className="text-3xl font-black text-ink tracking-tight">{dict.footer.terms}</h1>
+            <h1 className="text-[30px] sm:text-[38px] font-bold text-ink tracking-[-0.03em] leading-[1.15]">{dict.footer.terms}</h1>
             <p className="text-xs text-ink-sub mt-1">Ommaviy Shartnoma-Oferta</p>
           </div>
 

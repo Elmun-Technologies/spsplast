@@ -20,7 +20,7 @@ export const CompareBar: React.FC<CompareBarProps> = ({ lang }) => {
   if (items.length === 0) return null;
 
   return (
-    <div className="fixed bottom-20 lg:bottom-6 left-1/2 -translate-x-1/2 z-30 w-[95%] max-w-3xl bg-ink border border-gray-800 rounded-[20px] shadow-pop p-3 flex items-center justify-between gap-3 animate-in slide-in-from-bottom-2">
+    <div className="fixed bottom-20 lg:bottom-6 left-1/2 -translate-x-1/2 z-30 w-[95%] max-w-3xl bg-ink border border-white/10 rounded-[20px] shadow-pop p-3.5 flex items-center justify-between gap-3 animate-in slide-in-from-bottom-2">
       <div className="flex items-center gap-2">
         <div className="w-9 h-9 rounded-[16px] bg-surface/10 flex items-center justify-center">
           <ArrowRightLeft className="w-5 h-5 text-white" />
@@ -34,7 +34,7 @@ export const CompareBar: React.FC<CompareBarProps> = ({ lang }) => {
       <div className="flex items-center gap-2">
         <div className="hidden sm:flex items-center gap-2">
           {items.slice(0, 4).map((item) => (
-            <div key={item.id} className="relative w-10 h-10 rounded-lg bg-surface border border-line p-1">
+            <div key={item.id} className="relative w-10 h-10 rounded-[14px] bg-surface border border-line p-1">
               <Image src={item.image} alt={item.title} fill sizes="40px" className="object-contain p-1" />
               <button
                 onClick={() => remove(item.id)}

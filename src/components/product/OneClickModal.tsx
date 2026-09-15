@@ -100,7 +100,7 @@ export const OneClickModal: React.FC<OneClickModalProps> = ({ isOpen, onClose, l
       ) : (
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="p-3 rounded-[16px] bg-surface-soft border border-line flex items-center gap-3">
-            <div className="w-12 h-12 rounded-lg bg-surface border border-line flex items-center justify-center text-xs font-bold text-ink-sub">
+            <div className="w-12 h-12 rounded-[16px] bg-surface-soft flex items-center justify-center text-[12px] font-semibold text-ink-sub">
               SPS
             </div>
             <div className="flex-1 min-w-0">
@@ -120,7 +120,7 @@ export const OneClickModal: React.FC<OneClickModalProps> = ({ isOpen, onClose, l
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Jasur"
-              className="w-full px-4 py-3 rounded-[16px] border border-[#DDE3EB] text-[16px] md:text-sm focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 outline-none min-h-[48px]"
+              className="w-full px-5 py-3 rounded-full bg-surface-soft text-[16px] md:text-sm focus:bg-white focus:ring-1 focus:ring-line outline-none min-h-[48px]"
             />
           </div>
 
@@ -135,7 +135,7 @@ export const OneClickModal: React.FC<OneClickModalProps> = ({ isOpen, onClose, l
               value={phone}
               onChange={(e) => setPhone(formatPhone(e.target.value))}
               placeholder="+998 90 123 45 67"
-              className="w-full px-4 py-3 rounded-[16px] border border-[#DDE3EB] text-[16px] md:text-sm focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 outline-none min-h-[48px] font-mono"
+              className="w-full px-5 py-3 rounded-full bg-surface-soft text-[16px] md:text-sm focus:bg-white focus:ring-1 focus:ring-line outline-none min-h-[48px]"
             />
           </div>
 

@@ -43,7 +43,7 @@ export default function WishlistPage({ params: { lang } }: { params: { lang: Loc
             <Heart className="w-6 h-6 text-brand-red fill-brand-red" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-ink">{lang === 'ru' ? 'Избранное' : 'Sevimli mahsulotlar'}</h1>
+            <h1 className="text-[26px] sm:text-[30px] font-bold text-ink tracking-[-0.025em] leading-tight">{lang === 'ru' ? 'Избранное' : 'Sevimli mahsulotlar'}</h1>
             <p className="text-sm text-ink-sub">{wishlistItems.length} ta mahsulot</p>
           </div>
         </div>
@@ -69,7 +69,7 @@ export default function WishlistPage({ params: { lang } }: { params: { lang: Loc
                   <div className="grid grid-cols-2 gap-2">
                     <button
                       onClick={() => handleAddToCart(item)}
-                      className="flex items-center justify-center gap-1.5 py-2.5 bg-brand-red text-white rounded-[16px] text-xs font-bold hover:bg-brand-red-dark"
+                      className="flex items-center justify-center gap-2 py-2.5 min-h-[44px] bg-brand-red text-white rounded-full text-[13px] font-semibold hover:bg-brand-red-dark transition-colors"
                     >
                       <ShoppingBag className="w-3.5 h-3.5" />
                       Savat

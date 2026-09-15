@@ -36,7 +36,7 @@ export const ProductTabs: React.FC<ProductTabsProps> = ({ lang, description, spe
             key={tab.id}
             onClick={() => setActive(tab.id)}
             className={`px-4 py-2.5 rounded-[16px] text-sm font-bold whitespace-nowrap transition-all min-h-[40px] ${
-              active === tab.id ? 'bg-ink text-white shadow-card' : 'text-ink-soft hover:text-ink hover:bg-surface'
+              active === tab.id ? 'bg-ink text-white' : 'text-ink-soft hover:text-ink hover:bg-surface'
             }`}
           >
             {lang === 'ru' ? tab.labelRu : tab.labelUz}

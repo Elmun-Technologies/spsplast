@@ -33,13 +33,13 @@ export default async function OrderSuccessPage({ params: { lang, orderId } }: Or
           <div className="text-center space-y-4 py-8">
             <div className="relative w-20 h-20 mx-auto">
               <div className="absolute inset-0 bg-emerald-100 rounded-[20px] rotate-3" />
-              <div className="relative w-20 h-20 rounded-[20px] bg-emerald-600 text-white flex items-center justify-center shadow-lg">
+              <div className="relative w-20 h-20 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center">
                 <CheckCircle2 className="w-10 h-10" />
               </div>
             </div>
 
             <div className="space-y-2">
-              <h1 className="text-3xl sm:text-4xl font-black text-ink tracking-tight uppercase">
+              <h1 className="text-[28px] sm:text-[36px] font-bold text-ink tracking-[-0.03em] leading-[1.15]">
                 {lang === 'ru' ? 'Заказ принят!' : 'Buyurtma qabul qilindi!'}
               </h1>
               <p className="text-sm text-ink-soft max-w-md mx-auto leading-relaxed">
@@ -48,7 +48,7 @@ export default async function OrderSuccessPage({ params: { lang, orderId } }: Or
                   : 'Rahmat! Operator 15 daqiqa ichida yetkazib berishni tasdiqlash uchun bog‘lanadi.'}
               </p>
               {order && (
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-ink text-white font-mono text-sm font-bold mt-2">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface-soft text-ink text-sm font-semibold mt-2">
                   <Package className="w-4 h-4 text-brand-red" />
                   <span>#{order.orderNumber}</span>
                 </div>
@@ -57,7 +57,7 @@ export default async function OrderSuccessPage({ params: { lang, orderId } }: Or
           </div>
 
           {order && (
-            <div className="bg-surface border border-line rounded-[20px] p-6 shadow-sm space-y-5">
+            <div className="bg-surface border border-line rounded-[20px] p-6 shadow-card space-y-5">
               <h3 className="font-bold text-ink border-b border-line-soft pb-3">
                 {lang === 'ru' ? 'Детали заказа' : 'Buyurtma tafsilotlari'}
               </h3>
@@ -69,7 +69,7 @@ export default async function OrderSuccessPage({ params: { lang, orderId } }: Or
                 </div>
                 <div className="flex justify-between">
                   <span className="text-ink-sub">{lang === 'ru' ? 'Телефон' : 'Telefon'}:</span>
-                  <span className="font-mono font-bold text-ink">{order.customerPhone}</span>
+                  <span className="font-semibold text-ink">{order.customerPhone}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-ink-sub">{lang === 'ru' ? 'Регион' : 'Mintaqa'}:</span>
@@ -99,7 +99,7 @@ export default async function OrderSuccessPage({ params: { lang, orderId } }: Or
                 ))}
               </div>
 
-              <div className="flex justify-between text-xl font-black text-ink pt-4 border-t border-line uppercase">
+              <div className="flex justify-between text-[20px] font-bold text-ink tracking-[-0.02em] pt-5 border-t border-line">
                 <span>{lang === 'ru' ? 'Итого' : 'Jami'}:</span>
                 <span className="text-brand-red">{formatPrice(order.totalAmount, lang)}</span>
               </div>
@@ -107,7 +107,7 @@ export default async function OrderSuccessPage({ params: { lang, orderId } }: Or
           )}
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div className="bg-surface border border-line rounded-[20px] p-4 flex items-center gap-3 shadow-sm">
+            <div className="bg-surface border border-line rounded-[20px] p-4 flex items-center gap-3 shadow-card">
               <div className="w-10 h-10 rounded-[16px] bg-emerald-50 border border-emerald-100 flex items-center justify-center">
                 <Phone className="w-5 h-5 text-emerald-600" />
               </div>
@@ -116,7 +116,7 @@ export default async function OrderSuccessPage({ params: { lang, orderId } }: Or
                 <div className="text-xs text-ink-sub">Operator bog'lanadi</div>
               </div>
             </div>
-            <div className="bg-surface border border-line rounded-[20px] p-4 flex items-center gap-3 shadow-sm">
+            <div className="bg-surface border border-line rounded-[20px] p-4 flex items-center gap-3 shadow-card">
               <div className="w-10 h-10 rounded-[16px] bg-blue-50 border border-blue-100 flex items-center justify-center">
                 <Truck className="w-5 h-5 text-blue-600" />
               </div>
@@ -125,7 +125,7 @@ export default async function OrderSuccessPage({ params: { lang, orderId } }: Or
                 <div className="text-xs text-ink-sub">Yetkazib berish</div>
               </div>
             </div>
-            <div className="bg-surface border border-line rounded-[20px] p-4 flex items-center gap-3 shadow-sm">
+            <div className="bg-surface border border-line rounded-[20px] p-4 flex items-center gap-3 shadow-card">
               <div className="w-10 h-10 rounded-[16px] bg-amber-50 border border-amber-100 flex items-center justify-center">
                 <ShieldCheck className="w-5 h-5 text-amber-600" />
               </div>

@@ -172,7 +172,7 @@ export default async function ProductDetailPage({
           </section>
         )}
 
-        <section className="mt-8 bg-surface border border-line rounded-[20px] p-6 sm:p-8 space-y-6 shadow-sm">
+        <section className="mt-8 bg-surface border border-line rounded-[20px] p-6 sm:p-8 space-y-6 shadow-card">
           <div className="text-center max-w-2xl mx-auto">
             <h3 className="text-xl sm:text-2xl font-bold text-ink tracking-tight">{dict.product.howItWorks}</h3>
             <p className="text-sm text-ink-sub mt-2">{lang === 'ru' ? 'Технология заливки бетона' : 'Beton quyish texnologiyasi va bosqichlari'}</p>

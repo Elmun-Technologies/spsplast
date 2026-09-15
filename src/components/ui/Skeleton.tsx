@@ -29,9 +29,9 @@ export const CategoryCardSkeleton: React.FC = () => {
           <div className="h-4 bg-surface-soft rounded w-24" />
           <div className="h-3 bg-surface-soft rounded w-16" />
         </div>
-        <div className="w-7 h-7 bg-surface-soft rounded-lg" />
+        <div className="w-7 h-7 bg-surface-soft rounded-[14px]" />
       </div>
-      <div className="aspect-[4/3] bg-[#EDF1F6] rounded-[12px]" />
+      <div className="aspect-[4/3] bg-[#EDF1F6] rounded-[16px]" />
     </div>
   );
 };

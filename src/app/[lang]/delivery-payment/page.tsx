@@ -15,12 +15,12 @@ export default function DeliveryPaymentPage({ params: { lang } }: { params: { la
 
         <div className="max-w-4xl space-y-8">
           <div>
-            <h1 className="text-3xl sm:text-4xl font-black text-ink tracking-tight">{dict.footer.deliveryTerms}</h1>
+            <h1 className="text-[28px] sm:text-[36px] font-bold text-ink tracking-[-0.03em] leading-[1.15]">{dict.footer.deliveryTerms}</h1>
             <p className="text-sm text-ink-sub mt-2">SPS — ishonchli yetkazib berish va qulay to'lov</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div className="bg-surface border border-line rounded-[20px] p-6 space-y-3 shadow-sm">
+            <div className="bg-surface border border-line rounded-[20px] p-6 space-y-3 shadow-card">
               <div className="w-11 h-11 rounded-[16px] bg-red-50 border border-red-100 flex items-center justify-center">
                 <Truck className="w-6 h-6 text-brand-red" />
               </div>
@@ -35,7 +35,7 @@ export default function DeliveryPaymentPage({ params: { lang } }: { params: { la
               </ul>
             </div>
 
-            <div className="bg-surface border border-line rounded-[20px] p-6 space-y-3 shadow-sm">
+            <div className="bg-surface border border-line rounded-[20px] p-6 space-y-3 shadow-card">
               <div className="w-11 h-11 rounded-[16px] bg-blue-50 border border-blue-100 flex items-center justify-center">
                 <CreditCard className="w-6 h-6 text-blue-600" />
               </div>
@@ -51,7 +51,7 @@ export default function DeliveryPaymentPage({ params: { lang } }: { params: { la
               </div>
             </div>
 
-            <div className="bg-surface border border-line rounded-[20px] p-6 space-y-3 shadow-sm">
+            <div className="bg-surface border border-line rounded-[20px] p-6 space-y-3 shadow-card">
               <div className="w-11 h-11 rounded-[16px] bg-amber-50 border border-amber-100 flex items-center justify-center">
                 <Clock className="w-6 h-6 text-amber-600" />
               </div>
@@ -60,7 +60,7 @@ export default function DeliveryPaymentPage({ params: { lang } }: { params: { la
               <p className="text-sm text-ink-soft">Yakshanba: dam olish</p>
             </div>
 
-            <div className="bg-surface border border-line rounded-[20px] p-6 space-y-3 shadow-sm">
+            <div className="bg-surface border border-line rounded-[20px] p-6 space-y-3 shadow-card">
               <div className="w-11 h-11 rounded-[16px] bg-emerald-50 border border-emerald-100 flex items-center justify-center">
                 <ShieldCheck className="w-6 h-6 text-emerald-600" />
               </div>

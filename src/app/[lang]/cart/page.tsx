@@ -63,7 +63,7 @@ export default function CartPage({ params: { lang } }: { params: { lang: Locale 
         <div className="flex items-center justify-between border-b border-line pb-4 mb-6">
           <div className="flex items-center gap-2.5">
             <ShoppingBag className="w-6 h-6 text-brand-red" />
-            <h1 className="text-2xl font-bold text-ink tracking-tight">{dict.cart.title}</h1>
+            <h1 className="text-[26px] sm:text-[30px] font-bold text-ink tracking-[-0.025em] leading-tight">{dict.cart.title}</h1>
             {items.length > 0 && (
               <span className="px-3 py-1 rounded-full bg-ink text-white text-xs font-bold">
                 {items.length} ta tur • {totalQuantity} dona
@@ -180,7 +180,7 @@ export default function CartPage({ params: { lang } }: { params: { lang: Locale 
                         </div>
                         <div className="text-xs text-emerald-700 mt-0.5">{lang === 'ru' ? appliedCoupon.descriptionRu : appliedCoupon.descriptionUz}</div>
                       </div>
-                      <button onClick={removeCoupon} className="p-1.5 hover:bg-emerald-100 rounded-lg">
+                      <button onClick={removeCoupon} className="p-1.5 hover:bg-emerald-100 rounded-full transition-colors">
                         <X className="w-4 h-4 text-emerald-700" />
                       </button>
                     </div>
@@ -229,7 +229,7 @@ export default function CartPage({ params: { lang } }: { params: { lang: Locale 
                       <span>-{formatPrice(discount, lang)}</span>
                     </div>
                   )}
-                  <div className="flex justify-between text-xl font-black text-ink pt-4 border-t border-line">
+                  <div className="flex justify-between text-[20px] font-bold text-ink tracking-[-0.02em] pt-5 border-t border-line">
                     <span>{dict.cart.subtotal}:</span>
                     <span className="text-brand-red">{formatPrice(finalTotal, lang)}</span>
                   </div>

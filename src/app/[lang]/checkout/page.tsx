@@ -193,14 +193,14 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
           <div className="flex items-center gap-2 text-sm text-ink-sub mb-3">
             <span className="px-2.5 py-1 rounded-full bg-ink text-white text-xs font-bold">1</span>
             <span className="font-medium text-ink">{lang === 'ru' ? 'Корзина' : 'Savat'}</span>
-            <span className="w-6 h-px bg-gray-300" />
+            <span className="w-6 h-px bg-[#DDE3EB]" />
             <span className="px-2.5 py-1 rounded-full bg-brand-red text-white text-xs font-bold">2</span>
             <span className="font-bold text-ink">{dict.checkout.title}</span>
-            <span className="w-6 h-px bg-gray-300" />
+            <span className="w-6 h-px bg-[#DDE3EB]" />
             <span className="px-2.5 py-1 rounded-full bg-[#E7ECF3] text-ink-sub text-xs font-bold">3</span>
             <span className="text-ink-sub">{lang === 'ru' ? 'Подтверждение' : 'Tasdiqlash'}</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-ink tracking-tight uppercase">{dict.checkout.title}</h1>
+          <h1 className="text-[26px] sm:text-[32px] font-bold text-ink tracking-[-0.025em] leading-tight">{dict.checkout.title}</h1>
           <p className="text-sm text-ink-sub mt-1.5 flex items-center gap-1.5">
             <ShieldCheck className="w-4 h-4 text-emerald-600" />
             {dict.checkout.guestCheckout} • {COMPANY_CONTACTS.phoneDisplay}
@@ -218,7 +218,7 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
           <div className="lg:col-span-7 space-y-5">
             <div className="bg-surface rounded-[20px] border border-line shadow-card p-5 sm:p-6 space-y-4 shadow-card">
               <h3 className="text-base font-bold text-ink flex items-center gap-2 border-b border-line-soft pb-3">
-                <span className="w-7 h-7 rounded-lg bg-brand-red text-white flex items-center justify-center text-xs font-bold">1</span>
+                <span className="w-7 h-7 rounded-full bg-brand-red text-white flex items-center justify-center text-[12px] font-bold">1</span>
                 <User className="w-4 h-4 text-brand-red" />
                 {lang === 'ru' ? 'Данные покупателя' : 'Xaridor ma’lumotlari'}
               </h3>
@@ -246,7 +246,7 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
                       value={customerPhone}
                       onChange={(e) => setCustomerPhone(formatPhone(e.target.value))}
                       placeholder="+998 90 123 45 67"
-                      className={`w-full bg-surface border rounded-[16px] px-4 py-3 pl-11 text-[16px] md:text-sm text-ink focus:outline-none focus:ring-2 focus:ring-brand-red/20 focus:border-brand-red min-h-[48px] font-mono ${fieldErrors.phone ? 'border-red-300 bg-red-50' : 'border-[#DDE3EB]'}`}
+                      className={`w-full bg-surface-soft rounded-full px-5 py-3 pl-12 text-[16px] md:text-sm text-ink focus:outline-none focus:bg-white focus:ring-1 focus:ring-line min-h-[48px] ${fieldErrors.phone ? 'ring-1 ring-red-300 bg-[#FEF0F0]' : ''}`}
                     />
                     <Phone className="w-4 h-4 text-ink-sub absolute left-4 top-4" />
                   </div>
@@ -257,7 +257,7 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
 
             <div className="bg-surface rounded-[20px] border border-line shadow-card p-5 sm:p-6 space-y-4 shadow-card">
               <h3 className="text-base font-bold text-ink flex items-center gap-2 border-b border-line-soft pb-3">
-                <span className="w-7 h-7 rounded-lg bg-brand-red text-white flex items-center justify-center text-xs font-bold">2</span>
+                <span className="w-7 h-7 rounded-full bg-brand-red text-white flex items-center justify-center text-[12px] font-bold">2</span>
                 <MapPin className="w-4 h-4 text-brand-red" />
                 {lang === 'ru' ? 'Доставка' : 'Yetkazib berish'}
               </h3>
@@ -331,7 +331,7 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
 
             <div className="bg-surface rounded-[20px] border border-line shadow-card p-5 sm:p-6 space-y-4 shadow-card">
               <h3 className="text-base font-bold text-ink flex items-center gap-2 border-b border-line-soft pb-3">
-                <span className="w-7 h-7 rounded-lg bg-brand-red text-white flex items-center justify-center text-xs font-bold">3</span>
+                <span className="w-7 h-7 rounded-full bg-brand-red text-white flex items-center justify-center text-[12px] font-bold">3</span>
                 <CreditCard className="w-4 h-4 text-brand-red" />
                 {lang === 'ru' ? 'Оплата' : 'To‘lov usuli'}
               </h3>
@@ -442,7 +442,7 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
                   </div>
                 )}
 
-                <div className="flex justify-between text-xl font-black text-ink pt-4 border-t border-line uppercase">
+                <div className="flex justify-between text-[20px] font-bold text-ink tracking-[-0.02em] pt-5 border-t border-line">
                   <span>{dict.cart.subtotal}:</span>
                   <span className="text-brand-red">{formatPrice(finalTotal, lang)}</span>
                 </div>
@@ -458,7 +458,7 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
               <div className="flex items-center justify-center gap-2 text-xs text-ink-sub pt-2">
                 <ShieldCheck className="w-4 h-4 text-emerald-600" />
                 <span>{lang === 'ru' ? 'Безопасный заказ' : 'Xavfsiz buyurtma'}</span>
-                <span className="w-1 h-1 rounded-full bg-gray-300" />
+                <span className="w-1 h-1 rounded-full bg-[#C6CDD8]" />
                 <span>{COMPANY_CONTACTS.phoneDisplay}</span>
               </div>
 

@@ -16,7 +16,7 @@ export default function Error({ error, reset }: { error: Error; reset: () => voi
   return (
     <div className="bg-surface-page min-h-screen py-16">
       <Container>
-        <div className="max-w-md mx-auto bg-surface border border-line rounded-[20px] p-8 text-center space-y-4 shadow-sm">
+        <div className="max-w-md mx-auto bg-surface border border-line rounded-[20px] p-8 text-center space-y-4 shadow-card">
           <div className="w-14 h-14 rounded-[20px] bg-red-50 border border-red-200 flex items-center justify-center mx-auto">
             <AlertTriangle className="w-7 h-7 text-brand-red" />
           </div>

@@ -65,7 +65,7 @@ export default function ContactPage({ params: { lang } }: { params: { lang: Loca
             <span className="inline-flex px-3 py-1 rounded-full bg-red-50 border border-red-200 text-brand-red text-xs font-bold uppercase tracking-wider">
               {lang === 'ru' ? 'Контакты' : 'Bog‘lanish'}
             </span>
-            <h1 className="text-3xl sm:text-5xl font-black text-ink tracking-tight">
+            <h1 className="text-[30px] sm:text-[42px] font-bold text-ink tracking-[-0.03em] leading-[1.1]">
               SPS {lang === 'ru' ? 'Свяжитесь с нами' : 'Bilan aloqaga chiqing'}
             </h1>
             <p className="text-sm sm:text-base text-ink-soft">
@@ -78,7 +78,7 @@ export default function ContactPage({ params: { lang } }: { params: { lang: Loca
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
             {/* Contact Info Cards */}
             <div className="lg:col-span-5 space-y-4">
-              <div className="bg-surface border border-line rounded-[20px] p-6 space-y-4 shadow-sm">
+              <div className="bg-surface border border-line rounded-[20px] p-6 space-y-4 shadow-card">
                 <h3 className="text-base font-bold text-ink border-b border-line-soft pb-3">
                   {lang === 'ru' ? 'Реквизиты' : 'Aloqa rekvizitlari'}
                 </h3>
@@ -89,7 +89,7 @@ export default function ContactPage({ params: { lang } }: { params: { lang: Loca
                     onClick={() => trackEvent('phone_click', { location: 'contact_page' })}
                     className="flex items-center gap-3 p-4 rounded-[16px] bg-surface-soft border border-line hover:border-brand-red hover:bg-red-50 text-ink transition-colors group"
                   >
-                    <div className="w-11 h-11 rounded-[16px] bg-surface border border-line group-hover:border-red-200 flex items-center justify-center shrink-0 shadow-xs">
+                    <div className="w-11 h-11 rounded-[16px] bg-surface border border-line group-hover:border-red-200 flex items-center justify-center shrink-0 shadow-card">
                       <Phone className="w-5 h-5 text-brand-red" />
                     </div>
                     <div>
@@ -105,7 +105,7 @@ export default function ContactPage({ params: { lang } }: { params: { lang: Loca
                     onClick={() => trackEvent('telegram_click', { location: 'contact_page' })}
                     className="flex items-center gap-3 p-4 rounded-[16px] bg-surface-soft border border-line hover:border-sky-300 hover:bg-sky-50 text-ink transition-colors group"
                   >
-                    <div className="w-11 h-11 rounded-[16px] bg-surface border border-line group-hover:border-sky-200 flex items-center justify-center shrink-0 shadow-xs">
+                    <div className="w-11 h-11 rounded-[16px] bg-surface border border-line group-hover:border-sky-200 flex items-center justify-center shrink-0 shadow-card">
                       <Send className="w-5 h-5 text-sky-600" />
                     </div>
                     <div>
@@ -121,7 +121,7 @@ export default function ContactPage({ params: { lang } }: { params: { lang: Loca
                     onClick={() => trackEvent('whatsapp_click', { location: 'contact_page' })}
                     className="flex items-center gap-3 p-4 rounded-[16px] bg-surface-soft border border-line hover:border-green-300 hover:bg-green-50 text-ink transition-colors group"
                   >
-                    <div className="w-11 h-11 rounded-[16px] bg-surface border border-line group-hover:border-green-200 flex items-center justify-center shrink-0 shadow-xs">
+                    <div className="w-11 h-11 rounded-[16px] bg-surface border border-line group-hover:border-green-200 flex items-center justify-center shrink-0 shadow-card">
                       <MessageSquare className="w-5 h-5 text-green-600" />
                     </div>
                     <div>
@@ -131,7 +131,7 @@ export default function ContactPage({ params: { lang } }: { params: { lang: Loca
                   </a>
 
                   <div className="flex items-center gap-3 p-4 rounded-[16px] bg-surface-soft border border-line">
-                    <div className="w-11 h-11 rounded-[16px] bg-surface border border-line flex items-center justify-center shrink-0 shadow-xs">
+                    <div className="w-11 h-11 rounded-[16px] bg-surface border border-line flex items-center justify-center shrink-0 shadow-card">
                       <MapPin className="w-5 h-5 text-brand-red" />
                     </div>
                     <div>
@@ -141,7 +141,7 @@ export default function ContactPage({ params: { lang } }: { params: { lang: Loca
                   </div>
 
                   <div className="flex items-center gap-3 p-4 rounded-[16px] bg-surface-soft border border-line">
-                    <div className="w-11 h-11 rounded-[16px] bg-surface border border-line flex items-center justify-center shrink-0 shadow-xs">
+                    <div className="w-11 h-11 rounded-[16px] bg-surface border border-line flex items-center justify-center shrink-0 shadow-card">
                       <Clock className="w-5 h-5 text-amber-600" />
                     </div>
                     <div>
@@ -154,7 +154,7 @@ export default function ContactPage({ params: { lang } }: { params: { lang: Loca
             </div>
 
             {/* Contact Form */}
-            <div className="lg:col-span-7 bg-surface border border-line rounded-[20px] p-6 sm:p-8 space-y-6 shadow-sm">
+            <div className="lg:col-span-7 bg-surface border border-line rounded-[20px] p-6 sm:p-8 space-y-6 shadow-card">
               <h3 className="text-lg font-bold text-ink border-b border-line-soft pb-4">
                 {lang === 'ru' ? 'Отправить сообщение' : 'Xabar yoki konsultatsiya so‘rovi yuborish'}
               </h3>

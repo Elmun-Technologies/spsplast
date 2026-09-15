@@ -280,11 +280,11 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                         value={calcArea}
                         onChange={(e) => setCalcArea(e.target.value)}
                         placeholder="Masalan: 50"
-                        className="mt-1 w-full px-3 py-2.5 rounded-lg border border-[#DDE3EB] text-sm focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 outline-none"
+                        className="mt-1 w-full px-4 py-2.5 rounded-full bg-surface-soft text-sm focus:bg-white focus:ring-1 focus:ring-line outline-none min-h-[44px]"
                       />
                     </div>
                     {calcQty() > 0 && (
-                      <div className="p-3 rounded-lg bg-surface border border-line text-sm space-y-1">
+                      <div className="p-3.5 rounded-[16px] bg-surface text-sm space-y-1 shadow-card">
                         <div className="flex justify-between">
                           <span className="text-ink-soft">Kerakli qolip:</span>
                           <span className="font-bold text-ink">{calcQty()} dona</span>
@@ -308,13 +308,13 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
             <div className="lg:col-span-6 space-y-5">
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="font-mono bg-surface-soft px-2.5 py-1 rounded-lg border border-line text-ink-soft text-xs font-bold">
+                  <span className="bg-surface-soft px-2.5 py-1 rounded-full text-ink-soft text-[12px] font-medium">
                     SKU: {product.sku}
                   </span>
                   <StockBadge inStock={product.inStock} lang={lang} />
                 </div>
 
-                <h1 className="text-2xl sm:text-3xl font-bold text-ink leading-tight tracking-tight">
+                <h1 className="text-[24px] sm:text-[30px] font-bold text-ink leading-[1.2] tracking-[-0.025em]">
                   {title}
                 </h1>
 
@@ -375,21 +375,21 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                 </h4>
 
                 {product.dimensions && (
-                  <div className="flex justify-between py-2 border-b border-gray-50 text-sm">
+                  <div className="flex justify-between py-2.5 border-b border-line-soft text-sm">
                     <span className="text-ink-sub">{lang === 'ru' ? 'Размер' : 'O‘lchami'}:</span>
-                    <span className="text-ink font-mono font-bold">{product.dimensions}</span>
+                    <span className="text-ink font-semibold">{product.dimensions}</span>
                   </div>
                 )}
 
                 {product.material && (
-                  <div className="flex justify-between py-2 border-b border-gray-50 text-sm">
+                  <div className="flex justify-between py-2.5 border-b border-line-soft text-sm">
                     <span className="text-ink-sub">{lang === 'ru' ? 'Материал' : 'Material turi'}:</span>
                     <span className="text-ink font-semibold">{product.material}</span>
                   </div>
                 )}
 
                 {product.yieldPerCast && (
-                  <div className="flex justify-between py-2 border-b border-gray-50 text-sm">
+                  <div className="flex justify-between py-2.5 border-b border-line-soft text-sm">
                     <span className="text-ink-sub">{lang === 'ru' ? 'За 1 заливку' : 'Bitta quyishda'}:</span>
                     <span className="text-brand-red font-bold">{product.yieldPerCast} dona</span>
                   </div>
@@ -403,7 +403,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                 )}
 
                 {product.weight && (
-                  <div className="flex justify-between py-2 border-t border-gray-50 text-sm">
+                  <div className="flex justify-between py-2.5 border-t border-line-soft text-sm">
                     <span className="text-ink-sub">{lang === 'ru' ? 'Вес' : 'Og‘irligi'}:</span>
                     <span className="text-ink font-medium">{product.weight}</span>
                   </div>
@@ -464,21 +464,21 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
               {/* Guarantees */}
               <div className="grid grid-cols-2 gap-3 text-sm">
                 <div className="flex items-center gap-2.5 p-3.5 rounded-[16px] bg-surface-soft">
-                  <div className="w-9 h-9 rounded-lg bg-surface border border-line flex items-center justify-center shrink-0">
+                  <div className="w-9 h-9 rounded-full bg-surface flex items-center justify-center shrink-0 shadow-card">
                     <Truck className="w-5 h-5 text-brand-red" />
                   </div>
                   <div>
-                    <div className="font-bold text-ink text-xs">Express</div>
+                    <div className="font-semibold text-ink text-[13px]">Express</div>
                     <div className="text-xs text-ink-sub">1-3 kunda yetkazish</div>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-2.5 p-3.5 rounded-[16px] bg-surface-soft">
-                  <div className="w-9 h-9 rounded-lg bg-surface border border-line flex items-center justify-center shrink-0">
+                  <div className="w-9 h-9 rounded-full bg-surface flex items-center justify-center shrink-0 shadow-card">
                     <ShieldCheck className="w-5 h-5 text-emerald-600" />
                   </div>
                   <div>
-                    <div className="font-bold text-ink text-xs">100% Kafolat</div>
+                    <div className="font-semibold text-ink text-[13px]">100% Kafolat</div>
                     <div className="text-xs text-ink-sub">Resurs modelga bog’liq</div>
                   </div>
                 </div>

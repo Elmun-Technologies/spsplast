@@ -74,7 +74,7 @@ export default async function SearchPage({
                             <Search className="w-5 h-5" />
                         </div>
                         <div>
-                            <h1 className="text-xl font-bold text-ink">
+                            <h1 className="text-[20px] font-bold text-ink tracking-[-0.02em]">
                                 {query ? `Qidiruv: "${query}"` : lang === 'ru' ? 'Поиск товаров' : 'Mahsulot qidirish'}
                             </h1>
                             <p className="text-sm text-ink-sub mt-0.5">

@@ -24,8 +24,8 @@ export const StickyMobileContact: React.FC<{ lang?: string }> = () => {
           <div className="absolute inset-0 bg-black/40" onClick={() => setContactOpen(false)} />
           <div className="relative w-full max-w-sm bg-surface rounded-[20px] shadow-pop border border-line overflow-hidden animate-in slide-in-from-bottom-2">
             <div className="flex items-center justify-between p-4 border-b border-line-soft">
-              <h4 className="text-sm font-bold text-ink">Aloqa usullari</h4>
-              <button onClick={() => setContactOpen(false)} className="p-1 rounded-lg hover:bg-surface-soft">
+              <h4 className="text-[15px] font-semibold text-ink">Aloqa usullari</h4>
+              <button onClick={() => setContactOpen(false)} className="p-1.5 rounded-full text-ink-sub hover:bg-surface-soft transition-colors">
                 <X className="w-4 h-4" />
               </button>
             </div>
@@ -35,7 +35,7 @@ export const StickyMobileContact: React.FC<{ lang?: string }> = () => {
                 onClick={() => trackEvent('phone_click', { location: 'sticky_mobile_sheet' })}
                 className="flex items-center gap-3 p-3 rounded-[16px] bg-emerald-50 border border-emerald-200 text-emerald-900 hover:bg-emerald-100 transition-colors"
               >
-                <div className="w-10 h-10 rounded-lg bg-emerald-600 flex items-center justify-center text-white">
+                <div className="w-10 h-10 rounded-[14px] bg-emerald-600 flex items-center justify-center text-white">
                   <Phone className="w-5 h-5" />
                 </div>
                 <div>
@@ -50,7 +50,7 @@ export const StickyMobileContact: React.FC<{ lang?: string }> = () => {
                 onClick={() => trackEvent('telegram_click', { location: 'sticky_mobile_sheet' })}
                 className="flex items-center gap-3 p-3 rounded-[16px] bg-sky-50 border border-sky-200 text-sky-900 hover:bg-sky-100 transition-colors"
               >
-                <div className="w-10 h-10 rounded-lg bg-sky-600 flex items-center justify-center text-white">
+                <div className="w-10 h-10 rounded-[14px] bg-sky-600 flex items-center justify-center text-white">
                   <Send className="w-5 h-5" />
                 </div>
                 <div>
@@ -65,7 +65,7 @@ export const StickyMobileContact: React.FC<{ lang?: string }> = () => {
                 onClick={() => trackEvent('whatsapp_click', { location: 'sticky_mobile_sheet' })}
                 className="flex items-center gap-3 p-3 rounded-[16px] bg-green-50 border border-green-200 text-green-900 hover:bg-green-100 transition-colors"
               >
-                <div className="w-10 h-10 rounded-lg bg-green-600 flex items-center justify-center text-white">
+                <div className="w-10 h-10 rounded-[14px] bg-green-600 flex items-center justify-center text-white">
                   <MessageSquare className="w-5 h-5" />
                 </div>
                 <div>

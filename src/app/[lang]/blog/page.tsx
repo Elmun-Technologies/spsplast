@@ -32,7 +32,7 @@ export default async function BlogPage({ params: { lang } }: { params: { lang: L
             <span className="inline-flex px-3 py-1 rounded-full bg-red-50 border border-red-200 text-brand-red text-xs font-bold uppercase tracking-wider">
               {lang === 'ru' ? 'Полезные статьи' : 'Foydali maqolalar'}
             </span>
-            <h1 className="text-3xl sm:text-5xl font-black text-ink tracking-tight">
+            <h1 className="text-[30px] sm:text-[42px] font-bold text-ink tracking-[-0.03em] leading-[1.1]">
               {lang === 'ru' ? 'Блог и руководства SPS' : 'SPS blogi va qo‘llanmalari'}
             </h1>
             <p className="text-sm text-ink-soft">
@@ -55,7 +55,7 @@ export default async function BlogPage({ params: { lang } }: { params: { lang: L
                   <Link
                     key={post.id}
                     href={`/${lang}/blog/${trans.slug || post.id}`}
-                    className="group bg-surface border border-line rounded-[20px] overflow-hidden p-5 flex flex-col justify-between hover:border-[#DDE3EB] hover:shadow-sm transition-all"
+                    className="group bg-surface border border-line rounded-[20px] overflow-hidden p-5 flex flex-col justify-between hover:border-[#DDE3EB] hover:shadow-lift transition-all"
                   >
                     <div className="space-y-4">
                       <div className="relative aspect-[16/9] rounded-[16px] overflow-hidden bg-surface-soft border border-line-soft">

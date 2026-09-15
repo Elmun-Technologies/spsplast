@@ -61,7 +61,27 @@ Brend rangi o'zgarmadi: `brand-red #E61C24`. Eski `card-hover` va `red` soyalari
 - **Savat paneli (drawer)** va **mobil aloqa paneli**: 20px radius, `shadow-pop`.
 - **Dizayn tizimi ko'rgazmasi**: `http://localhost:3000/ui-preview` — ranglar, tugmalar, nishonlar, `Price`, kategoriya plitkalari va real komponentlar (Header, ProductCard, mahsulot sahifasi, savat paneli, Footer) mock ma'lumot bilan.
 
-## 5. Tekshiruv
+## 5. Qamrov — qaysi sahifalar yangilandi
+
+Dizayn tili **butun storefront**ga qo'llandi (faqat kritik oqim emas). Har bir sahifa va
+komponent yangi tokenlarda:
+
+| Guruh | Fayllar |
+|---|---|
+| Sahifa karkasi | `[lang]/layout.tsx` (oq fon), `HeaderClient`, `Footer`, `StickyMobileContact`, `DeferredWidgets`, `PWAInstallBanner`, `CompareBar` |
+| Bosh sahifa | `[lang]/page.tsx` (hero panel, ishonch kartalari, bo'limlar, FAQ, B2BBanner, DealCountdown) |
+| Katalog | `catalog/page.tsx`, `CatalogClient` (filtr paneli, saralash, ko'rinish, sahifalash), `CategoryCard` |
+| Mahsulot | `product/[slug]/page.tsx`, `ProductDetailClient` (galereya, hajm kartalari, kalkulyator, sticky bar), `ProductCard`, `QuickViewModal`, `OneClickModal`, `B2BModal`, `ProductTabs`, `ProductReviews`, `CrossSell`, `RecentlyViewed`, `MoldResultShowcase`, `BeforeAfterSlider` |
+| Savat / buyurtma | `cart/page.tsx`, `checkout/page.tsx`, `CartDrawer`, `FreeShippingProgress`, `order-success/[orderId]` |
+| Boshqa sahifalar | `wishlist`, `compare`, `search`, `about`, `contact`, `blog`, `blog/[slug]`, `production`, `projects`, `returns`, `delivery-payment`, `privacy`, `terms`, `error.tsx`, `loading.tsx` |
+| UI primitivlari | `Button`, `Badge`, `SectionHeader`, `StockBadge`, `Price`, `Skeleton`, `EmptyState`, `QuantitySelector`, `Modal`, `Breadcrumbs`, `PlaceholderImage`, `DealCountdown`, `AIAssistant` |
+| Preview | `ui-preview/MockStorefront` (dizayn tizimi bo'limi qo'shildi) |
+| **Qamrovdan tashqarida** | `src/app/admin/**`, `src/components/admin/**` — admin panel ataylab qorong'i (dark) uslubda qoldirildi |
+
+> `blog/[slug]` sahifasida sarlavha `text-white` bo'lib qolgan edi — karkas foni oqqa
+> o'tgach u ko'rinmas bo'lib qolardi, tuzatildi (endi `text-ink`).
+
+## 6. Tekshiruv
 
 | Tekshiruv | Natija |
 |---|---|
@@ -73,7 +93,7 @@ Brend rangi o'zgarmadi: `brand-red #E61C24`. Eski `card-hover` va `red` soyalari
 
 > Eslatma: bu muhitda baza (Postgres/Prisma) ulanmagan, shuning uchun `/uz` va `/uz/catalog` sahifalari `error.tsx` holatini ko'rsatadi — bu sandbox cheklovi, regressiya emas. Dizaynni tekshirish uchun `/ui-preview` ishlatiladi.
 
-## 6. Keyingi qadam (mobil bosqichi)
+## 7. Keyingi qadam (mobil bosqichi)
 
 - 375px kenglikda hero sarlavhasi va filtr panelini yana bir bor ko'zdan kechirish;
 - `sizes` atributi yetishmayotgan sahifalar: `blog/[slug]`, `production`, `projects`;

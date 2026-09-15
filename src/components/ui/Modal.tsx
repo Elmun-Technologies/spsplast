@@ -56,7 +56,7 @@ export const Modal: React.FC<ModalProps> = ({
           {title && <h3 className="text-base font-bold text-ink">{title}</h3>}
           <button
             onClick={onClose}
-            className="p-1 rounded-lg text-ink-sub hover:text-ink-soft hover:bg-surface-soft transition-colors ml-auto"
+            className="p-2 rounded-full text-ink-sub hover:text-ink hover:bg-surface-soft transition-colors ml-auto"
           >
             <X className="w-5 h-5" />
           </button>

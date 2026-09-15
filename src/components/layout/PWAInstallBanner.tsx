@@ -35,7 +35,7 @@ export const PWAInstallBanner: React.FC = () => {
   if (!show) return null;
 
   return (
-    <div className="fixed bottom-24 lg:bottom-6 left-4 right-4 lg:left-auto lg:right-6 z-40 max-w-sm bg-ink border border-gray-800 rounded-[20px] shadow-pop p-4 flex items-start gap-3 animate-in slide-in-from-bottom-2">
+    <div className="fixed bottom-24 lg:bottom-6 left-4 right-4 lg:left-auto lg:right-6 z-40 max-w-sm bg-ink border border-white/10 rounded-[20px] shadow-pop p-4 flex items-start gap-3 animate-in slide-in-from-bottom-2">
       <div className="w-11 h-11 rounded-[16px] bg-surface flex items-center justify-center shrink-0">
         <Smartphone className="w-6 h-6 text-brand-red" />
       </div>
