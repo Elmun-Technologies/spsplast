@@ -48,15 +48,15 @@ export const Modal: React.FC<ModalProps> = ({
 
       <div
         className={cn(
-          'relative w-full bg-white border border-gray-200 rounded-xl p-5 shadow-lg z-10 text-gray-900 animate-in fade-in zoom-in-95 duration-200',
+          'relative w-full bg-surface rounded-[18px] border border-line shadow-card p-5 shadow-lg z-10 text-ink animate-in fade-in zoom-in-95 duration-200',
           widthClasses[maxWidth]
         )}
       >
-        <div className="flex items-center justify-between pb-3 border-b border-gray-100 mb-4">
-          {title && <h3 className="text-base font-bold text-gray-900">{title}</h3>}
+        <div className="flex items-center justify-between pb-3 border-b border-line-soft mb-4">
+          {title && <h3 className="text-base font-bold text-ink">{title}</h3>}
           <button
             onClick={onClose}
-            className="p-1 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors ml-auto"
+            className="p-2 rounded-full text-ink-sub hover:text-ink hover:bg-surface-soft transition-colors ml-auto"
           >
             <X className="w-5 h-5" />
           </button>

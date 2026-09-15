@@ -35,24 +35,24 @@ export const PWAInstallBanner: React.FC = () => {
   if (!show) return null;
 
   return (
-    <div className="fixed bottom-24 lg:bottom-6 left-4 right-4 lg:left-auto lg:right-6 z-40 max-w-sm bg-gray-900 border border-gray-800 rounded-2xl shadow-2xl p-4 flex items-start gap-3 animate-in slide-in-from-bottom-2">
-      <div className="w-11 h-11 rounded-xl bg-white flex items-center justify-center shrink-0">
+    <div className="fixed bottom-24 lg:bottom-6 left-4 right-4 lg:left-auto lg:right-6 z-40 max-w-sm bg-ink border border-white/10 rounded-[20px] shadow-pop p-4 flex items-start gap-3 animate-in slide-in-from-bottom-2">
+      <div className="w-11 h-11 rounded-[16px] bg-surface flex items-center justify-center shrink-0">
         <Smartphone className="w-6 h-6 text-brand-red" />
       </div>
       <div className="flex-1">
         <div className="text-sm font-bold text-white">Ilovani o'rnating</div>
-        <div className="text-xs text-gray-400 mt-1 leading-relaxed">SPS ni tezroq ochish va offline savat uchun PWA o'rnating</div>
+        <div className="text-xs text-ink-sub mt-1 leading-relaxed">SPS ni tezroq ochish va offline savat uchun PWA o'rnating</div>
         <div className="flex gap-2 mt-3">
-          <Button size="sm" onClick={handleInstall} className="rounded-xl gap-1.5">
+          <Button size="sm" onClick={handleInstall} className="gap-1.5">
             <Download className="w-4 h-4" />
             O'rnatish
           </Button>
-          <Button size="sm" variant="secondary" onClick={handleDismiss} className="rounded-xl bg-white/10 text-white border-white/20 hover:bg-white/15">
+          <Button size="sm" variant="secondary" onClick={handleDismiss} className="rounded-full bg-white/10 text-white hover:bg-white/20">
             Keyinroq
           </Button>
         </div>
       </div>
-      <button onClick={handleDismiss} className="p-1 text-gray-400 hover:text-white">
+      <button onClick={handleDismiss} className="p-1 text-ink-sub hover:text-white">
         <X className="w-4 h-4" />
       </button>
     </div>

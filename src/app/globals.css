@@ -3,11 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --background: #F8F9FA;
+  --background: #F6F7F9;
   --foreground: #111827;
   --brand-red: #E61C24;
   --brand-dark: #161920;
   --grid-color: rgba(0, 0, 0, 0.03);
+  --radius-card: 20px;
 }
 
 * {
@@ -22,23 +23,12 @@ html {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-inter), 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
-}
-
-/* Keep surfaces quiet. Product photography and copy should carry the page, not decorative effects. */
-.industrial-grid,
-.industrial-grid-dark {
-  background-image: none;
-}
-
-/* A restrained surface texture used only where a dark brand panel needs depth. */
-.noise::before {
-  opacity: 0.18;
 }
 
 /* Hide scrollbar */
@@ -56,7 +46,7 @@ body {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #F1F3F5;
+  background: #EEF1F5;
 }
 ::-webkit-scrollbar-thumb {
   background: #D1D5DB;
@@ -66,22 +56,11 @@ body {
   background: var(--brand-red);
 }
 
-/* Card interactions - premium, not generic */
-.card-lift {
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
-  will-change: transform;
-}
-.card-lift:hover {
-  transform: translateY(-3px);
-}
-.card-lift:active {
-  transform: translateY(-1px);
-}
-
 /* Focus styles - accessible */
 *:focus-visible {
   outline: 2px solid var(--brand-red);
   outline-offset: 2px;
+  border-radius: 6px;
 }
 
 /* Selection */
@@ -106,16 +85,6 @@ body {
   animation: fadeIn 0.4s ease-out;
 }
 
-/* Industrial noise texture - CSS only */
-.noise::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none;
-  opacity: 0.18;
-}
-
 /* Button press */
 .btn-press:active {
   transform: scale(0.98);
@@ -130,5 +99,46 @@ body {
   select,
   textarea {
     font-size: 16px !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Performance helpers
+   --------------------------------------------------------------------------- */
+
+/*
+ * Skip layout/paint work for long, below-the-fold sections until they are
+ * scrolled near the viewport. Keeps long home/product pages responsive on
+ * low-end Android devices without changing what the user sees.
+ */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 720px;
+}
+
+/*
+ * Product card action buttons (wishlist / compare / quick view / share) are
+ * revealed on hover. Touch devices have no hover, which made them
+ * unreachable on phones — always show them there.
+ */
+@media (hover: none) {
+  .hover-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Respect users who ask the OS for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }

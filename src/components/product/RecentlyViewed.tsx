@@ -7,7 +7,6 @@ import { Clock, X } from 'lucide-react';
 import { useRecentStore } from '@/lib/store/recentStore';
 import { Locale } from '@/lib/i18n';
 import { formatPrice } from '@/lib/utils';
-import { Container } from '@/components/ui/Container';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 
 interface RecentlyViewedProps {
@@ -16,21 +15,22 @@ interface RecentlyViewedProps {
 }
 
 export const RecentlyViewed: React.FC<RecentlyViewedProps> = ({ lang, currentProductId }) => {
-  const { items, clearRecent } = useRecentStore();
+  const items = useRecentStore((s) => s.items);
+  const clearRecent = useRecentStore((s) => s.clearRecent);
   const filtered = items.filter((i) => i.id !== currentProductId).slice(0, 6);
 
   if (filtered.length === 0) return null;
 
   return (
-    <section className="py-6">
-      <Container>
+    <section className="py-6 sm:py-8">
+      <div>
         <SectionHeader
           title={lang === 'ru' ? 'Вы недавно смотрели' : 'Yaqinda ko‘rilganlar'}
           subtitle={lang === 'ru' ? 'Вернитесь к просмотренным товарам' : 'Ko‘rgan mahsulotlaringizga qayting'}
         >
           <button
             onClick={clearRecent}
-            className="text-xs text-gray-500 hover:text-red-600 flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-red-50 transition-colors"
+            className="text-[12px] text-ink-sub hover:text-brand-red flex items-center gap-1 px-2.5 py-1.5 rounded-full hover:bg-[#FEF0F0] transition-colors"
           >
             <X className="w-3 h-3" />
             {lang === 'ru' ? 'Очистить' : 'Tozalash'}
@@ -42,17 +42,17 @@ export const RecentlyViewed: React.FC<RecentlyViewedProps> = ({ lang, currentPro
             <Link
               key={p.id}
               href={`/${lang}/product/${p.slug}`}
-              className="group bg-white border border-gray-200 rounded-xl p-3 hover:border-gray-300 hover:shadow-sm transition-all"
+              className="group bg-surface rounded-[18px] border border-line shadow-card p-3 hover:border-[#DDE3EB] hover:shadow-card transition-all"
             >
-              <div className="relative aspect-square bg-[#F8F9FA] rounded-lg border border-gray-100 overflow-hidden p-2 mb-2">
+              <div className="relative aspect-square bg-surface-soft rounded-[16px] overflow-hidden p-2 mb-2">
                 {p.image ? (
-                  <Image src={p.image} alt={p.title} fill className="object-contain p-2 group-hover:scale-105 transition-transform" />
+                  <Image src={p.image} alt={p.title} fill sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw" className="object-contain p-2 group-hover:scale-105 transition-transform" />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-[10px] font-bold text-gray-400">SPS</div>
+                  <div className="w-full h-full flex items-center justify-center text-[10px] font-bold text-ink-sub">SPS</div>
                 )}
               </div>
               <div className="space-y-1">
-                <div className="text-xs font-bold text-gray-900 line-clamp-2 leading-snug min-h-[32px] group-hover:text-brand-red">
+                <div className="text-xs font-bold text-ink line-clamp-2 leading-snug min-h-[32px] group-hover:text-brand-red">
                   {p.title}
                 </div>
                 <div className="text-xs font-bold text-brand-red">{formatPrice(p.price, lang)}</div>
@@ -60,7 +60,7 @@ export const RecentlyViewed: React.FC<RecentlyViewedProps> = ({ lang, currentPro
             </Link>
           ))}
         </div>
-      </Container>
+      </div>
     </section>
   );
 };

@@ -147,34 +147,34 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({ lang }) => {
           aria-label="AI yordamchi"
         >
           <Bot className="w-7 h-7" />
-          <span className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white animate-pulse" />
+          <span className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-500 rounded-full ring-2 ring-white animate-pulse" />
         </button>
       )}
 
       {open && (
-        <div className="fixed bottom-0 lg:bottom-6 right-0 lg:right-6 z-50 w-full lg:w-[380px] h-[70vh] lg:h-[520px] bg-white border border-gray-200 lg:rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-in slide-in-from-bottom-2">
-          <div className="bg-gray-900 text-white p-4 flex items-center justify-between">
+        <div className="fixed bottom-0 lg:bottom-6 right-0 lg:right-6 z-50 w-full lg:w-[380px] h-[70vh] lg:h-[520px] bg-surface border border-line lg:rounded-[20px] shadow-pop flex flex-col overflow-hidden animate-in slide-in-from-bottom-2">
+          <div className="bg-ink text-white p-4 flex items-center justify-between">
             <div className="flex items-center gap-2.5">
               <div className="w-8 h-8 rounded-full bg-brand-red flex items-center justify-center">
                 <Sparkles className="w-4 h-4" />
               </div>
               <div>
                 <div className="text-sm font-bold">SPS AI</div>
-                <div className="text-xs text-gray-400 flex items-center gap-1">
+                <div className="text-xs text-ink-sub flex items-center gap-1">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                   {lang === 'ru' ? 'Онлайн' : 'Onlayn'}
                 </div>
               </div>
             </div>
-            <button onClick={() => setOpen(false)} className="p-2 hover:bg-white/10 rounded-xl">
+            <button onClick={() => setOpen(false)} className="p-2 hover:bg-surface/10 rounded-[16px]">
               <X className="w-5 h-5" />
             </button>
           </div>
 
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#F8F9FA]">
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-surface-page">
             {messages.map((m) => (
               <div key={m.id} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[80%] rounded-2xl p-3.5 text-sm leading-relaxed ${m.role === 'user' ? 'bg-brand-red text-white rounded-br-md' : 'bg-white border border-gray-200 text-gray-900 rounded-bl-md shadow-xs'}`}>
+                <div className={`max-w-[80%] rounded-[20px] p-3.5 text-sm leading-relaxed ${m.role === 'user' ? 'bg-brand-red text-white rounded-br-md' : 'bg-surface text-ink rounded-bl-md shadow-card'}`}>
                   <div>{m.text}</div>
                   {m.actions && (
                     <div className="flex flex-wrap gap-1.5 mt-2.5">
@@ -182,7 +182,7 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({ lang }) => {
                         <button
                           key={idx}
                           onClick={() => (a.href ? (window.location.href = a.href) : a.onClick ? a.onClick() : sendMessage(a.label))}
-                          className="px-3 py-1.5 rounded-full bg-gray-100 hover:bg-gray-900 hover:text-white border border-gray-200 text-xs font-semibold transition-colors"
+                          className="px-3 py-1.5 rounded-full bg-surface-soft hover:bg-ink hover:text-white text-xs font-semibold transition-colors"
                         >
                           {a.label}
                         </button>
@@ -195,13 +195,13 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({ lang }) => {
             <div ref={endRef} />
           </div>
 
-          <div className="p-3 border-t border-gray-200 bg-white">
+          <div className="p-3 border-t border-line bg-surface">
             <div className="flex flex-wrap gap-1.5 mb-2.5">
               {QUICK_QUESTIONS.slice(0, 4).map((q, idx) => (
                 <button
                   key={idx}
                   onClick={() => sendMessage(lang === 'ru' ? q.ru : q.uz)}
-                  className="px-2.5 py-1 rounded-full bg-[#F8F9FA] border border-gray-200 text-xs text-gray-700 hover:border-brand-red hover:text-brand-red hover:bg-red-50 transition-colors"
+                  className="px-2.5 py-1 rounded-full bg-surface-page border border-line text-xs text-ink-soft hover:border-brand-red hover:text-brand-red hover:bg-[#FEF0F0] transition-colors"
                 >
                   {lang === 'ru' ? q.ru : q.uz}
                 </button>
@@ -220,9 +220,9 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({ lang }) => {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder={lang === 'ru' ? 'Напишите сообщение...' : 'Xabar yozing...'}
-                className="flex-1 px-4 py-3 rounded-xl border border-gray-300 text-sm focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 outline-none min-h-[44px]"
+                className="flex-1 px-4 py-3 rounded-full border border-line bg-surface-soft text-sm focus:border-brand-red focus:bg-surface outline-none min-h-[44px]"
               />
-              <button type="submit" className="w-11 h-11 rounded-xl bg-brand-red text-white flex items-center justify-center hover:bg-brand-red-dark shrink-0">
+              <button type="submit" className="w-11 h-11 rounded-full bg-brand-red text-white flex items-center justify-center hover:bg-brand-red-dark shrink-0">
                 <Send className="w-5 h-5" />
               </button>
             </form>

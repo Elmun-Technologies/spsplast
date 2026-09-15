@@ -1,17 +1,19 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
-import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { db } from '@/lib/db';
 import { getDictionary, Locale } from '@/lib/i18n';
-import { MoldResultShowcase } from '@/components/product/MoldResultShowcase';
 import { ProductDetailClient } from './ProductDetailClient';
 import { Container } from '@/components/ui/Container';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { RecentlyViewed, RecentlyViewedTracker } from '@/components/product/RecentlyViewed';
-import { ProductReviews } from '@/components/product/ProductReviews';
 import { ProductCard } from '@/components/product/ProductCard';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { getProductsServer } from '@/lib/services/productService';
+
+// Below-the-fold widgets: separate chunks, still server-rendered for SEO.
+const MoldResultShowcase = dynamic(() => import('@/components/product/MoldResultShowcase').then((m) => m.MoldResultShowcase));
+const ProductReviews = dynamic(() => import('@/components/product/ProductReviews').then((m) => m.ProductReviews));
 
 interface ProductPageProps {
   params: { lang: Locale; slug: string };
@@ -135,7 +137,7 @@ export default async function ProductDetailPage({
   };
 
   return (
-    <div className="bg-[#F8F9FA] min-h-screen py-6 text-gray-900 space-y-8">
+    <div className="bg-surface-page min-h-screen py-6 text-ink space-y-8">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdProduct) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
 
@@ -169,10 +171,10 @@ export default async function ProductDetailPage({
           </section>
         )}
 
-        <section className="mt-8 bg-white border border-gray-200 rounded-2xl p-6 sm:p-8 space-y-6 shadow-sm">
+        <section className="mt-8 bg-surface border border-line rounded-[20px] p-6 sm:p-8 space-y-6 shadow-card">
           <div className="text-center max-w-2xl mx-auto">
-            <h3 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">{dict.product.howItWorks}</h3>
-            <p className="text-sm text-gray-500 mt-2">{lang === 'ru' ? 'Технология заливки бетона' : 'Beton quyish texnologiyasi va bosqichlari'}</p>
+            <h3 className="text-xl sm:text-2xl font-bold text-ink tracking-tight">{dict.product.howItWorks}</h3>
+            <p className="text-sm text-ink-sub mt-2">{lang === 'ru' ? 'Технология заливки бетона' : 'Beton quyish texnologiyasi va bosqichlari'}</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
@@ -182,12 +184,12 @@ export default async function ProductDetailPage({
               { step: 3, title: dict.product.step3, desc: lang === 'ru' ? 'Сушите 24 часа в тени.' : '24 soat davomida soyada quriting.' },
               { step: 4, title: dict.product.step4, desc: lang === 'ru' ? 'Легко извлеките готовое изделие.' : 'Tayyor mahsulotni qolipdan osongina ajratib oling.' },
             ].map((item) => (
-              <div key={item.step} className="p-5 rounded-xl bg-[#F8F9FA] border border-gray-200 space-y-3 hover:border-gray-300 transition-colors">
+              <div key={item.step} className="p-5 rounded-[16px] bg-surface-soft border border-line space-y-3 hover:border-[#DDE3EB] transition-colors">
                 <span className="w-8 h-8 rounded-full bg-brand-red text-white text-sm font-bold flex items-center justify-center shadow-red">
                   {item.step}
                 </span>
-                <h4 className="font-bold text-gray-900 text-sm">{item.title}</h4>
-                <p className="text-sm text-gray-600 leading-relaxed">{item.desc}</p>
+                <h4 className="font-bold text-ink text-sm">{item.title}</h4>
+                <p className="text-sm text-ink-soft leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -196,7 +198,7 @@ export default async function ProductDetailPage({
         <RecentlyViewed lang={lang} currentProductId={mappedProduct.id} />
 
         {/* Reviews */}
-        <section className="pt-4">
+        <section className="pt-4 cv-auto">
           <ProductReviews lang={lang} productId={mappedProduct.id} />
         </section>
 

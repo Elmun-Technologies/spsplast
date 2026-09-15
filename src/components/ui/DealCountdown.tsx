@@ -28,7 +28,7 @@ export const DealCountdown: React.FC<{ lang: string }> = ({ lang }) => {
 
   if (!mounted) {
     return (
-      <div className="flex items-center gap-1 text-xs font-bold bg-red-50 text-brand-red px-2.5 py-1 rounded-full border border-red-100">
+      <div className="flex items-center gap-1 text-[12px] font-semibold bg-[#FEF0F0] text-brand-red px-3 py-1.5 rounded-full">
         <Clock className="w-3.5 h-3.5" />
         <span>--:--:--</span>
       </div>
@@ -38,7 +38,7 @@ export const DealCountdown: React.FC<{ lang: string }> = ({ lang }) => {
   const pad = (n: number) => String(n).padStart(2, '0');
 
   return (
-    <div className="flex items-center gap-1.5 text-xs font-mono font-bold bg-red-50 text-brand-red px-2.5 py-1 rounded-full border border-red-100">
+    <div className="flex items-center gap-1.5 text-[12px] font-semibold bg-[#FEF0F0] text-brand-red px-3 py-1.5 rounded-full">
       <Clock className="w-3.5 h-3.5" />
       <span>
         {pad(timeLeft.h)}:{pad(timeLeft.m)}:{pad(timeLeft.s)}

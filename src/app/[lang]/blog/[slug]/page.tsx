@@ -24,35 +24,35 @@ export default async function BlogPostDetailPage({
   const post = postTrans.post;
 
   return (
-    <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
+    <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 space-y-8">
       <Link
         href={`/${lang}/blog`}
-        className="inline-flex items-center gap-1.5 text-xs text-brand-red font-bold hover:underline"
+        className="inline-flex items-center gap-1.5 text-[13px] text-ink-sub font-semibold hover:text-brand-red transition-colors"
       >
         <ArrowLeft className="w-4 h-4" />
         <span>Blog ro‘yxatiga qaytish</span>
       </Link>
 
       <div className="space-y-4">
-        <h1 className="text-3xl sm:text-5xl font-black text-white leading-tight">{postTrans.title}</h1>
+        <h1 className="text-[30px] sm:text-[42px] font-bold text-ink tracking-[-0.03em] leading-[1.1]">{postTrans.title}</h1>
 
-        <div className="flex items-center gap-6 text-xs text-gray-400 border-y border-brand-border/60 py-3">
+        <div className="flex items-center gap-6 text-[13px] text-ink-sub border-y border-line py-3.5">
           <span className="flex items-center gap-1">
             <User className="w-4 h-4 text-brand-red" />
             {post.author}
           </span>
           <span className="flex items-center gap-1">
-            <Calendar className="w-4 h-4 text-gray-500" />
+            <Calendar className="w-4 h-4 text-ink-sub" />
             {new Date(post.publishedAt).toLocaleDateString()}
           </span>
         </div>
       </div>
 
-      <div className="relative aspect-[16/9] rounded-3xl overflow-hidden border border-brand-border shadow-2xl bg-black/40">
-        <Image src={post.coverImage} alt={postTrans.title} fill className="object-cover" />
+      <div className="relative aspect-[16/9] rounded-[24px] overflow-hidden bg-surface-soft">
+        <Image src={post.coverImage} alt={postTrans.title} fill sizes="(max-width: 1024px) 100vw, 896px" priority className="object-cover" />
       </div>
 
-      <div className="prose prose-invert max-w-none text-gray-300 text-sm sm:text-base leading-relaxed space-y-4">
+      <div className="max-w-none text-ink-soft text-[15px] sm:text-base leading-[1.75] space-y-4">
         {postTrans.content.split('\n\n').map((paragraph, i) => (
           <p key={i}>{paragraph}</p>
         ))}

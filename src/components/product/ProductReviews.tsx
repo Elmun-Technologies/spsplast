@@ -51,57 +51,57 @@ export const ProductReviews: React.FC<ProductReviewsProps> = ({ lang, productId 
   };
 
   return (
-    <div className="bg-white border border-gray-200 rounded-2xl p-6 sm:p-7 shadow-sm space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100 pb-5">
+    <div className="bg-surface border border-line rounded-[20px] p-6 sm:p-7 shadow-card space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-line-soft pb-5">
         <div>
-          <h3 className="text-lg font-bold text-gray-900">{lang === 'ru' ? 'Отзывы покупателей' : 'Xaridorlar sharhlari'}</h3>
+          <h3 className="text-lg font-bold text-ink">{lang === 'ru' ? 'Отзывы покупателей' : 'Xaridorlar sharhlari'}</h3>
           <div className="flex items-center gap-2 mt-1">
             <div className="flex items-center gap-0.5">
               {[1, 2, 3, 4, 5].map((i) => (
-                <Star key={i} className={`w-4 h-4 ${i <= Math.round(avg) ? 'fill-amber-400 text-amber-400' : 'text-gray-300'}`} />
+                <Star key={i} className={`w-4 h-4 ${i <= Math.round(avg) ? 'fill-amber-400 text-amber-400' : 'text-[#DDE3EB]'}`} />
               ))}
             </div>
-            <span className="text-sm font-bold text-gray-900">{avg.toFixed(1)}</span>
-            <span className="text-sm text-gray-500">({reviews.length} ta sharh)</span>
+            <span className="text-sm font-bold text-ink">{avg.toFixed(1)}</span>
+            <span className="text-sm text-ink-sub">({reviews.length} ta sharh)</span>
           </div>
         </div>
       </div>
 
       <div className="space-y-4">
         {reviews.map((r) => (
-          <div key={r.id} className="p-4 rounded-xl bg-[#F8F9FA] border border-gray-200 space-y-2">
+          <div key={r.id} className="p-4 rounded-[16px] bg-surface-soft border border-line space-y-2">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-gray-900 text-white flex items-center justify-center text-xs font-bold">
+                <div className="w-9 h-9 rounded-full bg-surface-soft text-ink flex items-center justify-center text-[13px] font-semibold">
                   {r.name[0]}
                 </div>
                 <div>
                   <div className="flex items-center gap-1.5">
-                    <span className="text-sm font-bold text-gray-900">{r.name}</span>
+                    <span className="text-sm font-bold text-ink">{r.name}</span>
                     {r.verified && (
-                      <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold">
+                      <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border text-[10px] font-bold">
                         <CheckCircle2 className="w-3 h-3" /> Tasdiqlangan
                       </span>
                     )}
                   </div>
                   <div className="flex items-center gap-0.5 mt-0.5">
                     {[1, 2, 3, 4, 5].map((i) => (
-                      <Star key={i} className={`w-3 h-3 ${i <= r.rating ? 'fill-amber-400 text-amber-400' : 'text-gray-300'}`} />
+                      <Star key={i} className={`w-3 h-3 ${i <= r.rating ? 'fill-amber-400 text-amber-400' : 'text-[#DDE3EB]'}`} />
                     ))}
                   </div>
                 </div>
               </div>
-              <span className="text-xs text-gray-500">{r.date}</span>
+              <span className="text-xs text-ink-sub">{r.date}</span>
             </div>
-            <p className="text-sm text-gray-700 leading-relaxed">{r.text}</p>
+            <p className="text-sm text-ink-soft leading-relaxed">{r.text}</p>
           </div>
         ))}
       </div>
 
-      <div className="pt-5 border-t border-gray-100">
-        <h4 className="font-bold text-gray-900 text-sm mb-3">{lang === 'ru' ? 'Оставить отзыв' : 'Sharh qoldirish'}</h4>
+      <div className="pt-5 border-t border-line-soft">
+        <h4 className="font-bold text-ink text-sm mb-3">{lang === 'ru' ? 'Оставить отзыв' : 'Sharh qoldirish'}</h4>
         {submitted && (
-          <div className="mb-3 p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm font-medium">
+          <div className="mb-3 p-3 rounded-[16px] bg-emerald-50 border text-emerald-800 text-sm font-medium">
             {lang === 'ru' ? 'Спасибо за отзыв!' : 'Sharh uchun rahmat! Tez orada e’lon qilinadi.'}
           </div>
         )}
@@ -113,13 +113,13 @@ export const ProductReviews: React.FC<ProductReviewsProps> = ({ lang, productId 
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder={lang === 'ru' ? 'Ваше имя' : 'Ismingiz'}
-              className="px-4 py-3 rounded-xl border border-gray-300 text-sm focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 outline-none min-h-[44px]"
+              className="px-4 py-3 rounded-[16px] border border-[#DDE3EB] text-sm focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 outline-none min-h-[44px]"
             />
-            <div className="flex items-center gap-1 px-3 py-2 rounded-xl border border-gray-300 bg-white">
-              <span className="text-xs font-semibold text-gray-600 mr-2">{lang === 'ru' ? 'Оценка' : 'Baholash'}:</span>
+            <div className="flex items-center gap-1 px-3 py-2 rounded-[16px] border border-[#DDE3EB] bg-surface">
+              <span className="text-xs font-semibold text-ink-soft mr-2">{lang === 'ru' ? 'Оценка' : 'Baholash'}:</span>
               {[1, 2, 3, 4, 5].map((i) => (
                 <button key={i} type="button" onClick={() => setRating(i)} className="p-1">
-                  <Star className={`w-5 h-5 ${i <= rating ? 'fill-amber-400 text-amber-400' : 'text-gray-300 hover:text-amber-300'}`} />
+                  <Star className={`w-5 h-5 ${i <= rating ? 'fill-amber-400 text-amber-400' : 'text-[#DDE3EB] hover:text-amber-300'}`} />
                 </button>
               ))}
             </div>
@@ -130,9 +130,9 @@ export const ProductReviews: React.FC<ProductReviewsProps> = ({ lang, productId 
             onChange={(e) => setText(e.target.value)}
             placeholder={lang === 'ru' ? 'Ваш отзыв...' : 'Sharhingizni yozing...'}
             rows={3}
-            className="w-full px-4 py-3 rounded-xl border border-gray-300 text-sm focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 outline-none"
+            className="w-full px-4 py-3 rounded-[16px] border border-[#DDE3EB] text-sm focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 outline-none"
           />
-          <Button type="submit" className="rounded-xl font-bold">
+          <Button type="submit" className="rounded-[16px] font-bold">
             {lang === 'ru' ? 'Отправить отзыв' : 'Sharhni yuborish'}
           </Button>
         </form>
