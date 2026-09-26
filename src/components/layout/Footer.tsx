@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Phone, Mail, MapPin, Send, ArrowUpRight, ShieldCheck, CreditCard, Truck } from 'lucide-react';
 import { getDictionary, Locale } from '@/lib/i18n';
 import { trackEvent } from '@/lib/analytics';
@@ -34,14 +35,16 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center pb-10 border-b border-line gap-8">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-[14px] bg-brand-red flex items-center justify-center font-bold text-white text-[13px]">
-                SPS
-              </div>
+              <Image
+                src="/images/logo-96.png"
+                alt="SPS — Stone Profy Servise"
+                width={40}
+                height={40}
+                className="w-10 h-10 rounded-[10px] object-cover"
+              />
               <div>
-                <div className="text-[17px] font-bold text-ink leading-none">SPS Plast</div>
-                <div className="text-[12px] text-ink-sub mt-1">
-                  {lang === 'ru' ? 'Формы и фасадный декор' : 'Qoliplar va fasad dekor'}
-                </div>
+                <div className="text-[17px] font-bold text-ink leading-none">SPS</div>
+                <div className="text-[12px] text-ink-sub mt-1">Stone Profy Servise</div>
               </div>
             </div>
 
@@ -156,7 +159,7 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
 
         {/* Bottom row */}
         <div className="pt-8 flex flex-col lg:flex-row items-center justify-between gap-4 text-[12px] text-ink-sub">
-          <p>© {new Date().getFullYear()} SPS Plast. {dict.footer.rights}</p>
+          <p>© {new Date().getFullYear()} Stone Profy Servise. {dict.footer.rights}</p>
           <div className="flex flex-wrap items-center justify-center gap-2.5">
             {['CLICK', 'PAYME', 'UZUM'].map((p) => (
               <span key={p} className="px-3 py-1.5 bg-surface-soft rounded-full text-[11px] font-semibold text-ink-soft">

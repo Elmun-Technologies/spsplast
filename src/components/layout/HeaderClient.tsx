@@ -213,15 +213,20 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                 <div className="flex items-center justify-between gap-4 md:gap-6">
                     {/* LEFT: SPS Brand */}
                     <Link href={`/${lang}`} className="flex items-center gap-2.5 shrink-0 group">
-                        <div className="w-10 h-10 rounded-[14px] bg-brand-red flex items-center justify-center font-bold text-white text-[13px] tracking-tight group-hover:bg-brand-red-dark transition-colors">
-                            SPS
-                        </div>
+                        <Image
+                            src="/images/logo-96.png"
+                            alt="SPS — Stone Profy Servise"
+                            width={40}
+                            height={40}
+                            priority
+                            className="w-10 h-10 rounded-[10px] object-cover"
+                        />
                         <div className="hidden xs:flex sm:flex flex-col">
                             <span className="font-bold text-[17px] tracking-[-0.02em] leading-none text-ink">
-                                SPS Plast
+                                SPS
                             </span>
                             <span className="text-[10px] tracking-[0.06em] text-ink-sub mt-1">
-                                Qoliplar va fasad dekor
+                                Stone Profy Servise
                             </span>
                         </div>
                     </Link>
