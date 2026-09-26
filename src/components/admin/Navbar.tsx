@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import {
   LayoutDashboard,
@@ -70,9 +71,13 @@ export default function AdminNavbar() {
     <aside className="w-64 bg-brand-card border-r border-brand-border flex flex-col justify-between p-4 shrink-0 hidden md:flex">
       <div className="space-y-6">
         <div className="flex items-center gap-3 px-2">
-          <div className="w-8 h-8 rounded-lg bg-brand-red flex items-center justify-center font-black text-sm text-white">
-            SPS
-          </div>
+          <Image
+            src="/images/logo-96.png"
+            alt="SPS — Stone Profy Servise"
+            width={32}
+            height={32}
+            className="w-8 h-8 rounded-lg object-cover"
+          />
           <span className="font-extrabold text-lg text-white">Admin Panel</span>
         </div>
 

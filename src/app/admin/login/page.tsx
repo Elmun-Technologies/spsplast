@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 import { Lock, Mail, ShieldAlert } from 'lucide-react';
@@ -43,9 +44,13 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-md bg-brand-card border border-brand-border rounded-3xl p-8 space-y-6 shadow-2xl">
         
         <div className="text-center space-y-2">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-red to-brand-red-light flex items-center justify-center mx-auto text-white font-extrabold text-xl shadow-red">
-            SPS
-          </div>
+          <Image
+            src="/images/logo-96.png"
+            alt="SPS — Stone Profy Servise"
+            width={48}
+            height={48}
+            className="w-12 h-12 rounded-xl object-cover mx-auto shadow-red"
+          />
           <h1 className="text-2xl font-black text-white">SPS Admin Panel</h1>
           <p className="text-xs text-gray-400">Dasturiy boshqaruv tizimiga kirish</p>
         </div>
