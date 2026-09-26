@@ -4,13 +4,14 @@
 
 SPS Plast is a bilingual (uz/ru) B2C/B2B e-commerce platform for construction molds and
 related products (thermopanels, paving/curb molds, concrete molds, etc.), built with
-Next.js 14 App Router. It includes a public storefront, a guest checkout flow, a B2B
+Next.js 15 App Router (React 19). It includes a public storefront, a guest checkout flow, a B2B
 wholesale lead form, an admin panel (CRUD for products/categories/orders/leads), and
 integrations with Click/Payme payment providers, amoCRM, and Telegram order notifications.
 
 ## Tech Stack
 
-- **Framework**: Next.js 14 (App Router), TypeScript
+- **Framework**: Next.js 15 (App Router) + React 19, TypeScript
+- **Fonts**: self-hosted Inter variable font (`/public/fonts`, see `globals.css`)
 - **Database/ORM**: PostgreSQL via Prisma (`@prisma/client` v5) — no `migrations/` folder,
   schema is applied with `prisma db push`
 - **Styling**: Tailwind CSS
@@ -32,12 +33,16 @@ src/
                          # payments, cron, health)
     sitemap.ts          # dynamic sitemap (must not fail the build if DB is unreachable)
     robots.ts
+  middleware.ts         # CSRF gate for every cookie-authenticated /api route
   components/           # UI and feature components
   dictionaries/         # i18n dictionaries (uz/ru)
   lib/
     db.ts               # Prisma client singleton
     env.ts               # zod-validated environment config
     auth.ts, csrf.ts, rateLimit.ts
+    pricing.ts           # bulk-tier + coupon pricing (shared by UI and server)
+    slug.ts              # uz/ru transliterating slug generator
+    schemas/order.ts     # zod schema for the public order payload
     amocrm/              # amoCRM OAuth + sync client
     payments/            # Click and Payme provider implementations
     integrations/        # outbox job queue (IntegrationJob processing)
@@ -110,6 +115,17 @@ See `.env.example` for the full annotated list.
 5. Seed data (admin user, sample content) via `npm run db:seed` (`prisma/seed.js`),
    using `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD`.
 
+## Async Request APIs (Next.js 15)
+
+`params`, `searchParams` and `cookies()` are **promises** in Next 15 and must be
+awaited. Rules that keep this codebase correct:
+
+- Server components / route handlers: `const { lang } = await params;`
+- `'use client'` pages: `const { lang } = React.use(params);`
+- Awaiting `params`/`searchParams` opts a route into dynamic rendering. Static
+  marketing pages stay prerendered because `[lang]/layout.tsx` exports
+  `generateStaticParams()` for the closed locale set (`uz`, `ru`).
+
 ## Known Pitfalls
 
 - **Vercel dependency cache + Prisma Client**: if `postinstall`/`build` don't call
@@ -123,6 +139,11 @@ See `.env.example` for the full annotated list.
 - **No `prisma/migrations/` folder**: schema is synced with `prisma db push`, not
   `prisma migrate deploy`. Don't introduce a migrations workflow without updating
   the deploy process everywhere it's documented.
+- **Fonts are self-hosted**: `src/app/globals.css` declares `@font-face` rules for
+  the woff2 files in `/public/fonts`. Do not switch back to `next/font/google` —
+  it fetches the font at build time and a build without outbound internet fails
+  with "Failed to fetch `Inter` from Google Fonts". Update the vendored files
+  with `npm run fonts:sync`.
 - **Datasource is PostgreSQL**, not SQLite — `DATABASE_URL` must point at Postgres
   (`DIRECT_URL` is used for direct/non-pooled connections, e.g. with pgbouncer).
 
@@ -138,4 +159,5 @@ npm run db:push             # apply prisma/schema.prisma to the database
 npm run db:seed              # run prisma/seed.js
 npm run db:studio             # open Prisma Studio
 npm run verify:production      # scripts/verify-production.js
+npm run fonts:sync             # refresh vendored Inter woff2 from @fontsource
 ```

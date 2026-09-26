@@ -5,7 +5,8 @@ import { Container } from '@/components/ui/Container';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { Factory, Cpu, Layers, Wrench, ShieldCheck } from 'lucide-react';
 
-export default function ProductionPage({ params: { lang } }: { params: { lang: Locale } }) {
+export default async function ProductionPage({ params }: { params: Promise<{ lang: Locale }> }) {
+  const { lang } = await params;
   const dict = getDictionary(lang);
 
   return (

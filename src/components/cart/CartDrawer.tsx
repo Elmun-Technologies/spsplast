@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { X, Trash2, ShoppingBag, ArrowRight } from 'lucide-react';
-import { useCartStore } from '@/lib/store/cartStore';
+import { useCartStore, getCartSubtotal, getLineUnitPrice } from '@/lib/store/cartStore';
 import { QuantitySelector } from '@/components/ui/QuantitySelector';
 import { Button } from '@/components/ui/Button';
 import { formatPrice } from '@/lib/utils';
@@ -24,7 +24,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ lang }) => {
   const removeItem = useCartStore((s) => s.removeItem);
   const [visible, setVisible] = useState(false);
 
-  const totalPrice = items.reduce((sum, i) => sum + i.price * i.quantity, 0);
+  const totalPrice = getCartSubtotal(items);
 
   useEffect(() => {
     if (isOpen) {
@@ -122,7 +122,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ lang }) => {
                     <h4 className="text-sm font-bold text-ink truncate">{item.title}</h4>
                     <p className="text-xs text-ink-sub font-mono">SKU: {item.sku}</p>
                     <p className="text-sm font-bold text-brand-red mt-0.5">
-                      {formatPrice(item.price, lang)}
+                      {formatPrice(getLineUnitPrice(item), lang)}
                     </p>
                   </div>
 

@@ -3,6 +3,8 @@ import ru from '@/dictionaries/ru.json';
 
 export type Locale = 'uz' | 'ru';
 
+export const locales: Locale[] = ['uz', 'ru'];
+
 export const defaultLocale: Locale = 'uz';
 
 const dictionaries = {
@@ -15,5 +17,5 @@ export function getDictionary(locale: Locale = defaultLocale) {
 }
 
 export function isValidLocale(lang: string): lang is Locale {
-  return lang === 'uz' || lang === 'ru';
+  return (locales as string[]).includes(lang);
 }

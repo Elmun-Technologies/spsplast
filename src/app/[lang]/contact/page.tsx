@@ -21,7 +21,9 @@ function formatPhone(value: string) {
   return formatted;
 }
 
-export default function ContactPage({ params: { lang } }: { params: { lang: Locale } }) {
+export default function ContactPage({ params }: { params: Promise<{ lang: Locale }> }) {
+  // Next.js 15 passes `params` to client components as a promise.
+  const { lang } = React.use(params);
   const dict = getDictionary(lang);
 
   const [name, setName] = useState('');

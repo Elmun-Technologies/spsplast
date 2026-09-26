@@ -7,10 +7,11 @@ import { getDictionary, Locale } from '@/lib/i18n';
 import { Calendar, User, ArrowLeft } from 'lucide-react';
 
 export default async function BlogPostDetailPage({
-  params: { lang, slug },
+  params,
 }: {
-  params: { lang: Locale; slug: string };
+  params: Promise<{ lang: Locale; slug: string }>;
 }) {
+  const { lang, slug } = await params;
   const dict = getDictionary(lang);
   const postTrans = await db.blogPostTranslation.findFirst({
     where: { slug, locale: lang },

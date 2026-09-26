@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import React, { useState, useRef } from 'react';
 import { Upload, ArrowRight, Loader2, Link as LinkIcon, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
@@ -167,7 +168,7 @@ export function ProductMediaUploader({ productId, media, onChange }: ProductMedi
                             <input ref={moldInputRef} type="file" accept="image/*" className="hidden" onChange={(e) => handleFilesSelected(e.target.files, 'MOLD')} />
                         </div>
                         <div className="aspect-video relative rounded-xl border border-dashed border-[#2A2F3A] bg-[#1E222A] overflow-hidden flex items-center justify-center">
-                            {moldMedia ? <img src={moldMedia.url} alt="Qolip" className="w-full h-full object-cover" /> : <div className="text-center p-3 text-gray-500 text-xs">Qolip rasmi yuklanmagan</div>}
+                            {moldMedia ? <Image src={moldMedia.url} alt="Qolip" fill sizes="(max-width: 768px) 100vw, 360px" className="object-cover" /> : <div className="text-center p-3 text-gray-500 text-xs">Qolip rasmi yuklanmagan</div>}
                         </div>
                     </div>
 
@@ -185,7 +186,7 @@ export function ProductMediaUploader({ productId, media, onChange }: ProductMedi
                             <input ref={resultInputRef} type="file" accept="image/*" className="hidden" onChange={(e) => handleFilesSelected(e.target.files, 'FINISHED_RESULT')} />
                         </div>
                         <div className="aspect-video relative rounded-xl border border-dashed border-[#2A2F3A] bg-[#1E222A] overflow-hidden flex items-center justify-center">
-                            {resultMedia ? <img src={resultMedia.url} alt="Tayyor natija" className="w-full h-full object-cover" /> : <div className="text-center p-3 text-gray-500 text-xs">Tayyor natija rasmi yuklanmagan</div>}
+                            {resultMedia ? <Image src={resultMedia.url} alt="Tayyor natija" fill sizes="(max-width: 768px) 100vw, 360px" className="object-cover" /> : <div className="text-center p-3 text-gray-500 text-xs">Tayyor natija rasmi yuklanmagan</div>}
                         </div>
                     </div>
                 </div>
@@ -259,7 +260,7 @@ export function ProductMediaUploader({ productId, media, onChange }: ProductMedi
                             className={`relative group bg-[#161920] border rounded-xl overflow-hidden cursor-move transition-all ${draggedIdx === idx ? 'opacity-40 border-brand-red' : 'border-[#2A2F3A] hover:border-gray-600'}`}
                         >
                             <div className="aspect-square relative">
-                                <img src={m.url} alt={m.alt || ''} className="w-full h-full object-cover" />
+                                <Image src={m.url} alt={m.alt || ''} fill sizes="(max-width: 768px) 33vw, 160px" className="object-cover" />
                                 <div className="absolute top-2 left-2 flex gap-1">
                                     <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-black/80 text-white border border-white/10">{MEDIA_ROLE_LABELS[m.type] || m.type}</span>
                                     <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-gray-900 text-gray-300 border border-gray-700">#{idx + 1}</span>

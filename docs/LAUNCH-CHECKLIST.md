@@ -10,7 +10,7 @@ Use this checklist to track production deployment validation items.
 - [ ] **PostgreSQL Database Provisioning:** Managed PostgreSQL instance is created with SSL required.
 - [ ] **Database Credentials:** `DATABASE_URL` and `DIRECT_URL` populated securely in environment.
 - [ ] **Data Migration Executed:** SQLite data exported and verified in target PostgreSQL database.
-- [ ] **Schema Migration Deployed:** `prisma migrate deploy` executed successfully.
+- [ ] **Schema Applied:** `npx prisma db push` executed successfully (this project does not use `prisma migrate`; there is no `migrations/` folder).
 - [ ] **Database Backups:** Provider automated snapshots / point-in-time recovery enabled.
 
 ---
@@ -37,7 +37,10 @@ Use this checklist to track production deployment validation items.
 - [ ] **SSL / TLS Certificate:** Valid HTTPS certificate active with automated renewal.
 - [ ] **Security Headers:** HSTS, X-Content-Type-Options, Referrer-Policy, X-Frame-Options active via `next.config.js`.
 - [ ] **Proxy Headers:** Trust reverse proxy host / proto headers for CSRF validation.
-- [ ] **Rate Limiting:** Shared PostgreSQL rate limiter active on checkout, admin login, and leads.
+- [ ] **Rate Limiting:** Per-IP limits active on admin login (5/15min), order creation (20/15min) and lead creation (10/15min).
+- [ ] **CSRF Gate:** `src/middleware.ts` active — a cross-origin `DELETE /api/admin/products/:id` returns `403`.
+- [ ] **Pricing Parity:** Checkout total equals `order.totalAmount` on the order-success page (bulk tier + coupon applied server-side).
+- [ ] **Self-hosted Fonts:** `/fonts/inter-latin-wght-normal.woff2` and `/fonts/inter-cyrillic-wght-normal.woff2` return `200` with `Cache-Control: immutable`.
 
 ---
 

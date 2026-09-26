@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
@@ -142,7 +143,7 @@ function CreateCategoryForm() {
           <div className="flex items-center gap-3">
             {image ? (
               <div className="relative w-16 h-16 rounded-lg overflow-hidden border border-brand-border bg-brand-dark">
-                <img src={image} alt="Kategoriya rasmi" className="w-full h-full object-cover" />
+                <Image src={image} alt="Kategoriya rasmi" fill sizes="64px" className="object-cover" />
                 <button
                   type="button"
                   onClick={() => setImage('')}

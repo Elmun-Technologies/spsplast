@@ -5,7 +5,8 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { Truck, CreditCard, Clock, ShieldCheck, MapPin, Phone } from 'lucide-react';
 import { COMPANY_CONTACTS } from '@/lib/constants/contacts';
 
-export default function DeliveryPaymentPage({ params: { lang } }: { params: { lang: Locale } }) {
+export default async function DeliveryPaymentPage({ params }: { params: Promise<{ lang: Locale }> }) {
+  const { lang } = await params;
   const dict = getDictionary(lang);
 
   return (

@@ -69,10 +69,13 @@ export const RecentlyViewedTracker: React.FC<{ product: { id: string; slug: stri
   product,
 }) => {
   const addRecent = useRecentStore((s) => s.addRecent);
+  // Depend on the primitive fields, not on the `product` object: the parent
+  // re-creates it every render and an object dep would re-track on each one.
+  const { id, slug, title, price, image, sku } = product;
 
   React.useEffect(() => {
-    addRecent(product);
-  }, [product.id]);
+    addRecent({ id, slug, title, price, image, sku });
+  }, [id, slug, title, price, image, sku, addRecent]);
 
   return null;
 };

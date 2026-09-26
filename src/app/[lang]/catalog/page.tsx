@@ -7,8 +7,8 @@ import { CatalogClient } from '@/components/catalog/CatalogClient';
 export const revalidate = 30;
 
 interface CatalogPageProps {
-  params: { lang: Locale };
-  searchParams: {
+  params: Promise<{ lang: Locale }>;
+  searchParams: Promise<{
     category?: string;
     search?: string;
     inStock?: string;
@@ -19,13 +19,15 @@ interface CatalogPageProps {
     minPrice?: string;
     maxPrice?: string;
     material?: string;
-  };
+  }>;
 }
 
 export default async function CatalogPage({
-  params: { lang },
-  searchParams,
+  params,
+  searchParams: searchParamsPromise,
 }: CatalogPageProps) {
+  const { lang } = await params;
+  const searchParams = await searchParamsPromise;
   const page = parseInt(searchParams.page || '1', 10) || 1;
   const minPrice = searchParams.minPrice ? parseInt(searchParams.minPrice, 10) : undefined;
   const maxPrice = searchParams.maxPrice ? parseInt(searchParams.maxPrice, 10) : undefined;

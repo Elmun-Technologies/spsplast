@@ -16,10 +16,11 @@ const MoldResultShowcase = dynamic(() => import('@/components/product/MoldResult
 const ProductReviews = dynamic(() => import('@/components/product/ProductReviews').then((m) => m.ProductReviews));
 
 interface ProductPageProps {
-  params: { lang: Locale; slug: string };
+  params: Promise<{ lang: Locale; slug: string }>;
 }
 
-export async function generateMetadata({ params: { lang, slug } }: ProductPageProps) {
+export async function generateMetadata({ params }: ProductPageProps) {
+  const { lang, slug } = await params;
   const trans = await db.productTranslation.findFirst({
     where: { slug, locale: lang },
     include: { product: { include: { media: true } } },
@@ -34,8 +35,9 @@ export async function generateMetadata({ params: { lang, slug } }: ProductPagePr
 }
 
 export default async function ProductDetailPage({
-  params: { lang, slug },
+  params,
 }: ProductPageProps) {
+  const { lang, slug } = await params;
   const dict = getDictionary(lang);
 
   const trans = await db.productTranslation.findFirst({

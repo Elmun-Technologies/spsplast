@@ -14,7 +14,9 @@ import { formatPrice } from '@/lib/utils';
 import { Locale, getDictionary } from '@/lib/i18n';
 import { trackEvent } from '@/lib/analytics';
 
-export default function ComparePage({ params: { lang } }: { params: { lang: Locale } }) {
+export default function ComparePage({ params }: { params: Promise<{ lang: Locale }> }) {
+  // Next.js 15 passes `params` to client components as a promise.
+  const { lang } = React.use(params);
   const dict = getDictionary(lang);
   const items = useCompareStore((s) => s.items);
   const remove = useCompareStore((s) => s.removeCompare);

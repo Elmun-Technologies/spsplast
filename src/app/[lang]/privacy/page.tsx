@@ -3,7 +3,8 @@ import { getDictionary, Locale } from '@/lib/i18n';
 import { Container } from '@/components/ui/Container';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
-export default function PrivacyPage({ params: { lang } }: { params: { lang: Locale } }) {
+export default async function PrivacyPage({ params }: { params: Promise<{ lang: Locale }> }) {
+  const { lang } = await params;
   const dict = getDictionary(lang);
 
   return (

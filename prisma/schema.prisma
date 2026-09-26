@@ -1,7 +1,10 @@
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
-  directUrl = env("POSTGRES_URL_NON_POOLING")
+  // Non-pooled connection used by `prisma db push` / Studio when DATABASE_URL
+  // points at a pooler (pgbouncer / Neon pooler). Documented as DIRECT_URL in
+  // .env.example, CLAUDE.md and docs/DEPLOYMENT.md.
+  directUrl = env("DIRECT_URL")
 }
 
 generator client {
@@ -283,7 +286,9 @@ model Order {
   paymentMethod  String  @default("CASH") // CASH, CLICK, PAYME, BANK_TRANSFER
   paymentStatus  String  @default("PENDING") // PENDING, PAID, FAILED, REFUNDED
   status         String  @default("NEW") // NEW, CONFIRMED, PROCESSING, READY, SHIPPED, DELIVERED, CANCELLED
-  totalAmount    Int // Total in UZS
+  totalAmount    Int // Total in UZS actually charged (subtotal - discountAmount)
+  discountAmount Int     @default(0) // Coupon discount in UZS applied at checkout
+  couponCode     String? // Promo code validated server-side (see src/lib/pricing.ts)
   notes          String?
 
   // Marketing & Attribution snapshot
@@ -366,6 +371,9 @@ model Lead {
   fbclid      String?
 
   createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([status])
 }
 
 model BlogPost {
