@@ -1,20 +1,15 @@
 import './globals.css';
-import { Inter } from 'next/font/google';
 
 /**
- * Inter ships as a variable font, so instead of asking Google for six static
- * weights (6 files x 2 subsets = 12 preloads) we load one variable file per
- * subset. Same visual result for `font-black`/`font-extrabold`, far less
- * font CSS and fewer font requests on the critical path.
+ * Inter is self-hosted from `/public/fonts` (see `globals.css` for the
+ * `@font-face` rules and why we no longer use `next/font/google`).
+ *
+ * The latin subset is on the critical path of every page, so it is preloaded;
+ * the cyrillic subset is only fetched by the browser when a Cyrillic glyph is
+ * actually rendered (unicode-range), which keeps the Russian UI covered without
+ * making uz-only visitors pay for it.
  */
-const inter = Inter({
-  subsets: ['latin', 'cyrillic'],
-  display: 'swap',
-  variable: '--font-inter',
-  preload: true,
-  adjustFontFallback: true,
-  fallback: ['system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
-});
+const FONT_PRELOAD = '/fonts/inter-latin-wght-normal.woff2';
 
 export const metadata = {
   title: 'SPS — Bruschatka, Bordyur va Plitka Qoliplari, Fasad Dekor',
@@ -50,8 +45,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="uz" className={inter.variable}>
-      <body className={`${inter.variable} font-sans antialiased`}>{children}</body>
+    <html lang="uz">
+      <body className="font-sans antialiased">
+        {/* Hoisted into <head> by React — keeps the LCP font off the CSS round-trip. */}
+        <link
+          rel="preload"
+          href={FONT_PRELOAD}
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        {children}
+      </body>
     </html>
   );
 }

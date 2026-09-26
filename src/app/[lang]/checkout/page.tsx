@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { useCartStore } from '@/lib/store/cartStore';
+import { useCartStore, getCartSubtotal, getLineTotal, getLineUnitPrice } from '@/lib/store/cartStore';
 import { Button } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
 import { formatPrice } from '@/lib/utils';
@@ -63,7 +63,9 @@ function validatePhone(phone: string) {
   return digits.length === 12 && digits.startsWith('998');
 }
 
-export default function CheckoutPage({ params: { lang } }: { params: { lang: Locale } }) {
+export default function CheckoutPage({ params }: { params: Promise<{ lang: Locale }> }) {
+  // Next.js 15 passes `params` to client components as a promise.
+  const { lang } = React.use(params);
   const dict = getDictionary(lang);
   const router = useRouter();
   // Narrow selectors keep the (large) checkout form from re-rendering when
@@ -95,7 +97,8 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
     captureAttribution();
   }, []);
 
-  const totalPrice = useMemo(() => items.reduce((sum, i) => sum + i.price * i.quantity, 0), [items]);
+  // Tier-adjusted subtotal, identical to the server-side calculation.
+  const totalPrice = useMemo(() => getCartSubtotal(items), [items]);
   const couponDiscount = useMemo(
     () => (appliedCoupon ? Math.round((totalPrice * appliedCoupon.discountPercent) / 100) : 0),
     [appliedCoupon, totalPrice]
@@ -138,7 +141,10 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
         address: deliveryType === 'PICKUP' ? 'SPS Bosh Ombori (Olib ketish)' : address,
         deliveryType,
         paymentMethod,
-        notes: notes + (appliedCoupon ? ` | Promokod: ${appliedCoupon.code} -${appliedCoupon.discountPercent}%` : ''),
+        notes,
+        // Validated and applied server-side (src/lib/pricing.ts) — the discount
+        // is stored on the order instead of being smuggled through `notes`.
+        couponCode: appliedCoupon?.code || null,
         locale: lang,
         idempotencyKey: idempotencyKeyRef.current,
         items: items.map((i) => ({ productId: i.productId, variantId: i.variantId, quantity: i.quantity })),
@@ -411,9 +417,9 @@ export default function CheckoutPage({ params: { lang } }: { params: { lang: Loc
                   <div key={item.id} className="flex items-center justify-between gap-3 p-3 rounded-[16px] bg-surface-soft border border-line text-sm">
                     <div className="flex-1 min-w-0">
                       <p className="font-bold text-ink truncate">{item.title}</p>
-                      <p className="text-xs text-ink-sub">{item.quantity} dona × {formatPrice(item.price, lang)}</p>
+                      <p className="text-xs text-ink-sub">{item.quantity} dona × {formatPrice(getLineUnitPrice(item), lang)}</p>
                     </div>
-                    <span className="font-bold text-ink shrink-0">{formatPrice(item.price * item.quantity, lang)}</span>
+                    <span className="font-bold text-ink shrink-0">{formatPrice(getLineTotal(item), lang)}</span>
                   </div>
                 ))}
               </div>

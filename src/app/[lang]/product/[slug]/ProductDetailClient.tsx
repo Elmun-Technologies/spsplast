@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { getBulkUnitPrice } from '@/lib/pricing';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { ShoppingCart, Building2, Truck, ShieldCheck, Check, Share2, Calculator, X, Play } from 'lucide-react';
@@ -47,16 +48,20 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
   const title = lang === 'ru' ? product.titleRu : product.titleUz;
   const description = lang === 'ru' ? product.descriptionRu : product.descriptionUz;
 
-  // Sticky ATC bar + view_item analytics
+  // view_item analytics — fires once per product, not on every price render.
+  const productCategory = product.category || '';
+  const productPrice = product.price;
   useEffect(() => {
-    // view_item
     trackEvent('view_item', {
       item_id: product.id,
       item_name: title,
-      price: product.price,
-      item_category: product.category || '',
+      price: productPrice,
+      item_category: productCategory,
     });
+  }, [product.id, title, productPrice, productCategory]);
 
+  // Sticky ATC bar
+  useEffect(() => {
     // A scroll listener re-renders this whole page on every scroll event.
     // A sentinel + IntersectionObserver only fires when the bar actually has
     // to appear/disappear.
@@ -82,11 +87,9 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
   const basePrice = product.price;
   // Price not configured (0) -> price-on-request catalog item
   const askPrice = !product.price || product.price <= 0;
-  const getTierPrice = (qty: number) => {
-    if (qty >= 50) return Math.round(basePrice * 0.9);
-    if (qty >= 10) return Math.round(basePrice * 0.95);
-    return basePrice;
-  };
+  // Shared with the server (`orderService`) so the price shown here is exactly
+  // the price that gets stored on the order.
+  const getTierPrice = (qty: number) => getBulkUnitPrice(basePrice, qty);
 
   const currentUnitPrice = getTierPrice(quantity);
 
@@ -95,7 +98,9 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
       productId: product.id,
       title,
       sku: product.sku,
-      price: currentUnitPrice,
+      // The cart stores the BASE price; the tier is derived from the live
+      // quantity so changing it in the cart re-prices the line correctly.
+      price: basePrice,
       image: images[0],
       quantity,
       dimensions: product.dimensions || undefined,

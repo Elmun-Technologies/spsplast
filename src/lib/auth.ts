@@ -28,7 +28,7 @@ export async function createAdminSession(adminId: string, ipAddress?: string, us
     },
   });
 
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   cookieStore.set(COOKIE_NAME, rawToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
@@ -41,7 +41,7 @@ export async function createAdminSession(adminId: string, ipAddress?: string, us
 }
 
 export async function getAdminSession() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const rawToken = cookieStore.get(COOKIE_NAME)?.value;
 
   if (!rawToken) return null;
@@ -64,7 +64,7 @@ export async function getAdminSession() {
 }
 
 export async function destroyAdminSession() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const rawToken = cookieStore.get(COOKIE_NAME)?.value;
 
   if (rawToken) {

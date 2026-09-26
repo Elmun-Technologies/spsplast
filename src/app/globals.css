@@ -2,6 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ---------------------------------------------------------------------------
+   Self-hosted Inter (variable, weight axis only)
+   ---------------------------------------------------------------------------
+   Previously loaded through `next/font/google`, which downloads the font from
+   fonts.googleapis.com **at build time**. Any build without outbound internet
+   (air-gapped CI, Docker builds behind a proxy, Vercel regions blocking Google)
+   failed the whole production build with "Failed to fetch `Inter` from Google
+   Fonts". The two woff2 files below are vendored in `/public/fonts` instead, so
+   the build has zero network dependencies and the browser no longer makes a
+   third-party request before it can render text.
+
+   Source: @fontsource-variable/inter 5.3.0 (SIL Open Font License 1.1)
+   - inter-latin-wght-normal.woff2     48 KB
+   - inter-cyrillic-wght-normal.woff2  19 KB  (Russian UI)
+   Both are `wght`-axis-only subsets, ~67 KB total.
+   --------------------------------------------------------------------------- */
+@font-face {
+  font-family: 'Inter Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('/fonts/inter-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Inter Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('/fonts/inter-cyrillic-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
 :root {
   --background: #F6F7F9;
   --foreground: #111827;
@@ -9,6 +43,13 @@
   --brand-dark: #161920;
   --grid-color: rgba(0, 0, 0, 0.03);
   --radius-card: 20px;
+  /*
+   * `font-sans` in Tailwind resolves to `var(--font-inter), Inter, system-ui…`.
+   * If the variable is ever undefined the *entire* font-family declaration
+   * becomes invalid and the browser falls back to Times, so it is defined here
+   * as well instead of relying on next/font injecting it at runtime.
+   */
+  --font-inter: 'Inter Variable';
 }
 
 * {

@@ -6,7 +6,8 @@ import { Container } from '@/components/ui/Container';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { MapPin, CheckCircle2 } from 'lucide-react';
 
-export default async function ProjectsPage({ params: { lang } }: { params: { lang: Locale } }) {
+export default async function ProjectsPage({ params }: { params: Promise<{ lang: Locale }> }) {
+  const { lang } = await params;
   const dict = getDictionary(lang);
   let projects: any[] = [];
   try {

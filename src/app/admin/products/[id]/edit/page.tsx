@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { slugify } from '@/lib/slug';
 import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
@@ -90,13 +91,7 @@ export default function EditProductPage() {
 
   const [variants, setVariants] = useState<any[]>([]);
 
-  useEffect(() => {
-    fetchProduct();
-    fetchCategories();
-    fetchAttributes();
-  }, [productId]);
-
-  const fetchProduct = async () => {
+  const fetchProduct = useCallback(async () => {
     try {
       const res = await fetch(`/api/admin/products/${productId}`);
       const data = await res.json();
@@ -148,9 +143,9 @@ export default function EditProductPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [productId]);
 
-  const fetchCategories = async () => {
+  const fetchCategories = useCallback(async () => {
     try {
       const res = await fetch('/api/categories?locale=uz');
       const data = await res.json();
@@ -158,9 +153,9 @@ export default function EditProductPage() {
     } catch (error) {
       console.error('Kategoriyalarni yuklashda xatolik:', error);
     }
-  };
+  }, []);
 
-  const fetchAttributes = async () => {
+  const fetchAttributes = useCallback(async () => {
     try {
       const res = await fetch('/api/attributes?locale=uz');
       const data = await res.json();
@@ -168,15 +163,23 @@ export default function EditProductPage() {
     } catch (error) {
       console.error('Atributlarni yuklashda xatolik:', error);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchProduct();
+    fetchCategories();
+    fetchAttributes();
+  }, [fetchProduct, fetchCategories, fetchAttributes]);
 
   const handleSave = async () => {
     setSaving(true);
     setError('');
 
     try {
-      const slugUz = nameUz.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-      const slugRu = (nameRu || nameUz).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      // Transliteration-aware (shared with the API): the old regex stripped
+      // every Cyrillic / Uzbek `o‘` character and produced empty slugs.
+      const slugUz = slugify(nameUz, sku || 'mahsulot');
+      const slugRu = slugify(nameRu || nameUz, sku || 'mahsulot');
 
       const attrValuesArray = Object.entries(attributeValues)
         .map(([code, value]) => {

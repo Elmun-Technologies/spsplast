@@ -4,9 +4,10 @@ import { updateOrderStatusServerSide } from '@/lib/services/orderService';
 
 export async function PATCH(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        const { id } = await params;
         const session = await getAdminSession();
         if (!session) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -16,11 +17,11 @@ export async function PATCH(
         const { status, note } = body;
 
         if (!status) {
-            return NextResponse.json({ error: 'Status point qilinmagan' }, { status: 400 });
+            return NextResponse.json({ error: 'Yangi holat ko‘rsatilmagan' }, { status: 400 });
         }
 
         const updatedOrder = await updateOrderStatusServerSide(
-            params.id,
+            id,
             status,
             session.id,
             note

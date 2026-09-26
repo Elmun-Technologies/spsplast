@@ -1,6 +1,12 @@
+import { z } from 'zod';
 import { db } from '@/lib/db';
-import { normalizePhone } from '@/lib/phone';
-import { sendTelegramNotification } from '@/lib/telegram';
+import { normalizePhone, isValidUzPhone } from '@/lib/phone';
+import { escapeTelegramHtml, sendTelegramNotification } from '@/lib/telegram';
+import { computeCouponDiscount, findCoupon, getBulkUnitPrice } from '@/lib/pricing';
+import { createOrderSchema, normalizeOrderInput } from '@/lib/schemas/order';
+
+export { createOrderSchema } from '@/lib/schemas/order';
+export type { CreateOrderPayload } from '@/lib/schemas/order';
 
 export interface CreateOrderItemInput {
   productId: string;
@@ -18,6 +24,7 @@ export interface CreateOrderInput {
   paymentMethod?: string;
   notes?: string;
   idempotencyKey?: string;
+  couponCode?: string | null;
   items: CreateOrderItemInput[];
   utmSource?: string;
   utmMedium?: string;
@@ -54,7 +61,14 @@ export function generateOrderNumber(): string {
   return `SPS-${dateStr}-${randomStr}`;
 }
 
-export async function createOrderServerSide(input: CreateOrderInput, locale: string = 'uz') {
+export async function createOrderServerSide(rawInput: unknown, locale: string = 'uz') {
+  const parsed = createOrderSchema.safeParse({ ...normalizeOrderInput(rawInput), locale });
+  if (!parsed.success) {
+    const first = parsed.error.issues[0];
+    throw new Error(first?.message || 'MAJBURIY_MAYDONLAR_BOSH: Majburiy maydonlar to‘ldirilmagan');
+  }
+
+  const input = parsed.data;
   const {
     customerName,
     customerPhone,
@@ -65,15 +79,17 @@ export async function createOrderServerSide(input: CreateOrderInput, locale: str
     paymentMethod,
     notes,
     idempotencyKey,
+    couponCode,
     items,
   } = input;
 
-  if (!customerName || !customerName.trim() || !customerPhone || !items || items.length === 0) {
-    throw new Error('MAJBURIY_MAYDONLAR_BOSH: Majburiy maydonlar to‘ldirilmagan');
+  const normalizedPhone = normalizePhone(customerPhone);
+  if (!isValidUzPhone(normalizedPhone)) {
+    throw new Error('TELEFON_XATOSI: Telefon raqami noto‘g‘ri (+998 XX XXX XX XX)');
   }
 
   // Idempotency check: if key provided and already exists, return previous order
-  if (idempotencyKey && idempotencyKey.trim() !== '') {
+  if (idempotencyKey) {
     const existingByIdempotency = await db.order.findUnique({
       where: { idempotencyKey },
       include: { items: true, statusHistory: true },
@@ -82,8 +98,6 @@ export async function createOrderServerSide(input: CreateOrderInput, locale: str
       return existingByIdempotency;
     }
   }
-
-  const normalizedPhone = normalizePhone(customerPhone);
 
   // Duplicate Order Protection: Check if identical order from same phone exists in last 30 seconds
   const thirtySecondsAgo = new Date(Date.now() - 30 * 1000);
@@ -99,20 +113,14 @@ export async function createOrderServerSide(input: CreateOrderInput, locale: str
     return existingRecentOrder;
   }
 
-  // Filter valid quantities > 0
-  const validItems = items.filter((i) => typeof i.quantity === 'number' && i.quantity > 0);
-  if (validItems.length === 0) {
-    throw new Error('MIQDOR_XATOSI: Savatda kamida bitta mahsulot miqdori 1 donadan ko‘p bo‘lishi kerak');
-  }
-
   const orderNumber = generateOrderNumber();
 
   // Execute inside DB transaction with atomic stock decrement
   const order = await db.$transaction(async (tx) => {
-    let grandTotal = 0;
+    let subtotal = 0;
     const itemSnapshots = [];
 
-    for (const itemInput of validItems) {
+    for (const itemInput of items) {
       const product = await tx.product.findUnique({
         where: { id: itemInput.productId },
         include: { translations: true },
@@ -130,6 +138,10 @@ export async function createOrderServerSide(input: CreateOrderInput, locale: str
 
         if (!variant || variant.status !== 'ACTIVE') {
           throw new Error(`INVALID_VARIANT: Tanlangan variant sotuvda mavjud emas`);
+        }
+
+        if (variant.productId !== product.id) {
+          throw new Error(`INVALID_VARIANT: Variant ushbu mahsulotga tegishli emas`);
         }
       }
 
@@ -162,13 +174,11 @@ export async function createOrderServerSide(input: CreateOrderInput, locale: str
         }
       }
 
-      // Server-calculated unit price with bulk tier (must match frontend)
+      // Shared bulk-tier pricing — identical to what the storefront displays.
       const baseUnitPrice = variant ? variant.price : product.basePrice;
-      let unitPrice = baseUnitPrice;
-      if (itemInput.quantity >= 50) unitPrice = Math.round(baseUnitPrice * 0.9);
-      else if (itemInput.quantity >= 10) unitPrice = Math.round(baseUnitPrice * 0.95);
+      const unitPrice = getBulkUnitPrice(baseUnitPrice, itemInput.quantity);
       const lineTotal = unitPrice * itemInput.quantity;
-      grandTotal += lineTotal;
+      subtotal += lineTotal;
 
       const trans = product.translations.find((t) => t.locale === locale) || product.translations[0];
       const productName = trans ? trans.name : product.sku;
@@ -185,18 +195,24 @@ export async function createOrderServerSide(input: CreateOrderInput, locale: str
       });
     }
 
+    // Coupons are validated here, never trusted from the client.
+    const coupon = findCoupon(couponCode);
+    const discountAmount = computeCouponDiscount(subtotal, coupon);
+
     const createdOrder = await tx.order.create({
       data: {
         orderNumber,
-        idempotencyKey: idempotencyKey && idempotencyKey.trim() !== '' ? idempotencyKey : null,
-        customerName: customerName.trim(),
+        idempotencyKey: idempotencyKey || null,
+        customerName,
         customerPhone: normalizedPhone,
         region: region || 'Toshkent shahri',
         city: city || '',
         address: address || '',
-        deliveryType: deliveryType || 'COURIER',
-        paymentMethod: paymentMethod || 'CASH',
-        totalAmount: grandTotal,
+        deliveryType,
+        paymentMethod,
+        totalAmount: subtotal - discountAmount,
+        discountAmount,
+        couponCode: coupon && discountAmount > 0 ? coupon.code : null,
         notes: notes || '',
         utmSource: input.utmSource || null,
         utmMedium: input.utmMedium || null,
@@ -222,6 +238,17 @@ export async function createOrderServerSide(input: CreateOrderInput, locale: str
     });
 
     return createdOrder;
+  }).catch(async (error: any) => {
+    // Two concurrent submits with the same idempotency key: the loser of the
+    // race hits the unique index. Return the winner's order instead of a 500.
+    if (error?.code === 'P2002' && idempotencyKey) {
+      const winner = await db.order.findUnique({
+        where: { idempotencyKey },
+        include: { items: true, statusHistory: true },
+      });
+      if (winner) return winner;
+    }
+    throw error;
   });
 
   // Async Telegram Alert (Non-blocking)
@@ -229,22 +256,28 @@ export async function createOrderServerSide(input: CreateOrderInput, locale: str
     try {
       let itemsText = '';
       order.items.forEach((item, idx) => {
-        itemsText += `  ${idx + 1}. <b>${item.productName}</b> (${item.sku}) — ${item.quantity} dona x ${item.unitPrice.toLocaleString()} so‘m\n`;
+        itemsText += `  ${idx + 1}. <b>${escapeTelegramHtml(item.productName)}</b> (${escapeTelegramHtml(item.sku)}) — ${item.quantity} dona x ${item.unitPrice.toLocaleString()} so‘m\n`;
       });
 
       const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || '';
       const adminLink = siteUrl ? `\n\n🔗 <a href="${siteUrl}/admin/orders/${order.id}">Admin Paneldan ko‘rish</a>` : '';
 
+      const discountLine =
+        order.discountAmount > 0
+          ? `🎟 <b>Chegirma:</b> -${order.discountAmount.toLocaleString()} so‘m${order.couponCode ? ` (${escapeTelegramHtml(order.couponCode)})` : ''}\n`
+          : '';
+
       const telegramMsg =
-        `🛒 <b>YANGI BUYURTMA #${order.orderNumber}</b>\n\n` +
-        `👤 <b>Mijoz:</b> ${order.customerName}\n` +
-        `📞 <b>Telefon:</b> ${order.customerPhone}\n` +
-        `📍 <b>Manzil:</b> ${order.region}, ${order.address}\n` +
-        `🚚 <b>Yetkazib berish:</b> ${order.deliveryType}\n` +
-        `💳 <b>To‘lov turi:</b> ${order.paymentMethod}\n\n` +
+        `🛒 <b>YANGI BUYURTMA #${escapeTelegramHtml(order.orderNumber)}</b>\n\n` +
+        `👤 <b>Mijoz:</b> ${escapeTelegramHtml(order.customerName)}\n` +
+        `📞 <b>Telefon:</b> ${escapeTelegramHtml(order.customerPhone)}\n` +
+        `📍 <b>Manzil:</b> ${escapeTelegramHtml(order.region)}, ${escapeTelegramHtml(order.address)}\n` +
+        `🚚 <b>Yetkazib berish:</b> ${escapeTelegramHtml(order.deliveryType)}\n` +
+        `💳 <b>To‘lov turi:</b> ${escapeTelegramHtml(order.paymentMethod)}\n\n` +
         `📦 <b>Mahsulotlar:</b>\n${itemsText}\n` +
+        discountLine +
         `💰 <b>Jami Summa:</b> <b>${order.totalAmount.toLocaleString()} so‘m</b>\n` +
-        (order.utmSource ? `🎯 <b>UTM:</b> ${order.utmSource} / ${order.utmMedium || ''}\n` : '') +
+        (order.utmSource ? `🎯 <b>UTM:</b> ${escapeTelegramHtml(order.utmSource)} / ${escapeTelegramHtml(order.utmMedium || '')}\n` : '') +
         adminLink;
 
       await sendTelegramNotification(telegramMsg);
@@ -264,7 +297,10 @@ export async function updateOrderStatusServerSide(
 ) {
   const order = await db.order.findUnique({
     where: { id: orderId },
-    include: { items: true, statusHistory: true },
+    include: {
+      items: { include: { product: true, variant: true } },
+      statusHistory: true,
+    },
   });
 
   if (!order) {
@@ -284,9 +320,13 @@ export async function updateOrderStatusServerSide(
   const alreadyCancelled = order.statusHistory.some((h) => h.toStatus === 'CANCELLED');
 
   return await db.$transaction(async (tx) => {
-    // If cancelling for the first time, restore inventory safely
+    // Only restock lines that actually decremented stock on creation, otherwise
+    // cancelling a backorder / non-tracked product silently inflates inventory.
     if (isCancelling && !alreadyCancelled) {
       for (const item of order.items) {
+        const tracked = item.product ? item.product.trackInventory && !item.product.allowBackorder : true;
+        if (!tracked) continue;
+
         if (item.variantId) {
           await tx.productVariant.update({
             where: { id: item.variantId },

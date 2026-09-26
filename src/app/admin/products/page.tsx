@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect, useCallback, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -49,46 +49,64 @@ function ProductsList() {
   const [categories, setCategories] = useState<any[]>([]);
   const [selectedCategory, setSelectedCategory] = useState(searchParams.get('categoryId') || '');
 
+  // Bumped after an archive/delete so the list refreshes without turning
+  // `fetchProducts` into an effect dependency (which would refetch on every
+  // keystroke in the search box).
+  const [reloadToken, setReloadToken] = useState(0);
+  const reload = useCallback(() => setReloadToken((t) => t + 1), []);
+
   useEffect(() => {
-    fetchCategories();
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch('/api/categories?locale=uz');
+        const data = await res.json();
+        if (!cancelled) setCategories(data.categories || []);
+      } catch (error) {
+        console.error('Kategoriyalarni yuklashda xatolik:', error);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   useEffect(() => {
-    fetchProducts();
-  }, [searchParams]);
+    let cancelled = false;
+    (async () => {
+      setLoading(true);
+      try {
+        // Read the *committed* filters from the URL rather than the input state:
+        // the form only pushes to the router on submit, so this refetches on a
+        // real filter change instead of on every keystroke.
+        const params = new URLSearchParams();
+        const committedSearch = searchParams.get('search');
+        const committedStatus = searchParams.get('status');
+        const committedCategory = searchParams.get('categoryId');
+        if (committedSearch) params.set('search', committedSearch);
+        if (committedStatus && committedStatus !== 'ALL') params.set('status', committedStatus);
+        if (committedCategory) params.set('categoryId', committedCategory);
+        params.set('sortBy', searchParams.get('sortBy') || 'createdAt');
+        params.set('sortOrder', searchParams.get('sortOrder') || 'desc');
+        params.set('page', searchParams.get('page') || '1');
+        params.set('pageSize', '20');
 
-  const fetchCategories = async () => {
-    try {
-      const res = await fetch('/api/categories?locale=uz');
-      const data = await res.json();
-      setCategories(data.categories || []);
-    } catch (error) {
-      console.error('Kategoriyalarni yuklashda xatolik:', error);
-    }
-  };
-
-  const fetchProducts = async () => {
-    setLoading(true);
-    try {
-      const params = new URLSearchParams();
-      if (search) params.set('search', search);
-      if (status !== 'ALL') params.set('status', status);
-      if (selectedCategory) params.set('categoryId', selectedCategory);
-      params.set('sortBy', sortBy);
-      params.set('sortOrder', sortOrder);
-      params.set('page', searchParams.get('page') || '1');
-      params.set('pageSize', '20');
-
-      const res = await fetch(`/api/admin/products?${params.toString()}`);
-      const data = await res.json();
-      setProducts(data.products || []);
-      setPagination(data.pagination || { total: 0, page: 1, pageSize: 20, totalPages: 0 });
-    } catch (error) {
-      console.error('Mahsulotlarni yuklashda xatolik:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+        const res = await fetch(`/api/admin/products?${params.toString()}`);
+        const data = await res.json();
+        // Ignore responses that arrive after a newer request started.
+        if (cancelled) return;
+        setProducts(data.products || []);
+        setPagination(data.pagination || { total: 0, page: 1, pageSize: 20, totalPages: 0 });
+      } catch (error) {
+        console.error('Mahsulotlarni yuklashda xatolik:', error);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [searchParams, reloadToken]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -113,7 +131,7 @@ function ProductsList() {
     try {
       const res = await fetch(`/api/admin/products/${id}`, { method: 'DELETE' });
       if (res.ok) {
-        fetchProducts();
+        reload();
       }
     } catch (error) {
       alert('Xatolik yuz berdi');

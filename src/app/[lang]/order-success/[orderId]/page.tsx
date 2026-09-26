@@ -9,13 +9,14 @@ import { CheckCircle2, ShoppingBag, Phone, Truck, ShieldCheck, ArrowRight, Packa
 import { COMPANY_CONTACTS } from '@/lib/constants/contacts';
 
 interface OrderSuccessPageProps {
-  params: { lang: Locale; orderId: string };
+  params: Promise<{ lang: Locale; orderId: string }>;
 }
 
 export const revalidate = 0;
 export const dynamic = 'force-dynamic';
 
-export default async function OrderSuccessPage({ params: { lang, orderId } }: OrderSuccessPageProps) {
+export default async function OrderSuccessPage({ params }: OrderSuccessPageProps) {
+  const { lang, orderId } = await params;
   const dict = getDictionary(lang);
 
   let order: any = null;
@@ -98,6 +99,16 @@ export default async function OrderSuccessPage({ params: { lang, orderId } }: Or
                   </div>
                 ))}
               </div>
+
+              {order.discountAmount > 0 && (
+                <div className="flex justify-between text-sm pt-4 border-t border-line">
+                  <span className="text-ink-sub">
+                    {lang === 'ru' ? 'Скидка по промокоду' : 'Promokod chegirmasi'}
+                    {order.couponCode ? ` (${order.couponCode})` : ''}:
+                  </span>
+                  <span className="font-bold text-emerald-600">-{formatPrice(order.discountAmount, lang)}</span>
+                </div>
+              )}
 
               <div className="flex justify-between text-[20px] font-bold text-ink tracking-[-0.02em] pt-5 border-t border-line">
                 <span>{lang === 'ru' ? 'Итого' : 'Jami'}:</span>

@@ -1,9 +1,10 @@
 import { redirect } from 'next/navigation';
 
-export default function CategorySlugRedirect({
+export default async function CategorySlugRedirect({
   params,
 }: {
-  params: { lang: string; categorySlug: string };
+  params: Promise<{ lang: string; categorySlug: string }>;
 }) {
-  redirect(`/${params.lang}/catalog?category=${params.categorySlug}`);
+  const { lang, categorySlug } = await params;
+  redirect(`/${lang}/catalog?category=${categorySlug}`);
 }

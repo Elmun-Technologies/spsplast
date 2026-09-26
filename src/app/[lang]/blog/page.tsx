@@ -7,7 +7,8 @@ import { Container } from '@/components/ui/Container';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { Calendar, User, ArrowRight } from 'lucide-react';
 
-export default async function BlogPage({ params: { lang } }: { params: { lang: Locale } }) {
+export default async function BlogPage({ params }: { params: Promise<{ lang: Locale }> }) {
+  const { lang } = await params;
   const dict = getDictionary(lang);
   let posts: any[] = [];
   try {

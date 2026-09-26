@@ -10,12 +10,13 @@ import { EmptyState } from '@/components/ui/EmptyState';
 import { Search } from 'lucide-react';
 
 interface SearchPageProps {
-    params: { lang: Locale };
-    searchParams: { q?: string; category?: string; sort?: string; page?: string };
+    params: Promise<{ lang: Locale }>;
+    searchParams: Promise<{ q?: string; category?: string; sort?: string; page?: string }>;
 }
 
 export async function generateMetadata({ searchParams }: SearchPageProps) {
-    const query = searchParams.q || '';
+    const { q } = await searchParams;
+    const query = q || '';
     return {
         title: query ? `Qidiruv: "${query}" | SPS` : 'Qidiruv | SPS',
         robots: {
@@ -26,9 +27,11 @@ export async function generateMetadata({ searchParams }: SearchPageProps) {
 }
 
 export default async function SearchPage({
-    params: { lang },
-    searchParams,
+    params,
+    searchParams: searchParamsPromise,
 }: SearchPageProps) {
+    const { lang } = await params;
+    const searchParams = await searchParamsPromise;
     const dict = getDictionary(lang);
     const query = searchParams.q?.trim() || '';
     const categorySlug = searchParams.category?.trim();

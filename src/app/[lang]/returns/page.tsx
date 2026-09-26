@@ -4,7 +4,8 @@ import { Container } from '@/components/ui/Container';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { RefreshCw, ShieldCheck, Clock } from 'lucide-react';
 
-export default function ReturnsPage({ params: { lang } }: { params: { lang: Locale } }) {
+export default async function ReturnsPage({ params }: { params: Promise<{ lang: Locale }> }) {
+  const { lang } = await params;
   const dict = getDictionary(lang);
 
   return (

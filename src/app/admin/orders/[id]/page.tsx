@@ -8,10 +8,11 @@ import { OrderStatusControl } from '@/components/admin/OrderStatusControl';
 import { ArrowLeft, Phone, MapPin, User, Tag, Clock, CreditCard, ShieldCheck } from 'lucide-react';
 
 interface OrderDetailPageProps {
-    params: { id: string };
+    params: Promise<{ id: string }>;
 }
 
-export default async function AdminOrderDetailPage({ params: { id } }: OrderDetailPageProps) {
+export default async function AdminOrderDetailPage({ params }: OrderDetailPageProps) {
+    const { id } = await params;
     const session = await getAdminSession();
     if (!session) {
         redirect('/admin/login');
@@ -106,6 +107,14 @@ export default async function AdminOrderDetailPage({ params: { id } }: OrderDeta
                                     {order.deliveryFee === 0 ? 'Bepul / Kelishiladi' : formatPrice(order.deliveryFee, 'uz')}
                                 </span>
                             </div>
+                            {order.discountAmount > 0 && (
+                                <div className="flex justify-between text-gray-400">
+                                    <span>Chegirma{order.couponCode ? ` (${order.couponCode})` : ''}:</span>
+                                    <span className="text-emerald-400 font-medium">
+                                        -{formatPrice(order.discountAmount, 'uz')}
+                                    </span>
+                                </div>
+                            )}
                             <div className="flex justify-between text-lg font-black text-white pt-3 border-t border-brand-border">
                                 <span>Jami Summa:</span>
                                 <span className="text-brand-red">{formatPrice(order.totalAmount, 'uz')}</span>

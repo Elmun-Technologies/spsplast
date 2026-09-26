@@ -32,16 +32,22 @@ const RecentlyViewed = nextDynamic(() => import('@/components/product/RecentlyVi
 const B2BBanner = nextDynamic(() => import('@/components/product/B2BBanner').then((m) => m.B2BBanner));
 
 interface HomePageProps {
-  params: { lang: Locale };
+  params: Promise<{ lang: Locale }>;
 }
 
 export const revalidate = 60; // ISR 60s for high traffic
 export const dynamic = 'force-static';
 
-export default async function HomePage({ params: { lang } }: HomePageProps) {
+export default async function HomePage({ params }: HomePageProps) {
+  const { lang } = await params;
   // These independent reads used to block one another. Fetch the homepage payload together
   // so the slowest query, rather than the sum of all queries, determines TTFB.
-  const [rawCategories, bestsellersResult, allProductsResult] = await Promise.all([
+  //
+  // Every read is guarded: this route is `force-static`, so it also renders at
+  // BUILD time. An unguarded throw here fails `next build` outright whenever the
+  // database is momentarily unreachable (see the "never make the build depend on
+  // the database" rule in CLAUDE.md) — the page degrades to empty rails instead.
+  const [categoriesResult, bestsellersResult, allProductsResult] = await Promise.allSettled([
     db.category.findMany({
       where: { status: 'ACTIVE' },
       orderBy: { sortOrder: 'asc' },
@@ -53,6 +59,18 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
     getProductsServer({ locale: lang, isBestseller: true, limit: 8 }),
     getProductsServer({ locale: lang, limit: 48 }),
   ]);
+
+  if (categoriesResult.status === 'rejected') {
+    console.error('Homepage: category fetch failed', categoriesResult.reason);
+  }
+  if (bestsellersResult.status === 'rejected') {
+    console.error('Homepage: bestseller fetch failed', bestsellersResult.reason);
+  }
+  if (allProductsResult.status === 'rejected') {
+    console.error('Homepage: product fetch failed', allProductsResult.reason);
+  }
+
+  const rawCategories = categoriesResult.status === 'fulfilled' ? categoriesResult.value : [];
 
   const categories = rawCategories.map((c) => {
     const trans = c.translations[0] || {};
@@ -68,8 +86,8 @@ export default async function HomePage({ params: { lang } }: HomePageProps) {
     };
   });
 
-  let bestsellers = bestsellersResult.products;
-  const allProducts = allProductsResult.products;
+  let bestsellers = bestsellersResult.status === 'fulfilled' ? bestsellersResult.value.products : [];
+  const allProducts = allProductsResult.status === 'fulfilled' ? allProductsResult.value.products : [];
 
   // Keep the fallback in the same request path only when it is actually needed.
   if (!bestsellers || bestsellers.length === 0) {

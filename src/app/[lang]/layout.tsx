@@ -6,24 +6,39 @@ import { StickyMobileContact } from '@/components/layout/StickyMobileContact';
 import { CartDrawer } from '@/components/cart/CartDrawer';
 import { DeferredWidgets } from '@/components/layout/DeferredWidgets';
 import { SWRegister } from '@/components/layout/SWRegister';
-import { isValidLocale, Locale } from '@/lib/i18n';
+import { isValidLocale, locales, Locale } from '@/lib/i18n';
 
 // Footer is below the fold on every page: keep it out of the initial bundle
 // (it is still server-rendered, so crawlers and no-JS users see it).
 const Footer = nextDynamic(() => import('@/components/layout/Footer').then((m) => m.Footer));
 
-export default function LangLayout({
+/**
+ * The locale set is closed (uz/ru), so enumerate it for the router.
+ *
+ * Without this, every `/[lang]/...` segment is unknown at build time and Next
+ * has to server-render each marketing page (about, terms, privacy, production,
+ * delivery-payment, returns, projects, blog) per request. With it, those pages
+ * are prerendered as static HTML for both locales and served straight from the
+ * CDN — which matters because the layout is on every storefront route.
+ */
+export function generateStaticParams() {
+  return locales.map((lang) => ({ lang }));
+}
+
+export default async function LangLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
-  params: { lang: string };
+  params: Promise<{ lang: string }>;
 }) {
-  if (!isValidLocale(params.lang)) {
+  const { lang: langParam } = await params;
+
+  if (!isValidLocale(langParam)) {
     notFound();
   }
 
-  const lang = params.lang as Locale;
+  const lang = langParam as Locale;
 
   return (
     <div className="min-h-screen flex flex-col bg-surface-page text-ink font-sans antialiased selection:bg-brand-red selection:text-white">

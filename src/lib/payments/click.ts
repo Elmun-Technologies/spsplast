@@ -31,7 +31,16 @@ export class ClickPaymentProvider implements PaymentProvider {
             };
         }
 
-        const returnUrl = input.returnUrl || `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/uz/order-success/${input.orderId}`;
+        // `NEXT_PUBLIC_SITE_URL` is the documented variable (see .env.example /
+        // src/lib/env.ts). It used to read `NEXT_PUBLIC_APP_URL`, which nothing
+        // sets, so the return URL silently degraded to http://localhost:3000 and
+        // Click sent paying customers to a dead page.
+        const siteUrl = (
+          process.env.NEXT_PUBLIC_SITE_URL ||
+          process.env.NEXT_PUBLIC_APP_URL ||
+          'http://localhost:3000'
+        ).replace(/\/$/, '');
+        const returnUrl = input.returnUrl || `${siteUrl}/uz/order-success/${input.orderId}`;
         const paymentUrl = `https://my.click.uz/services/pay?service_id=${this.serviceId}&merchant_id=${this.merchantId}&amount=${input.amount}&transaction_param=${encodeURIComponent(merchantTransactionId)}&return_url=${encodeURIComponent(returnUrl)}`;
 
         return {

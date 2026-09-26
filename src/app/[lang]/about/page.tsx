@@ -5,7 +5,8 @@ import { Container } from '@/components/ui/Container';
 import { Building2, Award, Users, ShieldCheck, Factory, Target } from 'lucide-react';
 import { COMPANY_CONTACTS } from '@/lib/constants/contacts';
 
-export default function AboutPage({ params: { lang } }: { params: { lang: Locale } }) {
+export default async function AboutPage({ params }: { params: Promise<{ lang: Locale }> }) {
+  const { lang } = await params;
   const dict = getDictionary(lang);
 
   return (

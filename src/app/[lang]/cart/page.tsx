@@ -4,7 +4,7 @@ import React, { useMemo, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ShoppingBag, Trash2, ArrowRight, AlertTriangle, Tag, X, Check } from 'lucide-react';
-import { useCartStore } from '@/lib/store/cartStore';
+import { useCartStore, getCartSubtotal, getLineTotal, getLineUnitPrice } from '@/lib/store/cartStore';
 import { QuantitySelector } from '@/components/ui/QuantitySelector';
 import { Button } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
@@ -17,7 +17,9 @@ import { formatPrice } from '@/lib/utils';
 import { getDictionary, Locale } from '@/lib/i18n';
 import { trackEvent } from '@/lib/analytics';
 
-export default function CartPage({ params: { lang } }: { params: { lang: Locale } }) {
+export default function CartPage({ params }: { params: Promise<{ lang: Locale }> }) {
+  // Next.js 15 passes `params` to client components as a promise.
+  const { lang } = React.use(params);
   const dict = getDictionary(lang);
   // Narrow selectors: the page no longer re-renders for unrelated store updates
   // (e.g. the cart drawer opening), and totals are derived from the item list.
@@ -35,7 +37,8 @@ export default function CartPage({ params: { lang } }: { params: { lang: Locale 
   const [couponInput, setCouponInput] = useState('');
 
   const totalQuantity = useMemo(() => items.reduce((a, b) => a + b.quantity, 0), [items]);
-  const totalPrice = useMemo(() => items.reduce((sum, i) => sum + i.price * i.quantity, 0), [items]);
+  // Tier-adjusted subtotal — the exact number the server persists as the order total.
+  const totalPrice = useMemo(() => getCartSubtotal(items), [items]);
   const discount = useMemo(
     () => (appliedCoupon ? Math.round((totalPrice * appliedCoupon.discountPercent) / 100) : 0),
     [appliedCoupon, totalPrice]
@@ -134,14 +137,14 @@ export default function CartPage({ params: { lang } }: { params: { lang: Locale 
                     <div className="min-w-0">
                       <h3 className="font-bold text-ink text-sm sm:text-base truncate max-w-[220px]">{item.title}</h3>
                       <p className="text-xs text-ink-sub font-mono mt-0.5">SKU: {item.sku}</p>
-                      <p className="text-sm font-bold text-brand-red mt-1">{formatPrice(item.price, lang)}</p>
+                      <p className="text-sm font-bold text-brand-red mt-1">{formatPrice(getLineUnitPrice(item), lang)}</p>
                     </div>
                   </div>
 
                   <div className="flex items-center justify-between sm:justify-end gap-4 w-full sm:w-auto border-t sm:border-t-0 border-line-soft pt-3 sm:pt-0">
                     <QuantitySelector quantity={item.quantity} onDecrease={() => updateQuantity(item.id, -1)} onIncrease={() => updateQuantity(item.id, 1)} />
 
-                    <p className="font-bold text-base text-ink min-w-[100px] text-right">{formatPrice(item.price * item.quantity, lang)}</p>
+                    <p className="font-bold text-base text-ink min-w-[100px] text-right">{formatPrice(getLineTotal(item), lang)}</p>
 
                     <button
                       onClick={() => removeItem(item.id)}

@@ -7,14 +7,15 @@ import { formatPrice } from '@/lib/utils';
 import { Eye, Search, Filter } from 'lucide-react';
 
 interface AdminOrdersPageProps {
-  searchParams: {
+  searchParams: Promise<{
     search?: string;
     status?: string;
     page?: string;
-  };
+  }>;
 }
 
-export default async function AdminOrdersPage({ searchParams }: AdminOrdersPageProps) {
+export default async function AdminOrdersPage({ searchParams: searchParamsPromise }: AdminOrdersPageProps) {
+  const searchParams = await searchParamsPromise;
   const session = await getAdminSession();
   if (!session) {
     redirect('/admin/login');
