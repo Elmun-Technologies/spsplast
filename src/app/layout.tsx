@@ -11,7 +11,15 @@ import './globals.css';
  */
 const FONT_PRELOAD = '/fonts/inter-latin-wght-normal.woff2';
 
+/**
+ * Barcha nisbiy havolalar (canonical, OG rasm, sitemap) shu manzilga nisbatan
+ * hisoblanadi. `metadataBase` bo'lmasa Next.js ularni `localhost:3000` ga
+ * bog'laydi — natijada Telegram/Facebook'da havola noto'g'ri ochiladi.
+ */
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://sps.uz';
+
 export const metadata = {
+  metadataBase: new URL(SITE_URL),
   title: 'SPS — Bruschatka, Bordyur va Plitka Qoliplari, Fasad Dekor',
   description: 'SPS — O‘zbekistonda bruschatka, bordyur va trotuar plitka qoliplari hamda fasad dekor elementlarini ishlab chiqaruvchi zavod. Sifatli xomashyo, zavod narxlari.',
   // No web-app manifest / appleWebApp: this is a regular website. It used to

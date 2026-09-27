@@ -23,14 +23,39 @@ export async function generateMetadata({ params }: ProductPageProps) {
   const { lang, slug } = await params;
   const trans = await db.productTranslation.findFirst({
     where: { slug, locale: lang },
-    include: { product: { include: { media: true } } },
+    include: {
+      product: {
+        include: { media: true, translations: { select: { locale: true, slug: true } } },
+      },
+    },
   });
 
   if (!trans) return {};
 
+  // Har bir til o'z slug'iga ega — canonical va hreflang havolalari shuni
+  // hisobga oladi, aks holda qidiruv tizimlari uz/ru sahifalarni dublikat deb
+  // hisoblaydi.
+  const languages: Record<string, string> = {};
+  for (const t of trans.product.translations) {
+    languages[t.locale] = `/${t.locale}/product/${t.slug}`;
+  }
+
+  const image = trans.product.media[0]?.url;
+
   return {
     title: `${trans.name} | SPS`,
     description: (trans.shortDescription || trans.description || '').slice(0, 160),
+    alternates: {
+      canonical: `/${lang}/product/${trans.slug}`,
+      languages,
+    },
+    openGraph: {
+      title: `${trans.name} | SPS`,
+      description: (trans.shortDescription || trans.description || '').slice(0, 160),
+      url: `/${lang}/product/${trans.slug}`,
+      type: 'website',
+      images: image ? [{ url: image }] : undefined,
+    },
   };
 }
 
@@ -63,6 +88,24 @@ export default async function ProductDetailPage({
               },
             },
           },
+          variants: {
+            where: { status: 'ACTIVE' },
+            orderBy: { sku: 'asc' },
+            include: {
+              options: {
+                include: {
+                  option: {
+                    include: {
+                      translations: { where: { locale: lang } },
+                      attribute: {
+                        include: { translations: { where: { locale: lang } } },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
         },
       },
     },
@@ -77,6 +120,56 @@ export default async function ProductDetailPage({
 
   const moldMedia = product.media.find((m) => m.type === 'MOLD') || product.media[0];
   const resultMedia = product.media.find((m) => m.type === 'FINISHED_RESULT');
+
+  /**
+   * Variant opsiyalari (material / plastik qalinligi / …).
+   *
+   * Faqat shu mahsulot variantlarida haqiqatan mavjud bo'lgan qiymatlar
+   * chiqariladi, shuning uchun variantsiz mahsulotda tanlagich umuman
+   * ko'rinmaydi.
+   */
+  const optionGroupOrder: string[] = [];
+  const optionGroups = new Map<string, { code: string; name: string; sortOrder: number; values: Map<string, string> }>();
+
+  for (const variant of product.variants) {
+    for (const variantOption of variant.options) {
+      const option = variantOption.option;
+      const attribute = option.attribute;
+      const groupCode = attribute.code;
+
+      if (!optionGroups.has(groupCode)) {
+        optionGroups.set(groupCode, {
+          code: groupCode,
+          name: attribute.translations[0]?.name || groupCode,
+          sortOrder: attribute.sortOrder,
+          values: new Map(),
+        });
+        optionGroupOrder.push(groupCode);
+      }
+
+      const group = optionGroups.get(groupCode)!;
+      if (!group.values.has(option.code)) {
+        group.values.set(option.code, option.translations[0]?.label || option.code);
+      }
+    }
+  }
+
+  const mappedOptionGroups = optionGroupOrder
+    .map((code) => optionGroups.get(code)!)
+    .sort((a, b) => a.sortOrder - b.sortOrder)
+    .map((group) => ({
+      code: group.code,
+      name: group.name,
+      values: Array.from(group.values.entries()).map(([valueCode, label]) => ({ code: valueCode, label })),
+    }));
+
+  const mappedVariants = product.variants.map((variant) => ({
+    id: variant.id,
+    sku: variant.sku,
+    price: variant.price,
+    stockQty: variant.stockQty,
+    optionCodes: variant.options.map((variantOption) => variantOption.option.code),
+  }));
 
   const mappedProduct = {
     id: product.id,
@@ -100,6 +193,8 @@ export default async function ProductDetailPage({
     moldImage: moldMedia?.url || null,
     resultImage: resultMedia?.url || null,
     videoUrl: product.videoUrl || null,
+    optionGroups: mappedOptionGroups,
+    variants: mappedVariants,
   };
 
   const breadcrumbItems = [

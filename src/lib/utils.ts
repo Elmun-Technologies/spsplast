@@ -12,6 +12,17 @@ export function formatPrice(price: number, locale: string = 'uz'): string {
   return new Intl.NumberFormat('uz-UZ').format(price) + ' so‘m';
 }
 
+/**
+ * Narxi katalogda ko'rsatilmagan pozitsiyalar (basePrice = 0) uchun "0 so'm"
+ * emas, "Narx so'rash" ko'rsatiladi — savat va checkout satrlarida ham.
+ */
+export function formatPriceOrRequest(price: number, locale: string = 'uz'): string {
+  if (!price || price <= 0) {
+    return locale === 'ru' ? 'Цена по запросу' : 'Narx so‘rash';
+  }
+  return formatPrice(price, locale);
+}
+
 export function formatPhone(phone: string): string {
   const cleaned = phone.replace(/\D/g, '');
   if (cleaned.length === 12 && cleaned.startsWith('998')) {

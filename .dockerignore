@@ -1,0 +1,35 @@
+.git
+.github
+node_modules
+.next
+out
+dist
+coverage
+
+# Ishlab chiqish / muhit fayllari
+.env
+.env.*
+!.env.example
+
+# Katalog manbalari va katta arxivlar (image ichida kerak emas).
+# products.json seed uchun kerak — u istisno qilinadi.
+catalog_build/*
+!catalog_build/products.json
+*.pdf
+*.zip
+DSC*.jpg
+DSC*.JPG
+Isolate_*.jpg
+Isolating_*.jpg
+White_plastic*.jpg
+Изображение*.png
+
+# Hujjatlar
+docs
+*.md
+!README.md
+
+# Boshqa
+.vscode
+.idea
+.DS_Store

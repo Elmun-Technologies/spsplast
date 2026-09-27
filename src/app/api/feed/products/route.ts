@@ -1,4 +1,8 @@
 import { NextResponse } from 'next/server';
+
+// Feed havolalari sayt manziliga bog'langan: preview/staging domenda ham
+// to'g'ri chiqishi uchun env'dan olinadi.
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://sps.uz';
 import { db } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
@@ -49,8 +53,8 @@ export async function GET(req: Request) {
       <price>${p.basePrice}</price>
       ${p.compareAtPrice ? `<oldprice>${p.compareAtPrice}</oldprice>` : ''}
       <currencyId>UZS</currencyId>
-      <picture>${p.media[0]?.url || ''}</picture>
-      <url>https://sps.uz/${lang}/product/${trans?.slug || p.sku}</url>
+      <picture>${p.media[0]?.url ? `${SITE_URL}${p.media[0].url}` : ''}</picture>
+      <url>${SITE_URL}/${lang}/product/${trans?.slug || p.sku}</url>
       <description>${desc}</description>
       <param name="Material">ABS</param>
       <param name="Resurs">resurs modelga bog‘liq</param>
@@ -63,7 +67,7 @@ export async function GET(req: Request) {
   <shop>
     <name>SPS</name>
     <company>SPS MCHJ</company>
-    <url>https://sps.uz</url>
+    <url>${SITE_URL}</url>
     <currencies><currency id="UZS" rate="1"/></currencies>
     <categories>
       <category id="1">Bruschatka qoliplari</category>

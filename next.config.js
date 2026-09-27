@@ -1,5 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  /**
+   * Docker (Fly.io) uchun `output: 'standalone'` — `.next/standalone/server.js`
+   * va faqat kerakli node_modules chiqariladi (image ~10x kichik bo'ladi).
+   * Vercelda shart emas, shuning uchun faqat Dockerfile o'rnatadigan
+   * BUILD_STANDALONE=1 bilan yoqiladi.
+   */
+  output: process.env.BUILD_STANDALONE === '1' ? 'standalone' : undefined,
   reactStrictMode: true,
   compress: true,
   poweredByHeader: false,
@@ -23,12 +30,17 @@ const nextConfig = {
     optimizePackageImports: ['lucide-react'],
   },
   async headers() {
+    // Clickjacking himoyasi productionda saqlanadi. `next dev` esa ko'pincha
+    // preview iframe ichida ochiladi — u yerda DENY sahifani bloklab qo'yadi.
+    const frameHeaders =
+      process.env.NODE_ENV === 'development' ? [] : [{ key: 'X-Frame-Options', value: 'DENY' }];
+
     return [
       {
         source: '/(.*)',
         headers: [
           { key: 'X-Content-Type-Options', value: 'nosniff' },
-          { key: 'X-Frame-Options', value: 'DENY' },
+          ...frameHeaders,
           { key: 'X-XSS-Protection', value: '1; mode=block' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(), payment=()' },

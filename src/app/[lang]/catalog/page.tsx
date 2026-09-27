@@ -6,6 +6,21 @@ import { CatalogClient } from '@/components/catalog/CatalogClient';
 
 export const revalidate = 30;
 
+/**
+ * Filtrlangan URL'lar (`?category=...&sort=...`) alohida sahifa emas: canonical
+ * har doim toza katalog manziliga ishora qiladi.
+ */
+export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }) {
+  const { lang } = await params;
+  return {
+    title: lang === 'ru' ? 'Каталог форм и фасадного декора | SPS' : 'Qoliplar va fasad dekor katalogi | SPS',
+    alternates: {
+      canonical: `/${lang}/catalog`,
+      languages: { uz: '/uz/catalog', ru: '/ru/catalog' },
+    },
+  };
+}
+
 interface CatalogPageProps {
   params: Promise<{ lang: Locale }>;
   searchParams: Promise<{

@@ -114,6 +114,9 @@ export async function getProductsServer({
             },
           },
         },
+        // Opsiyali kartalar savatga emas, mahsulot sahifasiga ("Tanlash")
+        // olib boradi.
+        _count: { select: { variants: true } },
       },
     }),
     db.product.count({ where }),
@@ -137,6 +140,7 @@ export async function getProductsServer({
       inStock: p.inStock,
       isBestseller: p.isBestseller,
       isNew: p.isNew,
+      hasVariants: p._count.variants > 0,
       yieldPerCast: p.yieldPerCast,
       durabilityCasts: p.durabilityCasts,
       moldImage: moldMedia?.url || null,
