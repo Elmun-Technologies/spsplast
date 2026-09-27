@@ -18,8 +18,23 @@ const FONT_PRELOAD = '/fonts/inter-latin-wght-normal.woff2';
  */
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://sps.uz';
 
+/**
+ * NEXT_PUBLIC_SITE_URL noto'g'ri yozilgan bo'lsa (masalan sxemasiz "sps.uz"),
+ * `new URL()` butun saytni yiqitib qo'ymasligi kerak.
+ */
+function toMetadataBase(value: string): URL | undefined {
+  for (const candidate of [value, `https://${value}`, 'https://sps.uz']) {
+    try {
+      return new URL(candidate);
+    } catch {
+      // keyingi variantni sinaymiz
+    }
+  }
+  return undefined;
+}
+
 export const metadata = {
-  metadataBase: new URL(SITE_URL),
+  metadataBase: toMetadataBase(SITE_URL),
   title: 'SPS — Bruschatka, Bordyur va Plitka Qoliplari, Fasad Dekor',
   description: 'SPS — O‘zbekistonda bruschatka, bordyur va trotuar plitka qoliplari hamda fasad dekor elementlarini ishlab chiqaruvchi zavod. Sifatli xomashyo, zavod narxlari.',
   // No web-app manifest / appleWebApp: this is a regular website. It used to
