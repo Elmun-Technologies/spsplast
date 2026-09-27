@@ -1,4 +1,27 @@
 /** @type {import('next').NextConfig} */
+// Product media is served from the S3/R2 public URL. Next Image rejects a
+// remote host that is not declared here, which can fail the whole product page
+// during rendering even though the image itself is reachable in the browser.
+// Read the configured CDN host at build time so changing S3_PUBLIC_URL does not
+// require another source-code change.
+const storageImagePattern = (() => {
+  if (!process.env.S3_PUBLIC_URL) return null;
+
+  try {
+    const url = new URL(process.env.S3_PUBLIC_URL);
+    if (url.protocol !== 'https:' && url.protocol !== 'http:') return null;
+    const basePath = url.pathname.replace(/\/+$/, '');
+
+    return {
+      protocol: url.protocol.slice(0, -1),
+      hostname: url.hostname,
+      pathname: `${basePath}/**`,
+    };
+  } catch {
+    return null;
+  }
+})();
+
 const nextConfig = {
   /**
    * Docker (Fly.io) uchun `output: 'standalone'` — `.next/standalone/server.js`
@@ -19,6 +42,12 @@ const nextConfig = {
       { protocol: 'https', hostname: 'images.unsplash.com' },
       { protocol: 'https', hostname: 'sps.uz' },
       { protocol: 'https', hostname: '*.sps.uz' },
+      // Production's documented media host is media.spsplast.uz (distinct from
+      // the sps.uz zone above). Keep it as a safe default and also allow the
+      // host configured by S3_PUBLIC_URL below.
+      { protocol: 'https', hostname: 'spsplast.uz' },
+      { protocol: 'https', hostname: '*.spsplast.uz' },
+      ...(storageImagePattern ? [storageImagePattern] : []),
       { protocol: 'https', hostname: '**.s3.amazonaws.com' },
       { protocol: 'https', hostname: '**.r2.dev' },
     ],

@@ -84,6 +84,18 @@ export default async function HomePage({ params }: HomePageProps) {
     console.error('Homepage: product fetch failed', allProductsResult.reason);
   }
 
+  const failedHomepageReads = [categoriesResult, bestsellersResult, allProductsResult].filter(
+    (result) => result.status === 'rejected'
+  );
+
+  // During a production ISR refresh, do not turn a temporary database outage
+  // into a successfully cached but empty homepage. Throwing tells Next to keep
+  // serving the last good page and retry the refresh later. Keep the build-time
+  // fallback so a database outage does not prevent a deployment from building.
+  if (failedHomepageReads.length > 0 && process.env.NEXT_PHASE !== 'phase-production-build') {
+    throw new Error('Homepage data refresh failed; preserving the last successful page.');
+  }
+
   const rawCategories = categoriesResult.status === 'fulfilled' ? categoriesResult.value : [];
 
   const categories = rawCategories.map((c) => {
