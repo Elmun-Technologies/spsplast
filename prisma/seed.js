@@ -352,6 +352,49 @@ async function main() {
     });
   }
 
+  // --- YANGI QOLIPLAR — 2026-09-27 (12 ta yangi rasm, oq fonda tayyorlandi) ---
+  const newMoldItems = [
+    { sku: 'SPS-NEW-072', nameUz: 'G‘isht T 4’li qolipi (tosh to‘lqini)', nameRu: 'Форма «Кирпич Т 4-ки» (каменная волна)', slugUz: 'gisht-t-4-li-qolipi-tosh-tolqini', slugRu: 'forma-kirpich-t-4-ki-kamen-volna', dims: '400 × 200 × 30 mm', ypc: 24, main: 72, texture: 'stone', cat: 'fasad', isNew: true },
+    { sku: 'SPS-NEW-073', nameUz: 'Sakkizburchak Naqshli qolipi 30×30', nameRu: 'Форма «Восьмиугольник Орнамент» 30×30', slugUz: 'sakkizburchak-naqshli-qolipi-30x30', slugRu: 'forma-vosmiugolnik-ornament-30x30', dims: '300 × 300 × 30 mm', ypc: 11, main: 73, texture: '3d', cat: 'plitka', isNew: true },
+    { sku: 'SPS-NEW-074', nameUz: 'Tosh + Yog‘och X qolipi 30×30', nameRu: 'Форма «Камень + Дерево Х» 30×30', slugUz: 'tosh-yogoch-x-qolipi-30x30', slugRu: 'forma-kamen-derevo-x-30x30', dims: '300 × 300 × 30 mm', ypc: 11, main: 74, texture: 'stone', cat: 'bruschatka', isNew: true },
+    { sku: 'SPS-NEW-075', nameUz: 'G‘isht T 4’li qolipi (to‘lqinsimon)', nameRu: 'Форма «Кирпич Т 4-ки» (волнистая)', slugUz: 'gisht-t-4-li-qolipi-tolqinsimon', slugRu: 'forma-kirpich-t-4-ki-volna', dims: '400 × 200 × 30 mm', ypc: 24, main: 75, texture: 'brick', cat: 'fasad', isNew: true },
+    { sku: 'SPS-NEW-076', nameUz: 'Qo‘sh Sakkizburchak qolipi', nameRu: 'Форма «Двойной восьмиугольник»', slugUz: 'qosh-sakkizburchak-qolipi', slugRu: 'forma-dvojnoj-vosmiugolnik', dims: '600 × 300 × 30 mm', ypc: 11, main: 76, texture: 'stone', cat: 'bruschatka', isNew: true },
+    { sku: 'SPS-NEW-077', nameUz: 'Geometrik Doiralar qolipi 30×30', nameRu: 'Форма «Геометрия Круги» 30×30', slugUz: 'geometrik-doiralar-qolipi-30x30', slugRu: 'forma-geometriya-krugi-30x30', dims: '300 × 300 × 30 mm', ypc: 11, main: 77, texture: '3d', cat: 'plitka', isNew: true },
+    { sku: 'SPS-NEW-078', nameUz: 'Diagonal Yulduz qolipi 30×30', nameRu: 'Форма «Диагональ Звезда» 30×30', slugUz: 'diagonal-yulduz-qolipi-30x30', slugRu: 'forma-diagonal-zvezda-30x30', dims: '300 × 300 × 30 mm', ypc: 11, main: 78, texture: '3d', cat: 'plitka', isNew: true },
+    { sku: 'SPS-NEW-079', nameUz: 'Romb 8-shakl 3’li qolipi', nameRu: 'Форма «Ромб 8-ка  тройная»', slugUz: 'romb-8-shakl-3-li-qolipi', slugRu: 'forma-romb-8ka-trojnoj', dims: '500 × 280 × 45 mm', ypc: 8, main: 79, texture: 'faceted', cat: 'bruschatka', isNew: true },
+    { sku: 'SPS-NEW-080', nameUz: 'Marmar 2’li qolipi 40×20', nameRu: 'Форма «Мрамор двойная» 40×20', slugUz: 'marmar-2-li-qolipi-40x20', slugRu: 'forma-mramor-dvoynaya-40x20', dims: '400 × 200 × 30 mm', ypc: 25, main: 80, texture: 'stone', cat: 'plitka', isNew: true },
+    { sku: 'SPS-NEW-081', nameUz: 'Cho‘ziq Sakkizburchak qolipi', nameRu: 'Форма «Вытянутый восьмиугольник»', slugUz: 'choziq-sakkizburchak-qolipi', slugRu: 'forma-vytyanutyj-vosmiugolnik', dims: '600 × 300 × 30 mm', ypc: 11, main: 81, texture: 'stone', cat: 'bruschatka', isNew: true },
+    { sku: 'SPS-NEW-082', nameUz: 'Marmar Kvadrat qolipi 30×30', nameRu: 'Форма «Мрамор Квадрат» 30×30', slugUz: 'marmar-kvadrat-qolipi-30x30', slugRu: 'forma-mramor-kvadrat-30x30', dims: '300 × 300 × 30 mm', ypc: 11, main: 82, texture: 'stone', cat: 'plitka', isNew: true },
+    { sku: 'SPS-NEW-083', nameUz: 'Strelka (O‘q) qolipi', nameRu: 'Форма «Стрелка»', slugUz: 'strelka-oq-qolipi', slugRu: 'forma-strelka', dims: '500 × 250 × 30 mm', ypc: 16, main: 83, texture: 'smooth', cat: 'bruschatka', isNew: true },
+  ];
+
+  for (const item of newMoldItems) {
+    const desc = plitkaDesc(item.nameUz, item.nameRu, item.dims);
+    const catMap = { bruschatka: catBruschatka, plitka: catPlitka, bordyur: catBordyur, fasad: catFasad };
+    await createProduct({
+      sku: item.sku,
+      nameUz: item.nameUz,
+      nameRu: item.nameRu,
+      slugUz: item.slugUz,
+      slugRu: item.slugRu,
+      dims: item.dims,
+      dimensions: item.dims,
+      yieldPerCast: item.ypc,
+      texture: item.texture,
+      categoryId: catMap[item.cat].id,
+      price: 0,
+      isNew: true,
+      bestseller: item.sku === 'SPS-NEW-074' || item.sku === 'SPS-NEW-079',
+      media: media(item.main, null, null, null),
+      ...desc,
+      shortUz: `${item.nameUz}. O‘lcham: ${item.dims}. Yangi model — 2026.`,
+      shortRu: `${item.nameRu}. Размер: ${item.dims}. Новая модель — 2026.`,
+      descUz: `${item.nameUz}. SPS Plast zavodida ishlab chiqarilgan yuqori sifatli ABS/polipropilen qolip. Aniq geometriya, 200+ quyishga chidamli, quyilgan betonda ${item.texture === 'stone' ? 'tabiiy tosh' : item.texture === 'brick' ? 'g‘isht' : 'dekorativ'} to‘qimasi aniq tushadi. Qora fondan oq fonda tozalab, studiya suratga olingan.`,
+      descRu: `${item.nameRu}. Высококачественная форма из АБС/полипропилена производства SPS Plast. Точная геометрия, ресурс 200+ заливок, на бетоне чётко проявляется ${item.texture === 'stone' ? 'каменная' : item.texture === 'brick' ? 'кирпичная' : 'декоративная'} фактура. Фото очищено с чёрного фона на белый в студии.`,
+      colors: ['polipropilen', 'abs'],
+    });
+  }
+
   // --- TERMOPANELLAR ---
   const termoItems = [
     { sku: 'SPS-TP-001', nameUz: 'Termopanel 30x60 «Kirpich»', nameRu: 'Термопанель 30x60 «Кирпич»', slugUz: 'termopanel-30x60-kirpich', slugRu: 'termopanel-30x60-kirpich', dims: '300x600', main: 36, mold: 36, result: 15, texture: 'brick' },
