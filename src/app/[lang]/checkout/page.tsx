@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useCartStore, getCartSubtotal, getLineTotal, getLineUnitPrice } from '@/lib/store/cartStore';
 import { Button } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
-import { formatPrice } from '@/lib/utils';
+import { formatPrice, formatPriceOrRequest } from '@/lib/utils';
 import { getDictionary, Locale } from '@/lib/i18n';
 import { captureAttribution, getStoredAttribution } from '@/lib/attribution';
 import { trackEvent } from '@/lib/analytics';
@@ -417,9 +417,9 @@ export default function CheckoutPage({ params }: { params: Promise<{ lang: Local
                   <div key={item.id} className="flex items-center justify-between gap-3 p-3 rounded-[16px] bg-surface-soft border border-line text-sm">
                     <div className="flex-1 min-w-0">
                       <p className="font-bold text-ink truncate">{item.title}</p>
-                      <p className="text-xs text-ink-sub">{item.quantity} dona × {formatPrice(getLineUnitPrice(item), lang)}</p>
+                      <p className="text-xs text-ink-sub">{item.quantity} dona × {formatPriceOrRequest(getLineUnitPrice(item), lang)}</p>
                     </div>
-                    <span className="font-bold text-ink shrink-0">{formatPrice(getLineTotal(item), lang)}</span>
+                    <span className="font-bold text-ink shrink-0">{formatPriceOrRequest(getLineTotal(item), lang)}</span>
                   </div>
                 ))}
               </div>

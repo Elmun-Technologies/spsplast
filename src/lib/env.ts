@@ -61,10 +61,17 @@ export function validateEnvironment(): EnvValidationResult {
 
         // Serverless / persistent storage check
         const isServerless = Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME);
+        // Fly.io mashinalarida ham fayl tizimi vaqtinchalik: qayta ishga
+        // tushganda `public/uploads` yo'qoladi. Volume ulangan bo'lsa
+        // UPLOADS_VOLUME=1 bilan bu ogohlantirishni o'chirish mumkin.
+        const isFly = Boolean(process.env.FLY_APP_NAME || process.env.FLY_MACHINE_ID);
+        const hasUploadsVolume = process.env.UPLOADS_VOLUME === '1';
         const storageProvider = process.env.STORAGE_PROVIDER || (process.env.S3_ENDPOINT ? 's3' : 'local');
 
         if (isServerless && storageProvider === 'local') {
             errors.push('Ephemeral storage (STORAGE_PROVIDER=local) detected in serverless production environment! S3 or R2 must be configured.');
+        } else if (isFly && storageProvider === 'local' && !hasUploadsVolume) {
+            warnings.push('STORAGE_PROVIDER=local on Fly.io: uploaded media is lost when the machine restarts. Configure R2/S3, or mount a volume at /app/public/uploads and set UPLOADS_VOLUME=1.');
         }
 
         // Check if Click payment credentials are incomplete

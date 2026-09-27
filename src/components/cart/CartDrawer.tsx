@@ -7,7 +7,7 @@ import { X, Trash2, ShoppingBag, ArrowRight } from 'lucide-react';
 import { useCartStore, getCartSubtotal, getLineUnitPrice } from '@/lib/store/cartStore';
 import { QuantitySelector } from '@/components/ui/QuantitySelector';
 import { Button } from '@/components/ui/Button';
-import { formatPrice } from '@/lib/utils';
+import { formatPrice, formatPriceOrRequest } from '@/lib/utils';
 import { getDictionary, Locale } from '@/lib/i18n';
 import { trackEvent } from '@/lib/analytics';
 
@@ -122,7 +122,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ lang }) => {
                     <h4 className="text-sm font-bold text-ink truncate">{item.title}</h4>
                     <p className="text-xs text-ink-sub font-mono">SKU: {item.sku}</p>
                     <p className="text-sm font-bold text-brand-red mt-0.5">
-                      {formatPrice(getLineUnitPrice(item), lang)}
+                      {formatPriceOrRequest(getLineUnitPrice(item), lang)}
                     </p>
                   </div>
 

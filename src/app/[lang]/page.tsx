@@ -38,6 +38,20 @@ interface HomePageProps {
 export const revalidate = 60; // ISR 60s for high traffic
 export const dynamic = 'force-static';
 
+/**
+ * uz/ru bosh sahifalari bir xil kontentning ikki tildagi versiyasi: canonical
+ * o'z tilini ko'rsatadi, hreflang esa ikkinchisini bog'laydi.
+ */
+export async function generateMetadata({ params }: HomePageProps) {
+  const { lang } = await params;
+  return {
+    alternates: {
+      canonical: `/${lang}`,
+      languages: { uz: '/uz', ru: '/ru' },
+    },
+  };
+}
+
 export default async function HomePage({ params }: HomePageProps) {
   const { lang } = await params;
   // These independent reads used to block one another. Fetch the homepage payload together

@@ -76,3 +76,21 @@ npm run db:seed   # node prisma/seed.js
 ```
 
 Eskirgan `scripts/seed-more.js` (soxta Unsplash mahsulotlari) o'chirildi.
+
+## 7. 2026 studiya seriyasi (2026-09-27)
+
+Oq fonda suratga olingan yangi qoliplardan **50 ta mahsulot kartasi** qo'shildi
+(`public/catalog/catalog-084.jpg … catalog-133.jpg`). Har bir kartada tanlanadigan
+opsiyalar bor: **qolip materiali** (PP / ABS) va **plastik qalinligi** (2.0 / 3.0 mm) —
+jami 200 ta variant.
+
+Ma'lumot manbai: `prisma/data/molds-2026.json`.
+To'liq hujjat: [`docs/CATALOG-2026.md`](CATALOG-2026.md).
+
+Shu bo'limdagi "soxta ma'lumot yo'q" qoidasi saqlangan:
+
+- narx yo'q → `basePrice = 0` («Narx so'rash»);
+- `durabilityCasts` (quyish resursi) umuman berilmagan — tasdiqlanmagan da'vo;
+- `yieldPerCast` faqat suratdan sanalgan uyachalar soni;
+- o'lchamlar oila standarti bo'yicha va `*` bilan belgilangan
+  (`dimensionsConfirmed: false`) — buyurtmada tasdiqlanadi.

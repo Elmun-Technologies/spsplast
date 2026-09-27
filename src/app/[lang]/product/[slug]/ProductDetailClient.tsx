@@ -16,6 +16,7 @@ import { QuantitySelector } from '@/components/ui/QuantitySelector';
 const B2BModal = dynamic(() => import('@/components/product/B2BModal').then((m) => m.B2BModal), { ssr: false });
 const OneClickModal = dynamic(() => import('@/components/product/OneClickModal').then((m) => m.OneClickModal), { ssr: false });
 import { ProductTabs } from '@/components/product/ProductTabs';
+import { ProductOptions, ProductOptionGroup } from '@/components/product/ProductOptions';
 import { useCartStore } from '@/lib/store/cartStore';
 import { useUIStore } from '@/lib/store/uiStore';
 import { formatPrice } from '@/lib/utils';
@@ -83,10 +84,45 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
     return () => setBottomBarOwner(null);
   }, [showSticky, setBottomBarOwner]);
 
-  // Bulk Tier Pricing
-  const basePrice = product.price;
+  /**
+   * Variant opsiyalari (material, plastik qalinligi, …).
+   *
+   * Har bir guruhning birinchi qiymati oldindan tanlangan, shuning uchun
+   * variantli mahsulotda doim aniq variant hal bo'ladi — savat satri, SKU va
+   * ulgurji so'rov o'shani olib ketadi.
+   */
+  const optionGroups: ProductOptionGroup[] = React.useMemo(
+    () => product.optionGroups || [],
+    [product.optionGroups]
+  );
+  const variantList: Array<{ id: string; sku: string; price: number; optionCodes: string[] }> =
+    React.useMemo(() => product.variants || [], [product.variants]);
+
+  const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>(() =>
+    Object.fromEntries(optionGroups.map((group) => [group.code, group.values[0]?.code]).filter(([, v]) => v))
+  );
+
+  const selectedVariant = React.useMemo(() => {
+    if (variantList.length === 0 || optionGroups.length === 0) return null;
+    return (
+      variantList.find((variant) =>
+        optionGroups.every((group) => variant.optionCodes.includes(selectedOptions[group.code]))
+      ) || null
+    );
+  }, [variantList, optionGroups, selectedOptions]);
+
+  const selectedOptionLabels = optionGroups
+    .map((group) => group.values.find((value) => value.code === selectedOptions[group.code])?.label)
+    .filter(Boolean)
+    .join(' · ');
+
+  const displaySku = selectedVariant?.sku || product.sku;
+  const orderTitle = selectedOptionLabels ? `${title} (${selectedOptionLabels})` : title;
+
+  // Bulk Tier Pricing — tanlangan variant narxi asosiy narxdan ustun turadi.
+  const basePrice = selectedVariant && selectedVariant.price > 0 ? selectedVariant.price : product.price;
   // Price not configured (0) -> price-on-request catalog item
-  const askPrice = !product.price || product.price <= 0;
+  const askPrice = !basePrice || basePrice <= 0;
   // Shared with the server (`orderService`) so the price shown here is exactly
   // the price that gets stored on the order.
   const getTierPrice = (qty: number) => getBulkUnitPrice(basePrice, qty);
@@ -96,8 +132,9 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
   const handleAddToCart = () => {
     addItem({
       productId: product.id,
-      title,
-      sku: product.sku,
+      variantId: selectedVariant?.id,
+      title: orderTitle,
+      sku: displaySku,
       // The cart stores the BASE price; the tier is derived from the live
       // quantity so changing it in the cart re-prices the line correctly.
       price: basePrice,
@@ -156,7 +193,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
             </div>
             <div className="min-w-0">
               <div className="text-sm font-semibold text-ink truncate max-w-[200px] sm:max-w-[300px]">{title}</div>
-              <div className="text-xs text-ink-sub">SKU: {product.sku}</div>
+              <div className="text-xs text-ink-sub">SKU: {displaySku}</div>
             </div>
             <div className="hidden md:block ml-4">
               <Price price={currentUnitPrice} lang={lang} size="md" />
@@ -168,7 +205,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
               <QuantitySelector quantity={quantity} onDecrease={() => setQuantity(Math.max(1, quantity - 1))} onIncrease={() => setQuantity(quantity + 1)} />
             </div>
             <button
-              onClick={handleAddToCart}
+              onClick={() => (askPrice ? setB2bModalOpen(true) : handleAddToCart())}
               disabled={!product.inStock}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-sm transition-all min-h-[46px] ${
                 added ? 'bg-emerald-600 text-white' : 'bg-brand-red hover:bg-brand-red-dark text-white shadow-red'
@@ -314,7 +351,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="bg-surface-soft px-2.5 py-1 rounded-full text-ink-soft text-[12px] font-medium">
-                    SKU: {product.sku}
+                    SKU: {displaySku}
                   </span>
                   <StockBadge inStock={product.inStock} lang={lang} />
                 </div>
@@ -372,6 +409,17 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                   </div>
                 </div>
               </div>
+
+              {/* Variant opsiyalari (material / plastik qalinligi) */}
+              <ProductOptions
+                groups={optionGroups}
+                selected={selectedOptions}
+                onSelect={(groupCode, valueCode) =>
+                  setSelectedOptions((prev) => ({ ...prev, [groupCode]: valueCode }))
+                }
+                lang={lang}
+                variantSku={selectedVariant?.sku}
+              />
 
               {/* Specifications Table */}
               <div className="rounded-[20px] bg-surface-soft p-5 space-y-2.5">
@@ -503,7 +551,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
             weight: product.weight,
             yieldPerCast: product.yieldPerCast,
             durabilityCasts: product.durabilityCasts,
-            sku: product.sku,
+            sku: displaySku,
           }}
         />
       </div>
@@ -513,7 +561,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
           isOpen
           onClose={() => setB2bModalOpen(false)}
           lang={lang}
-          productName={title}
+          productName={orderTitle}
           productId={product.id}
         />
       )}
@@ -525,9 +573,9 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
           lang={lang}
           product={{
             id: product.id,
-            title,
+            title: orderTitle,
             price: currentUnitPrice,
-            sku: product.sku,
+            sku: displaySku,
             image: images[0],
           }}
         />

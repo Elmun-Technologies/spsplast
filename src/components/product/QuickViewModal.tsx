@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { Modal } from '@/components/ui/Modal';
 import { Price } from '@/components/ui/Price';
 import { StockBadge } from '@/components/ui/StockBadge';
@@ -11,8 +12,10 @@ import { Button } from '@/components/ui/Button';
 import { useCartStore } from '@/lib/store/cartStore';
 import { formatPrice } from '@/lib/utils';
 import { Locale } from '@/lib/i18n';
-import { ShoppingCart, Check, Eye } from 'lucide-react';
+import { ShoppingCart, Check, Eye, ShoppingBag } from 'lucide-react';
 import { trackEvent } from '@/lib/analytics';
+
+const B2BModal = dynamic(() => import('./B2BModal').then((m) => m.B2BModal), { ssr: false });
 
 interface QuickViewModalProps {
   isOpen: boolean;
@@ -25,11 +28,15 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({ isOpen, onClose,
   const addItem = useCartStore((s) => s.addItem);
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
+  const [b2bOpen, setB2bOpen] = useState(false);
 
   if (!product) return null;
 
   const title = lang === 'ru' ? product.titleRu : product.titleUz;
   const image = product.images?.[0]?.url;
+  // Narxi ko'rsatilmagan mahsulotni savatga qo'shib bo'lmaydi — 0 so'mlik
+  // buyurtma o'rniga narx so'rovi (zayafka) yuboriladi.
+  const askPrice = !product.price || product.price <= 0;
 
   const handleAdd = () => {
     addItem({
@@ -46,6 +53,7 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({ isOpen, onClose,
   };
 
   return (
+    <>
     <Modal isOpen={isOpen} onClose={onClose} title={title} maxWidth="lg">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="relative aspect-square bg-surface-soft rounded-[18px] overflow-hidden p-4">
@@ -64,16 +72,26 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({ isOpen, onClose,
 
           {product.dimensions && <p className="text-sm text-ink-soft">O‘lchami: <span className="font-medium text-ink">{product.dimensions}</span></p>}
 
-          <div className="flex items-center gap-3 pt-2">
-            <QuantitySelector quantity={qty} onDecrease={() => setQty(Math.max(1, qty - 1))} onIncrease={() => setQty(qty + 1)} />
+          {askPrice ? (
             <button
-              onClick={handleAdd}
-              className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-full font-semibold text-sm min-h-[46px] ${added ? 'bg-emerald-600 text-white' : 'bg-brand-red text-white hover:bg-brand-red-dark'}`}
+              onClick={() => setB2bOpen(true)}
+              className="w-full flex items-center justify-center gap-2 py-3 rounded-full font-semibold text-sm min-h-[46px] bg-ink text-white hover:bg-black transition-colors"
             >
-              {added ? <Check className="w-4 h-4" /> : <ShoppingCart className="w-4 h-4" />}
-              {added ? 'Savatda' : 'Savatga'}
+              <ShoppingBag className="w-4 h-4" />
+              {lang === 'ru' ? 'Запросить цену' : 'Narx so‘rash'}
             </button>
-          </div>
+          ) : (
+            <div className="flex items-center gap-3 pt-2">
+              <QuantitySelector quantity={qty} onDecrease={() => setQty(Math.max(1, qty - 1))} onIncrease={() => setQty(qty + 1)} />
+              <button
+                onClick={handleAdd}
+                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-full font-semibold text-sm min-h-[46px] ${added ? 'bg-emerald-600 text-white' : 'bg-brand-red text-white hover:bg-brand-red-dark'}`}
+              >
+                {added ? <Check className="w-4 h-4" /> : <ShoppingCart className="w-4 h-4" />}
+                {added ? 'Savatda' : 'Savatga'}
+              </button>
+            </div>
+          )}
 
           <Link href={`/${lang}/product/${product.slug}`} onClick={onClose} className="block">
             <Button variant="outline" className="w-full gap-2">
@@ -84,5 +102,16 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({ isOpen, onClose,
         </div>
       </div>
     </Modal>
+
+    {b2bOpen && (
+      <B2BModal
+        isOpen
+        onClose={() => setB2bOpen(false)}
+        lang={lang}
+        productName={title}
+        productId={product.id}
+      />
+    )}
+    </>
   );
 };

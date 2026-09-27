@@ -13,7 +13,7 @@ import { FreeShippingProgress } from '@/components/cart/FreeShippingProgress';
 import { RecentlyViewed } from '@/components/product/RecentlyViewed';
 import { CrossSell } from '@/components/product/CrossSell';
 import { useCouponStore } from '@/lib/store/couponStore';
-import { formatPrice } from '@/lib/utils';
+import { formatPrice, formatPriceOrRequest } from '@/lib/utils';
 import { getDictionary, Locale } from '@/lib/i18n';
 import { trackEvent } from '@/lib/analytics';
 
@@ -137,14 +137,14 @@ export default function CartPage({ params }: { params: Promise<{ lang: Locale }>
                     <div className="min-w-0">
                       <h3 className="font-bold text-ink text-sm sm:text-base truncate max-w-[220px]">{item.title}</h3>
                       <p className="text-xs text-ink-sub font-mono mt-0.5">SKU: {item.sku}</p>
-                      <p className="text-sm font-bold text-brand-red mt-1">{formatPrice(getLineUnitPrice(item), lang)}</p>
+                      <p className="text-sm font-bold text-brand-red mt-1">{formatPriceOrRequest(getLineUnitPrice(item), lang)}</p>
                     </div>
                   </div>
 
                   <div className="flex items-center justify-between sm:justify-end gap-4 w-full sm:w-auto border-t sm:border-t-0 border-line-soft pt-3 sm:pt-0">
                     <QuantitySelector quantity={item.quantity} onDecrease={() => updateQuantity(item.id, -1)} onIncrease={() => updateQuantity(item.id, 1)} />
 
-                    <p className="font-bold text-base text-ink min-w-[100px] text-right">{formatPrice(getLineTotal(item), lang)}</p>
+                    <p className="font-bold text-base text-ink min-w-[100px] text-right">{formatPriceOrRequest(getLineTotal(item), lang)}</p>
 
                     <button
                       onClick={() => removeItem(item.id)}

@@ -1,0 +1,57 @@
+# Fly.io konfiguratsiyasi — SPS storefront
+#
+# Birinchi marta: `fly launch --no-deploy` (app nomi va tashkilotni tanlaydi),
+# so'ng `fly secrets set ...` va `fly deploy`. Batafsil: docs/DEPLOY-FLY.md
+#
+# Region: `fra` (Frankfurt) — O'zbekistondan trafik odatda Yevropa orqali o'tadi.
+# Muqobillar: `waw` (Varshava), `bom` (Mumbay). Qaysi biri tezroq ekanini
+# `fly ping` / real o'lchov bilan tekshirib, shu yerda o'zgartiring.
+
+app = "spsplast"
+primary_region = "fra"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[build.args]
+  NEXT_PUBLIC_SITE_URL = "https://sps.uz"
+
+[env]
+  NODE_ENV = "production"
+  PORT = "3000"
+  # Maxfiy qiymatlar bu yerga YOZILMAYDI — `fly secrets set` orqali beriladi.
+
+# Har deploydan oldin sxemani bazaga moslaydi. Buzg'unchi o'zgarish bo'lsa
+# Prisma o'zi to'xtatadi (--accept-data-loss berilmagan).
+[deploy]
+  release_command = "npx prisma db push --skip-generate"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = "suspend"
+  auto_start_machines = true
+  # Do'kon sahifalari SSR bo'lgani uchun kamida bitta mashina doim uyg'oq
+  # turadi — sovuq start mijozga ko'rinmaydi.
+  min_machines_running = 1
+  processes = ["app"]
+
+  [http_service.concurrency]
+    type = "requests"
+    soft_limit = 200
+    hard_limit = 250
+
+  # /api/health bazaga `SELECT 1` yuboradi: baza uzilsa mashina "unhealthy"
+  # bo'ladi va Fly eski versiyaga qaytaradi.
+  [[http_service.checks]]
+    grace_period = "20s"
+    interval = "30s"
+    method = "GET"
+    path = "/api/health"
+    protocol = "http"
+    timeout = "5s"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "1gb"
+  cpus = 1

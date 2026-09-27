@@ -98,3 +98,120 @@ The integration outbox queue processes amoCRM synchronization, Telegram alerts, 
 1. **Application Version:** Roll back deployment artifact/commit to previous deployment tag.
 2. **Database:** Forward-fix schema migrations when possible. Schema rollbacks must preserve order history, SKU mapping, and transaction records.
 3. **Storage:** Cloudflare R2 object storage versioning provides historical asset recovery.
+
+## 7. Website vs. PWA (2026-09-27)
+
+Sayt **oddiy veb-sayt** sifatida ishlaydi. Ilgari u o'rnatiladigan PWA sifatida
+sozlangan edi va shu sababli ikkita muammo kelib chiqqan:
+
+1. **"Alohida ilova" bo'lib ochilishi** — `manifest.json` da `display: "standalone"`,
+   iOS uchun `apple-mobile-web-app-capable: yes` va `PWAInstallBanner`
+   ("Ilovani o'rnating") banneri bor edi. Chrome havolani o'rnatilgan ilova
+   oynasida ochardi.
+2. **Eskirgan sahifalar / buzilgan navigatsiya** — `public/sw.js` barcha
+   so'rovlarni *cache-first* keshlardi (HTML va `/_next/static/...` chunk'lari
+   ham). Har deploydan keyin brauzer eski HTML'ni ko'rsatib, u yo'q bo'lib
+   ketgan JS chunk'larni so'rardi → havolalar ishlamay qolardi.
+
+### Nima o'zgardi
+
+| Fayl | O'zgarish |
+|---|---|
+| `public/manifest.json` | `display: "browser"`, `orientation` olib tashlandi, `purpose: "any"` |
+| `src/app/layout.tsx` | `appleWebApp.capable: false`, `metadataBase` qo'shildi |
+| `public/sw.js` | Cache-first logika o'rniga **kill switch**: keshlarni tozalaydi va o'zini unregister qiladi |
+| `src/components/layout/SWRegister.tsx` | Endi SW ro'yxatdan o'tkazmaydi, aksincha qolgan SW va keshlarni o'chiradi |
+| `src/components/layout/PWAInstallBanner.tsx` | O'chirildi |
+
+### Foydalanuvchi tomonida
+
+Agar telefonga ilova allaqachon **o'rnatilgan** bo'lsa, u o'zi yo'qolmaydi —
+bir marta qo'lda o'chirish kerak:
+
+- **Android/Chrome:** ilova ikonkasini bosib turing → *Uninstall* (yoki
+  Sozlamalar → Ilovalar → SPS → O'chirish).
+- **iOS/Safari:** bosh ekrandagi ikonkani o'chirib tashlang.
+- **Desktop Chrome:** `chrome://apps` → SPS → *Remove from Chrome*.
+
+Keshlangan eski versiya saytni ochgandan so'ng avtomatik tozalanadi
+(`sw.js` kill switch ishga tushadi va sahifani yangilaydi).
+
+## 8. SEO havolalari
+
+- `NEXT_PUBLIC_SITE_URL` **albatta** production domenga o'rnatilishi kerak
+  (masalan `https://sps.uz`). U `metadataBase`, `sitemap.xml`, `robots.txt`,
+  YML feed va canonical havolalar uchun ishlatiladi. Aks holda Open Graph
+  rasmlari `localhost` ga ishora qiladi.
+- Bosh sahifa, katalog va mahsulot sahifalarida `canonical` + `hreflang`
+  (uz/ru) havolalari bor; mahsulotlarda har bir til o'z slug'iga bog'lanadi.
+
+## 9. "Vercel o'zi yetadimi?" — hosting bo'yicha qaror
+
+**Qisqa javob:** Next.js ilovasi uchun Vercel to'liq yetarli, lekin **baza va fayl
+xotirasi Vercelda yo'q** — ular alohida sozlanadi. Qolgani huquqiy talabga bog'liq
+(pastdagi 9.3).
+
+### 9.1 Vercelda ishlashi uchun majburiy sozlamalar
+
+| Nima | Nega | Qanday |
+|---|---|---|
+| **Managed PostgreSQL** | Vercelda baza yo'q | Neon / Supabase / Vercel Postgres, **Frankfurt (eu-central-1)** regioni. `DATABASE_URL` — pooled (pgbouncer), `DIRECT_URL` — to'g'ridan-to'g'ri |
+| **R2 / S3 obyekt xotirasi** | Vercel fayl tizimi **read-only** va vaqtinchalik: admin paneldan yuklangan rasm `public/uploads` ga yozilmaydi (yoki keyingi deployda yo'qoladi) | `STORAGE_PROVIDER=r2` + `S3_*` env'lari. Bu bo'lmasa admin orqali rasm yuklash ishlamaydi |
+| **Region: `fra1`** | Default region AQSH (iad1) — Toshkentdan har bir so'rov ~250 ms ortiqcha | `vercel.json` da sozlangan (`"regions": ["fra1"]`) |
+| **Cron** | `/api/cron/integrations` (CRM/Telegram navbati) o'zi ishga tushmaydi | Vercel Cron (`vercel.json` dagi `crons`) + `CRON_SECRET`. **Diqqat:** Hobby rejada cron faqat kuniga 1 marta ishlashi mumkin — soatlik jadval deploy'ni xatoga olib keladi. Shu sababli repoda `vercel.json` saqlanmadi; Flyda cron GitHub Actions orqali |
+| **Pro reja** | Vercel Hobby tijorat loyihalari uchun mo'ljallanmagan | Pro ($20/oy) |
+| **`NEXT_PUBLIC_SITE_URL`** | canonical, OG, sitemap, feed havolalari | Production domen (`https://sps.uz`) |
+
+### 9.2 Vercel nimalarni o'zi hal qiladi
+
+CDN va keshlash, ISR (`revalidate`), `next/image` optimizatsiyasi, avtomatik HTTPS,
+preview deploylar, rollback, gzip/brotli. Bular uchun alohida server shart emas.
+
+### 9.3 Huquqiy jihat — O'zbekiston shaxsiy ma'lumotlar qonuni
+
+Sayt zayafka va buyurtmalarda **ism + telefon** yig'adi, ya'ni loyiha shaxsga doir
+ma'lumotlar operatori hisoblanadi:
+
+- "Shaxsga doir ma'lumotlar to'g'risida"gi qonun (O'RQ-547) **27-1-moddasi**:
+  O'zbekiston fuqarolarining shaxsga doir ma'lumotlari qayta ishlanadigan serverlar
+  O'zbekiston hududida joylashtirilishi lozim; baza `pd.gov.uz` davlat reyestrida
+  ro'yxatdan o'tkaziladi.
+- Vazirlar Mahkamasining **415-son (29.07.2026)** qarori bilan ma'lumotlarni bir xil
+  himoya qiluvchi **48 ta chet davlat ro'yxati** tasdiqlandi (AQSH, Germaniya,
+  Niderlandiya, Shveytsariya, Estoniya va boshqalar) — transchegaraviy uzatish shu
+  davlatlarga erkinlashtirildi.
+- Bu ikki talab bir-birini to'liq almashtirmaydi, shuning uchun **yurist bilan
+  tasdiqlash kerak**: agar 27-1 qat'iy qo'llanilsa, leadlar/buyurtmalar bazasi
+  O'zbekistondagi serverda bo'lishi kerak.
+
+### 9.4 Variantlar
+
+| Variant | Ijobiy | Salbiy |
+|---|---|---|
+| **A. Vercel + Neon (Frankfurt)** — hozirgi yo'l | Eng tez ishga tushadi, CDN/ISR/rasm optimizatsiyasi tayyor, DevOps yo'q | 27-1-modda bo'yicha savol ochiq |
+| **B. O'zbekistondagi VPS** (Docker: Node + PostgreSQL + Nginx) | Lokalizatsiya talabiga mos, foydalanuvchiga eng yaqin baza | Serverni o'zingiz boqasiz: HTTPS, backup, monitoring, CDN alohida |
+| **C. Gibrid: Vercel (frontend) + UZ'dagi baza** | Frontend tez, ma'lumot mamlakatda | Har bir DB so'rovi ~200 ms+ (Frankfurt↔Toshkent) — admin va checkout sezilarli sekinlashadi |
+
+**Amaliy tavsiya:** hozircha **A** bilan davom etish (sayt tez ishga tushadi), yurist
+27-1 ni qat'iy talab deb topsa — **B** ga ko'chirish. Loyiha buni qo'llab-quvvatlaydi:
+`next build && next start` yoki Docker; kodda Vercel'ga xos bog'liqlik yo'q.
+
+### 9.5 Tanlangan yo'l: Fly.io (2026-09-27)
+
+Loyiha **Fly.io** ga ko'chirilmoqda. Kerakli hamma narsa repoda:
+`Dockerfile`, `.dockerignore`, `fly.toml`, `.github/workflows/fly-deploy.yml`,
+`.github/workflows/cron-integrations.yml`.
+
+Qadamma-qadam qo'llanma: [`docs/DEPLOY-FLY.md`](DEPLOY-FLY.md).
+
+Asosiy farqlar:
+- `next.config.js` Docker build'da `output: 'standalone'` ga o'tadi (`BUILD_STANDALONE=1`).
+- `prisma/schema.prisma` da `binaryTargets = ["native", "debian-openssl-3.0.x"]`.
+- Cron endi `vercel.json` emas — GitHub Actions yoki Fly scheduled machine.
+- `vercel.json` repodan olib tashlandi: Hobby rejada soatlik cron deploy'ni
+  to'xtatardi ("Deployment failed"). Vercelga qaytish kerak bo'lsa, region va
+  cron loyiha sozlamalaridan (Settings → Functions / Cron Jobs) beriladi.
+- Fayl yuklash uchun R2/S3 (yoki `/app/public/uploads` ga volume + `UPLOADS_VOLUME=1`);
+  aks holda `/api/health` ogohlantirish beradi.
+- **Secretlarni birinchi deploydan oldin o'rnating:** `AUTH_SECRET` bo'lmasa
+  `/api/health` 503 qaytaradi va Fly deployni orqaga qaytaradi.

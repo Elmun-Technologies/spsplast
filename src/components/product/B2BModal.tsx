@@ -30,10 +30,12 @@ export const B2BModal: React.FC<B2BModalProps> = ({
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError('');
 
     try {
       const res = await fetch('/api/leads', {
@@ -50,15 +52,31 @@ export const B2BModal: React.FC<B2BModalProps> = ({
         }),
       });
 
+      const data = await res.json().catch(() => ({}));
+
       if (res.ok) {
         setSuccess(true);
         trackEvent('generate_lead', {
           lead_type: 'B2B_WHOLESALE',
           product_name: productName,
         });
+      } else {
+        // Ilgari xato holatida modal jim qolar edi — foydalanuvchi so'rov
+        // ketdimi yoki yo'qmi bilmasdi.
+        setError(
+          data.error ||
+            (lang === 'ru'
+              ? 'Заявку не удалось отправить. Проверьте номер телефона и попробуйте снова.'
+              : 'So‘rov yuborilmadi. Telefon raqamini tekshirib, qayta urinib ko‘ring.')
+        );
       }
     } catch (err) {
       console.error(err);
+      setError(
+        lang === 'ru'
+          ? 'Нет связи с сервером. Попробуйте ещё раз или позвоните нам.'
+          : 'Server bilan aloqa yo‘q. Qayta urinib ko‘ring yoki qo‘ng‘iroq qiling.'
+      );
     } finally {
       setLoading(false);
     }
@@ -66,6 +84,7 @@ export const B2BModal: React.FC<B2BModalProps> = ({
 
   const handleReset = () => {
     setSuccess(false);
+    setError('');
     setName('');
     setPhone('+998');
     setCompany('');
@@ -165,6 +184,12 @@ export const B2BModal: React.FC<B2BModalProps> = ({
               className="w-full bg-surface-soft rounded-[14px] px-4 py-2.5 text-[13px] text-ink focus:outline-none focus:bg-white focus:ring-1 focus:ring-line min-h-[44px]"
             />
           </div>
+
+          {error && (
+            <div className="p-3 rounded-[14px] bg-[#FEF0F0] text-brand-red text-[12px] font-medium" role="alert">
+              {error}
+            </div>
+          )}
 
           <Button type="submit" isLoading={loading} className="w-full mt-3">
             {dict.b2bModal.submit}
