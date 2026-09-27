@@ -5,7 +5,7 @@ import { Header } from '@/components/layout/Header';
 import { StickyMobileContact } from '@/components/layout/StickyMobileContact';
 import { CartDrawer } from '@/components/cart/CartDrawer';
 import { DeferredWidgets } from '@/components/layout/DeferredWidgets';
-import { SWRegister } from '@/components/layout/SWRegister';
+import { SWCleanup } from '@/components/layout/SWCleanup';
 import { isValidLocale, locales, Locale } from '@/lib/i18n';
 
 // Footer is below the fold on every page: keep it out of the initial bundle
@@ -45,7 +45,8 @@ export default async function LangLayout({
       <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] px-4 py-2 bg-brand-red text-white rounded-[16px] text-sm font-bold">
         {lang === 'ru' ? 'Перейти к содержимому' : 'Asosiy kontentga o‘tish'}
       </a>
-      <SWRegister />
+      {/* Unregister legacy PWA service workers / caches (see SWCleanup.tsx) */}
+      <SWCleanup />
       <Header lang={lang} />
       <CartDrawer lang={lang} />
       <main id="main-content" className="flex-1 pb-24 lg:pb-0">{children}</main>

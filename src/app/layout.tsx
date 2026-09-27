@@ -14,12 +14,9 @@ const FONT_PRELOAD = '/fonts/inter-latin-wght-normal.woff2';
 export const metadata = {
   title: 'SPS — Bruschatka, Bordyur va Plitka Qoliplari, Fasad Dekor',
   description: 'SPS — O‘zbekistonda bruschatka, bordyur va trotuar plitka qoliplari hamda fasad dekor elementlarini ishlab chiqaruvchi zavod. Sifatli xomashyo, zavod narxlari.',
-  manifest: '/manifest.json',
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: 'default',
-    title: 'SPS',
-  },
+  // No web-app manifest / appleWebApp: this is a regular website. It used to
+  // ship a `display: standalone` manifest + service worker, which made browsers
+  // open links in a separate app window and freeze on stale cached pages.
   openGraph: {
     title: 'SPS — Qoliplar va Fasad Dekor Zavodi',
     description: 'Bruschatka qoliplari, bordyur qoliplari, plitka qoliplari va fasad dekor — zavoddan to‘g‘ridan-to‘g‘ri',

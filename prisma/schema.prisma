@@ -9,6 +9,13 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
+  // Rust-free client: queries run on the WASM query compiler and talk to
+  // Postgres through @prisma/adapter-pg (pure JS). No native query-engine
+  // binary is downloaded at install time or loaded at runtime — which removes
+  // the whole class of "PrismaClientInitializationError / prisma generate
+  // failed to download engine binaries" outages on Vercel and on networks
+  // where binaries.prisma.sh is unreachable. See src/lib/db.ts.
+  engineType = "client"
 }
 
 // ------------------------------------------------------

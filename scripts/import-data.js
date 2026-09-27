@@ -1,8 +1,12 @@
 const { PrismaClient } = require('@prisma/client');
+const { PrismaPg } = require('@prisma/adapter-pg');
 const fs = require('fs');
 const path = require('path');
 
-const prisma = new PrismaClient();
+// WASM query compiler + pure-JS pg driver adapter — no native engine binary needed.
+const prisma = new PrismaClient({
+  adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL }),
+});
 
 async function importData() {
     console.log('=== STARTING DATA IMPORT ===');

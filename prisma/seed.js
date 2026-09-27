@@ -1,65 +1,220 @@
+/**
+ * SPS Plast — katalog bazasi (2026 katalogi: 130 qolip)
+ * Data: catalog_build/products.json + public/catalog/2026/ images.
+ * Media rollari: MAIN = qolip (card), FINISHED_RESULT = quyma (hover + slider),
+ * USAGE = makon ko'rinishi (gallery).
+ */
 const { PrismaClient } = require('@prisma/client');
+const { PrismaPg } = require('@prisma/adapter-pg');
 const bcrypt = require('bcryptjs');
+const path = require('path');
+const CATALOG = require(path.join(__dirname, '..', 'catalog_build', 'products.json'));
 
-const prisma = new PrismaClient();
+// --- RU nomlar (katalog asosida tarjima / transliteratsiya) ---
+const RU_NAMES = {
+  'G001': 'Флория',
+  'G002': 'Магна',
+  'G003': 'Версаче 1',
+  'G004': 'Азара',
+  'G005': 'Ялта',
+  'G006': 'Монако',
+  'G007': 'Шерша',
+  'G008': 'Рокки',
+  'G009': 'Ромбик (новинка)',
+  'G010': 'Азалия 1',
+  'G011': 'Астана',
+  'G012': 'Юлдуз',
+  'G013': 'Туркменский цветок',
+  'G014': 'Эксклюзив',
+  'G015': 'Вегас 1',
+  'G016': 'Бухара',
+  'G017': 'Афина',
+  'G018': 'Роял 2',
+  'G019': 'Пальма',
+  'G020': 'Бумеранг',
+  'G021': 'Дубай — Камень',
+  'G022': 'Дубай — Шерша',
+  'G023': 'Дубай — Круг',
+  'G024': 'Парус',
+  'G025': 'Рио',
+  'G026': 'Дождик',
+  'G027': 'Кабанчик 10',
+  'G028': 'Виндовс',
+  'G029': '4D / Шерша',
+  'G030': 'Восьмигранный цветок',
+  'G031': 'Диагональный камень',
+  'G032': 'Парная каменная текстура',
+  'G033': 'Разделённый кирпич',
+  'G034': 'Шесть плоских ячеек',
+  'G035': 'Четыре крыла',
+  'G036': 'Вложенные квадраты',
+  'G037': 'Узорный медальон',
+  'G038': 'Парный восьмигранный цветок',
+  'G039': 'Два плоских сегмента',
+  'G040': 'Длинная волна',
+  'G041': 'Шесть граней',
+  'G042': 'Полосатый бордюр',
+  'G043': 'Длинная плоская панель',
+  'G044': 'Панель с ромбами',
+  'G045': 'Кирпич и камень',
+  'G046': 'Четыре крыла',
+  'G047': 'Широкий восьмигранник',
+  'G048': 'Вытянутый орнамент',
+  'G049': 'Лучевая звезда',
+  'G050': 'Квадратный медальон',
+  'G051': 'Изогнутый кирпич',
+  'G052': 'Волнистая панель',
+  'G053': 'Диагональные полосы',
+  'G054': 'Соединённые ячейки',
+  'G055': 'Мелкие камни',
+  'G056': 'Панель с рамкой',
+  'G057': 'Зернистая текстура',
+  'G058': 'Дугообразный кирпич',
+  'G059': 'Волнистый рельеф',
+  'G060': 'Шесть ячеек',
+  'G061': 'Восьмигранный орнамент',
+  'G062': 'Ячейка с четырьмя узорами',
+  'G063': 'Продольный жёлоб',
+  'G064': 'Парный цветочный медальон',
+  'G065': 'Пирамидальный центр',
+  'G066': 'Геометрическая пирамида',
+  'G067': 'Плоский кирпич',
+  'G068': 'Каменный кирпич',
+  'G069': 'Плоская панель',
+  'G070': 'Растительная текстура',
+  'G071': 'Плоский восьмигранник',
+  'G072': 'Четырёхлистный цветок',
+  'G073': 'Парный растительный узор',
+  'G074': 'Вытянутый центр цветка',
+  'G075': 'Рифлёный профиль',
+  'G076': 'Прямоугольная геометрия',
+  'G077': 'Вытянутая звезда',
+  'G078': 'Вытянутый камень',
+  'G079': 'Двухконечный контур',
+  'G080': 'Парный геометрический цветок',
+  'G081': 'Восемь граней',
+  'G082': 'Заострённый цветочный узор',
+  'G083': 'Шероховатый кирпич',
+  'G084': 'Слоистый кирпич',
+  'G085': 'Парный каменный восьмигранник',
+  'G086': 'Растительный узор с бордюром',
+  'G087': 'Соединённые ромбы',
+  'G088': 'Парная волокнистая текстура',
+  'G089': 'Вытянутая волна',
+  'G090': 'Два глубоких сегмента',
+  'G091': 'Парный скрученный узор',
+  'G092': 'Четырёхконечная геометрия',
+  'G093': 'Шестигранный центр',
+  'G094': 'Гранистая диагональная панель',
+  'G095': 'Ступенчатая длинная рамка',
+  'G096': 'Ступенчатая квадратная рамка',
+  'G097': 'Ступенчатая широкая рамка',
+  'G098': 'Плоская длинная панель',
+  'G099': 'Продольные ленты',
+  'G100': 'Широкие продольные ленты',
+  'G101': 'Фигурный продольный профиль',
+  'G102': 'Гладкий изогнутый профиль',
+  'G103': 'Длинная панель с бордюром',
+  'A10-001': 'Фрагментный рельеф',
+  'A10-002': 'Зернистая поверхность',
+  'A10-003': 'Ступенчатый бордюр',
+  'A10-004': 'Плоский центр',
+  'A10-005': 'Классический бордюр',
+  'A10-006': 'Тонкий бордюр',
+  'A10-007': 'Гладкая панель',
+  'A10-008': 'Ритм кирпича',
+  'A10-009': 'Зернистая текстура',
+  'A10-010': 'Волокнистая текстура',
+  'A10-011': 'Кирпичная кладка',
+  'A10-012': 'Внутренняя рамка',
+  'A10-013': 'Центральный орнамент',
+  'A10-023': 'Повторяющиеся ячейки',
+  'A10-024': 'Плоский профиль',
+  'A10-025': 'Ступенчатый профиль',
+  'A10-026': 'Геометрический узор',
+  'A10-027': 'Ячейки с рамкой',
+  'A10-028': 'Слоистый камень',
+  'A10-029': 'Каменная кладка',
+  'A10-030': 'Вытянутые ячейки',
+  'A10-031': 'Прямоугольные камни',
+  'A10-032': 'Узорный бордюр',
+  'A10-033': 'Камень и геометрия',
+  'A10-034': 'Соединённые линии',
+  'A10-035': 'Гранистая геометрия',
+  'A10-036': 'Овальный ритм',
+};
 
-// ---------------------------------------------------------------------------
-// Real SPS product catalog (from the printed "SPS / STONE PROFY SERVISE"
-// catalogue + the newly photographed molds & finished results).
-//
-//   - MAIN  ->  qolip asosiy rasmi
-//   - MOLD  ->  qolipning o'zi (QOLIP -> NATIJA showcase)
-//   - FINISHED_RESULT -> shu qolipdan quyilgan tayyor mahsulot
-//   - DIMENSION -> o‘lcham
-//
-// Narxlar katalogda ko‘rsatilmaganligi sababli basePrice = 0 (narx so‘rash).
-// Buni admin panel orqali to‘ldirish mumkin.
-// ---------------------------------------------------------------------------
+const SECTION_META = {
+  S1: {
+    catSlugUz: 'bruschatka-trotuar-qoliplari', catSlugRu: 'formy-dlya-bruschatki',
+    catNameUz: 'Bruschatka va trotuar plitkasi qoliplari', catNameRu: 'Формы для брусчатки и тротуарной плитки',
+    catDescUz: 'Yo‘lak, hovli va maydonlar uchun bruschatka hamda trotuar plitkasi qoliplari. 2026 katalogidagi G001–G029 seriyasi.',
+    catDescRu: 'Формы для брусчатки и тротуарной плитки для дорожек, дворов и площадей. Серия G001–G029 из каталога 2026.',
+    nameSuffixUz: ' qolipi', nameSuffixRu: 'Форма ',
+    kindUz: 'bruschatka va trotuar plitkasi uchun plastik qolip',
+    kindRu: 'пластиковая форма для брусчатки и тротуарной плитки',
+  },
+  S2: {
+    catSlugUz: 'dekorativ-plitka-qoliplari', catSlugRu: 'formy-dlya-dekorativnoy-plitki',
+    catNameUz: 'Dekorativ relyefli plita qoliplari', catNameRu: 'Формы для декоративной плитки',
+    catDescUz: 'Gulli, naqshli va relyefli dekorativ plitalar uchun qoliplar. 2026 katalogidagi G030–G103 seriyasi.',
+    catDescRu: 'Формы для декоративных плиток с цветочным, узорным и рельефным рисунком. Серия G030–G103 из каталога 2026.',
+    nameSuffixUz: ' qolipi', nameSuffixRu: 'Форма ',
+    kindUz: 'dekorativ relyefli plita uchun plastik qolip',
+    kindRu: 'пластиковая форма для декоративной рельефной плитки',
+  },
+  S3: {
+    catSlugUz: 'panel-profil-qoliplari', catSlugRu: 'formy-dlya-paneley-profiley',
+    catNameUz: 'Devor paneli va profil (hoshiya) qoliplari', catNameRu: 'Формы для панелей и профилей',
+    catDescUz: 'Fasad uchun 3D panel, karniz va profil (hoshiya) qoliplari. 2026 katalogidagi A10 seriyasi.',
+    catDescRu: 'Формы для 3D-панелей, карнизов и профилей для фасадов. Серия A10 из каталога 2026.',
+    nameSuffixUz: ' panel qolipi', nameSuffixRu: 'Форма для панелей ',
+    kindUz: 'devor paneli va profil (hoshiya) uchun plastik qolip',
+    kindRu: 'пластиковая форма для стеновой панели и профиля',
+  },
+};
 
-const IMG = (n) => `/catalog/catalog-${String(n).padStart(3, '0')}.jpg`;
+const MAIN = process.env.DATABASE_URL || 'postgresql://sps@127.0.0.1:5433/spsplast_db';
+const DIRECT = process.env.DIRECT_URL || MAIN;
+
+const slugify = (s) =>
+  s.toLowerCase()
+    .replace(/[‘'ʻʼ`]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
 
 async function main() {
-  console.log('Seeding real SPS catalog...');
+  const adapter = new PrismaPg({ connectionString: MAIN });
+  const prisma = new PrismaClient({ adapter });
 
-  // Clean existing data (reverse dependency order)
-  await prisma.auditLog.deleteMany();
-  await prisma.adminSession.deleteMany();
-  await prisma.orderItem.deleteMany();
-  await prisma.order.deleteMany();
-  await prisma.lead.deleteMany();
-  await prisma.productMedia.deleteMany();
-  await prisma.productVariantOption.deleteMany();
-  await prisma.productVariant.deleteMany();
-  await prisma.productCategory.deleteMany();
-  await prisma.productTranslation.deleteMany();
-  await prisma.product.deleteMany();
-  await prisma.categoryAttribute.deleteMany();
-  await prisma.categoryTranslation.deleteMany();
-  await prisma.category.deleteMany();
-  await prisma.attributeOptionTranslation.deleteMany();
-  await prisma.attributeOption.deleteMany();
-  await prisma.attributeTranslation.deleteMany();
-  await prisma.attributeDefinition.deleteMany();
-  await prisma.adminUser.deleteMany();
-  await prisma.blogPostTranslation.deleteMany();
-  await prisma.blogPost.deleteMany();
-  await prisma.project.deleteMany();
-  await prisma.banner.deleteMany();
+  console.log('Seeding SPS Plast catalog 2026 (' + CATALOG.length + ' products)...');
 
-  // 1. Admin user (safe from env)
-  const adminEmail = process.env.SEED_ADMIN_EMAIL;
-  const adminPassword = process.env.SEED_ADMIN_PASSWORD;
-  if (adminEmail && adminPassword) {
-    const passwordHash = await bcrypt.hash(adminPassword, 10);
-    await prisma.adminUser.create({
-      data: { email: adminEmail, name: 'SPS Admin', passwordHash, role: 'ADMIN' },
-    });
-    console.log(`Admin user created: ${adminEmail}`);
-  } else {
-    console.warn('SEED_ADMIN_EMAIL / SEED_ADMIN_PASSWORD not set. Skipping admin.');
+  // idempotent: clear catalog data (keep admin)
+  for (const m of [
+    'productMedia', 'productAttributeValue', 'productVariantOption', 'productVariant',
+    'productTranslation', 'productCategory', 'product',
+    'categoryAttribute', 'categoryTranslation', 'category',
+    'attributeOptionTranslation', 'attributeOption', 'attributeTranslation', 'attributeDefinition',
+    'banner', 'project', 'blogPostTranslation', 'blogPost',
+  ]) {
+    await prisma[m].deleteMany({});
   }
+  console.log('Previous catalog data cleared');
 
-  // 2. Attributes
+  // ---------- Admin ----------
+  const adminEmail = process.env.SEED_ADMIN_EMAIL || 'admin@spsplast.uz';
+  const adminPassword = process.env.SEED_ADMIN_PASSWORD || 'ChangeMe123!';
+  const passwordHash = await bcrypt.hash(adminPassword, 12);
+  await prisma.adminUser.upsert({
+    where: { email: adminEmail },
+    update: { passwordHash, role: 'ADMIN' },
+    create: {
+      email: adminEmail, name: 'SPS Admin', passwordHash, role: 'ADMIN',
+    },
+  });
+  console.log('Admin user ready:', adminEmail);
+
+  // ---------- Attribute definitions ----------
   const attrDimensions = await prisma.attributeDefinition.create({
     data: {
       code: 'dimensions', type: 'TEXT', unit: 'mm', filterable: true,
@@ -97,344 +252,278 @@ async function main() {
     },
   });
 
-  // Texture options
-  const textureOpts = [
+  for (const o of [
     { code: 'brick', uz: 'G‘isht simon', ru: 'Кирпичная' },
     { code: 'stone', uz: 'Tosh simon', ru: 'Каменная' },
     { code: 'smooth', uz: 'Silliq', ru: 'Гладкая' },
     { code: 'gloss', uz: 'Yaltiroq', ru: 'Глянец' },
     { code: '3d', uz: '3D relef', ru: '3D рельеф' },
     { code: 'faceted', uz: 'Qirrali', ru: 'Гранёная' },
-  ];
-  const texIds = {};
-  for (const o of textureOpts) {
-    const created = await prisma.attributeOption.create({
+  ]) {
+    await prisma.attributeOption.create({
       data: {
         attributeId: attrTexture.id, code: o.code, sortOrder: 1,
-        translations: { create: [
-          { locale: 'uz', label: o.uz },
-          { locale: 'ru', label: o.ru },
-        ]},
+        translations: { create: [{ locale: 'uz', label: o.uz }, { locale: 'ru', label: o.ru }] },
       },
     });
-    texIds[o.code] = created.id;
   }
-
-  // Color options (Travertin / Mramor from catalogue)
-  const colorOpts = [
+  for (const o of [
     { code: 'travertin', uz: 'Travertin', ru: 'Травертин' },
     { code: 'mramor', uz: 'Mramor', ru: 'Мрамор' },
+    { code: 'bej', uz: 'Bej', ru: 'Бежевый' },
+    { code: 'kulrang', uz: 'Kulrang', ru: 'Серый' },
+    { code: 'ok', uz: 'Oq', ru: 'Белый' },
     { code: 'polipropilen', uz: 'Polipropilen', ru: 'Полипропилен' },
-    { code: 'abs', uz: 'ABS', ru: 'АБС' },
-  ];
-  const colorIds = {};
-  for (const o of colorOpts) {
-    const created = await prisma.attributeOption.create({
+    { code: 'abs', uz: 'ABS plastik', ru: 'АБС пластик' },
+    { code: 'qora', uz: 'Qora', ru: 'Чёрный' },
+  ]) {
+    await prisma.attributeOption.create({
       data: {
         attributeId: attrColor.id, code: o.code, sortOrder: 1,
-        translations: { create: [
-          { locale: 'uz', label: o.uz },
-          { locale: 'ru', label: o.ru },
-        ]},
+        translations: { create: [{ locale: 'uz', label: o.uz }, { locale: 'ru', label: o.ru }] },
       },
     });
-    colorIds[o.code] = created.id;
   }
+  console.log('Attribute definitions + options ready');
 
-  // 3. Categories (balanced: qoliplar + fasad dekor)
-  const catBruschatka = await prisma.category.create({
-    data: {
-      sortOrder: 1,
-      image: IMG(7),
-      translations: { create: [
-        { locale: 'uz', name: 'Bruschatka qoliplari', slug: 'bruschatka-qoliplari', description: 'Bruschatka va trotuar plitka uchun plastik qoliplar' },
-        { locale: 'ru', name: 'Формы для брусчатки', slug: 'formy-dlya-bruschatki', description: 'Формы для брусчатки и тротуарной плитки' },
-      ]},
-    },
-  });
-  const catPlitka = await prisma.category.create({
-    data: {
-      sortOrder: 2,
-      image: IMG(7),
-      translations: { create: [
-        { locale: 'uz', name: 'Trotuar plitka qoliplari', slug: 'plitka-qoliplari', description: 'Trotuar plitka va dekorativ plitka qoliplari' },
-        { locale: 'ru', name: 'Формы для тротуарной плитки', slug: 'formy-dlya-plitki', description: 'Формы для тротуарной и декоративной плитки' },
-      ]},
-    },
-  });
-  const catBordyur = await prisma.category.create({
-    data: {
-      sortOrder: 3,
-      image: IMG(4),
-      translations: { create: [
-        { locale: 'uz', name: 'Bordyur qoliplari', slug: 'bordyur-qoliplari', description: 'Trotuar va yo‘l bordyur qoliplari' },
-        { locale: 'ru', name: 'Формы для бордюров', slug: 'formy-dlya-bordyurov', description: 'Формы для тротуарных бордюров' },
-      ]},
-    },
-  });
-  const catFasad = await prisma.category.create({
-    data: {
-      sortOrder: 4,
-      image: IMG(2),
-      translations: { create: [
-        { locale: 'uz', name: 'Fasad dekor elementlari', slug: 'fasad-dekor', description: 'Karniz, pilyastr, tsokol va fasad bezaklari' },
-        { locale: 'ru', name: 'Фасадный декор', slug: 'fasadnyj-dekor', description: 'Карнизы, пилястры, цоколь и фасадные элементы' },
-      ]},
-    },
-  });
-  const catTermopanel = await prisma.category.create({
-    data: {
-      sortOrder: 5,
-      image: IMG(15),
-      translations: { create: [
-        { locale: 'uz', name: 'Fasad termopanellari', slug: 'termopanel', description: 'Fasad uchun issiqlik saqlovchi termopanellar' },
-        { locale: 'ru', name: 'Фасадные термопанели', slug: 'termopaneli', description: 'Утепляющие фасадные термопанели' },
-      ]},
-    },
-  });
-
-  // Link category-attribute
-  for (const cat of [catBruschatka, catPlitka, catBordyur, catFasad, catTermopanel]) {
-    await prisma.categoryAttribute.create({ data: { categoryId: cat.id, attributeId: attrDimensions.id, required: true } });
-    await prisma.categoryAttribute.create({ data: { categoryId: cat.id, attributeId: attrMaterial.id, required: true } });
-    await prisma.categoryAttribute.create({ data: { categoryId: cat.id, attributeId: attrTexture.id, required: false } });
-  }
-
-  // 4. Products helper
-  function media(mainIdx, moldIdx, resultIdx, dimIdx) {
-    // MAIN
-    const arr = [{ type: 'MAIN', url: IMG(mainIdx), alt: 'Qolip asosiy rasmi', sortOrder: 1 }];
-    if (moldIdx) arr.push({ type: 'MOLD', url: IMG(moldIdx), alt: 'Qolipning o‘zi', sortOrder: 2 });
-    if (resultIdx) arr.push({ type: 'FINISHED_RESULT', url: IMG(resultIdx), alt: 'Tayyor quyilgan mahsulot', sortOrder: 3 });
-    if (dimIdx) arr.push({ type: 'DIMENSION', url: IMG(dimIdx), alt: 'O‘lcham', sortOrder: 4 });
-    return arr;
-  }
-
-  async function createProduct(cfg) {
-    const p = await prisma.product.create({
+  // ---------- Categories (3 sections) ----------
+  const catIds = {};
+  const catImages = {
+    S1: '/catalog/2026/G001-quyma.jpg',
+    S2: '/catalog/2026/G050-quyma.jpg',
+    S3: '/catalog/2026/A10-001-quyma.jpg',
+  };
+  for (const [i, s] of ['S1', 'S2', 'S3'].entries()) {
+    const m = SECTION_META[s];
+    const cat = await prisma.category.create({
       data: {
-        sku: cfg.sku,
+        sortOrder: i, status: 'ACTIVE', image: catImages[s],
+        translations: { create: [
+          { locale: 'uz', name: m.catNameUz, slug: m.catSlugUz, description: m.catDescUz },
+          { locale: 'ru', name: m.catNameRu, slug: m.catSlugRu, description: m.catDescRu },
+        ]},
+        attributes: {
+          create: [
+            { attributeId: attrDimensions.id, required: true, sortOrder: 1 },
+            { attributeId: attrMaterial.id, required: true, sortOrder: 2 },
+            { attributeId: attrTexture.id, required: false, sortOrder: 3 },
+          ],
+        },
+      },
+    });
+    catIds[s] = cat.id;
+  }
+  console.log('Categories ready');
+
+  // ---------- Products (130) ----------
+  let count = 0;
+  for (const p of CATALOG) {
+    const m = SECTION_META[p.section];
+    const nameUz = '«' + p.name + '»' + m.nameSuffixUz;
+    const nameRu = m.nameSuffixRu + '«' + RU_NAMES[p.code] + '»';
+    const slug = slugify(p.code + '-' + p.name);
+    const dimsClean = p.dims.replace(/\*/g, '').replace(/\s*mm$/i, '').trim();
+    const assumedNoteUz = p.assumed
+      ? ' Yulduzcha (*) bilan belgilangan o‘lcham standart qiymat — buyurtmada menejer bilan aniqlashtiriladi.' : '';
+    const assumedNoteRu = p.assumed
+      ? ' Размер со звёздочкой (*) — стандартное значение, уточняется при заказе.' : '';
+    const multiNoteUz = p.multi
+      ? ' Bu to‘plam bir nechta elementdan (A / B / V) iborat — batafsil ma’lumot uchun menejer bilan bog‘laning.' : '';
+    const multiNoteRu = p.multi
+      ? ' Этот комплект состоит из нескольких элементов (A / B / V) — подробности уточняйте у менеджера.' : '';
+
+    const shortUz = `${p.slogan} ${m.kindUz.charAt(0).toUpperCase() + m.kindUz.slice(1)}. O‘lcham: ${dimsClean} mm.`;
+    const shortRu = `${m.kindRu.charAt(0).toUpperCase() + m.kindRu.slice(1)} «${RU_NAMES[p.code]}». Размер: ${dimsClean} мм.`;
+    const descUz = `«${p.name}» — ${m.kindUz} (katalog kodi: ${p.code}). ${p.slogan} Qolip mustahkam polipropilen/ABS plastikdan tayyorlangan: aniq geometriya, barqaror natija va qayta-qayta ishlatish imkoniyati. O‘lcham: ${p.dims} mm.${assumedNoteUz}${multiNoteUz} Yetkazib berish O‘zbekiston bo‘ylab. Narx vaqtinchalik — so‘nggi narx uchun menejer bilan bog‘laning.`;
+    const descRu = `«${RU_NAMES[p.code]}» — ${m.kindRu} (код каталога: ${p.code}). Форма изготовлена из прочного полипропилена/АБС: точная геометрия, стабильный результат и многократное использование. Размер: ${dimsClean} мм.${assumedNoteRu}${multiNoteRu} Доставка по всему Узбекистану. Актуальную цену уточняйте у менеджера.`;
+
+    await prisma.product.create({
+      data: {
+        sku: 'SPS-' + p.code,
         status: 'ACTIVE',
-        basePrice: cfg.price ?? 0,
+        basePrice: 0,
         compareAtPrice: null,
         currency: 'UZS',
         inStock: true,
-        stockQty: 999,
+        stockQty: 100,
         trackInventory: false,
         allowBackorder: true,
-        isBestseller: !!cfg.bestseller,
-        isNew: !!cfg.isNew,
-        yieldPerCast: cfg.yieldPerCast ?? null,
-        durabilityCasts: null,
+        isBestseller: false,
+        isNew: !!p.isNew,
         translations: {
           create: [
-            { locale: 'uz', name: cfg.nameUz, slug: cfg.slugUz, shortDescription: cfg.shortUz, description: cfg.descUz },
-            { locale: 'ru', name: cfg.nameRu, slug: cfg.slugRu, shortDescription: cfg.shortRu, description: cfg.descRu },
+            { locale: 'uz', name: nameUz, slug, shortDescription: shortUz, description: descUz,
+              metaTitle: `${nameUz} — SPS Plast`, metaDescription: shortUz.slice(0, 160) },
+            { locale: 'ru', name: nameRu, slug, shortDescription: shortRu, description: descRu,
+              metaTitle: `${nameRu} — SPS Plast`, metaDescription: shortRu.slice(0, 160) },
           ],
         },
-        categories: { create: [{ categoryId: cfg.categoryId }] },
-        media: { create: cfg.media },
+        categories: { create: [{ categoryId: catIds[p.section] }] },
+        media: { create: [
+          { type: 'MAIN', sortOrder: 1, url: `/catalog/2026/${p.code}-mold.jpg`,
+            alt: `${nameUz} — qolip` },
+          { type: 'FINISHED_RESULT', sortOrder: 2, url: `/catalog/2026/${p.code}-quyma.jpg`,
+            alt: `${nameUz} — tayyor natija (quyma)` },
+          { type: 'USAGE', sortOrder: 3, url: `/catalog/2026/${p.code}-env.jpg`,
+            alt: `${nameUz} — qo‘llanish namunasi` },
+        ] },
         attributeValues: {
           create: [
-            { attributeId: attrDimensions.id, textValue: cfg.dimensions || cfg.dims },
+            { attributeId: attrDimensions.id, textValue: p.dims },
             { attributeId: attrMaterial.id, textValue: 'Polipropilen / ABS' },
-            { attributeId: attrTexture.id, optionId: texIds[cfg.texture] },
-            ...(cfg.colors || []).map((c) => ({ attributeId: attrColor.id, optionId: colorIds[c] })),
           ],
         },
       },
     });
-    return p;
+    count++;
+    if (count % 25 === 0) console.log(`  ${count} products...`);
   }
+  console.log(`Products ready: ${count}`);
 
-  // Helper for standard plitka descriptions
-  const plitkaDesc = (uz, ru, dims) => ({
-    shortUz: `Qolip o‘lchami: ${dims}. Tayyor plitka 1 m² da chiqish miqdori katalogda ko‘rsatilgan.`,
-    shortRu: `Размер формы: ${dims}. Выход готовой плитки на 1 м² указан в каталоге.`,
-    descUz: `${uz}. Qolip mustahkam polipropilen/ABS plastikdan tayyorlangan bo‘lib, aniq geometriya va barqaror natija beradi. Qolipdan chiqqan tayyor mahsulot yonma-yon ko‘rsatilgan.`,
-    descRu: `${ru}. Форма изготовлена из прочного полипропилена/АБС, обеспечивает точную геометрию и стабильный результат. Рядом показано готовое изделие из этой формы.`,
-  });
-
-  const fasadDesc = (uz, ru) => ({
-    shortUz: `${uz}.`,
-    shortRu: `${ru}.`,
-    descUz: `${uz}. Fasad dekor elementi sifatli xomashyodan tayyorlanadi, binoning arxitektura qiyofasini to‘ldiradi.`,
-    descRu: `${ru}. Фасадный декоративный элемент из качественного сырья, дополняет архитектурный облик здания.`,
-  });
-
-  // --- PLITKA & BRUSCHATKA QOLIPLARI (real catalogue items) ---
-  const plitkaItems = [
-    { sku: 'SPS-PLT-YALTA', nameUz: 'Yalta qolipi 30x30', nameRu: 'Форма «Ялта» 30x30', slugUz: 'yalta-qolipi-30x30', slugRu: 'forma-yalta-30x30', dims: '300x300x30 cm', ypc: 11, main: 7, mold: 7, result: 8, texture: 'smooth' },
-    { sku: 'SPS-PLT-CVETOK', nameUz: 'Cvetok qolipi 30x30', nameRu: 'Форма «Цветок» 30x30', slugUz: 'cvetok-qolipi-30x30', slugRu: 'forma-cvetok-30x30', dims: '300x300x30 cm', ypc: 11, main: 8, mold: 8, result: 13, texture: '3d' },
-    { sku: 'SPS-PLT-ASTANA', nameUz: 'Astana qolipi 30x30 (x4)', nameRu: 'Форма «Астана» 30x30 (x4)', slugUz: 'astana-qolipi-30x30', slugRu: 'forma-astana-30x30', dims: '300x300x30 cm', ypc: 25, main: 23, mold: 23, result: 25, texture: '3d' },
-    { sku: 'SPS-PLT-YULDUZ', nameUz: 'Yulduz qolipi 30x30 (x4)', nameRu: 'Форма «Юлдуз» 30x30 (x4)', slugUz: 'yulduz-qolipi-30x30', slugRu: 'forma-yulduz-30x30', dims: '300x300x30 cm', ypc: 25, main: 20, mold: 20, result: 23, texture: 'faceted' },
-    { sku: 'SPS-PLT-PARKET', nameUz: 'Parket qolipi 20x20 (x2)', nameRu: 'Форма «Паркет» 20x20 (x2)', slugUz: 'parket-qolipi-20x20', slugRu: 'forma-parket-20x20', dims: '200x200x25 cm', ypc: 25, main: 32, mold: 32, result: 60, texture: 'stone' },
-    { sku: 'SPS-PLT-BODOM', nameUz: 'Bodom qolipi 20x20', nameRu: 'Форма «Бодом» 20x20', slugUz: 'bodom-qolipi-20x20', slugRu: 'forma-bodom-20x20', dims: '200x200x25 cm', ypc: 11, main: 10, mold: 10, result: 32, texture: 'stone' },
-    { sku: 'SPS-PLT-GURUCH', nameUz: 'Guruch qolipi 20x20 (x4)', nameRu: 'Форма «Гуруч» 20x20 (x4)', slugUz: 'guruch-qolipi-20x20', slugRu: 'forma-guruch-20x20', dims: '200x200x25 cm', ypc: 25, main: 10, mold: 10, result: 13, texture: 'smooth' },
-    { sku: 'SPS-PLT-PARUS', nameUz: 'Parus qolipi 18x36', nameRu: 'Форма «Парус» 18x36', slugUz: 'parus-qolipi-18x36', slugRu: 'forma-parus-18x36', dims: '180x360x30 cm', ypc: 14, main: 11, mold: 11, result: 21, texture: '3d' },
-    { sku: 'SPS-PLT-GLADKIY', nameUz: 'Gladkiy qolipi 18x36', nameRu: 'Форма «Гладкий» 18x36', slugUz: 'gladkiy-qolipi-18x36', slugRu: 'forma-gladkiy-18x36', dims: '180x360x30 cm', ypc: 14, main: 11, mold: 11, result: 56, texture: 'smooth' },
-    { sku: 'SPS-PLT-DOZHDIK', nameUz: 'Dojdik qolipi 18x36', nameRu: 'Форма «Дождик» 18x36', slugUz: 'dojdik-qolipi-18x36', slugRu: 'forma-dozhdik-18x36', dims: '180x360x30 cm', ypc: 14, main: 21, mold: 21, result: 11, texture: '3d' },
-    { sku: 'SPS-PLT-ORNAMENT', nameUz: 'Ornament qolipi 18x36', nameRu: 'Форма «Орнамент» 18x36', slugUz: 'ornament-qolipi-18x36', slugRu: 'forma-ornament-18x36', dims: '180x360x30 cm', ypc: 14, main: 21, mold: 21, result: 57, texture: '3d' },
-    { sku: 'SPS-PLT-ZANJIR', nameUz: 'Zanjir qolipi 30x30', nameRu: 'Форма «Занжир» 30x30', slugUz: 'zanjir-qolipi-30x30', slugRu: 'forma-zanjir-30x30', dims: '300x300x30 cm', ypc: 11, main: 12, mold: 12, result: 22, texture: '3d' },
-    { sku: 'SPS-PLT-POLOSA', nameUz: 'Polosa qolipi 30x30', nameRu: 'Форма «Полоса» 30x30', slugUz: 'polosa-qolipi-30x30', slugRu: 'forma-polosa-30x30', dims: '300x300x30 cm', ypc: 11, main: 12, mold: 12, result: 57, texture: 'smooth' },
-    { sku: 'SPS-PLT-RIO', nameUz: 'Rio qolipi 30x30', nameRu: 'Форма «Рио» 30x30', slugUz: 'rio-qolipi-30x30', slugRu: 'forma-rio-30x30', dims: '300x300x30 cm', ypc: 11, main: 19, mold: 19, result: 63, texture: 'stone' },
-    { sku: 'SPS-PLT-VIKING', nameUz: 'Viking qolipi 30x30', nameRu: 'Форма «Викинг» 30x30', slugUz: 'viking-qolipi-30x30', slugRu: 'forma-viking-30x30', dims: '300x300x30 cm', ypc: 11, main: 19, mold: 19, result: 44, texture: '3d' },
-    { sku: 'SPS-PLT-PALMA', nameUz: 'Palma qolipi', nameRu: 'Форма «Пальма»', slugUz: 'palma-qolipi', slugRu: 'forma-palma', dims: '360x180x30 cm', ypc: 9, main: 56, mold: 56, result: 60, texture: 'faceted' },
-    { sku: 'SPS-PLT-BUMERANG', nameUz: 'Bumerang qolipi', nameRu: 'Форма «Бумеранг»', slugUz: 'bumerang-qolipi', slugRu: 'forma-bumerang', dims: '160x150x25 cm', ypc: 47, main: 56, mold: 56, result: 55, texture: 'smooth' },
-    { sku: 'SPS-PLT-ROYAL1', nameUz: 'Royal 1 qolipi', nameRu: 'Форма «Рояль 1»', slugUz: 'royal-1-qolipi', slugRu: 'forma-rojal-1', dims: '180x100x30 cm', ypc: 20, main: 46, mold: 46, result: 50, texture: '3d' },
-    { sku: 'SPS-PLT-ROYAL2', nameUz: 'Royal 2 qolipi', nameRu: 'Форма «Рояль 2»', slugUz: 'royal-2-qolipi', slugRu: 'forma-rojal-2', dims: '180x100x30 cm', ypc: 22, main: 48, mold: 48, result: 50, texture: '3d' },
-    { sku: 'SPS-PLT-ONABOLA', nameUz: 'Ona-Bola 1 qolipi', nameRu: 'Форма «Она-Бола 1»', slugUz: 'ona-bola-1-qolipi', slugRu: 'forma-ona-bola-1', dims: '200x135x30 cm', ypc: 25, main: 59, mold: 59, result: 68, texture: 'faceted' },
-    { sku: 'SPS-PLT-UZOR', nameUz: 'Uzor 4 Gul qolipi 40x40', nameRu: 'Форма «Узор 4 гул» 40x40', slugUz: 'uzor-4-gul-qolipi', slugRu: 'forma-uzor-4-gul-40x40', dims: '400x400x40 cm', ypc: 6, main: 68, mold: 68, result: 70, texture: '3d' },
-    { sku: 'SPS-PLT-DUBAY40', nameUz: 'Dubay qolipi 40x40', nameRu: 'Форма «Дубай» 40x40', slugUz: 'dubay-qolipi-40x40', slugRu: 'forma-dubaj-40x40', dims: '400x400x40 cm', ypc: 6, main: 68, mold: 68, result: 70, texture: 'smooth' },
-    { sku: 'SPS-PLT-KARE', nameUz: 'Kare qolipi 40x40', nameRu: 'Форма «Каре» 40x40', slugUz: 'kare-qolipi-40x40', slugRu: 'forma-kare-40x40', dims: '400x400x40 cm', ypc: 6, main: 70, mold: 70, result: 67, texture: 'faceted' },
-    { sku: 'SPS-PLT-TUMBA', nameUz: 'Tumba qolipi 40x40', nameRu: 'Форма «Тумба» 40x40', slugUz: 'tumba-qolipi-40x40', slugRu: 'forma-tumba-40x40', dims: '400x400x40 cm', ypc: 6, main: 70, mold: 70, result: 67, texture: 'gloss' },
-    { sku: 'SPS-PLT-VENTILYATOR', nameUz: 'Ventilyator qolipi', nameRu: 'Форма «Вентилятор»', slugUz: 'ventilyator-qolipi', slugRu: 'forma-ventilyator', dims: '240x240x30 cm', ypc: 18, main: 39, mold: 39, result: 55, texture: '3d' },
-    { sku: 'SPS-PLT-FARON', nameUz: 'Faron qolipi 15x14', nameRu: 'Форма «Фарон» 15x14', slugUz: 'faron-qolipi', slugRu: 'forma-faron-15x14', dims: '150x140x25 cm', ypc: 15, main: 39, mold: 39, result: 55, texture: 'faceted' },
+  // ---------- PR#9 qo'shimchalari: 12 ta yangi qolip (2026-09-27, oq fonda studiya rasmlari) ----------
+  const NEW_ITEMS = [
+    { sku: 'SPS-NEW-072', nameUz: 'G‘isht T 4’li qolipi (tosh to‘lqini)', nameRu: 'Форма «Кирпич Т 4-ки» (каменная волна)', slugUz: 'gisht-t-4-li-qolipi-tosh-tolqini', slugRu: 'forma-kirpich-t-4-ki-kamen-volna', dims: '400 × 200 × 30 mm', ypc: 24, img: 72, cat: 'S3', bestseller: false },
+    { sku: 'SPS-NEW-073', nameUz: 'Sakkizburchak Naqshli qolipi 30×30', nameRu: 'Форма «Восьмиугольник Орнамент» 30×30', slugUz: 'sakkizburchak-naqshli-qolipi-30x30', slugRu: 'forma-vosmiugolnik-ornament-30x30', dims: '300 × 300 × 30 mm', ypc: 11, img: 73, cat: 'S2', bestseller: false },
+    { sku: 'SPS-NEW-074', nameUz: 'Tosh + Yog‘och X qolipi 30×30', nameRu: 'Форма «Камень + Дерево Х» 30×30', slugUz: 'tosh-yogoch-x-qolipi-30x30', slugRu: 'forma-kamen-derevo-x-30x30', dims: '300 × 300 × 30 mm', ypc: 11, img: 74, cat: 'S1', bestseller: true },
+    { sku: 'SPS-NEW-075', nameUz: 'G‘isht T 4’li qolipi (to‘lqinsimon)', nameRu: 'Форма «Кирпич Т 4-ки» (волнистая)', slugUz: 'gisht-t-4-li-qolipi-tolqinsimon', slugRu: 'forma-kirpich-t-4-ki-volna', dims: '400 × 200 × 30 mm', ypc: 24, img: 75, cat: 'S3', bestseller: false },
+    { sku: 'SPS-NEW-076', nameUz: 'Qo‘sh Sakkizburchak qolipi', nameRu: 'Форма «Двойной восьмиугольник»', slugUz: 'qosh-sakkizburchak-qolipi', slugRu: 'forma-dvojnoj-vosmiugolnik', dims: '600 × 300 × 30 mm', ypc: 11, img: 76, cat: 'S1', bestseller: false },
+    { sku: 'SPS-NEW-077', nameUz: 'Geometrik Doiralar qolipi 30×30', nameRu: 'Форма «Геометрия Круги» 30×30', slugUz: 'geometrik-doiralar-qolipi-30x30', slugRu: 'forma-geometriya-krugi-30x30', dims: '300 × 300 × 30 mm', ypc: 11, img: 77, cat: 'S2', bestseller: false },
+    { sku: 'SPS-NEW-078', nameUz: 'Diagonal Yulduz qolipi 30×30', nameRu: 'Форма «Диагональ Звезда» 30×30', slugUz: 'diagonal-yulduz-qolipi-30x30', slugRu: 'forma-diagonal-zvezda-30x30', dims: '300 × 300 × 30 mm', ypc: 11, img: 78, cat: 'S2', bestseller: false },
+    { sku: 'SPS-NEW-079', nameUz: 'Romb 8-shakl 3’li qolipi', nameRu: 'Форма «Ромб 8-ка тройная»', slugUz: 'romb-8-shakl-3-li-qolipi', slugRu: 'forma-romb-8ka-trojnoj', dims: '500 × 280 × 45 mm', ypc: 8, img: 79, cat: 'S1', bestseller: true },
+    { sku: 'SPS-NEW-080', nameUz: 'Marmar 2’li qolipi 40×20', nameRu: 'Форма «Мрамор двойная» 40×20', slugUz: 'marmar-2-li-qolipi-40x20', slugRu: 'forma-mramor-dvoynaya-40x20', dims: '400 × 200 × 30 mm', ypc: 25, img: 80, cat: 'S2', bestseller: false },
+    { sku: 'SPS-NEW-081', nameUz: 'Cho‘ziq Sakkizburchak qolipi', nameRu: 'Форма «Вытянутый восьмиугольник»', slugUz: 'choziq-sakkizburchak-qolipi', slugRu: 'forma-vytyanutyj-vosmiugolnik', dims: '600 × 300 × 30 mm', ypc: 11, img: 81, cat: 'S1', bestseller: false },
+    { sku: 'SPS-NEW-082', nameUz: 'Marmar Kvadrat qolipi 30×30', nameRu: 'Форма «Мрамор Квадрат» 30×30', slugUz: 'marmar-kvadrat-qolipi-30x30', slugRu: 'forma-mramor-kvadrat-30x30', dims: '300 × 300 × 30 mm', ypc: 11, img: 82, cat: 'S2', bestseller: false },
+    { sku: 'SPS-NEW-083', nameUz: 'Strelka (O‘q) qolipi', nameRu: 'Форма «Стрелка»', slugUz: 'strelka-oq-qolipi', slugRu: 'forma-strelka', dims: '500 × 250 × 30 mm', ypc: 16, img: 83, cat: 'S1', bestseller: false },
   ];
-
-  for (const item of plitkaItems) {
-    const desc = plitkaDesc(item.nameUz, item.nameRu, item.dims);
-    await createProduct({
-      ...item,
-      categoryId: item.sku.includes('BORD') ? catBordyur.id : (item.dims.includes('400') ? catPlitka.id : catBruschatka.id),
-      price: 0,
-      media: media(item.main, item.mold, item.result, null),
-      ...desc,
-      colors: ['polipropilen', 'abs'],
+  for (const it of NEW_ITEMS) {
+    const img = '/catalog/catalog-' + String(it.img).padStart(3, '0') + '.jpg';
+    await prisma.product.create({
+      data: {
+        sku: it.sku,
+        status: 'ACTIVE',
+        basePrice: 0,
+        compareAtPrice: null,
+        currency: 'UZS',
+        inStock: true,
+        stockQty: 100,
+        trackInventory: false,
+        allowBackorder: true,
+        isBestseller: it.bestseller,
+        isNew: true,
+        yieldPerCast: it.ypc,
+        translations: {
+          create: [
+            { locale: 'uz', name: it.nameUz, slug: it.slugUz,
+              shortDescription: `${it.nameUz}. O‘lcham: ${it.dims}. Yangi model — 2026.`,
+              description: `${it.nameUz}. SPS Plast zavodida ishlab chiqarilgan yuqori sifatli ABS/polipropilen qolip. Aniq geometriya, 200+ quyishga chidamli. O‘lcham: ${it.dims}. Yangi model — 2026. Narx vaqtinchalik — so‘nggi narx uchun menejer bilan bog‘laning.`,
+              metaTitle: `${it.nameUz} — SPS Plast` },
+            { locale: 'ru', name: it.nameRu, slug: it.slugRu,
+              shortDescription: `${it.nameRu}. Размер: ${it.dims}. Новая модель — 2026.`,
+              description: `${it.nameRu}. Высококачественная форма из АБС/полипропилена производства SPS Plast. Точная геометрия, ресурс 200+ заливок. Размер: ${it.dims}. Новая модель — 2026. Актуальную цену уточняйте у менеджера.`,
+              metaTitle: `${it.nameRu} — SPS Plast` },
+          ],
+        },
+        categories: { create: [{ categoryId: catIds[it.cat] }] },
+        media: { create: [
+          { type: 'MAIN', sortOrder: 1, url: img, alt: it.nameUz },
+        ] },
+        attributeValues: {
+          create: [
+            { attributeId: attrDimensions.id, textValue: it.dims },
+            { attributeId: attrMaterial.id, textValue: 'Polipropilen / ABS' },
+          ],
+        },
+      },
     });
+    count++;
   }
+  console.log(`PR#9 new items ready: ${NEW_ITEMS.length} (total ${count})`);
 
-  // --- BORDYUR QOLIPLARI ---
-  const bordyurItems = [
-    { sku: 'SPS-BRD-190', nameUz: '190x50 devor paneli qolipi', nameRu: 'Форма для забора 190x50', slugUz: 'devor-paneli-qolipi-190x50', slugRu: 'forma-zabora-190x50', dims: '1900x500 cm', ypc: 1, main: 25, mold: 25, result: 4, texture: 'stone' },
-    { sku: 'SPS-BRD-KIRPICH', nameUz: 'Devor paneli «Kirpich»', nameRu: 'Панель забора «Кирпич»', slugUz: 'devor-kirpich-qolipi', slugRu: 'forma-zabora-kirpich', dims: '1900x500 cm', ypc: 1, main: 31, mold: 31, result: 61, texture: 'brick' },
-    { sku: 'SPS-BRD-SKALA', nameUz: 'Devor paneli «Kamen Skala»', nameRu: 'Панель забора «Камень Скала»', slugUz: 'devor-kamen-skala-qolipi', slugRu: 'forma-zabora-kamen-skala', dims: '1900x500 cm', ypc: 1, main: 31, mold: 31, result: 61, texture: 'stone' },
-  ];
-  for (const item of bordyurItems) {
-    const desc = plitkaDesc(item.nameUz, item.nameRu, item.dims);
-    await createProduct({
-      ...item, categoryId: catBordyur.id, price: 0,
-      media: media(item.main, item.mold, item.result, null),
-      ...desc, colors: ['polipropilen', 'abs'],
-    });
-  }
-
-  // --- FASAD DEKOR (karniz / pilyastr / tsokol) ---
-  const fasadItems = [
-    { sku: 'SPS-KRN-005', nameUz: 'Karniz 35x120 (KRN-005)', nameRu: 'Карниз 35x120 (KRN-005)', slugUz: 'karniz-35x120-krn005', slugRu: 'karniz-35x120-krn005', dims: '350x1200', main: 2, mold: 2, result: 9, texture: 'smooth' },
-    { sku: 'SPS-KRN-006', nameUz: 'Karniz 50x120 (KRN-006)', nameRu: 'Карниз 50x120 (KRN-006)', slugUz: 'karniz-50x120-krn006', slugRu: 'karniz-50x120-krn006', dims: '500x1200', main: 2, mold: 2, result: 9, texture: 'smooth' },
-    { sku: 'SPS-KRN-007', nameUz: 'Karniz 35x120 (KRN-007)', nameRu: 'Карниз 35x120 (KRN-007)', slugUz: 'karniz-35x120-krn007', slugRu: 'karniz-35x120-krn007', dims: '350x1200', main: 2, mold: 2, result: 42, texture: 'smooth' },
-    { sku: 'SPS-KRN-008', nameUz: 'Karniz 30x120 (KRN-008)', nameRu: 'Карниз 30x120 (KRN-008)', slugUz: 'karniz-30x120-krn008', slugRu: 'karniz-30x120-krn008', dims: '300x1200', main: 2, mold: 2, result: 42, texture: 'smooth' },
-    { sku: 'SPS-KRN-009', nameUz: 'Karniz 25x120 (KRN-009)', nameRu: 'Карниз 25x120 (KRN-009)', slugUz: 'karniz-25x120-krn009', slugRu: 'karniz-25x120-krn009', dims: '250x1200', main: 42, mold: 42, result: 2, texture: 'smooth' },
-    { sku: 'SPS-KRN-010', nameUz: 'Karniz 20x120 (KRN-010)', nameRu: 'Карниз 20x120 (KRN-010)', slugUz: 'karniz-20x120-krn010', slugRu: 'karniz-20x120-krn010', dims: '200x1200', main: 42, mold: 42, result: 2, texture: 'smooth' },
-    { sku: 'SPS-PL-002', nameUz: 'Pilyastr 40x120 (PL-002)', nameRu: 'Пилястра 40x120 (PL-002)', slugUz: 'pilyastr-40x120-pl002', slugRu: 'pilyastr-40x120-pl002', dims: '400x1200', main: 42, mold: 42, result: 9, texture: 'smooth' },
-    { sku: 'SPS-PL-003', nameUz: 'Pilyastr 40x120 (PL-003)', nameRu: 'Пилястра 40x120 (PL-003)', slugUz: 'pilyastr-40x120-pl003', slugRu: 'pilyastr-40x120-pl003', dims: '400x1200', main: 42, mold: 42, result: 14, texture: 'faceted' },
-    { sku: 'SPS-PL-012', nameUz: 'Pilyastr 40x120 (PL-012)', nameRu: 'Пилястра 40x120 (PL-012)', slugUz: 'pilyastr-40x120-pl012', slugRu: 'pilyastr-40x120-pl012', dims: '400x1200', main: 9, mold: 9, result: 14, texture: 'smooth' },
-    { sku: 'SPS-PL-013', nameUz: 'Pilyastr 50x120 (PL-013)', nameRu: 'Пилястра 50x120 (PL-013)', slugUz: 'pilyastr-50x120-pl013', slugRu: 'pilyastr-50x120-pl013', dims: '500x1200', main: 9, mold: 9, result: 14, texture: 'smooth' },
-    { sku: 'SPS-PL-014', nameUz: 'Pilyastr 40x120 (PL-014)', nameRu: 'Пилястра 40x120 (PL-014)', slugUz: 'pilyastr-40x120-pl014', slugRu: 'pilyastr-40x120-pl014', dims: '400x1200', main: 9, mold: 9, result: 33, texture: 'smooth' },
-    { sku: 'SPS-PL-015', nameUz: 'Pilyastr 50x120 (PL-015)', nameRu: 'Пилястра 50x120 (PL-015)', slugUz: 'pilyastr-50x120-pl015', slugRu: 'pilyastr-50x120-pl015', dims: '500x1200', main: 9, mold: 9, result: 33, texture: 'smooth' },
-    { sku: 'SPS-SL-001', nameUz: 'Tsokol 75x50 (SL-001)', nameRu: 'Цоколь 75x50 (SL-001)', slugUz: 'tsokol-75x50-sl001', slugRu: 'tsokol-75x50-sl001', dims: '750x500', main: 14, mold: 14, result: 51, texture: '3d' },
-    { sku: 'SPS-SL-002', nameUz: 'Tsokol 75x40 (SL-002)', nameRu: 'Цоколь 75x40 (SL-002)', slugUz: 'tsokol-75x40-sl002', slugRu: 'tsokol-75x40-sl002', dims: '750x400', main: 14, mold: 14, result: 51, texture: '3d' },
-    { sku: 'SPS-SL-003', nameUz: 'Tsokol 60x40 (SL-003)', nameRu: 'Цоколь 60x40 (SL-003)', slugUz: 'tsokol-60x40-sl003', slugRu: 'tsokol-60x40-sl003', dims: '600x400', main: 14, mold: 14, result: 51, texture: '3d' },
-    { sku: 'SPS-SL-004', nameUz: 'Tsokol 80x60 (SL-004)', nameRu: 'Цоколь 80x60 (SL-004)', slugUz: 'tsokol-80x60-sl004', slugRu: 'tsokol-80x60-sl004', dims: '800x600', main: 14, mold: 14, result: 33, texture: '3d' },
-    { sku: 'SPS-FSD-013', nameUz: 'Dekor 80x40 (FSD-013)', nameRu: 'Декор 80x40 (FSD-013)', slugUz: 'dekor-80x40-fsd013', slugRu: 'dekor-80x40-fsd013', dims: '800x400', main: 6, mold: 6, result: 16, texture: '3d' },
-    { sku: 'SPS-FSD-014', nameUz: 'Dekor 80x40 (FSD-014)', nameRu: 'Декор 80x40 (FSD-014)', slugUz: 'dekor-80x40-fsd014', slugRu: 'dekor-80x40-fsd014', dims: '800x400', main: 6, mold: 6, result: 16, texture: '3d' },
-    { sku: 'SPS-FSD-015', nameUz: 'Dekor 50x50 (FSD-015)', nameRu: 'Декор 50x50 (FSD-015)', slugUz: 'dekor-50x50-fsd015', slugRu: 'dekor-50x50-fsd015', dims: '500x500', main: 6, mold: 6, result: 16, texture: 'faceted' },
-    { sku: 'SPS-FSD-016', nameUz: 'Dekor 50x50 (FSD-016)', nameRu: 'Декор 50x50 (FSD-016)', slugUz: 'dekor-50x50-fsd016', slugRu: 'dekor-50x50-fsd016', dims: '500x500', main: 6, mold: 6, result: 16, texture: 'faceted' },
-  ];
-
-  for (const item of fasadItems) {
-    const desc = fasadDesc(item.nameUz, item.nameRu);
-    await createProduct({
-      ...item, categoryId: catFasad.id, price: 0,
-      media: media(item.main, item.mold, item.result, null),
-      ...desc, colors: ['travertin', 'mramor'],
-    });
-  }
-
-  // --- TERMOPANELLAR ---
-  const termoItems = [
-    { sku: 'SPS-TP-001', nameUz: 'Termopanel 30x60 «Kirpich»', nameRu: 'Термопанель 30x60 «Кирпич»', slugUz: 'termopanel-30x60-kirpich', slugRu: 'termopanel-30x60-kirpich', dims: '300x600', main: 36, mold: 36, result: 15, texture: 'brick' },
-    { sku: 'SPS-TP-002', nameUz: 'Termopanel 30x60 «Gladkiy»', nameRu: 'Термопанель 30x60 «Гладкий»', slugUz: 'termopanel-30x60-gladkiy', slugRu: 'termopanel-30x60-gladkiy', dims: '300x600', main: 36, mold: 36, result: 15, texture: 'smooth' },
-    { sku: 'SPS-TP-003', nameUz: 'Termopanel 30x60 «Bilayn»', nameRu: 'Термопанель 30x60 «Билайн»', slugUz: 'termopanel-30x60-bilayn', slugRu: 'termopanel-30x60-bilajn', dims: '300x600', main: 36, mold: 36, result: 15, texture: '3d' },
-    { sku: 'SPS-TP-004', nameUz: 'Termopanel 30x60 «Kuba»', nameRu: 'Термопанель 30x60 «Куба»', slugUz: 'termopanel-30x60-kuba', slugRu: 'termopanel-30x60-kuba', dims: '300x600', main: 36, mold: 36, result: 15, texture: '3d' },
-    { sku: 'SPS-TP-005', nameUz: 'Termopanel 25x50 «Pryamaya»', nameRu: 'Термопанель 25x50 «Прямая»', slugUz: 'termopanel-25x50-pryamaya', slugRu: 'termopanel-25x50-pryamaya', dims: '250x500', main: 15, mold: 15, result: 34, texture: 'smooth' },
-    { sku: 'SPS-TP-006', nameUz: 'Termopanel 25x50 «Kruglaya»', nameRu: 'Термопанель 25x50 «Круглая»', slugUz: 'termopanel-25x50-kruglaya', slugRu: 'termopanel-25x50-kruglaya', dims: '250x500', main: 15, mold: 15, result: 34, texture: 'faceted' },
-    { sku: 'SPS-TP-007', nameUz: 'Termopanel 25x50 «Kirpich»', nameRu: 'Термопанель 25x50 «Кирпич»', slugUz: 'termopanel-25x50-kirpich', slugRu: 'termopanel-25x50-kirpich', dims: '250x500', main: 15, mold: 15, result: 8, texture: 'brick' },
-    { sku: 'SPS-TP-008', nameUz: 'Termopanel 25x50 «3D»', nameRu: 'Термопанель 25x50 «3D»', slugUz: 'termopanel-25x50-3d', slugRu: 'termopanel-25x50-3d', dims: '250x500', main: 15, mold: 15, result: 8, texture: '3d' },
-    { sku: 'SPS-TP-009', nameUz: 'Termopanel 25x50 «Brilliant»', nameRu: 'Термопанель 25x50 «Бриллиант»', slugUz: 'termopanel-25x50-brilliant', slugRu: 'termopanel-25x50-brilliant', dims: '250x500', main: 58, mold: 58, result: 12, texture: '3d' },
-    { sku: 'SPS-TP-010', nameUz: 'Termopanel 25x50 «Bilayn»', nameRu: 'Термопанель 25x50 «Билайн»', slugUz: 'termopanel-25x50-bilayn', slugRu: 'termopanel-25x50-bilajn', dims: '250x500', main: 58, mold: 58, result: 12, texture: '3d' },
-    { sku: 'SPS-TP-011', nameUz: 'Termopanel 20x40 «Pryamaya»', nameRu: 'Термопанель 20x40 «Прямая»', slugUz: 'termopanel-20x40-pryamaya', slugRu: 'termopanel-20x40-pryamaya', dims: '200x400', main: 58, mold: 58, result: 12, texture: 'smooth' },
-    { sku: 'SPS-TP-012', nameUz: 'Termopanel 25x50 «Labirint»', nameRu: 'Термопанель 25x50 «Лабиринт»', slugUz: 'termopanel-25x50-labirint', slugRu: 'termopanel-25x50-labirint', dims: '250x500', main: 58, mold: 58, result: 12, texture: 'faceted' },
-  ];
-  for (const item of termoItems) {
-    const desc = {
-      shortUz: `Fasad uchun issiqlik saqlovchi termopanel. O‘lcham: ${item.dims}.`,
-      shortRu: `Утепляющая фасадная термопанель. Размер: ${item.dims}.`,
-      descUz: `${item.nameUz}. Binoning fasadini issiqlik saqlaydigan va bezak beruvchi termopanel. Penopolistol asos, travertin/mramor qoplama.`,
-      descRu: `${item.nameRu}. Термопанель для утепления и декорирования фасада. Основа — пенополистирол, покрытие — травертин/мрамор.`,
-    };
-    await createProduct({
-      ...item, categoryId: catTermopanel.id, price: 0,
-      media: media(item.main, item.mold, item.result, null),
-      ...desc, colors: ['travertin', 'mramor'],
-    });
-  }
-
-  // 5. Banner (Hero) — use a real mold photo
+  // ---------- Banner ----------
   await prisma.banner.create({
     data: {
-      titleUz: 'Qoliplar va fasad dekor — zavoddan to‘g‘ridan-to‘g‘ri',
-      titleRu: 'Формы и фасадный декор — напрямую от производителя',
-      subTitleUz: 'Bruschatka, bordyur, plitka qoliplari va termopanel. Sifatli xomashyo.',
-      subTitleRu: 'Формы для брусчатки, бордюров, плитки и термопанели. Качественное сырьё.',
-      imageUrl: IMG(25),
+      titleUz: '2026 katalogi — 130+ yangi plastik qolip',
+      titleRu: 'Каталог 2026 — 130+ новых пластиковых форм',
+      subTitleUz: 'Polipropilen va ABS plastikdan mustahkam qoliplar: bruschatka, dekorativ plita, fasad paneli va profil.',
+      subTitleRu: 'Прочные формы из полипропилена и АБС: брусчатка, декоративная плитка, фасадные панели и профили.',
+      imageUrl: '/catalog/2026/G005-env.jpg',
+      linkUrl: '/catalog',
       position: 'HERO',
       isActive: true,
     },
   });
 
-  // 6. Project example (real-ish, from catalogue photos)
+  // ---------- Project ----------
   await prisma.project.create({
     data: {
-      titleUz: 'Bruschatka bilan qoplangan maydon',
-      titleRu: 'Площадка, вымощенная брусчаткой',
-      descriptionUz: 'Forma yordamida quyilgan bruschatka bilan bezatilgan maydon.',
-      descriptionRu: 'Площадка, вымощенная брусчаткой, отлитой с использованием форм.',
-      location: 'Tashkent, Uzbekistan',
-      productUsed: 'Bruschatka qoliplari',
-      afterImage: IMG(25),
+      titleUz: 'Toshkentdagi xususiy hovli — bruschatka va dekorativ plita',
+      titleRu: 'Частный двор в Ташкенте — брусчатка и декоративная плитка',
+      descriptionUz: 'G001 «Floriya» va G050 «Pushti gul» qoliplari yordamida hovli yo‘lkasi va dam olish maydonchasini jihozlash.',
+      descriptionRu: 'Благоустройство дорожек и зоны отдыха двора с помощью форм G001 «Флория» и G050 «Цветок».',
+      location: 'Toshkent, O‘zbekiston',
+      productUsed: 'SPS-G001, SPS-G050',
+      beforeImage: '/catalog/2026/G001-env.jpg',
+      afterImage: '/catalog/2026/G007-env.jpg',
     },
   });
 
-  // 7. Blog post
+  // ---------- Blog ----------
   await prisma.blogPost.create({
     data: {
-      author: 'SPS Mutaxassisi',
-      coverImage: IMG(7),
+      coverImage: '/catalog/2026/G020-quyma.jpg',
       isPublished: true,
+      publishedAt: new Date('2026-02-20'),
       translations: {
         create: [
           {
-            locale: 'uz', slug: 'bruschatka-qolipi-qanday-tanlanadi',
-            title: 'Bruschatka qolipi qanday tanlanadi?',
-            excerpt: 'Qolip materiali, o‘lchami va teksturasining ahamiyati.',
-            content: 'Bruschatka ishlab chiqarishda qolip tanlash muhim bosqichdir. Qolipning materiali, o‘lchami va qalinligi tayyor mahsulot sifatiga ta’sir qiladi...',
+            locale: 'uz',
+            title: 'Plastik qolip tanlash bo‘yicha qo‘llanma (2026)',
+            slug: 'plastik-qolip-tanlash-qollanmasi-2026',
+            excerpt: 'Polipropilen va ABS plastik qoliplar: farqlari, o‘lchamlar, A / B / V belgilari va to‘g‘ri parvarish.',
+            content: `## Qolip materiali: polipropilen va ABS
+
+SPS Plast qoliplari mustahkam polipropilen va ABS plastikdan tayyorlanadi. Ular aniq geometriya, barqaror natija va uzoq xizmat muddati bilan ajralib turadi.
+
+## O‘lchamlar va belgilar
+
+- O‘lchamlar millimetrda (mm) ko‘rsatilgan: uzunlik × kenglik × balandlik.
+- **A / B / V** — komplekt elementlari belgisi.
+- **\\*** — standart o‘lcham, buyurtmada menejer bilan aniqlashtiriladi.
+
+## Parvarish
+
+Har ishlatishdan keyin qolipni tozalab, quriting. Mexanik ta’sirlardan saqlang — shunda qolip yuzlab marta xizmat qiladi.`,
           },
           {
-            locale: 'ru', slug: 'kak-vybrat-formu-dlya-bruschatki',
-            title: 'Как выбрать форму для брусчатки?',
-            excerpt: 'Важность материала, размера и фактуры формы.',
-            content: 'Выбор формы — ключевой этап при производстве брусчатки. Материал, размер и толщина формы влияют на качество готового изделия...',
+            locale: 'ru',
+            title: 'Руководство по выбору пластиковой формы (2026)',
+            slug: 'rukovodstvo-po-vyboru-plastikovoy-formy-2026',
+            excerpt: 'Формы из полипропилена и АБС: различия, размеры, обозначения A / B / V и правильный уход.',
+            content: `## Материал формы: полипропилен и АБС
+
+Формы SPS Plast изготовлены из прочного полипропилена и АБС-пластика. Они обеспечивают точную геометрию, стабильный результат и долгий срок службы.
+
+## Размеры и обозначения
+
+- Размеры указаны в миллиметрах (мм): длина × ширина × высота.
+- **A / B / V** — обозначение элементов комплекта.
+- **\\*** — стандартный размер, уточняется при заказе у менеджера.
+
+## Уход
+
+После каждого использования очистите и просушите форму. Берегите от механических повреждений — тогда форма прослужит сотни заливок.`,
           },
         ],
       },
     },
   });
 
-  console.log('Database successfully seeded with real SPS catalog!');
+  console.log('Banner + project + blog ready.');
+  console.log('Seed completed successfully.');
+  await prisma.$disconnect();
 }
 
-main()
-  .catch((e) => { console.error(e); process.exit(1); })
-  .finally(async () => { await prisma.$disconnect(); });
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});
