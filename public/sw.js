@@ -1,36 +1,39 @@
-const CACHE_NAME = 'spsplast-v1';
-const urlsToCache = ['/uz', '/uz/catalog', '/manifest.json'];
-
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(urlsToCache).catch(() => {});
-    })
-  );
-});
-
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request).then((response) => {
-      if (response) return response;
-      return fetch(event.request)
-        .then((res) => {
-          if (!res || res.status !== 200 || res.type !== 'basic') return res;
-          const resClone = res.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, resClone));
-          return res;
-        })
-        .catch(() => {
-          if (event.request.headers.get('accept')?.includes('text/html')) {
-            return caches.match('/uz');
-          }
-        });
-    })
-  );
+/**
+ * Legacy endpoint kept only to heal old installations.
+ *
+ * The site is a regular website again — the PWA (cache-first offline worker,
+ * standalone display) has been removed. Browsers that still have the old
+ * `/sw.js` registration fetch this file on update, install it, and it then
+ * deletes every cache the old worker created and unregisters itself. After
+ * that, nothing is intercepted and pages always come fresh from the server.
+ */
+self.addEventListener('install', () => {
+  self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((keys) => Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k))))
+    (async () => {
+      try {
+        const keys = await caches.keys();
+        await Promise.all(keys.map((k) => caches.delete(k)));
+      } catch (e) {
+        /* ignore */
+      }
+      try {
+        await self.registration.unregister();
+      } catch (e) {
+        /* ignore */
+      }
+      try {
+        const clients = await self.clients.matchAll({ includeUncontrolled: true });
+        for (const client of clients) {
+          // Reload healed tabs so they pick up fresh HTML/JS immediately.
+          if (client.navigate) await client.navigate(client.url);
+        }
+      } catch (e) {
+        /* ignore */
+      }
+    })()
   );
 });

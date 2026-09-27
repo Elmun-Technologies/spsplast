@@ -1,9 +1,15 @@
 import { PrismaClient } from '@prisma/client';
+import { PrismaPg } from '@prisma/adapter-pg';
 
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
 
 function createPrismaClient() {
+  // Driver adapter (pure JS pg) + WASM query compiler — no native query-engine
+  // binary is ever downloaded or loaded. DATABASE_URL may point at a pooler
+  // (pgbouncer / Neon pooler); DIRECT_URL is only used by `prisma db push`.
+  const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
   return new PrismaClient({
+    adapter,
     log: process.env.NODE_ENV === 'development' ? ['error', 'warn'] : ['error'],
     // High traffic: connection pooling via DATABASE_URL (PgBouncer) + limit
   });

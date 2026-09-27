@@ -6,7 +6,7 @@ import { Locale } from '@/lib/i18n';
 import { useCompareStore } from '@/lib/store/compareStore';
 
 /**
- * Non-critical floating UI (AI assistant, PWA prompt, compare bar).
+ * Non-critical floating UI (AI assistant, compare bar).
  *
  * These used to be imported directly by the locale layout, which means their
  * code was part of the *initial* JS bundle and hydrated on every storefront
@@ -19,11 +19,6 @@ import { useCompareStore } from '@/lib/store/compareStore';
  */
 const AIAssistant = dynamic(
   () => import('@/components/ui/AIAssistant').then((m) => m.AIAssistant),
-  { ssr: false }
-);
-
-const PWAInstallBanner = dynamic(
-  () => import('@/components/layout/PWAInstallBanner').then((m) => m.PWAInstallBanner),
   { ssr: false }
 );
 
@@ -60,7 +55,6 @@ export const DeferredWidgets: React.FC<DeferredWidgetsProps> = ({ lang }) => {
   return (
     <>
       {compareCount > 0 && <CompareBar lang={lang} />}
-      <PWAInstallBanner />
       <AIAssistant lang={lang} />
     </>
   );
