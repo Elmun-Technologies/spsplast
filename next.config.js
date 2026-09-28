@@ -33,6 +33,30 @@ const nextConfig = {
   reactStrictMode: true,
   compress: true,
   poweredByHeader: false,
+  /**
+   * Rust-siz Prisma client (`engineType = "client"`, ko'ring prisma/schema.prisma
+   * va src/lib/db.ts) so'rov vaqtida `query_compiler_bg.wasm` faylini
+   * `fs.readFileSync(path.join(config.dirname, 'query_compiler_bg.wasm'))`
+   * orqali o'qiydi — bu yo'l build vaqtida string birlashtirish bilan
+   * hosil bo'lgani uchun Next/Vercelning output file tracing'i (Node File
+   * Trace) buni STATIK aniqlay olmaydi va .wasm fayl serverless funksiya
+   * bundle'idan chiqarib tashlanadi.
+   *
+   * Natija productionda (Vercel) HAR bir `db`dan foydalanadigan so'rovda
+   * `ENOENT: query_compiler_bg.wasm topilmadi` xatosi — sahifa "Xatolik yuz
+   * berdi" ekraniga tushib qoladi (masalan mahsulot kartasi, katalog).
+   * ISR bilan keshlangan bosh sahifa eski keshni ko'rsataveradi va buzuq
+   * ko'rinmaydi, shuning uchun muammo faqat mahsulot/katalog sahifalarida
+   * sezilardi.
+   *
+   * Yechim: shu faylni (va yonidagi .prisma/client papkasini) har bir route
+   * uchun aniq trace qilishga majburlaymiz. Fly.io/Docker'dagi
+   * `output: 'standalone'` uchun ham zarar qilmaydi — standalone trace shu
+   * ro'yxatni hurmat qiladi.
+   */
+  outputFileTracingIncludes: {
+    '/*': ['./node_modules/.prisma/client/**/*'],
+  },
   images: {
     remotePatterns: [
       { protocol: 'http', hostname: 'localhost' },
