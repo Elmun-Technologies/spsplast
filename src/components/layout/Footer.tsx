@@ -192,6 +192,7 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
             <ul className="space-y-2.5 text-sm text-ink-soft">
               <li><Link href={`/${lang}/privacy`} className="hover:text-brand-red transition-colors">{dict.footer.privacy}</Link></li>
               <li><Link href={`/${lang}/terms`} className="hover:text-brand-red transition-colors">{dict.footer.terms}</Link></li>
+              <li><Link href={`/${lang}/how-to-order`} className="hover:text-brand-red transition-colors">{dict.footer.howToOrder}</Link></li>
               <li><Link href={`/${lang}/delivery-payment`} className="hover:text-brand-red transition-colors">{dict.footer.deliveryTerms}</Link></li>
               <li><Link href={`/${lang}/returns`} className="hover:text-brand-red transition-colors">{dict.footer.returns}</Link></li>
             </ul>
@@ -203,7 +204,10 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
         <div className="pt-8 flex flex-col lg:flex-row items-center justify-between gap-4 text-[12px] text-ink-sub">
           <p>© {new Date().getFullYear()} Stone Profy Servise. {dict.footer.rights}</p>
           <div className="flex flex-wrap items-center justify-center gap-2.5">
-            {['CLICK', 'PAYME', 'UZUM'].map((p) => (
+            {/* To'lov belgilari faqat haqiqatda mavjud usullar: checkout faqat
+                naqd, Click/Payme va bank o'tkazmasini qabul qiladi. Ilgari bu
+                yerda "UZUM" ham bor edi — mavjud bo'lmagan usul (P0-8). */}
+            {['CLICK', 'PAYME', 'NAQD'].map((p) => (
               <span key={p} className="px-3 py-1.5 bg-surface-soft rounded-full text-[11px] font-semibold text-ink-soft">
                 {p}
               </span>

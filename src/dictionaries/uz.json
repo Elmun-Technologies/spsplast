@@ -14,7 +14,8 @@
     "contact": "Kontakt",
     "viewCatalog": "Katalogni ko‘rish",
     "getConsultation": "Konsultatsiya olish",
-    "b2bPrices": "Ulgurji narxlar"
+    "b2bPrices": "Ulgurji narxlar",
+    "howToOrder": "Qanday buyurtma berish"
   },
   "hero": {
     "title": "Qurilish va ishlab chiqarish uchun sifatli mahsulotlar",
@@ -105,6 +106,7 @@
     "terms": "Ommaviy oferta",
     "deliveryTerms": "Yetkazib berish va to‘lov",
     "returns": "Qaytarish shartlari",
-    "rights": "Barcha huquqlar himoyalangan."
+    "rights": "Barcha huquqlar himoyalangan.",
+    "howToOrder": "Qanday buyurtma berish"
   }
 }

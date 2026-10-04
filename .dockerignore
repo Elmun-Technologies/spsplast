@@ -24,6 +24,10 @@ Isolating_*.jpg
 White_plastic*.jpg
 Изображение*.png
 
+# Master media arxivi (media-src/): faqat saytdagi yengil nusxalar kerak,
+# ular esa `public/media/` ichida. Masterlar image hajmini 86 MB ga oshiradi.
+media-src/
+
 # Hujjatlar
 docs
 *.md

@@ -4,6 +4,7 @@ import Image from 'next/image';
 import nextDynamic from 'next/dynamic';
 import { db } from '@/lib/db';
 import { Locale } from '@/lib/i18n';
+import { hreflang } from '@/lib/seo';
 import { getProductsServer } from '@/lib/services/productService';
 import { ProductCard } from '@/components/product/ProductCard';
 import { CategoryCard } from '@/components/product/CategoryCard';
@@ -48,7 +49,7 @@ export async function generateMetadata({ params }: HomePageProps) {
   return {
     alternates: {
       canonical: `/${lang}`,
-      languages: { uz: '/uz', ru: '/ru' },
+      languages: hreflang(''),
     },
   };
 }

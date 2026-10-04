@@ -188,18 +188,164 @@ Keyin: yangi `/admin/reviews` bo'limi Navbar'da paydo bo'ladi.
 
 ---
 
-### 8. Keyingi batch (taklif)
+### 8. Keyingi batch (Batch 2 dan keyin qolgani)
 
 | Prioritet | Vazifa |
 |---|---|
-| P0-1 | Production deploy (`sps.uz` DNS, env, `db push`, seed) |
-| P0-5 | Blog (6 maqola) + loyihalar (6 keys) kontenti |
+| P0-1 | Production deploy (`sps.uz` DNS, env, `db push`, `db:seed`, `db:import:content`) |
 | P0-8 | Trust da'volari auditi — har raqam uchun dalil |
 | P0-9 | E2E: buyurtma → Telegram → CRM → stock |
 | P0-10/P0-12 | To'lov kalitlari holati, analitika ID'lari |
-| P0-11 | `og:image` har mahsulot uchun, statik sahifalarda hreflang |
-| P1-3 | "Qanday buyurtma berish" sahifasi (raqibda bor, bizda yo'q) |
-| P1-6 | Yetkazib berish jadvali va narx siyosati |
+| P1-1/P1-2 | Ulgurji narx so'rovi va cennik PDF |
 | P1-7 | Kategoriya sahifalariga SEO matn + FAQ |
 | P1-13 | Home page'dagi 34 ta inline matnni lug'atga ko'chirish |
-| P0-6 (davomi) | Ildizdagi 129 rasm va 2 PDF ni arxivga/S3 ga chiqarish |
+| P0-6 (davomi) | Ildizdagi 169 ta katta PNG (306 MB) ni `media-src/` ga surat yasab ko'chirish |
+| P1-6 (davomi) | Og'irlik asosidagi yetkazib berish kalkulyatori |
+
+---
+
+## Batch 2 — Kontent: blog, loyihalar, buyurtma sahifasi, SEO
+
+**Sana:** 2026-10-04 · **Holat:** kod tayyor, baza importi deploy'da bajariladi
+
+Foydalanuvchi tanlovi bo'yicha: **kontent batch** (P0-5, P1-3, P1-6, P0-11) va
+**ildiz media → `public/media/`** siyosati.
+
+### 1. P0-6 — Media tartibi va yengil nusxalar
+
+Repo ildizida 391 MB media (129 JPG + 169 PNG + 2 PDF) turardi. Endi:
+
+| Joy | Nima | Hajm |
+|---|---|---|
+| `media-src/factory/` | 116 zavod kadri (`DSC*.JPG`) — master | 37 MB |
+| `media-src/studio/` | 14 studiya surati (oq fonda qoliplar) | 3.4 MB |
+| `media-src/pdf/` | 2 katalog PDF (139 bet / 137 bet) | 46 MB |
+| `public/media/blog/` | 7 muqova (1600×900, q80) | 1.3 MB |
+| `public/media/projects/` | 6 loyiha × "oldin/keyin" (900×900) | 1.4 MB |
+| `public/media/production/` | 10 galereya surati (1200×900) | 476 KB |
+
+Nusxalar `scripts/build-media.py` bilan yasaladi (idempotent, `--list` rejimi
+bor). Skript master fayllarni `media-src/studio|factory|pdf` dan ham, repo
+ildizidan ham topadi — shuning uchun ko'chirishdan oldin ham ishlagan.
+
+**Loyihalar rasmining formati:** har bir `Изображение ChatGPT…png` — 2-in-1
+kadr: chap yarmi real muhit, o'ng yarmi tayyor beton mahsulot. Skript shu
+kadrni ikki yarmga bo'lib, `-before.jpg` va `-after.jpg` yasaydi — shuning
+uchun loyihalar sahifasida "oldin/keyin" ko'rsatkichi haqiqiy materialga ega.
+
+**Qoldi:** 169 ta katta PNG (306 MB) hali ildizda — ular uchun nusxa yasalgan,
+keyingi qadamda `media-src/` ga ko'chiriladi.
+
+### 2. P0-5 — 7 maqola va 6 loyiha
+
+Kontent alohida faylda: `prisma/data/content-2026.json` (uz + ru).
+
+| Maqola | Mavzu |
+|---|---|
+| `bruschatka-sexini-noldan-boshlash` | Sex ochish: bozor, xona, uskuna, qolip tanlash |
+| `qolip-resursini-oshirish` | Qolip parvarishi va resursni uzaytirish |
+| `devor-paneli-fasad-narxi-2026` | Panel/profil narxini belgilovchi omillar (S3 katalogi asosida) |
+| `polipropilen-yoki-abs` | Material tanlash: kuchli va kuchsiz tomonlari |
+| `beton-quyishda-5-xato` | Brak sabablari va yechimlari |
+| `trotuar-plitka-ornatish` | O'rnatish: asos, chok, nishab |
+| `dekorativ-qoliplar-bilan-hovli` | Hovli dizaynida dekorativ qoliplar |
+
+Loyihalar: `1-xususiy-hovli-toshkent`, `2-devor-panellari-maxalla`,
+`3-bog-dekor-skameykalar`, `4-kafe-hovlisi-mosaic`, `5-naqshli-trotuar-plita`,
+`6-3d-fasad-panellari` — har biri joylashuv, ishlatilgan mahsulot va
+"oldin/keyin" rasmi bilan.
+
+**Muhim qoida:** maqolalarda isbotlanmagan raqam yo'q. Masalan "har bir qolip
+N marta quyishga chidaydi" degan da'vo o'rniga "raqam model va ishlatish
+shartlariga bog'liq" deb yozilgan (P0-8 tamoyili).
+
+Maqola matni formati: `## ` h2, `### ` h3, `- ` ro'yxat, `> ` iqtibos; bloklar
+bo'sh qator bilan ajratiladi. Parser — `src/lib/blogContent.ts`, testi —
+`tests/blogContent.test.js` (parser haqiqiy matnni to'g'ri o'qishini tekshiradi).
+
+### 3. P1-3 — "Qanday buyurtma berish" sahifasi
+
+`/[lang]/how-to-order`: 4 qadam (tanlash → savat/1-klik → menejer tasdiqlashi →
+yetkazish yoki olib ketish), 3 to'lov usuli, 5 savol-javob va aloqa CTA.
+FAQ + HowTo **JSON-LD** qo'shilgan, sahifa tayyor statik (bazaga murojaat
+qilmaydi). Havolalar: footer ("Hujjatlar" ustuni) va mobil menyu.
+
+### 4. P1-6 — Yetkazib berish va to'lov sahifasi qayta yozildi
+
+Ilgari matn faqat o'zbekcha edi (rus versiyada ham o'zbekcha chiqardi) va
+"UZUM" ko'rsatilgan edi — backend esa faqat naqd, Click/Payme va bank
+o'tkazmasini qabul qiladi. Endi:
+
+- ikki tilda matn, "Toshkent / viloyatlar / olib ketish" uchun alohida bloklar;
+- to'lov usullari haqiqiy ro'yxat bilan bir xil, ostida ogohlantirish:
+  "to'lov faqat menejer tasdiqlagach, shaxsiy kartaga emas";
+- sifat kafolati, ish vaqti/manzil va qaytarish bloklari.
+
+Shu bilan birga **UZUM belgisi checkout va footer'dan ham olib tashlandi**
+(o'rniga NAQD) — saytdagi imkoniyat backend'dagi imkoniyatga teng bo'lishi kerak.
+
+### 5. P0-11 — SEO metama'lumotlar
+
+Yangi `src/lib/seo.ts`:
+
+- `pageMetadata()` — sarlavha, tavsif, canonical, **hreflang uz/ru/x-default**,
+  `og:image`, Twitter kartasi;
+- `noindexMetadata()` — savat, checkout, solishtirish, saralanganlar,
+  buyurtma natijasi sahifalari uchun.
+
+Qo'shilgan sahifalar: `/about`, `/production`, `/projects`, `/blog`, `/contact`,
+`/delivery-payment`, `/returns`, `/privacy`, `/terms`, `/how-to-order`.
+Bundan tashqari:
+
+- `sitemap.ts`: `lastmod` faqat haqiqiy `updatedAt` bo'lgan dinamik sahifalarda
+  (statik sahifalarda "bugun" sanasi yozilmaydi — raqibdagi xato), har bir
+  yozuvda hreflang alternates, yangi sahifalar qo'shildi, keshlash 1 soat;
+- bosh sahifa va katalogda `x-default` hreflang paydo bo'ldi.
+
+### 6. Qo'shimcha: real suratlar saytda
+
+`/production` sahifasida ilgari 2 ta umumiy katalog rasmi bor edi. Endi
+`public/media/production/` dan 10 ta real sex/studия surati galereya bo'lib
+chiqadi. `/projects` sahifasida esa "Oldin / Keyin" almashtirgichi qo'shildi
+(`ProjectImageToggle`) — `beforeImage` mavjud bo'lganda ko'rinadi.
+
+### 7. Tekshiruv natijalari
+
+| Tekshiruv | Natija |
+|---|---|
+| `npx tsc --noEmit` | ✅ 0 xato |
+| `npm run lint` | ✅ 0 ogohlantirish |
+| `npm test` | ✅ 103/103 (5 ta yangi: kontent, 5 ta parser) |
+| `npm run build` | ✅ Compiled successfully |
+| `/uz/how-to-order`, `/ru/how-to-order` | ✅ 200, FAQ + HowTo JSON-LD (2 ta) |
+| `/uz/delivery-payment` | ✅ 200, "UZUM" yo'q, kafolat bloklari bor |
+| canonical / hreflang (x-default) | ✅ uchta `alternate` + canonical |
+| `/sitemap.xml` | ✅ 72 ta `xhtml:link` alternates, statik sahifalarda `lastmod` yo'q |
+| `/uz/cart`, `/uz/checkout`, `/uz/compare`, `/uz/wishlist` | ✅ `noindex, follow` |
+| `public/media/**` (blog, projects, production) | ✅ 200 |
+| `/production` galereyasi | ✅ 10 ta real surat `_next/image` orqali |
+
+### 8. Deploy qadamlari (Batch 2 qo'shimchasi)
+
+```bash
+npx prisma db push            # sxema o'zgarmagan, lekin P0-1 bilan birga
+npm run db:seed               # katalog + yangi 7 maqola + 6 loyiha
+# YOKI mavjud bazaga faqat kontentni qo'shish uchun (hech narsani o'chirmaydi):
+npm run db:import:content
+```
+
+`npm run db:import:content` — idempotent: mavjud loyiha/maqolani yangilaydi,
+buyurtma va mahsulotlarga tegmaydi. `db:seed` esa katalogni to'liq qayta
+yozadi (ehtiyot bo'ling: u avval eskisini o'chiradi).
+
+### 9. Keyingi batch (taklif)
+
+| Prioritet | Vazifa |
+|---|---|
+| P0-1 | Production deploy (`sps.uz` DNS, env, `db push`, seed/import, health-check) |
+| P0-8 | Trust da'volari auditi — har raqam uchun dalil |
+| P0-9 | E2E: buyurtma → Telegram → CRM → stock |
+| P0-10/P0-12 | To'lov kalitlari holati, analitika ID'lari |
+| P1-1/P1-2 | Ulgurji narx so'rovi va cennik PDF |
+| P1-7 | Kategoriya sahifalariga SEO matn + FAQ |
+| P0-6 (davomi) | 169 ta katta PNG (306 MB) ni `media-src/` ga ko'chirish |

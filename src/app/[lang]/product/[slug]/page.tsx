@@ -39,6 +39,8 @@ export async function generateMetadata({ params }: ProductPageProps) {
   for (const t of trans.product.translations) {
     languages[t.locale] = `/${t.locale}/product/${t.slug}`;
   }
+  // x-default: til aniqlanmagan foydalanuvchi uchun o'zbek (asosiy) variant.
+  if (languages.uz) languages['x-default'] = languages.uz;
 
   const image = trans.product.media[0]?.url;
 

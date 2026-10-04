@@ -471,7 +471,7 @@ export default function CheckoutPage({ params }: { params: Promise<{ lang: Local
               <div className="flex items-center justify-center gap-1.5 pt-2">
                 <span className="px-2 py-1 rounded bg-surface-soft border border-line text-[10px] font-bold">CLICK</span>
                 <span className="px-2 py-1 rounded bg-surface-soft border border-line text-[10px] font-bold">PAYME</span>
-                <span className="px-2 py-1 rounded bg-surface-soft border border-line text-[10px] font-bold">UZUM</span>
+                <span className="px-2 py-1 rounded bg-surface-soft border border-line text-[10px] font-bold">{lang === 'ru' ? 'НАЛИЧНЫЕ' : 'NAQD'}</span>
                 <span className="px-2 py-1 rounded bg-ink text-white text-[10px] font-bold">SSL</span>
               </div>
             </div>

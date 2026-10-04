@@ -4,6 +4,25 @@ import { getDictionary, Locale } from '@/lib/i18n';
 import { Container } from '@/components/ui/Container';
 import { Building2, Award, Users, ShieldCheck, Factory, Target } from 'lucide-react';
 import { COMPANY_CONTACTS } from '@/lib/constants/contacts';
+import { pageMetadata } from '@/lib/seo';
+
+/**
+ * SEO: sarlavha, tavsif, canonical va uz/ru hreflang (x-default bilan).
+ * Ilgari bu sahifada generateMetadata yo'q edi va u bosh sahifa sarlavhasini
+ * meros olardi (docs/MADANI-RAQOBAT-AUDITI.md, P0-11).
+ */
+export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }) {
+  const { lang } = await params;
+  const isRu = lang === 'ru';
+  return pageMetadata({
+    lang,
+    path: '/about',
+    title: isRu ? 'О заводе SPS — производитель форм' : 'SPS zavodi haqida — qoliplar ishlab chiqaruvchi',
+    description: isRu
+      ? 'SPS — завод в Ташкенте: пластиковые формы для брусчатки, бордюров, тротуарной плитки и фасадного декора. Производство, технология и контакты.'
+      : 'SPS — Toshkentdagi zavod: bruschatka, bordyur, trotuar plitasi va fasad dekor uchun plastik qoliplar. Ishlab chiqarish, texnologiya va kontaktlar.',
+  });
+}
 
 export default async function AboutPage({ params }: { params: Promise<{ lang: Locale }> }) {
   const { lang } = await params;
