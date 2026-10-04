@@ -113,21 +113,20 @@ test('7. Fly.io/Docker konfiguratsiyasi olib tashlangan', () => {
   }
 });
 
-test('8. Har bir kategoriya sahifasida 300+ so‘z SEO matn va FAQ bor (P1-7)', async (t) => {
-  if (!supportsTypeStripping) return t.skip("Node type-stripping yo'q");
-  const { CATEGORY_SEO } = await loadTs('src/lib/categoryContent.ts');
+test('8. Har bir kategoriyada 300+ so‘z SEO matn va 5+ FAQ bor (P1-7)', () => {
   const catalog = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'src', 'data', 'catalog.json'), 'utf8'));
 
   for (const category of catalog.categories) {
     for (const locale of ['uz', 'ru']) {
-      const seo = CATEGORY_SEO[category.id]?.[locale];
+      const trans = category.translations.find((t) => t.locale === locale);
+      const seo = trans && trans.seo;
       assert.ok(seo, `${category.id}/${locale}: SEO matn yo‘q`);
 
       const words = [
         seo.lead,
-        ...seo.body.map((b) => `${b.heading} ${b.text}`),
+        ...seo.body.map((block) => `${block.heading} ${block.text}`),
         ...seo.bullets,
-        ...seo.faq.flatMap((f) => [f[locale].q, f[locale].a]),
+        ...seo.faq.flatMap((entry) => [entry.q, entry.a]),
       ]
         .join(' ')
         .split(/\s+/)
@@ -141,11 +140,73 @@ test('8. Har bir kategoriya sahifasida 300+ so‘z SEO matn va FAQ bor (P1-7)', 
 
 test('9. FAQ JSON-LD sahifadagi matn bilan bir manbadan yasaladi', async (t) => {
   if (!supportsTypeStripping) return t.skip("Node type-stripping yo'q");
-  const { HOME_FAQ, faqJsonLd } = await loadTs('src/lib/faq.ts');
+  const { HOME_FAQ, faqItems, faqJsonLd } = await loadTs('src/lib/faq.ts');
 
-  const jsonLd = faqJsonLd(HOME_FAQ, 'ru');
+  const entries = faqItems(HOME_FAQ, 'ru');
+  const jsonLd = faqJsonLd(entries);
   assert.strictEqual(jsonLd['@type'], 'FAQPage');
-  assert.strictEqual(jsonLd.mainEntity.length, HOME_FAQ.length);
+  assert.strictEqual(jsonLd.mainEntity.length, entries.length);
   assert.strictEqual(jsonLd.mainEntity[0].name, HOME_FAQ[0].ru.q);
   assert.strictEqual(jsonLd.mainEntity[0].acceptedAnswer.text, HOME_FAQ[0].ru.a);
+});
+
+test('10. Qidiruv indeksi statik fayl — /api/search chaqirilmaydi', () => {
+  const indexPath = path.join(__dirname, '..', 'public', 'search-index.json');
+  const index = JSON.parse(fs.readFileSync(indexPath, 'utf8'));
+
+  assert.strictEqual(index.products.length, 192);
+  assert.strictEqual(index.categories.length, 3);
+  // Har bir mahsulotda ikkala til uchun slug va sarlavha bo'lishi kerak:
+  // 62 mahsulotda uz/ru slug'lari farq qiladi.
+  for (const product of index.products) {
+    assert.ok(product.slugUz && product.slugRu && product.titleUz && product.titleRu, `to‘liq emas: ${product.sku}`);
+  }
+
+  // Regression guard: header ilgari mavjud bo'lmagan qidiruv API'siga so'rov
+  // yuborardi va takliflar jimgina bo'sh qolardi. Endi qidiruv statik indeks
+  // ustida, brauzerda bajariladi.
+  const srcDir = path.join(__dirname, '..', 'src');
+  const offenders = [];
+  const walk = (dir) => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) walk(full);
+      else if (/\.(ts|tsx)$/.test(entry.name)) {
+        const source = fs.readFileSync(full, 'utf8');
+        if (/fetch\(\s*[`'"]\/api\/search/.test(source)) offenders.push(path.relative(srcDir, full));
+      }
+    }
+  };
+  walk(srcDir);
+  assert.deepStrictEqual(offenders, [], `Mavjud bo'lmagan API'ga so'rov: ${offenders.join(', ')}`);
+});
+
+test('11. Ichki havolalar faqat haqiqiy kategoriya slug‘laridan foydalanadi', () => {
+  const catalog = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'src', 'data', 'catalog.json'), 'utf8'));
+  const validSlugs = new Set(catalog.categories.flatMap((c) => c.translations.map((t) => t.slug)));
+
+  // src ichida `?category=<slug>` yoki `/catalog/<slug>` ko'rinishidagi
+  // qattiq yozilgan slug'lar faqat haqiqiy bo'lishi kerak.
+  const srcDir = path.join(__dirname, '..', 'src');
+  const offenders = [];
+  const walk = (dir) => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) walk(full);
+      else if (/\.(ts|tsx)$/.test(entry.name)) {
+        const source = fs.readFileSync(full, 'utf8');
+        // Faqat havola ko'rinishidagi manzillar: `/catalog/<slug>` va
+        // orqasidan nuqta (fayl nomi) kelmaydigan holatlar.
+        for (const match of source.matchAll(/\/catalog\/([a-z0-9-]{4,})(?![a-z0-9.-])/g)) {
+          const slug = match[1];
+          if (!validSlugs.has(slug) && !slug.startsWith('[')) {
+            offenders.push(`${path.relative(srcDir, full)}: /catalog/${slug}`);
+          }
+        }
+      }
+    }
+  };
+  walk(srcDir);
+
+  assert.deepStrictEqual(offenders, [], `Noma'lum kategoriya slug'i: ${offenders.join(', ')}`);
 });

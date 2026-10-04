@@ -32,9 +32,14 @@ const ROOT = path.join(__dirname, '..');
 const CATALOG = require(path.join(ROOT, 'catalog_build', 'products.json'));
 const MOLDS = require(path.join(ROOT, 'data', 'molds-2026.json'));
 const CONTENT = require(path.join(ROOT, 'data', 'content-2026.json'));
+const CATEGORY_SEO = require(path.join(ROOT, 'data', 'category-seo-2026.json'));
 const { RU_NAMES, SECTION_META, NEW_ITEMS } = require('./static/seed-data');
 
 const OUT_FILE = path.join(ROOT, 'src', 'data', 'catalog.json');
+// Qidiruv indeksi: header'dagi jonli takliflar uchun yengil fayl. Alohida
+// fayl bo'lgani uchun foydalanuvchi qidirmaguncha yuklanmaydi (har sahifaning
+// HTML'iga 40 KB indeks solib qo'yilmaydi).
+const SEARCH_INDEX_FILE = path.join(ROOT, 'public', 'search-index.json');
 const CHECK_ONLY = process.argv.includes('--check');
 
 /** Katalog manbalari sanasi — barcha mahsulotlar uchun `updatedAt` bo'lib xizmat qiladi. */
@@ -136,6 +141,17 @@ const CATEGORY_IMAGES = {
   S3: '/catalog/2026/A10-001-quyma.jpg',
 };
 
+/** Kategoriya SEO matni (`data/category-seo-2026.json`) — har bir bo'lim ikki tilda. */
+function seoFor(section, locale) {
+  const entry = CATEGORY_SEO.sections[section];
+  if (!entry || !entry[locale]) {
+    // validate() bu holatni build'ni to'xtatib ushlaydi; bu yerda bo'sh obyekt
+    // qaytaramiz, shunda sahifa crash bo'lmaydi.
+    return null;
+  }
+  return entry[locale];
+}
+
 function buildCategories() {
   return SECTION_ORDER.map((section, index) => {
     const meta = SECTION_META[section];
@@ -152,12 +168,14 @@ function buildCategories() {
           name: meta.catNameUz,
           slug: meta.catSlugUz,
           description: meta.catDescUz,
+          seo: seoFor(section, 'uz'),
         },
         {
           locale: 'ru',
           name: meta.catNameRu,
           slug: meta.catSlugRu,
           description: meta.catDescRu,
+          seo: seoFor(section, 'ru'),
         },
       ],
     };
@@ -468,6 +486,31 @@ function validate(data) {
     problems.push('Blog yozuvlari to‘liq emas');
   }
 
+  // P1-7: har bir kategoriya uchun 300+ so'zlik SEO matn va kamida 5 FAQ
+  // bo'lishi shart — kontent yetishmasa build to'xtaydi, "bo'sh" SEO sahifa
+  // deploy bo'lib qolmaydi.
+  for (const category of data.categories) {
+    for (const locale of ['uz', 'ru']) {
+      const trans = category.translations.find((t) => t.locale === locale);
+      const seo = trans && trans.seo;
+      if (!seo || !seo.lead || !Array.isArray(seo.body) || !Array.isArray(seo.faq)) {
+        problems.push(`${category.id}/${locale}: SEO matn yo‘q (data/category-seo-2026.json)`);
+        continue;
+      }
+      const words = [
+        seo.lead,
+        ...seo.body.map((block) => `${block.heading} ${block.text}`),
+        ...(seo.bullets || []),
+        ...seo.faq.flatMap((entry) => [entry.q, entry.a]),
+      ]
+        .join(' ')
+        .split(/\s+/)
+        .filter(Boolean).length;
+      if (words < 300) problems.push(`${category.id}/${locale}: SEO matn ${words} so‘z (300+ kerak)`);
+      if (seo.faq.length < 5) problems.push(`${category.id}/${locale}: FAQ ${seo.faq.length} ta (5+ kerak)`);
+    }
+  }
+
   const skus = new Set();
   const slugs = new Set();
   for (const product of data.products) {
@@ -505,6 +548,41 @@ function validate(data) {
   return problems;
 }
 
+/**
+ * Qidiruv indeksi: slug, sarlavha (uz/ru), SKU, rasm va kategoriya.
+ * Narx indeksga kirmaydi — saytda narx menejer tomonidan tasdiqlanadi.
+ */
+function buildSearchIndex(data) {
+  return {
+    generatedAt: data.generatedAt || CATALOG_DATE,
+    categories: data.categories.map((category) => {
+      const uz = category.translations.find((t) => t.locale === 'uz') || {};
+      const ru = category.translations.find((t) => t.locale === 'ru') || {};
+      return {
+        id: category.id,
+        slugUz: uz.slug || category.id,
+        slugRu: ru.slug || uz.slug || category.id,
+        nameUz: uz.name || category.id,
+        nameRu: ru.name || uz.name || category.id,
+      };
+    }),
+    products: data.products.map((product) => {
+      const uz = product.translations.find((t) => t.locale === 'uz') || {};
+      const ru = product.translations.find((t) => t.locale === 'ru') || {};
+      return {
+        id: product.id,
+        sku: product.sku,
+        categoryId: product.categoryId,
+        slugUz: uz.slug || product.id,
+        slugRu: ru.slug || uz.slug || product.id,
+        titleUz: uz.name || product.sku,
+        titleRu: ru.name || uz.name || product.sku,
+        image: product.media[0]?.url || null,
+      };
+    }),
+  };
+}
+
 function main() {
   const data = build();
   const problems = validate(data);
@@ -523,12 +601,18 @@ function main() {
       console.error('src/data/catalog.json eskirgan. `node scripts/build-static-catalog.js` ishga tushiring.');
       process.exit(1);
     }
+    const indexPath = fs.existsSync(SEARCH_INDEX_FILE) ? fs.readFileSync(SEARCH_INDEX_FILE, 'utf8') : '';
+    if (indexPath !== JSON.stringify(buildSearchIndex(data), null, 2) + '\n') {
+      console.error('public/search-index.json eskirgan. `node scripts/build-static-catalog.js` ishga tushiring.');
+      process.exit(1);
+    }
     console.log('Statik katalog joyida: ' + data.products.length + ' mahsulot, ' + data.categories.length + ' kategoriya.');
     return;
   }
 
   fs.mkdirSync(path.dirname(OUT_FILE), { recursive: true });
   fs.writeFileSync(OUT_FILE, json);
+  fs.writeFileSync(SEARCH_INDEX_FILE, JSON.stringify(buildSearchIndex(data), null, 2) + '\n');
   console.log(
     `src/data/catalog.json yozildi: ${data.products.length} mahsulot, ${data.categories.length} kategoriya, ` +
       `${data.blog.length} maqola, ${data.projects.length} loyiha.`

@@ -9,8 +9,7 @@ import { SectionHeader } from '@/components/ui/SectionHeader';
 import { ProductCard } from '@/components/product/ProductCard';
 import { LeadButton } from '@/components/lead/LeadButton';
 import { categories, categoryTranslation, getCategoryBySlug, getProductsServer } from '@/lib/catalog';
-import { CATEGORY_SEO } from '@/lib/categoryContent';
-import { faqItems, faqJsonLd } from '@/lib/faq';
+import { faqJsonLd } from '@/lib/faq';
 import { getDictionary, Locale } from '@/lib/i18n';
 import { pageMetadata } from '@/lib/seo';
 import { ArrowRight } from 'lucide-react';
@@ -18,10 +17,11 @@ import { ArrowRight } from 'lucide-react';
 /**
  * Kategoriya sahifasi (P1-7).
  *
- * Ilgari bu marshrut faqat `/catalog?category=…` ga redirect qilardi — ya'ni
- * qidiruv tizimlari uchun kategoriyaning o'z manzili, sarlavhasi va matni
- * yo'q edi. Endi har bir kategoriya uchun statik sahifa yasaladi: mahsulot
- * to'ri, 300+ so'zlik SEO matn va FAQ (ko'rinadigan + JSON-LD ko'rinishida).
+ * Qidiruv tizimlari uchun kategoriyaning o'z manzili, sarlavhasi va matni
+ * bo'lishi kerak: sahifada mahsulot to'ri, 300+ so'zlik SEO matn va FAQ
+ * (ko'rinadigan + JSON-LD ko'rinishida) bor. Matn katalog faylidan
+ * (`data/category-seo-2026.json` → `category.translations[].seo`) o'qiladi —
+ * generator uni 300+ so'z va 5+ FAQ bo'yicha tekshiradi.
  */
 
 interface CategoryPageProps {
@@ -41,16 +41,18 @@ export async function generateMetadata({ params }: CategoryPageProps) {
   const trans = category ? categoryTranslation(category, lang) : null;
   if (!category || !trans) return {};
 
-  const seo = CATEGORY_SEO[category.id]?.[lang];
-  const title =
-    lang === 'ru'
+  const seo = trans.seo;
+  const title = seo?.title || trans.name;
+  const metaTitle = seo?.title
+    ? seo.title.replace(/\s*\|\s*SPS\s*$/, '') + ' | SPS'
+    : lang === 'ru'
       ? `${trans.name} — купить формы от завода SPS`
       : `${trans.name} — zavoddan sotib olish`;
 
   return pageMetadata({
     lang,
     path: `/catalog/${categorySlug}`,
-    title,
+    title: metaTitle,
     description: seo?.lead || trans.description || trans.name,
     image: category.image || undefined,
     imageAlt: trans.name,
@@ -64,7 +66,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   if (!category || !trans) notFound();
 
   const dict = getDictionary(lang);
-  const seo = CATEGORY_SEO[category.id]?.[lang];
+  const seo = trans.seo;
   const { products, total } = getProductsServer({ locale: lang, categorySlug, pageSize: 12 });
 
   const otherCategories = categories
@@ -84,7 +86,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       {seo && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(seo.faq, lang)) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(seo.faq)) }}
         />
       )}
 
@@ -192,7 +194,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             <SectionHeader title={dict.home.faqTitle} />
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
               <div className="lg:col-span-7">
-                <FaqAccordion items={faqItems(seo.faq, lang)} />
+                <FaqAccordion items={seo.faq} />
               </div>
               <div className="lg:col-span-5">
                 <div className="bg-surface rounded-[24px] p-6 shadow-card">

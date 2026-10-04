@@ -7,6 +7,7 @@ import { DeferredWidgets } from '@/components/layout/DeferredWidgets';
 import { SWCleanup } from '@/components/layout/SWCleanup';
 import { HtmlLangSync } from '@/components/layout/HtmlLangSync';
 import { isValidLocale, locales, Locale } from '@/lib/i18n';
+import { getCategoriesWithMeta } from '@/lib/catalog';
 
 // Footer is below the fold on every page: keep it out of the initial bundle
 // (it is still server-rendered, so crawlers and no-JS users see it).
@@ -40,6 +41,13 @@ export default async function LangLayout({
 
   const lang = langParam as Locale;
 
+  // Footer'dagi kategoriya havolalari — haqiqiy slug'lar bilan (404 bo'lmasin).
+  const catalogLinks = getCategoriesWithMeta(lang).map((category) => ({
+    id: category.id,
+    slug: category.slug,
+    name: lang === 'ru' ? category.nameRu : category.nameUz,
+  }));
+
   return (
     <div className="min-h-screen flex flex-col bg-surface-page text-ink font-sans antialiased selection:bg-brand-red selection:text-white">
       {/* Til atributini faol lokalga moslashtiradi (batafsil: HtmlLangSync.tsx) */}
@@ -52,7 +60,7 @@ export default async function LangLayout({
       <Header lang={lang} />
       <main id="main-content" className="flex-1 pb-24 lg:pb-0">{children}</main>
       <StickyMobileContact lang={lang} />
-      <Footer lang={lang} />
+      <Footer lang={lang} catalogLinks={catalogLinks} />
       {/* AI assistant, PWA prompt & compare bar are code-split and mounted after idle */}
       <DeferredWidgets lang={lang} />
     </div>

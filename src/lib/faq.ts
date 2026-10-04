@@ -29,12 +29,15 @@ export function faqItems(items: FaqItem[], lang: Locale): FaqEntry[] {
   return items.map((item) => item[lang]);
 }
 
-/** Sahifadagi FAQ bilan bir xil matndan FAQPage JSON-LD yasaydi. */
-export function faqJsonLd(items: FaqItem[], lang: Locale) {
+/**
+ * FAQPage JSON-LD — kirish har doim shu sahifada ko'rinadigan savol-javoblar
+ * bo'lishi kerak (Google "ko'rinmaydigan" FAQ uchun ogohlantiradi).
+ */
+export function faqJsonLd(entries: FaqEntry[]) {
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: faqItems(items, lang).map((entry) => ({
+    mainEntity: entries.map((entry) => ({
       '@type': 'Question',
       name: entry.q,
       acceptedAnswer: { '@type': 'Answer', text: entry.a },

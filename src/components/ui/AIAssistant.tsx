@@ -20,7 +20,7 @@ interface Message {
 
 const QUICK_QUESTIONS = [
   { uz: 'Qancha qolip kerak? 50m² uchun', ru: 'Сколько нужно форм для 50м²?' },
-  { uz: 'Ulgurji narx bormi?', ru: 'Есть ли оптовые скидки?' },
+  { uz: 'Ulgurji shartlar bormi?', ru: 'Есть ли оптовые условия?' },
   { uz: 'Yetkazib berish qancha?', ru: 'Сколько стоит доставка?' },
   { uz: 'Qaysi qolipni tanlash kerak?', ru: 'Какую форму выбрать?' },
 ];

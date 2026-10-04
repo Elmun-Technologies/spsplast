@@ -5,6 +5,7 @@ import nextDynamic from 'next/dynamic';
 import { Locale } from '@/lib/i18n';
 import { hreflang } from '@/lib/seo';
 import { HOME_FAQ, faqItems, faqJsonLd } from '@/lib/faq';
+import { getCategoryUrl } from '@/lib/catalog';
 import { getProductsServer, getCategoriesWithMeta } from '@/lib/catalog';
 import { ProductCard } from '@/components/product/ProductCard';
 import { CategoryCard } from '@/components/product/CategoryCard';
@@ -12,7 +13,7 @@ import { Container } from '@/components/ui/Container';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Price } from '@/components/ui/Price';
 import { FaqAccordion } from '@/components/ui/FaqAccordion';
-import { DealCountdown } from '@/components/ui/DealCountdown';
+import { LeadButton } from '@/components/lead/LeadButton';
 import {
   ArrowRight,
   ShieldCheck,
@@ -20,7 +21,6 @@ import {
   PackageCheck,
   Headphones,
   Sparkles,
-  ShoppingBag,
   FileDown,
 } from 'lucide-react';
 
@@ -114,18 +114,27 @@ export default async function HomePage({ params }: HomePageProps) {
   const block4Products = plitkaProducts.length > 0 ? plitkaProducts : allProducts.slice(12, 16);
 
   const featuredMold = allProducts.find((p) => p.resultImage) || allProducts[0];
-  const dealOfTheDay = bestsellers[0] || allProducts[0];
-
-  // Real discount coming from the catalog data — never advertise a number that
-  // the actual price does not carry.
-  const dealDiscountPercent =
-    dealOfTheDay?.oldPrice && dealOfTheDay.oldPrice > dealOfTheDay.price
-      ? Math.round(((dealOfTheDay.oldPrice - dealOfTheDay.price) / dealOfTheDay.oldPrice) * 100)
-      : 0;
+  /**
+   * Tanlangan model — menejer tavsiyasi.
+   *
+   * P0-8: bu blokda soxta shoshiltirish yo'q. Ilgari bu yerda "Tovar dnya",
+   * "skidka ogranichena" yozuvi va har kuni yarim tunda nolga qaytadigan
+   * taymer bor edi — hech qanday haqiqiy aksiya ortida turmasdi. Endi faqat
+   * katalogdagi `isBestseller` belgisi asosida bitta model ko'rsatiladi.
+   */
+  const featuredPick = bestsellers[0] || allProducts[0];
 
   // FAQ matni `src/lib/faq.ts` dan — sahifada ko'rinadigan matn bilan JSON-LD
   // bir xil manbadan olinadi (ilgari ular ikki nusxada yurardi).
-  const homeFaqJsonLd = faqJsonLd(HOME_FAQ, lang);
+  const homeFaqItems = faqItems(HOME_FAQ, lang);
+  const homeFaqJsonLd = faqJsonLd(homeFaqItems);
+
+  // Bloklar mavzu bo'yicha guruhlangan, lekin havolalar haqiqiy kategoriya
+  // sahifalariga ketishi kerak: slug'lar tilga qarab farq qiladi (uz/ru),
+  // shuning uchun ularni katalogdan olamiz, qo'lda yozmaymiz.
+  const categoryUrlById = Object.fromEntries(
+    getCategoriesWithMeta(lang).map((category) => [category.id, getCategoryUrl(lang, category)])
+  );
 
   const orgJsonLd = {
     '@context': 'https://schema.org',
@@ -219,55 +228,54 @@ export default async function HomePage({ params }: HomePageProps) {
               <div className="flex items-center justify-between pb-4 mb-4 border-b border-line-soft">
                 <div>
                   <div className="text-[15px] font-bold text-ink">
-                    {lang === 'ru' ? 'Товар дня' : 'Kun tanlovi'}
+                    {lang === 'ru' ? 'Выбор менеджера' : 'Menejer tanlovi'}
                   </div>
-                  <div className="text-[12px] text-ink-sub mt-0.5">{lang === 'ru' ? 'Скидка ограничена' : 'Cheklangan aksiya'}</div>
+                  <div className="text-[12px] text-ink-sub mt-0.5">
+                    {lang === 'ru' ? 'Рекомендуем эту модель' : 'Shu modelni tavsiya qilamiz'}
+                  </div>
                 </div>
-
-                <DealCountdown lang={lang} />
               </div>
 
-              {dealOfTheDay && (
+              {featuredPick && (
                 <div className="flex-1 flex flex-col justify-between gap-3">
                   <Link
-                    href={`/${lang}/product/${dealOfTheDay.slug}`}
+                    href={`/${lang}/product/${featuredPick.slug}`}
                     className="block relative aspect-[4/3] w-full bg-surface-soft rounded-[18px] overflow-hidden p-2 group"
                   >
-                    {dealOfTheDay.images?.[0]?.url && (
+                    {featuredPick.images?.[0]?.url && (
                       <Image
-                        src={dealOfTheDay.images[0].url}
-                        alt={dealOfTheDay.titleUz}
+                        src={featuredPick.images[0].url}
+                        alt={lang === 'ru' ? featuredPick.titleRu : featuredPick.titleUz}
                         fill
                         priority
                         sizes="(max-width: 1024px) 100vw, 420px"
                         className="object-contain p-2 group-hover:scale-105 transition-transform duration-300"
                       />
                     )}
-                    {dealDiscountPercent > 0 && (
-                      <span className="absolute top-3 left-3 bg-brand-red text-white text-[12px] font-bold px-2.5 py-1 rounded-full">
-                        -{dealDiscountPercent}%
-                      </span>
-                    )}
                   </Link>
 
                   <div className="space-y-1.5">
                     <Link
-                      href={`/${lang}/product/${dealOfTheDay.slug}`}
+                      href={`/${lang}/product/${featuredPick.slug}`}
                       className="text-[15px] font-semibold text-ink hover:text-brand-red line-clamp-2 leading-snug"
                     >
-                      {lang === 'ru' ? dealOfTheDay.titleRu : dealOfTheDay.titleUz}
+                      {lang === 'ru' ? featuredPick.titleRu : featuredPick.titleUz}
                     </Link>
 
-                    <Price price={dealOfTheDay.price} oldPrice={dealOfTheDay.oldPrice} lang={lang} size="md" />
+                    <Price price={featuredPick.price} oldPrice={featuredPick.oldPrice} lang={lang} size="md" />
                   </div>
 
-                  <Link
-                    href={`/${lang}/product/${dealOfTheDay.slug}`}
+                  <LeadButton
+                    lang={lang}
+                    product={{
+                      title: (lang === 'ru' ? featuredPick.titleRu : featuredPick.titleUz) || featuredPick.sku,
+                      sku: featuredPick.sku,
+                    }}
+                    type="CONSULTATION"
                     className="w-full flex items-center justify-center gap-2 text-sm font-semibold bg-brand-red hover:bg-brand-red-dark text-white py-3 px-4 rounded-full transition-colors mt-1 min-h-[46px] shadow-[0_10px_24px_-12px_rgba(230,28,36,0.8)]"
                   >
-                    <ShoppingBag className="w-4 h-4" />
-                    <span>{lang === 'ru' ? 'Купить по акции' : 'Aksiya bo‘yicha sotib olish'}</span>
-                  </Link>
+                    <span>{lang === 'ru' ? 'Оставить заявку' : 'Zayafka berish'}</span>
+                  </LeadButton>
                 </div>
               )}
             </div>
@@ -283,8 +291,8 @@ export default async function HomePage({ params }: HomePageProps) {
                 <Truck className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="text-sm font-semibold text-ink">{lang === 'ru' ? 'Доставка 1–3 дня' : 'Yetkazish 1–3 kun'}</h4>
-                <p className="text-[13px] text-ink-sub mt-1 leading-relaxed">Toshkent 24 soat, viloyatlar 1–3 kun</p>
+                <h4 className="text-sm font-semibold text-ink">{lang === 'ru' ? 'Доставка по Узбекистану' : 'O‘zbekiston bo‘ylab yetkazish'}</h4>
+                <p className="text-[13px] text-ink-sub mt-1 leading-relaxed">Toshkent — 1 ish kuni, viloyatlar — 1–3 ish kuni</p>
               </div>
             </div>
 
@@ -358,7 +366,7 @@ export default async function HomePage({ params }: HomePageProps) {
           <SectionHeader
             title={lang === 'ru' ? 'Формы для брусчатки' : 'Bruschatka qoliplari'}
             linkText={lang === 'ru' ? 'Все брусчатки' : 'Barcha qoliplar'}
-            linkHref={`/${lang}/catalog?category=bruschatka-qoliplari`}
+            linkHref={categoryUrlById['cat-s1']}
           />
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
             {block1Products.map((product) => (
@@ -373,7 +381,7 @@ export default async function HomePage({ params }: HomePageProps) {
           <SectionHeader
             title={lang === 'ru' ? 'Фасадные декор-элементы' : 'Fasad dekor elementlari'}
             linkText={lang === 'ru' ? 'Все декоры' : 'Barcha dekorlar'}
-            linkHref={`/${lang}/catalog?category=fasad-dekor`}
+            linkHref={categoryUrlById['cat-s3']}
           />
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
             {block2Products.map((product) => (
@@ -388,7 +396,7 @@ export default async function HomePage({ params }: HomePageProps) {
           <SectionHeader
             title={lang === 'ru' ? 'Бордюры и дорожные формы' : 'Bordyur va yo‘l qoliplari'}
             linkText={lang === 'ru' ? 'Все формы' : 'Barcha qoliplar'}
-            linkHref={`/${lang}/catalog?category=bordyur-qoliplari`}
+            linkHref={categoryUrlById['cat-s1']}
           />
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
             {block3Products.map((product) => (
@@ -403,7 +411,7 @@ export default async function HomePage({ params }: HomePageProps) {
           <SectionHeader
             title={lang === 'ru' ? 'Тротуарная плитка' : 'Trotuar plitka qoliplari'}
             linkText={lang === 'ru' ? 'Все плитки' : 'Barcha plitkalar'}
-            linkHref={`/${lang}/catalog?category=plitka-qoliplari`}
+            linkHref={categoryUrlById['cat-s2']}
           />
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
             {block4Products.map((product) => (
@@ -488,15 +496,15 @@ export default async function HomePage({ params }: HomePageProps) {
                 </p>
                 <div className="pt-2 flex flex-wrap gap-2 text-[12px] font-semibold text-brand-red">
                   <Link href={`/${lang}/catalog`} className="bg-surface-soft hover:bg-[#FEF0F0] px-3.5 py-2 rounded-full transition-colors">#Qoliplar</Link>
-                  <Link href={`/${lang}/catalog?category=bruschatka-qoliplari`} className="bg-surface-soft hover:bg-[#FEF0F0] px-3.5 py-2 rounded-full transition-colors">#Bruschatka</Link>
-                  <Link href={`/${lang}/catalog?category=termopanel`} className="bg-surface-soft hover:bg-[#FEF0F0] px-3.5 py-2 rounded-full transition-colors">#Termopanel</Link>
+                  <Link href={categoryUrlById['cat-s1']} className="bg-surface-soft hover:bg-[#FEF0F0] px-3.5 py-2 rounded-full transition-colors">#Bruschatka</Link>
+                  <Link href={categoryUrlById['cat-s3']} className="bg-surface-soft hover:bg-[#FEF0F0] px-3.5 py-2 rounded-full transition-colors">#Panellar</Link>
                 </div>
               </div>
 
               <div className="lg:col-span-6 space-y-3">
                 <h3 className="text-base font-semibold text-ink mb-3">{lang === 'ru' ? 'Часто задаваемые вопросы' : 'Ko‘p beriladigan savollar'}</h3>
 
-                <FaqAccordion items={faqItems(HOME_FAQ, lang)} />
+                <FaqAccordion items={homeFaqItems} />
               </div>
             </div>
           </div>

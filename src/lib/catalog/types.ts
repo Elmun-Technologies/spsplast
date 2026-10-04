@@ -60,6 +60,15 @@ export interface StaticVariant {
   options: StaticVariantOption[];
 }
 
+/** Kategoriya sahifasidagi SEO matn (P1-7) — `data/category-seo-2026.json` dan. */
+export interface StaticCategorySeo {
+  title: string;
+  lead: string;
+  body: { heading: string; text: string }[];
+  bullets: string[];
+  faq: { q: string; a: string }[];
+}
+
 export interface StaticCategory {
   id: string;
   parentId: string | null;
@@ -73,6 +82,7 @@ export interface StaticCategory {
     name: string;
     slug: string;
     description?: string | null;
+    seo?: StaticCategorySeo | null;
   }[];
 }
 

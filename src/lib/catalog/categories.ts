@@ -78,4 +78,13 @@ export function getCategoriesWithMeta(locale: string = 'uz') {
     });
 }
 
+/**
+ * Kategoriya sahifasining manzili. Slug tilga qarab farq qiladi
+ * (`bruschatka-trotuar-qoliplari` / `formy-dlya-bruschatki`), shuning uchun
+ * havolalarni qo'lda yozish o'rniga shu yordamchidan foydalaniladi.
+ */
+export function getCategoryUrl(locale: string, category: { slug: string }): string {
+  return `/${locale}/catalog/${category.slug}`;
+}
+
 export { getCategoryById, getCategoryBySlug };

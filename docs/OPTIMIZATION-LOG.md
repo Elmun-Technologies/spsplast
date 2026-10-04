@@ -154,6 +154,18 @@ o'rnatilgan).
 
 ---
 
+### 5.1. Qo'shimcha tuzatishlar (PR #15 ichida)
+
+| Nima | Natija |
+|---|---|
+| Kategoriya havolalari | `?category=<eski slug>` havolalar (footer, bosh sahifa, breadcrumb, qidiruv takliflari) haqiqiy statik manzillarga almashtirildi: `/{lang}/catalog/{slug}`. Slug'lar endi katalogdan olinadi (`getCategoryUrl`) — 62 mahsulotda uz/ru slug'lari farq qiladi, qo'lda yozish 404 beradi |
+| Qidiruv takliflari | Header mavjud bo'lmagan `/api/search` ga so'rov yuborardi — takliflar jimgina bo'sh qolardi. Endi `public/search-index.json` (generator yasaydi) bir marta yuklanadi va qidiruv brauzerda bajariladi |
+| Kategoriya SEO matni | `data/category-seo-2026.json` ga ko'chirildi; generator uni `catalog.json` ga qo'shadi va 300+ so'z / 5+ FAQ bo'yicha tekshiradi (yetmasa build to'xtaydi) |
+| Soxta shoshiltirish | "Tovar dnya / Cheklangan aksiya" bloki va har kuni nolga qaytadigan taymer olib tashlandi (`DealCountdown` o'chirildi) → "Menejer tanlovi" kartasi |
+| Boshqa da'volar | "Nemis va Italiya texnologiyasi", "har bir partiya laboratoriya testidan o'tadi", "14 kun / 100% kafolat / 1-2 kunda hal qilamiz" — tasdiqlanmagan raqamlar va da'volar olib tashlandi yoki aniq jarayon tavsifiga almashtirildi |
+| Kategoriya tarjimasi | Mahsulot sahifasi breadcrumb'i endi shu til slug'i/nomini oladi (rus sahifasida o'zbekcha kategoriya chiqmasin) |
+| robots.txt | `/search-index.json` indeksdan chiqarildi |
+
 ### 6. Tekshiruv natijalari
 
 | Tekshiruv | Buyruq | Natija |
@@ -428,10 +440,11 @@ saytga bitta ham tashqi skript qo'shilmaydi. Hodisalar: `view_item`,
 |---|---|
 | `npx tsc --noEmit` | ✅ 0 xato |
 | `npm run lint` | ✅ 0 ogohlantirish |
-| `npm test` | ✅ 41/41 (platform + static catalog + kontent + config) |
+| `npm test` | ✅ 45/45 (platform + static catalog + kontent + config) |
 | `npm run build` (`DATABASE_URL` siz) | ✅ 441 statik sahifa, ~30 s |
-| `/{lang}/catalog/{slug}` | ✅ 6 ta statik HTML (3 kategoriya × 2 til) |
-| `/{lang}/product/{slug}` | ✅ 384 ta statik HTML (192 × 2) |
+| `/{lang}/catalog/{slug}` | ✅ 6 ta statik HTML (3 kategoriya × 2 til), har birida 300+ so'z + FAQ JSON-LD |
+| `/{lang}/product/{slug}` | ✅ 384 ta statik HTML (192 × 2), breadcrumb shu tildagi kategoriyaga |
+| `public/search-index.json` | ✅ 192 mahsulot, 3 kategoriya, uz/ru slug va sarlavhalar |
 | `/uz/api/health` | ✅ Telegram holati, majburiy env yo'q bo'lsa `degraded` |
 
 ### 7. Deploy (Vercel)
@@ -457,4 +470,5 @@ Baza, `prisma db push`, seed va Fly.io sozlamalari **kerak emas**.
 | P0-9 | Zayafka E2E sinovi: forma → Telegram guruh (uz/ru), honeypot/rate-limit |
 | P1-1/P1-2 | Ulgurji narx so'rovi oqimini zayafka formasiga birlashtirish, cennik PDF |
 | P1-13 | Bosh sahifadagi inline matnlarni lug'atga ko'chirish |
+| — | Qidiruv sahifasini statik indeks ustida ishlashini qo'lda sinash (jonli takliflar faqat brauzerda ishlaydi) |
 | P0-11 | Rich Results Test'da JSON-LD (Product, FAQPage, HowTo) validatsiyasi |

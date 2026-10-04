@@ -23,7 +23,7 @@ export {
 } from './data';
 export { getProductsServer, mapProduct, getProductTranslation, getProductByIdWithTranslations } from './products';
 export type { ProductQuery, MappedProduct } from './products';
-export { getCategoryTree, getCategoryOptions, getCategoriesWithMeta } from './categories';
+export { getCategoryTree, getCategoryOptions, getCategoriesWithMeta, getCategoryUrl } from './categories';
 export type { CategoryTreeItem } from './categories';
 export { getBlogPosts, getBlogPostBySlug, getRelatedBlogPosts, getBlogAlternates, getBlogTranslation, getProjects } from './content';
 export type { BlogPostView } from './content';

@@ -16,6 +16,7 @@ sayt `DATABASE_URL` umuman bo'lmasa ham to'liq ishlaydi.
 | `data/molds-2026.json` | Studiya seriyali qoliplar va variant o'qlari |
 | `data/content-2026.json` | Blog maqolalari (7) va loyihalar (6) — uz/ru |
 | `scripts/static/seed-data.js` | RU nomlar, bo'limlar, qo'lda kiritilgan modellar |
+| `data/category-seo-2026.json` | Kategoriya sahifalari uchun 300+ so'zlik uz/ru matn va FAQ (P1-7) |
 
 ## Natija
 
@@ -25,7 +26,12 @@ sayt `DATABASE_URL` umuman bo'lmasa ham to'liq ishlaydi.
 - **3 kategoriya**: `cat-s1` bruschatka/trotuar (47), `cat-s2` dekorativ plita (86),
   `cat-s3` panel/profil (59)
 - **7 blog maqolasi**, **6 loyiha** — muqova va "oldin/keyin" rasmlari bilan
+- **Kategoriya SEO matni**: har bir kategoriya uchun uz/ru tilida 300+ so'z va 5+ FAQ
 - Har bir media yo'li `public/` ichida mavjudligi tekshiriladi
+
+Bundan tashqari generator **`public/search-index.json`** ni yozadi —
+saytdagi jonli qidiruv takliflari uchun yengil indeks (slug, sarlavha, SKU,
+rasm). Fayl statik: qidiruv boshida bir marta yuklanadi, server chaqiruvi yo'q.
 
 ## Buyruqlar
 
@@ -50,4 +56,6 @@ kelmasa build to'xtaydi — eski katalog bilan deploy bo'lib qolmaydi.
 ## Testlar
 
 `tests/staticCatalog.test.js` generatsiya natijasini tekshiradi (hajm, unikal
-SKU/slug, ikki tillilik, media mavjudligi, kategoriya sonlari).
+SKU/slug, ikki tillilik, media mavjudligi, kategoriya sonlari);
+`tests/platform.test.js` esa kategoriya SEO matni hajmini, qidiruv indeksini va
+ichki havolalarning haqiqiy slug'lardan foydalanishini qo'riqlaydi.

@@ -76,7 +76,11 @@ export default async function ProductDetailPage({
   }
 
   const product = trans.product;
-  const categoryTrans = product.categories[0]?.category?.translations[0];
+  // Kategoriya tarjimasi aynan shu til uchun olinadi: slug va nom uz/ru da
+  // farq qiladi, aks holda breadcrumb rus sahifasida o'zbekcha chiqadi.
+  const categoryTranslations = product.categories[0]?.category?.translations || [];
+  const categoryTrans =
+    categoryTranslations.find((t: { locale: string }) => t.locale === lang) || categoryTranslations[0];
 
   const moldMedia = product.media.find((m) => m.type === 'MOLD') || product.media[0];
   const resultMedia = product.media.find((m) => m.type === 'FINISHED_RESULT');
@@ -190,7 +194,7 @@ export default async function ProductDetailPage({
       { '@type': 'ListItem', position: 1, name: dict.nav.home, item: `/${lang}` },
       { '@type': 'ListItem', position: 2, name: dict.nav.catalog, item: `/${lang}/catalog` },
       ...(categoryTrans
-        ? [{ '@type': 'ListItem', position: 3, name: categoryTrans.name, item: `/${lang}/catalog?category=${categoryTrans.slug}` }]
+        ? [{ '@type': 'ListItem', position: 3, name: categoryTrans.name, item: `/${lang}/catalog/${categoryTrans.slug}` }]
         : []),
       { '@type': 'ListItem', position: categoryTrans ? 4 : 3, name: trans.name },
     ],
@@ -276,7 +280,7 @@ async function RelatedProducts({ lang, categorySlug, currentProductId }: { lang:
           title={lang === 'ru' ? 'Похожие товары' : 'O‘xshash mahsulotlar'}
           subtitle={lang === 'ru' ? 'Вам также может подойти' : 'Sizga ham mos kelishi mumkin'}
           linkText={lang === 'ru' ? 'Все' : 'Barchasi'}
-          linkHref={`/${lang}/catalog?category=${categorySlug}`}
+          linkHref={categorySlug ? `/${lang}/catalog/${categorySlug}` : `/${lang}/catalog`}
         />
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {related.map((p: any) => (

@@ -8,23 +8,29 @@ import { getDictionary, Locale } from '@/lib/i18n';
 import { trackEvent } from '@/lib/analytics';
 import { COMPANY_CONTACTS } from '@/lib/constants/contacts';
 
-interface FooterProps {
-  lang: Locale;
+export interface FooterCatalogLink {
+  id: string;
+  slug: string;
+  name: string;
 }
 
-const CATALOG_LINKS = [
-  { slug: 'bruschatka-qoliplari', uz: 'Bruschatka qoliplari', ru: 'Формы для брусчатки' },
-  { slug: 'plitka-qoliplari', uz: 'Plitka qoliplari', ru: 'Формы для плитки' },
-  { slug: 'bordyur-qoliplari', uz: 'Bordyur qoliplari', ru: 'Формы для бордюров' },
-  { slug: 'fasad-dekor', uz: 'Fasad dekor', ru: 'Фасадный декор' },
-];
+interface FooterProps {
+  lang: Locale;
+  /**
+   * Kategoriya havolalari server komponentdan uzatiladi: slug'lar tilga qarab
+   * farq qiladi va ularni qo'lda yozish 404 ga olib keladi. Footer client
+   * komponent bo'lgani uchun butun katalogni import qilmaymiz — faqat shu
+   * uchta yozuv keladi.
+   */
+  catalogLinks: FooterCatalogLink[];
+}
 
 /**
  * Light footer: same surface language as the rest of the storefront (white
  * panel on the grey page, hairline divider, quiet link colours) instead of the
  * previous all-black industrial block.
  */
-export const Footer: React.FC<FooterProps> = ({ lang }) => {
+export const Footer: React.FC<FooterProps> = ({ lang, catalogLinks }) => {
   const dict = getDictionary(lang);
 
   return (
@@ -150,10 +156,10 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
                   {lang === 'ru' ? 'Все товары' : 'Barcha mahsulotlar'}
                 </Link>
               </li>
-              {CATALOG_LINKS.map((item) => (
-                <li key={item.slug}>
-                  <Link href={`/${lang}/catalog?category=${item.slug}`} className="hover:text-brand-red transition-colors">
-                    {lang === 'ru' ? item.ru : item.uz}
+              {catalogLinks.map((item) => (
+                <li key={item.id}>
+                  <Link href={`/${lang}/catalog/${item.slug}`} className="hover:text-brand-red transition-colors">
+                    {item.name}
                   </Link>
                 </li>
               ))}

@@ -33,7 +33,7 @@ data/content-2026.json ──────┘                                    
                                               src/lib/catalog/*  (sinxron o'qish)
 ```
 
-- `npm run catalog:check` build oldidan JSON eskirganini tekshiradi.
+- `npm run catalog:check` build oldidan JSON va `public/search-index.json` eskirganini tekshiradi.
 - Testlar katalog shartnomasini qo'riqlaydi: 192 mahsulot, 3 kategoriya,
   unikal SKU/slug, har bir media fayl `public/` da mavjud, ikki tilda nom/tavsif.
 - Kontent (blog, loyihalar) ham shu faylda — bazaga import yo'q.
@@ -61,7 +61,7 @@ sahifa**, til, vaqt (Asia/Toshkent), UTM/gclid/fbclid. Muvaffaqiyatda
 - `src/components/lead/*` — forma va tugma (yagona kirish nuqtasi).
 - `src/components/product/*` — kartochka, tez ko'rish, taqqoslash, galereya.
 - Zustand faqat mahalliy holat uchun: sevimlilar, taqqoslash, oxirgi ko'rilgan.
-- `src/lib/faq.ts`, `src/lib/categoryContent.ts` — matn va JSON-LD bir manbadan.
+- `src/lib/faq.ts` (bosh sahifa) va `data/category-seo-2026.json` (kategoriyalar) — ko'rinadigan matn va JSON-LD bir manbadan.
 
 ## 6. SEO
 
