@@ -26,6 +26,14 @@ export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
 }
 
+/**
+ * Noma'lum til prefiksi (`/zzz`, `/en/...`) render qilinmaydi — Next darhol
+ * 404 qaytaradi. Ilgari bu holatda `notFound()` oqim ichida chaqirilib,
+ * productionda **500** berardi (o'lchandi: `/zzz` → 500, sabab — status
+ * allaqachon yuborilgan bo'ladi).
+ */
+export const dynamicParams = false;
+
 export default async function LangLayout({
   children,
   params,

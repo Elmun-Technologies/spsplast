@@ -259,6 +259,7 @@ test('12. Forma maydonlari ekran o‘quvchi uchun nomlangan (a11y)', () => {
 
 test('13. Dinamik sahifalar nomaʼlum slug uchun 404 beradi (soft-404 yo‘q)', () => {
   const routes = [
+    path.join('src', 'app', '[lang]', 'layout.tsx'),
     path.join('src', 'app', '[lang]', 'product', '[slug]', 'page.tsx'),
     path.join('src', 'app', '[lang]', 'catalog', '[categorySlug]', 'page.tsx'),
     path.join('src', 'app', '[lang]', 'blog', '[slug]', 'page.tsx'),
@@ -308,4 +309,16 @@ test('14. uz/ru slug farqi hreflang va sitemapʼda hisobga olinadi', () => {
   assert.match(sitemap, /entryAlternates\('catalog'/, 'sitemap: kategoriya alternatlari tuzilmagan');
   assert.match(sitemap, /entryAlternates\('blog'/, 'sitemap: blog alternatlari tuzilmagan');
   assert.match(sitemap, /catalog\.categories\.map/, 'sitemap: kategoriya sahifalari yo‘q');
+});
+
+
+test('15. Brendlangan 404 sahifasi mavjud va ikki tilda', () => {
+  const notFound = fs.readFileSync(path.join(__dirname, '..', 'src', 'app', 'not-found.tsx'), 'utf8');
+
+  // Qidiruv tizimlari 404 sahifani indekslamasin.
+  assert.match(notFound, /index: false/, '404 sahifasida noindex yo‘q');
+  // Ikkala til auditoriyasi uchun ham yo'l ko'rsatilgan bo'lishi kerak.
+  assert.match(notFound, /\/uz\/catalog/, '404: uz katalog havolasi yo‘q');
+  assert.match(notFound, /\/ru\/catalog/, '404: ru katalog havolasi yo‘q');
+  assert.match(notFound, /COMPANY_CONTACTS/, '404: telefon havolasi yo‘q');
 });

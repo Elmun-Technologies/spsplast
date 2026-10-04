@@ -555,16 +555,31 @@ ro'yxatda yo'q slug umuman render qilinmaydi va Next darhol **404** beradi:
   (`aria-current="page"`), mega-menyu (`aria-haspopup`).
 - Header'dagi `aria-label`lar joriy tilga moslandi (ilgari inglizcha edi).
 - Bo'sh `/compare` sahifasida `h1` yo'q edi — `sr-only` sarlavha qo'shildi.
-- Yangi testlar: **13** (`dynamicParams = false`) va **14** (hreflang/sitemap
-  slug mosligi); test **12** barcha forma maydonlarining nomlanishini qo'riqlaydi.
+- Yangi testlar: **12** (forma maydonlari nomlanishi), **13**
+  (`dynamicParams = false` — barcha dinamik marshrutlar), **14** (hreflang va
+  sitemap slug mosligi), **15** (brendlangan 404 sahifasi).
 
-### 4. Tekshiruv natijalari
+### 4. Brendlangan 404 sahifasi
+
+Noma'lum manzillar Next.js ning standart inglizcha "This page could not be
+found" sahifasini ko'rsatardi — ichida bosh sahifaga, katalogga yoki aloqa
+ma'lumotiga havola yo'q edi. `src/app/not-found.tsx` qo'shildi: ikki tilli matn,
+uz/ru katalog tugmalari, telefon raqami va `robots: noindex`.
+
+`[lang]/layout.tsx` ga ham `dynamicParams = false` qo'yildi: noma'lum til
+prefiksi (`/zzz`) ilgari **500** qaytarardi (layout ichida `notFound()` oqim
+boshlangandan keyin chaqirilardi), endi **404**.
+
+### 5. Tekshiruv natijalari
 
 | Tekshiruv | Natija |
 |---|---|
 | `npx tsc --noEmit` | ✅ 0 xato |
 | `npm run lint` | ✅ 0 ogohlantirish |
-| `npm test` | ✅ **48/48** |
+| `npm test` | ✅ **49/49** |
 | `npm run build` (`DATABASE_URL` siz) | ✅ 441 statik sahifa |
-| Prod 404 testi (`next start`) | ✅ yo'q slug'lar 404, mavjudlari 200 |
+| Prod smoke testi (`next start`, 52 URL) | ✅ barchasi kutilgan statusda |
+| Prod 404 testi | ✅ mavjud bo'lmagan slug va til prefiksi → 404 (500 emas) |
+| `?category=` filtr va `?q=` qidiruv | ✅ 200 (uz/ru) |
+| `/api/health` (env yo'q) | ✅ `503` + aniq xato matni (Telegram sozlanmagan) |
 | Sitemap tekshiruvi | ✅ 428 URL, 1284 alternat — yaroqsiz manzil yo'q |
