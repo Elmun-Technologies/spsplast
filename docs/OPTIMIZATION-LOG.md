@@ -349,3 +349,112 @@ yozadi (ehtiyot bo'ling: u avval eskisini o'chiradi).
 | P1-1/P1-2 | Ulgurji narx so'rovi va cennik PDF |
 | P1-7 | Kategoriya sahifalariga SEO matn + FAQ |
 | P0-6 (davomi) | 169 ta katta PNG (306 MB) ni `media-src/` ga ko'chirish |
+
+---
+
+## Batch 3 — Backendsiz arxitektura (T1) + zayafka oqimi (T3) + analitika/media (T4)
+
+**Sana:** 2026-10-04
+**Branch:** `arena/01a107c3-spsplast`
+**Holat:** ✅ Bajarildi va tekshirildi (tsc · eslint · 41 test · production build · statik HTML)
+
+Biznes modeli o'zgardi: sayt endi **do'kon emas, zayafka (lead) yig'uvchi sayt**.
+Xaridor forma to'ldiradi → xabar Telegram guruhga tushadi → menejer qo'ng'iroq
+qilib sotadi. Shu sababli Prisma, savat, buyurtma, to'lov va admin panel
+butunlay olib tashlandi: sayt `DATABASE_URL` siz ham to'liq ishlaydi.
+
+### 1. T1 — Prisma → statik katalog
+
+| Nima | Natija |
+|---|---|
+| Manba | `catalog_build/products.json` + `data/molds-2026.json` + `data/content-2026.json` |
+| Generator | `node scripts/build-static-catalog.js` → `src/data/catalog.json` (`--check` build'da majburiy) |
+| Katalog hajmi | 192 mahsulot · 3 kategoriya (47/86/59) · 7 maqola · 6 loyiha |
+| Runtime | `src/lib/catalog/*` — sinxron, tashqi so'rovsiz; `getProductsServer`, `getProductTranslation`, `getCategoryTree`, `getProjects`… |
+| API | Faqat 2 ta marshrut qoldi: `POST /api/leads` va `GET /api/health` |
+| Olib tashlandi | `prisma/`, seed/import skriptlari, admin panel, buyurtma/to'lov/cron/feed API'lari, `Dockerfile`, `fly.toml`, ikkala GitHub Actions workflow |
+
+### 2. T3 — Zayafka oqimi
+
+- `LeadModal` + `LeadButton` — bitta kompakt forma: **ism, telefon (+998 maskasi),
+  mahsulot, miqdor, izoh**. Mahsulot sahifasida mahsulot nomi va SKU avtomatik
+  qo'shiladi.
+- Chaqiruv nuqtalari: ProductCard, QuickViewModal, mahsulot sahifasi (barcha
+  CTA'lar + yopishqoq panel), Header, mobil yopishqoq panel, wishlist,
+  solishtirish, B2B banner, kategoriya sahifalari.
+- Telegram xabari kontekstni to'liq oladi: turi, ism, telefon, mahsulot + SKU,
+  miqdor, izoh, **manba sahifa**, til, vaqt (Asia/Toshkent), UTM/gclid/fbclid.
+- Himoya: HTML escape (`escapeTelegramHtml`), honeypot (`website`), IP bo'yicha
+  rate limit (10 so'rov / 15 daqiqa), `x-forwarded-for` birinchi hop'i.
+- Muvaffaqiyat holati formada ko'rsatiladi, `generate_lead` event yuboriladi.
+
+### 3. T4 — P0-8 trust da'volari auditi
+
+Olib tashlandi yoki tuzatildi (dalilsiz raqamlar):
+
+| Ilgari | Endi |
+|---|---|
+| "100+ dona −5% / 500+ dona −10%" | "Narx hajmga bog'liq" |
+| "10–49 dona −5%, 50+ dona −10%" (AI yordamchi) | individual kelishuv |
+| "50 000 so'mdan, 1 000 000 so'mdan bepul" | "tarif manzil va hajmga bog'liq" |
+| "Toshkent 1–3 kun / 24 soat" ziddiyati | yagona manba: Toshkent — 1 ish kuni, viloyatlar — 1–3 ish kuni |
+| "chegirma avtomatik qo'llanadi" | zayafka + menejer hisob-kitobi |
+| Sharhlar bo'limi (moderatsiya imkonsiz) | butunlay olib tashlandi |
+
+Bosh sahifa FAQ endi `src/lib/faq.ts` dan o'qiydi (uz/ru) — ko'rinadigan matn
+va JSON-LD bir manbadan yasaladi.
+
+### 4. T4 — P0-12 analitika
+
+`src/components/analytics/AnalyticsScripts.tsx` root layout'da:
+GTM → GA4 (GTM bo'lmasa to'g'ridan-to'g'ri `gtag`) → Yandex Metrica → Meta Pixel.
+Har biri faqat env ID mavjud bo'lsa yuklanadi (`afterInteractive`), ID bo'lmasa
+saytga bitta ham tashqi skript qo'shilmaydi. Hodisalar: `view_item`,
+`view_item_list`, `search`, `share`, `add_to_wishlist`, `add_to_compare`,
+`generate_lead` (`src/lib/analytics.ts`).
+
+### 5. T4 — P0-6 media va P1-7 kategoriya SEO
+
+- 169 ta katta PNG (306 MB) `media-src/masters/` ga ko'chirildi va git
+  kuzatuvidan chiqarildi (`.gitignore`); `scripts/build-media.py` yangi joyni
+  o'qiydi; repo ildizida master fayl qolmadi.
+- Har bir kategoriya uchun statik sahifa: `/{lang}/catalog/{slug}` — mahsulot
+  to'ri, **300+ so'z** (uz/ru) SEO matn, 5 ta FAQ + `FAQPage` JSON-LD, boshqa
+  kategoriyalarga ichki havolalar. Test buni so'z soni bo'yicha tekshiradi.
+
+### 6. Tekshiruv natijalari
+
+| Tekshiruv | Natija |
+|---|---|
+| `npx tsc --noEmit` | ✅ 0 xato |
+| `npm run lint` | ✅ 0 ogohlantirish |
+| `npm test` | ✅ 41/41 (platform + static catalog + kontent + config) |
+| `npm run build` (`DATABASE_URL` siz) | ✅ 441 statik sahifa, ~30 s |
+| `/{lang}/catalog/{slug}` | ✅ 6 ta statik HTML (3 kategoriya × 2 til) |
+| `/{lang}/product/{slug}` | ✅ 384 ta statik HTML (192 × 2) |
+| `/uz/api/health` | ✅ Telegram holati, majburiy env yo'q bo'lsa `degraded` |
+
+### 7. Deploy (Vercel)
+
+```bash
+# Vercel → Environment Variables
+NEXT_PUBLIC_SITE_URL=https://sps.uz
+TELEGRAM_BOT_TOKEN=...          # @BotFather
+TELEGRAM_CHAT_ID=...            # kompaniya guruhi
+NEXT_PUBLIC_GTM_ID=...          # ixtiyoriy
+NEXT_PUBLIC_GA_MEASUREMENT_ID=...
+NEXT_PUBLIC_YANDEX_METRICA_ID=...
+NEXT_PUBLIC_META_PIXEL_ID=...   # ixtiyoriy
+```
+
+Baza, `prisma db push`, seed va Fly.io sozlamalari **kerak emas**.
+
+### 8. Keyingi batch (taklif)
+
+| Prioritet | Vazifa |
+|---|---|
+| P0-1 | `sps.uz` domenini Vercel'ga ulash, env'larni kiritish, health-check |
+| P0-9 | Zayafka E2E sinovi: forma → Telegram guruh (uz/ru), honeypot/rate-limit |
+| P1-1/P1-2 | Ulgurji narx so'rovi oqimini zayafka formasiga birlashtirish, cennik PDF |
+| P1-13 | Bosh sahifadagi inline matnlarni lug'atga ko'chirish |
+| P0-11 | Rich Results Test'da JSON-LD (Product, FAQPage, HowTo) validatsiyasi |

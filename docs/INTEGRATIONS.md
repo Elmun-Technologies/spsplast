@@ -1,74 +1,44 @@
-# SPS PLAST — INTEGRATIONS ARCHITECTURE (PHASE 7)
+# SPS PLAST — integratsiyalar
 
-## Overview
+**Yangilangan:** 2026-10-04
 
-This document describes the external integration architecture for SPS Plast, covering:
-1. **Click.uz Payment Provider** (Prepare & Complete callbacks)
-2. **Payme.uz Payment Provider** (JSON-RPC protocol implementation)
-3. **amoCRM System Integration** (OAuth2 token exchange, Lead & Contact creation, outbox worker pattern)
-4. **Idempotency & Security Guarantees**
+Saytda ikkita integratsiya qatlami bor: **zayafkani yetkazish** (majburiy) va
+**analitika** (ixtiyoriy, env bo'lsa yuklanadi). To'lov, CRM, S3, cron va
+boshqa eski integratsiyalar backendsiz arxitekturada olib tashlangan.
 
----
+## 1. Telegram — zayafka yetkazish
 
-## 1. Click.uz Payment Integration
+**Fayllar:** `src/lib/telegram.ts`, `src/app/api/leads/route.ts`
 
-### Endpoint
-`POST /api/payments/click`
+- Bot tokeni va guruh ID'si env orqali (`TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`).
+- Har bir zayafka `sendMessage` bilan HTML parse rejimida yuboriladi; foydalanuvchi
+  kiritgan barcha matn `escapeTelegramHtml()` dan o'tadi (markup inject bo'lmasligi
+  uchun).
+- Xabar tarkibi: turi, ism, telefon, mahsulot + SKU, miqdor, izoh, manba sahifa,
+  til, vaqt (Asia/Toshkent), UTM/gclid/fbclid.
+- Xatolik yuz bersa API `{success: true, delivered: false}` qaytaradi va log yozadi —
+  foydalanuvchi formani qayta to'ldirishga majbur bo'lmaydi.
 
-### Authentication & Signature
-Requests from Click send `sign_string`:
-`MD5(click_trans_id + service_id + SECRET_KEY + merchant_trans_id + amount + action + sign_time)`
+**Muhim:** token bo'lmasa `/api/health` `degraded` holatini ko'rsatadi; deploydan
+keyin shu endpointni tekshiring.
 
-The server verifies `sign_string` before executing any logic. If signature check fails, error `-1` (Sign failed) is returned.
+## 2. Analitika
 
-### Actions
-* `action = 0` (**Prepare**):
-  - Checks if order exists by `merchant_trans_id` (orderId or orderNumber) and amount matches `order.totalAmount`.
-  - Creates or updates `PaymentTransaction` with status `PENDING`.
-  - Returns `error = 0` on success, or appropriate Click error code (`-2` amount invalid, `-5` order not found, `-4` already paid).
-* `action = 1` (**Complete**):
-  - Validates `error` payload from Click.
-  - If `error < 0`, marks `PaymentTransaction` and order payment status as `FAILED`.
-  - If `error === 0`, marks `PaymentTransaction` as `PAID`, sets `order.paymentStatus = 'PAID'`, logs audit entry, and enqueues amoCRM sync job.
+**Fayllar:** `src/components/analytics/AnalyticsScripts.tsx`, `src/lib/analytics.ts`
 
----
+| Kanal | Env | Izoh |
+|---|---|---|
+| Google Tag Manager | `NEXT_PUBLIC_GTM_ID` | Asosiy konteyner |
+| GA4 | `NEXT_PUBLIC_GA_MEASUREMENT_ID` | Faqat GTM bo'lmasa to'g'ridan-to'g'ri yuklanadi |
+| Yandex Metrica | `NEXT_PUBLIC_YANDEX_METRICA_ID` | `reachGoal` bilan hodisalar |
+| Meta Pixel | `NEXT_PUBLIC_META_PIXEL_ID` | Facebook/Instagram |
 
-## 2. Payme.uz Payment Integration
+Hodisalar: `view_item`, `view_item_list`, `search`, `share`, `add_to_wishlist`,
+`add_to_compare`, `generate_lead`. Skriptlar `afterInteractive` va faqat ID
+mavjud bo'lsa yuklanadi — ID bo'lmasa sayt bitta ham tashqi so'rov qilmaydi.
 
-### Endpoint
-`POST /api/payments/payme`
+## 3. Olib tashlangan integratsiyalar
 
-### Protocol
-Payme uses JSON-RPC 2.0 with HTTP Basic Authentication (`Paycom:SECRET_KEY`).
-
-### Supported JSON-RPC Methods
-1. `CheckPerformTransaction`: Validates order existence and amount (`amount` in tiyn, i.e., UZS * 100).
-2. `CreateTransaction`: Creates a transaction record or returns existing active transaction within timeout window (12 hours).
-3. `PerformTransaction`: Marks transaction as `PAID`, sets `order.paymentStatus = 'PAID'`, logs audit entry, and enqueues amoCRM sync job.
-4. `CancelTransaction`: Cancels transaction before or after payment (with reason).
-5. `CheckTransaction`: Returns transaction status and details.
-6. `GetStatement`: Returns statement of transactions in specified time window.
-
----
-
-## 3. amoCRM Integration
-
-### Authentication & Token Management
-* OAuth 2.0 protocol.
-* Redirect callback endpoint: `GET /api/admin/integrations/amocrm/callback?code=...`
-* Tokens are stored securely in `AmoCrmToken` database table.
-* Automatic refresh using `refresh_token` when `expiresAt` is near expiration.
-
-### Lead & Contact Sync Flow
-1. Orders or leads trigger an event in the system.
-2. An `IntegrationJob` is enqueued in the `IntegrationJob` outbox table with status `PENDING`.
-3. Worker `processPendingIntegrationJobs()` picks up jobs, syncs leads/contacts with custom field mapping (including UTM parameters: `utm_source`, `utm_medium`, `utm_campaign`), and updates `Order.amocrmLeadId` and `Order.amocrmSyncedAt`.
-4. If amoCRM is unconfigured or returns an error, jobs enter `RETRY` (up to 5 attempts) and errors are safely captured without breaking customer checkout.
-
----
-
-## 4. Security & Robustness Summary
-
-* **Idempotency**: All webhook transactions verify existing `PaymentTransaction` records before executing state changes.
-* **Fault Tolerance**: Non-critical external service failures (e.g. CRM down) do not block customer orders or payment processing.
-* **Admin Monitoring**: `/admin/settings/integrations` provides live status, credential health, outbox queue state, and audit logs.
+Click/Payme to'lovlari, amoCRM, S3/R2 media saqlash, cron job'lar va admin
+autentifikatsiyasi endi mavjud emas (sayt do'kon emas). Qayta kerak bo'lsa —
+`docs/OPTIMIZATION-LOG.md` Batch 3 dagi qarorlarni ko'rib chiqing.

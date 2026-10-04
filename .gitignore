@@ -49,5 +49,9 @@ backups/
 .env*
 !.env.example
 
+# Master rasm fayllar (169 ta PNG, ~306 MB) — diskda qoladi, git'ga kirmaydi.
+# Sayt uchun yengil nusxalar `public/media/` va `public/catalog/` da.
+/media-src/masters/
+
 # Stray local archives / scratch dumps
 *.zip
