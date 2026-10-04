@@ -136,6 +136,7 @@ export const CatalogClient: React.FC<CatalogClientProps> = ({
             {/* Sort */}
             <div className="relative">
               <select
+                aria-label={lang === 'ru' ? 'Сортировка' : 'Saralash'}
                 value={searchParams.sort || ''}
                 onChange={(e) => updateParam('sort', e.target.value || null)}
                 className="appearance-none bg-surface-soft rounded-full pl-5 pr-10 py-2.5 text-sm font-medium text-ink focus:outline-none focus:bg-surface min-h-[44px] cursor-pointer"
@@ -246,6 +247,8 @@ export const CatalogClient: React.FC<CatalogClientProps> = ({
                 <div className="grid grid-cols-2 gap-2">
                   <input
                     type="number"
+                    inputMode="numeric"
+                    aria-label={lang === 'ru' ? 'Цена от' : 'Narx dan'}
                     placeholder="Min"
                     value={priceMin}
                     onChange={(e) => setPriceMin(e.target.value)}
@@ -253,6 +256,8 @@ export const CatalogClient: React.FC<CatalogClientProps> = ({
                   />
                   <input
                     type="number"
+                    inputMode="numeric"
+                    aria-label={lang === 'ru' ? 'Цена до' : 'Narx gacha'}
                     placeholder="Max"
                     value={priceMax}
                     onChange={(e) => setPriceMax(e.target.value)}

@@ -210,6 +210,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                     <button
                       key={idx}
                       onClick={() => setActiveImageIndex(idx)}
+                      aria-current={activeImageIndex === idx}
                       className={`relative w-20 h-20 rounded-[16px] overflow-hidden shrink-0 bg-surface-soft transition-all p-1 border-2 ${
                         activeImageIndex === idx ? 'border-brand-red' : 'border-transparent opacity-70 hover:opacity-100'
                       }`}
@@ -256,9 +257,14 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                       </button>
                     </div>
                     <div>
-                      <label className="text-xs font-semibold text-ink-soft">m²</label>
+                      <label htmlFor="calc-area" className="text-xs font-semibold text-ink-soft">m²</label>
                       <input
+                        id="calc-area"
                         type="number"
+                        inputMode="decimal"
+                        aria-label={
+                          lang === 'ru' ? 'Площадь в квадратных метрах' : 'Maydon (kvadrat metr)'
+                        }
                         value={calcArea}
                         onChange={(e) => setCalcArea(e.target.value)}
                         placeholder={lang === 'ru' ? 'Например: 50' : 'Masalan: 50'}

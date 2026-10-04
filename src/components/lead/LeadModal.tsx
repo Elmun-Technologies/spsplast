@@ -183,12 +183,14 @@ export const LeadModal: React.FC<LeadModalProps> = ({
           )}
 
           <div>
-            <label className="block text-sm font-semibold text-ink-soft mb-1.5 flex items-center gap-1.5">
+            <label htmlFor="lead-name" className="block text-sm font-semibold text-ink-soft mb-1.5 flex items-center gap-1.5">
               <User className="w-4 h-4 text-ink-sub" />
               {isRu ? 'Ваше имя' : 'Ismingiz'} *
             </label>
             <input
+              id="lead-name"
               type="text"
+              autoComplete="name"
               required
               minLength={2}
               value={name}
@@ -199,12 +201,14 @@ export const LeadModal: React.FC<LeadModalProps> = ({
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-ink-soft mb-1.5 flex items-center gap-1.5">
+            <label htmlFor="lead-phone" className="block text-sm font-semibold text-ink-soft mb-1.5 flex items-center gap-1.5">
               <Phone className="w-4 h-4 text-ink-sub" />
               {isRu ? 'Телефон' : 'Telefon'} *
             </label>
             <input
+              id="lead-phone"
               type="tel"
+              autoComplete="tel"
               required
               value={phone}
               onChange={(e) => setPhone(formatPhone(e.target.value))}
@@ -221,11 +225,13 @@ export const LeadModal: React.FC<LeadModalProps> = ({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-semibold text-ink-soft mb-1.5">
+              <label htmlFor="lead-quantity" className="block text-sm font-semibold text-ink-soft mb-1.5">
                 {isRu ? 'Количество, шт' : 'Miqdor, dona'}
               </label>
               <input
+                id="lead-quantity"
                 type="number"
+                inputMode="numeric"
                 min={1}
                 value={quantity}
                 onChange={(e) => setQuantity(e.target.value)}
@@ -241,11 +247,12 @@ export const LeadModal: React.FC<LeadModalProps> = ({
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-ink-soft mb-1.5 flex items-center gap-1.5">
+            <label htmlFor="lead-comment" className="block text-sm font-semibold text-ink-soft mb-1.5 flex items-center gap-1.5">
               <MessageSquare className="w-4 h-4 text-ink-sub" />
               {isRu ? 'Комментарий' : 'Izoh'}
             </label>
             <textarea
+              id="lead-comment"
               rows={2}
               value={comment}
               onChange={(e) => setComment(e.target.value)}
@@ -262,7 +269,14 @@ export const LeadModal: React.FC<LeadModalProps> = ({
           <div className="hidden" aria-hidden="true">
             <label>
               Website
-              <input type="text" tabIndex={-1} autoComplete="off" value={website} onChange={(e) => setWebsite(e.target.value)} />
+              <input
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                value={website}
+                onChange={(e) => setWebsite(e.target.value)}
+              />
             </label>
           </div>
 

@@ -208,7 +208,34 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
     };
 
     const currentOtherLang = lang === 'uz' ? 'ru' : 'uz';
-    const switchLangUrl = pathname.replace(`/${lang}`, `/${currentOtherLang}`);
+
+    /**
+     * Til almashtirish manzili.
+     *
+     * Mahsulot, kategoriya va maqola slug'lari tildan tilga farq qiladi
+     * (`/uz/product/deraza-tokchasi-podokonnik-qolipi` ↔
+     * `/ru/product/forma-podokonnika`), shuning uchun oddiy prefiks
+     * almashtirish 404 ga olib kelardi. Har bir sahifaning `generateMetadata`
+     * si to'g'ri alternatlarni `<link rel="alternate" hreflang="...">` sifatida
+     * allaqachon yozadi — shu havoladan foydalanamiz; sahifada alternat
+     * bo'lmasa (masalan, statik sahifa) prefiks almashtirish yetarli.
+     */
+    const [alternatePath, setAlternatePath] = useState<string | null>(null);
+
+    useEffect(() => {
+        setAlternatePath(null);
+        const link = document.querySelector<HTMLLinkElement>(
+            `link[rel="alternate"][hreflang="${currentOtherLang}"]`
+        );
+        if (!link) return;
+        try {
+            setAlternatePath(new URL(link.href, window.location.origin).pathname);
+        } catch {
+            setAlternatePath(null);
+        }
+    }, [pathname, currentOtherLang]);
+
+    const switchLangUrl = alternatePath || pathname.replace(`/${lang}`, `/${currentOtherLang}`);
 
     /**
      * Tilni qo'lda almashtirganda tanlovni cookie'ga yozamiz: keyin foydalanuvchi
@@ -255,7 +282,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                             <a
                                 href={`tel:${COMPANY_CONTACTS.phoneRaw}`}
                                 onClick={() => trackEvent('phone_click', { location: 'topbar' })}
-                                aria-label="Call SPS"
+                                aria-label={lang === 'ru' ? 'Позвонить в SPS' : 'SPS ga qo‘ng‘iroq'}
                                 className="hidden sm:flex items-center gap-1.5 text-ink-soft hover:text-brand-red transition-colors font-semibold"
                             >
                                 <Phone className="w-3.5 h-3.5" />
@@ -368,7 +395,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                                         type="button"
                                         onClick={() => setSearchQuery('')}
                                         className="absolute right-2 p-1 text-ink-sub hover:text-ink-soft rounded-full hover:bg-surface-soft"
-                                        aria-label="Clear search"
+                                        aria-label={lang === 'ru' ? 'Очистить поиск' : 'Qidiruvni tozalash'}
                                     >
                                         <X className="w-4 h-4" />
                                     </button>
@@ -480,7 +507,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                         <Link
                             href={`/${lang}/compare`}
                             className="relative hidden sm:flex items-center justify-center w-11 h-11 rounded-full bg-surface-soft text-ink-soft hover:bg-[#E9EDF3] hover:text-ink transition-colors"
-                            aria-label="Compare"
+                            aria-label={lang === 'ru' ? 'Сравнение' : 'Taqqoslash'}
                         >
                             <ArrowRightLeft className="w-[18px] h-[18px]" />
                             {compareCount > 0 && (
@@ -493,7 +520,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                         <Link
                             href={`/${lang}/wishlist`}
                             className="relative flex items-center justify-center w-11 h-11 rounded-full bg-surface-soft text-ink-soft hover:bg-[#E9EDF3] hover:text-brand-red transition-colors"
-                            aria-label="Wishlist"
+                            aria-label={lang === 'ru' ? 'Избранное' : 'Sevimlilar'}
                         >
                             <Heart className={`w-[18px] h-[18px] ${wishlistCount > 0 ? 'fill-brand-red text-brand-red' : ''}`} />
                             {wishlistCount > 0 && (
@@ -515,7 +542,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                         <button
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                             className="md:hidden w-11 h-11 rounded-full bg-surface-soft text-ink-soft hover:text-ink flex items-center justify-center"
-                            aria-label="Toggle Menu"
+                            aria-label={lang === 'ru' ? 'Меню' : 'Menyu'}
                         >
                             {mobileMenuOpen ? <X className="w-[18px] h-[18px]" /> : <Menu className="w-[18px] h-[18px]" />}
                         </button>
@@ -554,7 +581,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                             onClick={() => setMegaMenuOpen(!megaMenuOpen)}
                             className="flex items-center gap-2 px-5 h-10 bg-ink hover:bg-black text-white font-semibold text-sm transition-colors cursor-pointer rounded-full shrink-0"
                             aria-expanded={megaMenuOpen}
-                            aria-label="Katalog"
+                            aria-haspopup="true"
+                            aria-label={lang === 'ru' ? 'Каталог' : 'Katalog'}
                         >
                             <LayoutGrid className="w-4 h-4" />
                             <span>{lang === 'ru' ? 'Каталог' : 'Katalog'}</span>
@@ -564,14 +592,19 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                         </button>
 
                         {/* CATEGORY LINKS CHIPS */}
-                        <nav className="flex items-center gap-1 text-sm font-medium text-ink-soft shrink-0">
+                        <nav
+                            aria-label={lang === 'ru' ? 'Категории' : 'Kategoriyalar'}
+                            className="flex items-center gap-1 text-sm font-medium text-ink-soft shrink-0"
+                        >
                             {categories.slice(0, 6).map((cat) => {
                                 const slug = getCategorySlug(cat);
                                 const name = getCategoryName(cat);
+                                const categoryHref = `/${lang}/catalog/${slug}`;
                                 return (
                                     <Link
                                         key={cat.id}
-                                        href={`/${lang}/catalog/${slug}`}
+                                        href={categoryHref}
+                                        aria-current={pathname === categoryHref ? 'page' : undefined}
                                         className="hover:text-brand-red hover:bg-surface-soft px-3 py-2 rounded-full transition-colors whitespace-nowrap"
                                     >
                                         {name}

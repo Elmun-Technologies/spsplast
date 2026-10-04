@@ -502,3 +502,69 @@ Baza, `prisma db push`, seed va Fly.io sozlamalari **kerak emas**.
 | P1-13 | Bosh sahifadagi inline matnlarni lug'atga ko'chirish |
 | P0-11 | Rich Results Test'da JSON-LD (Product, FAQPage, HowTo) validatsiyasi |
 | — | Eski DB davri hujjatlari (`SECURITY.md`, `UI-*.md`, `CONTENT-REPLACEMENT.md`) yangilash yoki o'chirish |
+
+---
+
+## Batch 4 — SEO tozalash, til havolalari va a11y (PR #15 davomi)
+
+**Sana:** 2026-10-04 · **Branch:** `arena/01a107c3-spsplast`
+
+### 1. Soft-404 muammosi (dinamik marshrutlar)
+
+Prod build'da tekshiruv ko'rsatdi: `/{lang}/product/<yo'q-slug>`,
+`/{lang}/catalog/<yo'q-slug>` va `/{lang}/blog/<yo'q-slug>` **200** status
+qaytarardi — sahifa ichida `noindex` not-found ko'rinardi, ya'ni Google uchun
+"soft 404". Sabab: `notFound()` oqim boshlangandan keyin chaqiriladi va status
+allaqachon 200 bo'lib ketadi.
+
+Yechim: uch dinamik marshrutga `export const dynamicParams = false`. Endi
+ro'yxatda yo'q slug umuman render qilinmaydi va Next darhol **404** beradi:
+
+| URL | Ilgari | Endi |
+|---|---|---|
+| `/uz/product/zzz` | 200 + noindex | **404** |
+| `/uz/catalog/zzz-nonexistent` | 200 + noindex | **404** |
+| `/uz/blog/zzz` | 200 + noindex | **404** |
+
+### 2. uz/ru slug farqi: hreflang, sitemap, til almashtirish
+
+62 mahsulot, 3 kategoriya va 7 maqolada slug'lar tildan tilga farq qiladi
+(`/uz/product/deraza-tokchasi-podokonnik-qolipi` ↔
+`/ru/product/forma-podokonnika`). Shu sababli uchta xato topildi:
+
+1. **hreflang:** kategoriya va blog sahifalari ikkala tilga ham joriy til
+   slug'ini yozardi (`/ru/blog/<uz-slug>`) → alternat 404 ga ishor edi.
+   `pageMetadata()` endi `alternatePaths` qabul qiladi.
+2. **Sitemap:** dinamik yozuvlar uchun ham xuddi shunday edi; ustiga **kategoriya
+   sahifalari umuman yo'q** edi. Endi `entryAlternates()` har tilning o'z
+   slug'ini yozadi va 3 kategoriya × 2 til ham ro'yxatga qo'shildi.
+   Natija: 428 URL, **0 yaroqsiz manzil** (tekshirildi).
+3. **Til almashtirish tugmasi:** `pathname.replace('/uz','/ru')` qilardi —
+   slug'i farq qiladigan sahifalarda 404. Endi tugma sahifaning
+   `<link rel="alternate" hreflang="...">` havolasidan o'qiydi (SSR'da
+   `generateMetadata` allaqachon to'g'ri alternatlarni yozadi), topilmasa
+   eski usulga qaytadi.
+
+### 3. Accessibility (P1-14)
+
+- `LeadModal` va kontakt sahifasidagi maydonlar `id` + `htmlFor` bilan
+  bog'landi (ilgari yorliq vizual bor edi, lekin ekran o'quvchi uchun
+  programmatik aloqasi yo'q edi); `autoComplete` va `inputMode` qo'shildi.
+- Ikonkali tugmalarga nom berildi: solishtirish panelidan o'chirish/tozalash,
+  AI assistent yuborish/input, nav kategoriya havolalari
+  (`aria-current="page"`), mega-menyu (`aria-haspopup`).
+- Header'dagi `aria-label`lar joriy tilga moslandi (ilgari inglizcha edi).
+- Bo'sh `/compare` sahifasida `h1` yo'q edi — `sr-only` sarlavha qo'shildi.
+- Yangi testlar: **13** (`dynamicParams = false`) va **14** (hreflang/sitemap
+  slug mosligi); test **12** barcha forma maydonlarining nomlanishini qo'riqlaydi.
+
+### 4. Tekshiruv natijalari
+
+| Tekshiruv | Natija |
+|---|---|
+| `npx tsc --noEmit` | ✅ 0 xato |
+| `npm run lint` | ✅ 0 ogohlantirish |
+| `npm test` | ✅ **48/48** |
+| `npm run build` (`DATABASE_URL` siz) | ✅ 441 statik sahifa |
+| Prod 404 testi (`next start`) | ✅ yo'q slug'lar 404, mavjudlari 200 |
+| Sitemap tekshiruvi | ✅ 428 URL, 1284 alternat — yaroqsiz manzil yo'q |

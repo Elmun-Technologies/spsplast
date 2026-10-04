@@ -219,10 +219,15 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({ lang }) => {
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
+                aria-label={lang === 'ru' ? 'Сообщение ассистенту' : 'Assistentga xabar'}
                 placeholder={lang === 'ru' ? 'Напишите сообщение...' : 'Xabar yozing...'}
                 className="flex-1 px-4 py-3 rounded-full border border-line bg-surface-soft text-sm focus:border-brand-red focus:bg-surface outline-none min-h-[44px]"
               />
-              <button type="submit" className="w-11 h-11 rounded-full bg-brand-red text-white flex items-center justify-center hover:bg-brand-red-dark shrink-0">
+              <button
+                type="submit"
+                aria-label={lang === 'ru' ? 'Отправить' : 'Yuborish'}
+                className="w-11 h-11 rounded-full bg-brand-red text-white flex items-center justify-center hover:bg-brand-red-dark shrink-0"
+              >
                 <Send className="w-5 h-5" />
               </button>
             </form>

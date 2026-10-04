@@ -71,6 +71,9 @@ export function generateStaticParams() {
   );
 }
 
+/** Ro'yxatda yo'q maqola uchun render yo'q — toza 404 (soft 404 emas). */
+export const dynamicParams = false;
+
 export default async function BlogPostPage({ params }: { params: Promise<{ lang: Locale; slug: string }> }) {
   const { lang, slug } = await params;
   const dict = getDictionary(lang);
@@ -220,6 +223,10 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Loc
   return pageMetadata({
     lang,
     path: `/blog/${slug}`,
+    // Har bir tilning o'z slug'i bor — hreflang shu manzillarga ishora qilishi kerak.
+    alternatePaths: Object.fromEntries(
+      trans.post.translations.map((t) => [t.locale, `/blog/${t.slug}`])
+    ),
     title: `${trans.title} | SPS Blog`,
     description,
     image: trans.post.coverImage,

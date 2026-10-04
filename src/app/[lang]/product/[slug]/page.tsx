@@ -28,6 +28,14 @@ export function generateStaticParams() {
   );
 }
 
+/**
+ * `dynamicParams = false`: ro'yxatda yo'q slug uchun sahifa umuman render
+ * qilinmaydi va Next haqiqiy **404** qaytaradi. Aks holda oqim avval 200
+ * status bilan boshlanib, keyin `notFound()` chaqirilardi — natijada Google
+ * "soft 404" ko'rardi (noindex bo'lsa ham URL indeksda qolardi).
+ */
+export const dynamicParams = false;
+
 export async function generateMetadata({ params }: ProductPageProps) {
   const { lang, slug } = await params;
   const trans = getProductTranslation(lang, slug);

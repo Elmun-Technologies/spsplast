@@ -34,6 +34,12 @@ interface PageMetadataOptions {
   type?: OgType;
   /** Qidiruv natijasidan chiqarish (solishtirish, saralanganlar, natija sahifalari). */
   noindex?: boolean;
+  /**
+   * Boshqa tildagi manzil (til prefiksisiz). Slug'lar tildan tilga farq qiladi —
+   * mahsulot, kategoriya va maqolalarda bu maydon berilmasa, hreflang noto'g'ri
+   * slug'ga ishora qiladi va Google 404 sahifaga alternat deb ko'rsatadi.
+   */
+  alternatePaths?: Partial<Record<Locale, string>>;
 }
 
 /**
@@ -42,11 +48,14 @@ interface PageMetadataOptions {
  * `x-default` — til aniqlanmagan foydalanuvchi uchun asosiy variant; bizda bu
  * o'zbek tili, chunki sayt asosiy auditoriyasi O'zbekistonda.
  */
-export function hreflang(path: string): Record<string, string> {
+export function hreflang(path: string, alternatePaths?: Partial<Record<Locale, string>>): Record<string, string> {
+  const uzPath = alternatePaths?.uz ?? path;
+  const ruPath = alternatePaths?.ru ?? path;
   return {
-    uz: `/uz${path}`,
-    ru: `/ru${path}`,
-    'x-default': `/uz${path}`,
+    uz: `/uz${uzPath}`,
+    ru: `/ru${ruPath}`,
+    // Til aniqlanmagan foydalanuvchi uchun asosiy (o'zbek) variant.
+    'x-default': `/uz${uzPath}`,
   };
 }
 
@@ -59,6 +68,7 @@ export function pageMetadata({
   imageAlt,
   type = 'website',
   noindex = false,
+  alternatePaths,
 }: PageMetadataOptions): Metadata {
   const canonical = `/${lang}${path}`;
   const ogImage = image || DEFAULT_OG_IMAGE;
@@ -68,7 +78,7 @@ export function pageMetadata({
     description,
     alternates: {
       canonical,
-      languages: hreflang(path),
+      languages: hreflang(path, alternatePaths),
     },
     openGraph: {
       title,

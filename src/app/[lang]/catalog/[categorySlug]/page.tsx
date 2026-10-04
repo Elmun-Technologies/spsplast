@@ -35,6 +35,13 @@ export function generateStaticParams() {
   );
 }
 
+/**
+ * Noma'lum slug render qilinmaydi — Next darhol 404 qaytaradi. Sabab:
+ * `notFound()` oqim boshlangandan keyin chaqirilsa, javob statusi 200 bo'lib
+ * qoladi (soft 404).
+ */
+export const dynamicParams = false;
+
 export async function generateMetadata({ params }: CategoryPageProps) {
   const { lang, categorySlug } = await params;
   const category = getCategoryBySlug(lang, categorySlug);
@@ -52,6 +59,10 @@ export async function generateMetadata({ params }: CategoryPageProps) {
   return pageMetadata({
     lang,
     path: `/catalog/${categorySlug}`,
+    // Slug'lar uz/ru da butunlay boshqa — alternat shu tilning slug'i bo'lishi shart.
+    alternatePaths: Object.fromEntries(
+      category.translations.map((t) => [t.locale, `/catalog/${t.slug}`])
+    ),
     title: metaTitle,
     description: seo?.lead || trans.description || trans.name,
     image: category.image || undefined,

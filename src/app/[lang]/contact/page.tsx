@@ -204,11 +204,13 @@ export default function ContactPage({ params }: { params: Promise<{ lang: Locale
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div>
-                    <label className="block text-sm font-semibold text-ink-soft mb-1.5">
+                    <label htmlFor="contact-name" className="block text-sm font-semibold text-ink-soft mb-1.5">
                       {lang === 'ru' ? 'Ваше имя' : 'Ismingiz'} *
                     </label>
                     <input
+                      id="contact-name"
                       type="text"
+                      autoComplete="name"
                       required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
@@ -218,11 +220,13 @@ export default function ContactPage({ params }: { params: Promise<{ lang: Locale
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold text-ink-soft mb-1.5">
+                    <label htmlFor="contact-phone" className="block text-sm font-semibold text-ink-soft mb-1.5">
                       {lang === 'ru' ? 'Телефон' : 'Telefon raqamingiz'} *
                     </label>
                     <input
+                      id="contact-phone"
                       type="tel"
+                      autoComplete="tel"
                       required
                       value={phone}
                       onChange={(e) => setPhone(formatPhone(e.target.value))}
@@ -232,10 +236,11 @@ export default function ContactPage({ params }: { params: Promise<{ lang: Locale
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold text-ink-soft mb-1.5">
+                    <label htmlFor="contact-message" className="block text-sm font-semibold text-ink-soft mb-1.5">
                       {lang === 'ru' ? 'Сообщение' : 'Savolingiz yoki izoh'}
                     </label>
                     <textarea
+                      id="contact-message"
                       rows={4}
                       required
                       value={message}

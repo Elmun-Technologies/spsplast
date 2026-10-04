@@ -210,3 +210,102 @@ test('11. Ichki havolalar faqat haqiqiy kategoriya slug‘laridan foydalanadi', 
 
   assert.deepStrictEqual(offenders, [], `Noma'lum kategoriya slug'i: ${offenders.join(', ')}`);
 });
+
+test('12. Forma maydonlari ekran o‘quvchi uchun nomlangan (a11y)', () => {
+  const srcDir = path.join(__dirname, '..', 'src');
+  const offenders = [];
+
+  const walk = (dir) => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) walk(full);
+      else if (/\.tsx$/.test(entry.name)) {
+        const source = fs.readFileSync(full, 'utf8');
+        const rel = path.relative(srcDir, full);
+
+        // Har bir <input|select|textarea> `id`, `aria-label` yoki o'rab turgan
+        // <label> ga ega bo'lishi shart. Checkbox/radio odatda label ichida
+        // keladi; honeypot maydoni esa aria-hidden blok ichida.
+        for (const match of source.matchAll(/<(input|select|textarea)\b/g)) {
+          const start = match.index;
+          const line = source.slice(0, start).split('\n').length;
+          let i = match.index + match[0].length;
+          let depth = 0;
+          while (i < source.length) {
+            const ch = source[i];
+            if (ch === '{') depth++;
+            else if (ch === '}') depth--;
+            else if (ch === '>' && depth === 0 && source[i - 1] !== '=') break;
+            i++;
+          }
+          const tag = source.slice(start, i + 1);
+          if (tag.includes('id=') || tag.includes('aria-label')) continue;
+          // Honeypot maydoni ataylab yashirin — ekran o'quvchi ko'rmasligi kerak.
+          if (tag.includes('aria-hidden')) continue;
+          if (/type="(checkbox|radio|hidden)"/.test(tag)) continue;
+          offenders.push(`${rel}:${line}`);
+        }
+      }
+    }
+  };
+  walk(srcDir);
+
+  assert.deepStrictEqual(
+    offenders,
+    [],
+    `Nomsiz forma maydoni: ${offenders.join(', ')}`
+  );
+});
+
+test('13. Dinamik sahifalar nomaʼlum slug uchun 404 beradi (soft-404 yo‘q)', () => {
+  const routes = [
+    path.join('src', 'app', '[lang]', 'product', '[slug]', 'page.tsx'),
+    path.join('src', 'app', '[lang]', 'catalog', '[categorySlug]', 'page.tsx'),
+    path.join('src', 'app', '[lang]', 'blog', '[slug]', 'page.tsx'),
+  ];
+  for (const route of routes) {
+    const source = fs.readFileSync(path.join(__dirname, '..', route), 'utf8');
+    assert.match(
+      source,
+      /export const dynamicParams = false/,
+      `${route}: \`dynamicParams = false\` bo'lmasa notFound() 200 status bilan qaytadi`
+    );
+    assert.match(source, /generateStaticParams/, `${route}: generateStaticParams yo'q`);
+  }
+});
+
+test('14. uz/ru slug farqi hreflang va sitemapʼda hisobga olinadi', () => {
+  const catalog = JSON.parse(
+    fs.readFileSync(path.join(__dirname, '..', 'src', 'data', 'catalog.json'), 'utf8')
+  );
+
+  // Slug'i tildan tilga farq qiladigan yozuvlar bor — bu normal holat.
+  const differing = catalog.products.filter((p) => {
+    const uz = p.translations.find((t) => t.locale === 'uz');
+    const ru = p.translations.find((t) => t.locale === 'ru');
+    return uz && ru && uz.slug !== ru.slug;
+  });
+  assert.ok(differing.length > 0, 'uz/ru slug farqi kutilgan edi');
+
+  // seo.ts: alternat manzillarni qabul qiladi va hreflang'da ishlatadi.
+  const seo = fs.readFileSync(path.join(__dirname, '..', 'src', 'lib', 'seo.ts'), 'utf8');
+  assert.match(seo, /alternatePaths/, 'seo.ts: alternatePaths maydoni yo‘q');
+  assert.match(seo, /hreflang\(path, alternatePaths\)/, 'seo.ts: hreflang alternatlarni hisobga olmaydi');
+
+  // Kategoriya va blog sahifalari per-locale slug uzatadi.
+  for (const route of [
+    path.join('src', 'app', '[lang]', 'catalog', '[categorySlug]', 'page.tsx'),
+    path.join('src', 'app', '[lang]', 'blog', '[slug]', 'page.tsx'),
+  ]) {
+    const source = fs.readFileSync(path.join(__dirname, '..', route), 'utf8');
+    assert.match(source, /alternatePaths/, `${route}: alternatePaths uzatilmaydi`);
+  }
+
+  // Sitemap: dinamik yozuvlar uchun har bir til o'z slug'ini yozadi va
+  // kategoriya sahifalari ham ro'yxatga tushadi.
+  const sitemap = fs.readFileSync(path.join(__dirname, '..', 'src', 'app', 'sitemap.ts'), 'utf8');
+  assert.match(sitemap, /entryAlternates\('product'/, 'sitemap: mahsulot alternatlari tuzilmagan');
+  assert.match(sitemap, /entryAlternates\('catalog'/, 'sitemap: kategoriya alternatlari tuzilmagan');
+  assert.match(sitemap, /entryAlternates\('blog'/, 'sitemap: blog alternatlari tuzilmagan');
+  assert.match(sitemap, /catalog\.categories\.map/, 'sitemap: kategoriya sahifalari yo‘q');
+});

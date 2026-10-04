@@ -27,6 +27,8 @@ export default function ComparePage({ params }: { params: Promise<{ lang: Locale
       <div className="bg-surface-page min-h-screen py-8">
         <Container>
           <Breadcrumbs lang={lang} items={[{ label: lang === 'ru' ? 'Сравнение' : 'Taqqoslash', active: true }]} className="mb-4" />
+          {/* Bo'sh holatda ham sahifada bitta h1 bo'lishi kerak (a11y/SEO). */}
+          <h1 className="sr-only">{lang === 'ru' ? 'Сравнение' : 'Taqqoslash'}</h1>
           <EmptyState lang={lang} type="compare" />
         </Container>
       </div>
@@ -47,7 +49,7 @@ export default function ComparePage({ params }: { params: Promise<{ lang: Locale
           </button>
         </div>
 
-        <div className="bg-surface rounded-[20px] border border-line shadow-card overflow-hidden shadow-card overflow-x-auto">
+        <div className="bg-surface rounded-[20px] border border-line shadow-card overflow-hidden overflow-x-auto">
           <table className="w-full min-w-[600px] text-sm">
             <thead>
               <tr className="border-b border-line bg-surface-soft">
@@ -55,7 +57,11 @@ export default function ComparePage({ params }: { params: Promise<{ lang: Locale
                 {items.map((item) => (
                   <th key={item.id} className="p-4 text-left min-w-[180px]">
                     <div className="relative">
-                      <button onClick={() => remove(item.id)} className="absolute -top-2 -right-2 w-6 h-6 bg-ink text-white rounded-full flex items-center justify-center">
+                      <button
+                        onClick={() => remove(item.id)}
+                        aria-label={`${item.title} — ${lang === 'ru' ? 'убрать' : 'olib tashlash'}`}
+                        className="absolute -top-2 -right-2 w-6 h-6 bg-ink text-white rounded-full flex items-center justify-center"
+                      >
                         <X className="w-4 h-4" />
                       </button>
                       <Link href={`/${lang}/product/${item.slug}`} className="block">
