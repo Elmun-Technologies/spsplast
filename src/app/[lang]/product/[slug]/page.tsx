@@ -88,6 +88,14 @@ export default async function ProductDetailPage({
               },
             },
           },
+          // Sharhlar faqat `APPROVED` holatida ommaga chiqadi (P0-4). Bitta
+          // so'rovda olamiz — sahifada alohida DB chaqiruvi qilmaymiz.
+          reviews: {
+            where: { status: 'APPROVED' },
+            orderBy: { createdAt: 'desc' },
+            take: 20,
+            select: { id: true, name: true, rating: true, text: true, createdAt: true },
+          },
           variants: {
             where: { status: 'ACTIVE' },
             orderBy: { sku: 'asc' },
@@ -117,6 +125,20 @@ export default async function ProductDetailPage({
 
   const product = trans.product;
   const categoryTrans = product.categories[0]?.category?.translations[0];
+
+  // Client komponentga faqat seriyalanadigan maydonlar ketadi (Date emas, ISO
+  // satr) va telefon raqami umuman uzatilmaydi.
+  const approvedReviews = product.reviews.map((review) => ({
+    id: review.id,
+    name: review.name,
+    rating: review.rating,
+    text: review.text,
+    createdAt: review.createdAt.toISOString(),
+  }));
+  const reviewsAverage =
+    approvedReviews.length > 0
+      ? approvedReviews.reduce((acc, review) => acc + review.rating, 0) / approvedReviews.length
+      : 0;
 
   const moldMedia = product.media.find((m) => m.type === 'MOLD') || product.media[0];
   const resultMedia = product.media.find((m) => m.type === 'FINISHED_RESULT');
@@ -218,6 +240,20 @@ export default async function ProductDetailPage({
       availability: product.inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
       seller: { '@type': 'Organization', name: 'SPS' },
     },
+    // Yulduzli reyting faqat real, moderatsiyadan o'tgan sharhlar bo'lsa
+    // qo'shiladi — bo'sh yoki o'ylab topilgan reyting Google tomonidan
+    // "spam structured data" deb baholanadi.
+    ...(approvedReviews.length > 0
+      ? {
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: Number(reviewsAverage.toFixed(1)),
+            reviewCount: approvedReviews.length,
+            bestRating: 5,
+            worstRating: 1,
+          },
+        }
+      : {}),
   };
 
   const jsonLdBreadcrumb = {
@@ -252,7 +288,15 @@ export default async function ProductDetailPage({
       <Container>
         <Breadcrumbs lang={lang} items={breadcrumbItems} className="mb-5" />
 
-        <ProductDetailClient product={mappedProduct} lang={lang} />
+        <ProductDetailClient
+          product={mappedProduct}
+          lang={lang}
+          reviewsSummary={
+            approvedReviews.length > 0
+              ? { count: approvedReviews.length, average: reviewsAverage }
+              : undefined
+          }
+        />
 
         {mappedProduct.resultImage && mappedProduct.moldImage && (
           <section className="pt-6">
@@ -295,8 +339,12 @@ export default async function ProductDetailPage({
         <RecentlyViewed lang={lang} currentProductId={mappedProduct.id} />
 
         {/* Reviews */}
-        <section className="pt-4 cv-auto">
-          <ProductReviews lang={lang} productId={mappedProduct.id} />
+        <section id="reviews" className="pt-4 cv-auto scroll-mt-24">
+          <ProductReviews
+            lang={lang}
+            productId={mappedProduct.id}
+            initialReviews={approvedReviews}
+          />
         </section>
 
         {/* Related Products */}

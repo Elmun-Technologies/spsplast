@@ -26,9 +26,15 @@ import { trackEvent } from '@/lib/analytics';
 interface ProductDetailClientProps {
   product: any;
   lang: Locale;
+  /** Sahifadagi tasdiqlangan sharhlar bo'limi haqida qisqa ma'lumot (P0-4). */
+  reviewsSummary?: { count: number; average: number };
 }
 
-export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ product, lang }) => {
+export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
+  product,
+  lang,
+  reviewsSummary,
+}) => {
   const dict = getDictionary(lang);
   const addItem = useCartStore((s) => s.addItem);
   const setBottomBarOwner = useUIStore((s) => s.setBottomBarOwner);
@@ -545,6 +551,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
         <ProductTabs
           lang={lang}
           description={description}
+          reviewsSummary={reviewsSummary}
           specs={{
             dimensions: product.dimensions,
             material: product.material,

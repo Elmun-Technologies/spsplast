@@ -185,6 +185,7 @@ model Product {
   media           ProductMedia[]
   orderItems      OrderItem[]
   leads           Lead[]
+  reviews         ProductReview[]
 
   publishedAt DateTime? @default(now())
   createdAt   DateTime  @default(now())
@@ -513,4 +514,35 @@ model AmoCrmToken {
   refreshToken String
   expiresAt    DateTime
   updatedAt    DateTime @updatedAt
+}
+
+/// Mijoz sharhlari (docs/MADANI-RAQOBAT-AUDITI.md, P0-4).
+///
+/// Ilgari mahsulot sahifasida 3 ta "mock" sharh kod ichida (MOCK_REVIEWS)
+/// turardi — ya'ni sayt hech qachon bo'lmagan mijoz fikrlarini ko'rsatardi.
+/// Endi sharh faqat mijoz yuborgan matndan tug'iladi va `APPROVED` holatiga
+/// admin moderatsiyasidan keyin o'tadi: tasdiqlanmagan matn ommaga chiqmaydi,
+/// lekin yo'qolmaydi ham.
+model ProductReview {
+  id        String  @id @default(uuid())
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  name   String
+  /// Ixtiyoriy: menejer bog'lanishi uchun. Saytda HECH QACHON ko'rsatilmaydi.
+  phone  String?
+  rating Int // 1..5
+  text   String
+
+  /// PENDING → admin ko'rmaguncha; APPROVED → saytda ko'rinadi; REJECTED → spam.
+  status     String    @default("PENDING")
+  source     String    @default("SITE") // SITE, ADMIN
+  approvedAt DateTime?
+  rejectedAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([productId, status])
+  @@index([status, createdAt])
 }

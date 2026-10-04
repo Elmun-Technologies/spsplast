@@ -154,6 +154,15 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
     const currentOtherLang = lang === 'uz' ? 'ru' : 'uz';
     const switchLangUrl = pathname.replace(`/${lang}`, `/${currentOtherLang}`);
 
+    /**
+     * Tilni qo'lda almashtirganda tanlovni cookie'ga yozamiz: keyin foydalanuvchi
+     * `/` manziliga kirsa (yoki reklama havolasi til ko'rsatmasa), middleware
+     * brauzer tilini emas, aynan shu tanlovni hurmat qiladi.
+     */
+    const rememberLanguage = () => {
+        document.cookie = `sps_lang=${currentOtherLang}; path=/; max-age=31536000; samesite=lax`;
+    };
+
     const getCategoryName = (cat: CategoryTreeItem) => {
         const trans = cat.translations.find((t) => t.locale === lang) || cat.translations[0];
         return trans?.name || 'Kategoriya';
@@ -200,6 +209,10 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
 
                         <Link
                             href={switchLangUrl}
+                            onClick={rememberLanguage}
+                            aria-label={
+                                lang === 'ru' ? 'Переключить на узбекский язык' : 'Rus tiliga o‘tish'
+                            }
                             className="px-3 py-1 rounded-full bg-surface border border-line hover:border-brand-red hover:text-brand-red text-ink-soft transition-colors text-[12px] font-semibold"
                         >
                             {currentOtherLang.toUpperCase()}

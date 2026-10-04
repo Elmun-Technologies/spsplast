@@ -259,7 +259,7 @@ Admin panel `admin.madani-serves.uz` domenida, login ortida `[F]` — ochiq audi
 |---|---|---|---|
 | U1 | `<html lang="uz">` **hardcode** — `/ru` sahifalarda ham `uz` qoladi | `src/app/layout.tsx:80` `[F]` | `[lang]` segmentiga mos dinamik `lang` (root layoutni `[lang]` ostiga olish yoki middleware/script) |
 | U2 | Bosh sahifada i18n **dictionary emas**, 34 ta inline `lang === 'ru' ? …` | `src/app/[lang]/page.tsx` `[F]` | Matnlarni `uz.json`/`ru.json` ga ko'chirish (tarjima tushib qolish riski) |
-| U3 | "Skip to content" havolasi yo'q | grep: topilmadi `[F]` | `layout.tsx` ga skip-link (a11y, WCAG 2.4.1) |
+| U3 | ~~"Skip to content" havolasi yo'q~~ — **tekshiruvda xato**: havola `[lang]/layout.tsx` da allaqachon bor (`#main-content`) `[F]` | tuzatildi | Qolgan a11y ishlari: `aria-label`, kontrast, Lighthouse auditi (P1-14) |
 | U4 | SEO matn bosh sahifada kam; hero abstrakt panel | `page.tsx` `[F]` | Real zavod/ombor surati yoki video + 300+ so'zli blok |
 | U5 | Blog/loyihalar sahifalari bo'sh | `blog/page.tsx`, `projects/page.tsx` `[F]` | P0-5 |
 | U6 | Sharhlar mock | `ProductReviews.tsx` `[F]` | P0-4 / P1-8 |
@@ -319,41 +319,45 @@ Texnik/SEO o'qi (10):         SPS ███████████████�
 
 ### 5.1 P0 — Launch blockerlar (Sprint 0, 5 ish kuni)
 
-| ID | Vazifa | Nima qilinadi | Fayl/Joy | Qabul mezoni | Baho |
+**Holat belgisi:** ✅ bajarildi (batch 1, `docs/OPTIMIZATION-LOG.md`) · ⬜ navbatda
+
+| ID | Holat | Vazifa | Nima qilinadi | Fayl/Joy | Qabul mezoni |
 |---|---|---|---|---|---|
-| **P0-1** | **Saytni `sps.uz` ga chiqarish** | DNS (A/CNAME), TLS, `NEXT_PUBLIC_SITE_URL=https://sps.uz`, env to'liq, `prisma db push`, `db:seed` + `db:import:2026`, health-check | Vercel/Fly + `.env.example` | `https://sps.uz/api/health` → `{status:"ok"}`, uz/ru sahifalar 200 | 6 soat |
-| **P0-2** | **301 redirect xaritasi** | 8-bo'limdagi jadval bo'yicha `redirects()` + `/formi/p/*` wildcard + `www` → apex | `next.config.js` | Har eski URL 301 → mantiqiy yangi URL; 404 yo'q; GSC'da "Coverage" xatosi o'smaydi | 4 soat |
-| **P0-3** | **Kontakt ma'lumotlarini to'ldirish** | Manzil (Uchtepa, Xalqa yo'li 7A), 4 telefon, ish vaqti 9:00–18:00, email, Telegram/WhatsApp; Yandex xarita embed | `contacts.ts`, `Footer.tsx`, `contact/page.tsx` | Manzil to'liq; 3-bo'limdagi jadval bilan bir xil; NAP izchil | 3 soat |
-| **P0-4** | **Soxta sharhlarni olib tashlash** | Variant A (tez): `MOCK_REVIEWS` va sharh formaini vaqtincha yashirish. Variant B (to'g'ri): `Review` modeli + moderatsiya + API | `ProductReviews.tsx`, `prisma/schema.prisma` | Saytda tasdiqlanmagan sharh yo'q; real sharh kelganda admin tasdiqlaydi | 2–8 soat |
-| **P0-5** | **Blog va loyihalarni to'ldirish** | 6 maqola (7.4-bo'limdagi ro'yxat) + 6 loyiha (`public/catalog/2026/*-env.jpg` bilan) | `prisma/seed.js` yoki yangi `scripts/import-content.js` | Sahifalarda "tez orada" yo'q; har post uz/ru, muqova rasmli | 8 soat |
-| **P0-6** | **Repo gigienasi** | 129 rasm + 4 PDF ildizdan → `public/` yoki S3; `catalog_build/` → `scripts/catalog/`; `.gitignore` | repo, `.gitignore` | Repo < 100 MB; `git ls-files` da ildizda rasm/PDF yo'q | 3 soat |
-| **P0-7** | **PDF katalog ulash** | `SPS-Qoliplar-Katalogi-2026.pdf` (34 MB → optimizatsiya, <8 MB), bosh sahifa va footer'da "Katalogni yuklab olish" | `public/catalog/…pdf`, `page.tsx`, `Footer.tsx` | Tugma haqiqiy PDF yuklaydi (raqibda bu CTA buzilgan) | 3 soat |
-| **P0-8** | **Trust da'volar auditi** | Har bir raqam uchun dalil (sertifikat, sinov bayonnomasi, ombor rasmi). Tasdiqlanmaganini olib tashlash | butun sayt, `docs/REAL-CATALOG.md` qoidasi | Saytda "dalisiz" raqam qolmaydi | 4 soat |
-| **P0-9** | **E2E buyurtma sinovi** | Home→katalog→mahsulot→savat→checkout→order-success (uz/ru), Telegram xabar + CRM lead + stock kamayishi | staging | Test buyurtma admin panelda va Telegramda ko'rinadi | 4 soat |
-| **P0-10** | **To'lov kalitlari holati** | Click/Payme merchant ma'lumotlari real bo'lsa — yoqish; bo'lmasa UI'da "operator orqali to'lov" aniq matni (soxta "tez orada" emas) | `payments/*`, `checkout/page.tsx` | UI'dagi imkoniyat = backend'dagi imkoniyat | 3 soat |
-| **P0-11** | **SEO va a11y texnik tekshiruv** | canonical, hreflang uz/ru, **`<html lang>` ni tilga mos dinamik qilish (U1)**, `og:image`, `robots.txt`, sitemap `lastmod`, favicon/manifest, JSON-LD validatsiya | `src/app/layout.tsx:80`, `sitemap.ts`, `robots.ts` | Rich Results Test xatosiz; `/ru` sahifada `lang="ru"`; Lighthouse a11y ≥ 95 | 5 soat |
-| **P0-12** | **Analitika yoqish** | GTM/GA4/Meta Pixel ID + **Yandex Metrica** (UZ bozorida muhim), `view_item`, `add_to_cart`, `begin_checkout`, `purchase`, `lead` | `.env`, `analytics.ts` | Har event real vaqtda ko'rinadi; maqsad sozlangan | 4 soat |
+| **P0-1** | ⬜ | **Saytni `sps.uz` ga chiqarish** | DNS (A/CNAME), TLS, `NEXT_PUBLIC_SITE_URL=https://sps.uz`, env to'liq, `prisma db push`, `db:seed` + `db:import:2026`, health-check | Vercel/Fly + `.env.example` | `https://sps.uz/api/health` → `{status:"ok"}`, uz/ru sahifalar 200 | 6 soat |
+| **P0-2** | ✅ | **301 redirect xaritasi** | 8-bo'limdagi jadval bo'yicha `redirects()` + `/formi/p/*` wildcard + `www` → apex | `next.config.js` | Har eski URL 301 → mantiqiy yangi URL; 404 yo'q; GSC'da "Coverage" xatosi o'smaydi | 4 soat |
+| **P0-3** | ✅ | **Kontakt ma'lumotlarini to'ldirish** | Manzil (Uchtepa, Xalqa yo'li 7A), 4 telefon, ish vaqti 9:00–18:00, email, Telegram/WhatsApp; Yandex xarita embed | `contacts.ts`, `Footer.tsx`, `contact/page.tsx` | Manzil to'liq; 3-bo'limdagi jadval bilan bir xil; NAP izchil | 3 soat |
+| **P0-4** | ✅ | **Soxta sharhlarni olib tashlash** | Variant A (tez): `MOCK_REVIEWS` va sharh formaini vaqtincha yashirish. Variant B (to'g'ri): `Review` modeli + moderatsiya + API | `ProductReviews.tsx`, `prisma/schema.prisma` | Saytda tasdiqlanmagan sharh yo'q; real sharh kelganda admin tasdiqlaydi | 2–8 soat |
+| **P0-5** | ⬜ | **Blog va loyihalarni to'ldirish** | 6 maqola (7.4-bo'limdagi ro'yxat) + 6 loyiha (`public/catalog/2026/*-env.jpg` bilan) | `prisma/seed.js` yoki yangi `scripts/import-content.js` | Sahifalarda "tez orada" yo'q; har post uz/ru, muqova rasmli | 8 soat |
+| **P0-6** | ⬜ | **Repo gigienasi** | 129 rasm + 4 PDF ildizdan → `public/` yoki S3; `catalog_build/` → `scripts/catalog/`; `.gitignore` | repo, `.gitignore` | Repo < 100 MB; `git ls-files` da ildizda rasm/PDF yo'q | 3 soat |
+| **P0-7** | ✅ | **PDF katalog ulash** | 108 betli `full_compressed` versiya (15 MB) → `public/catalog/pdf/sps-qoliplar-katalogi-2026.pdf`; bosh sahifa va footer'da yuklab olish + hajm ko'rsatilgan | `public/catalog/…pdf`, `page.tsx`, `Footer.tsx` | Tugma haqiqiy PDF yuklaydi (raqibda bu CTA buzilgan) | 3 soat |
+| **P0-8** | ⬜ | **Trust da'volar auditi** | Har bir raqam uchun dalil (sertifikat, sinov bayonnomasi, ombor rasmi). Tasdiqlanmaganini olib tashlash | butun sayt, `docs/REAL-CATALOG.md` qoidasi | Saytda "dalisiz" raqam qolmaydi | 4 soat |
+| **P0-9** | ⬜ | **E2E buyurtma sinovi** | Home→katalog→mahsulot→savat→checkout→order-success (uz/ru), Telegram xabar + CRM lead + stock kamayishi | staging | Test buyurtma admin panelda va Telegramda ko'rinadi | 4 soat |
+| **P0-10** | ⬜ | **To'lov kalitlari holati** | Click/Payme merchant ma'lumotlari real bo'lsa — yoqish; bo'lmasa UI'da "operator orqali to'lov" aniq matni (soxta "tez orada" emas) | `payments/*`, `checkout/page.tsx` | UI'dagi imkoniyat = backend'dagi imkoniyat | 3 soat |
+| **P0-11** | ⬜ | **SEO va a11y texnik tekshiruv** | canonical, hreflang uz/ru, **`<html lang>` ni tilga mos dinamik qilish (U1)**, `og:image`, `robots.txt`, sitemap `lastmod`, favicon/manifest, JSON-LD validatsiya | `src/app/layout.tsx:80`, `sitemap.ts`, `robots.ts` | Rich Results Test xatosiz; `/ru` sahifada `lang="ru"`; Lighthouse a11y ≥ 95 | 5 soat |
+| **P0-12** | ⬜ | **Analitika yoqish** | GTM/GA4/Meta Pixel ID + **Yandex Metrica** (UZ bozorida muhim), `view_item`, `add_to_cart`, `begin_checkout`, `purchase`, `lead` | `.env`, `analytics.ts` | Har event real vaqtda ko'rinadi; maqsad sozlangan | 4 soat |
 
 **Sprint 0 jami:** ~50–56 soat (1 hafta, 1–2 dasturchi + kontent mas'uli).
 
 ### 5.2 P1 — Konversiya va ishonch (Sprint 1–2, 2 hafta)
 
-| ID | Vazifa | Nega muhim | Mezon |
-|---|---|---|---|
-| P1-1 | **Narx strategiyasi:** chakana narx ochiq, ulgurji narx "so'rov orqali" | Raqibda narx yo'q → bizning ochiqlik ustunlik. Lekin raqobatchiga narxni "ochiq kartada" bermaslik uchun B2B pog'onali chegirma so'rov orqali qoladi | Har kartada narx + "10+ dona: -5%" ko'rinadi |
-| P1-2 | **Ulgurji cennik (PDF) email/telefon evaziga** | Lead yig'ish + B2B ishonch | Forma → PDF + CRM'ga lead |
-| P1-3 | **"Qanday buyurtma berish" sahifasi** | Raqibda bor, bizda yo'q; 4 qadam | `/[lang]/how-to-order`, FAQ JSON-LD bilan |
-| P1-4 | **Rekvizitlar + shartnoma namunasi sahifasi** | B2B (sex, diler) uchun to'g'ridan-to'g'ri tanlov omili | `/[lang]/requisites`: INN, MFO, hisob raqam, bank, yuridik manzil, PDF shartnoma |
-| P1-5 | **Ishonch bloklari:** kafolat shartlari, 14 kun qaytarish, to'lov ikonkalari, ombor rasmlari | Raqibda "kafolat" bor; bizda tarqoq | Har mahsulot sahifasida 4 ta ishonch elementi |
-| P1-6 | **Yetkazib berish jadvali:** Toshkent 1–2 kun, viloyat 3–5 kun, narx siyosati | "Operator aniqlaydi" — savat tashlash sababi | Aniq jadval + kalkulyator (og'irlik asosida) |
-| P1-7 | **Kategoriya sahifalariga SEO matn + FAQ** | Raqibning uzun matnlari — ularning yagona kuchli SEO quroli | Har kategoriyada 300+ so'z + 4 FAQ + JSON-LD |
-| P1-8 | **Real sharhlar tizimi** | Ishonch + rich snippet (AggregateRating) | Admin moderatsiyasi, foto sharh, "Tasdiqlangan xarid" belgisi |
-| P1-9 | **Video kontent:** har mahsulotga 10–20 s quyish videosi + zavod videosi | Raqibda video bor — bizda yo'q | 6+ video, `Product` sahifasida va YouTube'da |
-| P1-10 | **"Bizni tanlaganlar" bo'limi:** diler/sex logotiplari + 3 keys | Raqibda 9 hamkor logotipi | 6+ logotip, ruxsat olingan |
-| P1-11 | **Bosh sahifa rail'larini kategoriya bog'lanishi bo'yicha qilish** | Hozir sarlavha bo'yicha `includes()` — mo'rt | `category.slug` bo'yicha filtr; test |
-| P1-12 | **Marketplace va Telegram savdo:** `/api/feed/products` ni Uzum/Yandex Market'ga ulash, Telegram botda katalog | Qo'shimcha kanal, raqibda yo'q | Feed validatsiyadan o'tadi |
-| P1-13 | **i18n gigienasi (U2):** bosh sahifadagi 34 ta inline matnni `dictionaries/uz.json` + `ru.json` ga ko'chirish | Tarjima tushib qolish riski, kontentni nusxalash qiyin | `grep "lang === 'ru' ?" src/app/[lang]/page.tsx` → 0 natija |
-| P1-14 | **A11y to'plami (U3):** skip-link, `aria-label`, focus ko'rinishi, kontrast auditi (WCAG 2.1 AA) | B2B xaridor ko'pincha klaviatura/zoom bilan ishlaydi; huquqiy risk | Lighthouse a11y ≥ 95, axe'da kritik xato 0 |
+**Holat:** ✅ bajarildi · 🟡 qismən · ⬜ navbatda
+
+| ID | Holat | Vazifa | Nega muhim | Mezon |
+|---|---|---|---|---|
+| P1-1 | ⬜ | **Narx strategiyasi:** chakana narx ochiq, ulgurji narx "so'rov orqali" | Raqibda narx yo'q → bizning ochiqlik ustunlik. Lekin raqobatchiga narxni "ochiq kartada" bermaslik uchun B2B pog'onali chegirma so'rov orqali qoladi | Har kartada narx + "10+ dona: -5%" ko'rinadi |
+| P1-2 | ⬜ | **Ulgurji cennik (PDF) email/telefon evaziga** | Lead yig'ish + B2B ishonch | Forma → PDF + CRM'ga lead |
+| P1-3 | ⬜ | **"Qanday buyurtma berish" sahifasi** | Raqibda bor, bizda yo'q; 4 qadam | `/[lang]/how-to-order`, FAQ JSON-LD bilan |
+| P1-4 | 🟡 | **Rekvizitlar + shartnoma namunasi sahifasi** | B2B (sex, diler) uchun to'g'ridan-to'g'ri tanlov omili | `/[lang]/requisites`: INN, MFO, hisob raqam, bank, yuridik manzil, PDF shartnoma |
+| P1-5 | ⬜ | **Ishonch bloklari:** kafolat shartlari, 14 kun qaytarish, to'lov ikonkalari, ombor rasmlari | Raqibda "kafolat" bor; bizda tarqoq | Har mahsulot sahifasida 4 ta ishonch elementi |
+| P1-6 | ⬜ | **Yetkazib berish jadvali:** Toshkent 1–2 kun, viloyat 3–5 kun, narx siyosati | "Operator aniqlaydi" — savat tashlash sababi | Aniq jadval + kalkulyator (og'irlik asosida) |
+| P1-7 | ⬜ | **Kategoriya sahifalariga SEO matn + FAQ** | Raqibning uzun matnlari — ularning yagona kuchli SEO quroli | Har kategoriyada 300+ so'z + 4 FAQ + JSON-LD |
+| P1-8 | ⬜ | **Real sharhlar tizimi** | Ishonch + rich snippet (AggregateRating) | Admin moderatsiyasi, foto sharh, "Tasdiqlangan xarid" belgisi |
+| P1-9 | ⬜ | **Video kontent:** har mahsulotga 10–20 s quyish videosi + zavod videosi | Raqibda video bor — bizda yo'q | 6+ video, `Product` sahifasida va YouTube'da |
+| P1-10 | ⬜ | **"Bizni tanlaganlar" bo'limi:** diler/sex logotiplari + 3 keys | Raqibda 9 hamkor logotipi | 6+ logotip, ruxsat olingan |
+| P1-11 | ⬜ | **Bosh sahifa rail'larini kategoriya bog'lanishi bo'yicha qilish** | Hozir sarlavha bo'yicha `includes()` — mo'rt | `category.slug` bo'yicha filtr; test |
+| P1-12 | ⬜ | **Marketplace va Telegram savdo:** `/api/feed/products` ni Uzum/Yandex Market'ga ulash, Telegram botda katalog | Qo'shimcha kanal, raqibda yo'q | Feed validatsiyadan o'tadi |
+| P1-13 | ⬜ | **i18n gigienasi (U2):** bosh sahifadagi 34 ta inline matnni `dictionaries/uz.json` + `ru.json` ga ko'chirish | Tarjima tushib qolish riski, kontentni nusxalash qiyin | `grep "lang === 'ru' ?" src/app/[lang]/page.tsx` → 0 natija |
+| P1-14 | ⬜ | **A11y to'plami:** `aria-label`, focus ko'rinishi, kontrast auditi (WCAG 2.1 AA) — skip-link allaqachon bor | B2B xaridor ko'pincha klaviatura/zoom bilan ishlaydi; huquqiy risk | Lighthouse a11y ≥ 95, axe'da kritik xato 0 |
 
 ### 5.3 P2 — O'sish va SEO (Sprint 3, 2–4 hafta)
 

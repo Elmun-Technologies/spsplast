@@ -20,6 +20,7 @@ import {
   Headphones,
   Sparkles,
   ShoppingBag,
+  FileDown,
 } from 'lucide-react';
 
 /**
@@ -509,6 +510,45 @@ export default async function HomePage({ params }: HomePageProps) {
       )}
 
       <B2BBanner lang={lang} />
+
+      {/*
+       * Katalog PDF: raqibda bu CTA bor, lekin u haqiqiy faylni bermaydi
+       * (katalog sahifasiga olib boradi). Bizda fayl haqiqiy, hajmi va bet
+       * soni oldindan ko'rsatilgan — yuklab olishdan oldin nima kutishni
+       * mijoz biladi (docs/MADANI-RAQOBAT-AUDITI.md, P0-7).
+       */}
+      <Container>
+        <section className="py-6 sm:py-8">
+          <div className="bg-[#EDF0F5] rounded-[24px] p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 rounded-[16px] bg-surface flex items-center justify-center shrink-0 shadow-card">
+                <FileDown className="w-6 h-6 text-brand-red" />
+              </div>
+              <div className="space-y-1">
+                <h2 className="text-lg sm:text-xl font-bold text-ink tracking-[-0.02em]">
+                  {lang === 'ru' ? 'Полный каталог продукции SPS' : 'SPS to‘liq mahsulot katalogi'}
+                </h2>
+                <p className="text-sm text-ink-soft max-w-xl">
+                  {lang === 'ru'
+                    ? 'Все коллекции форм, размеры и характеристики в одном PDF-файле.'
+                    : 'Barcha qolip kolleksiyalari, o‘lchamlar va xususiyatlar bitta PDF faylda.'}
+                </p>
+                <p className="text-[12px] text-ink-sub">
+                  {lang === 'ru' ? 'PDF · 108 страниц · 15 МБ' : 'PDF · 108 bet · 15 MB'}
+                </p>
+              </div>
+            </div>
+            <a
+              href="/catalog/pdf/sps-qoliplar-katalogi-2026.pdf"
+              download
+              className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 bg-ink text-white font-semibold text-sm rounded-full hover:bg-black transition-colors min-h-[50px] shrink-0"
+            >
+              <FileDown className="w-4 h-4" />
+              <span>{lang === 'ru' ? 'Скачать каталог' : 'Katalogni yuklab olish'}</span>
+            </a>
+          </div>
+        </section>
+      </Container>
 
       <Container>
         <RecentlyViewed lang={lang} />

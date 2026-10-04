@@ -51,8 +51,45 @@ function isOriginExempt(pathname: string): boolean {
   return ORIGIN_EXEMPT_PREFIXES.some((prefix) => pathname.startsWith(prefix));
 }
 
+/**
+ * Til afzalligi: avval foydalanuvchi tanlagan til (cookie), keyin brauzer
+ * `Accept-Language` sarlavhasi, aks holda saytning standart tili (`uz`).
+ *
+ * `uz-UZ,ru;q=0.8,en;q=0.6` kabi qiymatlarni `q` og'irligiga qarab emas,
+ * birinchi uchragan mos tilga qarab hal qilamiz — amalda bu yetarli va
+ * kutilmagan natija bermaydi.
+ */
+const LOCALE_COOKIE = 'sps_lang';
+
+function preferredLocale(req: NextRequest): 'uz' | 'ru' {
+  const cookieLocale = req.cookies.get(LOCALE_COOKIE)?.value;
+  if (cookieLocale === 'uz' || cookieLocale === 'ru') return cookieLocale;
+
+  const header = req.headers.get('accept-language') || '';
+  for (const part of header.split(',')) {
+    const tag = part.split(';')[0]?.trim().toLowerCase() || '';
+    if (tag.startsWith('ru')) return 'ru';
+    if (tag.startsWith('uz')) return 'uz';
+  }
+
+  return 'uz';
+}
+
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
+
+  /**
+   * `/` — yagona til neytral manzil. Uni to'g'ridan-to'g'ri `/uz` ga
+   * yo'naltirish o'rniga foydalanuvchi tilini aniqlaymiz: rus tilida
+   * gaplashadigan mijoz darhol o'z tilidagi katalogga tushadi (eski sayt ham
+   * rus tilida edi va uning indeksi shunga ishora qiladi).
+   *
+   * `app/page.tsx` dagi `/uz` redirect zaxira variant sifatida qoladi
+   * (middleware o'chirilgan muhitlar uchun).
+   */
+  if (pathname === '/') {
+    return NextResponse.redirect(new URL(`/${preferredLocale(req)}`, req.url));
+  }
 
   if (SAFE_METHODS.has(req.method)) return NextResponse.next();
   if (!isAdminApiPath(pathname) || isOriginExempt(pathname)) return NextResponse.next();
@@ -68,6 +105,7 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  // Only API routes: page navigations and static assets are untouched.
-  matcher: '/api/:path*',
+  // `/` — til aniqlash, qolganlari: API CSRF darvozasi.
+  // Sahifa navigatsiyalari va statik fayllar tegilmaydi.
+  matcher: ['/', '/api/:path*'],
 };

@@ -86,19 +86,36 @@ export default function ContactPage({ params }: { params: Promise<{ lang: Locale
                 </h3>
 
                 <div className="space-y-3">
-                  <a
-                    href={`tel:${COMPANY_CONTACTS.phoneRaw}`}
-                    onClick={() => trackEvent('phone_click', { location: 'contact_page' })}
-                    className="flex items-center gap-3 p-4 rounded-[16px] bg-surface-soft border border-line hover:border-brand-red hover:bg-[#FEF0F0] text-ink transition-colors group"
-                  >
-                    <div className="w-11 h-11 rounded-[16px] bg-surface border border-line group-hover:border-red-200 flex items-center justify-center shrink-0 shadow-card">
-                      <Phone className="w-5 h-5 text-brand-red" />
+                  {/* Barcha raqamlar: savdo, buyurtma, ombor va ofis.
+                      Ilgari faqat bitta raqam ko'rinardi (P0-3). */}
+                  <div className="p-4 rounded-[16px] bg-surface-soft border border-line space-y-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-11 h-11 rounded-[16px] bg-surface border border-line flex items-center justify-center shrink-0 shadow-card">
+                        <Phone className="w-5 h-5 text-brand-red" />
+                      </div>
+                      <div>
+                        <p className="text-ink-sub text-xs">
+                          {lang === 'ru' ? 'Телефоны' : 'Telefon raqamlarimiz'}
+                        </p>
+                        <p className="font-bold text-ink text-sm">{COMPANY_CONTACTS.phoneDisplay}</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-ink-sub text-xs">{lang === 'ru' ? 'Телефон' : 'Telefon raqamimiz'}</p>
-                      <p className="font-bold text-ink text-base">{COMPANY_CONTACTS.phoneDisplay}</p>
+                    <div className="divide-y divide-line border-t border-line">
+                      {COMPANY_CONTACTS.phones.map((item) => (
+                        <a
+                          key={item.raw}
+                          href={`tel:${item.raw}`}
+                          onClick={() => trackEvent('phone_click', { location: 'contact_page_list' })}
+                          className="flex items-center justify-between gap-3 py-2.5 hover:text-brand-red transition-colors"
+                        >
+                          <span className="text-ink-sub text-xs">
+                            {lang === 'ru' ? item.label.ru : item.label.uz}
+                          </span>
+                          <span className="font-semibold text-ink text-sm font-mono">{item.display}</span>
+                        </a>
+                      ))}
                     </div>
-                  </a>
+                  </div>
 
                   <a
                     href={COMPANY_CONTACTS.telegramUrl}
@@ -132,15 +149,23 @@ export default function ContactPage({ params }: { params: Promise<{ lang: Locale
                     </div>
                   </a>
 
-                  <div className="flex items-center gap-3 p-4 rounded-[16px] bg-surface-soft border border-line">
-                    <div className="w-11 h-11 rounded-[16px] bg-surface border border-line flex items-center justify-center shrink-0 shadow-card">
+                  <a
+                    href={COMPANY_CONTACTS.mapUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 p-4 rounded-[16px] bg-surface-soft border border-line hover:border-brand-red hover:bg-[#FEF0F0] text-ink transition-colors group"
+                  >
+                    <div className="w-11 h-11 rounded-[16px] bg-surface border border-line group-hover:border-red-200 flex items-center justify-center shrink-0 shadow-card">
                       <MapPin className="w-5 h-5 text-brand-red" />
                     </div>
                     <div>
                       <p className="text-ink-sub text-xs">{lang === 'ru' ? 'Адрес завода' : 'Zavod manzili'}</p>
                       <p className="font-bold text-ink text-sm">{lang === 'ru' ? COMPANY_CONTACTS.addressRu : COMPANY_CONTACTS.addressUz}</p>
+                      <p className="text-[11px] text-ink-sub mt-0.5">
+                        {lang === 'ru' ? 'Открыть в Яндекс Картах →' : 'Yandex xaritada ochish →'}
+                      </p>
                     </div>
-                  </div>
+                  </a>
 
                   <div className="flex items-center gap-3 p-4 rounded-[16px] bg-surface-soft border border-line">
                     <div className="w-11 h-11 rounded-[16px] bg-surface border border-line flex items-center justify-center shrink-0 shadow-card">
@@ -148,7 +173,9 @@ export default function ContactPage({ params }: { params: Promise<{ lang: Locale
                     </div>
                     <div>
                       <p className="text-ink-sub text-xs">{lang === 'ru' ? 'Время работы' : 'Ish vaqti'}</p>
-                      <p className="font-bold text-ink text-sm">Dushanba - Shanba: 09:00 - 18:00</p>
+                      <p className="font-bold text-ink text-sm">
+                        {lang === 'ru' ? COMPANY_CONTACTS.workHoursRu : COMPANY_CONTACTS.workHoursUz}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -224,6 +251,66 @@ export default function ContactPage({ params }: { params: Promise<{ lang: Locale
                 </form>
               )}
             </div>
+          </div>
+
+          {/* Xarita: raqibda bor, bizda yo'q edi — mijoz zavodni topa olmasdi.
+              `mapEmbedUrl` Yandex konfigurator havolasi (API kalit talab qilmaydi). */}
+          <div className="bg-surface border border-line rounded-[20px] overflow-hidden shadow-card">
+            <iframe
+              src={COMPANY_CONTACTS.mapEmbedUrl}
+              title={lang === 'ru' ? 'Расположение завода SPS на карте' : 'SPS zavodining xaritadagi joylashuvi'}
+              loading="lazy"
+              className="w-full h-[320px] sm:h-[400px] border-0"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
+
+          {/* Rekvizitlar: B2B xaridor (sex, diler) shartnoma uchun so'raydi (P1-4). */}
+          <div className="bg-surface border border-line rounded-[20px] p-6 sm:p-8 shadow-card space-y-4">
+            <h3 className="text-lg font-bold text-ink border-b border-line-soft pb-4">
+              {lang === 'ru' ? 'Реквизиты организации' : 'Tashkilot rekvizitlari'}
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 text-sm">
+              {[
+                {
+                  label: lang === 'ru' ? 'Организация' : 'Tashkilot',
+                  value: COMPANY_CONTACTS.legalName,
+                },
+                {
+                  label: lang === 'ru' ? 'Юридический адрес' : 'Yuridik manzil',
+                  value: lang === 'ru' ? COMPANY_CONTACTS.legalAddressRu : COMPANY_CONTACTS.legalAddressUz,
+                },
+                {
+                  label: 'ИНН / INN',
+                  value: COMPANY_CONTACTS.requisites.inn,
+                },
+                {
+                  label: 'МФО',
+                  value: COMPANY_CONTACTS.requisites.mfo,
+                },
+                {
+                  label: lang === 'ru' ? 'Расчётный счёт' : 'Hisob raqami',
+                  value: COMPANY_CONTACTS.requisites.accountNumber,
+                },
+                {
+                  label: lang === 'ru' ? 'Банк' : 'Bank',
+                  value:
+                    lang === 'ru'
+                      ? COMPANY_CONTACTS.requisites.bankNameRu
+                      : COMPANY_CONTACTS.requisites.bankNameUz,
+                },
+              ].map((row) => (
+                <div key={row.label} className="flex flex-col gap-0.5 py-2 border-b border-line-soft">
+                  <span className="text-xs text-ink-sub">{row.label}</span>
+                  <span className="font-semibold text-ink">{row.value}</span>
+                </div>
+              ))}
+            </div>
+            <p className="text-xs text-ink-sub leading-relaxed">
+              {lang === 'ru'
+                ? 'Работаем по договору с НДС и без НДС. Счёт выставляем в течение рабочего дня — реквизиты выше можно использовать для оплаты.'
+                : 'QQS bilan va QQSsiz shartnoma asosida ishlaymiz. Hisob-faktura ish kuni ichida tayyorlanadi — to‘lov uchun yuqoridagi rekvizitlardan foydalanish mumkin.'}
+            </p>
           </div>
         </div>
       </Container>
