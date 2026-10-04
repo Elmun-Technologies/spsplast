@@ -52,12 +52,12 @@ const STEPS: Step[] = [
   {
     number: 2,
     icon: <ClipboardList className="w-6 h-6 text-brand-red" />,
-    titleUz: 'Savatga qo‘shing yoki 1-klikda buyurtma bering',
-    titleRu: 'Добавьте в корзину или оформите в 1 клик',
+    titleUz: 'Zayafka qoldiring',
+    titleRu: 'Оставьте заявку',
     textUz:
-      'Miqdorni kiriting — 10+ va 50+ dona uchun narx avtomatik pasayadi. Shoshayotgan bo‘lsangiz, telefon raqamini qoldirib bir klikda buyurtma bering.',
+      'Mahsulot sahifasidagi “Zayafka berish” tugmasini bosing: ism, telefon raqami, miqdor va izohingizni qoldirasiz. Xabar to‘g‘ridan-to‘g‘ri kompaniya guruhiga tushadi.',
     textRu:
-      'Укажите количество — при 10+ и 50+ штук цена снижается автоматически. Если спешите, оставьте номер телефона и оформите заказ в один клик.',
+      'Нажмите «Оставить заявку» на странице товара: укажите имя, телефон, количество и комментарий. Сообщение попадает напрямую в группу компании.',
   },
   {
     number: 3,
@@ -84,10 +84,10 @@ const STEPS: Step[] = [
 const PAYMENTS = [
   {
     icon: <CreditCard className="w-5 h-5 text-brand-red" />,
-    titleUz: 'Click / Payme',
-    titleRu: 'Click / Payme',
-    textUz: 'Buyurtma tasdiqlangach to‘lov havolasi yuboriladi.',
-    textRu: 'После подтверждения заказа отправляем ссылку на оплату.',
+    titleUz: 'Naqd to‘lov',
+    titleRu: 'Наличные',
+    textUz: 'Ombordan olib ketishda joyida to‘lash mumkin.',
+    textRu: 'Можно оплатить на месте при самовывозе со склада.',
   },
   {
     icon: <FileText className="w-5 h-5 text-brand-red" />,
@@ -98,10 +98,10 @@ const PAYMENTS = [
   },
   {
     icon: <ShieldCheck className="w-5 h-5 text-brand-red" />,
-    titleUz: 'Naqd',
-    titleRu: 'Наличные',
-    textUz: 'Ombordan olib ketishda joyida to‘lash mumkin.',
-    textRu: 'При самовывозе со склада можно оплатить на месте.',
+    titleUz: 'Kelishuv asosida',
+    titleRu: 'По согласованию',
+    textUz: 'To‘lov tartibi buyurtma hajmi va shartlariga qarab menejer bilan kelishiladi.',
+    textRu: 'Порядок оплаты согласуется с менеджером в зависимости от объёма и условий заказа.',
   },
 ];
 
@@ -118,17 +118,17 @@ const FAQ = [
     qUz: 'Ulgurji (optom) buyurtma bering — bu yerda ishlaydimi?',
     qRu: 'Работает ли оформление оптового заказа здесь?',
     aUz:
-      'Ha. Savatdagi miqdor oshgani sari chegirma avtomatik qo‘llanadi. Katta hajm uchun alohida shartlar kerak bo‘lsa, “Ulgurji narx so‘rash” tugmasini bosing — menejer individual taklif tayyorlaydi.',
+      'Ha. Katta hajm uchun narx buyurtma miqdoriga qarab alohida kelishiladi: zayafkada “Ulgurji” izohini qoldiring yoki menejerga ayting — u hisob-kitobni tayyorlaydi. Yuridik shaxslar bilan shartnoma va hisob-faktura asosida ishlaymiz.',
     aRu:
-      'Да. С ростом количества в корзине скидка применяется автоматически. Если для крупного объёма нужны отдельные условия, нажмите «Запросить оптовую цену» — менеджер подготовит индивидуальное предложение.',
+      'Да. Для крупных объёмов цена согласуется индивидуально и зависит от количества: отметьте «Опт» в заявке или скажите менеджеру — он подготовит расчёт. С юридическими лицами работаем по договору и счёту-фактуре.',
   },
   {
     qUz: 'To‘lovni qachon qilaman?',
     qRu: 'Когда нужно оплачивать?',
     aUz:
-      'Buyurtma menejer tomonidan tasdiqlanganidan keyin. Naqd to‘lov — ombordan olib ketishda, Click/Payme — havola orqali, bank o‘tkazmasi — hisob-faktura bo‘yicha.',
+      'To‘lov tartibi menejer buyurtmani tasdiqlaganidan keyin kelishiladi: naqd to‘lov — ombordan olib ketishda, yuridik shaxslar uchun — shartnoma va hisob-faktura bo‘yicha bank o‘tkazmasi.',
     aRu:
-      'После подтверждения заказа менеджером. Наличные — при самовывозе со склада, Click/Payme — по ссылке, банковский перевод — по счёту.',
+      'Порядок оплаты согласуется после подтверждения заказа менеджером: наличные — при самовывозе со склада, для юридических лиц — банковский перевод по договору и счёту.',
   },
   {
     qUz: 'Yetkazib berish narxi qanday hisoblanadi?',

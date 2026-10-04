@@ -3,7 +3,6 @@ import nextDynamic from 'next/dynamic';
 import { notFound } from 'next/navigation';
 import { Header } from '@/components/layout/Header';
 import { StickyMobileContact } from '@/components/layout/StickyMobileContact';
-import { CartDrawer } from '@/components/cart/CartDrawer';
 import { DeferredWidgets } from '@/components/layout/DeferredWidgets';
 import { SWCleanup } from '@/components/layout/SWCleanup';
 import { HtmlLangSync } from '@/components/layout/HtmlLangSync';
@@ -51,7 +50,6 @@ export default async function LangLayout({
       {/* Unregister legacy PWA service workers / caches (see SWCleanup.tsx) */}
       <SWCleanup />
       <Header lang={lang} />
-      <CartDrawer lang={lang} />
       <main id="main-content" className="flex-1 pb-24 lg:pb-0">{children}</main>
       <StickyMobileContact lang={lang} />
       <Footer lang={lang} />

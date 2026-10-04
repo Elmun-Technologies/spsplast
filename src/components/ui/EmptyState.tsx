@@ -2,13 +2,13 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Package, Search, Heart, ArrowRightLeft, ShoppingBag } from 'lucide-react';
+import { Package, Search, Heart, ArrowRightLeft } from 'lucide-react';
 import { Button } from './Button';
 import { Locale } from '@/lib/i18n';
 
 interface EmptyStateProps {
   lang: Locale;
-  type: 'search' | 'catalog' | 'wishlist' | 'compare' | 'cart';
+  type: 'search' | 'catalog' | 'wishlist' | 'compare';
   query?: string;
 }
 
@@ -48,15 +48,6 @@ export const EmptyState: React.FC<EmptyStateProps> = ({ lang, type, query }) => 
       descUz: '4 tagacha mahsulotni taqqoslash uchun qo‘shing, farqlarini yonma-yon ko‘rasiz.',
       descRu: 'Добавьте до 4 товаров для сравнения.',
       cta: lang === 'ru' ? 'В каталог' : 'Katalogga',
-      href: `/${lang}/catalog`,
-    },
-    cart: {
-      icon: ShoppingBag,
-      titleUz: 'Savat bo‘sh',
-      titleRu: 'Корзина пуста',
-      descUz: 'Hozircha savatda hech narsa yo‘q. Katalogdan tanlashni boshlang.',
-      descRu: 'В корзине пока ничего нет. Начните с каталога.',
-      cta: lang === 'ru' ? 'В каталог' : 'Katalogga o‘tish',
       href: `/${lang}/catalog`,
     },
   };

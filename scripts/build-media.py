@@ -28,10 +28,12 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 IM_LIMITS = ['-limit', 'memory', '512MiB', '-limit', 'map', '1GiB']
 
 
-# Manba master fayllar `media-src/` da (git'da saqlanadi, lekin deploy'ga
-# chiqmaydi), dastlabki holatda esa repo ildizida edi. Ikkala joyni ham
-# qidiramiz — skript ko'chirishdan oldin ham, keyin ham ishlaydi.
+# Manba master fayllar `media-src/` da: 169 ta katta PNG `media-src/masters/`
+# (git'ga kirmaydi, faqat diskda), studiya/zavod suratlari `studio|factory`.
+# Skript barcha joylarni qidiradi, shuning uchun fayl ko'chirilgan bo'lsa ham
+# ishlaydi.
 MASTER_DIRS = [
+    'media-src/masters',
     'media-src/studio',
     'media-src/factory',
     'media-src/pdf',

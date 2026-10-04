@@ -1,8 +1,7 @@
 import React from 'react';
-import { db } from '@/lib/db';
 import { Locale } from '@/lib/i18n';
 import { hreflang } from '@/lib/seo';
-import { getProductsServer } from '@/lib/services/productService';
+import { getProductsServer, getCategoryOptions } from '@/lib/catalog';
 import { CatalogClient } from '@/components/catalog/CatalogClient';
 
 export const revalidate = 30;
@@ -48,7 +47,7 @@ export default async function CatalogPage({
   const minPrice = searchParams.minPrice ? parseInt(searchParams.minPrice, 10) : undefined;
   const maxPrice = searchParams.maxPrice ? parseInt(searchParams.maxPrice, 10) : undefined;
 
-  const { products, total, totalPages } = await getProductsServer({
+  const { products, total, totalPages } = getProductsServer({
     locale: lang,
     categorySlug: searchParams.category,
     search: searchParams.search,
@@ -63,19 +62,7 @@ export default async function CatalogPage({
     material: searchParams.material,
   });
 
-  const rawCategories = await db.category.findMany({
-    where: { status: 'ACTIVE' },
-    orderBy: { sortOrder: 'asc' },
-    include: {
-      translations: { where: { locale: lang } },
-    },
-  });
-
-  const categories = rawCategories.map((c) => ({
-    id: c.id,
-    slug: c.translations[0]?.slug || c.id,
-    name: c.translations[0]?.name || c.id,
-  }));
+  const categories = getCategoryOptions(lang);
 
   const selectedCategory = categories.find((c) => c.slug === searchParams.category);
 

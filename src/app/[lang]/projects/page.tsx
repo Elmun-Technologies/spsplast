@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
-import { db } from '@/lib/db';
 import { getDictionary, Locale } from '@/lib/i18n';
+import { getProjects } from '@/lib/catalog';
 import { Container } from '@/components/ui/Container';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { MapPin, CheckCircle2 } from 'lucide-react';
@@ -29,12 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Loc
 export default async function ProjectsPage({ params }: { params: Promise<{ lang: Locale }> }) {
   const { lang } = await params;
   const dict = getDictionary(lang);
-  let projects: any[] = [];
-  try {
-    projects = await db.project.findMany();
-  } catch {
-    projects = [];
-  }
+  const projects = getProjects();
 
   return (
     <div className="bg-surface-page min-h-screen text-ink py-8">

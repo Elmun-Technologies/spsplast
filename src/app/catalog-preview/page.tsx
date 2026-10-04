@@ -1,7 +1,7 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import { ProductCard, ProductCardData } from '@/components/product/ProductCard';
-import catalog2026 from '../../../prisma/data/molds-2026.json';
+import catalog2026 from '../../../data/molds-2026.json';
 
 export const metadata = {
   title: 'Yangi katalog 2026 — kontent ko‘rigi | SPS',

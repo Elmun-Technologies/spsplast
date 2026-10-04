@@ -34,11 +34,11 @@ function getBotResponse(input: string, lang: Locale): Message {
       role: 'assistant',
       text:
         lang === 'ru'
-          ? 'Для 50м² брусчатки 30x30 нужно примерно 550 форм (11 шт на 1м²). При заказе от 50 шт скидка -10%. Хотите, я посчитаю точнее?'
-          : '50m² bruschatka 30x30 uchun taxminan 550 ta qolip kerak (1m² ga 11 dona). 50+ donada -10% chegirma. Aniqroq hisoblab beraymi?',
+          ? 'Для 50 м² брусчатки 30x30 нужно примерно 550 форм (около 11 шт на 1 м²). Расчёт ориентировочный: точное количество зависит от раскладки. Оставить заявку для точного расчёта?'
+          : '50 m² bruschatka 30x30 uchun taxminan 550 ta qolip kerak (1 m² ga taxminan 11 dona). Hisob taxminiy: aniq soni yotqizish sxemasiga bog‘liq. Aniq hisob uchun zayafka qoldirasizmi?',
       actions: [
-        { label: lang === 'ru' ? 'Перейти в каталог' : 'Katalogga o‘tish', href: `/${lang}/catalog?category=bruschatka-qoliplari` },
-        { label: lang === 'ru' ? 'Калькулятор' : 'Kalkulyator', href: `/${lang}/catalog` },
+        { label: lang === 'ru' ? 'Перейти в каталог' : 'Katalogga o‘tish', href: `/${lang}/catalog/bruschatka-trotuar-qoliplari` },
+        { label: lang === 'ru' ? 'Категории' : 'Kategoriyalar', href: `/${lang}/catalog` },
       ],
     };
   }
@@ -49,9 +49,9 @@ function getBotResponse(input: string, lang: Locale): Message {
       role: 'assistant',
       text:
         lang === 'ru'
-          ? 'Да, оптовые скидки: 10-49 шт -5%, 50+ шт -10%. Для юр. лиц договор и счет-фактура. Оставьте заявку, менеджер предложит персональную цену.'
-          : 'Ha, ulgurji chegirmalar: 10-49 dona -5%, 50+ dona -10%. Yuridik shaxslar uchun shartnoma va hisob-faktura. So‘rov qoldiring, menejer shaxsiy narx beradi.',
-      actions: [{ label: lang === 'ru' ? 'Запросить опт' : 'Ulgurji so‘rash', href: `/${lang}/contact` }],
+          ? 'Цена для крупного объёма согласуется индивидуально и зависит от количества. Для юридических лиц — договор и счёт-фактура. Оставьте заявку, менеджер подготовит точный расчёт.'
+          : 'Katta hajm uchun narx individual kelishiladi va miqdorga bog‘liq. Yuridik shaxslar uchun shartnoma va hisob-faktura. Zayafka qoldiring — menejer aniq hisob-kitobni tayyorlaydi.',
+      actions: [{ label: lang === 'ru' ? 'Связаться' : 'Bog‘lanish', href: `/${lang}/contact` }],
     };
   }
 
@@ -61,8 +61,8 @@ function getBotResponse(input: string, lang: Locale): Message {
       role: 'assistant',
       text:
         lang === 'ru'
-          ? 'Доставка: Ташкент — 1 день от 50,000 сум, регионы — 1-3 дня. От 1,000,000 сум бесплатно. Самовывоз из Сергели — бесплатно 09:00-18:00.'
-          : 'Yetkazib berish: Toshkent — 1 kun 50,000 so‘mdan, viloyatlar — 1-3 kun. 1,000,000 so‘mdan yuqori bepul. Sergeli omboridan olib ketish bepul 09:00-18:00.',
+          ? 'Доставка по Ташкенту — в течение 1 рабочего дня, тариф зависит от адреса и объёма. В регионы отправляем транспортными компаниями за 1–3 рабочих дня. Самовывоз со склада — бесплатно.'
+          : 'Toshkent bo‘ylab yetkazib berish — 1 ish kuni ichida, tarif manzil va hajmga bog‘liq. Viloyatlarga yuk tashish kompaniyalari orqali 1–3 ish kuni ichida yuboramiz. Ombordan olib ketish bepul.',
       actions: [{ label: lang === 'ru' ? 'Условия доставки' : 'Yetkazib berish shartlari', href: `/${lang}/delivery-payment` }],
     };
   }
@@ -76,8 +76,8 @@ function getBotResponse(input: string, lang: Locale): Message {
           ? 'Для начала бизнеса советую 30x30 "8 кирпичей" — самая популярная. Для фасада — термопанель "Кирпич". Для бордюров — 50x20. Расскажите, для чего вам формы?'
           : 'Biznes boshlash uchun 30x30 "8 kirpich" — eng ommabop. Fasad uchun termopanel "G‘isht". Bordyur uchun 50x20. Qoliplar nima uchun kerakligini ayting?',
       actions: [
-        { label: 'Bruschatka', href: `/${lang}/catalog?category=bruschatka-qoliplari` },
-        { label: 'Termopanel', href: `/${lang}/catalog?category=termopanel` },
+        { label: 'Bruschatka', href: `/${lang}/catalog/bruschatka-trotuar-qoliplari` },
+        { label: 'Panellar', href: `/${lang}/catalog/panel-profil-qoliplari` },
       ],
     };
   }

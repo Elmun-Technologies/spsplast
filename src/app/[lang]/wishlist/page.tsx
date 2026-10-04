@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Heart, Trash2, ShoppingBag, ArrowRight } from 'lucide-react';
 import { useWishlistStore } from '@/lib/store/wishlistStore';
-import { useCartStore } from '@/lib/store/cartStore';
+import { LeadButton } from '@/components/lead/LeadButton';
 import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
@@ -21,19 +21,6 @@ export default function WishlistPage({ params }: { params: Promise<{ lang: Local
   const { items, removeWishlist, clearRecent } = useWishlistStore() as any;
   const wishlistItems = useWishlistStore((s) => s.items);
   const remove = useWishlistStore((s) => s.removeWishlist);
-  const addItem = useCartStore((s) => s.addItem);
-
-  const handleAddToCart = (item: any) => {
-    addItem({
-      productId: item.id,
-      title: item.title,
-      sku: item.sku,
-      price: item.price,
-      image: item.image,
-      quantity: 1,
-    });
-    trackEvent('add_to_cart', { item_id: item.id, from: 'wishlist' });
-  };
 
   return (
     <div className="bg-surface-page min-h-screen py-6 text-ink">
@@ -69,13 +56,15 @@ export default function WishlistPage({ params }: { params: Promise<{ lang: Local
                   </Link>
                   <div className="text-sm font-bold text-brand-red">{formatPrice(item.price, lang)}</div>
                   <div className="grid grid-cols-2 gap-2">
-                    <button
-                      onClick={() => handleAddToCart(item)}
+                    <LeadButton
+                      lang={lang}
+                      product={{ title: item.title, sku: item.sku }}
+                      ariaLabel={lang === 'ru' ? 'Оставить заявку' : 'Zayafka berish'}
                       className="flex items-center justify-center gap-2 py-2.5 min-h-[44px] bg-brand-red text-white rounded-full text-[13px] font-semibold hover:bg-brand-red-dark transition-colors"
                     >
                       <ShoppingBag className="w-3.5 h-3.5" />
-                      Savat
-                    </button>
+                      {lang === 'ru' ? 'Заявка' : 'Zayafka'}
+                    </LeadButton>
                     <button
                       onClick={() => remove(item.id)}
                       className="flex items-center justify-center gap-1 py-2.5 bg-surface-soft border border-line rounded-[16px] text-xs font-bold text-ink-soft hover:text-brand-red hover:bg-[#FEF0F0]"

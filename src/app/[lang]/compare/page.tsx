@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRightLeft, X, ShoppingBag, Check } from 'lucide-react';
 import { useCompareStore } from '@/lib/store/compareStore';
-import { useCartStore } from '@/lib/store/cartStore';
+import { LeadButton } from '@/components/lead/LeadButton';
 import { Container } from '@/components/ui/Container';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { EmptyState } from '@/components/ui/EmptyState';
@@ -21,7 +21,6 @@ export default function ComparePage({ params }: { params: Promise<{ lang: Locale
   const items = useCompareStore((s) => s.items);
   const remove = useCompareStore((s) => s.removeCompare);
   const clear = useCompareStore((s) => s.clearCompare);
-  const addItem = useCartStore((s) => s.addItem);
 
   if (items.length === 0) {
     return (
@@ -77,16 +76,14 @@ export default function ComparePage({ params }: { params: Promise<{ lang: Locale
                   <td key={item.id} className="p-4">
                     <div className="font-bold text-brand-red text-base">{formatPrice(item.price, lang)}</div>
                     {item.oldPrice && <div className="text-xs text-ink-sub line-through">{formatPrice(item.oldPrice, lang)}</div>}
-                    <button
-                      onClick={() => {
-                        addItem({ productId: item.id, title: item.title, sku: item.sku, price: item.price, image: item.image, quantity: 1 });
-                        trackEvent('add_to_cart', { from: 'compare' });
-                      }}
+                    <LeadButton
+                      lang={lang}
+                      product={{ title: item.title, sku: item.sku }}
                       className="mt-2 w-full py-2.5 min-h-[44px] bg-brand-red text-white rounded-full text-[13px] font-semibold hover:bg-brand-red-dark transition-colors flex items-center justify-center gap-1.5"
                     >
                       <ShoppingBag className="w-3.5 h-3.5" />
-                      Savatga
-                    </button>
+                      {lang === 'ru' ? 'Заявка' : 'Zayafka'}
+                    </LeadButton>
                   </td>
                 ))}
               </tr>

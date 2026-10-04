@@ -2,19 +2,19 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import nextDynamic from 'next/dynamic';
-import { db } from '@/lib/db';
 import { Locale } from '@/lib/i18n';
 import { hreflang } from '@/lib/seo';
-import { getProductsServer } from '@/lib/services/productService';
+import { HOME_FAQ, faqItems, faqJsonLd } from '@/lib/faq';
+import { getProductsServer, getCategoriesWithMeta } from '@/lib/catalog';
 import { ProductCard } from '@/components/product/ProductCard';
 import { CategoryCard } from '@/components/product/CategoryCard';
 import { Container } from '@/components/ui/Container';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Price } from '@/components/ui/Price';
+import { FaqAccordion } from '@/components/ui/FaqAccordion';
 import { DealCountdown } from '@/components/ui/DealCountdown';
 import {
   ArrowRight,
-  ChevronDown,
   ShieldCheck,
   Truck,
   PackageCheck,
@@ -56,68 +56,14 @@ export async function generateMetadata({ params }: HomePageProps) {
 
 export default async function HomePage({ params }: HomePageProps) {
   const { lang } = await params;
-  // These independent reads used to block one another. Fetch the homepage payload together
-  // so the slowest query, rather than the sum of all queries, determines TTFB.
-  //
-  // Every read is guarded: this route is `force-static`, so it also renders at
-  // BUILD time. An unguarded throw here fails `next build` outright whenever the
-  // database is momentarily unreachable (see the "never make the build depend on
-  // the database" rule in CLAUDE.md) — the page degrades to empty rails instead.
-  const [categoriesResult, bestsellersResult, allProductsResult] = await Promise.allSettled([
-    db.category.findMany({
-      where: { status: 'ACTIVE' },
-      orderBy: { sortOrder: 'asc' },
-      include: {
-        translations: { where: { locale: lang } },
-        _count: { select: { products: true } },
-      },
-    }),
-    getProductsServer({ locale: lang, isBestseller: true, limit: 8 }),
-    getProductsServer({ locale: lang, limit: 48 }),
-  ]);
+  // Ma'lumot statik katalogdan o'qiladi: so'rovlar bir-birini kutmaydi, tashqi
+  // xizmat yo'q, shuning uchun avvalgi `Promise.allSettled` + zaxira mantiqi
+  // ham kerak emas — natija har doim to'liq bo'ladi.
+  const categories = getCategoriesWithMeta(lang);
+  let bestsellers = getProductsServer({ locale: lang, isBestseller: true, limit: 8 }).products;
+  const allProducts = getProductsServer({ locale: lang, limit: 48 }).products;
 
-  if (categoriesResult.status === 'rejected') {
-    console.error('Homepage: category fetch failed', categoriesResult.reason);
-  }
-  if (bestsellersResult.status === 'rejected') {
-    console.error('Homepage: bestseller fetch failed', bestsellersResult.reason);
-  }
-  if (allProductsResult.status === 'rejected') {
-    console.error('Homepage: product fetch failed', allProductsResult.reason);
-  }
-
-  const failedHomepageReads = [categoriesResult, bestsellersResult, allProductsResult].filter(
-    (result) => result.status === 'rejected'
-  );
-
-  // During a production ISR refresh, do not turn a temporary database outage
-  // into a successfully cached but empty homepage. Throwing tells Next to keep
-  // serving the last good page and retry the refresh later. Keep the build-time
-  // fallback so a database outage does not prevent a deployment from building.
-  if (failedHomepageReads.length > 0 && process.env.NEXT_PHASE !== 'phase-production-build') {
-    throw new Error('Homepage data refresh failed; preserving the last successful page.');
-  }
-
-  const rawCategories = categoriesResult.status === 'fulfilled' ? categoriesResult.value : [];
-
-  const categories = rawCategories.map((c) => {
-    const trans = c.translations[0] || {};
-    return {
-      id: c.id,
-      slug: trans.slug || c.id,
-      nameUz: trans.name || '',
-      nameRu: trans.name || '',
-      descriptionUz: trans.description || '',
-      descriptionRu: trans.description || '',
-      image: c.image,
-      _count: c._count,
-    };
-  });
-
-  let bestsellers = bestsellersResult.status === 'fulfilled' ? bestsellersResult.value.products : [];
-  const allProducts = allProductsResult.status === 'fulfilled' ? allProductsResult.value.products : [];
-
-  // Keep the fallback in the same request path only when it is actually needed.
+  // Top mahsulot belgilangan bo'lmasa — birinchi 8 tasi ko'rsatiladi.
   if (!bestsellers || bestsellers.length === 0) {
     bestsellers = allProducts.slice(0, 8);
   }
@@ -177,36 +123,9 @@ export default async function HomePage({ params }: HomePageProps) {
       ? Math.round(((dealOfTheDay.oldPrice - dealOfTheDay.price) / dealOfTheDay.oldPrice) * 100)
       : 0;
 
-  const faqJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: [
-      {
-        '@type': 'Question',
-        name: 'Qoliplar qanday materialdan tayyorlanadi?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Qoliplarimiz chidamli polipropilen va ABS plastikdan tayyorlanadi. Aniq resurs mahsulot modeliga va ishlatish shartlariga bog‘liq — savol bilan murojaat qiling.',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'Viloyatlarga yetkazib berish shartlari qanday?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Respublikaning barcha viloyatlariga pochta yoki yuk tashish xizmatlari orqali tezkor va xavfsiz yetkazib beramiz.',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'Ulgurji xaridorlar uchun chegirmalar bormi?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Ha, 100 donadan ortiq buyurtmalar uchun dilerlik va ulgurji narxlar amal qiladi.',
-        },
-      },
-    ],
-  };
+  // FAQ matni `src/lib/faq.ts` dan — sahifada ko'rinadigan matn bilan JSON-LD
+  // bir xil manbadan olinadi (ilgari ular ikki nusxada yurardi).
+  const homeFaqJsonLd = faqJsonLd(HOME_FAQ, lang);
 
   const orgJsonLd = {
     '@context': 'https://schema.org',
@@ -219,7 +138,7 @@ export default async function HomePage({ params }: HomePageProps) {
 
   return (
     <div className="bg-surface-page text-ink min-h-screen pb-16">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeFaqJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
 
       <section className="pt-5 pb-2">
@@ -385,7 +304,7 @@ export default async function HomePage({ params }: HomePageProps) {
               </div>
               <div>
                 <h4 className="text-sm font-semibold text-ink">{lang === 'ru' ? 'Завод, без посредников' : 'Zavod, vositachisiz'}</h4>
-                <p className="text-[13px] text-ink-sub mt-1 leading-relaxed">{lang === 'ru' ? 'Прямая цена, опт −10%' : 'To‘g‘ridan-to‘g‘ri narx, ulgurji −10%'}</p>
+                <p className="text-[13px] text-ink-sub mt-1 leading-relaxed">{lang === 'ru' ? 'Цена от завода, условия — по объёму' : 'Zavod narxi, shartlar — hajmga qarab'}</p>
               </div>
             </div>
 
@@ -577,35 +496,7 @@ export default async function HomePage({ params }: HomePageProps) {
               <div className="lg:col-span-6 space-y-3">
                 <h3 className="text-base font-semibold text-ink mb-3">{lang === 'ru' ? 'Часто задаваемые вопросы' : 'Ko‘p beriladigan savollar'}</h3>
 
-                <details className="group bg-surface-soft rounded-[16px] p-4 cursor-pointer open:bg-surface open:shadow-card transition-all">
-                  <summary className="flex items-center justify-between font-semibold text-sm text-ink list-none">
-                    <span>Qoliplar qanday materialdan tayyorlanadi?</span>
-                    <ChevronDown className="w-4 h-4 text-ink-sub group-open:rotate-180 transition-transform" />
-                  </summary>
-                  <p className="text-sm text-ink-soft mt-3 pt-3 border-t border-line leading-relaxed">
-                    Qoliplarimiz chidamli polipropilen va ABS plastikdan tayyorlanadi. Aniq resurs mahsulot modeliga va ishlatish shartlariga bog‘liq.
-                  </p>
-                </details>
-
-                <details className="group bg-surface-soft rounded-[16px] p-4 cursor-pointer open:bg-surface open:shadow-card transition-all">
-                  <summary className="flex items-center justify-between font-semibold text-sm text-ink list-none">
-                    <span>Viloyatlarga yetkazib berish shartlari qanday?</span>
-                    <ChevronDown className="w-4 h-4 text-ink-sub group-open:rotate-180 transition-transform" />
-                  </summary>
-                  <p className="text-sm text-ink-soft mt-3 pt-3 border-t border-line leading-relaxed">
-                    Respublikaning barcha viloyatlariga pochta yoki yuk tashish xizmatlari orqali tezkor va xavfsiz yetkazib beramiz.
-                  </p>
-                </details>
-
-                <details className="group bg-surface-soft rounded-[16px] p-4 cursor-pointer open:bg-surface open:shadow-card transition-all">
-                  <summary className="flex items-center justify-between font-semibold text-sm text-ink list-none">
-                    <span>Ulgurji xaridorlar uchun chegirmalar bormi?</span>
-                    <ChevronDown className="w-4 h-4 text-ink-sub group-open:rotate-180 transition-transform" />
-                  </summary>
-                  <p className="text-sm text-ink-soft mt-3 pt-3 border-t border-line leading-relaxed">
-                    Ha, 100 donadan ortiq buyurtmalar uchun dilerlik va ulgurji narxlar amal qiladi.
-                  </p>
-                </details>
+                <FaqAccordion items={faqItems(HOME_FAQ, lang)} />
               </div>
             </div>
           </div>

@@ -53,7 +53,7 @@ export default async function TermsPage({ params }: { params: Promise<{ lang: Lo
           <section className="space-y-3">
             <h2 className="text-lg font-bold text-ink">3. Yetkazib berish</h2>
             <p className="text-sm text-ink-soft leading-relaxed">
-              Yetkazib berish 1-3 kun ichida, Toshkent bo‘ylab kuryer, viloyatlarga pochta/yuk. 1,000,000 so‘mdan yuqori buyurtmalar bepul.
+              Yetkazib berish: Toshkent bo‘ylab 1 ish kuni, viloyatlarga 1–3 ish kuni. Tarif manzil va buyurtma hajmiga bog‘liq.
             </p>
           </section>
         </div>

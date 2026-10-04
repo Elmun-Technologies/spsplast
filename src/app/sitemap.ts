@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { db } from '@/lib/db';
+import { catalog } from '@/lib/catalog';
 
 /**
  * Sitemap.
@@ -15,7 +15,8 @@ import { db } from '@/lib/db';
  *  - har bir yozuvga uz/ru hreflang alternates qo'shiladi — bu qidiruv
  *    tizimiga ikki til versiyasi bir sahifa ekanini aytadi.
  *
- * `revalidate` bilan keshlanadi: har bir crawler so'rovi bazani titkilamasin.
+ * Ma'lumot statik katalogdan (`src/data/catalog.json`) olinadi — build paytida
+ * baza umuman kerak emas, shuning uchun sitemap hech qachon "bo'sh" chiqmaydi.
  */
 
 export const revalidate = 3600;
@@ -23,32 +24,25 @@ export const revalidate = 3600;
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://sps.uz';
 
-  type SlugEntry = { updatedAt: Date; translations: { slug: string; locale: string }[] };
+  type SlugEntry = { updatedAt: string | null; translations: { slug: string; locale: string }[] };
 
-  let products: SlugEntry[] = [];
-  let categories: SlugEntry[] = [];
-  let posts: SlugEntry[] = [];
+  const products: SlugEntry[] = catalog.products
+    .filter((product) => product.status === 'ACTIVE')
+    .map((product) => ({
+      updatedAt: product.updatedAt,
+      translations: product.translations.map(({ slug, locale }) => ({ slug, locale })),
+    }));
 
-  try {
-    [products, categories, posts] = await Promise.all([
-      db.product.findMany({
-        where: { status: 'ACTIVE' },
-        select: { updatedAt: true, translations: { select: { slug: true, locale: true } } },
-      }),
-      db.category.findMany({
-        where: { status: 'ACTIVE' },
-        select: { updatedAt: true, translations: { select: { slug: true, locale: true } } },
-      }),
-      db.blogPost.findMany({
-        where: { isPublished: true },
-        select: { updatedAt: true, translations: { select: { slug: true, locale: true } } },
-      }),
-    ]);
-  } catch {
-    products = [];
-    categories = [];
-    posts = [];
-  }
+  // Kategoriya sahifasi `/catalog?category=...` ko'rinishida (301 orqali
+  // `/catalog/[slug]` ham shu yerga olib boradi) — shuning uchun kategoriya
+  // yozuvlari statik ro'yxatda allaqachon bor.
+  const categories: SlugEntry[] = [];
+  const posts: SlugEntry[] = catalog.blog
+    .filter((post) => post.isPublished)
+    .map((post) => ({
+      updatedAt: post.updatedAt,
+      translations: post.translations.map(({ slug, locale }) => ({ slug, locale })),
+    }));
 
   const locales = ['uz', 'ru'];
   const routes: MetadataRoute.Sitemap = [];
@@ -103,7 +97,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       if (!trans) continue;
       routes.push({
         url: `${baseUrl}/${locale}/product/${trans.slug}`,
-        lastModified: p.updatedAt,
+        lastModified: p.updatedAt ?? undefined,
         changeFrequency: 'weekly',
         priority: 0.9,
         alternates: alternates(`/product/${trans.slug}`),
@@ -115,7 +109,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       if (!trans) continue;
       routes.push({
         url: `${baseUrl}/${locale}/catalog/${trans.slug}`,
-        lastModified: c.updatedAt,
+        lastModified: c.updatedAt ?? undefined,
         changeFrequency: 'weekly',
         priority: 0.8,
         alternates: alternates(`/catalog/${trans.slug}`),
@@ -127,7 +121,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       if (!trans) continue;
       routes.push({
         url: `${baseUrl}/${locale}/blog/${trans.slug}`,
-        lastModified: b.updatedAt,
+        lastModified: b.updatedAt ?? undefined,
         changeFrequency: 'monthly',
         priority: 0.7,
         alternates: alternates(`/blog/${trans.slug}`),

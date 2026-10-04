@@ -1,68 +1,83 @@
-# SPS Plast — E-commerce Platform
+# SPS Plast — sayt (backendsiz)
 
-Bilingual (uz/ru) B2C + B2B storefront for **SPS**, a Uzbekistan-based manufacturer of
+Bilingual (uz/ru) website for **SPS**, an Uzbekistan-based manufacturer of
 concrete molds (bruschatka / bordyur / plitka qoliplari) and facade decor.
 
-Built with Next.js 15 (App Router) + React 19, TypeScript, Prisma (PostgreSQL), Tailwind CSS
-and Zustand. Deployed to Vercel.
+The site is **not a shop**. Its job is to show the catalog, build trust and
+collect a **zayafka** (lead): name, phone, product of interest, quantity, note.
+The lead is delivered to the company's Telegram group and a manager calls back.
 
-> Deep documentation lives in [`docs/`](docs) and [`CLAUDE.md`](CLAUDE.md) (project overview,
-> env vars, deploy process, known pitfalls).
+Built with Next.js 15 (App Router) + React 19, TypeScript, Tailwind CSS and
+Zustand. Deployed to Vercel. **No database, no Prisma, no admin panel.**
+
+> Documentation: [`CLAUDE.md`](CLAUDE.md) (project guide), [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md),
+> [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md), [`docs/OPTIMIZATION-LOG.md`](docs/OPTIMIZATION-LOG.md)
+> and the audit [`docs/MADANI-RAQOBAT-AUDITI.md`](docs/MADANI-RAQOBAT-AUDITI.md).
 
 ---
 
 ## Features
 
-- **Storefront** — home, catalog with faceted filters, product detail with variants,
-  search, blog, projects, company pages.
-- **Commerce** — guest checkout, cart/wishlist/compare (persisted in `localStorage`),
-  bulk-tier pricing (10+ = −5 %, 50+ = −10 %), promo codes, Click/Payme payment
-  integration, order tracking.
-- **B2B** — wholesale lead form, one-click order modal, amoCRM sync.
-- **Admin panel** — products, variants, categories, attributes, orders, leads, media
-  uploads, integration settings.
-- **PWA** — manifest, service worker, install prompt.
-- **i18n** — `uz` / `ru`, prerendered per locale.
+- **Storefront** — home, catalog with filters, product detail (variants, area
+  calculator), search, blog, projects, company pages — all prerendered static HTML.
+- **Zayafka flow** — one compact form (name, phone with `+998` mask, product,
+  quantity, note) reachable from every page; the Telegram message carries the
+  source page, language, time and product SKU.
+- **Trust content** — FAQ (uz/ru, one source for visible text and JSON-LD),
+  real photos, delivery/payment terms, no unverifiable numbers (P0-8 rule).
+- **i18n** — `uz` / `ru`, prerendered per locale with hreflang + `x-default`.
+- **Analytics** — GTM/GA4, Yandex Metrica and Meta Pixel, all env-gated.
+- **SEO** — canonical + hreflang on every page, sitemap, Product/FAQPage/HowTo
+  JSON-LD, 300+ word category pages.
 
 ---
 
 ## Getting started
 
 ```bash
-npm install            # postinstall runs `prisma generate`
-cp .env.example .env   # then fill in DATABASE_URL, DIRECT_URL, AUTH_SECRET, …
-
-npx prisma db push     # apply prisma/schema.prisma (no migrations folder)
-npm run db:seed        # seed admin user + sample content
+npm install
+cp .env.example .env   # Telegram pair is the only required part
 
 npm run dev            # http://localhost:3000
 ```
+
+The catalog is read from the committed `src/data/catalog.json`, so the site runs
+with an empty `.env` — only the Telegram delivery of new leads needs the bot
+token and chat id.
 
 ### Scripts
 
 | Command | Purpose |
 | --- | --- |
 | `npm run dev` | Dev server |
-| `npm run build` | `prisma generate && next build` |
+| `npm run build` | `catalog:check` + `next build` (441 static pages) |
 | `npm start` | Production server |
 | `npm run typecheck` | `tsc --noEmit` |
 | `npm run lint` | ESLint (`next lint`) |
-| `npm test` | Unit tests (`node --test tests/*.test.js`) |
-| `npm run db:push` / `db:seed` / `db:studio` | Prisma schema / seed / studio |
-| `npm run verify:production` | Full pre-deploy check (prisma validate, tsc, lint, tests, docs) |
+| `npm test` | `node --test --experimental-strip-types tests/*.test.js` |
+| `npm run catalog:build` | Regenerate `src/data/catalog.json` |
+| `npm run catalog:check` | Fail if the catalog JSON is stale |
+| `npm run media:build` | Regenerate `public/media` from `media-src/` masters |
 | `npm run fonts:sync` | Refresh the vendored Inter woff2 files |
 
 ---
 
 ## Architecture notes
 
-### Pricing has exactly one source of truth
+### Static catalog instead of a database
 
-`src/lib/pricing.ts` holds the bulk tiers and the promo-code table. The storefront
-(cart drawer, cart, checkout) and `createOrderServerSide` both call it, so the total a
-customer sees is the total that gets written to `Order.totalAmount`. Promo codes are
-re-validated server-side and stored as `Order.couponCode` / `Order.discountAmount` — a
-discount computed in the browser never reaches the database.
+`catalog_build/products.json`, `data/molds-2026.json` and `data/content-2026.json`
+are merged by `scripts/build-static-catalog.js` into a single committed file,
+`src/data/catalog.json`. `src/lib/catalog/*` reads it synchronously, so pages do
+not await anything and there is no way for the site to be “down” because a
+database is unreachable. `npm run catalog:check` runs before `next build` and
+fails fast when the JSON is out of date.
+
+### One write endpoint
+
+`POST /api/leads` (Zod-validated, HTML-escaped, honeypot + per-IP rate limit,
+optional UTM fields) is the only public write API; `GET /api/health` reports the
+Telegram configuration. A test asserts that no other route handlers exist.
 
 ### Async request APIs
 
@@ -76,40 +91,31 @@ const { lang } = await params;
 const { lang } = React.use(params);
 ```
 
-`[lang]/layout.tsx` exports `generateStaticParams()` for the closed locale set, which
-keeps the marketing pages prerendered as static HTML instead of being server-rendered on
-every request.
+`[lang]/layout.tsx`, product, blog and category pages export
+`generateStaticParams()`, so the whole storefront is prerendered HTML.
 
-### Security
+### Trust rules (P0-8)
 
-- `src/middleware.ts` blocks cross-origin mutations against every cookie-authenticated
-  `/api` route (CSRF).
-- Per-IP rate limits on admin login, order creation and lead creation.
-- Order payloads are validated by `src/lib/schemas/order.ts` (bounded line count,
-  integer quantities, length caps) before any query runs.
-- Passwords are bcrypt-hashed; sessions are random tokens stored as SHA-256 hashes in
-  HttpOnly cookies; admin actions are written to `AuditLog`.
-
-See [`docs/SECURITY.md`](docs/SECURITY.md).
+No discount percentages, delivery tariffs or durability figures are published
+unless they are verifiable. Where a number depends on the order, the copy says
+so (“narx hajmga bog‘liq”, “resurs modelga bog‘liq”) — see
+`docs/MADANI-RAQOBAT-AUDITI.md` §7.5.
 
 ### Fonts are self-hosted
 
-Inter (variable, `wght` axis) ships as two woff2 subsets from `/public/fonts` —
-latin (48 KB) and cyrillic (19 KB) — with `@font-face` rules in `src/app/globals.css`.
-This keeps `next build` free of outbound network calls (Google Fonts is fetched **at
-build time** by `next/font/google`, which fails in air-gapped CI) and removes a
-third-party request from the critical path. Update the files with `npm run fonts:sync`.
+Inter (variable) ships as latin + cyrillic woff2 subsets from `/public/fonts`
+with `@font-face` rules in `src/app/globals.css`. This keeps `next build` free of
+outbound network calls and removes a third-party request from the critical path.
 
 ---
 
 ## Deploying (Vercel)
 
-1. Set every variable from [`.env.example`](.env.example) in the Vercel project.
-   `DATABASE_URL` is the pooled URL; `DIRECT_URL` is the non-pooled one used by
-   `prisma db push`.
-2. `npm install` → `postinstall` runs `prisma generate`; `npm run build` runs it again.
-3. Apply schema changes with `npx prisma db push` (there is **no** `migrations/` folder).
-4. Seed with `npm run db:seed` using `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD`.
+1. Import the repository into Vercel (framework preset: Next.js).
+2. Set the environment variables — see `.env.example`. Required for lead
+   delivery: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`. Recommended:
+   `NEXT_PUBLIC_SITE_URL=https://sps.uz` plus the analytics IDs.
+3. Deploy. No build step needs a database; `npm run build` regenerates nothing.
 
 Full runbook: [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) ·
 pre-launch checks: [`docs/LAUNCH-CHECKLIST.md`](docs/LAUNCH-CHECKLIST.md).

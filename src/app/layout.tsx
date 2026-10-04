@@ -1,4 +1,5 @@
 import './globals.css';
+import { AnalyticsScripts } from '@/components/analytics/AnalyticsScripts';
 
 /**
  * Inter is self-hosted from `/public/fonts` (see `globals.css` for the
@@ -87,6 +88,8 @@ export default function RootLayout({
           type="font/woff2"
           crossOrigin="anonymous"
         />
+        {/* Analitika (P0-12): faqat env ID bo'lsa yuklanadi */}
+        <AnalyticsScripts />
         {children}
       </body>
     </html>
