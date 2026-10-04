@@ -9,6 +9,7 @@ const { PrismaPg } = require('@prisma/adapter-pg');
 const bcrypt = require('bcryptjs');
 const path = require('path');
 const CATALOG = require(path.join(__dirname, '..', 'catalog_build', 'products.json'));
+const CONTENT = require(path.join(__dirname, 'data', 'content-2026.json'));
 
 // --- RU nomlar (katalog asosida tarjima / transliteratsiya) ---
 const RU_NAMES = {
@@ -454,71 +455,58 @@ async function main() {
   });
 
   // ---------- Project ----------
-  await prisma.project.create({
-    data: {
-      titleUz: 'Toshkentdagi xususiy hovli — bruschatka va dekorativ plita',
-      titleRu: 'Частный двор в Ташкенте — брусчатка и декоративная плитка',
-      descriptionUz: 'G001 «Floriya» va G050 «Pushti gul» qoliplari yordamida hovli yo‘lkasi va dam olish maydonchasini jihozlash.',
-      descriptionRu: 'Благоустройство дорожек и зоны отдыха двора с помощью форм G001 «Флория» и G050 «Цветок».',
-      location: 'Toshkent, O‘zbekiston',
-      productUsed: 'SPS-G001, SPS-G050',
-      beforeImage: '/catalog/2026/G001-env.jpg',
-      afterImage: '/catalog/2026/G007-env.jpg',
-    },
-  });
+  // ---------- Project ----------
+  // 6 real loyiha: public/media/projects ichidagi "oldin/keyin" juftliklari
+  // scripts/build-media.py tomonidan master rasmlardan yasaladi.
+  for (const project of CONTENT.projects) {
+    await prisma.project.create({
+      data: {
+        titleUz: project.uz.title,
+        titleRu: project.ru.title,
+        descriptionUz: project.uz.description,
+        descriptionRu: project.ru.description,
+        location: project.location,
+        productUsed: project.productUsed,
+        beforeImage: project.beforeImage,
+        afterImage: project.afterImage,
+      },
+    });
+  }
 
   // ---------- Blog ----------
-  await prisma.blogPost.create({
-    data: {
-      coverImage: '/catalog/2026/G020-quyma.jpg',
-      isPublished: true,
-      publishedAt: new Date('2026-02-20'),
-      translations: {
-        create: [
-          {
-            locale: 'uz',
-            title: 'Plastik qolip tanlash bo‘yicha qo‘llanma (2026)',
-            slug: 'plastik-qolip-tanlash-qollanmasi-2026',
-            excerpt: 'Polipropilen va ABS plastik qoliplar: farqlari, o‘lchamlar, A / B / V belgilari va to‘g‘ri parvarish.',
-            content: `## Qolip materiali: polipropilen va ABS
-
-SPS Plast qoliplari mustahkam polipropilen va ABS plastikdan tayyorlanadi. Ular aniq geometriya, barqaror natija va uzoq xizmat muddati bilan ajralib turadi.
-
-## O‘lchamlar va belgilar
-
-- O‘lchamlar millimetrda (mm) ko‘rsatilgan: uzunlik × kenglik × balandlik.
-- **A / B / V** — komplekt elementlari belgisi.
-- **\\*** — standart o‘lcham, buyurtmada menejer bilan aniqlashtiriladi.
-
-## Parvarish
-
-Har ishlatishdan keyin qolipni tozalab, quriting. Mexanik ta’sirlardan saqlang — shunda qolip yuzlab marta xizmat qiladi.`,
-          },
-          {
-            locale: 'ru',
-            title: 'Руководство по выбору пластиковой формы (2026)',
-            slug: 'rukovodstvo-po-vyboru-plastikovoy-formy-2026',
-            excerpt: 'Формы из полипропилена и АБС: различия, размеры, обозначения A / B / V и правильный уход.',
-            content: `## Материал формы: полипропилен и АБС
-
-Формы SPS Plast изготовлены из прочного полипропилена и АБС-пластика. Они обеспечивают точную геометрию, стабильный результат и долгий срок службы.
-
-## Размеры и обозначения
-
-- Размеры указаны в миллиметрах (мм): длина × ширина × высота.
-- **A / B / V** — обозначение элементов комплекта.
-- **\\*** — стандартный размер, уточняется при заказе у менеджера.
-
-## Уход
-
-После каждого использования очистите и просушите форму. Берегите от механических повреждений — тогда форма прослужит сотни заливок.`,
-          },
-        ],
+  // 6 maqola (uz + ru). Matn formati shu faylda emas, alohida JSON'da:
+  // prisma/data/content-2026.json — uni nosozlik bo'lsa tahrirlash oson.
+  // Bloklash qoidalari: "## " h2, "### " h3, "- " ro'yxat, "> " iqtibos,
+  // bloklar bo'sh qator bilan ajratiladi (src/app/[lang]/blog/[slug]/page.tsx).
+  for (const post of CONTENT.blog) {
+    await prisma.blogPost.create({
+      data: {
+        coverImage: post.coverImage,
+        author: post.author || 'SPS Plast mutaxassisi',
+        isPublished: true,
+        publishedAt: new Date(post.publishedAt),
+        translations: {
+          create: [
+            {
+              locale: 'uz',
+              slug: post.slug,
+              title: post.uz.title,
+              excerpt: post.uz.excerpt,
+              content: post.uz.content,
+            },
+            {
+              locale: 'ru',
+              slug: post.ru.slug || `${post.slug}-ru`,
+              title: post.ru.title,
+              excerpt: post.ru.excerpt,
+              content: post.ru.content,
+            },
+          ],
+        },
       },
-    },
-  });
+    });
+  }
 
-  console.log('Banner + project + blog ready.');
   console.log('Seed completed successfully.');
   await prisma.$disconnect();
 }

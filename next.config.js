@@ -133,6 +133,59 @@ const nextConfig = {
       },
     ];
   },
+  /**
+   * Migratsiya: eski `sps.uz` (2017-yilgi CMS) manzillarini yangi marshrutlarga
+   * doimiy (301) bog'laymiz.
+   *
+   * Nega bu shart: eski sayt 2017-yildan beri indeksda va unga tashqi havolalar
+   * bor. Bu blok bo'lmasa, yangi sayt ishga tushganda o'sha URL'lar 404 qaytaradi
+   * va to'plangan organik trafik hamda link-massasi yo'qoladi
+   * (docs/MADANI-RAQOBAT-AUDITI.md, P0-2 va 8.1).
+   *
+   * Manba ro'yxati eski saytning haqiqiy `sitemap.xml`idan olingan. Qidiruv
+   * tizimlari 301 ni "signal yangi manzilga o'tdi" deb tushunadi, shuning uchun
+   * `permanent: true` (308) emas, aynan 301 ishlatiladi.
+   */
+  async redirects() {
+    /** Eski manzil → yangi manzil (rus tilidagi kontent edi, shuning uchun /ru). */
+    const legacy = [
+      { source: '/about', destination: '/ru/about' },
+      { source: '/produkciya', destination: '/ru/catalog' },
+      { source: '/formi', destination: '/ru/catalog' },
+      { source: '/formi/p/:page*', destination: '/ru/catalog' },
+      { source: '/formi/image/:id*', destination: '/ru/catalog' },
+      { source: '/plitki', destination: '/ru/catalog' },
+      { source: '/kolodtsy', destination: '/ru/catalog' },
+      { source: '/bordyury-i-lotki', destination: '/ru/catalog' },
+      { source: '/uslugi', destination: '/ru/production' },
+      { source: '/proizvoditeli', destination: '/ru/production' },
+      { source: '/doc', destination: '/ru/delivery-payment' },
+      { source: '/otzyvy-o-nas', destination: '/ru/about' },
+      { source: '/fotogalereya', destination: '/ru/projects' },
+      { source: '/novosti', destination: '/ru/blog' },
+      { source: '/novosti/news_post/:slug*', destination: '/ru/blog' },
+      { source: '/napishite-nam', destination: '/ru/contact' },
+      { source: '/kontakty', destination: '/ru/contact' },
+      { source: '/search', destination: '/ru/search' },
+      { source: '/karta-sayta', destination: '/ru' },
+      // Ma'nosi yo'q shaxsiy sahifa — trafikni bosh sahifaga qaytaramiz.
+      { source: '/user', destination: '/ru' },
+    ].map((entry) => ({ ...entry, statusCode: 301 }));
+
+    /**
+     * `www` ni asosiy domenga (apex) yo'naltiramiz: bir xil kontent ikki hostda
+     * ochilsa, qidiruv tizimlari dublikat deb hisoblaydi va canonical signal
+     * kuchsizlanadi.
+     */
+    const canonicalHost = {
+      source: '/:path*',
+      has: [{ type: 'host', value: 'www.sps.uz' }],
+      destination: 'https://sps.uz/:path*',
+      statusCode: 301,
+    };
+
+    return [canonicalHost, ...legacy];
+  },
   async rewrites() {
     return [
       { source: '/sitemap.xml', destination: '/sitemap' },

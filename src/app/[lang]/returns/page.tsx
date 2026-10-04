@@ -3,6 +3,25 @@ import { getDictionary, Locale } from '@/lib/i18n';
 import { Container } from '@/components/ui/Container';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { RefreshCw, ShieldCheck, Clock } from 'lucide-react';
+import { pageMetadata } from '@/lib/seo';
+
+/**
+ * SEO: sarlavha, tavsif, canonical va uz/ru hreflang (x-default bilan).
+ * Ilgari bu sahifada generateMetadata yo'q edi va u bosh sahifa sarlavhasini
+ * meros olardi (docs/MADANI-RAQOBAT-AUDITI.md, P0-11).
+ */
+export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }) {
+  const { lang } = await params;
+  const isRu = lang === 'ru';
+  return pageMetadata({
+    lang,
+    path: '/returns',
+    title: isRu ? 'Возврат и обмен — условия | SPS' : 'Qaytarish va almashtirish shartlari | SPS',
+    description: isRu
+      ? 'При заводском дефекте изделие заменяется или возвращаются деньги. Порядок возврата, сроки и необходимые данные.'
+      : 'Zavod nuqsoni aniqlansa mahsulot almashtiriladi yoki puli qaytariladi. Qaytarish tartibi, muddatlar va zarur ma’lumotlar.',
+  });
+}
 
 export default async function ReturnsPage({ params }: { params: Promise<{ lang: Locale }> }) {
   const { lang } = await params;

@@ -154,6 +154,15 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
     const currentOtherLang = lang === 'uz' ? 'ru' : 'uz';
     const switchLangUrl = pathname.replace(`/${lang}`, `/${currentOtherLang}`);
 
+    /**
+     * Tilni qo'lda almashtirganda tanlovni cookie'ga yozamiz: keyin foydalanuvchi
+     * `/` manziliga kirsa (yoki reklama havolasi til ko'rsatmasa), middleware
+     * brauzer tilini emas, aynan shu tanlovni hurmat qiladi.
+     */
+    const rememberLanguage = () => {
+        document.cookie = `sps_lang=${currentOtherLang}; path=/; max-age=31536000; samesite=lax`;
+    };
+
     const getCategoryName = (cat: CategoryTreeItem) => {
         const trans = cat.translations.find((t) => t.locale === lang) || cat.translations[0];
         return trans?.name || 'Kategoriya';
@@ -200,6 +209,10 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
 
                         <Link
                             href={switchLangUrl}
+                            onClick={rememberLanguage}
+                            aria-label={
+                                lang === 'ru' ? 'Переключить на узбекский язык' : 'Rus tiliga o‘tish'
+                            }
                             className="px-3 py-1 rounded-full bg-surface border border-line hover:border-brand-red hover:text-brand-red text-ink-soft transition-colors text-[12px] font-semibold"
                         >
                             {currentOtherLang.toUpperCase()}
@@ -627,6 +640,25 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                             );
                         })}
                     </nav>
+                    {/* Ma'lumot sahifalari: katalog bo'lmagan, lekin yangi mijoz
+                        uchun eng kerakli havolalar (P1-3 "Qanday buyurtma berish"). */}
+                    <div className="pt-4 border-t border-line space-y-2">
+                        {[
+                            { href: `/${lang}/how-to-order`, label: lang === 'ru' ? 'Как сделать заказ' : 'Qanday buyurtma berish' },
+                            { href: `/${lang}/delivery-payment`, label: lang === 'ru' ? 'Доставка и оплата' : 'Yetkazib berish va to‘lov' },
+                            { href: `/${lang}/returns`, label: lang === 'ru' ? 'Возврат и обмен' : 'Qaytarish shartlari' },
+                            { href: `/${lang}/contact`, label: lang === 'ru' ? 'Контакты' : 'Kontaktlar' },
+                        ].map((link) => (
+                            <Link
+                                key={link.href}
+                                href={link.href}
+                                onClick={() => setMobileMenuOpen(false)}
+                                className="block text-sm font-semibold text-ink hover:text-brand-red transition-colors py-1"
+                            >
+                                {link.label}
+                            </Link>
+                        ))}
+                    </div>
                     <div className="pt-4 border-t border-line">
                         <a href={`tel:${COMPANY_CONTACTS.phoneRaw}`} className="flex items-center gap-2 text-sm font-bold text-brand-red">
                             <Phone className="w-4 h-4" />

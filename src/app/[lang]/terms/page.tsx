@@ -2,6 +2,25 @@ import React from 'react';
 import { getDictionary, Locale } from '@/lib/i18n';
 import { Container } from '@/components/ui/Container';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import { pageMetadata } from '@/lib/seo';
+
+/**
+ * SEO: sarlavha, tavsif, canonical va uz/ru hreflang (x-default bilan).
+ * Ilgari bu sahifada generateMetadata yo'q edi va u bosh sahifa sarlavhasini
+ * meros olardi (docs/MADANI-RAQOBAT-AUDITI.md, P0-11).
+ */
+export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }) {
+  const { lang } = await params;
+  const isRu = lang === 'ru';
+  return pageMetadata({
+    lang,
+    path: '/terms',
+    title: isRu ? 'Условия использования | SPS' : 'Foydalanish shartlari | SPS',
+    description: isRu
+      ? 'Общие условия использования сайта, оформления заказа, цен и доставки.'
+      : 'Saytdan foydalanish, buyurtma berish, narxlar va yetkazib berish bo‘yicha umumiy shartlar.',
+  });
+}
 
 export default async function TermsPage({ params }: { params: Promise<{ lang: Locale }> }) {
   const { lang } = await params;

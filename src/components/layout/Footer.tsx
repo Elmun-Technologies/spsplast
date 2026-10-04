@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Phone, Mail, MapPin, Send, ArrowUpRight, ShieldCheck, CreditCard, Truck } from 'lucide-react';
+import { Phone, Mail, MapPin, Send, ArrowUpRight, ShieldCheck, CreditCard, Truck, Clock, FileDown } from 'lucide-react';
 import { getDictionary, Locale } from '@/lib/i18n';
 import { trackEvent } from '@/lib/analytics';
 import { COMPANY_CONTACTS } from '@/lib/constants/contacts';
@@ -96,18 +96,47 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
             </p>
             <p className="text-sm text-ink-soft leading-relaxed max-w-md">{dict.footer.desc}</p>
             <div className="pt-1 text-sm text-ink-soft space-y-2.5">
-              <p className="flex items-center gap-2.5">
-                <MapPin className="w-4 h-4 text-ink-sub shrink-0" />
+              <a
+                href={COMPANY_CONTACTS.mapUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-2.5 hover:text-brand-red transition-colors"
+              >
+                <MapPin className="w-4 h-4 text-ink-sub shrink-0 mt-0.5" />
                 <span>{lang === 'ru' ? COMPANY_CONTACTS.addressRu : COMPANY_CONTACTS.addressUz}</span>
-              </p>
-              <p className="flex items-center gap-2.5">
+              </a>
+              <a
+                href={`mailto:${COMPANY_CONTACTS.email}`}
+                className="flex items-center gap-2.5 hover:text-brand-red transition-colors"
+              >
                 <Mail className="w-4 h-4 text-ink-sub shrink-0" />
                 <span>{COMPANY_CONTACTS.email}</span>
-              </p>
+              </a>
               <p className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 text-ink-sub shrink-0" />
-                <span>{COMPANY_CONTACTS.phoneDisplay}</span>
+                <Clock className="w-4 h-4 text-ink-sub shrink-0" />
+                <span>{lang === 'ru' ? COMPANY_CONTACTS.workHoursRu : COMPANY_CONTACTS.workHoursUz}</span>
               </p>
+
+              {/* Barcha raqamlar: ilgari faqat bitta raqam ko'rinardi, mijoz
+                  ombor/savdo raqamini topa olmasdi (P0-3). */}
+              <div className="flex items-start gap-2.5">
+                <Phone className="w-4 h-4 text-ink-sub shrink-0 mt-0.5" />
+                <div className="space-y-1">
+                  {COMPANY_CONTACTS.phones.map((phone) => (
+                    <a
+                      key={phone.raw}
+                      href={`tel:${phone.raw}`}
+                      onClick={() => trackEvent('phone_click', { location: 'footer_list' })}
+                      className="flex flex-wrap items-baseline gap-x-2 hover:text-brand-red transition-colors"
+                    >
+                      <span className="font-semibold text-ink">{phone.display}</span>
+                      <span className="text-[12px] text-ink-sub">
+                        {lang === 'ru' ? phone.label.ru : phone.label.uz}
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
@@ -129,6 +158,19 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
                 </li>
               ))}
             </ul>
+
+            {/* Katalog raqibda "yuklab olish" deb yozilgan, lekin PDF bermaydi.
+                Bizda fayl haqiqiy va hajmi oldindan aytilgan (P0-7). */}
+            <a
+              href="/catalog/pdf/sps-qoliplar-katalogi-2026.pdf"
+              download
+              onClick={() => trackEvent('catalog_pdf_download', { location: 'footer' })}
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-surface-soft text-ink text-[13px] font-semibold hover:bg-[#E9EDF3] transition-colors"
+            >
+              <FileDown className="w-4 h-4 text-brand-red" />
+              <span>{dict.footer.downloadCatalog}</span>
+            </a>
+            <p className="text-[11px] text-ink-sub">{dict.footer.catalogPdfMeta}</p>
           </div>
 
           <div className="space-y-4">
@@ -150,6 +192,7 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
             <ul className="space-y-2.5 text-sm text-ink-soft">
               <li><Link href={`/${lang}/privacy`} className="hover:text-brand-red transition-colors">{dict.footer.privacy}</Link></li>
               <li><Link href={`/${lang}/terms`} className="hover:text-brand-red transition-colors">{dict.footer.terms}</Link></li>
+              <li><Link href={`/${lang}/how-to-order`} className="hover:text-brand-red transition-colors">{dict.footer.howToOrder}</Link></li>
               <li><Link href={`/${lang}/delivery-payment`} className="hover:text-brand-red transition-colors">{dict.footer.deliveryTerms}</Link></li>
               <li><Link href={`/${lang}/returns`} className="hover:text-brand-red transition-colors">{dict.footer.returns}</Link></li>
             </ul>
@@ -161,7 +204,10 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
         <div className="pt-8 flex flex-col lg:flex-row items-center justify-between gap-4 text-[12px] text-ink-sub">
           <p>© {new Date().getFullYear()} Stone Profy Servise. {dict.footer.rights}</p>
           <div className="flex flex-wrap items-center justify-center gap-2.5">
-            {['CLICK', 'PAYME', 'UZUM'].map((p) => (
+            {/* To'lov belgilari faqat haqiqatda mavjud usullar: checkout faqat
+                naqd, Click/Payme va bank o'tkazmasini qabul qiladi. Ilgari bu
+                yerda "UZUM" ham bor edi — mavjud bo'lmagan usul (P0-8). */}
+            {['CLICK', 'PAYME', 'NAQD'].map((p) => (
               <span key={p} className="px-3 py-1.5 bg-surface-soft rounded-full text-[11px] font-semibold text-ink-soft">
                 {p}
               </span>

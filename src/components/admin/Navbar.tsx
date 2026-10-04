@@ -15,6 +15,7 @@ import {
   ExternalLink,
   ChevronDown,
   Settings,
+  Star,
 } from 'lucide-react';
 
 interface NavItem {
@@ -61,6 +62,12 @@ const navItems: NavItem[] = [
     labelRu: 'Атрибуты',
     href: '/admin/attributes',
     icon: <Tag className="w-4 h-4 text-pink-400" />,
+  },
+  {
+    label: 'Sharhlar',
+    labelRu: 'Отзывы',
+    href: '/admin/reviews',
+    icon: <Star className="w-4 h-4 text-yellow-400" />,
   },
 ];
 

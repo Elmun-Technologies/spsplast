@@ -2,6 +2,25 @@ import React from 'react';
 import { getDictionary, Locale } from '@/lib/i18n';
 import { Container } from '@/components/ui/Container';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import { pageMetadata } from '@/lib/seo';
+
+/**
+ * SEO: sarlavha, tavsif, canonical va uz/ru hreflang (x-default bilan).
+ * Ilgari bu sahifada generateMetadata yo'q edi va u bosh sahifa sarlavhasini
+ * meros olardi (docs/MADANI-RAQOBAT-AUDITI.md, P0-11).
+ */
+export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }) {
+  const { lang } = await params;
+  const isRu = lang === 'ru';
+  return pageMetadata({
+    lang,
+    path: '/privacy',
+    title: isRu ? 'Политика конфиденциальности | SPS' : 'Maxfiylik siyosati | SPS',
+    description: isRu
+      ? 'Как сайт собирает и использует персональные данные: данные заказов, cookie-файлы, формы связи и права пользователя.'
+      : 'Sayt shaxsiy ma’lumotlarni qanday yig‘adi va ishlatadi: buyurtma ma’lumotlari, cookie fayllar, aloqa shakllari va foydalanuvchi huquqlari.',
+  });
+}
 
 export default async function PrivacyPage({ params }: { params: Promise<{ lang: Locale }> }) {
   const { lang } = await params;

@@ -5,6 +5,26 @@ import { getDictionary, Locale } from '@/lib/i18n';
 import { Container } from '@/components/ui/Container';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { MapPin, CheckCircle2 } from 'lucide-react';
+import { ProjectImageToggle } from '@/components/projects/ProjectImageToggle';
+import { pageMetadata } from '@/lib/seo';
+
+/**
+ * SEO: sarlavha, tavsif, canonical va uz/ru hreflang (x-default bilan).
+ * Ilgari bu sahifada generateMetadata yo'q edi va u bosh sahifa sarlavhasini
+ * meros olardi (docs/MADANI-RAQOBAT-AUDITI.md, P0-11).
+ */
+export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }) {
+  const { lang } = await params;
+  const isRu = lang === 'ru';
+  return pageMetadata({
+    lang,
+    path: '/projects',
+    title: isRu ? 'Выполненные проекты — до и после | SPS' : 'Bajarilgan loyihalar — oldin va keyin | SPS',
+    description: isRu
+      ? 'Проекты с формами SPS: дворы, территории махалли, кафе и фасады. Для каждого проекта — снимки «до» и «после».'
+      : 'SPS qoliplari bilan bajarilgan loyihalar: hovlilar, mahalla hududlari, kafe va fasadlar. Har bir loyihada “oldin” va “keyin” suratlari.',
+  });
+}
 
 export default async function ProjectsPage({ params }: { params: Promise<{ lang: Locale }> }) {
   const { lang } = await params;
@@ -37,16 +57,28 @@ export default async function ProjectsPage({ params }: { params: Promise<{ lang:
           {projects.length === 0 ? (
             <div className="bg-surface border border-line rounded-[20px] p-12 text-center space-y-3 shadow-card">
               <p className="text-ink font-bold">{lang === 'ru' ? 'Проекты скоро появятся' : 'Loyihalar tez orada qo‘shiladi'}</p>
-              <p className="text-sm text-ink-sub">Hozirda loyiha ma'lumotlari mavjud emas</p>
+              <p className="text-sm text-ink-sub">
+                {lang === 'ru' ? 'Сейчас данные о проектах недоступны' : 'Hozirda loyiha ma’lumotlari mavjud emas'}
+              </p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {projects.map((proj) => (
                 <div key={proj.id} className="bg-surface border border-line rounded-[20px] overflow-hidden shadow-card hover:shadow-lift transition-shadow flex flex-col">
-                  <div className="relative aspect-[4/3] bg-surface-soft border-b border-line">
-                    <Image src={proj.afterImage} alt={proj.titleUz} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover" />
-                    <div className="absolute top-3 left-3 bg-emerald-600 text-white text-xs font-bold px-2.5 py-1 rounded-full">Tayyor Natija</div>
-                  </div>
+                  {proj.beforeImage ? (
+                    <ProjectImageToggle
+                      beforeImage={proj.beforeImage}
+                      afterImage={proj.afterImage}
+                      alt={lang === 'ru' ? proj.titleRu : proj.titleUz}
+                      beforeLabel={lang === 'ru' ? 'До' : 'Oldin'}
+                      afterLabel={lang === 'ru' ? 'После' : 'Keyin'}
+                    />
+                  ) : (
+                    <div className="relative aspect-[4/3] bg-surface-soft border-b border-line">
+                      <Image src={proj.afterImage} alt={proj.titleUz} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover" />
+                      <div className="absolute top-3 left-3 bg-emerald-600 text-white text-xs font-bold px-2.5 py-1 rounded-full">Tayyor Natija</div>
+                    </div>
+                  )}
                   <div className="p-5 space-y-3 flex-1 flex flex-col justify-between">
                     <div className="space-y-2">
                       <h3 className="text-base font-bold text-ink leading-snug">{lang === 'ru' ? proj.titleRu : proj.titleUz}</h3>

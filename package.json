@@ -15,7 +15,8 @@
     "db:import:2026": "node scripts/import-molds-2026.js",
     "db:studio": "prisma studio",
     "verify:production": "node scripts/verify-production.js",
-    "fonts:sync": "node scripts/sync-fonts.js"
+    "fonts:sync": "node scripts/sync-fonts.js",
+    "db:import:content": "node scripts/import-content.js"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1114.0",

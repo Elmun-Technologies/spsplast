@@ -1,6 +1,7 @@
 import React from 'react';
 import { db } from '@/lib/db';
 import { Locale } from '@/lib/i18n';
+import { hreflang } from '@/lib/seo';
 import { getProductsServer } from '@/lib/services/productService';
 import { CatalogClient } from '@/components/catalog/CatalogClient';
 
@@ -16,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Loc
     title: lang === 'ru' ? 'Каталог форм и фасадного декора | SPS' : 'Qoliplar va fasad dekor katalogi | SPS',
     alternates: {
       canonical: `/${lang}/catalog`,
-      languages: { uz: '/uz/catalog', ru: '/ru/catalog' },
+      languages: hreflang('/catalog'),
     },
   };
 }

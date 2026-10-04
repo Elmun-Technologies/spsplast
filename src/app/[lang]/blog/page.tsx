@@ -6,6 +6,25 @@ import { getDictionary, Locale } from '@/lib/i18n';
 import { Container } from '@/components/ui/Container';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { Calendar, User, ArrowRight } from 'lucide-react';
+import { pageMetadata } from '@/lib/seo';
+
+/**
+ * SEO: sarlavha, tavsif, canonical va uz/ru hreflang (x-default bilan).
+ * Ilgari bu sahifada generateMetadata yo'q edi va u bosh sahifa sarlavhasini
+ * meros olardi (docs/MADANI-RAQOBAT-AUDITI.md, P0-11).
+ */
+export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }) {
+  const { lang } = await params;
+  const isRu = lang === 'ru';
+  return pageMetadata({
+    lang,
+    path: '/blog',
+    title: isRu ? 'Блог и руководства — производство брусчатки | SPS' : 'Blog va qo‘llanmalar — bruschatka ishlab chiqarish | SPS',
+    description: isRu
+      ? 'Практические статьи: как открыть цех тротуарной плитки, ресурс форм, ошибки при заливке бетона, укладка плитки и выбор материала.'
+      : 'Amaliy maqolalar: bruschatka sexini noldan boshlash, qolip resursi, beton quyish xatolari, plitka o‘rnatish va material tanlash.',
+  });
+}
 
 export default async function BlogPage({ params }: { params: Promise<{ lang: Locale }> }) {
   const { lang } = await params;
