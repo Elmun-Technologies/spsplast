@@ -194,8 +194,12 @@ function productBase({ id, sku, section, isNew, isBestseller, yieldPerCast, medi
     basePrice: 0,
     compareAtPrice: null,
     currency: 'UZS',
+    // Diqqat: sayt ombor qoldig'ini yuritmaydi. `inStock: true` shunchaki
+    // "mahsulot katalogda faol" degani, `stockQty` esa noma'lum (null) —
+    // ilgari bu yerda 100 ta soxta qoldiq turardi va UI "Omborda mavjud" deb
+    // yozardi (P0-8). Mavjudlikni menejer qo'ng'iroqda tasdiqlaydi.
     inStock: true,
-    stockQty: 100,
+    stockQty: null,
     isBestseller: !!isBestseller,
     isNew: !!isNew,
     yieldPerCast: yieldPerCast ?? null,

@@ -6,7 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import {
     Search,
-    ShoppingBag,
+    Send,
     Menu,
     X,
     ChevronDown,
@@ -508,7 +508,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                             ariaLabel={lang === 'ru' ? 'Оставить заявку' : 'Zayafka berish'}
                             className="flex items-center gap-2 px-4 sm:px-5 h-11 bg-brand-red hover:bg-brand-red-dark text-white rounded-full transition-colors font-semibold text-sm shadow-[0_8px_20px_-10px_rgba(230,28,36,0.8)]"
                         >
-                            <ShoppingBag className="w-[18px] h-[18px]" />
+                            <Send className="w-[18px] h-[18px]" />
                             <span className="hidden sm:inline">{lang === 'ru' ? 'Заявка' : 'Zayafka'}</span>
                         </LeadButton>
 

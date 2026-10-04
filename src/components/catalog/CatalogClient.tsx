@@ -89,7 +89,6 @@ export const CatalogClient: React.FC<CatalogClientProps> = ({
     searchParams.material,
     searchParams.minPrice,
     searchParams.maxPrice,
-    searchParams.inStock === 'true' ? '1' : undefined,
     searchParams.isNew === 'true' ? '1' : undefined,
     searchParams.isBestseller === 'true' ? '1' : undefined,
     searchParams.search,
@@ -187,7 +186,7 @@ export const CatalogClient: React.FC<CatalogClientProps> = ({
                   </button>
                 </Badge>
               )}
-              {(searchParams.inStock === 'true' || searchParams.minPrice || searchParams.maxPrice) && (
+              {(searchParams.isNew === 'true' || searchParams.isBestseller === 'true' || searchParams.minPrice || searchParams.maxPrice) && (
                 <Link href={`/${lang}/catalog`} className="text-[12px] font-semibold text-ink-sub hover:text-brand-red transition-colors px-2">
                   {lang === 'ru' ? 'Сбросить фильтры' : 'Filtrlarni tozalash'}
                 </Link>
@@ -289,16 +288,9 @@ export const CatalogClient: React.FC<CatalogClientProps> = ({
               {/* Status */}
               <div className="space-y-3 pt-4 border-t border-line-soft">
                 <h4 className="text-[12px] font-semibold text-ink-sub">Status</h4>
+                {/* Ombor filtri olib tashlandi: sayt qoldiqni yuritmaydi (P0-8),
+                    mavjudlikni menejer qo'ng'iroqda tasdiqlaydi. */}
                 <div className="space-y-2.5">
-                  <label className="flex items-center gap-2.5 cursor-pointer group">
-                    <input
-                      type="checkbox"
-                      checked={searchParams.inStock === 'true'}
-                      onChange={() => updateParam('inStock', searchParams.inStock === 'true' ? null : 'true')}
-                      className="w-4 h-4 rounded border-[#DDE3EB] text-brand-red focus:ring-brand-red"
-                    />
-                    <span className="text-sm text-ink-soft group-hover:text-ink">{lang === 'ru' ? 'Только в наличии' : 'Faqat omborda'}</span>
-                  </label>
                   <label className="flex items-center gap-2.5 cursor-pointer group">
                     <input
                       type="checkbox"

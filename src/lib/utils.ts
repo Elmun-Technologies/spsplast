@@ -14,7 +14,7 @@ export function formatPrice(price: number, locale: string = 'uz'): string {
 
 /**
  * Narxi katalogda ko'rsatilmagan pozitsiyalar (basePrice = 0) uchun "0 so'm"
- * emas, "Narx so'rash" ko'rsatiladi — savat va checkout satrlarida ham.
+ * emas, "Narx so'rash" ko'rsatiladi — mahsulot kartasi va sahifasida ham.
  */
 export function formatPriceOrRequest(price: number, locale: string = 'uz'): string {
   if (!price || price <= 0) {

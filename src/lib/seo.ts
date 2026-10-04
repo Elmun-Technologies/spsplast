@@ -32,7 +32,7 @@ interface PageMetadataOptions {
   image?: string;
   imageAlt?: string;
   type?: OgType;
-  /** Qidiruv natijasidan chiqarish (savat, buyurtma, shaxsiy ro'yxatlar). */
+  /** Qidiruv natijasidan chiqarish (solishtirish, saralanganlar, natija sahifalari). */
   noindex?: boolean;
 }
 
@@ -96,8 +96,8 @@ export function pageMetadata({
 }
 
 /**
- * Xususiy sahifalar (savat, buyurtma, solishtirish) uchun: kontent foydali,
- * lekin qidiruvda indekslanishi shart emas — aks holda bir xil "bo'sh savat"
+ * Xususiy sahifalar (solishtirish, saralanganlar) uchun: kontent foydali,
+ * lekin qidiruvda indekslanishi shart emas — aks holda bir xil "bo'sh ro'yxat"
  * sahifalari indeksga tushadi.
  */
 export function noindexMetadata(lang: Locale, title: string): Metadata {

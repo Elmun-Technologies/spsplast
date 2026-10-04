@@ -2,11 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { ShoppingBag, Building2, Truck, ShieldCheck, Share2, Calculator, X, Play } from 'lucide-react';
+import { Send, Building2, Truck, ShieldCheck, Share2, Calculator, X, Play } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { Price } from '@/components/ui/Price';
-import { StockBadge } from '@/components/ui/StockBadge';
 import { QuantitySelector } from '@/components/ui/QuantitySelector';
 import { ProductTabs } from '@/components/product/ProductTabs';
 import { ProductOptions, ProductOptionGroup } from '@/components/product/ProductOptions';
@@ -160,7 +159,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
               disabled={!product.inStock}
               className="flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-sm transition-all min-h-[46px] bg-brand-red hover:bg-brand-red-dark text-white shadow-red disabled:opacity-40"
             >
-              <ShoppingBag className="w-4 h-4" />
+              <Send className="w-4 h-4" />
               <span className="hidden sm:inline">{lang === 'ru' ? 'Оставить заявку' : 'Zayafka berish'}</span>
               <span className="sm:hidden">✚</span>
             </button>
@@ -299,7 +298,6 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                   <span className="bg-surface-soft px-2.5 py-1 rounded-full text-ink-soft text-[12px] font-medium">
                     SKU: {displaySku}
                   </span>
-                  <StockBadge inStock={product.inStock} lang={lang} />
                 </div>
 
                 <h1 className="text-[24px] sm:text-[30px] font-bold text-ink leading-[1.2] tracking-[-0.025em]">{title}</h1>
@@ -393,7 +391,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ produc
                     onClick={() => setLead('PRODUCT_REQUEST')}
                     className="flex-1 flex items-center justify-center gap-2 text-sm sm:text-base font-semibold py-3.5 px-6 rounded-full transition-all min-h-[52px] bg-brand-red hover:bg-brand-red-dark text-white shadow-red active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed"
                   >
-                    <ShoppingBag className="w-5 h-5" />
+                    <Send className="w-5 h-5" />
                     <span>
                       {askPrice
                         ? lang === 'ru'

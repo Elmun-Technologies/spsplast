@@ -179,8 +179,8 @@ export default async function HomePage({ params }: HomePageProps) {
 
                 <p className="text-[15px] sm:text-base leading-[1.6] text-ink-soft max-w-[520px]">
                   {lang === 'ru'
-                    ? 'Прямые цены производителя, ресурс от 300 заливок и доставка по всему Узбекистану. Поможем подобрать формы под ваш объём.'
-                    : 'Ishlab chiqaruvchi narxlari, 300+ martalik resurs va O‘zbekiston bo‘ylab yetkazib berish. Hajmingizga mos qolipni tanlashda yordam beramiz.'}
+                    ? 'Формы из полипропилена и ABS, цены от завода и доставка по всему Узбекистану. Поможем подобрать формы под ваш объём.'
+                    : 'Polipropilen va ABS asosidagi qoliplar, zavod narxlari va O‘zbekiston bo‘ylab yetkazib berish. Hajmingizga mos qolipni tanlashda yordam beramiz.'}
                 </p>
 
                 <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-1">
@@ -219,7 +219,7 @@ export default async function HomePage({ params }: HomePageProps) {
 
                 <div className="hidden sm:flex items-center gap-2 text-[12px] font-medium text-ink-soft ml-1">
                   <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span>{lang === 'ru' ? 'Всё в наличии на складе' : 'Omborda mavjud'}</span>
+                  <span>{lang === 'ru' ? 'Работаем напрямую от завода' : 'Zavoddan to‘g‘ridan-to‘g‘ri'}</span>
                 </div>
               </div>
             </div>

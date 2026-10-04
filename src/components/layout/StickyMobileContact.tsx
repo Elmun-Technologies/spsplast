@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Phone, Send, ShoppingBag, MessageSquare, ChevronUp, X } from 'lucide-react';
+import { Phone, Send, MessageSquare, ChevronUp, X } from 'lucide-react';
 import { LeadButton } from '@/components/lead/LeadButton';
 import { useUIStore } from '@/lib/store/uiStore';
 import { trackEvent } from '@/lib/analytics';
@@ -98,7 +98,7 @@ export const StickyMobileContact: React.FC<{ lang?: string }> = ({ lang = 'uz' }
             ariaLabel={lang === 'ru' ? 'Оставить заявку' : 'Zayafka berish'}
             className="relative flex items-center justify-center gap-2 py-3 px-5 rounded-full bg-brand-red text-white hover:bg-brand-red-dark transition-colors font-semibold text-sm shadow-red min-h-[46px]"
           >
-            <ShoppingBag className="w-5 h-5" />
+            <Send className="w-5 h-5" />
             <span>{lang === 'ru' ? 'Заявка' : 'Zayafka'}</span>
           </LeadButton>
         </div>

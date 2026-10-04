@@ -175,16 +175,15 @@ export default async function ProductDetailPage({
     description: trans.description || '',
     sku: product.sku,
     brand: { '@type': 'Brand', name: 'SPS' },
-    offers: {
-      '@type': 'Offer',
-      price: product.basePrice,
-      priceCurrency: 'UZS',
-      availability: product.inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
-      seller: { '@type': 'Organization', name: 'SPS' },
-    },
-    // Sharhlar tizimi (DB moderatsiyasi) backendsiz arxitekturada olib
-    // tashlandi — shu sababli `aggregateRating` ham yo'q. Soxta/bo'sh reyting
-    // Google uchun "spam structured data" hisoblanadi.
+    /**
+     * P0-8: narx saytda ko'rsatilmaydi (uni menejer tasdiqlaydi), shuning uchun
+     * `offers` ham, `availability` ham berilmaydi. Ilgari bu yerda
+     * `price: product.basePrice` (0 so'm) va ombor qoldig'iga asoslangan
+     * `InStock` turardi — Google uchun noto'g'ri ma'lumot.
+     *
+     * Sharhlar tizimi ham olib tashlangan, shuning uchun `aggregateRating` yo'q:
+     * bo'sh/soxta reyting "spam structured data" hisoblanadi.
+     */
   };
 
   const jsonLdBreadcrumb = {

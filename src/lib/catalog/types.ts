@@ -55,7 +55,7 @@ export interface StaticVariant {
   id: string;
   sku: string;
   price: number;
-  stockQty: number;
+  stockQty: number | null;
   status: string;
   options: StaticVariantOption[];
 }
@@ -94,7 +94,7 @@ export interface StaticProduct {
   compareAtPrice: number | null;
   currency: string;
   inStock: boolean;
-  stockQty: number;
+  stockQty: number | null;
   isBestseller: boolean;
   isNew: boolean;
   yieldPerCast: number | null;

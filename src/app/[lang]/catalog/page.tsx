@@ -26,7 +26,6 @@ interface CatalogPageProps {
   searchParams: Promise<{
     category?: string;
     search?: string;
-    inStock?: string;
     isNew?: string;
     isBestseller?: string;
     sort?: string;
@@ -51,7 +50,6 @@ export default async function CatalogPage({
     locale: lang,
     categorySlug: searchParams.category,
     search: searchParams.search,
-    inStock: searchParams.inStock === 'true',
     isNew: searchParams.isNew === 'true',
     isBestseller: searchParams.isBestseller === 'true',
     sort: searchParams.sort,

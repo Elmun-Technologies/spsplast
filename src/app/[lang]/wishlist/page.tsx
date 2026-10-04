@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Heart, Trash2, ShoppingBag, ArrowRight } from 'lucide-react';
+import { Heart, Trash2, Send, ArrowRight } from 'lucide-react';
 import { useWishlistStore } from '@/lib/store/wishlistStore';
 import { LeadButton } from '@/components/lead/LeadButton';
 import { Container } from '@/components/ui/Container';
@@ -62,7 +62,7 @@ export default function WishlistPage({ params }: { params: Promise<{ lang: Local
                       ariaLabel={lang === 'ru' ? 'Оставить заявку' : 'Zayafka berish'}
                       className="flex items-center justify-center gap-2 py-2.5 min-h-[44px] bg-brand-red text-white rounded-full text-[13px] font-semibold hover:bg-brand-red-dark transition-colors"
                     >
-                      <ShoppingBag className="w-3.5 h-3.5" />
+                      <Send className="w-3.5 h-3.5" />
                       {lang === 'ru' ? 'Заявка' : 'Zayafka'}
                     </LeadButton>
                     <button

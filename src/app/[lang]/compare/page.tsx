@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRightLeft, X, ShoppingBag, Check } from 'lucide-react';
+import { ArrowRightLeft, X, Send, Check } from 'lucide-react';
 import { useCompareStore } from '@/lib/store/compareStore';
 import { LeadButton } from '@/components/lead/LeadButton';
 import { Container } from '@/components/ui/Container';
@@ -33,7 +33,7 @@ export default function ComparePage({ params }: { params: Promise<{ lang: Locale
     );
   }
 
-  const specs = ['price', 'dimensions', 'material', 'sku', 'inStock'];
+  const specs = ['price', 'dimensions', 'material', 'sku'];
 
   return (
     <div className="bg-surface-page min-h-screen py-6">
@@ -81,7 +81,7 @@ export default function ComparePage({ params }: { params: Promise<{ lang: Locale
                       product={{ title: item.title, sku: item.sku }}
                       className="mt-2 w-full py-2.5 min-h-[44px] bg-brand-red text-white rounded-full text-[13px] font-semibold hover:bg-brand-red-dark transition-colors flex items-center justify-center gap-1.5"
                     >
-                      <ShoppingBag className="w-3.5 h-3.5" />
+                      <Send className="w-3.5 h-3.5" />
                       {lang === 'ru' ? 'Заявка' : 'Zayafka'}
                     </LeadButton>
                   </td>
@@ -111,20 +111,7 @@ export default function ComparePage({ params }: { params: Promise<{ lang: Locale
                   </td>
                 ))}
               </tr>
-              <tr>
-                <td className="p-4 font-semibold text-ink-soft bg-surface-soft">{lang === 'ru' ? 'Наличие' : 'Mavjudlik'}</td>
-                {items.map((item) => (
-                  <td key={item.id} className="p-4">
-                    {item.inStock ? (
-                      <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-emerald-50 text-emerald-700 border text-xs font-bold">
-                        <Check className="w-3 h-3" /> Mavjud
-                      </span>
-                    ) : (
-                      <span className="inline-flex px-2 py-1 rounded-full bg-surface-soft text-ink-sub border border-line text-xs">Yo‘q</span>
-                    )}
-                  </td>
-                ))}
-              </tr>
+              
             </tbody>
           </table>
         </div>

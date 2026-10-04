@@ -65,7 +65,7 @@ export const Footer: React.FC<FooterProps> = ({ lang, catalogLinks }) => {
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-soft text-[12px] text-ink-soft">
                 <CreditCard className="w-3.5 h-3.5 text-ink-sub" />
-                Click / Payme / {lang === 'ru' ? 'наличные' : 'naqd'}
+                {lang === 'ru' ? 'Наличные или счёт для юр. лиц' : 'Naqd yoki yuridik shaxslarga hisob-faktura'}
               </span>
             </div>
           </div>
@@ -210,10 +210,10 @@ export const Footer: React.FC<FooterProps> = ({ lang, catalogLinks }) => {
         <div className="pt-8 flex flex-col lg:flex-row items-center justify-between gap-4 text-[12px] text-ink-sub">
           <p>© {new Date().getFullYear()} Stone Profy Servise. {dict.footer.rights}</p>
           <div className="flex flex-wrap items-center justify-center gap-2.5">
-            {/* To'lov belgilari faqat haqiqatda mavjud usullar: checkout faqat
-                naqd, Click/Payme va bank o'tkazmasini qabul qiladi. Ilgari bu
-                yerda "UZUM" ham bor edi — mavjud bo'lmagan usul (P0-8). */}
-            {['CLICK', 'PAYME', 'NAQD'].map((p) => (
+            {/* To'lov belgilari faqat haqiqatda mavjud usullar: naqd va yuridik
+                shaxslar uchun bank o'tkazmasi. Ilgari bu yerda "UZUM" ham bor
+                edi — mavjud bo'lmagan usul (P0-8). */}
+            {[lang === 'ru' ? 'НАЛИЧНЫЕ' : 'NAQD', lang === 'ru' ? 'СЧЁТ (ЮР. ЛИЦА)' : 'HISOB-FAKTURA (YU.L.)'].map((p) => (
               <span key={p} className="px-3 py-1.5 bg-surface-soft rounded-full text-[11px] font-semibold text-ink-soft">
                 {p}
               </span>

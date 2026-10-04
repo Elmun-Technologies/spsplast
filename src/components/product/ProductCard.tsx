@@ -4,13 +4,12 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
-import { ShoppingBag, ImageOff, ArrowRight, Share2, Heart, Eye, ArrowRightLeft } from 'lucide-react';
+import { Send, ImageOff, ArrowRight, Share2, Heart, Eye, ArrowRightLeft } from 'lucide-react';
 import { useWishlistStore } from '@/lib/store/wishlistStore';
 import { useCompareStore } from '@/lib/store/compareStore';
 import { Locale } from '@/lib/i18n';
 import { trackEvent } from '@/lib/analytics';
 import { Price } from '@/components/ui/Price';
-import { StockBadge } from '@/components/ui/StockBadge';
 import { useCanHover } from '@/lib/hooks/useMediaQuery';
 import { LeadModal } from '@/components/lead/LeadModal';
 
@@ -229,7 +228,6 @@ const ProductCardBase: React.FC<ProductCardProps> = ({ product, lang, featured =
       <div className="p-4 sm:p-[18px] flex flex-col flex-1 gap-3">
         <div className="space-y-1.5">
           <div className="flex items-center justify-between gap-2">
-            <StockBadge inStock={product.inStock} lang={lang} />
             {/* SKU stays visible: B2B buyers search and order by article number */}
             <span className="text-[11px] text-ink-sub whitespace-nowrap">SKU: {product.sku}</span>
           </div>
@@ -272,7 +270,7 @@ const ProductCardBase: React.FC<ProductCardProps> = ({ product, lang, featured =
                   : 'bg-brand-red hover:bg-brand-red-dark text-white shadow-[0_8px_20px_-10px_rgba(230,28,36,0.7)]'
               }`}
             >
-              <ShoppingBag className="w-4 h-4" />
+              <Send className="w-4 h-4" />
               <span>
                 {askPrice
                   ? lang === 'ru'

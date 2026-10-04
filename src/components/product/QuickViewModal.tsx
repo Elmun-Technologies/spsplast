@@ -5,12 +5,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Modal } from '@/components/ui/Modal';
 import { Price } from '@/components/ui/Price';
-import { StockBadge } from '@/components/ui/StockBadge';
 import { QuantitySelector } from '@/components/ui/QuantitySelector';
 import { Button } from '@/components/ui/Button';
 import { LeadModal } from '@/components/lead/LeadModal';
 import { Locale } from '@/lib/i18n';
-import { Eye, ShoppingBag } from 'lucide-react';
+import { Eye, Send } from 'lucide-react';
 
 /**
  * Tez ko'rish modali.
@@ -49,7 +48,6 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({ isOpen, onClose,
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-[12px] bg-surface-soft px-2.5 py-1 rounded-full text-ink-sub">SKU: {product.sku}</span>
-              <StockBadge inStock={product.inStock} lang={lang} />
             </div>
 
             <h3 className="text-[18px] font-semibold text-ink leading-snug tracking-[-0.015em]">{title}</h3>
@@ -69,7 +67,7 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({ isOpen, onClose,
                 onClick={() => setLeadOpen(true)}
                 className="flex-1 flex items-center justify-center gap-2 py-3 rounded-full font-semibold text-sm min-h-[46px] bg-brand-red text-white hover:bg-brand-red-dark transition-colors"
               >
-                <ShoppingBag className="w-4 h-4" />
+                <Send className="w-4 h-4" />
                 {lang === 'ru' ? 'Оставить заявку' : 'Zayafka berish'}
               </button>
             </div>
