@@ -416,6 +416,27 @@ Olib tashlandi yoki tuzatildi (dalilsiz raqamlar):
 Bosh sahifa FAQ endi `src/lib/faq.ts` dan o'qiydi (uz/ru) — ko'rinadigan matn
 va JSON-LD bir manbadan yasaladi.
 
+#### 3.1. Qo'shimcha tozalash (PR #15 ichida, `fbb417d`)
+
+Birinchi auditdan keyin sayt bo'ylab yana tekshirildi — ombor, narx va to'lov
+haqidagi isbotlanmagan signallar qolgan edi:
+
+| Ilgari | Endi |
+|---|---|
+| Bosh sahifada pulsatsiyalanuvchi "Omborda mavjud" badge | "Zavoddan to'g'ridan-to'g'ri" (ru: "Работаем напрямую от завода") |
+| "300+ martalik resurs" (hero) | olib tashlandi — raqam tasdiqlanmagan |
+| `StockBadge` komponenti (karta, quick view, mahsulot sahifasi) | komponent o'chirildi |
+| Taqqoslashda "Mavjudlik" qatori | olib tashlandi (spetsifikatsiya: narx, o'lcham, material, SKU) |
+| Katalogda "Faqat omborda" filtri | olib tashlandi |
+| `Product` JSON-LD: `price: 0 UZS`, `availability: InStock` | `offers` bloki butunlay olib tashlandi — narx noma'lum bo'lsa Google'ga yuborilmaydi |
+| `stockQty: 100` (statik generator) | `stockQty: null` (`types.ts`: `number \| null`) |
+| Footer'dagi to'lov pillari ("Click/Payme/to'lov havolasi") | faqat **NAQD** va **HISOB-FAKTURA (YU.L.)**; to'lov sahifasi va shartlar ham shunga moslashtirildi |
+| `ShoppingBag` ikonkasi (savat metaforasi) | `Send` ikonkasi — 7 ta faylda |
+
+Sabab: sayt qoldiqni yuritmaydi va to'lovni qabul qilmaydi — mavjudlik va
+to'lov shartlarini menejer qo'ng'iroqda tasdiqlaydi. Kod izohlaridagi eski
+"savat"/"buyurtma" so'zlari ham tozalandi.
+
 ### 4. T4 — P0-12 analitika
 
 `src/components/analytics/AnalyticsScripts.tsx` root layout'da:
@@ -444,7 +465,11 @@ saytga bitta ham tashqi skript qo'shilmaydi. Hodisalar: `view_item`,
 | `npm run build` (`DATABASE_URL` siz) | ✅ 441 statik sahifa, ~30 s |
 | `/{lang}/catalog/{slug}` | ✅ 6 ta statik HTML (3 kategoriya × 2 til), har birida 300+ so'z + FAQ JSON-LD |
 | `/{lang}/product/{slug}` | ✅ 384 ta statik HTML (192 × 2), breadcrumb shu tildagi kategoriyaga |
+| Ichki havolalar auditi | ✅ 220 sahifa aylanib chiqildi (BFS), 404/uzilgan havola yo'q |
+| Mahsulot/blog sahifalari | ✅ 62 tasi tasodifiy tanlab tekshirildi (24 mahsulot × 2 til + 12 maqola), hammasi 200 |
+| Brauzer qidiruvi | ✅ `?q=флория` (foiz-kodlangan) → 200, "Форма «Флория»" topildi |
 | `public/search-index.json` | ✅ 192 mahsulot, 3 kategoriya, uz/ru slug va sarlavhalar |
+| `/api/leads` (jonli POST) | ✅ `{"success":true,"delivered":false}` — Telegram env yo'q bo'lsa ham forma xato bermaydi |
 | `/uz/api/health` | ✅ Telegram holati, majburiy env yo'q bo'lsa `degraded` |
 
 ### 7. Deploy (Vercel)
@@ -470,5 +495,5 @@ Baza, `prisma db push`, seed va Fly.io sozlamalari **kerak emas**.
 | P0-9 | Zayafka E2E sinovi: forma → Telegram guruh (uz/ru), honeypot/rate-limit |
 | P1-1/P1-2 | Ulgurji narx so'rovi oqimini zayafka formasiga birlashtirish, cennik PDF |
 | P1-13 | Bosh sahifadagi inline matnlarni lug'atga ko'chirish |
-| — | Qidiruv sahifasini statik indeks ustida ishlashini qo'lda sinash (jonli takliflar faqat brauzerda ishlaydi) |
 | P0-11 | Rich Results Test'da JSON-LD (Product, FAQPage, HowTo) validatsiyasi |
+| — | Eski DB davri hujjatlari (`SECURITY.md`, `UI-*.md`, `CONTENT-REPLACEMENT.md`) yangilash yoki o'chirish |
