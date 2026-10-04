@@ -1,5 +1,11 @@
 # SPS PLAST — UI Performance & Polish Pass
 
+> ⚠️ **ARXIV — tarixiy hujjat.** Bu hujjat savat/checkout/admin davrida (2026-09)
+> yozilgan va o'sha paytdagi holatni tasvirlaydi. Sayt 2026-10 da backendsiz
+> zayafka modeliga o'tdi: savat, to'lov, admin panel va baza **yo'q**.
+> Hozirgi arxitektura: [`docs/ARCHITECTURE.md`](../ARCHITECTURE.md).
+> Bu fayl faqat tarix uchun saqlanadi — undan vazifa rejasi sifatida foydalanmang.
+
 **Sana:** 2026-09-15
 **Branch:** `arena/01a0a5f6-spsplast`
 **Qamrov:** Kritik oqim — Home → Catalog → Product → Cart → Checkout (+ Header/Footer shell)

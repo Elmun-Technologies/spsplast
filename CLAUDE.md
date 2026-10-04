@@ -38,12 +38,13 @@ src/
     analytics.ts         # GTM/GA4/Yandex Metrica/Meta Pixel event layer
     env.ts               # env sanity checks (warnings, not crashes)
 catalog_build/           # source data used by the catalog generator
-data/                    # molds-2026.json + content-2026.json sources
+data/                    # molds-2026.json, content-2026.json, category-seo-2026.json
 media-src/               # master images (masters/ is git-ignored), public/media build
 scripts/build-static-catalog.js   # regenerates src/data/catalog.json
 scripts/build-media.py            # regenerates public/media from masters
 tests/                   # node:test suites (catalog contract, platform, content)
-docs/                    # architecture, deployment, audit, optimization log
+docs/                    # architecture, deployment, security, design system, audit, log
+docs/archive/            # eski (savat/checkout davri) hujjatlar — tarix uchun
 ```
 
 ## Environment Variables

@@ -131,7 +131,6 @@ export default async function ProductDetailPage({
     id: variant.id,
     sku: variant.sku,
     price: variant.price,
-    stockQty: variant.stockQty,
     optionCodes: variant.options.map((variantOption) => variantOption.option.code),
   }));
 

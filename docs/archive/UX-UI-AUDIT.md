@@ -1,4 +1,11 @@
 # SPS PLAST — To'liq UX/UI Audit & G'oyalar Banki
+
+> ⚠️ **ARXIV — tarixiy hujjat.** Bu hujjat savat/checkout/admin davrida (2026-09)
+> yozilgan va o'sha paytdagi holatni tasvirlaydi. Sayt 2026-10 da backendsiz
+> zayafka modeliga o'tdi: savat, to'lov, admin panel va baza **yo'q**.
+> Hozirgi arxitektura: [`docs/ARCHITECTURE.md`](../ARCHITECTURE.md).
+> Bu fayl faqat tarix uchun saqlanadi — undan vazifa rejasi sifatida foydalanmang.
+
 **Sana:** 2026-08-23
 **Auditor:** Arena Agent
 **Scope:** Storefront `[lang]/*`, Header/Footer, Product flow, Cart/Checkout, Search, About/Contact, Admin emas

@@ -10,8 +10,8 @@ katalogga **50 ta real mahsulot kartasi** qo'shildi. Har bir kartada tanlanadiga
 
 | Fayl | Vazifasi |
 |---|---|
-| `prisma/data/molds-2026.json` | Mahsulot matni (uz/ru), o'lcham, tekstura, uyachalar soni, rasm yo'li, opsiya o'qlari. **Yagona haqiqat manbai.** |
-| `prisma/seed.js` | Shu JSON'ni o'qib, `Product` + `ProductTranslation` + `ProductMedia` + `ProductAttributeValue` + `ProductVariant` yozadi. |
+| `data/molds-2026.json` | Mahsulot matni (uz/ru), o'lcham, tekstura, uyachalar soni, rasm yo'li, opsiya o'qlari. **Yagona haqiqat manbai.** |
+| `scripts/build-static-catalog.js` | Shu JSON'ni o'qib `src/data/catalog.json` ga (mahsulot + tarjima + media + atribut + variant) qo'shadi. Baza yo'q. |
 | `public/catalog/catalog-084.jpg … catalog-133.jpg` | 50 ta optimallashtirilgan surat (maks. 1200 px, ~40–90 KB). |
 | `src/app/catalog-preview/page.tsx` | Bazasiz kontent ko'rigi (`npm run dev` → `/catalog-preview`), faqat dev. |
 | `tests/catalog2026.test.js` | JSON yaxlitligi: unikal SKU/slug, rasm mavjudligi, opsiya o'qlari, variant SKU'lari. |
@@ -45,11 +45,13 @@ Har bir mahsulotda **2 ta opsiya o'qi**, ya'ni **4 ta variant** (jami 200 ta var
 | `plastic_thickness` — Plastik qalinligi | `t20` — 2.0 mm standart · `t30` — 3.0 mm kuchaytirilgan | 3.0 mm: vibrostol va intensiv ishlash uchun. |
 
 - Variant SKU'si: `SPS-26-PNL-01-PP-T20` ko'rinishida.
-- Ikkala o'q ham `variantAxis: true` — admin panelda ham variant o'qi sifatida ko'rinadi.
-- Mahsulot sahifasida opsiyalar `src/components/product/ProductOptions.tsx` orqali tanlanadi;
-  tanlov savatga, "1-klikda buyurtma"ga va ulgurji so'rovga (`B2BModal`) o'tadi.
+- Ikkala o'q ham `variantAxis: true` — barcha 4 kombinatsiya bitta mahsulotning
+  variantlari sifatida saqlanadi.
+- Mahsulot sahifasida opsiyalar `src/components/product/ProductOptions.tsx` orqali
+  tanlanadi; tanlangan variant SKU'si **zayafka xabariga** qo'shiladi (saytda savat
+  va buyurtma yo'q).
 - Katalog kartasida variantli mahsulot **«Tanlash»** tugmasi bilan ko'rinadi
-  (`productService.getProductsServer` → `hasVariants`).
+  (`src/lib/catalog/products.ts` → `hasVariants`).
 
 ---
 
@@ -57,7 +59,7 @@ Har bir mahsulotda **2 ta opsiya o'qi**, ya'ni **4 ta variant** (jami 200 ta var
 
 | Maydon | Qiymat | Sabab |
 |---|---|---|
-| `basePrice` | `0` → «Narx so'rash» | Narxlar bosma katalogda ko'rsatilmagan. Admin panelda to'ldiriladi. |
+| `basePrice` | `0` → «Narx so'rash» | Narxlar bosma katalogda ko'rsatilmagan. Narx menejer hisob-kitobida aytiladi. |
 | `yieldPerCast` | Faqat suratdan **sanalgan** uyachalar soni (>1 bo'lsa) | Real, tekshiriladigan ma'lumot. |
 | `durabilityCasts` | `null` | "300+ quyish" kabi tasdiqlanmagan da'volar ishlatilmaydi (`docs/REAL-CATALOG.md`, 4-bo'lim). |
 | `material` | `Polipropilen / ABS` | Katalogdagi real material. |
@@ -70,7 +72,8 @@ Suratdan aniq o'lcham o'lchab bo'lmaydi, shuning uchun o'lchamlar **mahsulot oil
 standarti** bo'yicha berilgan va `*` bilan belgilangan — bu 2026 bosma katalogdagi
 «O'lcham buyurtmada tasdiqlanadi» belgisi bilan bir xil ma'noda.
 
-JSON'da bu `"dimensionsConfirmed": false` orqali ko'rinadi. Aniq o'lcham ma'lum bo'lgach:
+JSON'da bu `"dimensionsConfirmed": false` orqali ko'rinadi. Aniq o'lcham ma'lum bo'lgach
+(manba: `data/molds-2026.json`):
 
 ```jsonc
 {
@@ -80,7 +83,7 @@ JSON'da bu `"dimensionsConfirmed": false` orqali ko'rinadi. Aniq o'lcham ma'lum 
 }
 ```
 
-so'ng `npm run db:seed` (yoki admin panelda tahrirlash).
+so'ng `node scripts/build-static-catalog.js` — `catalog.json` qayta yasaladi va `*` yo'qoladi.
 
 ---
 
@@ -90,28 +93,22 @@ so'ng `npm run db:seed` (yoki admin panelda tahrirlash).
 # 1. Kontentni bazasiz ko'rish (faqat dev)
 npm run dev          # -> http://localhost:3000/catalog-preview
 
-# 2. Ma'lumot yaxlitligini tekshirish
+# 2. Ma'lumot yaxlitligini tekshirish (JSON sxemasi, SKU/slug unikalligi, rasmlar)
 npm test             # tests/catalog2026.test.js
 
-# 3. Bazaga QO'SHISH — production uchun xavfsiz yo'l (hech narsa o'chirilmaydi)
-npm run db:import:2026 -- --dry-run   # nima bo'lishini ko'rsatadi, bazaga ulanmaydi
-npm run db:import:2026                # 50 ta mahsulot + 200 ta variant upsert qilinadi
+# 3. Statik katalogni qayta yasash (matn/o'lcham/rasm o'zgargandan keyin)
+node scripts/build-static-catalog.js
+node scripts/build-static-catalog.js --check   # src/data/catalog.json mos kelishini tekshiradi
 
-# 4. (Muqobil) butun katalogni noldan qayta yuklash — faqat bo'sh/test bazada
-npm run db:push
-npm run db:seed      # 123 ta mahsulot: 73 ta eski + 50 ta yangi
+# 4. To'liq gate
+npx tsc --noEmit && npm run lint && npm test && npm run build
 ```
 
-> ⚠️ `npm run db:seed` boshida **barcha jadvallarni tozalaydi** (`deleteMany`) —
-> buyurtmalar, leadlar va admin foydalanuvchilari ham o'chadi. Ishlab turgan saytda
-> faqat `npm run db:import:2026` ishlating: u `sku` bo'yicha upsert qiladi, shuning
-> uchun qayta-qayta ishga tushirish xavfsiz.
+> Baza, `db:seed`, `db:push` va import skriptlari **yo'q** — 2026 seriyasi ham
+> boshqa mahsulotlar kabi statik fayldan o'qiladi. `--check` CI'da ham ishlaydi.
 
 Yangi rasmlar `public/catalog/` ichida, ya'ni deploy bilan birga ketadi — alohida
-yuklash shart emas. Vercel'da deploy tugagach import skriptini bir marta ishga
-tushirish kifoya (lokalda `DATABASE_URL` production bazaga qaratilgan holda ham bo'ladi).
-
----
+yuklash yoki import qilish shart emas.
 
 ## 6. Keyingi qadamlar (mijoz tasdig'i kerak)
 

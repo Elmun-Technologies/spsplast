@@ -4,6 +4,11 @@ Bu hujjat `docs/MADANI-RAQOBAT-AUDITI.md` dagi P0/P1 vazifalar bo'yicha **nima
 qilinganini** va **qanday tekshirilganini** qayd etadi. Har bir yozuv vazifa ID
 bilan bog'langan — audit jadvali bilan birga o'qiladi.
 
+> **Tarixiy kontekst:** Batch 1 va Batch 2 (quyida) hali Postgres/Prisma va
+> admin panel bo'lgan davrda yozilgan — o'sha bo'limlardagi `prisma db push`,
+> seed va admin havolalari **endi kuchda emas**. Batch 3 da baza, admin, savat
+> va to'lov butunlay olib tashlandi; sayt backendsiz ishlaydi.
+
 ---
 
 ## Batch 1 — Foundation: migratsiya, kontaktlar, sharhlar, PDF

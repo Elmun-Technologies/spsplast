@@ -345,7 +345,9 @@ function buildMoldProducts() {
         id: `v-${item.sku.toLowerCase()}-${combo.map((c) => c.value.code).join('-')}-${index}`,
         sku: `${item.sku}-${combo.map((c) => c.value.code.toUpperCase()).join('-')}`,
         price: item.price ?? 0,
-        stockQty: 100,
+        // Qoldiq yuritilmaydi: sayt omborni bilmaydi, shuning uchun soxta
+        // raqam yozilmaydi (mahsulot kartasi bilan bir xil qoida, P0-8).
+        stockQty: null,
         status: 'ACTIVE',
         options: combo.map((c) => {
           const axis = axes[c.axisCode];
@@ -464,7 +466,7 @@ function build() {
 
   return {
     $comment:
-      'AUTO-GENERATED — qo‘lda tahrirlamang. Manba: catalog_build/products.json, prisma/data/*.json, ' +
+      'AUTO-GENERATED — qo‘lda tahrirlamang. Manba: catalog_build/products.json, data/molds-2026.json, ' +
       'scripts/static/seed-data.js. Qayta yasash: node scripts/build-static-catalog.js',
     version: '2026.10',
     catalogDate: CATALOG_DATE,

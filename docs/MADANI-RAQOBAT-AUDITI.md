@@ -40,7 +40,7 @@ Loyiha texnik jihatdan raqibdan **oldinda**: narxlar, savat, checkout, ulgurji n
 | Raqib tashqi auditi | `madani.uz` bosh sahifasi (3 til), katalog, 8+ mahsulot kartasi, kompaniya tarixi, `/how-to-order`, `/contact-us`, yangiliklar ro'yxati va maqolasi, `robots.txt`, `sitemap.xml` |
 | Raqibning "ichki" qismi | Admin panelga kirish yopiq `[F]`; faqat tashqaridan ko'rinadigan signallar tahlil qilindi: media fayllar `admin.madani-serves.uz` domenidan beriladi, `/media/...` galereya tuzilmasi, CDN belgisi yo'q |
 | SPS tashqi | `sps.uz` (eski sayt) to'liq URL inventari + biznes ma'lumotlar (telefon, manzil, rekvizitlar) |
-| SPS ichki (kod) | 151 fayl: sahifalar, komponentlar, servislar, Prisma sxema, seed, import skriptlari, `docs/*`, `next.config.js`, `tailwind.config.js`, kontaktlar, sitemap, JSON-LD |
+| SPS ichki (kod) | 151 fayl: sahifalar, komponentlar, servislar, Prisma sxema, seed, import skriptlari, `docs/*`, `next.config.js`, `tailwind.config.js`, kontaktlar, sitemap, JSON-LD (audit paytidagi holat) |
 | Solishtirish | 30 mezonli matritsa (4-bo'lim), har biri 0–5 ball |
 | Natija | 12 ta P0 (launch blocker), 14 ta P1, 10 ta P2, 8 ta P3 vazifa + 4 haftalik sprint rejasi + 301 xarita + kontent banki |
 
@@ -204,11 +204,11 @@ Admin panel `admin.madani-serves.uz` domenida, login ortida `[F]` — ochiq audi
 | PWA (manifest, ikonkalar, install banner) | ✅ | `public/manifest.json` |
 | Feed (`/api/feed/products`) — marketplace uchun | ✅ | `src/app/api/feed/products/route.ts` |
 | Kontent: 130 mahsulot × (qolip + natija + muhit) rasm | ✅ | `public/catalog/2026` (390 fayl), `catalog_build/products.json` |
-| 2026 studiya seriyasi: 50 mahsulot + variantlar | ✅ | `prisma/data/molds-2026.json` |
+| 2026 studiya seriyasi: 50 mahsulot + variantlar | ✅ | `data/molds-2026.json` (audit paytida `prisma/data/` da edi) |
 | PDF katalog (4 variant) | ✅ fayl / ❌ saytda yo'q | ildizdagi `*.pdf` |
 | Blog | ⚠️ 1 ta seed post, sahifa "Tez orada" holatida | `blog/page.tsx` |
 | Loyihalar | ⚠️ 1 ta seed loyiha | `projects/page.tsx` |
-| Sharhlar | 🔴 **mock**, DB'da model yo'q, moderatsiya yo'q | `ProductReviews.tsx`, `prisma/schema.prisma` (Review modeli yo'q) |
+| Sharhlar | 🔴 **mock** edi, moderatsiya imkonsiz (baza yo'q) | `ProductReviews.tsx` (keyinchalik butunlay olib tashlandi — `OPTIMIZATION-LOG`, Batch 3) |
 | Jamoa / video / hamkorlar / sertifikatlar | ❌ yo'q | — |
 | "Qanday buyurtma berish" sahifasi | ❌ yo'q (raqibda bor) | — |
 | EN tili | ❌ yo'q | `middleware.ts` faqat uz/ru |
@@ -327,7 +327,7 @@ Texnik/SEO o'qi (10):         SPS ███████████████�
 | **P0-2** | ✅ | **301 redirect xaritasi** | 8-bo'limdagi jadval bo'yicha `redirects()` + `/formi/p/*` wildcard + `www` → apex | `next.config.js` | Har eski URL 301 → mantiqiy yangi URL; 404 yo'q; GSC'da "Coverage" xatosi o'smaydi | 4 soat |
 | **P0-3** | ✅ | **Kontakt ma'lumotlarini to'ldirish** | Manzil (Uchtepa, Xalqa yo'li 7A), 4 telefon, ish vaqti 9:00–18:00, email, Telegram/WhatsApp; Yandex xarita embed | `contacts.ts`, `Footer.tsx`, `contact/page.tsx` | Manzil to'liq; 3-bo'limdagi jadval bilan bir xil; NAP izchil | 3 soat |
 | **P0-4** | ✅ | **Soxta sharhlarni olib tashlash** | Foydalanuvchi qarori: bazasiz arxitekturada moderatsiya imkonsiz — sharhlar bo'limi va forma butunlay olib tashlandi | `ProductTabs.tsx`, `ProductReviews.tsx` (o'chirilgan) | Saytda tasdiqlanmagan sharh yo'q | 2 soat |
-| **P0-5** | ✅ | **Blog va loyihalarni to'ldirish** | 7 maqola + 6 loyiha yozildi (`prisma/data/content-2026.json`), seed va `scripts/import-content.js` orqali bazaga yoziladi; muqova va "oldin/keyin" rasmlari `public/media/` da | `data/content-2026.json`, `scripts/build-static-catalog.js` | Sahifalarda "tez orada" yo'q; har post uz/ru, muqova rasmli; kontent statik fayldan o'qiladi, bazaga import kerak emas | 8 soat |
+| **P0-5** | ✅ | **Blog va loyihalarni to'ldirish** | 7 maqola + 6 loyiha yozildi (`data/content-2026.json` → `scripts/build-static-catalog.js` orqali `src/data/catalog.json` ga); muqova va "oldin/keyin" rasmlari `public/media/` da | `data/content-2026.json`, `scripts/build-static-catalog.js` | Sahifalarda "tez orada" yo'q; har post uz/ru, muqova rasmli; kontent statik fayldan o'qiladi, bazaga import kerak emas | 8 soat |
 | **P0-6** | ✅ | **Repo gigienasi** | Master fayllar 169 ta katta PNG (306 MB) `media-src/masters/` ga ko'chirildi va git kuzatuvidan chiqarildi; sayt uchun yengil nusxalar `public/media/` va `public/catalog/` da | `media-src/`, `public/media/`, `.gitignore`, `scripts/build-media.py` | Repo ildizida master fayl yo'q; git hajmi o'smaydi | 3 soat |
 | **P0-7** | ✅ | **PDF katalog ulash** | 108 betli `full_compressed` versiya (15 MB) → `public/catalog/pdf/sps-qoliplar-katalogi-2026.pdf`; bosh sahifa va footer'da yuklab olish + hajm ko'rsatilgan | `public/catalog/…pdf`, `page.tsx`, `Footer.tsx` | Tugma haqiqiy PDF yuklaydi (raqibda bu CTA buzilgan) | 3 soat |
 | **P0-8** | ✅ | **Trust da'volar auditi** | Har bir raqam uchun dalil. Olib tashlandi: "−5%/−10%" chegirmalar, "1 000 000 so'mdan bepul", "50 000 so'm" tarif, avtomatik to'lov havolasi, kunlik taymer bilan "cheklangan aksiya", "Nemis/Italiya texnologiyasi", "laboratoriya testi", "14 kun / 100% kafolat"; yetkazib berish muddatlari yagona manbaga keltirildi. **2-to'lqin:** "Omborda mavjud" badge + `StockBadge` + "Faqat omborda" filtri + taqqoslashdagi "Mavjudlik" qatori + `stockQty: 100` olib tashlandi (`stockQty: null`); Product JSON-LD'dan `offers` (price 0 / InStock) chiqarildi; hero'dagi "300+ martalik resurs" o'rniga "Zavoddan to'g'ridan-to'g'ri"; to'lov faqat **naqd / yuridik shaxslarga hisob-faktura** (Click/Payme/UZUM yo'q); savat metaforasi (`ShoppingBag`) → `Send` | butun sayt, `src/lib/faq.ts`, `data/category-seo-2026.json`, `scripts/build-static-catalog.js`, `src/lib/catalog/types.ts` | Saytda "dalisiz" raqam qolmaydi | 4 soat |

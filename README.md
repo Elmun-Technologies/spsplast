@@ -11,8 +11,10 @@ Built with Next.js 15 (App Router) + React 19, TypeScript, Tailwind CSS and
 Zustand. Deployed to Vercel. **No database, no Prisma, no admin panel.**
 
 > Documentation: [`CLAUDE.md`](CLAUDE.md) (project guide), [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md),
-> [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md), [`docs/OPTIMIZATION-LOG.md`](docs/OPTIMIZATION-LOG.md)
+> [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md), [`docs/OPTIMIZATION-LOG.md`](docs/OPTIMIZATION-LOG.md),
+> [`docs/UI-DESIGN-SYSTEM.md`](docs/UI-DESIGN-SYSTEM.md), [`docs/SECURITY.md`](docs/SECURITY.md)
 > and the audit [`docs/MADANI-RAQOBAT-AUDITI.md`](docs/MADANI-RAQOBAT-AUDITI.md).
+> Eski (savat/checkout davri) hujjatlar [`docs/archive/`](docs/archive/) da.
 
 ---
 
