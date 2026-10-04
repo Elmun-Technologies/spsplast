@@ -1,7 +1,7 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import dynamic from 'next/dynamic';
-import { db } from '@/lib/db';
+import { catalog, getProductTranslation, getProductsServer } from '@/lib/catalog';
 import { getDictionary, Locale } from '@/lib/i18n';
 import { ProductDetailClient } from './ProductDetailClient';
 import { Container } from '@/components/ui/Container';
@@ -9,26 +9,36 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { RecentlyViewed, RecentlyViewedTracker } from '@/components/product/RecentlyViewed';
 import { ProductCard } from '@/components/product/ProductCard';
 import { SectionHeader } from '@/components/ui/SectionHeader';
-import { getProductsServer } from '@/lib/services/productService';
 
-// Below-the-fold widgets: separate chunks, still server-rendered for SEO.
+// Below-the-fold widget: separate chunk, still server-rendered for SEO.
 const MoldResultShowcase = dynamic(() => import('@/components/product/MoldResultShowcase').then((m) => m.MoldResultShowcase));
-const ProductReviews = dynamic(() => import('@/components/product/ProductReviews').then((m) => m.ProductReviews));
 
 interface ProductPageProps {
   params: Promise<{ lang: Locale; slug: string }>;
 }
 
+/**
+ * Barcha mahsulot sahifalarini build vaqtida prerender qilamiz: katalog statik
+ * faylda saqlanadi, shuning uchun 192 mahsulot × 2 til tayyor HTML bo'lib
+ * CDN'dan beriladi (serverless render ham, sovuq start ham yo'q).
+ */
+export function generateStaticParams() {
+  return catalog.products.flatMap((product) =>
+    product.translations.map((translation) => ({ lang: translation.locale, slug: translation.slug }))
+  );
+}
+
+/**
+ * `dynamicParams = false`: ro'yxatda yo'q slug uchun sahifa umuman render
+ * qilinmaydi va Next haqiqiy **404** qaytaradi. Aks holda oqim avval 200
+ * status bilan boshlanib, keyin `notFound()` chaqirilardi — natijada Google
+ * "soft 404" ko'rardi (noindex bo'lsa ham URL indeksda qolardi).
+ */
+export const dynamicParams = false;
+
 export async function generateMetadata({ params }: ProductPageProps) {
   const { lang, slug } = await params;
-  const trans = await db.productTranslation.findFirst({
-    where: { slug, locale: lang },
-    include: {
-      product: {
-        include: { media: true, translations: { select: { locale: true, slug: true } } },
-      },
-    },
-  });
+  const trans = getProductTranslation(lang, slug);
 
   if (!trans) return {};
 
@@ -67,80 +77,18 @@ export default async function ProductDetailPage({
   const { lang, slug } = await params;
   const dict = getDictionary(lang);
 
-  const trans = await db.productTranslation.findFirst({
-    where: { slug, locale: lang },
-    include: {
-      product: {
-        include: {
-          media: { orderBy: { sortOrder: 'asc' } },
-          categories: {
-            include: {
-              category: {
-                include: { translations: { where: { locale: lang } } },
-              },
-            },
-          },
-          attributeValues: {
-            include: {
-              attribute: {
-                include: { translations: { where: { locale: lang } } },
-              },
-              option: {
-                include: { translations: { where: { locale: lang } } },
-              },
-            },
-          },
-          // Sharhlar faqat `APPROVED` holatida ommaga chiqadi (P0-4). Bitta
-          // so'rovda olamiz — sahifada alohida DB chaqiruvi qilmaymiz.
-          reviews: {
-            where: { status: 'APPROVED' },
-            orderBy: { createdAt: 'desc' },
-            take: 20,
-            select: { id: true, name: true, rating: true, text: true, createdAt: true },
-          },
-          variants: {
-            where: { status: 'ACTIVE' },
-            orderBy: { sku: 'asc' },
-            include: {
-              options: {
-                include: {
-                  option: {
-                    include: {
-                      translations: { where: { locale: lang } },
-                      attribute: {
-                        include: { translations: { where: { locale: lang } } },
-                      },
-                    },
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-  });
+  const trans = getProductTranslation(lang, slug);
 
-  if (!trans || !trans.product || trans.product.status !== 'ACTIVE') {
+  if (!trans || !trans.product) {
     notFound();
   }
 
   const product = trans.product;
-  const categoryTrans = product.categories[0]?.category?.translations[0];
-
-  // Client komponentga faqat seriyalanadigan maydonlar ketadi (Date emas, ISO
-  // satr) va telefon raqami umuman uzatilmaydi.
-  const approvedReviews = product.reviews.map((review) => ({
-    id: review.id,
-    name: review.name,
-    rating: review.rating,
-    text: review.text,
-    createdAt: review.createdAt.toISOString(),
-  }));
-  const reviewsAverage =
-    approvedReviews.length > 0
-      ? approvedReviews.reduce((acc, review) => acc + review.rating, 0) / approvedReviews.length
-      : 0;
+  // Kategoriya tarjimasi aynan shu til uchun olinadi: slug va nom uz/ru da
+  // farq qiladi, aks holda breadcrumb rus sahifasida o'zbekcha chiqadi.
+  const categoryTranslations = product.categories[0]?.category?.translations || [];
+  const categoryTrans =
+    categoryTranslations.find((t: { locale: string }) => t.locale === lang) || categoryTranslations[0];
 
   const moldMedia = product.media.find((m) => m.type === 'MOLD') || product.media[0];
   const resultMedia = product.media.find((m) => m.type === 'FINISHED_RESULT');
@@ -191,7 +139,6 @@ export default async function ProductDetailPage({
     id: variant.id,
     sku: variant.sku,
     price: variant.price,
-    stockQty: variant.stockQty,
     optionCodes: variant.options.map((variantOption) => variantOption.option.code),
   }));
 
@@ -223,7 +170,7 @@ export default async function ProductDetailPage({
 
   const breadcrumbItems = [
     { label: dict.nav.catalog, href: `/${lang}/catalog` },
-    ...(categoryTrans ? [{ label: categoryTrans.name, href: `/${lang}/catalog?category=${categoryTrans.slug}` }] : []),
+    ...(categoryTrans ? [{ label: categoryTrans.name, href: `/${lang}/catalog/${categoryTrans.slug}` }] : []),
     { label: trans.name, active: true },
   ];
 
@@ -235,27 +182,15 @@ export default async function ProductDetailPage({
     description: trans.description || '',
     sku: product.sku,
     brand: { '@type': 'Brand', name: 'SPS' },
-    offers: {
-      '@type': 'Offer',
-      price: product.basePrice,
-      priceCurrency: 'UZS',
-      availability: product.inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
-      seller: { '@type': 'Organization', name: 'SPS' },
-    },
-    // Yulduzli reyting faqat real, moderatsiyadan o'tgan sharhlar bo'lsa
-    // qo'shiladi — bo'sh yoki o'ylab topilgan reyting Google tomonidan
-    // "spam structured data" deb baholanadi.
-    ...(approvedReviews.length > 0
-      ? {
-          aggregateRating: {
-            '@type': 'AggregateRating',
-            ratingValue: Number(reviewsAverage.toFixed(1)),
-            reviewCount: approvedReviews.length,
-            bestRating: 5,
-            worstRating: 1,
-          },
-        }
-      : {}),
+    /**
+     * P0-8: narx saytda ko'rsatilmaydi (uni menejer tasdiqlaydi), shuning uchun
+     * `offers` ham, `availability` ham berilmaydi. Ilgari bu yerda
+     * `price: product.basePrice` (0 so'm) va ombor qoldig'iga asoslangan
+     * `InStock` turardi — Google uchun noto'g'ri ma'lumot.
+     *
+     * Sharhlar tizimi ham olib tashlangan, shuning uchun `aggregateRating` yo'q:
+     * bo'sh/soxta reyting "spam structured data" hisoblanadi.
+     */
   };
 
   const jsonLdBreadcrumb = {
@@ -265,7 +200,7 @@ export default async function ProductDetailPage({
       { '@type': 'ListItem', position: 1, name: dict.nav.home, item: `/${lang}` },
       { '@type': 'ListItem', position: 2, name: dict.nav.catalog, item: `/${lang}/catalog` },
       ...(categoryTrans
-        ? [{ '@type': 'ListItem', position: 3, name: categoryTrans.name, item: `/${lang}/catalog?category=${categoryTrans.slug}` }]
+        ? [{ '@type': 'ListItem', position: 3, name: categoryTrans.name, item: `/${lang}/catalog/${categoryTrans.slug}` }]
         : []),
       { '@type': 'ListItem', position: categoryTrans ? 4 : 3, name: trans.name },
     ],
@@ -290,15 +225,7 @@ export default async function ProductDetailPage({
       <Container>
         <Breadcrumbs lang={lang} items={breadcrumbItems} className="mb-5" />
 
-        <ProductDetailClient
-          product={mappedProduct}
-          lang={lang}
-          reviewsSummary={
-            approvedReviews.length > 0
-              ? { count: approvedReviews.length, average: reviewsAverage }
-              : undefined
-          }
-        />
+        <ProductDetailClient product={mappedProduct} lang={lang} />
 
         {mappedProduct.resultImage && mappedProduct.moldImage && (
           <section className="pt-6">
@@ -340,15 +267,6 @@ export default async function ProductDetailPage({
 
         <RecentlyViewed lang={lang} currentProductId={mappedProduct.id} />
 
-        {/* Reviews */}
-        <section id="reviews" className="pt-4 cv-auto scroll-mt-24">
-          <ProductReviews
-            lang={lang}
-            productId={mappedProduct.id}
-            initialReviews={approvedReviews}
-          />
-        </section>
-
         {/* Related Products */}
         <RelatedProducts lang={lang} categorySlug={categoryTrans?.slug} currentProductId={mappedProduct.id} />
       </Container>
@@ -359,7 +277,7 @@ export default async function ProductDetailPage({
 async function RelatedProducts({ lang, categorySlug, currentProductId }: { lang: Locale; categorySlug?: string; currentProductId: string }) {
   if (!categorySlug) return null;
   try {
-    const data = await getProductsServer({ locale: lang, categorySlug, limit: 8 });
+    const data = getProductsServer({ locale: lang, categorySlug, limit: 8 });
     const related = data.products.filter((p: any) => p.id !== currentProductId).slice(0, 4);
     if (related.length === 0) return null;
     return (
@@ -368,7 +286,7 @@ async function RelatedProducts({ lang, categorySlug, currentProductId }: { lang:
           title={lang === 'ru' ? 'Похожие товары' : 'O‘xshash mahsulotlar'}
           subtitle={lang === 'ru' ? 'Вам также может подойти' : 'Sizga ham mos kelishi mumkin'}
           linkText={lang === 'ru' ? 'Все' : 'Barchasi'}
-          linkHref={`/${lang}/catalog?category=${categorySlug}`}
+          linkHref={categorySlug ? `/${lang}/catalog/${categorySlug}` : `/${lang}/catalog`}
         />
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {related.map((p: any) => (

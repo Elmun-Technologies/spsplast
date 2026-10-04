@@ -1,4 +1,13 @@
-import { db } from '@/lib/db';
+/**
+ * Yengil in-memory rate limiter (sliding window).
+ *
+ * Zayafka formasini spam-botlardan himoya qiladi. Serverless (Vercel) muhitida
+ * har bir instansiya o'z xotirasiga ega, shuning uchun bu **to'liq** himoya
+ * emas: bir nechta instansiya bir vaqtda ishlayotganda limit instansiya
+ * bo'yicha qo'llanadi. Amalda bu Telegram'ni to'ldirib yuborishning oldini
+ * olish uchun yetarli; qo'shimcha chora — formadagi honeypot maydoni va
+ * telefon raqamining validatsiyasi.
+ */
 
 interface RateLimitRecord {
   count: number;
@@ -7,16 +16,24 @@ interface RateLimitRecord {
 
 const tracker = new Map<string, RateLimitRecord>();
 
-/**
- * Lightweight sliding-window in-memory rate limiter.
- * Ideal for single-instance or quick checks.
- */
+/** Xotira cheksiz o'smasligi uchun eskirgan yozuvlarni vaqti-vaqti bilan tozalaymiz. */
+const MAX_TRACKED_KEYS = 5000;
+
+function pruneExpired(now: number) {
+  if (tracker.size < MAX_TRACKED_KEYS) return;
+  for (const [key, record] of tracker) {
+    if (now > record.resetAt) tracker.delete(key);
+  }
+}
+
 export function checkRateLimit(
   key: string,
   maxRequests: number = 5,
   windowMs: number = 15 * 60 * 1000
 ): { allowed: boolean; remaining: number; resetTimeMs: number } {
   const now = Date.now();
+  pruneExpired(now);
+
   const record = tracker.get(key);
 
   if (!record || now > record.resetAt) {
@@ -25,72 +42,14 @@ export function checkRateLimit(
   }
 
   if (record.count >= maxRequests) {
-    return {
-      allowed: false,
-      remaining: 0,
-      resetTimeMs: record.resetAt - now,
-    };
+    return { allowed: false, remaining: 0, resetTimeMs: record.resetAt - now };
   }
 
   record.count += 1;
-  return {
-    allowed: true,
-    remaining: maxRequests - record.count,
-    resetTimeMs: record.resetAt - now,
-  };
+  return { allowed: true, remaining: maxRequests - record.count, resetTimeMs: record.resetAt - now };
 }
 
-/**
- * Production-ready asynchronous DB-backed rate limiter.
- * Works seamlessly across multi-instance serverless deployments without Redis requirement.
- */
-export async function checkRateLimitAsync(
-  key: string,
-  maxRequests: number = 5,
-  windowMs: number = 15 * 60 * 1000
-): Promise<{ allowed: boolean; remaining: number; resetTimeMs: number }> {
-  // First run local check for ultra-fast rejection
-  const localCheck = checkRateLimit(key, maxRequests, windowMs);
-  if (!localCheck.allowed) {
-    return localCheck;
-  }
-
-  // Attempt DB state tracking for multi-instance persistence
-  try {
-    const windowStart = new Date(Date.now() - windowMs);
-    const recentCount = await db.integrationLog.count({
-      where: {
-        provider: 'RATELIMIT',
-        operation: key,
-        createdAt: { gte: windowStart },
-      },
-    });
-
-    if (recentCount >= maxRequests) {
-      return {
-        allowed: false,
-        remaining: 0,
-        resetTimeMs: windowMs,
-      };
-    }
-
-    // Record attempt
-    await db.integrationLog.create({
-      data: {
-        provider: 'RATELIMIT',
-        operation: key,
-        status: 'SUCCESS',
-        detailsJson: JSON.stringify({ ipKey: key, timestamp: Date.now() }),
-      },
-    });
-
-    return {
-      allowed: true,
-      remaining: maxRequests - recentCount - 1,
-      resetTimeMs: windowMs,
-    };
-  } catch (_err) {
-    // Fallback to in-memory check gracefully if DB is unresponsive
-    return localCheck;
-  }
+/** Testlar uchun: holatni nolga qaytaradi. */
+export function resetRateLimit(): void {
+  tracker.clear();
 }

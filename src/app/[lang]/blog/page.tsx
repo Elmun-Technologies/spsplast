@@ -1,8 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { db } from '@/lib/db';
 import { getDictionary, Locale } from '@/lib/i18n';
+import { getBlogPosts } from '@/lib/catalog';
 import { Container } from '@/components/ui/Container';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { Calendar, User, ArrowRight } from 'lucide-react';
@@ -29,18 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Loc
 export default async function BlogPage({ params }: { params: Promise<{ lang: Locale }> }) {
   const { lang } = await params;
   const dict = getDictionary(lang);
-  let posts: any[] = [];
-  try {
-    posts = await db.blogPost.findMany({
-      where: { isPublished: true },
-      include: {
-        translations: { where: { locale: lang } },
-      },
-      orderBy: { publishedAt: 'desc' },
-    });
-  } catch {
-    posts = [];
-  }
+  const posts = getBlogPosts(lang);
 
   return (
     <div className="bg-surface-page min-h-screen text-ink py-8">

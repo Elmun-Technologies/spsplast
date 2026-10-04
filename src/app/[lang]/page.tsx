@@ -2,25 +2,25 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import nextDynamic from 'next/dynamic';
-import { db } from '@/lib/db';
 import { Locale } from '@/lib/i18n';
 import { hreflang } from '@/lib/seo';
-import { getProductsServer } from '@/lib/services/productService';
+import { HOME_FAQ, faqItems, faqJsonLd } from '@/lib/faq';
+import { getCategoryUrl } from '@/lib/catalog';
+import { getProductsServer, getCategoriesWithMeta } from '@/lib/catalog';
 import { ProductCard } from '@/components/product/ProductCard';
 import { CategoryCard } from '@/components/product/CategoryCard';
 import { Container } from '@/components/ui/Container';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Price } from '@/components/ui/Price';
-import { DealCountdown } from '@/components/ui/DealCountdown';
+import { FaqAccordion } from '@/components/ui/FaqAccordion';
+import { LeadButton } from '@/components/lead/LeadButton';
 import {
   ArrowRight,
-  ChevronDown,
   ShieldCheck,
   Truck,
   PackageCheck,
   Headphones,
   Sparkles,
-  ShoppingBag,
   FileDown,
 } from 'lucide-react';
 
@@ -56,68 +56,14 @@ export async function generateMetadata({ params }: HomePageProps) {
 
 export default async function HomePage({ params }: HomePageProps) {
   const { lang } = await params;
-  // These independent reads used to block one another. Fetch the homepage payload together
-  // so the slowest query, rather than the sum of all queries, determines TTFB.
-  //
-  // Every read is guarded: this route is `force-static`, so it also renders at
-  // BUILD time. An unguarded throw here fails `next build` outright whenever the
-  // database is momentarily unreachable (see the "never make the build depend on
-  // the database" rule in CLAUDE.md) — the page degrades to empty rails instead.
-  const [categoriesResult, bestsellersResult, allProductsResult] = await Promise.allSettled([
-    db.category.findMany({
-      where: { status: 'ACTIVE' },
-      orderBy: { sortOrder: 'asc' },
-      include: {
-        translations: { where: { locale: lang } },
-        _count: { select: { products: true } },
-      },
-    }),
-    getProductsServer({ locale: lang, isBestseller: true, limit: 8 }),
-    getProductsServer({ locale: lang, limit: 48 }),
-  ]);
+  // Ma'lumot statik katalogdan o'qiladi: so'rovlar bir-birini kutmaydi, tashqi
+  // xizmat yo'q, shuning uchun avvalgi `Promise.allSettled` + zaxira mantiqi
+  // ham kerak emas — natija har doim to'liq bo'ladi.
+  const categories = getCategoriesWithMeta(lang);
+  let bestsellers = getProductsServer({ locale: lang, isBestseller: true, limit: 8 }).products;
+  const allProducts = getProductsServer({ locale: lang, limit: 48 }).products;
 
-  if (categoriesResult.status === 'rejected') {
-    console.error('Homepage: category fetch failed', categoriesResult.reason);
-  }
-  if (bestsellersResult.status === 'rejected') {
-    console.error('Homepage: bestseller fetch failed', bestsellersResult.reason);
-  }
-  if (allProductsResult.status === 'rejected') {
-    console.error('Homepage: product fetch failed', allProductsResult.reason);
-  }
-
-  const failedHomepageReads = [categoriesResult, bestsellersResult, allProductsResult].filter(
-    (result) => result.status === 'rejected'
-  );
-
-  // During a production ISR refresh, do not turn a temporary database outage
-  // into a successfully cached but empty homepage. Throwing tells Next to keep
-  // serving the last good page and retry the refresh later. Keep the build-time
-  // fallback so a database outage does not prevent a deployment from building.
-  if (failedHomepageReads.length > 0 && process.env.NEXT_PHASE !== 'phase-production-build') {
-    throw new Error('Homepage data refresh failed; preserving the last successful page.');
-  }
-
-  const rawCategories = categoriesResult.status === 'fulfilled' ? categoriesResult.value : [];
-
-  const categories = rawCategories.map((c) => {
-    const trans = c.translations[0] || {};
-    return {
-      id: c.id,
-      slug: trans.slug || c.id,
-      nameUz: trans.name || '',
-      nameRu: trans.name || '',
-      descriptionUz: trans.description || '',
-      descriptionRu: trans.description || '',
-      image: c.image,
-      _count: c._count,
-    };
-  });
-
-  let bestsellers = bestsellersResult.status === 'fulfilled' ? bestsellersResult.value.products : [];
-  const allProducts = allProductsResult.status === 'fulfilled' ? allProductsResult.value.products : [];
-
-  // Keep the fallback in the same request path only when it is actually needed.
+  // Top mahsulot belgilangan bo'lmasa — birinchi 8 tasi ko'rsatiladi.
   if (!bestsellers || bestsellers.length === 0) {
     bestsellers = allProducts.slice(0, 8);
   }
@@ -168,45 +114,27 @@ export default async function HomePage({ params }: HomePageProps) {
   const block4Products = plitkaProducts.length > 0 ? plitkaProducts : allProducts.slice(12, 16);
 
   const featuredMold = allProducts.find((p) => p.resultImage) || allProducts[0];
-  const dealOfTheDay = bestsellers[0] || allProducts[0];
+  /**
+   * Tanlangan model — menejer tavsiyasi.
+   *
+   * P0-8: bu blokda soxta shoshiltirish yo'q. Ilgari bu yerda "Tovar dnya",
+   * "skidka ogranichena" yozuvi va har kuni yarim tunda nolga qaytadigan
+   * taymer bor edi — hech qanday haqiqiy aksiya ortida turmasdi. Endi faqat
+   * katalogdagi `isBestseller` belgisi asosida bitta model ko'rsatiladi.
+   */
+  const featuredPick = bestsellers[0] || allProducts[0];
 
-  // Real discount coming from the catalog data — never advertise a number that
-  // the actual price does not carry.
-  const dealDiscountPercent =
-    dealOfTheDay?.oldPrice && dealOfTheDay.oldPrice > dealOfTheDay.price
-      ? Math.round(((dealOfTheDay.oldPrice - dealOfTheDay.price) / dealOfTheDay.oldPrice) * 100)
-      : 0;
+  // FAQ matni `src/lib/faq.ts` dan — sahifada ko'rinadigan matn bilan JSON-LD
+  // bir xil manbadan olinadi (ilgari ular ikki nusxada yurardi).
+  const homeFaqItems = faqItems(HOME_FAQ, lang);
+  const homeFaqJsonLd = faqJsonLd(homeFaqItems);
 
-  const faqJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: [
-      {
-        '@type': 'Question',
-        name: 'Qoliplar qanday materialdan tayyorlanadi?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Qoliplarimiz chidamli polipropilen va ABS plastikdan tayyorlanadi. Aniq resurs mahsulot modeliga va ishlatish shartlariga bog‘liq — savol bilan murojaat qiling.',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'Viloyatlarga yetkazib berish shartlari qanday?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Respublikaning barcha viloyatlariga pochta yoki yuk tashish xizmatlari orqali tezkor va xavfsiz yetkazib beramiz.',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'Ulgurji xaridorlar uchun chegirmalar bormi?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Ha, 100 donadan ortiq buyurtmalar uchun dilerlik va ulgurji narxlar amal qiladi.',
-        },
-      },
-    ],
-  };
+  // Bloklar mavzu bo'yicha guruhlangan, lekin havolalar haqiqiy kategoriya
+  // sahifalariga ketishi kerak: slug'lar tilga qarab farq qiladi (uz/ru),
+  // shuning uchun ularni katalogdan olamiz, qo'lda yozmaymiz.
+  const categoryUrlById = Object.fromEntries(
+    getCategoriesWithMeta(lang).map((category) => [category.id, getCategoryUrl(lang, category)])
+  );
 
   const orgJsonLd = {
     '@context': 'https://schema.org',
@@ -219,7 +147,7 @@ export default async function HomePage({ params }: HomePageProps) {
 
   return (
     <div className="bg-surface-page text-ink min-h-screen pb-16">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeFaqJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
 
       <section className="pt-5 pb-2">
@@ -251,8 +179,8 @@ export default async function HomePage({ params }: HomePageProps) {
 
                 <p className="text-[15px] sm:text-base leading-[1.6] text-ink-soft max-w-[520px]">
                   {lang === 'ru'
-                    ? 'Прямые цены производителя, ресурс от 300 заливок и доставка по всему Узбекистану. Поможем подобрать формы под ваш объём.'
-                    : 'Ishlab chiqaruvchi narxlari, 300+ martalik resurs va O‘zbekiston bo‘ylab yetkazib berish. Hajmingizga mos qolipni tanlashda yordam beramiz.'}
+                    ? 'Формы из полипропилена и ABS, цены от завода и доставка по всему Узбекистану. Поможем подобрать формы под ваш объём.'
+                    : 'Polipropilen va ABS asosidagi qoliplar, zavod narxlari va O‘zbekiston bo‘ylab yetkazib berish. Hajmingizga mos qolipni tanlashda yordam beramiz.'}
                 </p>
 
                 <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-1">
@@ -291,7 +219,7 @@ export default async function HomePage({ params }: HomePageProps) {
 
                 <div className="hidden sm:flex items-center gap-2 text-[12px] font-medium text-ink-soft ml-1">
                   <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span>{lang === 'ru' ? 'Всё в наличии на складе' : 'Omborda mavjud'}</span>
+                  <span>{lang === 'ru' ? 'Работаем напрямую от завода' : 'Zavoddan to‘g‘ridan-to‘g‘ri'}</span>
                 </div>
               </div>
             </div>
@@ -300,55 +228,54 @@ export default async function HomePage({ params }: HomePageProps) {
               <div className="flex items-center justify-between pb-4 mb-4 border-b border-line-soft">
                 <div>
                   <div className="text-[15px] font-bold text-ink">
-                    {lang === 'ru' ? 'Товар дня' : 'Kun tanlovi'}
+                    {lang === 'ru' ? 'Выбор менеджера' : 'Menejer tanlovi'}
                   </div>
-                  <div className="text-[12px] text-ink-sub mt-0.5">{lang === 'ru' ? 'Скидка ограничена' : 'Cheklangan aksiya'}</div>
+                  <div className="text-[12px] text-ink-sub mt-0.5">
+                    {lang === 'ru' ? 'Рекомендуем эту модель' : 'Shu modelni tavsiya qilamiz'}
+                  </div>
                 </div>
-
-                <DealCountdown lang={lang} />
               </div>
 
-              {dealOfTheDay && (
+              {featuredPick && (
                 <div className="flex-1 flex flex-col justify-between gap-3">
                   <Link
-                    href={`/${lang}/product/${dealOfTheDay.slug}`}
+                    href={`/${lang}/product/${featuredPick.slug}`}
                     className="block relative aspect-[4/3] w-full bg-surface-soft rounded-[18px] overflow-hidden p-2 group"
                   >
-                    {dealOfTheDay.images?.[0]?.url && (
+                    {featuredPick.images?.[0]?.url && (
                       <Image
-                        src={dealOfTheDay.images[0].url}
-                        alt={dealOfTheDay.titleUz}
+                        src={featuredPick.images[0].url}
+                        alt={lang === 'ru' ? featuredPick.titleRu : featuredPick.titleUz}
                         fill
                         priority
                         sizes="(max-width: 1024px) 100vw, 420px"
                         className="object-contain p-2 group-hover:scale-105 transition-transform duration-300"
                       />
                     )}
-                    {dealDiscountPercent > 0 && (
-                      <span className="absolute top-3 left-3 bg-brand-red text-white text-[12px] font-bold px-2.5 py-1 rounded-full">
-                        -{dealDiscountPercent}%
-                      </span>
-                    )}
                   </Link>
 
                   <div className="space-y-1.5">
                     <Link
-                      href={`/${lang}/product/${dealOfTheDay.slug}`}
+                      href={`/${lang}/product/${featuredPick.slug}`}
                       className="text-[15px] font-semibold text-ink hover:text-brand-red line-clamp-2 leading-snug"
                     >
-                      {lang === 'ru' ? dealOfTheDay.titleRu : dealOfTheDay.titleUz}
+                      {lang === 'ru' ? featuredPick.titleRu : featuredPick.titleUz}
                     </Link>
 
-                    <Price price={dealOfTheDay.price} oldPrice={dealOfTheDay.oldPrice} lang={lang} size="md" />
+                    <Price price={featuredPick.price} oldPrice={featuredPick.oldPrice} lang={lang} size="md" />
                   </div>
 
-                  <Link
-                    href={`/${lang}/product/${dealOfTheDay.slug}`}
+                  <LeadButton
+                    lang={lang}
+                    product={{
+                      title: (lang === 'ru' ? featuredPick.titleRu : featuredPick.titleUz) || featuredPick.sku,
+                      sku: featuredPick.sku,
+                    }}
+                    type="CONSULTATION"
                     className="w-full flex items-center justify-center gap-2 text-sm font-semibold bg-brand-red hover:bg-brand-red-dark text-white py-3 px-4 rounded-full transition-colors mt-1 min-h-[46px] shadow-[0_10px_24px_-12px_rgba(230,28,36,0.8)]"
                   >
-                    <ShoppingBag className="w-4 h-4" />
-                    <span>{lang === 'ru' ? 'Купить по акции' : 'Aksiya bo‘yicha sotib olish'}</span>
-                  </Link>
+                    <span>{lang === 'ru' ? 'Оставить заявку' : 'Zayafka berish'}</span>
+                  </LeadButton>
                 </div>
               )}
             </div>
@@ -364,8 +291,8 @@ export default async function HomePage({ params }: HomePageProps) {
                 <Truck className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="text-sm font-semibold text-ink">{lang === 'ru' ? 'Доставка 1–3 дня' : 'Yetkazish 1–3 kun'}</h4>
-                <p className="text-[13px] text-ink-sub mt-1 leading-relaxed">Toshkent 24 soat, viloyatlar 1–3 kun</p>
+                <h4 className="text-sm font-semibold text-ink">{lang === 'ru' ? 'Доставка по Узбекистану' : 'O‘zbekiston bo‘ylab yetkazish'}</h4>
+                <p className="text-[13px] text-ink-sub mt-1 leading-relaxed">Toshkent — 1 ish kuni, viloyatlar — 1–3 ish kuni</p>
               </div>
             </div>
 
@@ -385,7 +312,7 @@ export default async function HomePage({ params }: HomePageProps) {
               </div>
               <div>
                 <h4 className="text-sm font-semibold text-ink">{lang === 'ru' ? 'Завод, без посредников' : 'Zavod, vositachisiz'}</h4>
-                <p className="text-[13px] text-ink-sub mt-1 leading-relaxed">{lang === 'ru' ? 'Прямая цена, опт −10%' : 'To‘g‘ridan-to‘g‘ri narx, ulgurji −10%'}</p>
+                <p className="text-[13px] text-ink-sub mt-1 leading-relaxed">{lang === 'ru' ? 'Цена от завода, условия — по объёму' : 'Zavod narxi, shartlar — hajmga qarab'}</p>
               </div>
             </div>
 
@@ -439,7 +366,7 @@ export default async function HomePage({ params }: HomePageProps) {
           <SectionHeader
             title={lang === 'ru' ? 'Формы для брусчатки' : 'Bruschatka qoliplari'}
             linkText={lang === 'ru' ? 'Все брусчатки' : 'Barcha qoliplar'}
-            linkHref={`/${lang}/catalog?category=bruschatka-qoliplari`}
+            linkHref={categoryUrlById['cat-s1']}
           />
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
             {block1Products.map((product) => (
@@ -454,7 +381,7 @@ export default async function HomePage({ params }: HomePageProps) {
           <SectionHeader
             title={lang === 'ru' ? 'Фасадные декор-элементы' : 'Fasad dekor elementlari'}
             linkText={lang === 'ru' ? 'Все декоры' : 'Barcha dekorlar'}
-            linkHref={`/${lang}/catalog?category=fasad-dekor`}
+            linkHref={categoryUrlById['cat-s3']}
           />
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
             {block2Products.map((product) => (
@@ -469,7 +396,7 @@ export default async function HomePage({ params }: HomePageProps) {
           <SectionHeader
             title={lang === 'ru' ? 'Бордюры и дорожные формы' : 'Bordyur va yo‘l qoliplari'}
             linkText={lang === 'ru' ? 'Все формы' : 'Barcha qoliplar'}
-            linkHref={`/${lang}/catalog?category=bordyur-qoliplari`}
+            linkHref={categoryUrlById['cat-s1']}
           />
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
             {block3Products.map((product) => (
@@ -484,7 +411,7 @@ export default async function HomePage({ params }: HomePageProps) {
           <SectionHeader
             title={lang === 'ru' ? 'Тротуарная плитка' : 'Trotuar plitka qoliplari'}
             linkText={lang === 'ru' ? 'Все плитки' : 'Barcha plitkalar'}
-            linkHref={`/${lang}/catalog?category=plitka-qoliplari`}
+            linkHref={categoryUrlById['cat-s2']}
           />
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
             {block4Products.map((product) => (
@@ -569,43 +496,15 @@ export default async function HomePage({ params }: HomePageProps) {
                 </p>
                 <div className="pt-2 flex flex-wrap gap-2 text-[12px] font-semibold text-brand-red">
                   <Link href={`/${lang}/catalog`} className="bg-surface-soft hover:bg-[#FEF0F0] px-3.5 py-2 rounded-full transition-colors">#Qoliplar</Link>
-                  <Link href={`/${lang}/catalog?category=bruschatka-qoliplari`} className="bg-surface-soft hover:bg-[#FEF0F0] px-3.5 py-2 rounded-full transition-colors">#Bruschatka</Link>
-                  <Link href={`/${lang}/catalog?category=termopanel`} className="bg-surface-soft hover:bg-[#FEF0F0] px-3.5 py-2 rounded-full transition-colors">#Termopanel</Link>
+                  <Link href={categoryUrlById['cat-s1']} className="bg-surface-soft hover:bg-[#FEF0F0] px-3.5 py-2 rounded-full transition-colors">#Bruschatka</Link>
+                  <Link href={categoryUrlById['cat-s3']} className="bg-surface-soft hover:bg-[#FEF0F0] px-3.5 py-2 rounded-full transition-colors">#Panellar</Link>
                 </div>
               </div>
 
               <div className="lg:col-span-6 space-y-3">
                 <h3 className="text-base font-semibold text-ink mb-3">{lang === 'ru' ? 'Часто задаваемые вопросы' : 'Ko‘p beriladigan savollar'}</h3>
 
-                <details className="group bg-surface-soft rounded-[16px] p-4 cursor-pointer open:bg-surface open:shadow-card transition-all">
-                  <summary className="flex items-center justify-between font-semibold text-sm text-ink list-none">
-                    <span>Qoliplar qanday materialdan tayyorlanadi?</span>
-                    <ChevronDown className="w-4 h-4 text-ink-sub group-open:rotate-180 transition-transform" />
-                  </summary>
-                  <p className="text-sm text-ink-soft mt-3 pt-3 border-t border-line leading-relaxed">
-                    Qoliplarimiz chidamli polipropilen va ABS plastikdan tayyorlanadi. Aniq resurs mahsulot modeliga va ishlatish shartlariga bog‘liq.
-                  </p>
-                </details>
-
-                <details className="group bg-surface-soft rounded-[16px] p-4 cursor-pointer open:bg-surface open:shadow-card transition-all">
-                  <summary className="flex items-center justify-between font-semibold text-sm text-ink list-none">
-                    <span>Viloyatlarga yetkazib berish shartlari qanday?</span>
-                    <ChevronDown className="w-4 h-4 text-ink-sub group-open:rotate-180 transition-transform" />
-                  </summary>
-                  <p className="text-sm text-ink-soft mt-3 pt-3 border-t border-line leading-relaxed">
-                    Respublikaning barcha viloyatlariga pochta yoki yuk tashish xizmatlari orqali tezkor va xavfsiz yetkazib beramiz.
-                  </p>
-                </details>
-
-                <details className="group bg-surface-soft rounded-[16px] p-4 cursor-pointer open:bg-surface open:shadow-card transition-all">
-                  <summary className="flex items-center justify-between font-semibold text-sm text-ink list-none">
-                    <span>Ulgurji xaridorlar uchun chegirmalar bormi?</span>
-                    <ChevronDown className="w-4 h-4 text-ink-sub group-open:rotate-180 transition-transform" />
-                  </summary>
-                  <p className="text-sm text-ink-soft mt-3 pt-3 border-t border-line leading-relaxed">
-                    Ha, 100 donadan ortiq buyurtmalar uchun dilerlik va ulgurji narxlar amal qiladi.
-                  </p>
-                </details>
+                <FaqAccordion items={homeFaqItems} />
               </div>
             </div>
           </div>

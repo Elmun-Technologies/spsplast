@@ -1,0 +1,318 @@
+{
+  "generatedAt": "2026-10-04",
+  "note": "Kategoriya sahifalari uchun SEO matn (P1-7). Manba shu fayl; generator uni src/data/catalog.json ga qo'shadi. P0-8: faqat tasdiqlangan da'volar; raqamlar 'modelga/hajmga bog'liq' bilan yoziladi.",
+  "sections": {
+    "S1": {
+      "uz": {
+        "title": "Bruschatka va trotuar plitkasi qoliplari — zavoddan sotib olish | SPS",
+        "lead": "Bruschatka va trotuar plitkasi qoliplari — yo‘lka, hovli, avtoturargoh va jamoat maydonlarini beton qoplama bilan bezash uchun ishlatiladi. Katalogdagi G001–G029 seriyasi turli o‘lcham va naqshlarni qamrab oladi.",
+        "body": [
+          {
+            "heading": "Qanday mahsulotlar bor?",
+            "text": "Bu bo‘limda standart to‘rtburchak “bruschatka”, kvadrat va to‘g‘ri to‘rtburchak trotuar plitalari, shuningdek chekka toshlari uchun qoliplar joy olgan. Har bir model bir quyishda bir nechta plita beradi: qolip ichidagi kataklar soni modelga qarab farq qiladi, shuning uchun bir tsiklning unumdorligi ham turlicha bo‘ladi. Modellar qatoriga naqshli variantlar ham kiradi — ular yo‘lkaga tabiiy tosh yoki eski shahar uslubini beradi."
+          },
+          {
+            "heading": "Qolip qanday ishlaydi?",
+            "text": "Qolip plastikdan tayyorlanadi va qayta ishlatiladi. Beton quyiladi, qotgandan keyin qolip yechiladi va keyingi quyishga tayyor bo‘ladi. Bir quyish siklining davomiyligi beton markasi, havo harorati va namlikka bog‘liq — issiq havoda beton tezroq qotadi, sovuqda esa qotish sekinlashadi. Shuning uchun aniq kunlik hajm haqida gapirganda “modelga va sharoitga bog‘liq” deb aytamiz."
+          },
+          {
+            "heading": "Qaysi modelni tanlash kerak?",
+            "text": "Avval qanday qoplamani ko‘zlaganingizni aniqlang: hovli yo‘li uchun odatda “bruschatka” naqshlari, ko‘cha va maydon uchun esa tekisroq trotuar plitalari mos keladi. Keyin qolip o‘lchami va kataklar soniga qarab bir sikldagi mahsulot sonini hisoblang. Katta maydon uchun bir nechta bir xil qolip olish quyish jarayonini tezlashtiradi. Qaysi variant sizga mos kelishini bilmasangiz, menejer qo‘ng‘iroqda loyihangiz hajmini so‘rab, tanlashga yordam beradi."
+          },
+          {
+            "heading": "Buyurtma va yetkazib berish",
+            "text": "Saytdagi “Zayafka berish” tugmasi orqali ism, telefon raqami va qiziqtirgan modelni qoldirasiz. Menejer mavjudlik, narx va yetkazib berish shartlarini tasdiqlaydi. Toshkent shahri bo‘ylab yetkazib berish 1 ish kuni ichida, viloyatlarga esa pochta yoki yuk tashish xizmatlari orqali 1–3 ish kuni ichida amalga oshiriladi."
+          }
+        ],
+        "bullets": [
+          "Bir quyishda bir nechta plita beradigan ko‘p katakli modellar",
+          "Naqshli va tekis yuzali variantlar — hovli, yo‘lka, maydon uchun",
+          "Polipropilen va ABS plastik — qayta ishlatishga mo‘ljallangan",
+          "Chekka tosh (bordyur) qoliplari bilan birgalikda ishlatish mumkin",
+          "Barcha modellar bo‘yicha maslahat va narx hisob-kitobi — menejer orqali"
+        ],
+        "faq": [
+          {
+            "q": "Bir qolip bilan qancha plita quyish mumkin?",
+            "a": "Qolip qayta ishlatishga mo‘ljallangan, ammo aniq xizmat muddati material turiga, beton tarkibiga va qolipdan qanday foydalanishingizga bog‘liq. To‘g‘ri ishlatilganda va tozalab saqlanganda uzoq vaqt xizmat qiladi."
+          },
+          {
+            "q": "Beton qancha vaqtda qotadi?",
+            "a": "Bu beton markasi, havo harorati va namlikka bog‘liq: issiqda tezroq, sovuqda sekinroq. Aniq rejimni menejer bilan kelishib olishingiz mumkin."
+          },
+          {
+            "q": "Qoliplar qanday o‘lchamda bo‘ladi?",
+            "a": "Katalogda har xil o‘lchamdagi modellar bor — mahsulot kartochkasida o‘lchamlar ko‘rsatilgan. Agar kerakli o‘lchamni topa olmasangiz, biz bilan bog‘lanib aniqlashtirsangiz bo‘ladi."
+          },
+          {
+            "q": "Chekka tosh (bordyur) uchun qolip alohida olinadimi?",
+            "a": "Ha, bordyur qoliplari alohida model sifatida sotiladi va ularni trotuar plitasi qoliplari bilan birga ishlatish mumkin — yo‘lka chetlari tekis chiqadi."
+          },
+          {
+            "q": "Narxni qanday bilaman?",
+            "a": "Narx mahsulot modeli va buyurtma hajmiga bog‘liq, shuning uchun uni zayafka orqali aniqlashtiramiz: qo‘ng‘iroq qilib aniq hisob-kitobni aytamiz."
+          }
+        ]
+      },
+      "ru": {
+        "title": "Формы для брусчатки и тротуарной плитки — купить от завода SPS",
+        "lead": "Формы для брусчатки и тротуарной плитки используются для бетонного покрытия дорожек, дворов, парковок и общественных площадок. Серия G001–G029 из каталога охватывает разные размеры и рисунки.",
+        "body": [
+          {
+            "heading": "Какие товары в этом разделе?",
+            "text": "Здесь собраны формы для классической прямоугольной брусчатки, квадратной и прямоугольной тротуарной плитки, а также формы для бордюра. Каждая модель рассчитана на несколько плиток за один залив: количество ячеек отличается в зависимости от модели, поэтому и производительность за цикл разная. В серию входят и варианты с рисунком — они придают дорожке вид натурального камня или старого города."
+          },
+          {
+            "heading": "Как работает форма?",
+            "text": "Форма изготавливается из пластика и используется многократно. Бетон заливают в форму, после схватывания форма снимается и готова к следующей заливке. Длительность одного цикла зависит от марки бетона, температуры воздуха и влажности: в жару бетон схватывается быстрее, в холод медленнее. Поэтому про конкретный дневной объём мы говорим «зависит от модели и условий»."
+          },
+          {
+            "heading": "Какую модель выбрать?",
+            "text": "Сначала определите, какое покрытие вам нужно: для дворовых дорожек обычно подходят рисунки «брусчатки», для улиц и площадей — более ровные тротуарные плитки. Затем по размеру формы и числу ячеек посчитайте, сколько плиток получится за один цикл. Для большой площади несколько одинаковых форм ускоряют работу. Если не знаете, какой вариант подойдёт, менеджер уточнит объём вашего проекта и поможет с выбором."
+          },
+          {
+            "heading": "Заказ и доставка",
+            "text": "Через кнопку «Оставить заявку» на сайте вы указываете имя, телефон и интересующую модель. Менеджер подтвердит наличие, цену и условия доставки. По городу Ташкенту доставка занимает 1 рабочий день, в регионы отправляем почтой или транспортными компаниями за 1–3 рабочих дня."
+          }
+        ],
+        "bullets": [
+          "Многоместные модели — несколько плиток за одну заливку",
+          "Варианты с рисунком и ровной поверхностью — для дворов, дорожек и площадей",
+          "Полипропилен и ABS-пластик — рассчитаны на многократное использование",
+          "Можно использовать вместе с формами для бордюра",
+          "Консультация и расчёт цены по всем моделям — у менеджера"
+        ],
+        "faq": [
+          {
+            "q": "Сколько плиток можно отлить одной формой?",
+            "a": "Форма рассчитана на многократное использование, но точный срок службы зависит от материала, состава бетона и аккуратности в работе. При правильном обращении и очистке служит долго."
+          },
+          {
+            "q": "Сколько времени застывает бетон?",
+            "a": "Это зависит от марки бетона, температуры и влажности: в жару быстрее, в холод медленнее. Точный режим можно согласовать с менеджером."
+          },
+          {
+            "q": "Какие размеры бывают у форм?",
+            "a": "В каталоге есть модели разных размеров — размеры указаны в карточке товара. Если не нашли нужный, свяжитесь с нами для уточнения."
+          },
+          {
+            "q": "Форма для бордюра заказывается отдельно?",
+            "a": "Да, формы для бордюра идут отдельными моделями, и их можно использовать вместе с формами для плитки — край дорожки получается ровным."
+          },
+          {
+            "q": "Как узнать цену?",
+            "a": "Цена зависит от модели и объёма заказа, поэтому мы уточняем её по заявке: перезвоним и сообщим точный расчёт."
+          }
+        ]
+      }
+    },
+    "S2": {
+      "uz": {
+        "title": "Dekorativ relyefli plita qoliplari — zavoddan sotib olish | SPS",
+        "lead": "Dekorativ relyefli plita qoliplari — hovli, bog‘ yo‘li va dam olish maydonchalarini naqshli qoplama bilan bezash uchun. G030–G103 seriyasida gulli, geometrik va relyefli naqshlar to‘plangan.",
+        "body": [
+          {
+            "heading": "Naqsh turlari",
+            "text": "Bo‘limda gul naqshli, bargli, geometrik va “mozaika” uslubidagi modellar bor. Relyef chuqurligi modelga qarab farq qiladi: sayozroq naqsh silliqroq yuza beradi, chuqurroq relyef esa quyosh nurida aniqroq ko‘rinadi. Bir xil naqshni turli o‘lchamda olish mumkin — bu katta maydonni bo‘laklab bezashda qulay."
+          },
+          {
+            "heading": "Qayerda ishlatiladi?",
+            "text": "Dekorativ plitalar ko‘pincha hovli yo‘laklari, bog‘ yo‘llari, hovuz atrofi va dam olish zonalarida ishlatiladi. Naqshli qoplama oddiy trotuar plitasiga qaraganda jonli ko‘rinadi, shuning uchun uni peyzaj loyihalarida, kafelar va mehmonxona hududlarida ham tez-tez tanlashadi. Bir loyihada ikki-uch xil naqshni almashtirib ishlatish — eng ko‘p qo‘llanadigan usul."
+          },
+          {
+            "heading": "Qolip bilan ishlash tartibi",
+            "text": "Ish tartibi bruschatka qoliplari bilan bir xil: qolipni tekis yuzaga qo‘yish, beton quyish, qotishini kutish va qolipni yechish. Dekorativ relyefli modellarda qolip yuzasi naqshli bo‘ladi, shuning uchun quyishdan oldin uni tozalab, kerak bo‘lsa ajratuvchi vosita bilan ishlov berish tavsiya etiladi — bu naqshning aniq chiqishiga yordam beradi. Betonning qotish vaqti harorat va namlikka bog‘liq."
+          },
+          {
+            "heading": "Buyurtma va maslahat",
+            "text": "Model tanlashda ikkita narsa muhim: naqsh yoqishi va qolip o‘lchami loyihangizga mos kelishi. Ikkalasini ham menejer bilan kelishib olishingiz mumkin: zayafka qoldirasiz, menejer mavjudlik, narx va yetkazib berish muddatini aytadi."
+          }
+        ],
+        "bullets": [
+          "Gulli, bargli, geometrik va mozaika uslubidagi naqshlar",
+          "Sayoz va chuqur relyefli variantlar",
+          "Bir naqshning bir necha o‘lchamdagi versiyalari",
+          "Hovli, bog‘ yo‘li, hovuz atrofi va kafe hududlari uchun",
+          "Polipropilen va ABS plastik — qayta ishlatiladi"
+        ],
+        "faq": [
+          {
+            "q": "Naqshli plita quyish uchun qanday beton kerak?",
+            "a": "Beton markasi va aralashma tarkibi loyihangizga bog‘liq. Menejer bilan bog‘lanib, qaysi variant naqshning aniq chiqishini ta’minlashini aniqlashtirishingiz mumkin."
+          },
+          {
+            "q": "Relyef qanchalik chuqur bo‘ladi?",
+            "a": "Modelga qarab farq qiladi: sayoz relyef silliqroq yuza, chuqur relyef esa aniqroq naqsh beradi. Katalogdagi rasmlarda har bir modelning relyefi ko‘rinadi."
+          },
+          {
+            "q": "Bir nechta naqshni bitta yo‘lkada ishlatsa bo‘ladimi?",
+            "a": "Ha, bu eng ko‘p qo‘llanadigan usul: masalan, asosiy yo‘l tekis plita, chetlari naqshli plita bilan bezatiladi. Modellarni birga tanlasangiz, o‘lchamlari mos kelishini tekshirib beramiz."
+          },
+          {
+            "q": "Qolip yuzasiga ishlov berish kerakmi?",
+            "a": "Quyishdan oldin qolipni tozalash tavsiya etiladi. Ajratuvchi vosita kerak-kerakmasligi beton aralashmasi va modelga bog‘liq — buni menejer bilan aniqlashtirsangiz bo‘ladi."
+          },
+          {
+            "q": "Namuna ko‘rish mumkinmi?",
+            "a": "Model rasmlari katalogda bor; qo‘shimcha ma’lumot kerak bo‘lsa, biz bilan bog‘lanib naqsh o‘lchamlari va relyef bo‘yicha maslahat oling."
+          }
+        ]
+      },
+      "ru": {
+        "title": "Формы для декоративной плитки — купить от завода SPS",
+        "lead": "Формы для декоративной рельефной плитки используются для оформления дворов, садовых дорожек и зон отдыха узорным покрытием. В серии G030–G103 собраны цветочные, геометрические и рельефные узоры.",
+        "body": [
+          {
+            "heading": "Виды узоров",
+            "text": "В разделе представлены модели с цветочным, лиственным, геометрическим узором и в стиле «мозаика». Глубина рельефа отличается в зависимости от модели: более мелкий рельеф даёт гладкую поверхность, глубокий лучше читается на солнце. Один и тот же узор доступен в разных размерах — это удобно при оформлении больших площадей по секциям."
+          },
+          {
+            "heading": "Где применяется",
+            "text": "Декоративные плитки чаще всего используют на дворовых дорожках, садовых тропинках, вокруг бассейна и в зонах отдыха. Узорное покрытие выглядит живее обычной тротуарной плитки, поэтому его часто выбирают в ландшафтных проектах, на территориях кафе и гостиниц. Самый распространённый приём — чередование двух-трёх узоров в одном проекте."
+          },
+          {
+            "heading": "Как работать с формой",
+            "text": "Порядок работы тот же, что и с формами для брусчатки: установить форму на ровную поверхность, залить бетон, дождаться схватывания и снять форму. У декоративных рельефных моделей поверхность формы узорная, поэтому перед заливкой её рекомендуется очистить, а при необходимости обработать разделительным составом — это помогает получить чёткий оттиск. Время схватывания зависит от температуры и влажности."
+          },
+          {
+            "heading": "Заказ и консультация",
+            "text": "При выборе модели важны две вещи: нравится ли узор и подходит ли размер формы под ваш проект. И то, и другое можно согласовать с менеджером: оставляете заявку, менеджер сообщает наличие, цену и срок доставки."
+          }
+        ],
+        "bullets": [
+          "Цветочные, лиственные, геометрические узоры и «мозаика»",
+          "Модели с неглубоким и глубоким рельефом",
+          "Несколько размеров одного и того же узора",
+          "Для дворов, садовых дорожек, зон у бассейна и территорий кафе",
+          "Полипропилен и ABS-пластик — многократное использование"
+        ],
+        "faq": [
+          {
+            "q": "Какой бетон нужен для плитки с рисунком?",
+            "a": "Марка бетона и состав смеси зависят от вашего проекта. Свяжитесь с менеджером, чтобы уточнить, какой вариант обеспечит чёткий оттиск рисунка."
+          },
+          {
+            "q": "Насколько глубокий рельеф?",
+            "a": "Зависит от модели: неглубокий рельеф даёт более гладкую поверхность, глубокий — более чёткий рисунок. На фото в каталоге рельеф каждой модели виден."
+          },
+          {
+            "q": "Можно ли использовать несколько рисунков на одной дорожке?",
+            "a": "Да, это самый частый приём: основная дорожка — ровная плитка, края — с рисунком. Если подбираете модели вместе, мы проверим совместимость размеров."
+          },
+          {
+            "q": "Нужно ли обрабатывать поверхность формы?",
+            "a": "Перед заливкой форму рекомендуется очистить. Нужна ли разделительная смазка — зависит от смеси и модели; уточните у менеджера."
+          },
+          {
+            "q": "Можно ли посмотреть образец?",
+            "a": "Фотографии моделей есть в каталоге; если нужна дополнительная информация — свяжитесь с нами и уточните размеры рисунка и рельеф."
+          }
+        ]
+      }
+    },
+    "S3": {
+      "uz": {
+        "title": "Devor paneli va profil qoliplari — zavoddan sotib olish | SPS",
+        "lead": "Devor paneli va profil (hoshiya) qoliplari — bino fasadi, karniz va dekorativ elementlarni betondan yasash uchun. A10 seriyasida 3D panellar, karnizlar va profillar to‘plangan.",
+        "body": [
+          {
+            "heading": "Nima uchun ishlatiladi?",
+            "text": "Bu bo‘limdagi modellar fasad qoplamalari, 3D panellar, deraza va eshik atrofi profillari, karniz va bezak elementlarini tayyorlash uchun mo‘ljallangan. Betondan yasalgan panel uyning tashqi ko‘rinishini o‘zgartiradi, yong‘inga chidamliligi va uzoq xizmat qilishi bilan ajralib turadi. Panellarni bo‘yash yoki tabiiy beton rangida qoldirish mumkin."
+          },
+          {
+            "heading": "Panel va profil turlari",
+            "text": "Katalogda geometrik naqshli panellar, to‘lqinsimon va relyefli yuzalar, shuningdek tekis profillar bor. Har bir modelning o‘lchami va relyef chuqurligi kartochkada ko‘rsatilgan. Bir xil naqshni turli formatda olish mumkin — bu katta fasadni bir uslubda bezashga yordam beradi. Profillar deraza, eshik va burchaklarni tugallangan ko‘rinishga keltiradi."
+          },
+          {
+            "heading": "O‘rnatish va ishlov berish",
+            "text": "Panel quyilgandan so‘ng beton qotishi kerak, so‘ngra yuza kerak bo‘lsa silliqlanadi va bo‘yaladi. O‘rnatish usuli loyihaga bog‘liq: ba’zi hollarda panellar devorga mahkamlanadi, ba’zilari esa dekorativ element sifatida ishlatiladi. Aniq mahkamlash sxemasi va material sarfi loyihangizga qarab hisoblanadi — bu masalada menejer bilan maslahatlashish tavsiya etiladi."
+          },
+          {
+            "heading": "Zayafka orqali buyurtma",
+            "text": "Kerakli modelni tanlab, “Zayafka berish” tugmasi orqali ism, telefon va mahsulotni qoldirasiz. Menejer mavjudlik, narx hamda yetkazib berish shartlarini kelishadi. Toshkent bo‘ylab yetkazib berish 1 ish kuni ichida amalga oshiriladi, viloyatlarga yuk tashish xizmatlari orqali 1–3 ish kuni ichida yuboriladi."
+          }
+        ],
+        "bullets": [
+          "3D panellar, karnizlar va profillar — bitta seriyada",
+          "Geometrik, to‘lqinsimon va relyefli yuzalar",
+          "Har bir modelning o‘lchami kartochkada ko‘rsatilgan",
+          "Beton — yong‘inga chidamli, uzoq xizmat qiladigan material",
+          "Fasad loyihasi bo‘yicha maslahat — menejer orqali"
+        ],
+        "faq": [
+          {
+            "q": "Panellarni bo‘yash kerakmi?",
+            "a": "Bo‘yash shart emas: beton tabiiy kulrang holida ham chiroyli ko‘rinadi. Rang berish istagingizga bog‘liq — bo‘yashdan oldin yuza tozalanadi va astar bilan ishlov beriladi."
+          },
+          {
+            "q": "Bir panel qancha og‘irlikda bo‘ladi?",
+            "a": "Og‘irlik panel o‘lchami va qalinligiga bog‘liq: modelga qarab farq qiladi. Aniq qiymatni mahsulot kartochkasidagi o‘lchamlardan kelib chiqib yoki menejer bilan aniqlashtirish mumkin."
+          },
+          {
+            "q": "Profillar qanday joylarga o‘rnatiladi?",
+            "a": "Profillar deraza va eshik atrofini, burchaklarni hamda karniz chizig‘ini tugallangan ko‘rinishga keltiradi. O‘rnatish sxemasi loyihaga bog‘liq — menejer bilan kelishib olsangiz bo‘ladi."
+          },
+          {
+            "q": "Panellarni hovli devoriga ishlatsa bo‘ladimi?",
+            "a": "Ha, 3D panellar ko‘pincha hovli devorlari va to‘siqlarni bezashda ishlatiladi. Panellar orasidagi bo‘g‘inlar loyihaga qarab bezatiladi yoki ochiq qoldiriladi."
+          },
+          {
+            "q": "Yetkazib berish qancha vaqt oladi?",
+            "a": "Toshkent shahri bo‘ylab 1 ish kuni ichida yetkazib beramiz; viloyatlarga yuborish muddati manzilga va tashish xizmatiga bog‘liq (odatda 1–3 ish kuni)."
+          }
+        ]
+      },
+      "ru": {
+        "title": "Формы для панелей и профилей — купить от завода SPS",
+        "lead": "Формы для панелей и профилей (отливов) используются для изготовления фасадных панелей, карнизов и декоративных элементов из бетона. В серии A10 собраны 3D-панели, карнизы и профили.",
+        "body": [
+          {
+            "heading": "Для чего применяются",
+            "text": "Модели этого раздела предназначены для изготовления фасадных облицовок, 3D-панелей, профилей вокруг окон и дверей, карнизов и декоративных элементов. Бетонная панель меняет внешний вид дома и отличается огнестойкостью и долгим сроком службы. Панели можно красить или оставить в натуральном цвете бетона."
+          },
+          {
+            "heading": "Виды панелей и профилей",
+            "text": "В каталоге есть панели с геометрическим узором, волнистыми и рельефными поверхностями, а также ровные профили. Размер и глубина рельефа каждой модели указаны в карточке. Один и тот же узор доступен в разных форматах — это помогает оформить большой фасад в едином стиле. Профили придают законченный вид окнам, дверям и углам."
+          },
+          {
+            "heading": "Установка и обработка",
+            "text": "После заливки панель должна набрать прочность, затем поверхность при необходимости шлифуется и окрашивается. Способ установки зависит от проекта: в одних случаях панели крепятся к стене, в других используются как декоративный элемент. Точная схема крепления и расход материалов рассчитываются по вашему проекту — по этому вопросу рекомендуем консультацию менеджера."
+          },
+          {
+            "heading": "Заказ по заявке",
+            "text": "Выберите нужную модель и через кнопку «Оставить заявку» укажите имя, телефон и товар. Менеджер согласует наличие, цену и условия доставки. По Ташкенту доставка занимает 1 рабочий день, в регионы отправляем транспортными компаниями за 1–3 рабочих дня."
+          }
+        ],
+        "bullets": [
+          "3D-панели, карнизы и профили — в одной серии",
+          "Геометрические, волнистые и рельефные поверхности",
+          "Размер каждой модели указан в карточке товара",
+          "Бетон — огнестойкий и долговечный материал",
+          "Консультация по фасадному проекту — у менеджера"
+        ],
+        "faq": [
+          {
+            "q": "Нужно ли красить панели?",
+            "a": "Красить не обязательно: бетон красиво выглядит и в натуральном сером цвете. Цвет — по вашему желанию; перед покраской поверхность очищают и грунтуют."
+          },
+          {
+            "q": "Сколько весит одна панель?",
+            "a": "Вес зависит от размера и толщины панели: у разных моделей по-разному. Точное значение можно уточнить по размерам из карточки товара или у менеджера."
+          },
+          {
+            "q": "Куда устанавливаются профили?",
+            "a": "Профили завершают облик вокруг окон и дверей, на углах и по линии карниза. Схема установки зависит от проекта — её можно согласовать с менеджером."
+          },
+          {
+            "q": "Можно ли использовать панели для забора во дворе?",
+            "a": "Да, 3D-панели часто применяют для оформления дворовых стен и ограждений. Швы между панелями оформляют по проекту или оставляют открытыми."
+          },
+          {
+            "q": "Сколько занимает доставка?",
+            "a": "По Ташкенту доставляем в течение 1 рабочего дня; срок отправки в регионы зависит от адреса и транспортной компании (обычно 1–3 рабочих дня)."
+          }
+        ]
+      }
+    }
+  }
+}

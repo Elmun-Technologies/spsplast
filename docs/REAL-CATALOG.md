@@ -10,7 +10,8 @@ hujjatlashtiradi.
 - **Sayt:** https://sps.uz
 - **Email:** stoneprofyservise@mail.ru
 - **Telefon / Telegram / WhatsApp:** +998 (98) 300-77-72
-- **Manzil:** Tashkent, Uzbekistan
+- **Manzil:** Toshkent sh., Uchtepa tumani, Xalqa yo'li ko'chasi, 7A
+- **Yagona manba:** `src/lib/constants/contacts.ts` (sayt bo'ylab barcha kontakt shu fayldan)
 
 Katalogdagi identifikatsiya (har bir sahifada `SPS` logo, `www.sps.uz`,
 `stoneprofyservise@mail.ru`, `+998 (98) 300-77-72`) to'liq real ma'lumot sifatida qabul qilindi.
@@ -37,7 +38,7 @@ Eski katalog ikki asosiy yo'nalishni o'z ichiga oladi — ikkalasi ham **teng ur
 - **Fasad dekor materiali:** Penopolistol (asos), Travertin / Mramor (qoplama)
 - **O'lchamlar:** har mahsulot uchun `dimensions` atributida (mm)
 - **Ranglar:** Travertin, Mramor
-- **Narx:** katalogda ko'rsatilmagan → `basePrice = 0` ("Narx so'rash" rejimi). Admin orqali to'ldiriladi.
+- **Narx:** katalogda ko'rsatilmagan → `price = 0` ("Narx so'rash"). Narx faqat zayafkadan keyin menejer hisob-kitobida aytiladi — saytda narx ham, ombor qoldig'i ham ko'rsatilmaydi.
 
 ## 4. Olib tashlangan soxta da'volar
 
@@ -56,26 +57,30 @@ Quyidagi uydirilgan/tasdiqlanmagan raqamlar sayt bo'ylab olib tashlandi yoki yum
 
 ## 5. Rasmlar
 
-Yangi suratga olingan **71 ta rasm** va **1 ta video** (`sps old.zip` dan) `public/product/` da,
-web sayt uchun `public/catalog/catalog-001.jpg ... catalog-071.jpg` sifatida joylashtirildi.
-Har bir mahsulotga quyidagi media rollari tayinlangan:
+Yangi suratga olingan kadrlar web uchun `public/catalog/catalog-*.jpg` sifatida
+joylashtirildi (yengil, maks. 1200 px). Asl master fayllar `media-src/` da turadi va
+git'ga kirmaydi; ularni qayta optimallashtirish: `python3 scripts/build-media.py`.
 
-- `MOLD` — qolipning o'zi
-- `FINISHED_RESULT` — shu qolipdan quyilgan tayyor mahsulot
-- `MAIN` — asosiy rasm
+Har bir mahsulotda rasm maydonlari:
 
-Tasvirlar admin panel orqali qayta tayinlanishi mumkin (`/admin/products`).
+- `moldImage` — qolipning o'zi;
+- `resultImage` — shu qolipdan quyilgan tayyor mahsulot;
+- `images[]` — galereya.
 
-## 6. Seed
+Rasm almashtirish tartibi (admin panel yo'q) — `docs/CONTENT-REPLACEMENT.md`, 4-bo'lim.
 
-`prisma/seed.js` endi faqat real mahsulotlarni yaratadi:
+## 6. Katalog qanday yasaladi
+
+Baza va seed skriptlari **yo'q**. Manbalar `data/` papkasida, natija esa
+`src/data/catalog.json` da:
 
 ```bash
-npm run db:push   # prisma db push
-npm run db:seed   # node prisma/seed.js
+node scripts/build-static-catalog.js          # data/*.json -> src/data/catalog.json
+node scripts/build-static-catalog.js --check  # mos kelishini tekshiradi (CI uchun)
 ```
 
-Eskirgan `scripts/seed-more.js` (soxta Unsplash mahsulotlari) o'chirildi.
+Skript soxta Unsplash mahsulotlarini ham, eski `scripts/seed-more.js` ni ham
+ishlatmaydi — faqat real `catalog_build/products.json` va `data/*.json`.
 
 ## 7. 2026 studiya seriyasi (2026-09-27)
 
@@ -84,7 +89,7 @@ Oq fonda suratga olingan yangi qoliplardan **50 ta mahsulot kartasi** qo'shildi
 opsiyalar bor: **qolip materiali** (PP / ABS) va **plastik qalinligi** (2.0 / 3.0 mm) —
 jami 200 ta variant.
 
-Ma'lumot manbai: `prisma/data/molds-2026.json`.
+Ma'lumot manbai: `data/molds-2026.json`.
 To'liq hujjat: [`docs/CATALOG-2026.md`](CATALOG-2026.md).
 
 Shu bo'limdagi "soxta ma'lumot yo'q" qoidasi saqlangan:

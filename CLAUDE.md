@@ -2,162 +2,104 @@
 
 ## Overview
 
-SPS Plast is a bilingual (uz/ru) B2C/B2B e-commerce platform for construction molds and
-related products (thermopanels, paving/curb molds, concrete molds, etc.), built with
-Next.js 15 App Router (React 19). It includes a public storefront, a guest checkout flow, a B2B
-wholesale lead form, an admin panel (CRUD for products/categories/orders/leads), and
-integrations with Click/Payme payment providers, amoCRM, and Telegram order notifications.
+Bilingual (uz/ru) **lead-generating website** for SPS, an Uzbek manufacturer of
+concrete molds (bruschatka / bordyur / plitka qoliplari) and facade decor.
+
+Business model: there is **no shop**. A visitor fills a short form
+(“Zayafka berish”), the message goes to the company's **Telegram group**, and a
+manager calls back. Everything else — catalog, blog, projects, FAQ — exists to
+build trust and produce that call.
 
 ## Tech Stack
 
 - **Framework**: Next.js 15 (App Router) + React 19, TypeScript
-- **Fonts**: self-hosted Inter variable font (`/public/fonts`, see `globals.css`)
-- **Database/ORM**: PostgreSQL via Prisma (`@prisma/client` v5) — no `migrations/` folder,
-  schema is applied with `prisma db push`
-- **Styling**: Tailwind CSS
-- **State**: Zustand
-- **Validation**: Zod
-- **Storage**: Local filesystem (`/public/uploads`, dev only) or S3-compatible object
-  storage (AWS S3 / Cloudflare R2) via `@aws-sdk/client-s3`, selected by `STORAGE_PROVIDER`
-- **Auth**: Custom JWT/session cookie auth (bcryptjs password hashing) for the admin panel
+- **Styling**: Tailwind CSS · **State**: Zustand (wishlist/compare/recently viewed only)
+- **Validation**: Zod · **Fonts**: self-hosted Inter (`/public/fonts`)
+- **Data**: static JSON — `src/data/catalog.json` (generated, committed). No database.
 - **Deploy target**: Vercel
 
 ## Folder Structure
 
 ```
 src/
-  app/
-    [lang]/            # public storefront, locale-prefixed routes (uz, ru)
-    admin/              # admin panel pages (products, categories, orders, leads, settings)
-    api/                # route handlers (admin, products, categories, orders, leads,
-                         # payments, cron, health)
-    sitemap.ts          # dynamic sitemap (must not fail the build if DB is unreachable)
-    robots.ts
-  middleware.ts         # CSRF gate for every cookie-authenticated /api route
-  components/           # UI and feature components
-  dictionaries/         # i18n dictionaries (uz/ru)
+  app/[lang]/            # public site, locale-prefixed (uz, ru)
+  app/api/leads          # the ONLY public write endpoint (Telegram)
+  app/api/health         # env/Telegram health report
+  components/            # layout, product, catalog, lead, ui
+  dictionaries/          # i18n dictionaries (uz/ru)
+  data/catalog.json      # generated static catalog (192 products, blog, projects)
   lib/
-    db.ts               # Prisma client singleton
-    env.ts               # zod-validated environment config
-    auth.ts, csrf.ts, rateLimit.ts
-    pricing.ts           # bulk-tier + coupon pricing (shared by UI and server)
-    slug.ts              # uz/ru transliterating slug generator
-    schemas/order.ts     # zod schema for the public order payload
-    amocrm/              # amoCRM OAuth + sync client
-    payments/            # Click and Payme provider implementations
-    integrations/        # outbox job queue (IntegrationJob processing)
-    storage/              # local/S3/R2 storage abstraction
-    services/             # domain services (product, category, order, attribute, settings)
-prisma/
-  schema.prisma          # PostgreSQL datasource + models (no migrations/ dir)
-  seed.js
-docs/                    # architecture, deployment, integrations, database docs
-scripts/                 # backup/export/import/verify-production scripts
+    catalog/             # synchronous catalog access (products, categories, content)
+    faq.ts               # bilingual FAQ entries + FAQPage JSON-LD helper
+    categoryContent.ts   # per-category SEO copy + FAQ (P1-7)
+    telegram.ts          # Telegram bot sender + HTML escaping
+    rateLimit.ts         # in-memory IP rate limiter for /api/leads
+    phone.ts             # +998 normalization/validation
+    analytics.ts         # GTM/GA4/Yandex Metrica/Meta Pixel event layer
+    env.ts               # env sanity checks (warnings, not crashes)
+catalog_build/           # source data used by the catalog generator
+data/                    # molds-2026.json, content-2026.json, category-seo-2026.json
+media-src/               # master images (masters/ is git-ignored), public/media build
+scripts/build-static-catalog.js   # regenerates src/data/catalog.json
+scripts/build-media.py            # regenerates public/media from masters
+tests/                   # node:test suites (catalog contract, platform, content)
+docs/                    # architecture, deployment, security, design system, audit, log
+docs/archive/            # eski (savat/checkout davri) hujjatlar — tarix uchun
 ```
 
 ## Environment Variables
 
-Database:
-- `DATABASE_URL`
-- `DIRECT_URL`
+Only the Telegram pair is required for the lead flow to actually deliver:
 
-Auth & security:
-- `AUTH_SECRET`
-- `INTEGRATION_ENCRYPTION_KEY`
-- `SEED_ADMIN_EMAIL`
-- `SEED_ADMIN_PASSWORD`
+- `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`
 
-Site config:
-- `NEXT_PUBLIC_SITE_URL`
-- `CRON_SECRET`
-- `STORAGE_PROVIDER`
+Site/analytics (optional, all env-gated):
 
-Telegram:
-- `TELEGRAM_BOT_TOKEN`
-- `TELEGRAM_CHAT_ID`
+- `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`, `NEXT_PUBLIC_GA_MEASUREMENT_ID`,
+  `NEXT_PUBLIC_YANDEX_METRICA_ID`, `NEXT_PUBLIC_META_PIXEL_ID`
 
-S3 / R2 media storage:
-- `S3_ENDPOINT`
-- `S3_REGION`
-- `S3_BUCKET`
-- `S3_ACCESS_KEY`
-- `S3_SECRET_KEY`
-- `S3_PUBLIC_URL`
+There is **no `DATABASE_URL`** — see `.env.example`.
 
-Analytics:
-- `NEXT_PUBLIC_GTM_ID`
-- `NEXT_PUBLIC_GA_MEASUREMENT_ID`
-- `NEXT_PUBLIC_META_PIXEL_ID`
+## Data Pipeline
 
-amoCRM:
-- `AMOCRM_SUBDOMAIN`
-- `AMOCRM_CLIENT_ID`
-- `AMOCRM_CLIENT_SECRET`
-- `AMOCRM_REDIRECT_URI`
+```bash
+npm run catalog:build   # catalog_build + data/*.json → src/data/catalog.json
+npm run catalog:check   # build-time guard: fails if the JSON is stale
+npm run media:build     # masters → public/media (blog covers, projects, production)
+```
 
-Click / Payme:
-- `CLICK_MERCHANT_ID`
-- `CLICK_SERVICE_ID`
-- `CLICK_SECRET_KEY`
-- `PAYME_MERCHANT_ID`
-- `PAYME_SECRET_KEY`
-
-See `.env.example` for the full annotated list.
-
-## Deploy Process (Vercel)
-
-1. Set all required env vars above in the Vercel project (Production/Preview).
-2. `npm install` triggers `postinstall` → `prisma generate`, so the Prisma Client is
-   always regenerated even when Vercel restores a dependency cache.
-3. `npm run build` runs `prisma generate && next build` as a second safety net.
-4. Schema changes are applied with `npx prisma db push` (there is no `migrations/`
-   folder — this project does not use `prisma migrate`).
-5. Seed data (admin user, sample content) via `npm run db:seed` (`prisma/seed.js`),
-   using `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD`.
-
-## Async Request APIs (Next.js 15)
-
-`params`, `searchParams` and `cookies()` are **promises** in Next 15 and must be
-awaited. Rules that keep this codebase correct:
-
-- Server components / route handlers: `const { lang } = await params;`
-- `'use client'` pages: `const { lang } = React.use(params);`
-- Awaiting `params`/`searchParams` opts a route into dynamic rendering. Static
-  marketing pages stay prerendered because `[lang]/layout.tsx` exports
-  `generateStaticParams()` for the closed locale set (`uz`, `ru`).
+`npm run catalog:check` runs as part of `npm run build`, so a stale catalog
+fails the build instead of shipping outdated products.
 
 ## Known Pitfalls
 
-- **Vercel dependency cache + Prisma Client**: if `postinstall`/`build` don't call
-  `prisma generate`, Vercel can restore a cached `node_modules` without a fresh
-  Prisma Client, causing `PrismaClientInitializationError` at request time. Both
-  `postinstall` and `build` run `prisma generate` to guard against this.
-- **Never make the build depend on the database**: any code that runs at build time
-  (e.g. `src/app/sitemap.ts`) must not throw if the DB is unreachable — wrap DB calls
-  in try/catch with safe fallbacks (empty arrays), and mark routes that must always
-  run per-request (not prerendered) with `export const dynamic = 'force-dynamic'`.
-- **No `prisma/migrations/` folder**: schema is synced with `prisma db push`, not
-  `prisma migrate deploy`. Don't introduce a migrations workflow without updating
-  the deploy process everywhere it's documented.
-- **Fonts are self-hosted**: `src/app/globals.css` declares `@font-face` rules for
-  the woff2 files in `/public/fonts`. Do not switch back to `next/font/google` —
-  it fetches the font at build time and a build without outbound internet fails
-  with "Failed to fetch `Inter` from Google Fonts". Update the vendored files
-  with `npm run fonts:sync`.
-- **Datasource is PostgreSQL**, not SQLite — `DATABASE_URL` must point at Postgres
-  (`DIRECT_URL` is used for direct/non-pooled connections, e.g. with pgbouncer).
+- **Never reintroduce a database.** Prisma, seeds and the admin panel were
+  removed deliberately (see `docs/OPTIMIZATION-LOG.md`, Batch 3). The site must
+  build and render with zero env vars.
+- **Only `/api/leads` and `/api/health` may exist** under `src/app/api` — a test
+  enforces this (`tests/platform.test.js`).
+- **`src/data/catalog.json` is generated** — edit the sources in `catalog_build/`
+  and `data/`, then run `npm run catalog:build`. Editing it by hand makes
+  `npm run catalog:check` fail.
+- **Media masters are not in git**: `media-src/masters/` is git-ignored
+  (169 PNGs, ~306 MB). Only the optimized copies under `public/media/` and
+  `public/catalog/` are committed.
+- **Fonts are self-hosted** (`globals.css`, `/public/fonts`). Do not switch back
+  to `next/font/google` — builds without outbound internet would fail.
+- **P0-8: never publish an unproven number.** Discounts, delivery tariffs and
+  durability figures must either be verifiable or phrased as
+  “modelga/hajmga bog‘liq”. This is enforced by review, not by a test.
+- **Product/blog/category pages are statically prerendered** via
+  `generateStaticParams()`; keep them free of request-time APIs.
 
 ## Common Commands
 
 ```bash
-npm run dev              # local dev server
-npm run build             # prisma generate && next build
-npm run typecheck         # tsc --noEmit
-npm run lint               # next lint
-npm run test                # node --test tests/*.test.js
-npm run db:push             # apply prisma/schema.prisma to the database
-npm run db:seed              # run prisma/seed.js
-npm run db:studio             # open Prisma Studio
-npm run verify:production      # scripts/verify-production.js
-npm run fonts:sync             # refresh vendored Inter woff2 from @fontsource
+npm run dev            # local dev server
+npm run build          # catalog:check + next build
+npm run typecheck      # tsc --noEmit
+npm run lint           # next lint
+npm test               # node --test --experimental-strip-types tests/*.test.js
+npm run catalog:build  # regenerate src/data/catalog.json
+npm run media:build    # regenerate public/media from masters
 ```

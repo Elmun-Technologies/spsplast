@@ -14,7 +14,6 @@
     "contact": "Kontakt",
     "viewCatalog": "Katalogni ko‘rish",
     "getConsultation": "Konsultatsiya olish",
-    "b2bPrices": "Ulgurji narxlar",
     "howToOrder": "Qanday buyurtma berish"
   },
   "hero": {
@@ -31,12 +30,8 @@
     "viewAll": "Barchasini ko‘rish",
     "whyUsTitle": "Nega aynan SPS?",
     "projectsTitle": "Bajarilgan obyektlar va loyihalar",
-    "reviewsTitle": "Mijozlarimiz fikrlari",
     "faqTitle": "Ko‘p beriladigan savollar",
-    "moldResultTitle": "Qolip va undan chiqqan tayyor natija",
-    "b2bBannerTitle": "Katta hajm va ishlab chiqaruvchilar uchun individual ulgurji narxlar",
-    "b2bBannerDesc": "Bruschatka sexlari va beton mahsulotlari ishlab chiqaruvchilarga maxsus chegirmalar va to‘g‘ridan-to‘g‘ri yetkazib berish.",
-    "getB2bQuote": "Ulgurji narx so‘rash"
+    "moldResultTitle": "Qolip va undan chiqqan tayyor natija"
   },
   "product": {
     "sku": "Artikul",
@@ -47,9 +42,6 @@
     "durabilityCasts": "Taxminiy resursi (quyish)",
     "stockIn": "Sotuvda mavjud",
     "stockOut": "Sotuvda vaqtincha mavjud emas",
-    "addToCart": "Savatga qo‘shish",
-    "buyNow": "Bir-klikda buyurtma",
-    "b2bQuoteBtn": "Ulgurji narx olish",
     "resultHeader": "Ushbu qolipdan olinadigan natija",
     "resultDesc": "Ushbu qolip yordamida quyilgan tayyor bruschatka/beton mahsuloti ko‘rinishi",
     "howItWorks": "Qanday ishlaydi? 4 qadam",
@@ -59,39 +51,6 @@
     "step4": "4. Tayyor mahsulotni ajratib oling",
     "relatedProducts": "Sizga mos boshqa mahsulotlar",
     "boughtTogether": "Bu mahsulot bilan birga olishadi"
-  },
-  "cart": {
-    "title": "Xarid savatchasi",
-    "empty": "Savatchangiz bo‘sh",
-    "subtotal": "Jami summa",
-    "checkout": "Buyurtma berish",
-    "continueShopping": "Xaridni davom ettirish",
-    "remove": "O‘chirish"
-  },
-  "checkout": {
-    "title": "Buyurtmani rasmiylashtirish",
-    "guestCheckout": "Ro‘yxatdan o‘tmasdan buyurtma berish (Mehmonga)",
-    "name": "Ism familiyangiz",
-    "phone": "Telefon raqamingiz",
-    "region": "Viloyatingiz",
-    "city": "Shahar / tuman",
-    "address": "Ko‘cha va uy manzili",
-    "deliveryType": "Yetkazib berish turi",
-    "paymentType": "To‘lov turi",
-    "notes": "Qo‘shimcha izoh",
-    "orderSummary": "Buyurtma tarkibi",
-    "confirmOrder": "Buyurtmani tasdiqlash",
-    "operatorDeliveryNote": "Viloyatlarga yetkazib berish narxi operator tomonidan aniqlanadi",
-    "payCash": "Naqd pulsiz / Naqd",
-    "payClick": "Click / Payme link orqali",
-    "payBank": "Bank o‘tkazmasi (B2B)"
-  },
-  "b2bModal": {
-    "title": "Ulgurji narx so‘rovi",
-    "subtitle": "Katta hajm uchun shaxsiy narx va yetkazib berish shartlarini oling",
-    "company": "Kompaniya yoki sex nomi",
-    "quantity": "Kerakli miqdor (dona)",
-    "submit": "So‘rov yuborish"
   },
   "footer": {
     "desc": "SPS - bruschatka, bordyur va trotuar plitka qoliplari hamda fasad dekor elementlari ishlab chiqaruvchi zavod.",

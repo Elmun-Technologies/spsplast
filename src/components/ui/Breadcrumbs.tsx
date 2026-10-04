@@ -19,7 +19,7 @@ interface BreadcrumbsProps {
 
 export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ lang, items, className }) => {
   return (
-    <nav aria-label="Breadcrumb" className={`flex items-center gap-1.5 text-sm text-ink-sub ${className || ''}`}>
+    <nav aria-label={lang === 'ru' ? 'Навигационная цепочка' : 'Sahifa yo‘li'} className={`flex items-center gap-1.5 text-sm text-ink-sub ${className || ''}`}>
       <Link href={`/${lang}`} className="flex items-center gap-1 hover:text-brand-red transition-colors">
         <Home className="w-4 h-4" />
         <span className="hidden sm:inline">{lang === 'ru' ? 'Главная' : 'Bosh sahifa'}</span>

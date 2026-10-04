@@ -1,19 +1,17 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Phone, Send, ShoppingCart, MessageSquare, ChevronUp, X } from 'lucide-react';
-import { useCartStore } from '@/lib/store/cartStore';
+import { Phone, Send, MessageSquare, ChevronUp, X } from 'lucide-react';
+import { LeadButton } from '@/components/lead/LeadButton';
 import { useUIStore } from '@/lib/store/uiStore';
 import { trackEvent } from '@/lib/analytics';
 import { COMPANY_CONTACTS } from '@/lib/constants/contacts';
 
-export const StickyMobileContact: React.FC<{ lang?: string }> = () => {
-  const cartTotalItems = useCartStore((s) => s.getTotalItems());
-  const toggleCart = useCartStore((s) => s.toggleCart);
+export const StickyMobileContact: React.FC<{ lang?: string }> = ({ lang = 'uz' }) => {
   const bottomBarOwner = useUIStore((s) => s.bottomBarOwner);
   const [contactOpen, setContactOpen] = useState(false);
 
-  // Yields the bottom edge to the product page's sticky "add to cart" bar.
+  // Yields the bottom edge to the product page's sticky CTA bar.
   const hidden = bottomBarOwner === 'product';
 
   return (
@@ -94,21 +92,15 @@ export const StickyMobileContact: React.FC<{ lang?: string }> = () => {
             <ChevronUp className={`w-4 h-4 transition-transform ${contactOpen ? 'rotate-180' : ''}`} />
           </button>
 
-          {/* Cart Trigger - bigger touch target 44px */}
-          <button
-            onClick={toggleCart}
-            tabIndex={hidden ? -1 : undefined}
+          {/* Zayafka — har sahifadan 1 klikda (T3) */}
+          <LeadButton
+            lang={lang as 'uz' | 'ru'}
+            ariaLabel={lang === 'ru' ? 'Оставить заявку' : 'Zayafka berish'}
             className="relative flex items-center justify-center gap-2 py-3 px-5 rounded-full bg-brand-red text-white hover:bg-brand-red-dark transition-colors font-semibold text-sm shadow-red min-h-[46px]"
-            aria-label="Savatni ochish"
           >
-            <ShoppingCart className="w-5 h-5" />
-            <span>Savat</span>
-            {cartTotalItems > 0 && (
-              <span className="absolute -top-1.5 -right-1.5 min-w-[20px] h-5 bg-ink text-white rounded-full text-xs font-bold flex items-center justify-center px-1 ring-2 ring-white">
-                {cartTotalItems}
-              </span>
-            )}
-          </button>
+            <Send className="w-5 h-5" />
+            <span>{lang === 'ru' ? 'Заявка' : 'Zayafka'}</span>
+          </LeadButton>
         </div>
       </div>
     </>

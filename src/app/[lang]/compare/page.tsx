@@ -3,9 +3,9 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRightLeft, X, ShoppingBag, Check } from 'lucide-react';
+import { ArrowRightLeft, X, Send, Check } from 'lucide-react';
 import { useCompareStore } from '@/lib/store/compareStore';
-import { useCartStore } from '@/lib/store/cartStore';
+import { LeadButton } from '@/components/lead/LeadButton';
 import { Container } from '@/components/ui/Container';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { EmptyState } from '@/components/ui/EmptyState';
@@ -21,20 +21,21 @@ export default function ComparePage({ params }: { params: Promise<{ lang: Locale
   const items = useCompareStore((s) => s.items);
   const remove = useCompareStore((s) => s.removeCompare);
   const clear = useCompareStore((s) => s.clearCompare);
-  const addItem = useCartStore((s) => s.addItem);
 
   if (items.length === 0) {
     return (
       <div className="bg-surface-page min-h-screen py-8">
         <Container>
           <Breadcrumbs lang={lang} items={[{ label: lang === 'ru' ? 'Сравнение' : 'Taqqoslash', active: true }]} className="mb-4" />
+          {/* Bo'sh holatda ham sahifada bitta h1 bo'lishi kerak (a11y/SEO). */}
+          <h1 className="sr-only">{lang === 'ru' ? 'Сравнение' : 'Taqqoslash'}</h1>
           <EmptyState lang={lang} type="compare" />
         </Container>
       </div>
     );
   }
 
-  const specs = ['price', 'dimensions', 'material', 'sku', 'inStock'];
+  const specs = ['price', 'dimensions', 'material', 'sku'];
 
   return (
     <div className="bg-surface-page min-h-screen py-6">
@@ -48,7 +49,7 @@ export default function ComparePage({ params }: { params: Promise<{ lang: Locale
           </button>
         </div>
 
-        <div className="bg-surface rounded-[20px] border border-line shadow-card overflow-hidden shadow-card overflow-x-auto">
+        <div className="bg-surface rounded-[20px] border border-line shadow-card overflow-hidden overflow-x-auto">
           <table className="w-full min-w-[600px] text-sm">
             <thead>
               <tr className="border-b border-line bg-surface-soft">
@@ -56,7 +57,11 @@ export default function ComparePage({ params }: { params: Promise<{ lang: Locale
                 {items.map((item) => (
                   <th key={item.id} className="p-4 text-left min-w-[180px]">
                     <div className="relative">
-                      <button onClick={() => remove(item.id)} className="absolute -top-2 -right-2 w-6 h-6 bg-ink text-white rounded-full flex items-center justify-center">
+                      <button
+                        onClick={() => remove(item.id)}
+                        aria-label={`${item.title} — ${lang === 'ru' ? 'убрать' : 'olib tashlash'}`}
+                        className="absolute -top-2 -right-2 w-6 h-6 bg-ink text-white rounded-full flex items-center justify-center"
+                      >
                         <X className="w-4 h-4" />
                       </button>
                       <Link href={`/${lang}/product/${item.slug}`} className="block">
@@ -77,16 +82,14 @@ export default function ComparePage({ params }: { params: Promise<{ lang: Locale
                   <td key={item.id} className="p-4">
                     <div className="font-bold text-brand-red text-base">{formatPrice(item.price, lang)}</div>
                     {item.oldPrice && <div className="text-xs text-ink-sub line-through">{formatPrice(item.oldPrice, lang)}</div>}
-                    <button
-                      onClick={() => {
-                        addItem({ productId: item.id, title: item.title, sku: item.sku, price: item.price, image: item.image, quantity: 1 });
-                        trackEvent('add_to_cart', { from: 'compare' });
-                      }}
+                    <LeadButton
+                      lang={lang}
+                      product={{ title: item.title, sku: item.sku }}
                       className="mt-2 w-full py-2.5 min-h-[44px] bg-brand-red text-white rounded-full text-[13px] font-semibold hover:bg-brand-red-dark transition-colors flex items-center justify-center gap-1.5"
                     >
-                      <ShoppingBag className="w-3.5 h-3.5" />
-                      Savatga
-                    </button>
+                      <Send className="w-3.5 h-3.5" />
+                      {lang === 'ru' ? 'Заявка' : 'Zayafka'}
+                    </LeadButton>
                   </td>
                 ))}
               </tr>
@@ -114,20 +117,7 @@ export default function ComparePage({ params }: { params: Promise<{ lang: Locale
                   </td>
                 ))}
               </tr>
-              <tr>
-                <td className="p-4 font-semibold text-ink-soft bg-surface-soft">{lang === 'ru' ? 'Наличие' : 'Mavjudlik'}</td>
-                {items.map((item) => (
-                  <td key={item.id} className="p-4">
-                    {item.inStock ? (
-                      <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-emerald-50 text-emerald-700 border text-xs font-bold">
-                        <Check className="w-3 h-3" /> Mavjud
-                      </span>
-                    ) : (
-                      <span className="inline-flex px-2 py-1 rounded-full bg-surface-soft text-ink-sub border border-line text-xs">Yo‘q</span>
-                    )}
-                  </td>
-                ))}
-              </tr>
+              
             </tbody>
           </table>
         </div>

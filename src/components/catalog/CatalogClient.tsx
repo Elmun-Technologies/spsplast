@@ -89,7 +89,6 @@ export const CatalogClient: React.FC<CatalogClientProps> = ({
     searchParams.material,
     searchParams.minPrice,
     searchParams.maxPrice,
-    searchParams.inStock === 'true' ? '1' : undefined,
     searchParams.isNew === 'true' ? '1' : undefined,
     searchParams.isBestseller === 'true' ? '1' : undefined,
     searchParams.search,
@@ -137,6 +136,7 @@ export const CatalogClient: React.FC<CatalogClientProps> = ({
             {/* Sort */}
             <div className="relative">
               <select
+                aria-label={lang === 'ru' ? 'Сортировка' : 'Saralash'}
                 value={searchParams.sort || ''}
                 onChange={(e) => updateParam('sort', e.target.value || null)}
                 className="appearance-none bg-surface-soft rounded-full pl-5 pr-10 py-2.5 text-sm font-medium text-ink focus:outline-none focus:bg-surface min-h-[44px] cursor-pointer"
@@ -155,14 +155,14 @@ export const CatalogClient: React.FC<CatalogClientProps> = ({
               <button
                 onClick={() => setViewMode('grid')}
                 className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${viewMode === 'grid' ? 'bg-ink text-white' : 'bg-surface-soft text-ink-soft hover:text-ink'}`}
-                aria-label="Grid view"
+                aria-label={lang === 'ru' ? 'Сеткой' : 'To‘r ko‘rinishida'}
               >
                 <Grid className="w-4 h-4" />
               </button>
               <button
                 onClick={() => setViewMode('list')}
                 className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${viewMode === 'list' ? 'bg-ink text-white' : 'bg-surface-soft text-ink-soft hover:text-ink'}`}
-                aria-label="List view"
+                aria-label={lang === 'ru' ? 'Списком' : 'Ro‘yxat ko‘rinishida'}
               >
                 <List className="w-4 h-4" />
               </button>
@@ -187,7 +187,7 @@ export const CatalogClient: React.FC<CatalogClientProps> = ({
                   </button>
                 </Badge>
               )}
-              {(searchParams.inStock === 'true' || searchParams.minPrice || searchParams.maxPrice) && (
+              {(searchParams.isNew === 'true' || searchParams.isBestseller === 'true' || searchParams.minPrice || searchParams.maxPrice) && (
                 <Link href={`/${lang}/catalog`} className="text-[12px] font-semibold text-ink-sub hover:text-brand-red transition-colors px-2">
                   {lang === 'ru' ? 'Сбросить фильтры' : 'Filtrlarni tozalash'}
                 </Link>
@@ -247,6 +247,8 @@ export const CatalogClient: React.FC<CatalogClientProps> = ({
                 <div className="grid grid-cols-2 gap-2">
                   <input
                     type="number"
+                    inputMode="numeric"
+                    aria-label={lang === 'ru' ? 'Цена от' : 'Narx dan'}
                     placeholder="Min"
                     value={priceMin}
                     onChange={(e) => setPriceMin(e.target.value)}
@@ -254,6 +256,8 @@ export const CatalogClient: React.FC<CatalogClientProps> = ({
                   />
                   <input
                     type="number"
+                    inputMode="numeric"
+                    aria-label={lang === 'ru' ? 'Цена до' : 'Narx gacha'}
                     placeholder="Max"
                     value={priceMax}
                     onChange={(e) => setPriceMax(e.target.value)}
@@ -289,16 +293,9 @@ export const CatalogClient: React.FC<CatalogClientProps> = ({
               {/* Status */}
               <div className="space-y-3 pt-4 border-t border-line-soft">
                 <h4 className="text-[12px] font-semibold text-ink-sub">Status</h4>
+                {/* Ombor filtri olib tashlandi: sayt qoldiqni yuritmaydi (P0-8),
+                    mavjudlikni menejer qo'ng'iroqda tasdiqlaydi. */}
                 <div className="space-y-2.5">
-                  <label className="flex items-center gap-2.5 cursor-pointer group">
-                    <input
-                      type="checkbox"
-                      checked={searchParams.inStock === 'true'}
-                      onChange={() => updateParam('inStock', searchParams.inStock === 'true' ? null : 'true')}
-                      className="w-4 h-4 rounded border-[#DDE3EB] text-brand-red focus:ring-brand-red"
-                    />
-                    <span className="text-sm text-ink-soft group-hover:text-ink">{lang === 'ru' ? 'Только в наличии' : 'Faqat omborda'}</span>
-                  </label>
                   <label className="flex items-center gap-2.5 cursor-pointer group">
                     <input
                       type="checkbox"

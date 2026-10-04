@@ -1,0 +1,1948 @@
+{
+  "generatedAt": "2026-09-27",
+  "categories": [
+    {
+      "id": "cat-s1",
+      "slugUz": "bruschatka-trotuar-qoliplari",
+      "slugRu": "formy-dlya-bruschatki",
+      "nameUz": "Bruschatka va trotuar plitkasi qoliplari",
+      "nameRu": "Формы для брусчатки и тротуарной плитки"
+    },
+    {
+      "id": "cat-s2",
+      "slugUz": "dekorativ-plitka-qoliplari",
+      "slugRu": "formy-dlya-dekorativnoy-plitki",
+      "nameUz": "Dekorativ relyefli plita qoliplari",
+      "nameRu": "Формы для декоративной плитки"
+    },
+    {
+      "id": "cat-s3",
+      "slugUz": "panel-profil-qoliplari",
+      "slugRu": "formy-dlya-paneley-profiley",
+      "nameUz": "Devor paneli va profil (hoshiya) qoliplari",
+      "nameRu": "Формы для панелей и профилей"
+    }
+  ],
+  "products": [
+    {
+      "id": "p-g001",
+      "sku": "SPS-G001",
+      "categoryId": "cat-s1",
+      "slugUz": "g001-floriya",
+      "slugRu": "g001-floriya",
+      "titleUz": "«Floriya» qolipi",
+      "titleRu": "Форма «Флория»",
+      "image": "/catalog/2026/G001-mold.jpg"
+    },
+    {
+      "id": "p-g002",
+      "sku": "SPS-G002",
+      "categoryId": "cat-s1",
+      "slugUz": "g002-magna",
+      "slugRu": "g002-magna",
+      "titleUz": "«Magna» qolipi",
+      "titleRu": "Форма «Магна»",
+      "image": "/catalog/2026/G002-mold.jpg"
+    },
+    {
+      "id": "p-g003",
+      "sku": "SPS-G003",
+      "categoryId": "cat-s1",
+      "slugUz": "g003-versache-1",
+      "slugRu": "g003-versache-1",
+      "titleUz": "«Versache 1» qolipi",
+      "titleRu": "Форма «Версаче 1»",
+      "image": "/catalog/2026/G003-mold.jpg"
+    },
+    {
+      "id": "p-g004",
+      "sku": "SPS-G004",
+      "categoryId": "cat-s1",
+      "slugUz": "g004-azara",
+      "slugRu": "g004-azara",
+      "titleUz": "«Azara» qolipi",
+      "titleRu": "Форма «Азара»",
+      "image": "/catalog/2026/G004-mold.jpg"
+    },
+    {
+      "id": "p-g005",
+      "sku": "SPS-G005",
+      "categoryId": "cat-s1",
+      "slugUz": "g005-yalta",
+      "slugRu": "g005-yalta",
+      "titleUz": "«Yalta» qolipi",
+      "titleRu": "Форма «Ялта»",
+      "image": "/catalog/2026/G005-mold.jpg"
+    },
+    {
+      "id": "p-g006",
+      "sku": "SPS-G006",
+      "categoryId": "cat-s1",
+      "slugUz": "g006-monako",
+      "slugRu": "g006-monako",
+      "titleUz": "«Monako» qolipi",
+      "titleRu": "Форма «Монако»",
+      "image": "/catalog/2026/G006-mold.jpg"
+    },
+    {
+      "id": "p-g007",
+      "sku": "SPS-G007",
+      "categoryId": "cat-s1",
+      "slugUz": "g007-shersha",
+      "slugRu": "g007-shersha",
+      "titleUz": "«Shersha» qolipi",
+      "titleRu": "Форма «Шерша»",
+      "image": "/catalog/2026/G007-mold.jpg"
+    },
+    {
+      "id": "p-g008",
+      "sku": "SPS-G008",
+      "categoryId": "cat-s1",
+      "slugUz": "g008-rokki",
+      "slugRu": "g008-rokki",
+      "titleUz": "«Rokki» qolipi",
+      "titleRu": "Форма «Рокки»",
+      "image": "/catalog/2026/G008-mold.jpg"
+    },
+    {
+      "id": "p-g009",
+      "sku": "SPS-G009",
+      "categoryId": "cat-s1",
+      "slugUz": "g009-rombik-yangi",
+      "slugRu": "g009-rombik-yangi",
+      "titleUz": "«Rombik (yangi)» qolipi",
+      "titleRu": "Форма «Ромбик (новинка)»",
+      "image": "/catalog/2026/G009-mold.jpg"
+    },
+    {
+      "id": "p-g010",
+      "sku": "SPS-G010",
+      "categoryId": "cat-s1",
+      "slugUz": "g010-azaliya-1",
+      "slugRu": "g010-azaliya-1",
+      "titleUz": "«Azaliya 1» qolipi",
+      "titleRu": "Форма «Азалия 1»",
+      "image": "/catalog/2026/G010-mold.jpg"
+    },
+    {
+      "id": "p-g011",
+      "sku": "SPS-G011",
+      "categoryId": "cat-s1",
+      "slugUz": "g011-astana",
+      "slugRu": "g011-astana",
+      "titleUz": "«Astana» qolipi",
+      "titleRu": "Форма «Астана»",
+      "image": "/catalog/2026/G011-mold.jpg"
+    },
+    {
+      "id": "p-g012",
+      "sku": "SPS-G012",
+      "categoryId": "cat-s1",
+      "slugUz": "g012-yulduz",
+      "slugRu": "g012-yulduz",
+      "titleUz": "«Yulduz» qolipi",
+      "titleRu": "Форма «Юлдуз»",
+      "image": "/catalog/2026/G012-mold.jpg"
+    },
+    {
+      "id": "p-g013",
+      "sku": "SPS-G013",
+      "categoryId": "cat-s1",
+      "slugUz": "g013-turkman-guli",
+      "slugRu": "g013-turkman-guli",
+      "titleUz": "«Turkman guli» qolipi",
+      "titleRu": "Форма «Туркменский цветок»",
+      "image": "/catalog/2026/G013-mold.jpg"
+    },
+    {
+      "id": "p-g014",
+      "sku": "SPS-G014",
+      "categoryId": "cat-s1",
+      "slugUz": "g014-eksklyuziv",
+      "slugRu": "g014-eksklyuziv",
+      "titleUz": "«Eksklyuziv» qolipi",
+      "titleRu": "Форма «Эксклюзив»",
+      "image": "/catalog/2026/G014-mold.jpg"
+    },
+    {
+      "id": "p-g015",
+      "sku": "SPS-G015",
+      "categoryId": "cat-s1",
+      "slugUz": "g015-vegas-1",
+      "slugRu": "g015-vegas-1",
+      "titleUz": "«Vegas 1» qolipi",
+      "titleRu": "Форма «Вегас 1»",
+      "image": "/catalog/2026/G015-mold.jpg"
+    },
+    {
+      "id": "p-g016",
+      "sku": "SPS-G016",
+      "categoryId": "cat-s1",
+      "slugUz": "g016-buxoro",
+      "slugRu": "g016-buxoro",
+      "titleUz": "«Buxoro» qolipi",
+      "titleRu": "Форма «Бухара»",
+      "image": "/catalog/2026/G016-mold.jpg"
+    },
+    {
+      "id": "p-g017",
+      "sku": "SPS-G017",
+      "categoryId": "cat-s1",
+      "slugUz": "g017-afina",
+      "slugRu": "g017-afina",
+      "titleUz": "«Afina» qolipi",
+      "titleRu": "Форма «Афина»",
+      "image": "/catalog/2026/G017-mold.jpg"
+    },
+    {
+      "id": "p-g018",
+      "sku": "SPS-G018",
+      "categoryId": "cat-s1",
+      "slugUz": "g018-royal-2",
+      "slugRu": "g018-royal-2",
+      "titleUz": "«Royal 2» qolipi",
+      "titleRu": "Форма «Роял 2»",
+      "image": "/catalog/2026/G018-mold.jpg"
+    },
+    {
+      "id": "p-g019",
+      "sku": "SPS-G019",
+      "categoryId": "cat-s1",
+      "slugUz": "g019-palma",
+      "slugRu": "g019-palma",
+      "titleUz": "«Palma» qolipi",
+      "titleRu": "Форма «Пальма»",
+      "image": "/catalog/2026/G019-mold.jpg"
+    },
+    {
+      "id": "p-g020",
+      "sku": "SPS-G020",
+      "categoryId": "cat-s1",
+      "slugUz": "g020-bumerang",
+      "slugRu": "g020-bumerang",
+      "titleUz": "«Bumerang» qolipi",
+      "titleRu": "Форма «Бумеранг»",
+      "image": "/catalog/2026/G020-mold.jpg"
+    },
+    {
+      "id": "p-g021",
+      "sku": "SPS-G021",
+      "categoryId": "cat-s1",
+      "slugUz": "g021-dubay-tosh",
+      "slugRu": "g021-dubay-tosh",
+      "titleUz": "«Dubay — Tosh» qolipi",
+      "titleRu": "Форма «Дубай — Камень»",
+      "image": "/catalog/2026/G021-mold.jpg"
+    },
+    {
+      "id": "p-g022",
+      "sku": "SPS-G022",
+      "categoryId": "cat-s1",
+      "slugUz": "g022-dubay-shersha",
+      "slugRu": "g022-dubay-shersha",
+      "titleUz": "«Dubay — Shersha» qolipi",
+      "titleRu": "Форма «Дубай — Шерша»",
+      "image": "/catalog/2026/G022-mold.jpg"
+    },
+    {
+      "id": "p-g023",
+      "sku": "SPS-G023",
+      "categoryId": "cat-s1",
+      "slugUz": "g023-dubay-aylana",
+      "slugRu": "g023-dubay-aylana",
+      "titleUz": "«Dubay — Aylana» qolipi",
+      "titleRu": "Форма «Дубай — Круг»",
+      "image": "/catalog/2026/G023-mold.jpg"
+    },
+    {
+      "id": "p-g024",
+      "sku": "SPS-G024",
+      "categoryId": "cat-s1",
+      "slugUz": "g024-parus",
+      "slugRu": "g024-parus",
+      "titleUz": "«Parus» qolipi",
+      "titleRu": "Форма «Парус»",
+      "image": "/catalog/2026/G024-mold.jpg"
+    },
+    {
+      "id": "p-g025",
+      "sku": "SPS-G025",
+      "categoryId": "cat-s1",
+      "slugUz": "g025-rio",
+      "slugRu": "g025-rio",
+      "titleUz": "«Rio» qolipi",
+      "titleRu": "Форма «Рио»",
+      "image": "/catalog/2026/G025-mold.jpg"
+    },
+    {
+      "id": "p-g026",
+      "sku": "SPS-G026",
+      "categoryId": "cat-s1",
+      "slugUz": "g026-dojdik",
+      "slugRu": "g026-dojdik",
+      "titleUz": "«Dojdik» qolipi",
+      "titleRu": "Форма «Дождик»",
+      "image": "/catalog/2026/G026-mold.jpg"
+    },
+    {
+      "id": "p-g027",
+      "sku": "SPS-G027",
+      "categoryId": "cat-s1",
+      "slugUz": "g027-qabanchik-10",
+      "slugRu": "g027-qabanchik-10",
+      "titleUz": "«Qabanchik 10» qolipi",
+      "titleRu": "Форма «Кабанчик 10»",
+      "image": "/catalog/2026/G027-mold.jpg"
+    },
+    {
+      "id": "p-g028",
+      "sku": "SPS-G028",
+      "categoryId": "cat-s1",
+      "slugUz": "g028-vindovs",
+      "slugRu": "g028-vindovs",
+      "titleUz": "«Vindovs» qolipi",
+      "titleRu": "Форма «Виндовс»",
+      "image": "/catalog/2026/G028-mold.jpg"
+    },
+    {
+      "id": "p-g029",
+      "sku": "SPS-G029",
+      "categoryId": "cat-s1",
+      "slugUz": "g029-4d-shersha",
+      "slugRu": "g029-4d-shersha",
+      "titleUz": "«4D / Shersha» qolipi",
+      "titleRu": "Форма «4D / Шерша»",
+      "image": "/catalog/2026/G029-mold.jpg"
+    },
+    {
+      "id": "p-g030",
+      "sku": "SPS-G030",
+      "categoryId": "cat-s2",
+      "slugUz": "g030-sakkiz-qirrali-gul",
+      "slugRu": "g030-sakkiz-qirrali-gul",
+      "titleUz": "«Sakkiz qirrali gul» qolipi",
+      "titleRu": "Форма «Восьмигранный цветок»",
+      "image": "/catalog/2026/G030-mold.jpg"
+    },
+    {
+      "id": "p-g031",
+      "sku": "SPS-G031",
+      "categoryId": "cat-s2",
+      "slugUz": "g031-diagonal-tosh",
+      "slugRu": "g031-diagonal-tosh",
+      "titleUz": "«Diagonal tosh» qolipi",
+      "titleRu": "Форма «Диагональный камень»",
+      "image": "/catalog/2026/G031-mold.jpg"
+    },
+    {
+      "id": "p-g032",
+      "sku": "SPS-G032",
+      "categoryId": "cat-s2",
+      "slugUz": "g032-juft-tosh-tekstura",
+      "slugRu": "g032-juft-tosh-tekstura",
+      "titleUz": "«Juft tosh tekstura» qolipi",
+      "titleRu": "Форма «Парная каменная текстура»",
+      "image": "/catalog/2026/G032-mold.jpg"
+    },
+    {
+      "id": "p-g033",
+      "sku": "SPS-G033",
+      "categoryId": "cat-s2",
+      "slugUz": "g033-gisht-bolinmalari",
+      "slugRu": "g033-gisht-bolinmalari",
+      "titleUz": "«G‘isht bo‘linmalari» qolipi",
+      "titleRu": "Форма «Разделённый кирпич»",
+      "image": "/catalog/2026/G033-mold.jpg"
+    },
+    {
+      "id": "p-g034",
+      "sku": "SPS-G034",
+      "categoryId": "cat-s2",
+      "slugUz": "g034-olti-tekis-katak",
+      "slugRu": "g034-olti-tekis-katak",
+      "titleUz": "«Olti tekis katak» qolipi",
+      "titleRu": "Форма «Шесть плоских ячеек»",
+      "image": "/catalog/2026/G034-mold.jpg"
+    },
+    {
+      "id": "p-g035",
+      "sku": "SPS-G035",
+      "categoryId": "cat-s2",
+      "slugUz": "g035-tort-qanot",
+      "slugRu": "g035-tort-qanot",
+      "titleUz": "«To‘rt qanot» qolipi",
+      "titleRu": "Форма «Четыре крыла»",
+      "image": "/catalog/2026/G035-mold.jpg"
+    },
+    {
+      "id": "p-g036",
+      "sku": "SPS-G036",
+      "categoryId": "cat-s2",
+      "slugUz": "g036-ichma-ich-kvadrat",
+      "slugRu": "g036-ichma-ich-kvadrat",
+      "titleUz": "«Ichma-ich kvadrat» qolipi",
+      "titleRu": "Форма «Вложенные квадраты»",
+      "image": "/catalog/2026/G036-mold.jpg"
+    },
+    {
+      "id": "p-g037",
+      "sku": "SPS-G037",
+      "categoryId": "cat-s2",
+      "slugUz": "g037-naqshli-medalyon",
+      "slugRu": "g037-naqshli-medalyon",
+      "titleUz": "«Naqshli medalyon» qolipi",
+      "titleRu": "Форма «Узорный медальон»",
+      "image": "/catalog/2026/G037-mold.jpg"
+    },
+    {
+      "id": "p-g038",
+      "sku": "SPS-G038",
+      "categoryId": "cat-s2",
+      "slugUz": "g038-juft-sakkiz-qirrali-gul",
+      "slugRu": "g038-juft-sakkiz-qirrali-gul",
+      "titleUz": "«Juft sakkiz qirrali gul» qolipi",
+      "titleRu": "Форма «Парный восьмигранный цветок»",
+      "image": "/catalog/2026/G038-mold.jpg"
+    },
+    {
+      "id": "p-g039",
+      "sku": "SPS-G039",
+      "categoryId": "cat-s2",
+      "slugUz": "g039-ikki-tekis-bolim",
+      "slugRu": "g039-ikki-tekis-bolim",
+      "titleUz": "«Ikki tekis bo‘lim» qolipi",
+      "titleRu": "Форма «Два плоских сегмента»",
+      "image": "/catalog/2026/G039-mold.jpg"
+    },
+    {
+      "id": "p-g040",
+      "sku": "SPS-G040",
+      "categoryId": "cat-s2",
+      "slugUz": "g040-uzun-tolqin",
+      "slugRu": "g040-uzun-tolqin",
+      "titleUz": "«Uzun to‘lqin» qolipi",
+      "titleRu": "Форма «Длинная волна»",
+      "image": "/catalog/2026/G040-mold.jpg"
+    },
+    {
+      "id": "p-g041",
+      "sku": "SPS-G041",
+      "categoryId": "cat-s2",
+      "slugUz": "g041-olti-qirra",
+      "slugRu": "g041-olti-qirra",
+      "titleUz": "«Olti qirra» qolipi",
+      "titleRu": "Форма «Шесть граней»",
+      "image": "/catalog/2026/G041-mold.jpg"
+    },
+    {
+      "id": "p-g042",
+      "sku": "SPS-G042",
+      "categoryId": "cat-s2",
+      "slugUz": "g042-chiziqli-hoshiya",
+      "slugRu": "g042-chiziqli-hoshiya",
+      "titleUz": "«Chiziqli hoshiya» qolipi",
+      "titleRu": "Форма «Полосатый бордюр»",
+      "image": "/catalog/2026/G042-mold.jpg"
+    },
+    {
+      "id": "p-g043",
+      "sku": "SPS-G043",
+      "categoryId": "cat-s2",
+      "slugUz": "g043-uzun-tekis-panel",
+      "slugRu": "g043-uzun-tekis-panel",
+      "titleUz": "«Uzun tekis panel» qolipi",
+      "titleRu": "Форма «Длинная плоская панель»",
+      "image": "/catalog/2026/G043-mold.jpg"
+    },
+    {
+      "id": "p-g044",
+      "sku": "SPS-G044",
+      "categoryId": "cat-s2",
+      "slugUz": "g044-rombli-panel",
+      "slugRu": "g044-rombli-panel",
+      "titleUz": "«Rombli panel» qolipi",
+      "titleRu": "Форма «Панель с ромбами»",
+      "image": "/catalog/2026/G044-mold.jpg"
+    },
+    {
+      "id": "p-g045",
+      "sku": "SPS-G045",
+      "categoryId": "cat-s2",
+      "slugUz": "g045-gisht-va-tosh",
+      "slugRu": "g045-gisht-va-tosh",
+      "titleUz": "«G‘isht va tosh» qolipi",
+      "titleRu": "Форма «Кирпич и камень»",
+      "image": "/catalog/2026/G045-mold.jpg"
+    },
+    {
+      "id": "p-g046",
+      "sku": "SPS-G046",
+      "categoryId": "cat-s2",
+      "slugUz": "g046-tort-qanot",
+      "slugRu": "g046-tort-qanot",
+      "titleUz": "«To‘rt qanot» qolipi",
+      "titleRu": "Форма «Четыре крыла»",
+      "image": "/catalog/2026/G046-mold.jpg"
+    },
+    {
+      "id": "p-g047",
+      "sku": "SPS-G047",
+      "categoryId": "cat-s2",
+      "slugUz": "g047-keng-sakkiz-qirra",
+      "slugRu": "g047-keng-sakkiz-qirra",
+      "titleUz": "«Keng sakkiz qirra» qolipi",
+      "titleRu": "Форма «Широкий восьмигранник»",
+      "image": "/catalog/2026/G047-mold.jpg"
+    },
+    {
+      "id": "p-g048",
+      "sku": "SPS-G048",
+      "categoryId": "cat-s2",
+      "slugUz": "g048-choziq-bezak",
+      "slugRu": "g048-choziq-bezak",
+      "titleUz": "«Cho‘ziq bezak» qolipi",
+      "titleRu": "Форма «Вытянутый орнамент»",
+      "image": "/catalog/2026/G048-mold.jpg"
+    },
+    {
+      "id": "p-g049",
+      "sku": "SPS-G049",
+      "categoryId": "cat-s2",
+      "slugUz": "g049-nursimon-yulduz",
+      "slugRu": "g049-nursimon-yulduz",
+      "titleUz": "«Nursimon yulduz» qolipi",
+      "titleRu": "Форма «Лучевая звезда»",
+      "image": "/catalog/2026/G049-mold.jpg"
+    },
+    {
+      "id": "p-g050",
+      "sku": "SPS-G050",
+      "categoryId": "cat-s2",
+      "slugUz": "g050-kvadrat-medalyon",
+      "slugRu": "g050-kvadrat-medalyon",
+      "titleUz": "«Kvadrat medalyon» qolipi",
+      "titleRu": "Форма «Квадратный медальон»",
+      "image": "/catalog/2026/G050-mold.jpg"
+    },
+    {
+      "id": "p-g051",
+      "sku": "SPS-G051",
+      "categoryId": "cat-s2",
+      "slugUz": "g051-egri-gisht",
+      "slugRu": "g051-egri-gisht",
+      "titleUz": "«Egri g‘isht» qolipi",
+      "titleRu": "Форма «Изогнутый кирпич»",
+      "image": "/catalog/2026/G051-mold.jpg"
+    },
+    {
+      "id": "p-g052",
+      "sku": "SPS-G052",
+      "categoryId": "cat-s2",
+      "slugUz": "g052-tolqinli-panel",
+      "slugRu": "g052-tolqinli-panel",
+      "titleUz": "«To‘lqinli panel» qolipi",
+      "titleRu": "Форма «Волнистая панель»",
+      "image": "/catalog/2026/G052-mold.jpg"
+    },
+    {
+      "id": "p-g053",
+      "sku": "SPS-G053",
+      "categoryId": "cat-s2",
+      "slugUz": "g053-diagonal-chiziqlar",
+      "slugRu": "g053-diagonal-chiziqlar",
+      "titleUz": "«Diagonal chiziqlar» qolipi",
+      "titleRu": "Форма «Диагональные полосы»",
+      "image": "/catalog/2026/G053-mold.jpg"
+    },
+    {
+      "id": "p-g054",
+      "sku": "SPS-G054",
+      "categoryId": "cat-s2",
+      "slugUz": "g054-tutashgan-kataklar",
+      "slugRu": "g054-tutashgan-kataklar",
+      "titleUz": "«Tutashgan kataklar» qolipi",
+      "titleRu": "Форма «Соединённые ячейки»",
+      "image": "/catalog/2026/G054-mold.jpg"
+    },
+    {
+      "id": "p-g055",
+      "sku": "SPS-G055",
+      "categoryId": "cat-s2",
+      "slugUz": "g055-mayda-toshlar",
+      "slugRu": "g055-mayda-toshlar",
+      "titleUz": "«Mayda toshlar» qolipi",
+      "titleRu": "Форма «Мелкие камни»",
+      "image": "/catalog/2026/G055-mold.jpg"
+    },
+    {
+      "id": "p-g056",
+      "sku": "SPS-G056",
+      "categoryId": "cat-s2",
+      "slugUz": "g056-ramkali-panel",
+      "slugRu": "g056-ramkali-panel",
+      "titleUz": "«Ramkali panel» qolipi",
+      "titleRu": "Форма «Панель с рамкой»",
+      "image": "/catalog/2026/G056-mold.jpg"
+    },
+    {
+      "id": "p-g057",
+      "sku": "SPS-G057",
+      "categoryId": "cat-s2",
+      "slugUz": "g057-donador-tekstura",
+      "slugRu": "g057-donador-tekstura",
+      "titleUz": "«Donador tekstura» qolipi",
+      "titleRu": "Форма «Зернистая текстура»",
+      "image": "/catalog/2026/G057-mold.jpg"
+    },
+    {
+      "id": "p-g058",
+      "sku": "SPS-G058",
+      "categoryId": "cat-s2",
+      "slugUz": "g058-yoysimon-gisht",
+      "slugRu": "g058-yoysimon-gisht",
+      "titleUz": "«Yoysimon g‘isht» qolipi",
+      "titleRu": "Форма «Дугообразный кирпич»",
+      "image": "/catalog/2026/G058-mold.jpg"
+    },
+    {
+      "id": "p-g059",
+      "sku": "SPS-G059",
+      "categoryId": "cat-s2",
+      "slugUz": "g059-tolqinli-relyef",
+      "slugRu": "g059-tolqinli-relyef",
+      "titleUz": "«To‘lqinli relyef» qolipi",
+      "titleRu": "Форма «Волнистый рельеф»",
+      "image": "/catalog/2026/G059-mold.jpg"
+    },
+    {
+      "id": "p-g060",
+      "sku": "SPS-G060",
+      "categoryId": "cat-s2",
+      "slugUz": "g060-olti-katak",
+      "slugRu": "g060-olti-katak",
+      "titleUz": "«Olti katak» qolipi",
+      "titleRu": "Форма «Шесть ячеек»",
+      "image": "/catalog/2026/G060-mold.jpg"
+    },
+    {
+      "id": "p-g061",
+      "sku": "SPS-G061",
+      "categoryId": "cat-s2",
+      "slugUz": "g061-sakkiz-qirrali-bezak",
+      "slugRu": "g061-sakkiz-qirrali-bezak",
+      "titleUz": "«Sakkiz qirrali bezak» qolipi",
+      "titleRu": "Форма «Восьмигранный орнамент»",
+      "image": "/catalog/2026/G061-mold.jpg"
+    },
+    {
+      "id": "p-g062",
+      "sku": "SPS-G062",
+      "categoryId": "cat-s2",
+      "slugUz": "g062-tort-naqshli-katak",
+      "slugRu": "g062-tort-naqshli-katak",
+      "titleUz": "«To‘rt naqshli katak» qolipi",
+      "titleRu": "Форма «Ячейка с четырьмя узорами»",
+      "image": "/catalog/2026/G062-mold.jpg"
+    },
+    {
+      "id": "p-g063",
+      "sku": "SPS-G063",
+      "categoryId": "cat-s2",
+      "slugUz": "g063-boylama-kanal",
+      "slugRu": "g063-boylama-kanal",
+      "titleUz": "«Bo‘ylama kanal» qolipi",
+      "titleRu": "Форма «Продольный жёлоб»",
+      "image": "/catalog/2026/G063-mold.jpg"
+    },
+    {
+      "id": "p-g064",
+      "sku": "SPS-G064",
+      "categoryId": "cat-s2",
+      "slugUz": "g064-juft-gul-medalyoni",
+      "slugRu": "g064-juft-gul-medalyoni",
+      "titleUz": "«Juft gul medalyoni» qolipi",
+      "titleRu": "Форма «Парный цветочный медальон»",
+      "image": "/catalog/2026/G064-mold.jpg"
+    },
+    {
+      "id": "p-g065",
+      "sku": "SPS-G065",
+      "categoryId": "cat-s2",
+      "slugUz": "g065-piramidasimon-markaz",
+      "slugRu": "g065-piramidasimon-markaz",
+      "titleUz": "«Piramidasimon markaz» qolipi",
+      "titleRu": "Форма «Пирамидальный центр»",
+      "image": "/catalog/2026/G065-mold.jpg"
+    },
+    {
+      "id": "p-g066",
+      "sku": "SPS-G066",
+      "categoryId": "cat-s2",
+      "slugUz": "g066-geometrik-piramida",
+      "slugRu": "g066-geometrik-piramida",
+      "titleUz": "«Geometrik piramida» qolipi",
+      "titleRu": "Форма «Геометрическая пирамида»",
+      "image": "/catalog/2026/G066-mold.jpg"
+    },
+    {
+      "id": "p-g067",
+      "sku": "SPS-G067",
+      "categoryId": "cat-s2",
+      "slugUz": "g067-tekis-gisht",
+      "slugRu": "g067-tekis-gisht",
+      "titleUz": "«Tekis g‘isht» qolipi",
+      "titleRu": "Форма «Плоский кирпич»",
+      "image": "/catalog/2026/G067-mold.jpg"
+    },
+    {
+      "id": "p-g068",
+      "sku": "SPS-G068",
+      "categoryId": "cat-s2",
+      "slugUz": "g068-toshli-gisht",
+      "slugRu": "g068-toshli-gisht",
+      "titleUz": "«Toshli g‘isht» qolipi",
+      "titleRu": "Форма «Каменный кирпич»",
+      "image": "/catalog/2026/G068-mold.jpg"
+    },
+    {
+      "id": "p-g069",
+      "sku": "SPS-G069",
+      "categoryId": "cat-s2",
+      "slugUz": "g069-tekis-panel",
+      "slugRu": "g069-tekis-panel",
+      "titleUz": "«Tekis panel» qolipi",
+      "titleRu": "Форма «Плоская панель»",
+      "image": "/catalog/2026/G069-mold.jpg"
+    },
+    {
+      "id": "p-g070",
+      "sku": "SPS-G070",
+      "categoryId": "cat-s2",
+      "slugUz": "g070-osimliksimon-tekstura",
+      "slugRu": "g070-osimliksimon-tekstura",
+      "titleUz": "«O‘simliksimon tekstura» qolipi",
+      "titleRu": "Форма «Растительная текстура»",
+      "image": "/catalog/2026/G070-mold.jpg"
+    },
+    {
+      "id": "p-g071",
+      "sku": "SPS-G071",
+      "categoryId": "cat-s2",
+      "slugUz": "g071-tekis-sakkiz-qirra",
+      "slugRu": "g071-tekis-sakkiz-qirra",
+      "titleUz": "«Tekis sakkiz qirra» qolipi",
+      "titleRu": "Форма «Плоский восьмигранник»",
+      "image": "/catalog/2026/G071-mold.jpg"
+    },
+    {
+      "id": "p-g072",
+      "sku": "SPS-G072",
+      "categoryId": "cat-s2",
+      "slugUz": "g072-tort-yaproqli-gul",
+      "slugRu": "g072-tort-yaproqli-gul",
+      "titleUz": "«To‘rt yaproqli gul» qolipi",
+      "titleRu": "Форма «Четырёхлистный цветок»",
+      "image": "/catalog/2026/G072-mold.jpg"
+    },
+    {
+      "id": "p-g073",
+      "sku": "SPS-G073",
+      "categoryId": "cat-s2",
+      "slugUz": "g073-juft-osimlik-naqshi",
+      "slugRu": "g073-juft-osimlik-naqshi",
+      "titleUz": "«Juft o‘simlik naqshi» qolipi",
+      "titleRu": "Форма «Парный растительный узор»",
+      "image": "/catalog/2026/G073-mold.jpg"
+    },
+    {
+      "id": "p-g074",
+      "sku": "SPS-G074",
+      "categoryId": "cat-s2",
+      "slugUz": "g074-choziq-gul-markazi",
+      "slugRu": "g074-choziq-gul-markazi",
+      "titleUz": "«Cho‘ziq gul markazi» qolipi",
+      "titleRu": "Форма «Вытянутый центр цветка»",
+      "image": "/catalog/2026/G074-mold.jpg"
+    },
+    {
+      "id": "p-g075",
+      "sku": "SPS-G075",
+      "categoryId": "cat-s2",
+      "slugUz": "g075-qovurgali-profil",
+      "slugRu": "g075-qovurgali-profil",
+      "titleUz": "«Qovurg‘ali profil» qolipi",
+      "titleRu": "Форма «Рифлёный профиль»",
+      "image": "/catalog/2026/G075-mold.jpg"
+    },
+    {
+      "id": "p-g076",
+      "sku": "SPS-G076",
+      "categoryId": "cat-s2",
+      "slugUz": "g076-tortburchak-geometriya",
+      "slugRu": "g076-tortburchak-geometriya",
+      "titleUz": "«To‘rtburchak geometriya» qolipi",
+      "titleRu": "Форма «Прямоугольная геометрия»",
+      "image": "/catalog/2026/G076-mold.jpg"
+    },
+    {
+      "id": "p-g077",
+      "sku": "SPS-G077",
+      "categoryId": "cat-s2",
+      "slugUz": "g077-choziq-yulduz",
+      "slugRu": "g077-choziq-yulduz",
+      "titleUz": "«Cho‘ziq yulduz» qolipi",
+      "titleRu": "Форма «Вытянутая звезда»",
+      "image": "/catalog/2026/G077-mold.jpg"
+    },
+    {
+      "id": "p-g078",
+      "sku": "SPS-G078",
+      "categoryId": "cat-s2",
+      "slugUz": "g078-choziq-tosh",
+      "slugRu": "g078-choziq-tosh",
+      "titleUz": "«Cho‘ziq tosh» qolipi",
+      "titleRu": "Форма «Вытянутый камень»",
+      "image": "/catalog/2026/G078-mold.jpg"
+    },
+    {
+      "id": "p-g079",
+      "sku": "SPS-G079",
+      "categoryId": "cat-s2",
+      "slugUz": "g079-ikki-uchli-kontur",
+      "slugRu": "g079-ikki-uchli-kontur",
+      "titleUz": "«Ikki uchli kontur» qolipi",
+      "titleRu": "Форма «Двухконечный контур»",
+      "image": "/catalog/2026/G079-mold.jpg"
+    },
+    {
+      "id": "p-g080",
+      "sku": "SPS-G080",
+      "categoryId": "cat-s2",
+      "slugUz": "g080-juft-geometrik-gul",
+      "slugRu": "g080-juft-geometrik-gul",
+      "titleUz": "«Juft geometrik gul» qolipi",
+      "titleRu": "Форма «Парный геометрический цветок»",
+      "image": "/catalog/2026/G080-mold.jpg"
+    },
+    {
+      "id": "p-g081",
+      "sku": "SPS-G081",
+      "categoryId": "cat-s2",
+      "slugUz": "g081-sakkiz-qirra",
+      "slugRu": "g081-sakkiz-qirra",
+      "titleUz": "«Sakkiz qirra» qolipi",
+      "titleRu": "Форма «Восемь граней»",
+      "image": "/catalog/2026/G081-mold.jpg"
+    },
+    {
+      "id": "p-g082",
+      "sku": "SPS-G082",
+      "categoryId": "cat-s2",
+      "slugUz": "g082-uchli-gul-naqshi",
+      "slugRu": "g082-uchli-gul-naqshi",
+      "titleUz": "«Uchli gul naqshi» qolipi",
+      "titleRu": "Форма «Заострённый цветочный узор»",
+      "image": "/catalog/2026/G082-mold.jpg"
+    },
+    {
+      "id": "p-g083",
+      "sku": "SPS-G083",
+      "categoryId": "cat-s2",
+      "slugUz": "g083-dagal-gisht",
+      "slugRu": "g083-dagal-gisht",
+      "titleUz": "«Dag‘al g‘isht» qolipi",
+      "titleRu": "Форма «Шероховатый кирпич»",
+      "image": "/catalog/2026/G083-mold.jpg"
+    },
+    {
+      "id": "p-g084",
+      "sku": "SPS-G084",
+      "categoryId": "cat-s2",
+      "slugUz": "g084-qatlamli-gisht",
+      "slugRu": "g084-qatlamli-gisht",
+      "titleUz": "«Qatlamli g‘isht» qolipi",
+      "titleRu": "Форма «Слоистый кирпич»",
+      "image": "/catalog/2026/G084-mold.jpg"
+    },
+    {
+      "id": "p-g085",
+      "sku": "SPS-G085",
+      "categoryId": "cat-s2",
+      "slugUz": "g085-juft-toshli-sakkiz-qirra",
+      "slugRu": "g085-juft-toshli-sakkiz-qirra",
+      "titleUz": "«Juft toshli sakkiz qirra» qolipi",
+      "titleRu": "Форма «Парный каменный восьмигранник»",
+      "image": "/catalog/2026/G085-mold.jpg"
+    },
+    {
+      "id": "p-g086",
+      "sku": "SPS-G086",
+      "categoryId": "cat-s2",
+      "slugUz": "g086-hoshiyali-osimlik-naqshi",
+      "slugRu": "g086-hoshiyali-osimlik-naqshi",
+      "titleUz": "«Hoshiyali o‘simlik naqshi» qolipi",
+      "titleRu": "Форма «Растительный узор с бордюром»",
+      "image": "/catalog/2026/G086-mold.jpg"
+    },
+    {
+      "id": "p-g087",
+      "sku": "SPS-G087",
+      "categoryId": "cat-s2",
+      "slugUz": "g087-tutashgan-romblar",
+      "slugRu": "g087-tutashgan-romblar",
+      "titleUz": "«Tutashgan romblar» qolipi",
+      "titleRu": "Форма «Соединённые ромбы»",
+      "image": "/catalog/2026/G087-mold.jpg"
+    },
+    {
+      "id": "p-g088",
+      "sku": "SPS-G088",
+      "categoryId": "cat-s2",
+      "slugUz": "g088-juft-tolali-tekstura",
+      "slugRu": "g088-juft-tolali-tekstura",
+      "titleUz": "«Juft tolali tekstura» qolipi",
+      "titleRu": "Форма «Парная волокнистая текстура»",
+      "image": "/catalog/2026/G088-mold.jpg"
+    },
+    {
+      "id": "p-g089",
+      "sku": "SPS-G089",
+      "categoryId": "cat-s2",
+      "slugUz": "g089-choziq-tolqin",
+      "slugRu": "g089-choziq-tolqin",
+      "titleUz": "«Cho‘ziq to‘lqin» qolipi",
+      "titleRu": "Форма «Вытянутая волна»",
+      "image": "/catalog/2026/G089-mold.jpg"
+    },
+    {
+      "id": "p-g090",
+      "sku": "SPS-G090",
+      "categoryId": "cat-s2",
+      "slugUz": "g090-ikki-chuqur-bolim",
+      "slugRu": "g090-ikki-chuqur-bolim",
+      "titleUz": "«Ikki chuqur bo‘lim» qolipi",
+      "titleRu": "Форма «Два глубоких сегмента»",
+      "image": "/catalog/2026/G090-mold.jpg"
+    },
+    {
+      "id": "p-g091",
+      "sku": "SPS-G091",
+      "categoryId": "cat-s2",
+      "slugUz": "g091-juft-orama-naqsh",
+      "slugRu": "g091-juft-orama-naqsh",
+      "titleUz": "«Juft o‘rama naqsh» qolipi",
+      "titleRu": "Форма «Парный скрученный узор»",
+      "image": "/catalog/2026/G091-mold.jpg"
+    },
+    {
+      "id": "p-g092",
+      "sku": "SPS-G092",
+      "categoryId": "cat-s2",
+      "slugUz": "g092-tort-uchli-geometriya",
+      "slugRu": "g092-tort-uchli-geometriya",
+      "titleUz": "«To‘rt uchli geometriya» qolipi",
+      "titleRu": "Форма «Четырёхконечная геометрия»",
+      "image": "/catalog/2026/G092-mold.jpg"
+    },
+    {
+      "id": "p-g093",
+      "sku": "SPS-G093",
+      "categoryId": "cat-s2",
+      "slugUz": "g093-olti-qirrali-markaz",
+      "slugRu": "g093-olti-qirrali-markaz",
+      "titleUz": "«Olti qirrali markaz» qolipi",
+      "titleRu": "Форма «Шестигранный центр»",
+      "image": "/catalog/2026/G093-mold.jpg"
+    },
+    {
+      "id": "p-g094",
+      "sku": "SPS-G094",
+      "categoryId": "cat-s2",
+      "slugUz": "g094-qirrali-diagonal-panel",
+      "slugRu": "g094-qirrali-diagonal-panel",
+      "titleUz": "«Qirrali diagonal panel» qolipi",
+      "titleRu": "Форма «Гранистая диагональная панель»",
+      "image": "/catalog/2026/G094-mold.jpg"
+    },
+    {
+      "id": "p-g095",
+      "sku": "SPS-G095",
+      "categoryId": "cat-s2",
+      "slugUz": "g095-pogonali-uzun-ramka",
+      "slugRu": "g095-pogonali-uzun-ramka",
+      "titleUz": "«Pog‘onali uzun ramka» qolipi",
+      "titleRu": "Форма «Ступенчатая длинная рамка»",
+      "image": "/catalog/2026/G095-mold.jpg"
+    },
+    {
+      "id": "p-g096",
+      "sku": "SPS-G096",
+      "categoryId": "cat-s2",
+      "slugUz": "g096-pogonali-kvadrat-ramka",
+      "slugRu": "g096-pogonali-kvadrat-ramka",
+      "titleUz": "«Pog‘onali kvadrat ramka» qolipi",
+      "titleRu": "Форма «Ступенчатая квадратная рамка»",
+      "image": "/catalog/2026/G096-mold.jpg"
+    },
+    {
+      "id": "p-g097",
+      "sku": "SPS-G097",
+      "categoryId": "cat-s2",
+      "slugUz": "g097-pogonali-keng-ramka",
+      "slugRu": "g097-pogonali-keng-ramka",
+      "titleUz": "«Pog‘onali keng ramka» qolipi",
+      "titleRu": "Форма «Ступенчатая широкая рамка»",
+      "image": "/catalog/2026/G097-mold.jpg"
+    },
+    {
+      "id": "p-g098",
+      "sku": "SPS-G098",
+      "categoryId": "cat-s2",
+      "slugUz": "g098-tekis-uzun-panel",
+      "slugRu": "g098-tekis-uzun-panel",
+      "titleUz": "«Tekis uzun panel» qolipi",
+      "titleRu": "Форма «Плоская длинная панель»",
+      "image": "/catalog/2026/G098-mold.jpg"
+    },
+    {
+      "id": "p-g099",
+      "sku": "SPS-G099",
+      "categoryId": "cat-s2",
+      "slugUz": "g099-boylama-tasmalar",
+      "slugRu": "g099-boylama-tasmalar",
+      "titleUz": "«Bo‘ylama tasmalar» qolipi",
+      "titleRu": "Форма «Продольные ленты»",
+      "image": "/catalog/2026/G099-mold.jpg"
+    },
+    {
+      "id": "p-g100",
+      "sku": "SPS-G100",
+      "categoryId": "cat-s2",
+      "slugUz": "g100-keng-boylama-tasmalar",
+      "slugRu": "g100-keng-boylama-tasmalar",
+      "titleUz": "«Keng bo‘ylama tasmalar» qolipi",
+      "titleRu": "Форма «Широкие продольные ленты»",
+      "image": "/catalog/2026/G100-mold.jpg"
+    },
+    {
+      "id": "p-g101",
+      "sku": "SPS-G101",
+      "categoryId": "cat-s2",
+      "slugUz": "g101-figurali-boylama-profil",
+      "slugRu": "g101-figurali-boylama-profil",
+      "titleUz": "«Figurali bo‘ylama profil» qolipi",
+      "titleRu": "Форма «Фигурный продольный профиль»",
+      "image": "/catalog/2026/G101-mold.jpg"
+    },
+    {
+      "id": "p-g102",
+      "sku": "SPS-G102",
+      "categoryId": "cat-s2",
+      "slugUz": "g102-silliq-egri-profil",
+      "slugRu": "g102-silliq-egri-profil",
+      "titleUz": "«Silliq egri profil» qolipi",
+      "titleRu": "Форма «Гладкий изогнутый профиль»",
+      "image": "/catalog/2026/G102-mold.jpg"
+    },
+    {
+      "id": "p-g103",
+      "sku": "SPS-G103",
+      "categoryId": "cat-s2",
+      "slugUz": "g103-hoshiyali-uzun-panel",
+      "slugRu": "g103-hoshiyali-uzun-panel",
+      "titleUz": "«Hoshiyali uzun panel» qolipi",
+      "titleRu": "Форма «Длинная панель с бордюром»",
+      "image": "/catalog/2026/G103-mold.jpg"
+    },
+    {
+      "id": "p-a10-001",
+      "sku": "SPS-A10-001",
+      "categoryId": "cat-s3",
+      "slugUz": "a10-001-bolakli-relyef",
+      "slugRu": "a10-001-bolakli-relyef",
+      "titleUz": "«Bo‘lakli relyef» panel qolipi",
+      "titleRu": "Форма для панелей «Фрагментный рельеф»",
+      "image": "/catalog/2026/A10-001-mold.jpg"
+    },
+    {
+      "id": "p-a10-002",
+      "sku": "SPS-A10-002",
+      "categoryId": "cat-s3",
+      "slugUz": "a10-002-donador-yuza",
+      "slugRu": "a10-002-donador-yuza",
+      "titleUz": "«Donador yuza» panel qolipi",
+      "titleRu": "Форма для панелей «Зернистая поверхность»",
+      "image": "/catalog/2026/A10-002-mold.jpg"
+    },
+    {
+      "id": "p-a10-003",
+      "sku": "SPS-A10-003",
+      "categoryId": "cat-s3",
+      "slugUz": "a10-003-pogonali-hoshiya",
+      "slugRu": "a10-003-pogonali-hoshiya",
+      "titleUz": "«Pog‘onali hoshiya» panel qolipi",
+      "titleRu": "Форма для панелей «Ступенчатый бордюр»",
+      "image": "/catalog/2026/A10-003-mold.jpg"
+    },
+    {
+      "id": "p-a10-004",
+      "sku": "SPS-A10-004",
+      "categoryId": "cat-s3",
+      "slugUz": "a10-004-tekis-markaz",
+      "slugRu": "a10-004-tekis-markaz",
+      "titleUz": "«Tekis markaz» panel qolipi",
+      "titleRu": "Форма для панелей «Плоский центр»",
+      "image": "/catalog/2026/A10-004-mold.jpg"
+    },
+    {
+      "id": "p-a10-005",
+      "sku": "SPS-A10-005",
+      "categoryId": "cat-s3",
+      "slugUz": "a10-005-klassik-hoshiya",
+      "slugRu": "a10-005-klassik-hoshiya",
+      "titleUz": "«Klassik hoshiya» panel qolipi",
+      "titleRu": "Форма для панелей «Классический бордюр»",
+      "image": "/catalog/2026/A10-005-mold.jpg"
+    },
+    {
+      "id": "p-a10-006",
+      "sku": "SPS-A10-006",
+      "categoryId": "cat-s3",
+      "slugUz": "a10-006-ingichka-hoshiya",
+      "slugRu": "a10-006-ingichka-hoshiya",
+      "titleUz": "«Ingichka hoshiya» panel qolipi",
+      "titleRu": "Форма для панелей «Тонкий бордюр»",
+      "image": "/catalog/2026/A10-006-mold.jpg"
+    },
+    {
+      "id": "p-a10-007",
+      "sku": "SPS-A10-007",
+      "categoryId": "cat-s3",
+      "slugUz": "a10-007-silliq-panel",
+      "slugRu": "a10-007-silliq-panel",
+      "titleUz": "«Silliq panel» panel qolipi",
+      "titleRu": "Форма для панелей «Гладкая панель»",
+      "image": "/catalog/2026/A10-007-mold.jpg"
+    },
+    {
+      "id": "p-a10-008",
+      "sku": "SPS-A10-008",
+      "categoryId": "cat-s3",
+      "slugUz": "a10-008-gisht-ritmi",
+      "slugRu": "a10-008-gisht-ritmi",
+      "titleUz": "«G‘isht ritmi» panel qolipi",
+      "titleRu": "Форма для панелей «Ритм кирпича»",
+      "image": "/catalog/2026/A10-008-mold.jpg"
+    },
+    {
+      "id": "p-a10-009",
+      "sku": "SPS-A10-009",
+      "categoryId": "cat-s3",
+      "slugUz": "a10-009-donador-tekstura",
+      "slugRu": "a10-009-donador-tekstura",
+      "titleUz": "«Donador tekstura» panel qolipi",
+      "titleRu": "Форма для панелей «Зернистая текстура»",
+      "image": "/catalog/2026/A10-009-mold.jpg"
+    },
+    {
+      "id": "p-a10-010",
+      "sku": "SPS-A10-010",
+      "categoryId": "cat-s3",
+      "slugUz": "a10-010-tolali-tekstura",
+      "slugRu": "a10-010-tolali-tekstura",
+      "titleUz": "«Tolali tekstura» panel qolipi",
+      "titleRu": "Форма для панелей «Волокнистая текстура»",
+      "image": "/catalog/2026/A10-010-mold.jpg"
+    },
+    {
+      "id": "p-a10-011",
+      "sku": "SPS-A10-011",
+      "categoryId": "cat-s3",
+      "slugUz": "a10-011-gisht-terimi",
+      "slugRu": "a10-011-gisht-terimi",
+      "titleUz": "«G‘isht terimi» panel qolipi",
+      "titleRu": "Форма для панелей «Кирпичная кладка»",
+      "image": "/catalog/2026/A10-011-mold.jpg"
+    },
+    {
+      "id": "p-a10-012",
+      "sku": "SPS-A10-012",
+      "categoryId": "cat-s3",
+      "slugUz": "a10-012-ichki-ramka",
+      "slugRu": "a10-012-ichki-ramka",
+      "titleUz": "«Ichki ramka» panel qolipi",
+      "titleRu": "Форма для панелей «Внутренняя рамка»",
+      "image": "/catalog/2026/A10-012-mold.jpg"
+    },
+    {
+      "id": "p-a10-013",
+      "sku": "SPS-A10-013",
+      "categoryId": "cat-s3",
+      "slugUz": "a10-013-markaziy-bezak",
+      "slugRu": "a10-013-markaziy-bezak",
+      "titleUz": "«Markaziy bezak» panel qolipi",
+      "titleRu": "Форма для панелей «Центральный орнамент»",
+      "image": "/catalog/2026/A10-013-mold.jpg"
+    },
+    {
+      "id": "p-a10-023",
+      "sku": "SPS-A10-023",
+      "categoryId": "cat-s3",
+      "slugUz": "a10-023-takroriy-kataklar",
+      "slugRu": "a10-023-takroriy-kataklar",
+      "titleUz": "«Takroriy kataklar» panel qolipi",
+      "titleRu": "Форма для панелей «Повторяющиеся ячейки»",
+      "image": "/catalog/2026/A10-023-mold.jpg"
+    },
+    {
+      "id": "p-a10-024",
+      "sku": "SPS-A10-024",
+      "categoryId": "cat-s3",
+      "slugUz": "a10-024-tekis-profil",
+      "slugRu": "a10-024-tekis-profil",
+      "titleUz": "«Tekis profil» panel qolipi",
+      "titleRu": "Форма для панелей «Плоский профиль»",
+      "image": "/catalog/2026/A10-024-mold.jpg"
+    },
+    {
+      "id": "p-a10-025",
+      "sku": "SPS-A10-025",
+      "categoryId": "cat-s3",
+      "slugUz": "a10-025-pogonali-profil",
+      "slugRu": "a10-025-pogonali-profil",
+      "titleUz": "«Pog‘onali profil» panel qolipi",
+      "titleRu": "Форма для панелей «Ступенчатый профиль»",
+      "image": "/catalog/2026/A10-025-mold.jpg"
+    },
+    {
+      "id": "p-a10-026",
+      "sku": "SPS-A10-026",
+      "categoryId": "cat-s3",
+      "slugUz": "a10-026-geometrik-naqsh",
+      "slugRu": "a10-026-geometrik-naqsh",
+      "titleUz": "«Geometrik naqsh» panel qolipi",
+      "titleRu": "Форма для панелей «Геометрический узор»",
+      "image": "/catalog/2026/A10-026-mold.jpg"
+    },
+    {
+      "id": "p-a10-027",
+      "sku": "SPS-A10-027",
+      "categoryId": "cat-s3",
+      "slugUz": "a10-027-ramkali-kataklar",
+      "slugRu": "a10-027-ramkali-kataklar",
+      "titleUz": "«Ramkali kataklar» panel qolipi",
+      "titleRu": "Форма для панелей «Ячейки с рамкой»",
+      "image": "/catalog/2026/A10-027-mold.jpg"
+    },
+    {
+      "id": "p-a10-028",
+      "sku": "SPS-A10-028",
+      "categoryId": "cat-s3",
+      "slugUz": "a10-028-qatlamli-tosh",
+      "slugRu": "a10-028-qatlamli-tosh",
+      "titleUz": "«Qatlamli tosh» panel qolipi",
+      "titleRu": "Форма для панелей «Слоистый камень»",
+      "image": "/catalog/2026/A10-028-mold.jpg"
+    },
+    {
+      "id": "p-a10-029",
+      "sku": "SPS-A10-029",
+      "categoryId": "cat-s3",
+      "slugUz": "a10-029-tosh-terimi",
+      "slugRu": "a10-029-tosh-terimi",
+      "titleUz": "«Tosh terimi» panel qolipi",
+      "titleRu": "Форма для панелей «Каменная кладка»",
+      "image": "/catalog/2026/A10-029-mold.jpg"
+    },
+    {
+      "id": "p-a10-030",
+      "sku": "SPS-A10-030",
+      "categoryId": "cat-s3",
+      "slugUz": "a10-030-choziq-kataklar",
+      "slugRu": "a10-030-choziq-kataklar",
+      "titleUz": "«Cho‘ziq kataklar» panel qolipi",
+      "titleRu": "Форма для панелей «Вытянутые ячейки»",
+      "image": "/catalog/2026/A10-030-mold.jpg"
+    },
+    {
+      "id": "p-a10-031",
+      "sku": "SPS-A10-031",
+      "categoryId": "cat-s3",
+      "slugUz": "a10-031-tortburchak-toshlar",
+      "slugRu": "a10-031-tortburchak-toshlar",
+      "titleUz": "«To‘rtburchak toshlar» panel qolipi",
+      "titleRu": "Форма для панелей «Прямоугольные камни»",
+      "image": "/catalog/2026/A10-031-mold.jpg"
+    },
+    {
+      "id": "p-a10-032",
+      "sku": "SPS-A10-032",
+      "categoryId": "cat-s3",
+      "slugUz": "a10-032-naqshli-hoshiya",
+      "slugRu": "a10-032-naqshli-hoshiya",
+      "titleUz": "«Naqshli hoshiya» panel qolipi",
+      "titleRu": "Форма для панелей «Узорный бордюр»",
+      "image": "/catalog/2026/A10-032-mold.jpg"
+    },
+    {
+      "id": "p-a10-033",
+      "sku": "SPS-A10-033",
+      "categoryId": "cat-s3",
+      "slugUz": "a10-033-tosh-va-geometriya",
+      "slugRu": "a10-033-tosh-va-geometriya",
+      "titleUz": "«Tosh va geometriya» panel qolipi",
+      "titleRu": "Форма для панелей «Камень и геометрия»",
+      "image": "/catalog/2026/A10-033-mold.jpg"
+    },
+    {
+      "id": "p-a10-034",
+      "sku": "SPS-A10-034",
+      "categoryId": "cat-s3",
+      "slugUz": "a10-034-tutashgan-chiziqlar",
+      "slugRu": "a10-034-tutashgan-chiziqlar",
+      "titleUz": "«Tutashgan chiziqlar» panel qolipi",
+      "titleRu": "Форма для панелей «Соединённые линии»",
+      "image": "/catalog/2026/A10-034-mold.jpg"
+    },
+    {
+      "id": "p-a10-035",
+      "sku": "SPS-A10-035",
+      "categoryId": "cat-s3",
+      "slugUz": "a10-035-qirrali-geometriya",
+      "slugRu": "a10-035-qirrali-geometriya",
+      "titleUz": "«Qirrali geometriya» panel qolipi",
+      "titleRu": "Форма для панелей «Гранистая геометрия»",
+      "image": "/catalog/2026/A10-035-mold.jpg"
+    },
+    {
+      "id": "p-a10-036",
+      "sku": "SPS-A10-036",
+      "categoryId": "cat-s3",
+      "slugUz": "a10-036-oval-ritm",
+      "slugRu": "a10-036-oval-ritm",
+      "titleUz": "«Oval ritm» panel qolipi",
+      "titleRu": "Форма для панелей «Овальный ритм»",
+      "image": "/catalog/2026/A10-036-mold.jpg"
+    },
+    {
+      "id": "p-sps-new-072",
+      "sku": "SPS-NEW-072",
+      "categoryId": "cat-s3",
+      "slugUz": "gisht-t-4-li-qolipi-tosh-tolqini",
+      "slugRu": "forma-kirpich-t-4-ki-kamen-volna",
+      "titleUz": "G‘isht T 4’li qolipi (tosh to‘lqini)",
+      "titleRu": "Форма «Кирпич Т 4-ки» (каменная волна)",
+      "image": "/catalog/catalog-072.jpg"
+    },
+    {
+      "id": "p-sps-new-073",
+      "sku": "SPS-NEW-073",
+      "categoryId": "cat-s2",
+      "slugUz": "sakkizburchak-naqshli-qolipi-30x30",
+      "slugRu": "forma-vosmiugolnik-ornament-30x30",
+      "titleUz": "Sakkizburchak Naqshli qolipi 30×30",
+      "titleRu": "Форма «Восьмиугольник Орнамент» 30×30",
+      "image": "/catalog/catalog-073.jpg"
+    },
+    {
+      "id": "p-sps-new-074",
+      "sku": "SPS-NEW-074",
+      "categoryId": "cat-s1",
+      "slugUz": "tosh-yogoch-x-qolipi-30x30",
+      "slugRu": "forma-kamen-derevo-x-30x30",
+      "titleUz": "Tosh + Yog‘och X qolipi 30×30",
+      "titleRu": "Форма «Камень + Дерево Х» 30×30",
+      "image": "/catalog/catalog-074.jpg"
+    },
+    {
+      "id": "p-sps-new-075",
+      "sku": "SPS-NEW-075",
+      "categoryId": "cat-s3",
+      "slugUz": "gisht-t-4-li-qolipi-tolqinsimon",
+      "slugRu": "forma-kirpich-t-4-ki-volna",
+      "titleUz": "G‘isht T 4’li qolipi (to‘lqinsimon)",
+      "titleRu": "Форма «Кирпич Т 4-ки» (волнистая)",
+      "image": "/catalog/catalog-075.jpg"
+    },
+    {
+      "id": "p-sps-new-076",
+      "sku": "SPS-NEW-076",
+      "categoryId": "cat-s1",
+      "slugUz": "qosh-sakkizburchak-qolipi",
+      "slugRu": "forma-dvojnoj-vosmiugolnik",
+      "titleUz": "Qo‘sh Sakkizburchak qolipi",
+      "titleRu": "Форма «Двойной восьмиугольник»",
+      "image": "/catalog/catalog-076.jpg"
+    },
+    {
+      "id": "p-sps-new-077",
+      "sku": "SPS-NEW-077",
+      "categoryId": "cat-s2",
+      "slugUz": "geometrik-doiralar-qolipi-30x30",
+      "slugRu": "forma-geometriya-krugi-30x30",
+      "titleUz": "Geometrik Doiralar qolipi 30×30",
+      "titleRu": "Форма «Геометрия Круги» 30×30",
+      "image": "/catalog/catalog-077.jpg"
+    },
+    {
+      "id": "p-sps-new-078",
+      "sku": "SPS-NEW-078",
+      "categoryId": "cat-s2",
+      "slugUz": "diagonal-yulduz-qolipi-30x30",
+      "slugRu": "forma-diagonal-zvezda-30x30",
+      "titleUz": "Diagonal Yulduz qolipi 30×30",
+      "titleRu": "Форма «Диагональ Звезда» 30×30",
+      "image": "/catalog/catalog-078.jpg"
+    },
+    {
+      "id": "p-sps-new-079",
+      "sku": "SPS-NEW-079",
+      "categoryId": "cat-s1",
+      "slugUz": "romb-8-shakl-3-li-qolipi",
+      "slugRu": "forma-romb-8ka-trojnoj",
+      "titleUz": "Romb 8-shakl 3’li qolipi",
+      "titleRu": "Форма «Ромб 8-ка тройная»",
+      "image": "/catalog/catalog-079.jpg"
+    },
+    {
+      "id": "p-sps-new-080",
+      "sku": "SPS-NEW-080",
+      "categoryId": "cat-s2",
+      "slugUz": "marmar-2-li-qolipi-40x20",
+      "slugRu": "forma-mramor-dvoynaya-40x20",
+      "titleUz": "Marmar 2’li qolipi 40×20",
+      "titleRu": "Форма «Мрамор двойная» 40×20",
+      "image": "/catalog/catalog-080.jpg"
+    },
+    {
+      "id": "p-sps-new-081",
+      "sku": "SPS-NEW-081",
+      "categoryId": "cat-s1",
+      "slugUz": "choziq-sakkizburchak-qolipi",
+      "slugRu": "forma-vytyanutyj-vosmiugolnik",
+      "titleUz": "Cho‘ziq Sakkizburchak qolipi",
+      "titleRu": "Форма «Вытянутый восьмиугольник»",
+      "image": "/catalog/catalog-081.jpg"
+    },
+    {
+      "id": "p-sps-new-082",
+      "sku": "SPS-NEW-082",
+      "categoryId": "cat-s2",
+      "slugUz": "marmar-kvadrat-qolipi-30x30",
+      "slugRu": "forma-mramor-kvadrat-30x30",
+      "titleUz": "Marmar Kvadrat qolipi 30×30",
+      "titleRu": "Форма «Мрамор Квадрат» 30×30",
+      "image": "/catalog/catalog-082.jpg"
+    },
+    {
+      "id": "p-sps-new-083",
+      "sku": "SPS-NEW-083",
+      "categoryId": "cat-s1",
+      "slugUz": "strelka-oq-qolipi",
+      "slugRu": "forma-strelka",
+      "titleUz": "Strelka (O‘q) qolipi",
+      "titleRu": "Форма «Стрелка»",
+      "image": "/catalog/catalog-083.jpg"
+    },
+    {
+      "id": "p-sps-26-pnl-01",
+      "sku": "SPS-26-PNL-01",
+      "categoryId": "cat-s3",
+      "slugUz": "devor-paneli-qolipi-kamen-skala",
+      "slugRu": "forma-stenovoj-paneli-kamen-skala",
+      "titleUz": "Devor paneli qolipi «Kamen Skala»",
+      "titleRu": "Форма стеновой панели «Камень Скала»",
+      "image": "/catalog/catalog-084.jpg"
+    },
+    {
+      "id": "p-sps-26-pnl-02",
+      "sku": "SPS-26-PNL-02",
+      "categoryId": "cat-s3",
+      "slugUz": "devor-paneli-qolipi-tosh-gisht",
+      "slugRu": "forma-stenovoj-paneli-kamen-kirpich",
+      "titleUz": "Devor paneli qolipi «Tosh + G‘isht»",
+      "titleRu": "Форма стеновой панели «Камень + Кирпич»",
+      "image": "/catalog/catalog-085.jpg"
+    },
+    {
+      "id": "p-sps-26-pnl-03",
+      "sku": "SPS-26-PNL-03",
+      "categoryId": "cat-s3",
+      "slugUz": "devor-paneli-qolipi-tosh-terim",
+      "slugRu": "forma-stenovoj-paneli-kamennaya-kladka",
+      "titleUz": "Devor paneli qolipi «Tosh terim»",
+      "titleRu": "Форма стеновой панели «Каменная кладка»",
+      "image": "/catalog/catalog-086.jpg"
+    },
+    {
+      "id": "p-sps-26-pnl-04",
+      "sku": "SPS-26-PNL-04",
+      "categoryId": "cat-s3",
+      "slugUz": "devor-paneli-qolipi-kirpich-klassik",
+      "slugRu": "forma-stenovoj-paneli-kirpich-klassik",
+      "titleUz": "Devor paneli qolipi «Kirpich klassik»",
+      "titleRu": "Форма стеновой панели «Кирпич классик»",
+      "image": "/catalog/catalog-087.jpg"
+    },
+    {
+      "id": "p-sps-26-pnl-05",
+      "sku": "SPS-26-PNL-05",
+      "categoryId": "cat-s3",
+      "slugUz": "devor-paneli-qolipi-kirpich-ramkali",
+      "slugRu": "forma-stenovoj-paneli-kirpich-v-ramke",
+      "titleUz": "Devor paneli qolipi «Kirpich ramkali»",
+      "titleRu": "Форма стеновой панели «Кирпич в рамке»",
+      "image": "/catalog/catalog-088.jpg"
+    },
+    {
+      "id": "p-sps-26-pnl-06",
+      "sku": "SPS-26-PNL-06",
+      "categoryId": "cat-s3",
+      "slugUz": "devor-paneli-qolipi-kirpich-aralash",
+      "slugRu": "forma-stenovoj-paneli-kirpich-miks",
+      "titleUz": "Devor paneli qolipi «Kirpich aralash»",
+      "titleRu": "Форма стеновой панели «Кирпич микс»",
+      "image": "/catalog/catalog-089.jpg"
+    },
+    {
+      "id": "p-sps-26-pnl-07",
+      "sku": "SPS-26-PNL-07",
+      "categoryId": "cat-s3",
+      "slugUz": "devor-paneli-qolipi-kirpich-kamen",
+      "slugRu": "forma-stenovoj-paneli-kirpich-kamen",
+      "titleUz": "Devor paneli qolipi «Kirpich + Kamen»",
+      "titleRu": "Форма стеновой панели «Кирпич + Камень»",
+      "image": "/catalog/catalog-090.jpg"
+    },
+    {
+      "id": "p-sps-26-pnl-08",
+      "sku": "SPS-26-PNL-08",
+      "categoryId": "cat-s3",
+      "slugUz": "devor-paneli-qolipi-rombi-3d",
+      "slugRu": "forma-stenovoj-paneli-romby-3d",
+      "titleUz": "Devor paneli qolipi «Rombi 3D»",
+      "titleRu": "Форма стеновой панели «Ромбы 3D»",
+      "image": "/catalog/catalog-091.jpg"
+    },
+    {
+      "id": "p-sps-26-pnl-09",
+      "sku": "SPS-26-PNL-09",
+      "categoryId": "cat-s3",
+      "slugUz": "devor-paneli-qolipi-rombi-3d-keng",
+      "slugRu": "forma-stenovoj-paneli-romby-3d-shirokie",
+      "titleUz": "Devor paneli qolipi «Rombi 3D keng»",
+      "titleRu": "Форма стеновой панели «Ромбы 3D широкие»",
+      "image": "/catalog/catalog-092.jpg"
+    },
+    {
+      "id": "p-sps-26-pnl-10",
+      "sku": "SPS-26-PNL-10",
+      "categoryId": "cat-s3",
+      "slugUz": "devor-paneli-qolipi-uzor",
+      "slugRu": "forma-stenovoj-paneli-uzor",
+      "titleUz": "Devor paneli qolipi «Uzor» (naqshli)",
+      "titleRu": "Форма стеновой панели «Узор»",
+      "image": "/catalog/catalog-093.jpg"
+    },
+    {
+      "id": "p-sps-26-pnl-11",
+      "sku": "SPS-26-PNL-11",
+      "categoryId": "cat-s3",
+      "slugUz": "devor-paneli-qolipi-uzor-geometrik",
+      "slugRu": "forma-stenovoj-paneli-uzor-geometricheskij",
+      "titleUz": "Devor paneli qolipi «Uzor geometrik»",
+      "titleRu": "Форма стеновой панели «Узор геометрический»",
+      "image": "/catalog/catalog-094.jpg"
+    },
+    {
+      "id": "p-sps-26-pnl-12",
+      "sku": "SPS-26-PNL-12",
+      "categoryId": "cat-s3",
+      "slugUz": "devor-paneli-qolipi-uzor-medalyon",
+      "slugRu": "forma-stenovoj-paneli-uzor-medalon",
+      "titleUz": "Devor paneli qolipi «Uzor medalyon»",
+      "titleRu": "Форма стеновой панели «Узор медальон»",
+      "image": "/catalog/catalog-095.jpg"
+    },
+    {
+      "id": "p-sps-26-pnl-13",
+      "sku": "SPS-26-PNL-13",
+      "categoryId": "cat-s3",
+      "slugUz": "devor-paneli-qolipi-uzor-gilam",
+      "slugRu": "forma-stenovoj-paneli-uzor-kovyor",
+      "titleUz": "Devor paneli qolipi «Uzor gilam»",
+      "titleRu": "Форма стеновой панели «Узор ковёр»",
+      "image": "/catalog/catalog-096.jpg"
+    },
+    {
+      "id": "p-sps-26-pnl-14",
+      "sku": "SPS-26-PNL-14",
+      "categoryId": "cat-s3",
+      "slugUz": "devor-paneli-qolipi-uzor-tolqin",
+      "slugRu": "forma-stenovoj-paneli-uzor-volna",
+      "titleUz": "Devor paneli qolipi «Uzor to‘lqin»",
+      "titleRu": "Форма стеновой панели «Узор волна»",
+      "image": "/catalog/catalog-097.jpg"
+    },
+    {
+      "id": "p-sps-26-fsd-01",
+      "sku": "SPS-26-FSD-01",
+      "categoryId": "cat-s3",
+      "slugUz": "karniz-qolipi-qosh-chiziqli",
+      "slugRu": "forma-karniza-dvojnoj-profil",
+      "titleUz": "Karniz qolipi — qo‘sh chiziqli profil",
+      "titleRu": "Форма карниза — двойной профиль",
+      "image": "/catalog/catalog-098.jpg"
+    },
+    {
+      "id": "p-sps-26-fsd-02",
+      "sku": "SPS-26-FSD-02",
+      "categoryId": "cat-s3",
+      "slugUz": "karniz-qolipi-pogonali",
+      "slugRu": "forma-karniza-stupenchatyj",
+      "titleUz": "Karniz qolipi — pog‘onali profil",
+      "titleRu": "Форма карниза — ступенчатый профиль",
+      "image": "/catalog/catalog-099.jpg"
+    },
+    {
+      "id": "p-sps-26-fsd-03",
+      "sku": "SPS-26-FSD-03",
+      "categoryId": "cat-s3",
+      "slugUz": "karniz-qolipi-yarim-dumaloq",
+      "slugRu": "forma-karniza-polukruglyj",
+      "titleUz": "Karniz qolipi — yarim dumaloq profil",
+      "titleRu": "Форма карниза — полукруглый профиль",
+      "image": "/catalog/catalog-100.jpg"
+    },
+    {
+      "id": "p-sps-26-fsd-04",
+      "sku": "SPS-26-FSD-04",
+      "categoryId": "cat-s3",
+      "slugUz": "pilyastra-qolipi-pogonali",
+      "slugRu": "forma-pilyastry-stupenchataya",
+      "titleUz": "Pilyastra qolipi — pog‘onali",
+      "titleRu": "Форма пилястры — ступенчатая",
+      "image": "/catalog/catalog-101.jpg"
+    },
+    {
+      "id": "p-sps-26-fsd-05",
+      "sku": "SPS-26-FSD-05",
+      "categoryId": "cat-s3",
+      "slugUz": "pilyastra-qolipi-ustunli",
+      "slugRu": "forma-pilyastry-kolonnaya",
+      "titleUz": "Pilyastra qolipi — ustunli profil",
+      "titleRu": "Форма пилястры — колонный профиль",
+      "image": "/catalog/catalog-102.jpg"
+    },
+    {
+      "id": "p-sps-26-fsd-06",
+      "sku": "SPS-26-FSD-06",
+      "categoryId": "cat-s3",
+      "slugUz": "ustun-qopqogi-kapitel-baza-qolipi",
+      "slugRu": "forma-kapiteli-bazy-kolonny",
+      "titleUz": "Ustun qopqog‘i (kapitel-baza) qolipi",
+      "titleRu": "Форма капители-базы колонны",
+      "image": "/catalog/catalog-103.jpg"
+    },
+    {
+      "id": "p-sps-26-fsd-07",
+      "sku": "SPS-26-FSD-07",
+      "categoryId": "cat-s3",
+      "slugUz": "tsokol-paneli-qolipi-ramkali",
+      "slugRu": "forma-cokolnoj-paneli-ramochnaya",
+      "titleUz": "Tsokol paneli qolipi — ramkali (4 katakli)",
+      "titleRu": "Форма цокольной панели — рамочная (4 ячейки)",
+      "image": "/catalog/catalog-104.jpg"
+    },
+    {
+      "id": "p-sps-26-fsd-08",
+      "sku": "SPS-26-FSD-08",
+      "categoryId": "cat-s3",
+      "slugUz": "dekor-panel-qolipi-klassik-ramka",
+      "slugRu": "forma-dekor-paneli-klassicheskaya-ramka",
+      "titleUz": "Dekor panel qolipi — klassik ramka",
+      "titleRu": "Форма декор-панели — классическая рамка",
+      "image": "/catalog/catalog-105.jpg"
+    },
+    {
+      "id": "p-sps-26-fsd-09",
+      "sku": "SPS-26-FSD-09",
+      "categoryId": "cat-s3",
+      "slugUz": "dekor-panel-qolipi-profilli-ramka",
+      "slugRu": "forma-dekor-paneli-profilnaya-ramka",
+      "titleUz": "Dekor panel qolipi — profilli ramka",
+      "titleRu": "Форма декор-панели — профильная рамка",
+      "image": "/catalog/catalog-106.jpg"
+    },
+    {
+      "id": "p-sps-26-fsd-10",
+      "sku": "SPS-26-FSD-10",
+      "categoryId": "cat-s3",
+      "slugUz": "dekor-panel-qolipi-ikki-bolmali",
+      "slugRu": "forma-dekor-paneli-dvuhsekcionnaya",
+      "titleUz": "Dekor panel qolipi — ikki bo‘lmali (karnizli)",
+      "titleRu": "Форма декор-панели — двухсекционная с карнизом",
+      "image": "/catalog/catalog-107.jpg"
+    },
+    {
+      "id": "p-sps-26-fsd-11",
+      "sku": "SPS-26-FSD-11",
+      "categoryId": "cat-s3",
+      "slugUz": "jalyuzi-dekor-panel-qolipi-6",
+      "slugRu": "forma-dekor-paneli-zhalyuzi-6",
+      "titleUz": "Jalyuzi dekor panel qolipi (6 qanotli)",
+      "titleRu": "Форма декор-панели «Жалюзи» (6 ламелей)",
+      "image": "/catalog/catalog-108.jpg"
+    },
+    {
+      "id": "p-sps-26-fsd-12",
+      "sku": "SPS-26-FSD-12",
+      "categoryId": "cat-s3",
+      "slugUz": "jalyuzi-dekor-panel-qolipi-7",
+      "slugRu": "forma-dekor-paneli-zhalyuzi-7",
+      "titleUz": "Jalyuzi dekor panel qolipi (7 qanotli)",
+      "titleRu": "Форма декор-панели «Жалюзи» (7 ламелей)",
+      "image": "/catalog/catalog-109.jpg"
+    },
+    {
+      "id": "p-sps-26-fsd-13",
+      "sku": "SPS-26-FSD-13",
+      "categoryId": "cat-s3",
+      "slugUz": "deraza-tokchasi-podokonnik-qolipi",
+      "slugRu": "forma-podokonnika",
+      "titleUz": "Deraza tokchasi (podokonnik) qolipi",
+      "titleRu": "Форма подоконника",
+      "image": "/catalog/catalog-110.jpg"
+    },
+    {
+      "id": "p-sps-26-fsd-14",
+      "sku": "SPS-26-FSD-14",
+      "categoryId": "cat-s3",
+      "slugUz": "qovurgali-dekor-panel-qolipi",
+      "slugRu": "forma-dekor-paneli-riflenaya",
+      "titleUz": "Qovurg‘ali dekor panel qolipi (5 qovurg‘a)",
+      "titleRu": "Форма декор-панели рифлёная (5 рёбер)",
+      "image": "/catalog/catalog-111.jpg"
+    },
+    {
+      "id": "p-sps-26-tp-01",
+      "sku": "SPS-26-TP-01",
+      "categoryId": "cat-s3",
+      "slugUz": "termopanel-qolipi-gladkiy",
+      "slugRu": "forma-termopaneli-gladkij",
+      "titleUz": "Termopanel qolipi «Gladkiy» (tekis)",
+      "titleRu": "Форма термопанели «Гладкий»",
+      "image": "/catalog/catalog-112.jpg"
+    },
+    {
+      "id": "p-sps-26-tp-02",
+      "sku": "SPS-26-TP-02",
+      "categoryId": "cat-s3",
+      "slugUz": "termopanel-qolipi-gladkiy-yumaloq",
+      "slugRu": "forma-termopaneli-gladkij-skruglennyj",
+      "titleUz": "Termopanel qolipi «Gladkiy» — yumaloq burchak",
+      "titleRu": "Форма термопанели «Гладкий» — скруглённые углы",
+      "image": "/catalog/catalog-113.jpg"
+    },
+    {
+      "id": "p-sps-26-brd-01",
+      "sku": "SPS-26-BRD-01",
+      "categoryId": "cat-s1",
+      "slugUz": "bordyur-qolipi-tekis",
+      "slugRu": "forma-bordyura-gladkij",
+      "titleUz": "Bordyur qolipi — tekis",
+      "titleRu": "Форма бордюра — гладкий",
+      "image": "/catalog/catalog-114.jpg"
+    },
+    {
+      "id": "p-sps-26-brs-01",
+      "sku": "SPS-26-BRS-01",
+      "categoryId": "cat-s1",
+      "slugUz": "bruschatka-qolipi-farovon",
+      "slugRu": "forma-bruschatki-farovon",
+      "titleUz": "Bruschatka qolipi «Farovon»",
+      "titleRu": "Форма брусчатки «Фаровон»",
+      "image": "/catalog/catalog-115.jpg"
+    },
+    {
+      "id": "p-sps-26-brs-02",
+      "sku": "SPS-26-BRS-02",
+      "categoryId": "cat-s1",
+      "slugUz": "bruschatka-qolipi-tort-yaproqli-gul",
+      "slugRu": "forma-bruschatki-chetyrehlistnik",
+      "titleUz": "Bruschatka qolipi «To‘rt yaproqli gul»",
+      "titleRu": "Форма брусчатки «Четырёхлистник»",
+      "image": "/catalog/catalog-116.jpg"
+    },
+    {
+      "id": "p-sps-26-brs-03",
+      "sku": "SPS-26-BRS-03",
+      "categoryId": "cat-s2",
+      "slugUz": "plitka-qolipi-kaliforniya",
+      "slugRu": "forma-plitki-kaliforniya",
+      "titleUz": "Plitka qolipi «Kaliforniya» (9 bo‘lmali)",
+      "titleRu": "Форма плитки «Калифорния» (9 ячеек)",
+      "image": "/catalog/catalog-117.jpg"
+    },
+    {
+      "id": "p-sps-26-brs-04",
+      "sku": "SPS-26-BRS-04",
+      "categoryId": "cat-s2",
+      "slugUz": "plitka-qolipi-mozayka-tosh",
+      "slugRu": "forma-plitki-mozaika-kamen",
+      "titleUz": "Plitka qolipi «Mozayka tosh» (12 bo‘lmali)",
+      "titleRu": "Форма плитки «Мозаика камень» (12 ячеек)",
+      "image": "/catalog/catalog-118.jpg"
+    },
+    {
+      "id": "p-sps-26-brs-05",
+      "sku": "SPS-26-BRS-05",
+      "categoryId": "cat-s2",
+      "slugUz": "plitka-qolipi-dagal-tosh-30x30",
+      "slugRu": "forma-plitki-dikij-kamen-30x30",
+      "titleUz": "Plitka qolipi «Dag‘al tosh» 30×30",
+      "titleRu": "Форма плитки «Дикий камень» 30×30",
+      "image": "/catalog/catalog-119.jpg"
+    },
+    {
+      "id": "p-sps-26-brs-06",
+      "sku": "SPS-26-BRS-06",
+      "categoryId": "cat-s2",
+      "slugUz": "plitka-qolipi-zanjir-30x30",
+      "slugRu": "forma-plitki-zanzhir-30x30",
+      "titleUz": "Plitka qolipi «Zanjir» 30×30",
+      "titleRu": "Форма плитки «Занжир» 30×30",
+      "image": "/catalog/catalog-120.jpg"
+    },
+    {
+      "id": "p-sps-26-brs-07",
+      "sku": "SPS-26-BRS-07",
+      "categoryId": "cat-s2",
+      "slugUz": "plitka-qolipi-sharq-naqshi-30x30",
+      "slugRu": "forma-plitki-vostochnyj-ornament-30x30",
+      "titleUz": "Plitka qolipi «Sharq naqshi» 30×30",
+      "titleRu": "Форма плитки «Восточный орнамент» 30×30",
+      "image": "/catalog/catalog-121.jpg"
+    },
+    {
+      "id": "p-sps-26-brs-08",
+      "sku": "SPS-26-BRS-08",
+      "categoryId": "cat-s2",
+      "slugUz": "plitka-qolipi-setka",
+      "slugRu": "forma-plitki-setka",
+      "titleUz": "Plitka qolipi «Setka» (romb to‘r)",
+      "titleRu": "Форма плитки «Сетка» (ромбовидная)",
+      "image": "/catalog/catalog-122.jpg"
+    },
+    {
+      "id": "p-sps-26-brs-09",
+      "sku": "SPS-26-BRS-09",
+      "categoryId": "cat-s2",
+      "slugUz": "plitka-qolipi-yogoch-taxta",
+      "slugRu": "forma-plitki-derevyannaya-doska",
+      "titleUz": "Plitka qolipi «Yog‘och taxta» (3 bo‘lmali)",
+      "titleRu": "Форма плитки «Деревянная доска» (3 ячейки)",
+      "image": "/catalog/catalog-123.jpg"
+    },
+    {
+      "id": "p-sps-26-brs-10",
+      "sku": "SPS-26-BRS-10",
+      "categoryId": "cat-s1",
+      "slugUz": "bruschatka-qolipi-gisht-3-li",
+      "slugRu": "forma-bruschatki-kirpich-3-ki",
+      "titleUz": "Bruschatka qolipi «G‘isht 3’li»",
+      "titleRu": "Форма брусчатки «Кирпич 3-ки»",
+      "image": "/catalog/catalog-124.jpg"
+    },
+    {
+      "id": "p-sps-26-brs-11",
+      "sku": "SPS-26-BRS-11",
+      "categoryId": "cat-s1",
+      "slugUz": "fasad-toshi-qolipi-tosh-2-li",
+      "slugRu": "forma-fasadnogo-kamnya-2-ki",
+      "titleUz": "Fasad toshi qolipi «Tosh 2’li»",
+      "titleRu": "Форма фасадного камня «Камень 2-ки»",
+      "image": "/catalog/catalog-125.jpg"
+    },
+    {
+      "id": "p-sps-26-brs-12",
+      "sku": "SPS-26-BRS-12",
+      "categoryId": "cat-s1",
+      "slugUz": "fasad-toshi-qolipi-marmar-terim",
+      "slugRu": "forma-fasadnogo-kamnya-mramor",
+      "titleUz": "Fasad toshi qolipi «Marmar terim» (7 bo‘lmali)",
+      "titleRu": "Форма фасадного камня «Мрамор» (7 ячеек)",
+      "image": "/catalog/catalog-126.jpg"
+    },
+    {
+      "id": "p-sps-26-brs-13",
+      "sku": "SPS-26-BRS-13",
+      "categoryId": "cat-s1",
+      "slugUz": "fasad-gishti-qolipi-kirpich-terim",
+      "slugRu": "forma-fasadnogo-kirpicha-kladka",
+      "titleUz": "Fasad g‘ishti qolipi «Kirpich terim» (6 bo‘lmali)",
+      "titleRu": "Форма фасадного кирпича «Кладка» (6 ячеек)",
+      "image": "/catalog/catalog-127.jpg"
+    },
+    {
+      "id": "p-sps-26-brs-14",
+      "sku": "SPS-26-BRS-14",
+      "categoryId": "cat-s1",
+      "slugUz": "bruschatka-qolipi-sakkiz-qirrali-naqsh",
+      "slugRu": "forma-bruschatki-vosmigrannik-ornament",
+      "titleUz": "Bruschatka qolipi «Sakkiz qirrali naqsh»",
+      "titleRu": "Форма брусчатки «Восьмигранник с орнаментом»",
+      "image": "/catalog/catalog-128.jpg"
+    },
+    {
+      "id": "p-sps-26-brs-15",
+      "sku": "SPS-26-BRS-15",
+      "categoryId": "cat-s1",
+      "slugUz": "bruschatka-qolipi-sakkiz-qirra-medalyon",
+      "slugRu": "forma-bruschatki-vosmigrannik-medalon",
+      "titleUz": "Bruschatka qolipi «Sakkiz qirra — medalyon»",
+      "titleRu": "Форма брусчатки «Восьмигранник медальон»",
+      "image": "/catalog/catalog-129.jpg"
+    },
+    {
+      "id": "p-sps-26-brs-16",
+      "sku": "SPS-26-BRS-16",
+      "categoryId": "cat-s1",
+      "slugUz": "bruschatka-qolipi-tekis-sakkiz-qirra",
+      "slugRu": "forma-bruschatki-vosmigrannik-gladkij",
+      "titleUz": "Bruschatka qolipi «Tekis sakkiz qirra»",
+      "titleRu": "Форма брусчатки «Восьмигранник гладкий»",
+      "image": "/catalog/catalog-130.jpg"
+    },
+    {
+      "id": "p-sps-26-brs-17",
+      "sku": "SPS-26-BRS-17",
+      "categoryId": "cat-s1",
+      "slugUz": "bruschatka-qolipi-sakkiz-qirra-donador",
+      "slugRu": "forma-bruschatki-vosmigrannik-zernistyj",
+      "titleUz": "Bruschatka qolipi «Sakkiz qirra — donador tosh»",
+      "titleRu": "Форма брусчатки «Восьмигранник зернистый камень»",
+      "image": "/catalog/catalog-131.jpg"
+    },
+    {
+      "id": "p-sps-26-brs-18",
+      "sku": "SPS-26-BRS-18",
+      "categoryId": "cat-s1",
+      "slugUz": "bruschatka-qolipi-romb-naqsh",
+      "slugRu": "forma-bruschatki-romb-ornament",
+      "titleUz": "Bruschatka qolipi «Romb naqsh»",
+      "titleRu": "Форма брусчатки «Ромб с орнаментом»",
+      "image": "/catalog/catalog-132.jpg"
+    },
+    {
+      "id": "p-sps-26-brs-19",
+      "sku": "SPS-26-BRS-19",
+      "categoryId": "cat-s1",
+      "slugUz": "bruschatka-qolipi-romb-tosh",
+      "slugRu": "forma-bruschatki-romb-kamen",
+      "titleUz": "Bruschatka qolipi «Romb — tosh tekstura»",
+      "titleRu": "Форма брусчатки «Ромб камень»",
+      "image": "/catalog/catalog-133.jpg"
+    }
+  ]
+}

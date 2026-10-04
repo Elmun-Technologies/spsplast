@@ -6,7 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import {
     Search,
-    ShoppingBag,
+    Send,
     Menu,
     X,
     ChevronDown,
@@ -19,12 +19,53 @@ import {
     Heart,
     ArrowRightLeft,
 } from 'lucide-react';
-import { useCartStore } from '@/lib/store/cartStore';
 import { useWishlistStore } from '@/lib/store/wishlistStore';
 import { useCompareStore } from '@/lib/store/compareStore';
 import { Locale, getDictionary } from '@/lib/i18n';
+import { LeadButton } from '@/components/lead/LeadButton';
 import { trackEvent } from '@/lib/analytics';
 import { COMPANY_CONTACTS } from '@/lib/constants/contacts';
+
+/** `public/search-index.json` yozuvi (generator yasaydi). */
+interface SearchIndexProduct {
+    id: string;
+    sku: string;
+    categoryId: string;
+    slugUz: string;
+    slugRu: string;
+    titleUz: string;
+    titleRu: string;
+    image: string | null;
+}
+
+interface SearchIndexCategory {
+    id: string;
+    slugUz: string;
+    slugRu: string;
+    nameUz: string;
+    nameRu: string;
+}
+
+interface SearchIndex {
+    categories: SearchIndexCategory[];
+    products: SearchIndexProduct[];
+}
+
+/**
+ * Qidiruv indeksini bir marta, faqat kerak bo'lganda yuklaymiz: 192 mahsulot
+ * ro'yxatini har bir sahifaning HTML'iga solib qo'yish (≈40 KB) shart emas.
+ * Fayl statik — CDN'dan bir marta olinadi va brauzer keshlaydi.
+ */
+let searchIndexPromise: Promise<SearchIndex> | null = null;
+
+function loadSearchIndex(): Promise<SearchIndex> {
+    if (!searchIndexPromise) {
+        searchIndexPromise = fetch('/search-index.json')
+            .then((res) => (res.ok ? res.json() : { categories: [], products: [] }))
+            .catch(() => ({ categories: [], products: [] }));
+    }
+    return searchIndexPromise;
+}
 
 export interface CategoryTreeItem {
     id: string;
@@ -59,8 +100,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
     const [showSuggestions, setShowSuggestions] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(-1);
 
-    const cartTotalItems = useCartStore((s) => s.getTotalItems());
-    const toggleCart = useCartStore((s) => s.toggleCart);
     const wishlistCount = useWishlistStore((s) => s.getCount());
     const compareCount = useCompareStore((s) => s.getCount());
 
@@ -94,46 +133,63 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
         };
     }, []);
 
-    // Handle Search Input Change for Live Suggestions
+    // Jonli qidiruv takliflari — statik indeks ustida, brauzerda.
+    //
+    // Ilgari bu joy `/api/search` ga so'rov yuborardi; backendsiz arxitekturada
+    // bunday marshrut yo'q, shuning uchun indeks bir marta yuklanadi va qidiruv
+    // shu yerda bajariladi (server chaqiruvi yo'q, natija bir zumda).
     useEffect(() => {
-        if (!searchQuery.trim() || searchQuery.trim().length < 2) {
+        const query = searchQuery.trim().toLowerCase();
+        if (query.length < 2) {
             setSuggestions({ products: [], categories: [] });
             setIsSearching(false);
             return;
         }
 
-        const controller = new AbortController();
+        let cancelled = false;
+        setIsSearching(true);
 
         const timer = setTimeout(async () => {
-            setIsSearching(true);
-            try {
-                const categoryParam = selectedCategorySlug ? `&category=${encodeURIComponent(selectedCategorySlug)}` : '';
-                const res = await fetch(`/api/search?q=${encodeURIComponent(searchQuery.trim())}${categoryParam}`, {
-                    signal: controller.signal,
-                });
-                if (res.ok) {
-                    const data = await res.json();
-                    setSuggestions({
-                        products: data.products || [],
-                        categories: data.categories || [],
-                    });
-                    setShowSuggestions(true);
-                }
-            } catch (err) {
-                // Aborted requests are expected (typing fast / navigation) — stay silent
-                if ((err as Error)?.name !== 'AbortError') {
-                    console.error('Search suggestion error:', err);
-                }
-            } finally {
-                setIsSearching(false);
-            }
-        }, 250);
+            const index = await loadSearchIndex();
+            if (cancelled) return;
+
+            const matches = (value: string) => value.toLowerCase().includes(query);
+            const title = (p: SearchIndexProduct) => (lang === 'ru' ? p.titleRu : p.titleUz);
+            const slug = (p: SearchIndexProduct) => (lang === 'ru' ? p.slugRu : p.slugUz);
+
+            const products = index.products
+                .filter((p) => matches(title(p)) || matches(p.sku))
+                .filter((p) => !selectedCategorySlug || p.categoryId === selectedCategorySlug)
+                .slice(0, 6)
+                .map((p) => ({
+                    id: p.id,
+                    sku: p.sku,
+                    slug: slug(p),
+                    titleUz: p.titleUz,
+                    titleRu: p.titleRu,
+                    images: p.image ? [{ url: p.image }] : [],
+                    price: 0,
+                }));
+
+            const cats = index.categories
+                .map((c) => ({
+                    id: c.id,
+                    slug: lang === 'ru' ? c.slugRu : c.slugUz,
+                    name: lang === 'ru' ? c.nameRu : c.nameUz,
+                }))
+                .filter((c) => matches(c.name))
+                .slice(0, 3);
+
+            setSuggestions({ products, categories: cats });
+            setShowSuggestions(true);
+            setIsSearching(false);
+        }, 200);
 
         return () => {
+            cancelled = true;
             clearTimeout(timer);
-            controller.abort();
         };
-    }, [searchQuery, selectedCategorySlug]);
+    }, [searchQuery, selectedCategorySlug, lang]);
 
     const handleSearchSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -152,7 +208,34 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
     };
 
     const currentOtherLang = lang === 'uz' ? 'ru' : 'uz';
-    const switchLangUrl = pathname.replace(`/${lang}`, `/${currentOtherLang}`);
+
+    /**
+     * Til almashtirish manzili.
+     *
+     * Mahsulot, kategoriya va maqola slug'lari tildan tilga farq qiladi
+     * (`/uz/product/deraza-tokchasi-podokonnik-qolipi` ↔
+     * `/ru/product/forma-podokonnika`), shuning uchun oddiy prefiks
+     * almashtirish 404 ga olib kelardi. Har bir sahifaning `generateMetadata`
+     * si to'g'ri alternatlarni `<link rel="alternate" hreflang="...">` sifatida
+     * allaqachon yozadi — shu havoladan foydalanamiz; sahifada alternat
+     * bo'lmasa (masalan, statik sahifa) prefiks almashtirish yetarli.
+     */
+    const [alternatePath, setAlternatePath] = useState<string | null>(null);
+
+    useEffect(() => {
+        setAlternatePath(null);
+        const link = document.querySelector<HTMLLinkElement>(
+            `link[rel="alternate"][hreflang="${currentOtherLang}"]`
+        );
+        if (!link) return;
+        try {
+            setAlternatePath(new URL(link.href, window.location.origin).pathname);
+        } catch {
+            setAlternatePath(null);
+        }
+    }, [pathname, currentOtherLang]);
+
+    const switchLangUrl = alternatePath || pathname.replace(`/${lang}`, `/${currentOtherLang}`);
 
     /**
      * Tilni qo'lda almashtirganda tanlovni cookie'ga yozamiz: keyin foydalanuvchi
@@ -199,7 +282,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                             <a
                                 href={`tel:${COMPANY_CONTACTS.phoneRaw}`}
                                 onClick={() => trackEvent('phone_click', { location: 'topbar' })}
-                                aria-label="Call SPS"
+                                aria-label={lang === 'ru' ? 'Позвонить в SPS' : 'SPS ga qo‘ng‘iroq'}
                                 className="hidden sm:flex items-center gap-1.5 text-ink-soft hover:text-brand-red transition-colors font-semibold"
                             >
                                 <Phone className="w-3.5 h-3.5" />
@@ -254,7 +337,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                         <div className="relative w-full flex items-center bg-surface-soft border border-transparent rounded-full overflow-hidden focus-within:bg-surface focus-within:border-line focus-within:shadow-card transition-all">
                             {/* Category Filter Selector inside Search */}
                             <div className="relative shrink-0 hidden lg:block">
-                                <label htmlFor="cat-filter" className="sr-only">Category</label>
+                                <label htmlFor="cat-filter" className="sr-only">{lang === 'ru' ? 'Категория' : 'Kategoriya'}</label>
                                 <select
                                     id="cat-filter"
                                     value={selectedCategorySlug}
@@ -293,7 +376,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                                             if (sel) {
                                                 e.preventDefault();
                                                 if (sel.type === 'cat') {
-                                                    router.push(`/${lang}/catalog?category=${sel.data.slug}`);
+                                                    router.push(`/${lang}/catalog/${sel.data.slug}`);
                                                 } else {
                                                     router.push(`/${lang}/product/${sel.data.slug}`);
                                                 }
@@ -312,7 +395,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                                         type="button"
                                         onClick={() => setSearchQuery('')}
                                         className="absolute right-2 p-1 text-ink-sub hover:text-ink-soft rounded-full hover:bg-surface-soft"
-                                        aria-label="Clear search"
+                                        aria-label={lang === 'ru' ? 'Очистить поиск' : 'Qidiruvni tozalash'}
                                     >
                                         <X className="w-4 h-4" />
                                     </button>
@@ -360,7 +443,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                                                 {suggestions.categories.map((c, idx) => (
                                                     <Link
                                                         key={c.id}
-                                                        href={`/${lang}/catalog?category=${c.slug}`}
+                                                        href={`/${lang}/catalog/${c.slug}`}
                                                         onClick={() => setShowSuggestions(false)}
                                                         className={`flex items-center gap-2 p-2 rounded-[16px] hover:bg-surface-soft text-ink font-semibold text-sm ${selectedIndex === idx ? 'bg-surface-soft' : ''}`}
                                                     >
@@ -398,8 +481,10 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                                                                 <div className="text-sm font-semibold text-ink truncate">{title}</div>
                                                                 <div className="text-[11px] text-ink-sub">SKU: {p.sku}</div>
                                                             </div>
-                                                            <div className="text-sm font-bold text-brand-red shrink-0">
-                                                                {p.price?.toLocaleString()} so'm
+                                                            <div className="text-[12px] font-bold text-brand-red shrink-0">
+                                                                {p.price > 0
+                                                                    ? `${p.price.toLocaleString()} so'm`
+                                                                    : (lang === 'ru' ? 'Цена по заявке' : 'Narx so‘rash')}
                                                             </div>
                                                         </Link>
                                                     );
@@ -422,7 +507,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                         <Link
                             href={`/${lang}/compare`}
                             className="relative hidden sm:flex items-center justify-center w-11 h-11 rounded-full bg-surface-soft text-ink-soft hover:bg-[#E9EDF3] hover:text-ink transition-colors"
-                            aria-label="Compare"
+                            aria-label={lang === 'ru' ? 'Сравнение' : 'Taqqoslash'}
                         >
                             <ArrowRightLeft className="w-[18px] h-[18px]" />
                             {compareCount > 0 && (
@@ -435,7 +520,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                         <Link
                             href={`/${lang}/wishlist`}
                             className="relative flex items-center justify-center w-11 h-11 rounded-full bg-surface-soft text-ink-soft hover:bg-[#E9EDF3] hover:text-brand-red transition-colors"
-                            aria-label="Wishlist"
+                            aria-label={lang === 'ru' ? 'Избранное' : 'Sevimlilar'}
                         >
                             <Heart className={`w-[18px] h-[18px] ${wishlistCount > 0 ? 'fill-brand-red text-brand-red' : ''}`} />
                             {wishlistCount > 0 && (
@@ -445,26 +530,19 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                             )}
                         </Link>
 
-                        <button
-                            onClick={toggleCart}
+                        <LeadButton
+                            lang={lang}
+                            ariaLabel={lang === 'ru' ? 'Оставить заявку' : 'Zayafka berish'}
                             className="flex items-center gap-2 px-4 sm:px-5 h-11 bg-brand-red hover:bg-brand-red-dark text-white rounded-full transition-colors font-semibold text-sm shadow-[0_8px_20px_-10px_rgba(230,28,36,0.8)]"
-                            aria-label={dict.cart.title}
                         >
-                            <div className="relative">
-                                <ShoppingBag className="w-[18px] h-[18px]" />
-                                {cartTotalItems > 0 && (
-                                    <span className="absolute -top-2.5 -right-2.5 bg-surface text-brand-red text-[11px] font-bold min-w-[18px] h-[18px] rounded-full flex items-center justify-center px-0.5 border-2 border-white">
-                                        {cartTotalItems}
-                                    </span>
-                                )}
-                            </div>
-                            <span className="hidden sm:inline">{lang === 'ru' ? 'Корзина' : 'Savat'}</span>
-                        </button>
+                            <Send className="w-[18px] h-[18px]" />
+                            <span className="hidden sm:inline">{lang === 'ru' ? 'Заявка' : 'Zayafka'}</span>
+                        </LeadButton>
 
                         <button
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                             className="md:hidden w-11 h-11 rounded-full bg-surface-soft text-ink-soft hover:text-ink flex items-center justify-center"
-                            aria-label="Toggle Menu"
+                            aria-label={lang === 'ru' ? 'Меню' : 'Menyu'}
                         >
                             {mobileMenuOpen ? <X className="w-[18px] h-[18px]" /> : <Menu className="w-[18px] h-[18px]" />}
                         </button>
@@ -503,7 +581,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                             onClick={() => setMegaMenuOpen(!megaMenuOpen)}
                             className="flex items-center gap-2 px-5 h-10 bg-ink hover:bg-black text-white font-semibold text-sm transition-colors cursor-pointer rounded-full shrink-0"
                             aria-expanded={megaMenuOpen}
-                            aria-label="Katalog"
+                            aria-haspopup="true"
+                            aria-label={lang === 'ru' ? 'Каталог' : 'Katalog'}
                         >
                             <LayoutGrid className="w-4 h-4" />
                             <span>{lang === 'ru' ? 'Каталог' : 'Katalog'}</span>
@@ -513,14 +592,19 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                         </button>
 
                         {/* CATEGORY LINKS CHIPS */}
-                        <nav className="flex items-center gap-1 text-sm font-medium text-ink-soft shrink-0">
+                        <nav
+                            aria-label={lang === 'ru' ? 'Категории' : 'Kategoriyalar'}
+                            className="flex items-center gap-1 text-sm font-medium text-ink-soft shrink-0"
+                        >
                             {categories.slice(0, 6).map((cat) => {
                                 const slug = getCategorySlug(cat);
                                 const name = getCategoryName(cat);
+                                const categoryHref = `/${lang}/catalog/${slug}`;
                                 return (
                                     <Link
                                         key={cat.id}
-                                        href={`/${lang}/catalog/${slug}`}
+                                        href={categoryHref}
+                                        aria-current={pathname === categoryHref ? 'page' : undefined}
                                         className="hover:text-brand-red hover:bg-surface-soft px-3 py-2 rounded-full transition-colors whitespace-nowrap"
                                     >
                                         {name}

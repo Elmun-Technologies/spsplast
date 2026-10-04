@@ -7,7 +7,10 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/admin/', '/api/', '/checkout/', '/cart/'],
+      // `admin`, `checkout`, `cart` — backendsiz arxitekturada bu yo'llar yo'q,
+      // lekin eski havolalar indeksda qolgan bo'lsa ham tozalanib boradi.
+      // `search-index.json` — qidiruv indeksi; sahifa emas, indekslanmasin.
+      disallow: ['/admin/', '/api/', '/checkout/', '/cart/', '/search-index.json'],
     },
     sitemap: `${baseUrl}/sitemap.xml`,
   };

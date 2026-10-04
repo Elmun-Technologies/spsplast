@@ -4,12 +4,11 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 /**
- * Blog va loyihalar kontenti (prisma/data/content-2026.json) uchun sifat
+ * Blog va loyihalar kontenti (data/content-2026.json) uchun sifat
  * tekshiruvi.
  *
- * `prisma/seed.js` shu faylni to'g'ridan-to'g'ri bazaga yozadi, ya'ni bu
- * yerdagi xato faqat `npm run db:seed` paytida (yoki undan yomoni —
- * productionda) bilinadi. Tekshiruvlar:
+ * `scripts/build-static-catalog.js` shu faylni `src/data/catalog.json` ga
+ * qo'shadi, ya'ni bu yerdagi xato darhol statik saytga chiqadi. Tekshiruvlar:
  *
  *  1. majburiy maydonlar bo'sh emas;
  *  2. slug'lar takrorlanmaydi va URL uchun xavfsiz;
@@ -19,7 +18,7 @@ const path = require('node:path');
  */
 
 const ROOT = path.join(__dirname, '..');
-const content = JSON.parse(fs.readFileSync(path.join(ROOT, 'prisma/data/content-2026.json'), 'utf8'));
+const content = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/content-2026.json'), 'utf8'));
 
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const LOCALES = ['uz', 'ru'];

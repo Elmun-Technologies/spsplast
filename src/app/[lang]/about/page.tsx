@@ -98,7 +98,9 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: Lo
               </div>
               <h3 className="text-base font-bold text-ink">{lang === 'ru' ? 'Промышленные стандарты' : 'Sanoat standartlari'}</h3>
               <p className="text-sm text-ink-soft leading-relaxed">
-                {lang === 'ru' ? 'Точные и прочные формы по немецким и итальянским технологиям.' : 'Nemis va Italiya texnologiyasi asosida aniq va mustahkam shakllar.'}
+                {lang === 'ru'
+                  ? 'Формы из полипропилена и ABS: точная геометрия и конструкция, рассчитанная на многократное использование.'
+                  : 'Polipropilen va ABS asosidagi qoliplar: aniq geometriya va qayta ishlatishga mo‘ljallangan konstruksiya.'}
               </p>
             </div>
 
@@ -108,7 +110,9 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: Lo
               </div>
               <h3 className="text-base font-bold text-ink">{lang === 'ru' ? 'Контроль качества' : 'Sifat nazorati'}</h3>
               <p className="text-sm text-ink-soft leading-relaxed">
-                {lang === 'ru' ? 'Каждая партия проходит лабораторные испытания на эластичность.' : 'Har bir partiya ishlab chiqarilgandan so‘ng laboratoriya va elastiklik testidan o‘tadi.'}
+                {lang === 'ru'
+                  ? 'Перед отправкой каждую партию проверяем: размеры, геометрия и отсутствие дефектов.'
+                  : 'Jo‘natishdan oldin har bir partiyani tekshiramiz: o‘lchamlar, geometriya va nuqsonlar yo‘qligi.'}
               </p>
             </div>
 

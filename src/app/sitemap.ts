@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { db } from '@/lib/db';
+import { catalog } from '@/lib/catalog';
 
 /**
  * Sitemap.
@@ -15,7 +15,8 @@ import { db } from '@/lib/db';
  *  - har bir yozuvga uz/ru hreflang alternates qo'shiladi — bu qidiruv
  *    tizimiga ikki til versiyasi bir sahifa ekanini aytadi.
  *
- * `revalidate` bilan keshlanadi: har bir crawler so'rovi bazani titkilamasin.
+ * Ma'lumot statik katalogdan (`src/data/catalog.json`) olinadi — build paytida
+ * baza umuman kerak emas, shuning uchun sitemap hech qachon "bo'sh" chiqmaydi.
  */
 
 export const revalidate = 3600;
@@ -23,32 +24,28 @@ export const revalidate = 3600;
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://sps.uz';
 
-  type SlugEntry = { updatedAt: Date; translations: { slug: string; locale: string }[] };
+  type SlugEntry = { updatedAt: string | null; translations: { slug: string; locale: string }[] };
 
-  let products: SlugEntry[] = [];
-  let categories: SlugEntry[] = [];
-  let posts: SlugEntry[] = [];
+  const products: SlugEntry[] = catalog.products
+    .filter((product) => product.status === 'ACTIVE')
+    .map((product) => ({
+      updatedAt: product.updatedAt,
+      translations: product.translations.map(({ slug, locale }) => ({ slug, locale })),
+    }));
 
-  try {
-    [products, categories, posts] = await Promise.all([
-      db.product.findMany({
-        where: { status: 'ACTIVE' },
-        select: { updatedAt: true, translations: { select: { slug: true, locale: true } } },
-      }),
-      db.category.findMany({
-        where: { status: 'ACTIVE' },
-        select: { updatedAt: true, translations: { select: { slug: true, locale: true } } },
-      }),
-      db.blogPost.findMany({
-        where: { isPublished: true },
-        select: { updatedAt: true, translations: { select: { slug: true, locale: true } } },
-      }),
-    ]);
-  } catch {
-    products = [];
-    categories = [];
-    posts = [];
-  }
+  // Kategoriya sahifalari (`/{lang}/catalog/{slug}`) P1-7 dan keyin o'z SEO
+  // matni va FAQ'siga ega — ular sitemap'da albatta bo'lishi kerak.
+  const categories: SlugEntry[] = catalog.categories.map((category) => ({
+    // Kategoriya matni `data/category-seo-2026.json` dan keladi — sana yo'q.
+    updatedAt: null,
+    translations: category.translations.map(({ slug, locale }) => ({ slug, locale })),
+  }));
+  const posts: SlugEntry[] = catalog.blog
+    .filter((post) => post.isPublished)
+    .map((post) => ({
+      updatedAt: post.updatedAt,
+      translations: post.translations.map(({ slug, locale }) => ({ slug, locale })),
+    }));
 
   const locales = ['uz', 'ru'];
   const routes: MetadataRoute.Sitemap = [];
@@ -64,6 +61,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       'x-default': `${baseUrl}/uz${path}`,
     },
   });
+
+  /**
+   * Dinamik yozuv uchun alternates: **har bir til o'z slug'i** bilan yozilishi
+   * shart. Ilgari ikkala tilga ham joriy tilning slug'i qo'yilardi — natijada
+   * sitemap mavjud bo'lmagan manzillarni (masalan `/ru/blog/<uz-slug>`)
+   * ko'rsatardi.
+   */
+  const entryAlternates = (kind: 'product' | 'catalog' | 'blog', entry: SlugEntry) => {
+    const uz = entry.translations.find((t) => t.locale === 'uz') || entry.translations[0];
+    const ru = entry.translations.find((t) => t.locale === 'ru') || entry.translations[0];
+    const uzPath = `/uz/${kind}/${uz.slug}`;
+    const ruPath = `/ru/${kind}/${ru.slug}`;
+    return {
+      languages: {
+        uz: `${baseUrl}${uzPath}`,
+        ru: `${baseUrl}${ruPath}`,
+        'x-default': `${baseUrl}${uzPath}`,
+      },
+    };
+  };
 
   // Statik sahifalar: lastModified berilmaydi — sahifa o'zgarganda Google
   // kontentning o'zidan buni o'zi aniqlaydi.
@@ -103,10 +120,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       if (!trans) continue;
       routes.push({
         url: `${baseUrl}/${locale}/product/${trans.slug}`,
-        lastModified: p.updatedAt,
+        lastModified: p.updatedAt ?? undefined,
         changeFrequency: 'weekly',
         priority: 0.9,
-        alternates: alternates(`/product/${trans.slug}`),
+        alternates: entryAlternates('product', p),
       });
     }
 
@@ -115,10 +132,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       if (!trans) continue;
       routes.push({
         url: `${baseUrl}/${locale}/catalog/${trans.slug}`,
-        lastModified: c.updatedAt,
+        lastModified: c.updatedAt ?? undefined,
         changeFrequency: 'weekly',
         priority: 0.8,
-        alternates: alternates(`/catalog/${trans.slug}`),
+        alternates: entryAlternates('catalog', c),
       });
     }
 
@@ -127,10 +144,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       if (!trans) continue;
       routes.push({
         url: `${baseUrl}/${locale}/blog/${trans.slug}`,
-        lastModified: b.updatedAt,
+        lastModified: b.updatedAt ?? undefined,
         changeFrequency: 'monthly',
         priority: 0.7,
-        alternates: alternates(`/blog/${trans.slug}`),
+        alternates: entryAlternates('blog', b),
       });
     }
   }

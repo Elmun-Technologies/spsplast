@@ -4,6 +4,11 @@ Bu hujjat `docs/MADANI-RAQOBAT-AUDITI.md` dagi P0/P1 vazifalar bo'yicha **nima
 qilinganini** va **qanday tekshirilganini** qayd etadi. Har bir yozuv vazifa ID
 bilan bog'langan — audit jadvali bilan birga o'qiladi.
 
+> **Tarixiy kontekst:** Batch 1 va Batch 2 (quyida) hali Postgres/Prisma va
+> admin panel bo'lgan davrda yozilgan — o'sha bo'limlardagi `prisma db push`,
+> seed va admin havolalari **endi kuchda emas**. Batch 3 da baza, admin, savat
+> va to'lov butunlay olib tashlandi; sayt backendsiz ishlaydi.
+
 ---
 
 ## Batch 1 — Foundation: migratsiya, kontaktlar, sharhlar, PDF
@@ -153,6 +158,18 @@ o'rnatilgan).
 > root layout; bu alohida refaktor vazifasi.
 
 ---
+
+### 5.1. Qo'shimcha tuzatishlar (PR #15 ichida)
+
+| Nima | Natija |
+|---|---|
+| Kategoriya havolalari | `?category=<eski slug>` havolalar (footer, bosh sahifa, breadcrumb, qidiruv takliflari) haqiqiy statik manzillarga almashtirildi: `/{lang}/catalog/{slug}`. Slug'lar endi katalogdan olinadi (`getCategoryUrl`) — 62 mahsulotda uz/ru slug'lari farq qiladi, qo'lda yozish 404 beradi |
+| Qidiruv takliflari | Header mavjud bo'lmagan `/api/search` ga so'rov yuborardi — takliflar jimgina bo'sh qolardi. Endi `public/search-index.json` (generator yasaydi) bir marta yuklanadi va qidiruv brauzerda bajariladi |
+| Kategoriya SEO matni | `data/category-seo-2026.json` ga ko'chirildi; generator uni `catalog.json` ga qo'shadi va 300+ so'z / 5+ FAQ bo'yicha tekshiradi (yetmasa build to'xtaydi) |
+| Soxta shoshiltirish | "Tovar dnya / Cheklangan aksiya" bloki va har kuni nolga qaytadigan taymer olib tashlandi (`DealCountdown` o'chirildi) → "Menejer tanlovi" kartasi |
+| Boshqa da'volar | "Nemis va Italiya texnologiyasi", "har bir partiya laboratoriya testidan o'tadi", "14 kun / 100% kafolat / 1-2 kunda hal qilamiz" — tasdiqlanmagan raqamlar va da'volar olib tashlandi yoki aniq jarayon tavsifiga almashtirildi |
+| Kategoriya tarjimasi | Mahsulot sahifasi breadcrumb'i endi shu til slug'i/nomini oladi (rus sahifasida o'zbekcha kategoriya chiqmasin) |
+| robots.txt | `/search-index.json` indeksdan chiqarildi |
 
 ### 6. Tekshiruv natijalari
 
@@ -349,3 +366,220 @@ yozadi (ehtiyot bo'ling: u avval eskisini o'chiradi).
 | P1-1/P1-2 | Ulgurji narx so'rovi va cennik PDF |
 | P1-7 | Kategoriya sahifalariga SEO matn + FAQ |
 | P0-6 (davomi) | 169 ta katta PNG (306 MB) ni `media-src/` ga ko'chirish |
+
+---
+
+## Batch 3 — Backendsiz arxitektura (T1) + zayafka oqimi (T3) + analitika/media (T4)
+
+**Sana:** 2026-10-04
+**Branch:** `arena/01a107c3-spsplast`
+**Holat:** ✅ Bajarildi va tekshirildi (tsc · eslint · 41 test · production build · statik HTML)
+
+Biznes modeli o'zgardi: sayt endi **do'kon emas, zayafka (lead) yig'uvchi sayt**.
+Xaridor forma to'ldiradi → xabar Telegram guruhga tushadi → menejer qo'ng'iroq
+qilib sotadi. Shu sababli Prisma, savat, buyurtma, to'lov va admin panel
+butunlay olib tashlandi: sayt `DATABASE_URL` siz ham to'liq ishlaydi.
+
+### 1. T1 — Prisma → statik katalog
+
+| Nima | Natija |
+|---|---|
+| Manba | `catalog_build/products.json` + `data/molds-2026.json` + `data/content-2026.json` |
+| Generator | `node scripts/build-static-catalog.js` → `src/data/catalog.json` (`--check` build'da majburiy) |
+| Katalog hajmi | 192 mahsulot · 3 kategoriya (47/86/59) · 7 maqola · 6 loyiha |
+| Runtime | `src/lib/catalog/*` — sinxron, tashqi so'rovsiz; `getProductsServer`, `getProductTranslation`, `getCategoryTree`, `getProjects`… |
+| API | Faqat 2 ta marshrut qoldi: `POST /api/leads` va `GET /api/health` |
+| Olib tashlandi | `prisma/`, seed/import skriptlari, admin panel, buyurtma/to'lov/cron/feed API'lari, `Dockerfile`, `fly.toml`, ikkala GitHub Actions workflow |
+
+### 2. T3 — Zayafka oqimi
+
+- `LeadModal` + `LeadButton` — bitta kompakt forma: **ism, telefon (+998 maskasi),
+  mahsulot, miqdor, izoh**. Mahsulot sahifasida mahsulot nomi va SKU avtomatik
+  qo'shiladi.
+- Chaqiruv nuqtalari: ProductCard, QuickViewModal, mahsulot sahifasi (barcha
+  CTA'lar + yopishqoq panel), Header, mobil yopishqoq panel, wishlist,
+  solishtirish, B2B banner, kategoriya sahifalari.
+- Telegram xabari kontekstni to'liq oladi: turi, ism, telefon, mahsulot + SKU,
+  miqdor, izoh, **manba sahifa**, til, vaqt (Asia/Toshkent), UTM/gclid/fbclid.
+- Himoya: HTML escape (`escapeTelegramHtml`), honeypot (`website`), IP bo'yicha
+  rate limit (10 so'rov / 15 daqiqa), `x-forwarded-for` birinchi hop'i.
+- Muvaffaqiyat holati formada ko'rsatiladi, `generate_lead` event yuboriladi.
+
+### 3. T4 — P0-8 trust da'volari auditi
+
+Olib tashlandi yoki tuzatildi (dalilsiz raqamlar):
+
+| Ilgari | Endi |
+|---|---|
+| "100+ dona −5% / 500+ dona −10%" | "Narx hajmga bog'liq" |
+| "10–49 dona −5%, 50+ dona −10%" (AI yordamchi) | individual kelishuv |
+| "50 000 so'mdan, 1 000 000 so'mdan bepul" | "tarif manzil va hajmga bog'liq" |
+| "Toshkent 1–3 kun / 24 soat" ziddiyati | yagona manba: Toshkent — 1 ish kuni, viloyatlar — 1–3 ish kuni |
+| "chegirma avtomatik qo'llanadi" | zayafka + menejer hisob-kitobi |
+| Sharhlar bo'limi (moderatsiya imkonsiz) | butunlay olib tashlandi |
+
+Bosh sahifa FAQ endi `src/lib/faq.ts` dan o'qiydi (uz/ru) — ko'rinadigan matn
+va JSON-LD bir manbadan yasaladi.
+
+#### 3.1. Qo'shimcha tozalash (PR #15 ichida, `fbb417d`)
+
+Birinchi auditdan keyin sayt bo'ylab yana tekshirildi — ombor, narx va to'lov
+haqidagi isbotlanmagan signallar qolgan edi:
+
+| Ilgari | Endi |
+|---|---|
+| Bosh sahifada pulsatsiyalanuvchi "Omborda mavjud" badge | "Zavoddan to'g'ridan-to'g'ri" (ru: "Работаем напрямую от завода") |
+| "300+ martalik resurs" (hero) | olib tashlandi — raqam tasdiqlanmagan |
+| `StockBadge` komponenti (karta, quick view, mahsulot sahifasi) | komponent o'chirildi |
+| Taqqoslashda "Mavjudlik" qatori | olib tashlandi (spetsifikatsiya: narx, o'lcham, material, SKU) |
+| Katalogda "Faqat omborda" filtri | olib tashlandi |
+| `Product` JSON-LD: `price: 0 UZS`, `availability: InStock` | `offers` bloki butunlay olib tashlandi — narx noma'lum bo'lsa Google'ga yuborilmaydi |
+| `stockQty: 100` (statik generator) | `stockQty: null` (`types.ts`: `number \| null`) |
+| Footer'dagi to'lov pillari ("Click/Payme/to'lov havolasi") | faqat **NAQD** va **HISOB-FAKTURA (YU.L.)**; to'lov sahifasi va shartlar ham shunga moslashtirildi |
+| `ShoppingBag` ikonkasi (savat metaforasi) | `Send` ikonkasi — 7 ta faylda |
+
+Sabab: sayt qoldiqni yuritmaydi va to'lovni qabul qilmaydi — mavjudlik va
+to'lov shartlarini menejer qo'ng'iroqda tasdiqlaydi. Kod izohlaridagi eski
+"savat"/"buyurtma" so'zlari ham tozalandi.
+
+### 4. T4 — P0-12 analitika
+
+`src/components/analytics/AnalyticsScripts.tsx` root layout'da:
+GTM → GA4 (GTM bo'lmasa to'g'ridan-to'g'ri `gtag`) → Yandex Metrica → Meta Pixel.
+Har biri faqat env ID mavjud bo'lsa yuklanadi (`afterInteractive`), ID bo'lmasa
+saytga bitta ham tashqi skript qo'shilmaydi. Hodisalar: `view_item`,
+`view_item_list`, `search`, `share`, `add_to_wishlist`, `add_to_compare`,
+`generate_lead` (`src/lib/analytics.ts`).
+
+### 5. T4 — P0-6 media va P1-7 kategoriya SEO
+
+- 169 ta katta PNG (306 MB) `media-src/masters/` ga ko'chirildi va git
+  kuzatuvidan chiqarildi (`.gitignore`); `scripts/build-media.py` yangi joyni
+  o'qiydi; repo ildizida master fayl qolmadi.
+- Har bir kategoriya uchun statik sahifa: `/{lang}/catalog/{slug}` — mahsulot
+  to'ri, **300+ so'z** (uz/ru) SEO matn, 5 ta FAQ + `FAQPage` JSON-LD, boshqa
+  kategoriyalarga ichki havolalar. Test buni so'z soni bo'yicha tekshiradi.
+
+### 6. Tekshiruv natijalari
+
+| Tekshiruv | Natija |
+|---|---|
+| `npx tsc --noEmit` | ✅ 0 xato |
+| `npm run lint` | ✅ 0 ogohlantirish |
+| `npm test` | ✅ 45/45 (platform + static catalog + kontent + config) |
+| `npm run build` (`DATABASE_URL` siz) | ✅ 441 statik sahifa, ~30 s |
+| `/{lang}/catalog/{slug}` | ✅ 6 ta statik HTML (3 kategoriya × 2 til), har birida 300+ so'z + FAQ JSON-LD |
+| `/{lang}/product/{slug}` | ✅ 384 ta statik HTML (192 × 2), breadcrumb shu tildagi kategoriyaga |
+| Ichki havolalar auditi | ✅ 220 sahifa aylanib chiqildi (BFS), 404/uzilgan havola yo'q |
+| Mahsulot/blog sahifalari | ✅ 62 tasi tasodifiy tanlab tekshirildi (24 mahsulot × 2 til + 12 maqola), hammasi 200 |
+| Brauzer qidiruvi | ✅ `?q=флория` (foiz-kodlangan) → 200, "Форма «Флория»" topildi |
+| `public/search-index.json` | ✅ 192 mahsulot, 3 kategoriya, uz/ru slug va sarlavhalar |
+| `/api/leads` (jonli POST) | ✅ `{"success":true,"delivered":false}` — Telegram env yo'q bo'lsa ham forma xato bermaydi |
+| `/uz/api/health` | ✅ Telegram holati, majburiy env yo'q bo'lsa `degraded` |
+
+### 7. Deploy (Vercel)
+
+```bash
+# Vercel → Environment Variables
+NEXT_PUBLIC_SITE_URL=https://sps.uz
+TELEGRAM_BOT_TOKEN=...          # @BotFather
+TELEGRAM_CHAT_ID=...            # kompaniya guruhi
+NEXT_PUBLIC_GTM_ID=...          # ixtiyoriy
+NEXT_PUBLIC_GA_MEASUREMENT_ID=...
+NEXT_PUBLIC_YANDEX_METRICA_ID=...
+NEXT_PUBLIC_META_PIXEL_ID=...   # ixtiyoriy
+```
+
+Baza, `prisma db push`, seed va Fly.io sozlamalari **kerak emas**.
+
+### 8. Keyingi batch (taklif)
+
+| Prioritet | Vazifa |
+|---|---|
+| P0-1 | `sps.uz` domenini Vercel'ga ulash, env'larni kiritish, health-check |
+| P0-9 | Zayafka E2E sinovi: forma → Telegram guruh (uz/ru), honeypot/rate-limit |
+| P1-1/P1-2 | Ulgurji narx so'rovi oqimini zayafka formasiga birlashtirish, cennik PDF |
+| P1-13 | Bosh sahifadagi inline matnlarni lug'atga ko'chirish |
+| P0-11 | Rich Results Test'da JSON-LD (Product, FAQPage, HowTo) validatsiyasi |
+| — | Eski DB davri hujjatlari (`SECURITY.md`, `UI-*.md`, `CONTENT-REPLACEMENT.md`) yangilash yoki o'chirish |
+
+---
+
+## Batch 4 — SEO tozalash, til havolalari va a11y (PR #15 davomi)
+
+**Sana:** 2026-10-04 · **Branch:** `arena/01a107c3-spsplast`
+
+### 1. Soft-404 muammosi (dinamik marshrutlar)
+
+Prod build'da tekshiruv ko'rsatdi: `/{lang}/product/<yo'q-slug>`,
+`/{lang}/catalog/<yo'q-slug>` va `/{lang}/blog/<yo'q-slug>` **200** status
+qaytarardi — sahifa ichida `noindex` not-found ko'rinardi, ya'ni Google uchun
+"soft 404". Sabab: `notFound()` oqim boshlangandan keyin chaqiriladi va status
+allaqachon 200 bo'lib ketadi.
+
+Yechim: uch dinamik marshrutga `export const dynamicParams = false`. Endi
+ro'yxatda yo'q slug umuman render qilinmaydi va Next darhol **404** beradi:
+
+| URL | Ilgari | Endi |
+|---|---|---|
+| `/uz/product/zzz` | 200 + noindex | **404** |
+| `/uz/catalog/zzz-nonexistent` | 200 + noindex | **404** |
+| `/uz/blog/zzz` | 200 + noindex | **404** |
+
+### 2. uz/ru slug farqi: hreflang, sitemap, til almashtirish
+
+62 mahsulot, 3 kategoriya va 7 maqolada slug'lar tildan tilga farq qiladi
+(`/uz/product/deraza-tokchasi-podokonnik-qolipi` ↔
+`/ru/product/forma-podokonnika`). Shu sababli uchta xato topildi:
+
+1. **hreflang:** kategoriya va blog sahifalari ikkala tilga ham joriy til
+   slug'ini yozardi (`/ru/blog/<uz-slug>`) → alternat 404 ga ishor edi.
+   `pageMetadata()` endi `alternatePaths` qabul qiladi.
+2. **Sitemap:** dinamik yozuvlar uchun ham xuddi shunday edi; ustiga **kategoriya
+   sahifalari umuman yo'q** edi. Endi `entryAlternates()` har tilning o'z
+   slug'ini yozadi va 3 kategoriya × 2 til ham ro'yxatga qo'shildi.
+   Natija: 428 URL, **0 yaroqsiz manzil** (tekshirildi).
+3. **Til almashtirish tugmasi:** `pathname.replace('/uz','/ru')` qilardi —
+   slug'i farq qiladigan sahifalarda 404. Endi tugma sahifaning
+   `<link rel="alternate" hreflang="...">` havolasidan o'qiydi (SSR'da
+   `generateMetadata` allaqachon to'g'ri alternatlarni yozadi), topilmasa
+   eski usulga qaytadi.
+
+### 3. Accessibility (P1-14)
+
+- `LeadModal` va kontakt sahifasidagi maydonlar `id` + `htmlFor` bilan
+  bog'landi (ilgari yorliq vizual bor edi, lekin ekran o'quvchi uchun
+  programmatik aloqasi yo'q edi); `autoComplete` va `inputMode` qo'shildi.
+- Ikonkali tugmalarga nom berildi: solishtirish panelidan o'chirish/tozalash,
+  AI assistent yuborish/input, nav kategoriya havolalari
+  (`aria-current="page"`), mega-menyu (`aria-haspopup`).
+- Header'dagi `aria-label`lar joriy tilga moslandi (ilgari inglizcha edi).
+- Bo'sh `/compare` sahifasida `h1` yo'q edi — `sr-only` sarlavha qo'shildi.
+- Yangi testlar: **12** (forma maydonlari nomlanishi), **13**
+  (`dynamicParams = false` — barcha dinamik marshrutlar), **14** (hreflang va
+  sitemap slug mosligi), **15** (brendlangan 404 sahifasi).
+
+### 4. Brendlangan 404 sahifasi
+
+Noma'lum manzillar Next.js ning standart inglizcha "This page could not be
+found" sahifasini ko'rsatardi — ichida bosh sahifaga, katalogga yoki aloqa
+ma'lumotiga havola yo'q edi. `src/app/not-found.tsx` qo'shildi: ikki tilli matn,
+uz/ru katalog tugmalari, telefon raqami va `robots: noindex`.
+
+`[lang]/layout.tsx` ga ham `dynamicParams = false` qo'yildi: noma'lum til
+prefiksi (`/zzz`) ilgari **500** qaytarardi (layout ichida `notFound()` oqim
+boshlangandan keyin chaqirilardi), endi **404**.
+
+### 5. Tekshiruv natijalari
+
+| Tekshiruv | Natija |
+|---|---|
+| `npx tsc --noEmit` | ✅ 0 xato |
+| `npm run lint` | ✅ 0 ogohlantirish |
+| `npm test` | ✅ **49/49** |
+| `npm run build` (`DATABASE_URL` siz) | ✅ 441 statik sahifa |
+| Prod smoke testi (`next start`, 52 URL) | ✅ barchasi kutilgan statusda |
+| Prod 404 testi | ✅ mavjud bo'lmagan slug va til prefiksi → 404 (500 emas) |
+| `?category=` filtr va `?q=` qidiruv | ✅ 200 (uz/ru) |
+| `/api/health` (env yo'q) | ✅ `503` + aniq xato matni (Telegram sozlanmagan) |
+| Sitemap tekshiruvi | ✅ 428 URL, 1284 alternat — yaroqsiz manzil yo'q |

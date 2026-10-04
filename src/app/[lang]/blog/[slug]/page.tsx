@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { db } from '@/lib/db';
+import { blogPosts, getBlogPostBySlug, getBlogAlternates, getBlogTranslation, getRelatedBlogPosts } from '@/lib/catalog';
 import { getDictionary, Locale } from '@/lib/i18n';
 import { Container } from '@/components/ui/Container';
 import { COMPANY_CONTACTS } from '@/lib/constants/contacts';
@@ -65,46 +65,29 @@ function ArticleBody({ content }: { content: string }) {
   );
 }
 
+export function generateStaticParams() {
+  return blogPosts.flatMap((post) =>
+    post.translations.map((translation) => ({ lang: translation.locale, slug: translation.slug }))
+  );
+}
+
+/** Ro'yxatda yo'q maqola uchun render yo'q — toza 404 (soft 404 emas). */
+export const dynamicParams = false;
+
 export default async function BlogPostPage({ params }: { params: Promise<{ lang: Locale; slug: string }> }) {
   const { lang, slug } = await params;
   const dict = getDictionary(lang);
 
-  let post: any = null;
-  try {
-    post = await db.blogPost.findFirst({
-      where: { isPublished: true, translations: { some: { locale: lang, slug } } },
-      include: { translations: { where: { locale: lang } } },
-    });
-  } catch {
-    post = null;
-  }
-
-  if (!post || !post.translations?.[0]) {
+  const post = getBlogPostBySlug(lang, slug);
+  if (!post || !post.translations[0]) {
     notFound();
   }
 
   const postTrans = post.translations[0];
+  const related = getRelatedBlogPosts(lang, post.id, 3);
 
-  // O'xshash maqolalar: bir xil ro'yxatdan keyingi 3 ta post.
-  let related: any[] = [];
-  try {
-    related = await db.blogPost.findMany({
-      where: { isPublished: true, id: { not: post.id } },
-      include: { translations: { where: { locale: lang } } },
-      orderBy: { publishedAt: 'desc' },
-      take: 3,
-    });
-  } catch {
-    related = [];
-  }
-
-  const otherLang = lang === 'uz' ? 'ru' : 'uz';
-  const otherTranslation = await db.blogPostTranslation
-    .findFirst({ where: { postId: post.id, locale: otherLang } })
-    .catch(() => null);
-
-  const alternates: Record<string, string> = { [lang]: `/${lang}/blog/${slug}` };
-  if (otherTranslation) alternates[otherLang] = `/${otherLang}/blog/${otherTranslation.slug}`;
+  // Til almashtirgich uchun har bir tildagi slug (statik katalogdan) —
+  // hreflang `generateMetadata` ichida `pageMetadata()` orqali beriladi.
 
   return (
     <article className="bg-surface-page min-h-screen text-ink py-8">
@@ -230,13 +213,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ lang:
 export async function generateMetadata({ params }: { params: Promise<{ lang: Locale; slug: string }> }) {
   const { lang, slug } = await params;
 
-  const trans = await db.blogPostTranslation
-    .findFirst({
-      where: { locale: lang, slug },
-      include: { post: { include: { translations: { select: { locale: true, slug: true } } } } },
-    })
-    .catch(() => null);
-
+  const trans = getBlogTranslation(lang, slug);
   if (!trans) return {};
 
   const description = (trans.excerpt || trans.content || '').replace(/[#>\-]/g, ' ').slice(0, 160);
@@ -246,6 +223,10 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Loc
   return pageMetadata({
     lang,
     path: `/blog/${slug}`,
+    // Har bir tilning o'z slug'i bor — hreflang shu manzillarga ishora qilishi kerak.
+    alternatePaths: Object.fromEntries(
+      trans.post.translations.map((t) => [t.locale, `/blog/${t.slug}`])
+    ),
     title: `${trans.title} | SPS Blog`,
     description,
     image: trans.post.coverImage,

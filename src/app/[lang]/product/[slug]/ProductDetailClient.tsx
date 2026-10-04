@@ -1,108 +1,86 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { getBulkUnitPrice } from '@/lib/pricing';
 import Image from 'next/image';
-import dynamic from 'next/dynamic';
-import { ShoppingCart, Building2, Truck, ShieldCheck, Check, Share2, Calculator, X, Play } from 'lucide-react';
+import { Send, Building2, Truck, ShieldCheck, Share2, Calculator, X, Play } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { Price } from '@/components/ui/Price';
-import { StockBadge } from '@/components/ui/StockBadge';
 import { QuantitySelector } from '@/components/ui/QuantitySelector';
-
-// Dialogs are opened by an explicit click: keep them out of the initial bundle
-// and mount them only while open.
-const B2BModal = dynamic(() => import('@/components/product/B2BModal').then((m) => m.B2BModal), { ssr: false });
-const OneClickModal = dynamic(() => import('@/components/product/OneClickModal').then((m) => m.OneClickModal), { ssr: false });
 import { ProductTabs } from '@/components/product/ProductTabs';
 import { ProductOptions, ProductOptionGroup } from '@/components/product/ProductOptions';
-import { useCartStore } from '@/lib/store/cartStore';
+import { LeadModal } from '@/components/lead/LeadModal';
 import { useUIStore } from '@/lib/store/uiStore';
-import { formatPrice } from '@/lib/utils';
-import { getDictionary, Locale } from '@/lib/i18n';
+import { Locale } from '@/lib/i18n';
 import { trackEvent } from '@/lib/analytics';
 
+/**
+ * Mahsulot sahifasining interaktiv qismi.
+ *
+ * 2026-10-04 arxitektura qarori: savat/checkout yo'q. Shuning uchun sahifada
+ * narx bo'yicha savdo mexanikasi ham yo'q — barcha CTA'lar zayafka formasini
+ * ochadi va menejer narxni telefonda tasdiqlaydi. Xarid qilish savati o'rniga
+ * "miqdor + zayafka" oqimi ishlatiladi.
+ */
 interface ProductDetailClientProps {
   product: any;
   lang: Locale;
-  /** Sahifadagi tasdiqlangan sharhlar bo'limi haqida qisqa ma'lumot (P0-4). */
-  reviewsSummary?: { count: number; average: number };
 }
 
-export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
-  product,
-  lang,
-  reviewsSummary,
-}) => {
-  const dict = getDictionary(lang);
-  const addItem = useCartStore((s) => s.addItem);
+export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({ product, lang }) => {
   const setBottomBarOwner = useUIStore((s) => s.setBottomBarOwner);
 
-  const images = product.images.length > 0
-    ? product.images.map((i: any) => i.url)
-    : ['/catalog/catalog-053.jpg'];
+  const images = product.images.length > 0 ? product.images.map((i: any) => i.url) : ['/catalog/catalog-053.jpg'];
 
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  const [added, setAdded] = useState(false);
-  const [b2bModalOpen, setB2bModalOpen] = useState(false);
-  const [oneClickOpen, setOneClickOpen] = useState(false);
-  const [showSticky, setShowSticky] = useState(false);
   const [calcArea, setCalcArea] = useState('');
   const [showCalc, setShowCalc] = useState(false);
+  const [showSticky, setShowSticky] = useState(false);
+  const [lead, setLead] = useState<null | 'PRODUCT_REQUEST' | 'B2B_WHOLESALE'>(null);
 
   const title = lang === 'ru' ? product.titleRu : product.titleUz;
   const description = lang === 'ru' ? product.descriptionRu : product.descriptionUz;
+  const askPrice = !product.price || product.price <= 0;
 
-  // view_item analytics — fires once per product, not on every price render.
-  const productCategory = product.category || '';
-  const productPrice = product.price;
   useEffect(() => {
     trackEvent('view_item', {
       item_id: product.id,
       item_name: title,
-      price: productPrice,
-      item_category: productCategory,
+      price: product.price,
+      item_category: product.category || '',
     });
-  }, [product.id, title, productPrice, productCategory]);
+  }, [product.id, product.price, product.category, title]);
 
-  // Sticky ATC bar
+  // Sticky panel faqat asosiy CTA ekrandan chiqqach ko'rinadi (scroll
+  // listener o'rniga IntersectionObserver — sahifa qayta render bo'lmaydi).
   useEffect(() => {
-    // A scroll listener re-renders this whole page on every scroll event.
-    // A sentinel + IntersectionObserver only fires when the bar actually has
-    // to appear/disappear.
     const sentinel = document.getElementById('atc-sentinel');
     if (!sentinel) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => setShowSticky(!entry.isIntersecting),
-      { rootMargin: '-400px 0px 0px 0px', threshold: 0 }
-    );
+    const observer = new IntersectionObserver(([entry]) => setShowSticky(!entry.isIntersecting), {
+      rootMargin: '-400px 0px 0px 0px',
+      threshold: 0,
+    });
     observer.observe(sentinel);
     return () => observer.disconnect();
   }, [product.id]);
 
-  // While the sticky ATC bar owns the bottom edge on mobile, the global sticky
-  // contact bar hides itself so the two never stack on top of each other.
+  // Mahsulot sahifasidagi sticky panel mobil aloqa panelini yashirishi uchun.
   useEffect(() => {
     setBottomBarOwner(showSticky ? 'product' : null);
     return () => setBottomBarOwner(null);
   }, [showSticky, setBottomBarOwner]);
 
   /**
-   * Variant opsiyalari (material, plastik qalinligi, …).
-   *
-   * Har bir guruhning birinchi qiymati oldindan tanlangan, shuning uchun
-   * variantli mahsulotda doim aniq variant hal bo'ladi — savat satri, SKU va
-   * ulgurji so'rov o'shani olib ketadi.
+   * Variant opsiyalari (material, plastik qalinligi). Har bir guruhning birinchi
+   * qiymati oldindan tanlanadi — zayafka xabariga aniq SKU tushadi.
    */
-  const optionGroups: ProductOptionGroup[] = React.useMemo(
-    () => product.optionGroups || [],
-    [product.optionGroups]
+  const optionGroups: ProductOptionGroup[] = React.useMemo(() => product.optionGroups || [], [product.optionGroups]);
+  const variantList: Array<{ id: string; sku: string; price: number; optionCodes: string[] }> = React.useMemo(
+    () => product.variants || [],
+    [product.variants]
   );
-  const variantList: Array<{ id: string; sku: string; price: number; optionCodes: string[] }> =
-    React.useMemo(() => product.variants || [], [product.variants]);
 
   const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>(() =>
     Object.fromEntries(optionGroups.map((group) => [group.code, group.values[0]?.code]).filter(([, v]) => v))
@@ -123,42 +101,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
     .join(' · ');
 
   const displaySku = selectedVariant?.sku || product.sku;
-  const orderTitle = selectedOptionLabels ? `${title} (${selectedOptionLabels})` : title;
-
-  // Bulk Tier Pricing — tanlangan variant narxi asosiy narxdan ustun turadi.
-  const basePrice = selectedVariant && selectedVariant.price > 0 ? selectedVariant.price : product.price;
-  // Price not configured (0) -> price-on-request catalog item
-  const askPrice = !basePrice || basePrice <= 0;
-  // Shared with the server (`orderService`) so the price shown here is exactly
-  // the price that gets stored on the order.
-  const getTierPrice = (qty: number) => getBulkUnitPrice(basePrice, qty);
-
-  const currentUnitPrice = getTierPrice(quantity);
-
-  const handleAddToCart = () => {
-    addItem({
-      productId: product.id,
-      variantId: selectedVariant?.id,
-      title: orderTitle,
-      sku: displaySku,
-      // The cart stores the BASE price; the tier is derived from the live
-      // quantity so changing it in the cart re-prices the line correctly.
-      price: basePrice,
-      image: images[0],
-      quantity,
-      dimensions: product.dimensions || undefined,
-    });
-
-    trackEvent('add_to_cart', {
-      item_id: product.id,
-      item_name: title,
-      price: currentUnitPrice,
-      quantity,
-    });
-
-    setAdded(true);
-    setTimeout(() => setAdded(false), 2500);
-  };
+  const leadTitle = selectedOptionLabels ? `${title} (${selectedOptionLabels})` : title;
 
   const handleShare = async () => {
     const url = window.location.href;
@@ -172,19 +115,16 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
     trackEvent('share', { method: 'copy', content_type: 'product', item_id: product.id });
   };
 
-  // Simple calculator: area / 0.09 = qty for 30x30 (approx)
+  // Maydon bo'yicha qolip soni: 30×30 o'lcham uchun 1 m² ≈ 11 dona.
   const calcQty = () => {
     const area = parseFloat(calcArea);
     if (!area || isNaN(area)) return 0;
-    // Assume 30x30 = 0.09 m2 per piece, if dimensions known parse? Simplified: 11 pcs per m2
     return Math.ceil(area * 11);
   };
 
-  const calcTotal = calcQty() * currentUnitPrice;
-
   return (
     <>
-      {/* Sticky ATC Bar */}
+      {/* Sticky CTA panel (mobil va desktop) */}
       <div
         className={`fixed bottom-0 left-0 right-0 z-30 bg-surface border-t border-line shadow-[0_-12px_30px_-20px_rgba(16,24,40,0.35)] transition-transform duration-300 ${
           showSticky ? 'translate-y-0' : 'translate-y-full'
@@ -202,36 +142,38 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
               <div className="text-xs text-ink-sub">SKU: {displaySku}</div>
             </div>
             <div className="hidden md:block ml-4">
-              <Price price={currentUnitPrice} lang={lang} size="md" />
+              <Price price={product.price} lang={lang} size="md" />
             </div>
           </div>
 
           <div className="flex items-center gap-2 shrink-0">
             <div className="hidden sm:flex">
-              <QuantitySelector quantity={quantity} onDecrease={() => setQuantity(Math.max(1, quantity - 1))} onIncrease={() => setQuantity(quantity + 1)} />
+              <QuantitySelector
+                quantity={quantity}
+                onDecrease={() => setQuantity(Math.max(1, quantity - 1))}
+                onIncrease={() => setQuantity(quantity + 1)}
+              />
             </div>
             <button
-              onClick={() => (askPrice ? setB2bModalOpen(true) : handleAddToCart())}
+              onClick={() => setLead('PRODUCT_REQUEST')}
               disabled={!product.inStock}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-sm transition-all min-h-[46px] ${
-                added ? 'bg-emerald-600 text-white' : 'bg-brand-red hover:bg-brand-red-dark text-white shadow-red'
-              }`}
+              className="flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-sm transition-all min-h-[46px] bg-brand-red hover:bg-brand-red-dark text-white shadow-red disabled:opacity-40"
             >
-              {added ? <Check className="w-4 h-4" /> : <ShoppingCart className="w-4 h-4" />}
-              <span className="hidden sm:inline">{added ? (lang === 'ru' ? 'В корзине' : 'Savatda') : (lang === 'ru' ? 'В корзину' : 'Savatga')}</span>
-              <span className="sm:hidden">{added ? '✓' : '+'}</span>
+              <Send className="w-4 h-4" />
+              <span className="hidden sm:inline">{lang === 'ru' ? 'Оставить заявку' : 'Zayafka berish'}</span>
+              <span className="sm:hidden">✚</span>
             </button>
           </div>
         </div>
       </div>
 
-      {/* Sentinel: the sticky ATC bar appears once this scrolls out of view */}
+      {/* Sentinel: sticky panel shu element ekrandan chiqqach paydo bo'ladi */}
       <div id="atc-sentinel" aria-hidden="true" className="h-px w-full" />
 
       <div className="bg-surface-soft p-2 sm:p-3 rounded-[24px]">
         <div className="bg-surface rounded-[20px] p-4 sm:p-7 shadow-card">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
-            {/* Gallery Column */}
+            {/* Galereya */}
             <div className="lg:col-span-6 space-y-3">
               <div className="relative aspect-square w-full rounded-[18px] overflow-hidden bg-surface-soft flex items-center justify-center p-4 group">
                 <Image
@@ -244,8 +186,8 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
                 />
 
                 <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
-                  {product.isNew && <Badge variant="blue">Yangi</Badge>}
-                  {product.isBestseller && <Badge variant="dark">Top Xit</Badge>}
+                  {product.isNew && <Badge variant="blue">{lang === 'ru' ? 'Новинка' : 'Yangi'}</Badge>}
+                  {product.isBestseller && <Badge variant="dark">{lang === 'ru' ? 'Хит' : 'Top mahsulot'}</Badge>}
                   {product.oldPrice && product.oldPrice > product.price && (
                     <Badge variant="red">
                       -{Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100)}%
@@ -256,7 +198,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
                 <button
                   onClick={handleShare}
                   className="absolute top-3 right-3 w-10 h-10 rounded-full bg-surface/95 shadow-card flex items-center justify-center text-ink-soft hover:text-ink transition-colors"
-                  aria-label="Ulashish"
+                  aria-label={lang === 'ru' ? 'Поделиться' : 'Ulashish'}
                 >
                   <Share2 className="w-4 h-4" />
                 </button>
@@ -268,10 +210,9 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
                     <button
                       key={idx}
                       onClick={() => setActiveImageIndex(idx)}
+                      aria-current={activeImageIndex === idx}
                       className={`relative w-20 h-20 rounded-[16px] overflow-hidden shrink-0 bg-surface-soft transition-all p-1 border-2 ${
-                        activeImageIndex === idx
-                          ? 'border-brand-red'
-                          : 'border-transparent opacity-70 hover:opacity-100'
+                        activeImageIndex === idx ? 'border-brand-red' : 'border-transparent opacity-70 hover:opacity-100'
                       }`}
                     >
                       <Image src={imgUrl} alt={`${title} ${idx + 1}`} fill sizes="80px" className="object-contain p-2" />
@@ -291,19 +232,7 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
                 </div>
               )}
 
-              {product.videoUrl && images.length <= 1 && (
-                <a
-                  href={product.videoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 p-3.5 rounded-[16px] bg-[#FEF0F0] text-brand-red font-semibold text-sm hover:bg-[#FCE4E4] transition-colors"
-                >
-                  <Play className="w-5 h-5 fill-brand-red" />
-                  {lang === 'ru' ? 'Смотреть видео заливки' : 'Quyish videosini ko‘rish'}
-                </a>
-              )}
-
-              {/* Calculator Toggle */}
+              {/* Kalkulyator: maydon -> qolip soni (narx emas — narx menejerda) */}
               <div className="pt-2">
                 <button
                   onClick={() => setShowCalc(!showCalc)}
@@ -316,118 +245,109 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
                 {showCalc && (
                   <div className="mt-3 p-4 rounded-[16px] bg-surface-soft space-y-3">
                     <div className="flex items-center justify-between">
-                      <h4 className="text-sm font-semibold text-ink">{lang === 'ru' ? 'Расчёт по площади' : 'Maydon bo‘yicha hisob'}</h4>
-                      <button onClick={() => setShowCalc(false)} className="p-1.5 hover:bg-[#E7ECF3] rounded-full text-ink-soft transition-colors">
+                      <h4 className="text-sm font-semibold text-ink">
+                        {lang === 'ru' ? 'Расчёт по площади' : 'Maydon bo‘yicha hisob'}
+                      </h4>
+                      <button
+                        onClick={() => setShowCalc(false)}
+                        className="p-1.5 hover:bg-[#E7ECF3] rounded-full text-ink-soft transition-colors"
+                        aria-label={lang === 'ru' ? 'Закрыть' : 'Yopish'}
+                      >
                         <X className="w-4 h-4" />
                       </button>
                     </div>
                     <div>
-                      <label className="text-xs font-semibold text-ink-soft">m² (kvadrat)</label>
+                      <label htmlFor="calc-area" className="text-xs font-semibold text-ink-soft">m²</label>
                       <input
+                        id="calc-area"
                         type="number"
+                        inputMode="decimal"
+                        aria-label={
+                          lang === 'ru' ? 'Площадь в квадратных метрах' : 'Maydon (kvadrat metr)'
+                        }
                         value={calcArea}
                         onChange={(e) => setCalcArea(e.target.value)}
-                        placeholder="Masalan: 50"
+                        placeholder={lang === 'ru' ? 'Например: 50' : 'Masalan: 50'}
                         className="mt-1 w-full px-4 py-2.5 rounded-full bg-surface-soft text-sm focus:bg-white focus:ring-1 focus:ring-line outline-none min-h-[44px]"
                       />
                     </div>
                     {calcQty() > 0 && (
-                      <div className="p-3.5 rounded-[16px] bg-surface text-sm space-y-1 shadow-card">
+                      <div className="p-3.5 rounded-[16px] bg-surface text-sm space-y-3 shadow-card">
                         <div className="flex justify-between">
-                          <span className="text-ink-soft">Kerakli qolip:</span>
-                          <span className="font-bold text-ink">{calcQty()} dona</span>
+                          <span className="text-ink-soft">{lang === 'ru' ? 'Нужно форм:' : 'Kerakli qolip:'}</span>
+                          <span className="font-bold text-ink">{calcQty()} {lang === 'ru' ? 'шт' : 'dona'}</span>
                         </div>
-                        <div className="flex justify-between">
-                          <span className="text-ink-soft">Taxminiy narx:</span>
-                          <span className="font-bold text-brand-red">{formatPrice(calcTotal, lang)}</span>
-                        </div>
-                        <Button size="sm" className="w-full mt-2" onClick={() => setQuantity(calcQty())}>
-                          {calcQty()} donani savatga qo‘shish
+                        <Button
+                          size="sm"
+                          className="w-full"
+                          onClick={() => {
+                            setQuantity(calcQty());
+                            setLead('PRODUCT_REQUEST');
+                          }}
+                        >
+                          {lang === 'ru' ? 'Оставить заявку на это количество' : 'Shu miqdorga zayafka berish'}
                         </Button>
                       </div>
                     )}
-                    <p className="text-xs text-ink-sub">* 30x30 o‘lcham uchun 1 m² ≈ 11 dona. Boshqa o‘lchamlar uchun operator bilan maslahatlashing.</p>
+                    <p className="text-xs text-ink-sub">
+                      * 30×30 o‘lcham uchun 1 m² ≈ 11 dona. Boshqa o‘lchamlar uchun menejer bilan maslahatlashing.
+                    </p>
                   </div>
                 )}
               </div>
             </div>
 
-            {/* Details & Actions Column */}
+            {/* Ma'lumot va harakatlar */}
             <div className="lg:col-span-6 space-y-5">
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="bg-surface-soft px-2.5 py-1 rounded-full text-ink-soft text-[12px] font-medium">
                     SKU: {displaySku}
                   </span>
-                  <StockBadge inStock={product.inStock} lang={lang} />
                 </div>
 
-                <h1 className="text-[24px] sm:text-[30px] font-bold text-ink leading-[1.2] tracking-[-0.025em]">
-                  {title}
-                </h1>
+                <h1 className="text-[24px] sm:text-[30px] font-bold text-ink leading-[1.2] tracking-[-0.025em]">{title}</h1>
 
-                {description && (
-                  <p className="text-sm sm:text-base text-ink-soft leading-relaxed">{description}</p>
-                )}
+                {description && <p className="text-sm sm:text-base text-ink-soft leading-relaxed">{description}</p>}
               </div>
 
-              {/* Price Box & Bulk Discount Tier */}
+              {/* Narx holati: katalogda narx yo'q — ochiq aytamiz */}
               <div className="p-5 rounded-[20px] bg-surface-soft space-y-4">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <div>
                     <span className="text-[12px] text-ink-sub font-medium block mb-1">
-                      {lang === 'ru' ? 'Цена за шт' : 'Narxi (dona)'}
+                      {lang === 'ru' ? 'Цена' : 'Narxi'}
                     </span>
-                    <Price price={currentUnitPrice} oldPrice={currentUnitPrice < basePrice ? basePrice : product.oldPrice} lang={lang} size="xl" showDiscountBadge />
+                    <Price price={product.price} oldPrice={product.oldPrice} lang={lang} size="xl" showDiscountBadge />
                   </div>
 
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => setB2bModalOpen(true)}
+                    onClick={() => setLead('B2B_WHOLESALE')}
                     className="gap-2 border-brand-red text-brand-red hover:bg-brand-red hover:text-white text-[13px] shrink-0"
                   >
                     <Building2 className="w-4 h-4" />
                     <span>{lang === 'ru' ? 'Оптовая цена' : 'Ulgurji narx'}</span>
                   </Button>
                 </div>
-
-                {/* Bulk Wholesale Tier Preview Table */}
-                <div className="pt-3 border-t border-line">
-                  <div className="text-xs font-bold uppercase tracking-wider text-ink-sub mb-2.5">
-                    {lang === 'ru' ? 'Оптовые скидки от объема' : 'Ulgurji hajm chegirmalari'}
-                  </div>
-                  <div className="grid grid-cols-3 gap-2.5 text-center">
-                    <div className={`p-3.5 rounded-[18px] transition-all ${quantity < 10 ? 'bg-surface shadow-card ring-1 ring-brand-red' : 'bg-surface-soft text-ink-soft'}`}>
-                      <div className="text-xs text-ink-sub font-medium">1 – 9 dona</div>
-                      <div className="font-bold text-sm mt-1 text-ink">{formatPrice(basePrice, lang)}</div>
-                    </div>
-                    <div className={`p-3.5 rounded-[18px] transition-all ${quantity >= 10 && quantity < 50 ? 'bg-surface shadow-card ring-1 ring-brand-red' : 'bg-surface-soft text-ink-soft'}`}>
-                      <div className="text-xs text-ink-sub font-medium">10 – 49 dona</div>
-                      <div className="font-bold text-sm mt-1 text-emerald-700">{formatPrice(Math.round(basePrice * 0.95), lang)}</div>
-                      <div className="text-[10px] font-bold text-emerald-600 mt-0.5">-5% CHEGIRMA</div>
-                    </div>
-                    <div className={`p-3.5 rounded-[18px] transition-all ${quantity >= 50 ? 'bg-surface shadow-card ring-1 ring-brand-red' : 'bg-surface-soft text-ink-soft'}`}>
-                      <div className="text-xs text-ink-sub font-medium">50+ dona</div>
-                      <div className="font-bold text-sm mt-1 text-brand-red">{formatPrice(Math.round(basePrice * 0.9), lang)}</div>
-                      <div className="text-[10px] font-bold text-brand-red mt-0.5">-10% CHEGIRMA</div>
-                    </div>
-                  </div>
-                </div>
+                <p className="text-xs text-ink-sub pt-3 border-t border-line">
+                  {lang === 'ru'
+                    ? 'Цена зависит от модели, материала (PP/ABS) и объёма. Оставьте заявку — менеджер назовёт точную цену и наличие.'
+                    : 'Narx model, material (PP/ABS) va hajmga bog‘liq. Zayafka qoldiring — menejer aniq narx va mavjudlikni aytadi.'}
+                </p>
               </div>
 
-              {/* Variant opsiyalari (material / plastik qalinligi) */}
+              {/* Variant opsiyalari */}
               <ProductOptions
                 groups={optionGroups}
                 selected={selectedOptions}
-                onSelect={(groupCode, valueCode) =>
-                  setSelectedOptions((prev) => ({ ...prev, [groupCode]: valueCode }))
-                }
+                onSelect={(groupCode, valueCode) => setSelectedOptions((prev) => ({ ...prev, [groupCode]: valueCode }))}
                 lang={lang}
                 variantSku={selectedVariant?.sku}
               />
 
-              {/* Specifications Table */}
+              {/* Xususiyatlar */}
               <div className="rounded-[20px] bg-surface-soft p-5 space-y-2.5">
                 <h4 className="font-semibold text-ink text-[15px] pb-2.5 border-b border-line">
                   {lang === 'ru' ? 'Характеристики' : 'Xususiyatlari va parametrlari'}
@@ -450,26 +370,19 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
                 {product.yieldPerCast && (
                   <div className="flex justify-between py-2.5 border-b border-line-soft text-sm">
                     <span className="text-ink-sub">{lang === 'ru' ? 'За 1 заливку' : 'Bitta quyishda'}:</span>
-                    <span className="text-brand-red font-bold">{product.yieldPerCast} dona</span>
+                    <span className="text-brand-red font-bold">{product.yieldPerCast} {lang === 'ru' ? 'шт' : 'dona'}</span>
                   </div>
                 )}
 
                 {product.durabilityCasts && (
                   <div className="flex justify-between py-2 text-sm">
                     <span className="text-ink-sub">{lang === 'ru' ? 'Ресурс' : 'Xizmat resursi'}:</span>
-                    <span className="text-emerald-600 font-bold">{product.durabilityCasts}+ marotaba</span>
-                  </div>
-                )}
-
-                {product.weight && (
-                  <div className="flex justify-between py-2.5 border-t border-line-soft text-sm">
-                    <span className="text-ink-sub">{lang === 'ru' ? 'Вес' : 'Og‘irligi'}:</span>
-                    <span className="text-ink font-medium">{product.weight}</span>
+                    <span className="text-emerald-600 font-bold">{product.durabilityCasts}+</span>
                   </div>
                 )}
               </div>
 
-              {/* Quantity & Cart Action */}
+              {/* Miqdor va zayafka */}
               <div className="space-y-3">
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                   <QuantitySelector
@@ -481,38 +394,32 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
 
                   <button
                     disabled={!product.inStock}
-                    onClick={() => (askPrice ? setB2bModalOpen(true) : handleAddToCart())}
-                    className={`flex-1 flex items-center justify-center gap-2 text-sm sm:text-base font-semibold py-3.5 px-6 rounded-full transition-all min-h-[52px] ${
-                      askPrice
-                        ? 'bg-ink hover:bg-black text-white shadow-card'
-                        : added
-                        ? 'bg-emerald-600 text-white shadow-card'
-                        : product.inStock
-                        ? 'bg-brand-red hover:bg-brand-red-dark text-white shadow-red active:scale-[0.98]'
-                        : 'bg-surface-soft text-ink-sub border border-line cursor-not-allowed'
-                    }`}
+                    onClick={() => setLead('PRODUCT_REQUEST')}
+                    className="flex-1 flex items-center justify-center gap-2 text-sm sm:text-base font-semibold py-3.5 px-6 rounded-full transition-all min-h-[52px] bg-brand-red hover:bg-brand-red-dark text-white shadow-red active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed"
                   >
-                    <ShoppingCart className="w-5 h-5" />
+                    <Send className="w-5 h-5" />
                     <span>
                       {askPrice
-                        ? (lang === 'ru' ? 'Запросить цену' : 'Narx so‘rash')
-                        : added
-                        ? (lang === 'ru' ? 'В корзине ✓' : 'Savatga qo‘shildi ✓')
-                        : (lang === 'ru' ? 'Добавить в корзину' : 'Savatga qo‘shish')}
+                        ? lang === 'ru'
+                          ? 'Запросить цену'
+                          : 'Narx so‘rash'
+                        : lang === 'ru'
+                        ? 'Оставить заявку'
+                        : 'Zayafka berish'}
                     </span>
                   </button>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
                   <button
-                    onClick={() => setOneClickOpen(true)}
+                    onClick={() => setLead('PRODUCT_REQUEST')}
                     disabled={!product.inStock}
                     className="py-3 px-4 rounded-full bg-ink text-white font-semibold text-sm hover:bg-black transition-colors disabled:opacity-40 disabled:cursor-not-allowed min-h-[46px]"
                   >
-                    {lang === 'ru' ? 'Заказ в 1 клик' : '1-klikda buyurtma'}
+                    {lang === 'ru' ? 'Заявка в 1 клик' : '1-klikda zayafka'}
                   </button>
                   <button
-                    onClick={() => setB2bModalOpen(true)}
+                    onClick={() => setLead('B2B_WHOLESALE')}
                     className="py-3 px-4 rounded-full bg-surface-soft text-ink font-semibold text-sm hover:bg-[#E9EDF3] transition-colors min-h-[46px]"
                   >
                     {lang === 'ru' ? 'Опт' : 'Ulgurji'}
@@ -520,15 +427,17 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
                 </div>
               </div>
 
-              {/* Guarantees */}
+              {/* Kafolat bloklari — faqat dalillangan da'volar */}
               <div className="grid grid-cols-2 gap-3 text-sm">
                 <div className="flex items-center gap-2.5 p-3.5 rounded-[16px] bg-surface-soft">
                   <div className="w-9 h-9 rounded-full bg-surface flex items-center justify-center shrink-0 shadow-card">
                     <Truck className="w-5 h-5 text-brand-red" />
                   </div>
                   <div>
-                    <div className="font-semibold text-ink text-[13px]">Express</div>
-                    <div className="text-xs text-ink-sub">1-3 kunda yetkazish</div>
+                    <div className="font-semibold text-ink text-[13px]">{lang === 'ru' ? 'Доставка' : 'Yetkazish'}</div>
+                    <div className="text-xs text-ink-sub">
+                      {lang === 'ru' ? 'Ташкент: 1 рабочий день' : 'Toshkent: 1 ish kuni'}
+                    </div>
                   </div>
                 </div>
 
@@ -537,8 +446,10 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
                     <ShieldCheck className="w-5 h-5 text-emerald-600" />
                   </div>
                   <div>
-                    <div className="font-semibold text-ink text-[13px]">100% Kafolat</div>
-                    <div className="text-xs text-ink-sub">Resurs modelga bog’liq</div>
+                    <div className="font-semibold text-ink text-[13px]">{lang === 'ru' ? 'Гарантия' : 'Kafolat'}</div>
+                    <div className="text-xs text-ink-sub">
+                      {lang === 'ru' ? 'Ресурс зависит от модели' : 'Resurs modelga bog‘liq'}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -551,7 +462,6 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
         <ProductTabs
           lang={lang}
           description={description}
-          reviewsSummary={reviewsSummary}
           specs={{
             dimensions: product.dimensions,
             material: product.material,
@@ -563,28 +473,14 @@ export const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
         />
       </div>
 
-      {b2bModalOpen && (
-        <B2BModal
+      {lead && (
+        <LeadModal
           isOpen
-          onClose={() => setB2bModalOpen(false)}
+          onClose={() => setLead(null)}
           lang={lang}
-          productName={orderTitle}
-          productId={product.id}
-        />
-      )}
-
-      {oneClickOpen && (
-        <OneClickModal
-          isOpen
-          onClose={() => setOneClickOpen(false)}
-          lang={lang}
-          product={{
-            id: product.id,
-            title: orderTitle,
-            price: currentUnitPrice,
-            sku: displaySku,
-            image: images[0],
-          }}
+          product={{ title: leadTitle, sku: displaySku }}
+          defaultQuantity={quantity}
+          type={lead}
         />
       )}
     </>

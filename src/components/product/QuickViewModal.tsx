@@ -3,20 +3,20 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
 import { Modal } from '@/components/ui/Modal';
 import { Price } from '@/components/ui/Price';
-import { StockBadge } from '@/components/ui/StockBadge';
 import { QuantitySelector } from '@/components/ui/QuantitySelector';
 import { Button } from '@/components/ui/Button';
-import { useCartStore } from '@/lib/store/cartStore';
-import { formatPrice } from '@/lib/utils';
+import { LeadModal } from '@/components/lead/LeadModal';
 import { Locale } from '@/lib/i18n';
-import { ShoppingCart, Check, Eye, ShoppingBag } from 'lucide-react';
-import { trackEvent } from '@/lib/analytics';
+import { Eye, Send } from 'lucide-react';
 
-const B2BModal = dynamic(() => import('./B2BModal').then((m) => m.B2BModal), { ssr: false });
-
+/**
+ * Tez ko'rish modali.
+ *
+ * Savat olib tashlangani uchun tugma endi to'g'ridan-to'g'ri zayafka formasini
+ * ochadi (miqdor tanlagich qiymati formaga o'tadi).
+ */
 interface QuickViewModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -25,93 +25,72 @@ interface QuickViewModalProps {
 }
 
 export const QuickViewModal: React.FC<QuickViewModalProps> = ({ isOpen, onClose, lang, product }) => {
-  const addItem = useCartStore((s) => s.addItem);
   const [qty, setQty] = useState(1);
-  const [added, setAdded] = useState(false);
-  const [b2bOpen, setB2bOpen] = useState(false);
+  const [leadOpen, setLeadOpen] = useState(false);
 
   if (!product) return null;
 
   const title = lang === 'ru' ? product.titleRu : product.titleUz;
   const image = product.images?.[0]?.url;
-  // Narxi ko'rsatilmagan mahsulotni savatga qo'shib bo'lmaydi — 0 so'mlik
-  // buyurtma o'rniga narx so'rovi (zayafka) yuboriladi.
-  const askPrice = !product.price || product.price <= 0;
-
-  const handleAdd = () => {
-    addItem({
-      productId: product.id,
-      title,
-      sku: product.sku,
-      price: product.price,
-      image: image || '',
-      quantity: qty,
-    });
-    trackEvent('add_to_cart', { item_id: product.id, from: 'quick_view' });
-    setAdded(true);
-    setTimeout(() => setAdded(false), 2000);
-  };
 
   return (
     <>
-    <Modal isOpen={isOpen} onClose={onClose} title={title} maxWidth="lg">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="relative aspect-square bg-surface-soft rounded-[18px] overflow-hidden p-4">
-          {image ? <Image src={image} alt={title} fill sizes="(max-width: 768px) 100vw, 400px" className="object-contain p-4" /> : <div className="w-full h-full flex items-center justify-center text-[12px] font-semibold text-ink-sub">SPS</div>}
-        </div>
-
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <span className="text-[12px] bg-surface-soft px-2.5 py-1 rounded-full text-ink-sub">SKU: {product.sku}</span>
-            <StockBadge inStock={product.inStock} lang={lang} />
+      <Modal isOpen={isOpen} onClose={onClose} title={title} maxWidth="lg">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="relative aspect-square bg-surface-soft rounded-[18px] overflow-hidden p-4">
+            {image ? (
+              <Image src={image} alt={title} fill sizes="(max-width: 768px) 100vw, 400px" className="object-contain p-4" />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-[12px] font-semibold text-ink-sub">SPS</div>
+            )}
           </div>
 
-          <h3 className="text-[18px] font-semibold text-ink leading-snug tracking-[-0.015em]">{title}</h3>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="text-[12px] bg-surface-soft px-2.5 py-1 rounded-full text-ink-sub">SKU: {product.sku}</span>
+            </div>
 
-          <Price price={product.price} oldPrice={product.oldPrice} lang={lang} size="lg" showDiscountBadge />
+            <h3 className="text-[18px] font-semibold text-ink leading-snug tracking-[-0.015em]">{title}</h3>
 
-          {product.dimensions && <p className="text-sm text-ink-soft">O‘lchami: <span className="font-medium text-ink">{product.dimensions}</span></p>}
+            <Price price={product.price} oldPrice={product.oldPrice} lang={lang} size="lg" showDiscountBadge />
 
-          {askPrice ? (
-            <button
-              onClick={() => setB2bOpen(true)}
-              className="w-full flex items-center justify-center gap-2 py-3 rounded-full font-semibold text-sm min-h-[46px] bg-ink text-white hover:bg-black transition-colors"
-            >
-              <ShoppingBag className="w-4 h-4" />
-              {lang === 'ru' ? 'Запросить цену' : 'Narx so‘rash'}
-            </button>
-          ) : (
+            {product.dimensions && (
+              <p className="text-sm text-ink-soft">
+                {lang === 'ru' ? 'Размер' : 'O‘lchami'}:{' '}
+                <span className="font-medium text-ink">{product.dimensions}</span>
+              </p>
+            )}
+
             <div className="flex items-center gap-3 pt-2">
               <QuantitySelector quantity={qty} onDecrease={() => setQty(Math.max(1, qty - 1))} onIncrease={() => setQty(qty + 1)} />
               <button
-                onClick={handleAdd}
-                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-full font-semibold text-sm min-h-[46px] ${added ? 'bg-emerald-600 text-white' : 'bg-brand-red text-white hover:bg-brand-red-dark'}`}
+                onClick={() => setLeadOpen(true)}
+                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-full font-semibold text-sm min-h-[46px] bg-brand-red text-white hover:bg-brand-red-dark transition-colors"
               >
-                {added ? <Check className="w-4 h-4" /> : <ShoppingCart className="w-4 h-4" />}
-                {added ? 'Savatda' : 'Savatga'}
+                <Send className="w-4 h-4" />
+                {lang === 'ru' ? 'Оставить заявку' : 'Zayafka berish'}
               </button>
             </div>
-          )}
 
-          <Link href={`/${lang}/product/${product.slug}`} onClick={onClose} className="block">
-            <Button variant="outline" className="w-full gap-2">
-              <Eye className="w-4 h-4" />
-              {lang === 'ru' ? 'Подробнее' : 'Batafsil ko‘rish'}
-            </Button>
-          </Link>
+            <Link href={`/${lang}/product/${product.slug}`} onClick={onClose} className="block">
+              <Button variant="outline" className="w-full gap-2">
+                <Eye className="w-4 h-4" />
+                {lang === 'ru' ? 'Подробнее' : 'Batafsil ko‘rish'}
+              </Button>
+            </Link>
+          </div>
         </div>
-      </div>
-    </Modal>
+      </Modal>
 
-    {b2bOpen && (
-      <B2BModal
-        isOpen
-        onClose={() => setB2bOpen(false)}
-        lang={lang}
-        productName={title}
-        productId={product.id}
-      />
-    )}
+      {leadOpen && (
+        <LeadModal
+          isOpen
+          onClose={() => setLeadOpen(false)}
+          lang={lang}
+          product={{ title, sku: product.sku }}
+          defaultQuantity={qty}
+        />
+      )}
     </>
   );
 };

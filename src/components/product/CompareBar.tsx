@@ -38,6 +38,7 @@ export const CompareBar: React.FC<CompareBarProps> = ({ lang }) => {
               <Image src={item.image} alt={item.title} fill sizes="40px" className="object-contain p-1" />
               <button
                 onClick={() => remove(item.id)}
+                aria-label={`${item.title} — ${lang === 'ru' ? 'убрать из сравнения' : 'taqqoslashdan olib tashlash'}`}
                 className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-red-600 text-white rounded-full flex items-center justify-center"
               >
                 <X className="w-3 h-3" />
@@ -46,7 +47,11 @@ export const CompareBar: React.FC<CompareBarProps> = ({ lang }) => {
           ))}
         </div>
 
-        <button onClick={clear} className="p-2 text-ink-sub hover:text-white">
+        <button
+          onClick={clear}
+          aria-label={lang === 'ru' ? 'Очистить сравнение' : 'Taqqoslashni tozalash'}
+          className="p-2 text-ink-sub hover:text-white"
+        >
           <Trash2 className="w-4 h-4" />
         </button>
 

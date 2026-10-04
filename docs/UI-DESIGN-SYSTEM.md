@@ -1,6 +1,7 @@
 # UI dizayn tizimi (dizayn yangilanishi)
 
-> Sana: 2026-09-15 · Qamrov: kritik oqim (Bosh sahifa → Katalog → Mahsulot → Savat → Buyurtma) · Admin paneldan tashqari
+> Sana: 2026-09-15 · yangilandi: 2026-10 (savat/checkout/admin olib tashlangandan keyin)
+> Qamrov: Bosh sahifa → Katalog → Mahsulot → Zayafka → Kontakt (admin panel va savat yo'q)
 
 ## 1. Nima uchun?
 
@@ -41,7 +42,6 @@ Brend rangi o'zgarmadi: `brand-red #E61C24`. Eski `card-hover` va `red` soyalari
 | `ui/Button` | `rounded-lg`, `font-bold` | `rounded-full`, `font-semibold`, `active:scale-[.98]`, min balandlik 44–48px |
 | `ui/Badge` | katta harflar, kvadrat | pill, `text-[11px]`, yangi `redSoft`/`greenSoft` variantlari |
 | `ui/SectionHeader` | `h-px w-8` chiziq + mono yorliq + qora pill tugma | katta sarlavha (`28px`, `tracking-[-.025em]`) + oddiy matnli havola + o'q |
-| `ui/StockBadge` | ramkali chip | nuqta + matn (narx bilan raqobat qilmaydi) |
 | `ui/Price` | — | `tracking-[-.02em]`, eski narx — ingichka chizilgan, chegirma — qizil pill |
 | `ui/Skeleton` | `bg-gray-100` | `surface-soft` / `#EDF1F6`, karta radiusi 20px |
 | `ui/Container` | `max-w-[1440px]` | `max-w-[1400px] px-4 sm:px-6 lg:px-10` |
@@ -56,27 +56,29 @@ Brend rangi o'zgarmadi: `brand-red #E61C24`. Eski `card-hover` va `red` soyalari
 - **Sahifa foni** hamma joyda `surface-page`, kartalar `surface` — sahifa "qatlamli" ko'rinadi.
 - **Bosh sahifa**: hero qora paneldan yorqin `#EDF0F5` panelga o'tdi (yumshoq brend glow), bitta aniq asosiy CTA (qizil pill) + oq ikkinchi tugma; ishonch bloklari alohida oq kartalar; bo'lim ritmi `py-6 sm:py-8`; "Kun tanlovi" kartasi 24px radius.
 - **Katalog**: og'ir sarlavha kartasi olib tashlandi (oddiy sarlavha + filtrlar), filtr paneli — 20px radius, kategoriya tugmalari pill (tanlangan — `ink`), saralash va narx maydonlari — pill, ko'rinish tugmalari — segmentlangan boshqaruv.
-- **Mahsulot sahifasi**: galereya 24px radiusli yumshoq blokda, tabiiy o'lchamli thumbnail'lar ramkasiz, hajm (ulgurji) kartalari soft + tanlanganda qizil halqa, sticky "savatga" paneli — oq fon + dumaloq qizil tugma.
-- **Savat / Buyurtma / Sevimlilar / Taqqoslash / Qidiruv**: kartalar `surface` + `shadow-card`, input'lar pill, asosiy tugmalar qizil pill (matn balandroq, `font-semibold`).
-- **Savat paneli (drawer)** va **mobil aloqa paneli**: 20px radius, `shadow-pop`.
-- **Dizayn tizimi ko'rgazmasi**: `http://localhost:3000/ui-preview` — ranglar, tugmalar, nishonlar, `Price`, kategoriya plitkalari va real komponentlar (Header, ProductCard, mahsulot sahifasi, savat paneli, Footer) mock ma'lumot bilan.
+- **Mahsulot sahifasi**: galereya 24px radiusli yumshoq blokda, tabiiy o'lchamli thumbnail'lar ramkasiz, variant (material/qalinlik) kartalari soft + tanlanganda qizil halqa, sticky **"Zayafka berish"** paneli — oq fon + dumaloq qizil tugma.
+- **Sevimlilar / Taqqoslash / Qidiruv / Zayafka formasi**: kartalar `surface` + `shadow-card`, input'lar pill, asosiy tugmalar qizil pill (matn balandroq, `font-semibold`).
+- **Zayafka metaforasi**: savat ikonkasi ishlatilmaydi — barcha CTA'larda `Send` (yuborish) ikonkasi.
+- **Mobil aloqa paneli**: 20px radius, `shadow-pop`.
 
 ## 5. Qamrov — qaysi sahifalar yangilandi
 
-Dizayn tili **butun storefront**ga qo'llandi (faqat kritik oqim emas). Har bir sahifa va
-komponent yangi tokenlarda:
+Dizayn tili **butun sayt**ga qo'llandi. Har bir sahifa va komponent yangi tokenlarda:
 
 | Guruh | Fayllar |
 |---|---|
-| Sahifa karkasi | `[lang]/layout.tsx` (oq fon), `HeaderClient`, `Footer`, `StickyMobileContact`, `DeferredWidgets`, `PWAInstallBanner`, `CompareBar` |
-| Bosh sahifa | `[lang]/page.tsx` (hero panel, ishonch kartalari, bo'limlar, FAQ, B2BBanner, DealCountdown) |
+| Sahifa karkasi | `[lang]/layout.tsx` (oq fon), `HeaderClient`, `Footer`, `StickyMobileContact`, `DeferredWidgets`, `SWCleanup`, `product/CompareBar` |
+| Bosh sahifa | `[lang]/page.tsx` (hero panel, ishonch kartalari, bo'limlar, FAQ, `B2BBanner`) |
 | Katalog | `catalog/page.tsx`, `CatalogClient` (filtr paneli, saralash, ko'rinish, sahifalash), `CategoryCard` |
-| Mahsulot | `product/[slug]/page.tsx`, `ProductDetailClient` (galereya, hajm kartalari, kalkulyator, sticky bar), `ProductCard`, `QuickViewModal`, `OneClickModal`, `B2BModal`, `ProductTabs`, `ProductReviews`, `CrossSell`, `RecentlyViewed`, `MoldResultShowcase`, `BeforeAfterSlider` |
-| Savat / buyurtma | `cart/page.tsx`, `checkout/page.tsx`, `CartDrawer`, `FreeShippingProgress`, `order-success/[orderId]` |
-| Boshqa sahifalar | `wishlist`, `compare`, `search`, `about`, `contact`, `blog`, `blog/[slug]`, `production`, `projects`, `returns`, `delivery-payment`, `privacy`, `terms`, `error.tsx`, `loading.tsx` |
-| UI primitivlari | `Button`, `Badge`, `SectionHeader`, `StockBadge`, `Price`, `Skeleton`, `EmptyState`, `QuantitySelector`, `Modal`, `Breadcrumbs`, `PlaceholderImage`, `DealCountdown`, `AIAssistant` |
-| Preview | `ui-preview/MockStorefront` (dizayn tizimi bo'limi qo'shildi) |
-| **Qamrovdan tashqarida** | `src/app/admin/**`, `src/components/admin/**` — admin panel ataylab qorong'i (dark) uslubda qoldirildi |
+| Mahsulot | `product/[slug]/page.tsx`, `ProductDetailClient` (galereya, variant kartalari, sticky zayafka paneli), `ProductCard`, `QuickViewModal`, `ProductOptions`, `ProductTabs`, `CrossSell`, `RecentlyViewed`, `MoldResultShowcase`, `BeforeAfterSlider` |
+| Zayafka | `components/lead/LeadButton`, `LeadModal` (bosh sahifa, mahsulot, kontakt, sticky panel) |
+| Boshqa sahifalar | `wishlist`, `compare`, `search`, `about`, `contact`, `blog`, `blog/[slug]`, `production`, `projects`, `returns`, `delivery-payment`, `privacy`, `terms`, `how-to-order`, `error.tsx`, `loading.tsx` |
+| UI primitivlari | `Button`, `Badge`, `SectionHeader`, `Price`, `Skeleton`, `EmptyState`, `QuantitySelector`, `Modal`, `Breadcrumbs`, `PlaceholderImage`, `FaqAccordion`, `AIAssistant` |
+| Analitika | `analytics/AnalyticsScripts` (GTM/GA4/Metrica/Pixel — faqat ID bo'lsa) |
+
+Savat, checkout, admin panel va ularning komponentlari (`CartDrawer`,
+`StockBadge`, `DealCountdown`, `ProductReviews`, `OneClickModal`, `B2BModal`,
+`ui-preview`) **o'chirildi** — sayt backendsiz zayafka modelida ishlaydi.
 
 > `blog/[slug]` sahifasida sarlavha `text-white` bo'lib qolgan edi — karkas foni oqqa
 > o'tgach u ko'rinmas bo'lib qolardi, tuzatildi (endi `text-ink`).
@@ -85,17 +87,19 @@ komponent yangi tokenlarda:
 
 | Tekshiruv | Natija |
 |---|---|
-| `npx tsc --noEmit` | 74 xato — barchasi oldindan mavjud (TS7006/TS7053), yangi xato yo'q |
-| `npx next lint --max-warnings=999` | 0 error (ogohlantirishlar o'zgarmadi) |
-| `curl` :3000 | `/ui-preview`, `/uz/cart`, `/uz/checkout`, `/uz/wishlist`, `/uz/compare`, `/uz/about`, `/uz/contact` → **200** |
+| `npx tsc --noEmit` | ✅ 0 xato |
+| `npm run lint` | ✅ 0 ogohlantirish |
+| `npm test` | ✅ 45/45 |
+| `npm run build` (bazasiz) | ✅ 441 statik sahifa |
+| Ichki havolalar | ✅ 220 sahifa aylanib chiqildi, uzilgan havola yo'q |
 | CSS chiqishi | `.bg-surface`, `.text-ink*`, `.border-line*`, `.shadow-card/lift/pop`, `.rounded-[20px]` Tailwind build'ida mavjud |
-| Admin panel | tegmadik (qamrovdan tashqarida) |
 
-> Eslatma: bu muhitda baza (Postgres/Prisma) ulanmagan, shuning uchun `/uz` va `/uz/catalog` sahifalari `error.tsx` holatini ko'rsatadi — bu sandbox cheklovi, regressiya emas. Dizaynni tekshirish uchun `/ui-preview` ishlatiladi.
+> Dizaynni ko'rish uchun endi alohida `ui-preview` sahifasi yo'q — dev serverda
+> haqiqiy sahifalar ochiladi (`npm run dev` → `/uz`, `/ru`, `/uz/catalog`).
 
 ## 7. Keyingi qadam (mobil bosqichi)
 
 - 375px kenglikda hero sarlavhasi va filtr panelini yana bir bor ko'zdan kechirish;
 - `sizes` atributi yetishmayotgan sahifalar: `blog/[slug]`, `production`, `projects`;
-- `RecentlyViewed` o'z `Container`ini ishlatadi → joylashtirilganda ikki marta padding (mahsulot va savat sahifalarida);
-- `Modal.tsx` da ESC/focus trap/`role` yo'q (QuickView, B2B, OneClick).
+- `RecentlyViewed` o'z `Container`ini ishlatadi → joylashtirilganda ikki marta padding;
+- `Modal.tsx` da focus trap va `aria-modal` hali yo'q (QuickView, LeadModal).

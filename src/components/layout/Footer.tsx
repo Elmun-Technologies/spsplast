@@ -8,23 +8,29 @@ import { getDictionary, Locale } from '@/lib/i18n';
 import { trackEvent } from '@/lib/analytics';
 import { COMPANY_CONTACTS } from '@/lib/constants/contacts';
 
-interface FooterProps {
-  lang: Locale;
+export interface FooterCatalogLink {
+  id: string;
+  slug: string;
+  name: string;
 }
 
-const CATALOG_LINKS = [
-  { slug: 'bruschatka-qoliplari', uz: 'Bruschatka qoliplari', ru: 'Формы для брусчатки' },
-  { slug: 'plitka-qoliplari', uz: 'Plitka qoliplari', ru: 'Формы для плитки' },
-  { slug: 'bordyur-qoliplari', uz: 'Bordyur qoliplari', ru: 'Формы для бордюров' },
-  { slug: 'fasad-dekor', uz: 'Fasad dekor', ru: 'Фасадный декор' },
-];
+interface FooterProps {
+  lang: Locale;
+  /**
+   * Kategoriya havolalari server komponentdan uzatiladi: slug'lar tilga qarab
+   * farq qiladi va ularni qo'lda yozish 404 ga olib keladi. Footer client
+   * komponent bo'lgani uchun butun katalogni import qilmaymiz — faqat shu
+   * uchta yozuv keladi.
+   */
+  catalogLinks: FooterCatalogLink[];
+}
 
 /**
  * Light footer: same surface language as the rest of the storefront (white
  * panel on the grey page, hairline divider, quiet link colours) instead of the
  * previous all-black industrial block.
  */
-export const Footer: React.FC<FooterProps> = ({ lang }) => {
+export const Footer: React.FC<FooterProps> = ({ lang, catalogLinks }) => {
   const dict = getDictionary(lang);
 
   return (
@@ -59,7 +65,7 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-soft text-[12px] text-ink-soft">
                 <CreditCard className="w-3.5 h-3.5 text-ink-sub" />
-                Click / Payme / {lang === 'ru' ? 'наличные' : 'naqd'}
+                {lang === 'ru' ? 'Наличные или счёт для юр. лиц' : 'Naqd yoki yuridik shaxslarga hisob-faktura'}
               </span>
             </div>
           </div>
@@ -150,10 +156,10 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
                   {lang === 'ru' ? 'Все товары' : 'Barcha mahsulotlar'}
                 </Link>
               </li>
-              {CATALOG_LINKS.map((item) => (
-                <li key={item.slug}>
-                  <Link href={`/${lang}/catalog?category=${item.slug}`} className="hover:text-brand-red transition-colors">
-                    {lang === 'ru' ? item.ru : item.uz}
+              {catalogLinks.map((item) => (
+                <li key={item.id}>
+                  <Link href={`/${lang}/catalog/${item.slug}`} className="hover:text-brand-red transition-colors">
+                    {item.name}
                   </Link>
                 </li>
               ))}
@@ -204,10 +210,10 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
         <div className="pt-8 flex flex-col lg:flex-row items-center justify-between gap-4 text-[12px] text-ink-sub">
           <p>© {new Date().getFullYear()} Stone Profy Servise. {dict.footer.rights}</p>
           <div className="flex flex-wrap items-center justify-center gap-2.5">
-            {/* To'lov belgilari faqat haqiqatda mavjud usullar: checkout faqat
-                naqd, Click/Payme va bank o'tkazmasini qabul qiladi. Ilgari bu
-                yerda "UZUM" ham bor edi — mavjud bo'lmagan usul (P0-8). */}
-            {['CLICK', 'PAYME', 'NAQD'].map((p) => (
+            {/* To'lov belgilari faqat haqiqatda mavjud usullar: naqd va yuridik
+                shaxslar uchun bank o'tkazmasi. Ilgari bu yerda "UZUM" ham bor
+                edi — mavjud bo'lmagan usul (P0-8). */}
+            {[lang === 'ru' ? 'НАЛИЧНЫЕ' : 'NAQD', lang === 'ru' ? 'СЧЁТ (ЮР. ЛИЦА)' : 'HISOB-FAKTURA (YU.L.)'].map((p) => (
               <span key={p} className="px-3 py-1.5 bg-surface-soft rounded-full text-[11px] font-semibold text-ink-soft">
                 {p}
               </span>

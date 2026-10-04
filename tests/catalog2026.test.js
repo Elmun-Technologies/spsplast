@@ -4,14 +4,14 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 /**
- * Data integrity of the 2026 studio series (prisma/data/molds-2026.json).
+ * Data integrity of the 2026 studio series (data/molds-2026.json).
  *
  * The seed writes this file straight into the database, so a broken slug,
  * a duplicate SKU or a missing photo would only surface at `npm run db:seed`
  * time (or worse, in production). These checks keep the catalogue file honest.
  */
 const ROOT = path.join(__dirname, '..');
-const catalog = JSON.parse(fs.readFileSync(path.join(ROOT, 'prisma/data/molds-2026.json'), 'utf8'));
+const catalog = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/molds-2026.json'), 'utf8'));
 const products = catalog.products;
 
 const KNOWN_CATEGORIES = ['devor-panel', 'fasad', 'bruschatka', 'plitka', 'bordyur', 'termopanel'];

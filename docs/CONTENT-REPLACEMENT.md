@@ -1,89 +1,73 @@
-# SPS PLAST — Content & Asset Replacement Checklist
+# SPS PLAST — kontent va media almashtirish ro'yxati
 
-This document details all temporary/placeholder images, business claims, and contact details in the repository, along with specifications for real SPS Plast production assets and Admin media management workflows.
+> 2026-10 yangilangan. Saytda admin panel, media yuklash va baza **yo'q**:
+> barcha rasm va matn repozitoriy ichidagi statik fayllardan o'qiladi.
+> Bu hujjat fotografdan yangi kadrlar kelganda nima va qanday formatda
+> kerakligini belgilaydi.
 
----
+## 1. Logo va brend fayllari
 
-## 1. LOGO & BRAND ASSETS
-
-| Asset | Current State | Required Real Asset | Dimensions / Format | Where Used |
+| Fayl | Hozirgi holat | Kerakli real fayl | O'lcham / format | Qayerda ishlatiladi |
 |---|---|---|---|---|
-| Primary Logo | Vector SVG mark + SPS PLAST text | Official vector SVG logo | Vector SVG / PNG (trans, 400x100) | Header, Footer, Admin, Mobile Drawer |
-| Favicon | Next.js default favicon | SPS Plast icon mark | 32x32 ICO / 192x192 PNG | Browser tab |
-| Social Share (OG Image) | Auto-generated or default | Factory / Hero product composite | 1200x630 JPEG/PNG | OpenGraph / Social sharing |
+| Asosiy logo | Vektor SVG belgi + `SPS PLAST` yozuvi | Rasmiy vektor logo | SVG yoki PNG (shaffof, 400×100) | Header, Footer, mobil menyu |
+| Favicon | Brend belgisidan yasalgan `.ico` / PNG | Rasmiy ikonka | 32×32 ICO, 192×192 PNG | Brauzer yorlig'i |
+| OG rasm | `public/images/og-logo.jpg` | Zavod yoki mahsulot kompozitsiyasi | 1200×630 JPEG/PNG | Ijtimoiy tarmoq preview (layout + `seo.ts`) |
 
----
+Fayllar: `public/favicon.ico`, `public/icons/`, `public/images/og-logo.jpg`.
 
-## 2. STOREFRONT MEDIA & CATEGORIES
+## 2. Sayt bo'ylab kerakli kadrlar
 
-| Category / Component | Current Source | Required Real SPS Plast Photo | Media Role | Dimensions / Aspect |
+| Bo'lim | Hozirgi manba | Kerakli real kadr | Manzil | Nisbat |
 |---|---|---|---|---|
-| Hero Banner | Configurable via Admin Settings / neutral fallback | Real SPS Plast injection molding production floor | HERO | 1920x1080 (16:9) |
-| Bruschatka Molds | Configurable via Category Admin upload | Physical plastic mold for paving stones | CATEGORY_MAIN | 800x800 (1:1) |
-| Finished Paving Results | Category / Product Media upload | Real paved stone walkway cast using SPS molds | FINISHED_RESULT | 800x800 (1:1) |
-| Thermopanels | Category Admin upload | Real facade thermopanel sample photo | CATEGORY_MAIN | 800x800 (1:1) |
-| Mold Product Detail | Product Media Uploader (Role: MOLD) | Clean photo of plastic injection mold on neutral bg | MOLD | Min 1600x1600 (1:1) |
-| Result Product Detail | Product Media Uploader (Role: FINISHED_RESULT) | Actual concrete product cast from exact mold | FINISHED_RESULT | Min 1600x1600 (1:1) |
-| Factory & Production | Media Storage / Settings | Real SPS Plast workshop, CNC molds, storage | PRODUCTION | 1200x800 (3:2) |
-| Project Showcase | Media Storage / Settings | Real completed client building facades & paved sites | PROJECT | 1200x800 (3:2) |
+| Kategoriya kartasi | `public/catalog/*` (`catalog-*.jpg`) | Tosh qolipining aniq kadri | `data/molds-2026.json` → `image` | 1:1 (800×800) |
+| Mahsulot kartasi / galereya | `public/catalog/*` | Qolip + tayyor natija | `catalog.json` → `images[]` | 1:1 (min. 1200×1200) |
+| Ishlab chiqarish galereyasi | `public/media/production/*` | Sex, stanok, saqlash ombori | `build-media.py` → `production` | 4:3 (1200×900) |
+| Loyihalar (oldin/keyin) | `public/media/projects/*` | Obyekt va undan quyilgan beton buyum | `build-media.py` → `projects` | 1:1 (900×900) |
+| Blog muqovalari | `public/media/blog/*` | Mavzuga mos real kadr | `build-media.py` → `blog` | 16:9 (1600×900) |
 
----
+## 3. Mahsulot surati standarti
 
-## 3. PRODUCT PHOTO STANDARDS
+Har bir mahsulot kartasi uchun minimal to'plam:
 
-Future photography supplied by SPS Plast should follow these standardized media roles:
+1. **MAIN (asosiy rasm)** — neytral/oq fonda butun qolip, 1:1 yoki 4:3.
+2. **MOLD (qolip)** — aniq o'sha jismoniy qolip kadri.
+3. **FINISHED_RESULT (tayyor natija)** — shu qolipda quyilgan beton buyum.
+4. **DIMENSION (o'lcham)** — balandlik/kenglik/qalinlik ko'rinadigan chizma yoki rasm.
+5. **DETAIL (detal)** — tekstura, material zichligi yoki qulfning yaqin kadri.
+6. **USAGE (ishlatilish)** — beton quyish yoki o'rnatish jarayoni.
 
-1. **MAIN (Asosiy rasm)**: Clean product shot on neutral/white background showing the full physical item (square or 4:3 catalog aspect ratio).
-2. **MOLD (Qolip rasmi)**: Exact physical injection mold item (used in "Qolip -> Tayyor Natija" showcase).
-3. **FINISHED_RESULT (Tayyor mahsulot rasmi)**: Actual concrete stone or panel created using that specific mold.
-4. **DIMENSION (O'lcham)**: Diagram or photo clearly displaying height, width, and thickness measurements.
-5. **DETAIL (Detal)**: Close-up high-resolution view of surface texture, material density, or locking mechanism.
-6. **USAGE (Ishlatilish)**: Practical site installation or concrete casting in progress.
+**Texnik talablar:** katalog/detal uchun min. 1200×1200 px, hero/banner uchun
+1920×1080 px; bitta fayl ≤ 10 MB; formatlar WebP/JPEG/PNG (yuklashdan oldin
+`python3 scripts/build-media.py` avtomatik optimallashtiradi).
 
-**Recommended Resolution**: Minimum 1200x1200px for catalog/detail photos, 1920x1080px for hero/banner imagery. Max file size: 10MB per image. Formats allowed: WebP, JPEG, PNG.
+## 4. Qanday yangilanadi (admin panel yo'q)
 
----
+1. Asl katta fayllarni `media-src/` ichiga qo'ying — skript o'qiydigan papkalar:
+   `masters/` (169 ta asl PNG), `studio/` (2026 studiya seriyasi), `factory/`,
+   `pdf/`. Papka git'da kuzatilmaydi (`.gitignore`), ya'ni repo hajmi o'smaydi.
+2. `python3 scripts/build-media.py` ishga tushiring — yengil nusxalar
+   `public/media/` va `public/catalog/` ga tushadi (maks. 1200 px, WebP/JPEG).
+3. Mahsulot matni va rasm yo'lini `data/molds-2026.json`
+   (yoki 2026 studiya seriyasi uchun `catalog_build/products.json`) da yangilang.
+4. `node scripts/build-static-catalog.js` → `src/data/catalog.json` qayta yasaladi;
+   `node scripts/build-static-catalog.js --check` tekshiradi.
+5. `npx tsc --noEmit && npm run lint && npm test && npm run build` — gate.
 
-## 4. ADMIN REAL MEDIA REPLACEMENT WORKFLOW (NON-DEVELOPER INSTRUCTIONS)
+## 5. Kontaktlar va da'volar — yagona manba
 
-Non-technical administrators can manage all product media without editing code or raw URLs:
+- **Kontaktlar:** `src/lib/constants/contacts.ts` (telefon, Telegram, WhatsApp,
+  manzil, ish vaqti, xarita koordinatalari, rekvizitlar). Header, Footer,
+  kontakt sahifasi va JSON-LD shu fayldan o'qiydi — matnni faqat shu yerda
+  o'zgartirish kerak.
+- **Da'vo qoidasi:** tasdiqlanmagan raqam saytga chiqmaydi. Raqam yo'q bo'lsa
+  "modelga bog'liq" yoziladi (masalan, qolipning xizmat muddati). Tasdiqlangan
+  raqamlar: telefon, manzil, ish vaqti, katalogdagi o'lchamlar va material.
+- **Narx:** katalogda narx ko'rsatilmaydi → har bir kartada "Narx so'rash".
+  Zayafka formasi orqali menejer hisob-kitob qiladi.
 
-1. Log into Admin Panel at `/admin/login`.
-2. Navigate to **Mahsulotlar** (`/admin/products`).
-3. Click **Tahrirlash** (Edit icon) next to any product.
-4. Under **"Qolip va tayyor natija"**:
-   - Click **[Rasm yuklash]** under **Qolip rasmi** to upload the exact physical mold photo (Role: `MOLD`).
-   - Click **[Rasm yuklash]** under **Tayyor mahsulot rasmi** to upload the finished concrete photo (Role: `FINISHED_RESULT`).
-5. Under **"Mahsulot Media Fayllari"**:
-   - Drag & drop or select image files to upload to **Galereya** or set as **Asosiy rasm (MAIN)**.
-   - Reorder images, assign roles (`Asosiy rasm`, `Galereya`, `O‘lcham`, `Detal`, `Ishlatilish`, `Video`), edit ALT texts, or remove media items.
-6. Click **Saqlash** at the bottom of the page.
+## 6. Almashtirilgandan keyin tekshirish
 
----
-
-## 5. CONTENT CLAIMS & BUSINESS VERIFICATION
-
-All factual business metrics and claims are configured centrally via **Admin Settings** (`/admin/settings`) or `Setting` model:
-
-- **Years in business** (`yearsExperience`): Configurable (Hidden if empty).
-- **Cast Durability** (`durabilityCasts`): Per-product attribute (e.g., 350+ casts).
-- **Warranty** (`warrantyTextUz`, `warrantyTextRu`): Configurable via Admin Settings.
-- **Production Capacity** (`productionCapacityUz`, `productionCapacityRu`): Configurable via Admin Settings.
-
-*Safety Rule*: Unverified claims are not shown publicly with invented default numbers.
-
----
-
-## 6. CENTRALIZED CONTACT DATA & SAFETY RULE
-
-All public contact details are configured dynamically via Admin Settings (`/admin/settings`):
-
-- **Phone**: Configurable via Admin Settings (`phoneDisplay`, `phoneRaw`).
-- **Telegram**: Configurable (`telegramUrl`).
-- **WhatsApp**: Configurable (`whatsappUrl`).
-- **Instagram**: Configurable (`instagramUrl`).
-- **Factory Address**: Configurable (`addressUz`, `addressRu`).
-- **Email**: Configurable (`email`).
-- **Working Hours**: Configurable (`workingHoursUz`, `workingHoursRu`).
-
-*Absolute Safety Rule*: If a contact field is empty or unconfigured, corresponding CTAs, phone links, and buttons are hidden automatically. No placeholder values (such as fake `+998901234567`) are shown to public users.
+- [ ] Yangi rasm `public/media/` da mavjud va sahifada ko'rinadi (dev serverda ochib ko'rish).
+- [ ] Muqova rasm blog/loyiha kartasida 16:9 / 3:2 nisbatda kesilmaydi.
+- [ ] `alt` matni mahsulot nomiga mos (i18n: uz/ru ikkalasi ham).
+- [ ] `npm test` — `tests/staticCatalog.test.js` rasm yo'llarini tekshiradi.

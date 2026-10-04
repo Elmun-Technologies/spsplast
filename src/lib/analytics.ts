@@ -1,4 +1,11 @@
-// Unified E-commerce Analytics Tracker (GA4, GTM, Yandex Metrica, Meta Pixel)
+// Yagona analitika qatlami: GTM/GA4, Yandex Metrica va Meta Pixel.
+//
+// Sayt backendsiz ishlaydi va asosiy konversiya — "zayafka" (lead). Shu sababli
+// savat/buyurtma hodisalari olib tashlangan: faqat sahifa ko'rish, qidiruv,
+// sevimlilar/taqqoslash va lead hodisalari yuboriladi.
+//
+// Skriptlar faqat mos env ID mavjud bo'lsa yuklanadi
+// (`src/components/analytics/AnalyticsScripts.tsx`).
 
 declare global {
   interface Window {
@@ -11,6 +18,8 @@ declare global {
 
 type EventParams = Record<string, any>;
 
+const METRICA_ID = Number(process.env.NEXT_PUBLIC_YANDEX_METRICA_ID || 0);
+
 export function trackEvent(eventName: string, params: EventParams = {}) {
   if (typeof window === 'undefined') return;
 
@@ -21,60 +30,46 @@ export function trackEvent(eventName: string, params: EventParams = {}) {
     page_title: document.title,
   };
 
-  // 1. Google Tag Manager / GA4 dataLayer
+  // 1. GTM / GA4 dataLayer
   window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({
-    event: eventName,
-    ...enriched,
-  });
+  window.dataLayer.push({ event: eventName, ...enriched });
 
-  // 2. GA4 via gtag if available
+  // 2. GA4 to'g'ridan-to'g'ri (gtag mavjud bo'lsa)
   if (window.gtag) {
     const gaMap: Record<string, string> = {
       view_item: 'view_item',
       view_item_list: 'view_item_list',
-      add_to_cart: 'add_to_cart',
-      remove_from_cart: 'remove_from_cart',
-      begin_checkout: 'begin_checkout',
-      purchase: 'purchase',
       search: 'search',
       generate_lead: 'generate_lead',
       add_to_wishlist: 'add_to_wishlist',
-      view_cart: 'view_cart',
       add_to_compare: 'add_to_compare',
       share: 'share',
-      one_click_order: 'begin_checkout',
     };
-    const gaEvent = gaMap[eventName] || eventName;
-    window.gtag('event', gaEvent, enriched);
+    window.gtag('event', gaMap[eventName] || eventName, enriched);
   }
 
-  // 3. Meta Pixel (Facebook)
+  // 3. Meta Pixel
   if (window.fbq) {
     const fbMap: Record<string, { fbEvent: string; mapper?: (p: EventParams) => any }> = {
-      purchase: { fbEvent: 'Purchase', mapper: (p) => ({ value: p.value, currency: p.currency || 'UZS' }) },
-      add_to_cart: { fbEvent: 'AddToCart', mapper: (p) => ({ content_ids: [p.item_id], content_name: p.item_name, value: p.price }) },
       view_item: { fbEvent: 'ViewContent', mapper: (p) => ({ content_ids: [p.item_id], content_name: p.item_name }) },
       generate_lead: { fbEvent: 'Lead' },
       search: { fbEvent: 'Search', mapper: (p) => ({ search_string: p.search_term }) },
       add_to_wishlist: { fbEvent: 'AddToWishlist' },
-      begin_checkout: { fbEvent: 'InitiateCheckout' },
+      share: { fbEvent: 'Share' },
     };
     const fb = fbMap[eventName];
-    if (fb) {
-      window.fbq('track', fb.fbEvent, fb.mapper ? fb.mapper(enriched) : enriched);
-    } else {
-      window.fbq('trackCustom', eventName, enriched);
-    }
+    if (fb) window.fbq('track', fb.fbEvent, fb.mapper ? fb.mapper(enriched) : enriched);
+    else window.fbq('trackCustom', eventName, enriched);
   }
 
-  // 4. Yandex Metrica
-  if (window.ym) {
+  // 4. Yandex Metrica — O'zbekiston bozorida asosiy kanal.
+  // Metrica maqsadlarida to'g'ri ko'rinishi uchun hodisa nomini o'zini yuboramiz.
+  if (window.ym && METRICA_ID) {
     try {
-      // Assuming first counter ID from env or default
-      // window.ym(counterId, 'reachGoal', eventName, enriched)
-      window.dataLayer.push({ ym_event: eventName, ym_params: enriched });
-    } catch {}
+      window.ym(METRICA_ID, 'reachGoal', eventName, enriched);
+    } catch {
+      // Metrica skripti bloklangan bo'lsa sayt ishlashda davom etadi.
+    }
   }
 
   if (process.env.NODE_ENV === 'development') {
@@ -82,17 +77,12 @@ export function trackEvent(eventName: string, params: EventParams = {}) {
   }
 }
 
-// Specific e-commerce helpers
+// Hodisa yordamchilari — chaqiruv joyida maydon nomlari chalkashmasin.
 export const analytics = {
-  viewItem: (product: { id: string; name: string; price: number; category?: string }) =>
-    trackEvent('view_item', { item_id: product.id, item_name: product.name, price: product.price, item_category: product.category }),
+  viewItem: (product: { id: string; name: string; category?: string }) =>
+    trackEvent('view_item', { item_id: product.id, item_name: product.name, item_category: product.category }),
   viewItemList: (listName: string, products: { id: string; name: string }[]) =>
     trackEvent('view_item_list', { item_list_name: listName, items: products }),
-  addToCart: (product: { id: string; name: string; price: number; quantity?: number }) =>
-    trackEvent('add_to_cart', { item_id: product.id, item_name: product.name, price: product.price, quantity: product.quantity || 1 }),
-  viewCart: (value: number, numItems: number) => trackEvent('view_cart', { value, num_items: numItems }),
-  beginCheckout: (value: number, numItems: number) => trackEvent('begin_checkout', { value, num_items: numItems }),
-  purchase: (orderNumber: string, value: number) => trackEvent('purchase', { transaction_id: orderNumber, value, currency: 'UZS' }),
   search: (term: string) => trackEvent('search', { search_term: term }),
-  lead: (type: string) => trackEvent('generate_lead', { lead_type: type }),
+  lead: (type: string, product?: string) => trackEvent('generate_lead', { lead_type: type, item_name: product }),
 };

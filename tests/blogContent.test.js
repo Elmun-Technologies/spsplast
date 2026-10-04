@@ -7,7 +7,7 @@ const { pathToFileURL } = require('node:url');
 
 /**
  * Blog matni parseri (`src/lib/blogContent.ts`) va haqiqiy kontent
- * (`prisma/data/content-2026.json`) mos kelishini tekshiradi.
+ * (`data/content-2026.json`) mos kelishini tekshiradi.
  *
  * Nega child process: parser TypeScript'da yozilgan va sahifa komponenti
  * (React/Next importlari) ichida emas — shuning uchun uni toza modul sifatida
@@ -21,7 +21,7 @@ const { pathToFileURL } = require('node:url');
 
 const ROOT = path.join(__dirname, '..');
 const PARSER_PATH = path.join(ROOT, 'src/lib/blogContent.ts');
-const content = JSON.parse(fs.readFileSync(path.join(ROOT, 'prisma/data/content-2026.json'), 'utf8'));
+const content = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/content-2026.json'), 'utf8'));
 
 /** Parser'ni TS modul sifatida yuklab, matnni bloklarga ajratadi. */
 function parseViaNode(text) {

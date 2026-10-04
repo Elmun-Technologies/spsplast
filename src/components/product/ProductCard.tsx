@@ -4,15 +4,14 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
-import { ShoppingBag, Check, ImageOff, ArrowRight, Share2, Heart, Eye, ArrowRightLeft } from 'lucide-react';
-import { useCartStore } from '@/lib/store/cartStore';
+import { Send, ImageOff, ArrowRight, Share2, Heart, Eye, ArrowRightLeft } from 'lucide-react';
 import { useWishlistStore } from '@/lib/store/wishlistStore';
 import { useCompareStore } from '@/lib/store/compareStore';
 import { Locale } from '@/lib/i18n';
 import { trackEvent } from '@/lib/analytics';
 import { Price } from '@/components/ui/Price';
-import { StockBadge } from '@/components/ui/StockBadge';
 import { useCanHover } from '@/lib/hooks/useMediaQuery';
+import { LeadModal } from '@/components/lead/LeadModal';
 
 /**
  * Modal dialogs are opened from a hover action, so their code does not need to
@@ -21,11 +20,6 @@ import { useCanHover } from '@/lib/hooks/useMediaQuery';
  */
 const QuickViewModal = dynamic(
   () => import('./QuickViewModal').then((m) => m.QuickViewModal),
-  { ssr: false }
-);
-
-const B2BModal = dynamic(
-  () => import('./B2BModal').then((m) => m.B2BModal),
   { ssr: false }
 );
 
@@ -52,27 +46,20 @@ interface ProductCardProps {
 }
 
 const ProductCardBase: React.FC<ProductCardProps> = ({ product, lang, featured = false }) => {
-  const addItem = useCartStore((s) => s.addItem);
   const toggleWishlist = useWishlistStore((s) => s.toggleWishlist);
   const isWishlisted = useWishlistStore((s) => s.isWishlisted(product.id));
   const toggleCompare = useCompareStore((s) => s.toggleCompare);
   const isCompared = useCompareStore((s) => s.isCompared(product.id));
-  const [added, setAdded] = React.useState(false);
   const [imgError, setImgError] = React.useState(false);
   const [imgLoaded, setImgLoaded] = React.useState(false);
   const [hovered, setHovered] = React.useState(false);
   const [quickOpen, setQuickOpen] = React.useState(false);
-  const [b2bOpen, setB2bOpen] = React.useState(false);
-  const addedTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [leadOpen, setLeadOpen] = React.useState(false);
 
   // Only devices with a real pointer get the hover image and hover actions.
   const canHover = useCanHover();
 
-  React.useEffect(() => () => {
-    if (addedTimer.current) clearTimeout(addedTimer.current);
-  }, []);
-
-  // If price is not set (0), this is a price-on-request catalog item -> route to B2B inquiry
+  // Narx ko'rsatilmagan (katalogda 0) — "narx so‘rash" tugmasi chiqadi.
   const askPrice = !product.price || product.price <= 0;
 
   const title = lang === 'ru' ? product.titleRu : product.titleUz;
@@ -84,24 +71,6 @@ const ProductCardBase: React.FC<ProductCardProps> = ({ product, lang, featured =
 
   const hasDiscount = Boolean(product.oldPrice && product.oldPrice > product.price);
   const discountPercent = hasDiscount && product.oldPrice ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100) : 0;
-
-  const handleAddToCart = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    addItem({
-      productId: product.id,
-      title,
-      sku: product.sku,
-      price: product.price,
-      image: mainImage || '',
-      quantity: 1,
-      dimensions: product.dimensions || undefined,
-    });
-    trackEvent('add_to_cart', { item_id: product.id, item_name: title, price: product.price });
-    setAdded(true);
-    if (addedTimer.current) clearTimeout(addedTimer.current);
-    addedTimer.current = setTimeout(() => setAdded(false), 2000);
-  };
 
   const handleWishlist = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -208,8 +177,14 @@ const ProductCardBase: React.FC<ProductCardProps> = ({ product, lang, featured =
       {quickOpen && (
         <QuickViewModal isOpen onClose={() => setQuickOpen(false)} lang={lang} product={product} />
       )}
-      {b2bOpen && (
-        <B2BModal isOpen onClose={() => setB2bOpen(false)} lang={lang} productName={title} productId={product.id} />
+      {leadOpen && (
+        <LeadModal
+          isOpen
+          onClose={() => setLeadOpen(false)}
+          lang={lang}
+          product={{ title, sku: product.sku }}
+          type="PRODUCT_REQUEST"
+        />
       )}
 
       {/* Image — industrial grid + premium */}
@@ -253,7 +228,6 @@ const ProductCardBase: React.FC<ProductCardProps> = ({ product, lang, featured =
       <div className="p-4 sm:p-[18px] flex flex-col flex-1 gap-3">
         <div className="space-y-1.5">
           <div className="flex items-center justify-between gap-2">
-            <StockBadge inStock={product.inStock} lang={lang} />
             {/* SKU stays visible: B2B buyers search and order by article number */}
             <span className="text-[11px] text-ink-sub whitespace-nowrap">SKU: {product.sku}</span>
           </div>
@@ -283,28 +257,29 @@ const ProductCardBase: React.FC<ProductCardProps> = ({ product, lang, featured =
               <span>{lang === 'ru' ? 'Выбрать' : 'Tanlash'}</span>
               <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-0.5 transition-transform" />
             </Link>
-          ) : askPrice ? (
-            <button
-              onClick={() => setB2bOpen(true)}
-              className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-full text-sm font-semibold transition-all min-h-[44px] btn-press bg-ink hover:bg-black text-white"
-            >
-              <ShoppingBag className="w-4 h-4" />
-              <span>{lang === 'ru' ? 'Запросить цену' : 'Narx so‘rash'}</span>
-            </button>
           ) : (
             <button
-              onClick={handleAddToCart}
-              disabled={!product.inStock}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setLeadOpen(true);
+              }}
               className={`w-full flex items-center justify-center gap-2 px-4 py-3 rounded-full text-sm font-semibold transition-all min-h-[44px] btn-press ${
-                added
-                  ? 'bg-emerald-600 text-white'
-                  : product.inStock
-                  ? 'bg-brand-red hover:bg-brand-red-dark text-white shadow-[0_8px_20px_-10px_rgba(230,28,36,0.7)]'
-                  : 'bg-surface-soft text-ink-sub cursor-not-allowed'
+                askPrice
+                  ? 'bg-ink hover:bg-black text-white'
+                  : 'bg-brand-red hover:bg-brand-red-dark text-white shadow-[0_8px_20px_-10px_rgba(230,28,36,0.7)]'
               }`}
             >
-              {added ? <Check className="w-4 h-4" /> : <ShoppingBag className="w-4 h-4" />}
-              <span>{added ? (lang === 'ru' ? 'В корзине' : 'Savatda') : lang === 'ru' ? 'В корзину' : 'Savatga qo‘shish'}</span>
+              <Send className="w-4 h-4" />
+              <span>
+                {askPrice
+                  ? lang === 'ru'
+                    ? 'Запросить цену'
+                    : 'Narx so‘rash'
+                  : lang === 'ru'
+                  ? 'Оставить заявку'
+                  : 'Zayafka berish'}
+              </span>
             </button>
           )}
         </div>

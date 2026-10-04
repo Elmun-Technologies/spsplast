@@ -1,8 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { db } from '@/lib/db';
 import { getDictionary, Locale } from '@/lib/i18n';
-import { getProductsServer } from '@/lib/services/productService';
+import { getProductsServer } from '@/lib/catalog';
 import { ProductCard } from '@/components/product/ProductCard';
 import { Container } from '@/components/ui/Container';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
@@ -38,7 +37,7 @@ export default async function SearchPage({
     const page = parseInt(searchParams.page || '1', 10) || 1;
 
     const data = query
-        ? await getProductsServer({
+        ? getProductsServer({
             locale: lang,
             search: query,
             categorySlug,
@@ -50,15 +49,6 @@ export default async function SearchPage({
 
     const products = data.products;
     const total = data.total;
-
-    const rawCategories = await db.category.findMany({
-        where: { status: 'ACTIVE' },
-        orderBy: { sortOrder: 'asc' },
-        take: 6,
-        include: {
-            translations: { where: { locale: lang } },
-        },
-    });
 
     return (
         <div className="bg-surface-page min-h-screen py-8 text-ink">

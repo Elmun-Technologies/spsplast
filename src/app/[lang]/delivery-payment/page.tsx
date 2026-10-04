@@ -24,8 +24,9 @@ import {
  *
  * Ilgari bu sahifa faqat o'zbek tilida edi (rus versiyada ham o'zbekcha matn
  * chiqardi), to'lov usullari ro'yxatida esa amalda mavjud bo'lmagan "UZUM"
- * ko'rsatilgan edi. Endi matn ikki tilda, ro'yxat esa backend'dagi haqiqiy
- * usullar bilan bir xil: naqd, Click/Payme, bank o'tkazmasi (B2B).
+ * ko'rsatilgan edi. Endi matn ikki tilda va faqat haqiqatda mavjud usullar
+ * yozilgan: naqd, yuridik shaxslar uchun bank o'tkazmasi hamda to'lov tartibi
+ * menejer bilan kelishilishi (P0-8 — sayt va'da bermaydi, jarayon aniq).
  */
 
 /**
@@ -41,8 +42,8 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Loc
     path: '/delivery-payment',
     title: isRu ? 'Доставка и условия оплаты | SPS' : 'Yetkazib berish va to‘lov shartlari | SPS',
     description: isRu
-      ? 'Доставка по Ташкенту и регионам Узбекистана, самовывоз со склада. Способы оплаты: наличные, Click/Payme, банковский перевод для юридических лиц.'
-      : 'Toshkent va viloyatlarga yetkazib berish, ombordan olib ketish. To‘lov usullari: naqd, Click/Payme, yuridik shaxslar uchun bank o‘tkazmasi.',
+      ? 'Доставка по Ташкенту и регионам Узбекистана, самовывоз со склада. Оплата: наличные или банковский перевод для юридических лиц.'
+      : 'Toshkent va viloyatlarga yetkazib berish, ombordan olib ketish. To‘lov: naqd yoki yuridik shaxslar uchun bank o‘tkazmasi.',
   });
 }
 
@@ -85,10 +86,10 @@ export default async function DeliveryPaymentPage({ params }: { params: Promise<
     },
     {
       icon: <CreditCard className="w-5 h-5 text-brand-red" />,
-      title: 'Click / Payme',
+      title: isRu ? 'Порядок оплаты' : 'To‘lov tartibi',
       text: isRu
-        ? 'После подтверждения заказа отправляем ссылку на оплату. Оплата проходит на стороне Click/Payme.'
-        : 'Buyurtma tasdiqlangach to‘lov havolasi yuboriladi. To‘lov Click/Payme tomonida amalga oshadi.',
+        ? 'Способ оплаты согласуется с менеджером: наличные при самовывозе или счёте для юридических лиц.'
+        : 'To‘lov usuli menejer bilan kelishiladi: ombordan olib ketishda naqd yoki yuridik shaxslar uchun hisob-faktura.',
     },
     {
       icon: <FileText className="w-5 h-5 text-brand-red" />,
