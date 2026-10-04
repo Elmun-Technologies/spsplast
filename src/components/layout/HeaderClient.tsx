@@ -337,7 +337,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                         <div className="relative w-full flex items-center bg-surface-soft border border-transparent rounded-full overflow-hidden focus-within:bg-surface focus-within:border-line focus-within:shadow-card transition-all">
                             {/* Category Filter Selector inside Search */}
                             <div className="relative shrink-0 hidden lg:block">
-                                <label htmlFor="cat-filter" className="sr-only">Category</label>
+                                <label htmlFor="cat-filter" className="sr-only">{lang === 'ru' ? 'Категория' : 'Kategoriya'}</label>
                                 <select
                                     id="cat-filter"
                                     value={selectedCategorySlug}

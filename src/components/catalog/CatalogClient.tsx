@@ -155,14 +155,14 @@ export const CatalogClient: React.FC<CatalogClientProps> = ({
               <button
                 onClick={() => setViewMode('grid')}
                 className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${viewMode === 'grid' ? 'bg-ink text-white' : 'bg-surface-soft text-ink-soft hover:text-ink'}`}
-                aria-label="Grid view"
+                aria-label={lang === 'ru' ? 'Сеткой' : 'To‘r ko‘rinishida'}
               >
                 <Grid className="w-4 h-4" />
               </button>
               <button
                 onClick={() => setViewMode('list')}
                 className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${viewMode === 'list' ? 'bg-ink text-white' : 'bg-surface-soft text-ink-soft hover:text-ink'}`}
-                aria-label="List view"
+                aria-label={lang === 'ru' ? 'Списком' : 'Ro‘yxat ko‘rinishida'}
               >
                 <List className="w-4 h-4" />
               </button>
