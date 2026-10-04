@@ -92,9 +92,18 @@ fly deploy
 # Katalogni bazaga yozish (50 ta yangi mahsulot + 200 variant):
 fly ssh console -C "node scripts/import-molds-2026.js"
 
+# Blog (7 maqola) va loyihalarni (6 keys) qo'shish — MAVJUD bazaga xavfsiz:
+# hech narsani o'chirmaydi, faqat kontentni upsert qiladi (idempotent)
+fly ssh console -C "node scripts/import-content.js"
+
 # yoki to'liq boshlang'ich to'plam (DIQQAT: hamma jadvalni tozalaydi!):
-# fly ssh console -C "node prisma/seed.js"
+# fly ssh console -C "node prisma/seed.js"     # katalog + kontent birga
 ```
+
+> Batch 2 dan keyin: `prisma/seed.js` ham, `scripts/import-content.js` ham
+> `prisma/data/content-2026.json` dan o'qiydi. Saytda kontent darhol
+> ko'rinmasa — shu skript ishga tushirilmagan (blog/loyihalar bo'sh holatda
+> turadi, xato bermaydi).
 
 Tekshirish:
 ```bash
