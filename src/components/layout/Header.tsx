@@ -1,5 +1,5 @@
 import React from 'react';
-import { getCategoryTree } from '@/lib/services/categoryService';
+import { getCategoryTree } from '@/lib/catalog';
 import { HeaderClient } from './HeaderClient';
 import { Locale } from '@/lib/i18n';
 
@@ -7,13 +7,12 @@ interface HeaderProps {
   lang: Locale;
 }
 
+/**
+ * Navigatsiya kategoriyalari statik katalogdan keladi — baza yoki tarmoq
+ * xatosi bu yerda mumkin emas, shuning uchun avvalgi try/catch zaxirasi ham
+ * kerak emas.
+ */
 export async function Header({ lang }: HeaderProps) {
-  let categories: any[] = [];
-  try {
-    categories = await getCategoryTree(lang);
-  } catch (error) {
-    console.error('Failed to load categories for header:', error);
-  }
-
+  const categories = getCategoryTree(lang);
   return <HeaderClient lang={lang} categories={categories} />;
 }

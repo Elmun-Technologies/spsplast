@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 /**
- * Blog va loyihalar kontenti (prisma/data/content-2026.json) uchun sifat
+ * Blog va loyihalar kontenti (data/content-2026.json) uchun sifat
  * tekshiruvi.
  *
  * `prisma/seed.js` shu faylni to'g'ridan-to'g'ri bazaga yozadi, ya'ni bu
@@ -19,7 +19,7 @@ const path = require('node:path');
  */
 
 const ROOT = path.join(__dirname, '..');
-const content = JSON.parse(fs.readFileSync(path.join(ROOT, 'prisma/data/content-2026.json'), 'utf8'));
+const content = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/content-2026.json'), 'utf8'));
 
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const LOCALES = ['uz', 'ru'];

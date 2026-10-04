@@ -19,10 +19,10 @@ import {
     Heart,
     ArrowRightLeft,
 } from 'lucide-react';
-import { useCartStore } from '@/lib/store/cartStore';
 import { useWishlistStore } from '@/lib/store/wishlistStore';
 import { useCompareStore } from '@/lib/store/compareStore';
 import { Locale, getDictionary } from '@/lib/i18n';
+import { LeadButton } from '@/components/lead/LeadButton';
 import { trackEvent } from '@/lib/analytics';
 import { COMPANY_CONTACTS } from '@/lib/constants/contacts';
 
@@ -59,8 +59,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
     const [showSuggestions, setShowSuggestions] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(-1);
 
-    const cartTotalItems = useCartStore((s) => s.getTotalItems());
-    const toggleCart = useCartStore((s) => s.toggleCart);
     const wishlistCount = useWishlistStore((s) => s.getCount());
     const compareCount = useCompareStore((s) => s.getCount());
 
@@ -445,21 +443,14 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ lang, categories }) 
                             )}
                         </Link>
 
-                        <button
-                            onClick={toggleCart}
+                        <LeadButton
+                            lang={lang}
+                            ariaLabel={lang === 'ru' ? 'Оставить заявку' : 'Zayafka berish'}
                             className="flex items-center gap-2 px-4 sm:px-5 h-11 bg-brand-red hover:bg-brand-red-dark text-white rounded-full transition-colors font-semibold text-sm shadow-[0_8px_20px_-10px_rgba(230,28,36,0.8)]"
-                            aria-label={dict.cart.title}
                         >
-                            <div className="relative">
-                                <ShoppingBag className="w-[18px] h-[18px]" />
-                                {cartTotalItems > 0 && (
-                                    <span className="absolute -top-2.5 -right-2.5 bg-surface text-brand-red text-[11px] font-bold min-w-[18px] h-[18px] rounded-full flex items-center justify-center px-0.5 border-2 border-white">
-                                        {cartTotalItems}
-                                    </span>
-                                )}
-                            </div>
-                            <span className="hidden sm:inline">{lang === 'ru' ? 'Корзина' : 'Savat'}</span>
-                        </button>
+                            <ShoppingBag className="w-[18px] h-[18px]" />
+                            <span className="hidden sm:inline">{lang === 'ru' ? 'Заявка' : 'Zayafka'}</span>
+                        </LeadButton>
 
                         <button
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

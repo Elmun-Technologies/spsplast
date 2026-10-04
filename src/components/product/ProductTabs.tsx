@@ -8,12 +8,6 @@ import { Truck, ShieldCheck, RefreshCw, FileText } from 'lucide-react';
 interface ProductTabsProps {
   lang: Locale;
   description: string;
-  /**
-   * Sahifadagi haqiqiy sharhlar bo'limining qisqacha holati.
-   * Bu ko'rsatkichlar bo'lmasa yoki 0 bo'lsa, tab "hali sharh yo'q" holatini
-   * ko'rsatadi — lekin hech qachon o'ylab topilgan reyting chiqarmaydi.
-   */
-  reviewsSummary?: { count: number; average: number };
   specs: {
     dimensions?: string | null;
     material?: string | null;
@@ -28,15 +22,9 @@ const tabs = [
   { id: 'desc', labelUz: 'Tavsif', labelRu: 'Описание' },
   { id: 'specs', labelUz: 'Xususiyatlar', labelRu: 'Характеристики' },
   { id: 'delivery', labelUz: 'Yetkazib berish', labelRu: 'Доставка' },
-  { id: 'reviews', labelUz: 'Sharhlar', labelRu: 'Отзывы' },
 ];
 
-export const ProductTabs: React.FC<ProductTabsProps> = ({
-  lang,
-  description,
-  specs,
-  reviewsSummary,
-}) => {
+export const ProductTabs: React.FC<ProductTabsProps> = ({ lang, description, specs }) => {
   const [active, setActive] = useState('desc');
 
   return (
@@ -132,7 +120,7 @@ export const ProductTabs: React.FC<ProductTabsProps> = ({
                 </div>
                 <h4 className="font-bold text-sm text-ink">{lang === 'ru' ? 'Доставка' : 'Yetkazib berish'}</h4>
                 <p className="text-xs text-ink-soft leading-relaxed">
-                  {lang === 'ru' ? 'По Узбекистану 1-3 дня, почта и курьер. Точная стоимость уточняется оператором.' : 'O‘zbekiston bo‘ylab 1-3 kun, pochta va kuryer. Narx operator tomonidan aniqlanadi.'}
+                  {lang === 'ru' ? 'Ташкент — 1 рабочий день, регионы — 1–3 рабочих дня. Точная стоимость уточняется менеджером.' : 'Toshkent — 1 ish kuni, viloyatlar — 1–3 ish kuni. Aniq narx menejer tomonidan aniqlashtiriladi.'}
                 </p>
               </div>
               <div className="p-4 rounded-[16px] bg-surface-soft border border-line space-y-2">
@@ -157,52 +145,6 @@ export const ProductTabs: React.FC<ProductTabsProps> = ({
           </div>
         )}
 
-        {/* Sharhlar: yagona manba — sahifadagi haqiqiy sharhlar bo'limi.
-            Ilgari bu tab "sharh yo'q" deb yozardi, hatto sharhlar mavjud bo'lsa ham. */}
-        {active === 'reviews' && (
-          <div className="text-center py-10 space-y-3">
-            <div className="w-12 h-12 rounded-full bg-surface-soft border border-line flex items-center justify-center mx-auto text-ink-sub">
-              ★
-            </div>
-            {reviewsSummary && reviewsSummary.count > 0 ? (
-              <>
-                <h4 className="font-bold text-ink">
-                  {lang === 'ru'
-                    ? `Рейтинг ${reviewsSummary.average.toFixed(1)} из 5`
-                    : `Reyting 5 dan ${reviewsSummary.average.toFixed(1)}`}
-                </h4>
-                <p className="text-sm text-ink-sub max-w-sm mx-auto">
-                  {lang === 'ru'
-                    ? `На основе ${reviewsSummary.count} отзыв(ов) покупателей.`
-                    : `${reviewsSummary.count} ta xaridor sharhi asosida.`}
-                </p>
-                <a
-                  href="#reviews"
-                  className="inline-flex items-center justify-center mt-1 px-5 py-2.5 rounded-full bg-ink text-white text-sm font-bold hover:bg-black transition-colors min-h-[44px]"
-                >
-                  {lang === 'ru' ? 'Читать все отзывы' : 'Barcha sharhlarni o‘qish'}
-                </a>
-              </>
-            ) : (
-              <>
-                <h4 className="font-bold text-ink">
-                  {lang === 'ru' ? 'Пока нет отзывов' : 'Hozircha sharhlar yo‘q'}
-                </h4>
-                <p className="text-sm text-ink-sub max-w-sm mx-auto">
-                  {lang === 'ru'
-                    ? 'Форма для отзыва — ниже на этой странице.'
-                    : 'Sharh qoldirish shakli shu sahifaning pastida joylashgan.'}
-                </p>
-                <a
-                  href="#reviews"
-                  className="inline-flex items-center justify-center mt-1 px-5 py-2.5 rounded-full bg-surface-soft text-ink text-sm font-bold hover:bg-[#E9EDF3] transition-colors min-h-[44px]"
-                >
-                  {lang === 'ru' ? 'Оставить отзыв' : 'Sharh qoldirish'}
-                </a>
-              </>
-            )}
-          </div>
-        )}
       </div>
     </div>
   );
