@@ -55,6 +55,9 @@ export const uz = {
     copyright: "© 2026 SPS · Stone Profy Servise. Toshkentda ishlab chiqarilgan.",
     privacy: 'Maxfiylik siyosati',
   },
+  seo: {
+    leadCta: "Zayafka qoldiring — menejer qolip soni va narxini hisoblab beradi.",
+  },
   models: {
     one: 'model',
     few: 'model',

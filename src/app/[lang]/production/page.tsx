@@ -4,6 +4,8 @@ import { isValidLocale, locales, type Locale } from '@/lib/i18n';
 import { getUi } from '@/lib/ui';
 import { getPages } from '@/lib/pages';
 import { getTotalCount } from '@/lib/catalog2027';
+import { JsonLd } from '@/components/site/JsonLd';
+import { jsonLdBreadcrumb, pageMetadata } from '@/lib/seo';
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -13,7 +15,13 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const { lang } = await params;
   const locale = isValidLocale(lang) ? (lang as Locale) : 'uz';
   const p = getPages(locale);
-  return { title: `${getUi(locale).nav.production} — SPS`, description: p.production.materialLead };
+  return pageMetadata({
+    lang: locale,
+    path: '/production',
+    title: getUi(locale).nav.production,
+    description: p.production.materialLead,
+    image: '/images/site/factory.webp',
+  });
 }
 
 /** Ishlab chiqarish va eksport (Production.dc.html), `#eksport` anchori. */
@@ -34,6 +42,12 @@ export default async function ProductionPage({ params }: { params: Promise<{ lan
 
   return (
     <>
+      <JsonLd
+        data={jsonLdBreadcrumb(lang, [
+          { name: 'SPS', path: '' },
+          { name: t.nav.production, path: '/production' },
+        ])}
+      />
       <section className="pr-hero">
         <Image src="/images/site/factory.webp" alt={p.production.heroImg} fill sizes="100vw" priority />
         <div className="shade" style={{ background: 'linear-gradient(180deg, rgba(20,20,20,.55) 0%, rgba(20,20,20,.9) 100%)' }} />

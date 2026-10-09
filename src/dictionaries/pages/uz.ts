@@ -456,6 +456,16 @@ export const pagesUz = {
     helpText: "Rasm yoki o'lchamni Telegram'ga yuboring — menejer mos qolipni topib beradi.",
     img: 'Monako plitkasi terilgan',
   },
+
+  error: {
+    title: 'Texnik xatolik',
+    text: "Sahifa yuklanmadi. Qayta urinib ko'ring yoki biz bilan bog'laning — zayafka qoldirishda yordam beramiz.",
+    retry: 'Qayta yuklash',
+    home: 'Bosh sahifa',
+    catalog: 'Katalogni ochish',
+    call: 'Menejer bilan bog\'lanish',
+    loading: 'Yuklanmoqda',
+  },
 };
 
 export type PagesDictionary = typeof pagesUz;

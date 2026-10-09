@@ -772,3 +772,27 @@ button { font: inherit; color: inherit; }
   .nf-num { font-size: 160px; }
   .nf-img { order: 0; aspect-ratio: 4 / 3; }
 }
+
+/* --- Holat ekranlari: xatolik (error.tsx) va yuklanish (loading.tsx) --- */
+/* 404 bilan bir xil til: kulgi fon, markazlashtirilgan karta, qizil aksent. */
+.state-sec { background: var(--surface-alt); padding-block: var(--space-9); min-height: 60vh; display: flex; align-items: center; }
+.state-card { max-width: 560px; margin-inline: auto; display: flex; flex-direction: column; gap: var(--space-4); text-align: center; align-items: center; }
+.state-mark { width: 56px; height: 56px; border-radius: var(--radius-card); background: #fdecec; color: var(--red); display: grid; place-items: center; }
+.state-mark svg { width: 28px; height: 28px; }
+.state-card .lead { max-width: 46ch; }
+.state-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.state-tel { display: inline-flex; align-items: center; gap: 8px; color: var(--red-ink); font: 600 16px/24px var(--font-sans); text-decoration: none; }
+.state-tel:hover { text-decoration: underline; }
+
+/* Karkas (skeleton): faqat shakl, matn yo'q — loading.tsx tilni bilmaydi. */
+.skel-sec { padding-block: var(--space-8) var(--space-9); }
+.skel { display: flex; flex-direction: column; gap: var(--space-5); }
+.skel-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.skel-b { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-card); position: relative; overflow: hidden; }
+.skel-b::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,.75), transparent); transform: translateX(-100%); animation: skel-slide 1.4s infinite; }
+.skel-title { height: 48px; }
+.skel-hero { height: 96px; }
+.skel-card { aspect-ratio: 3 / 4; }
+@keyframes skel-slide { 100% { transform: translateX(100%); } }
+@media (min-width: 701px) { .skel-row { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; } }
+@media (prefers-reduced-motion: reduce) { .skel-b::after { animation: none; } }

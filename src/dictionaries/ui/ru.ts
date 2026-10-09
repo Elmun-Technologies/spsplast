@@ -54,6 +54,9 @@ export const ru: UiDictionary = {
     copyright: '© 2026 SPS · Stone Profy Servise. Произведено в Ташкенте.',
     privacy: 'Политика конфиденциальности',
   },
+  seo: {
+    leadCta: 'Оставьте заявку — менеджер рассчитает количество форм и цену.',
+  },
   models: {
     one: 'модель',
     few: 'модели',

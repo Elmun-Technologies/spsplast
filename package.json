@@ -4,18 +4,16 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/build-static-catalog.js --check && next build",
+    "build": "node scripts/validate-models-2027.mjs && next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "test": "node --test --experimental-strip-types tests/*.test.js",
-    "catalog:build": "node scripts/build-static-catalog.js",
-    "catalog:check": "node scripts/build-static-catalog.js --check",
     "models:build": "python3 scripts/extract/build_models_2027.py",
     "models:images": "python3 scripts/extract/build_images_2027.py",
     "models:check": "node scripts/validate-models-2027.mjs",
-    "fonts:sync": "node scripts/sync-fonts.js",
-    "media:build": "python3 scripts/build-media.py"
+    "redirects:build": "python3 scripts/extract/build_redirects_2027.py",
+    "fonts:sync": "node scripts/sync-fonts.js"
   },
   "dependencies": {
     "clsx": "^2.1.1",

@@ -5,6 +5,8 @@ import { getUi } from '@/lib/ui';
 import { getPages } from '@/lib/pages';
 import { PDF_CATALOG_HREF } from '@/components/site/SiteHeader';
 import { PartnersForm } from '@/components/partners2027/PartnersForm';
+import { JsonLd } from '@/components/site/JsonLd';
+import { jsonLdBreadcrumb, jsonLdFaq, pageMetadata } from '@/lib/seo';
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -14,7 +16,13 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const { lang } = await params;
   const locale = isValidLocale(lang) ? (lang as Locale) : 'uz';
   const p = getPages(locale);
-  return { title: `${getUi(locale).nav.partners} — SPS`, description: p.partners.lead };
+  return pageMetadata({
+    lang: locale,
+    path: '/partners',
+    title: getUi(locale).nav.partners,
+    description: p.partners.lead,
+    image: '/images/site/master-laying.webp',
+  });
 }
 
 /** Ulgurji va hamkorlik (Partners.dc.html). */
@@ -28,6 +36,15 @@ export default async function PartnersPage({ params }: { params: Promise<{ lang:
 
   return (
     <>
+      <JsonLd
+        data={[
+          jsonLdBreadcrumb(lang, [
+            { name: 'SPS', path: '' },
+            { name: t.nav.partners, path: '/partners' },
+          ]),
+          jsonLdFaq(p.partners.faq),
+        ]}
+      />
       <section className="ph-hero">
         <div>
           <nav className="crumbs" aria-label="breadcrumb">

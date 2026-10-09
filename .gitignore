@@ -55,3 +55,6 @@ backups/
 
 # Stray local archives / scratch dumps
 *.zip
+
+# Test yordamchisi vaqtinchalik fayllari (tests/helpers/load-alias.mjs)
+.tmp-tests/

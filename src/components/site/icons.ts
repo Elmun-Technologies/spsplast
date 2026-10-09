@@ -1,4 +1,4 @@
-import { LayoutGrid, Search, ChartNoAxesColumn, ClipboardList, Phone, Menu, X } from 'lucide-react';
+import { LayoutGrid, Search, ChartNoAxesColumn, ClipboardList, Phone, Menu, X, TriangleAlert, RotateCw } from 'lucide-react';
 
 /**
  * Lucide ikonlari (ds/README: 1.5px chiziq, currentColor).
@@ -12,6 +12,8 @@ export const Icon = {
   phone: Phone,
   menu: Menu,
   close: X,
+  alert: TriangleAlert,
+  refresh: RotateCw,
 };
 
 export type IconName = keyof typeof Icon;

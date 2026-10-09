@@ -3,6 +3,9 @@ import { getModelsBySection, SECTIONS, SECTION_SLUGS, sectionFromSlug, getTotalC
 import { isValidLocale, locales, type Locale } from '@/lib/i18n';
 import { getUi, pluralModels } from '@/lib/ui';
 import { CatalogClient } from '@/components/catalog2027/CatalogClient';
+import { JsonLd } from '@/components/site/JsonLd';
+import { jsonLdBreadcrumb, pageMetadata } from '@/lib/seo';
+import { modelImage } from '@/lib/catalog2027';
 
 // `dynamicParams = false` + searchParams o'qimaslik: noma'lum bo'lim uchun
 // Next qattiq 404 qaytarishi kerak (soft-404 emas). Filtrlar mijoz tomonida
@@ -21,10 +24,16 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const sec = sectionFromSlug(section);
   const locale = isValidLocale(lang) ? (lang as Locale) : 'uz';
   if (!sec) return { title: 'SPS' };
-  const count = getModelsBySection(sec).length;
-  return {
-    title: `${getUi(locale).sections[sec]} · ${count} ${pluralModels(locale, count)} — SPS`,
-  };
+  const models = getModelsBySection(sec);
+  const count = models.length;
+  const cover = models.map((m) => modelImage(m)).find(Boolean) ?? undefined;
+  return pageMetadata({
+    lang: locale,
+    path: `/catalog/${section}`,
+    title: `${getUi(locale).sections[sec]} · ${count} ${pluralModels(locale, count)}`,
+    description: `${getUi(locale).sections[sec]} — ${count} ${pluralModels(locale, count)}. ${getUi(locale).seo.leadCta}`,
+    image: cover,
+  });
 }
 
 export default async function SectionPage({ params }: { params: Promise<{ lang: string; section: string }> }) {
@@ -39,6 +48,13 @@ export default async function SectionPage({ params }: { params: Promise<{ lang: 
 
   return (
     <div className="wrap sec">
+      <JsonLd
+        data={jsonLdBreadcrumb(lang, [
+          { name: 'SPS', path: '' },
+          { name: t.header.catalog, path: '/catalog' },
+          { name: t.sections[sec], path: `/catalog/${SECTION_SLUGS[sec]}` },
+        ])}
+      />
       <nav aria-label="breadcrumb">
         <ol className="crumbs">
           <li>

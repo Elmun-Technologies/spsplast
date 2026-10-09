@@ -113,58 +113,74 @@ test('7. Fly.io/Docker konfiguratsiyasi olib tashlangan', () => {
   }
 });
 
-test('8. Har bir kategoriyada 300+ so‘z SEO matn va 5+ FAQ bor (P1-7)', () => {
-  const catalog = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'src', 'data', 'catalog.json'), 'utf8'));
+test('8. Bo‘lim nomlari uch tilda lug‘atdan — metadata duplikat emas', async (t) => {
+  if (!supportsTypeStripping) return t.skip("Node type-stripping yo'q");
+  const { loadAliased } = await import(path.join(__dirname, 'helpers', 'load-alias.mjs'));
+  const { getUi } = await loadAliased('src/lib/ui.ts');
 
-  for (const category of catalog.categories) {
-    for (const locale of ['uz', 'ru']) {
-      const trans = category.translations.find((t) => t.locale === locale);
-      const seo = trans && trans.seo;
-      assert.ok(seo, `${category.id}/${locale}: SEO matn yo‘q`);
+  const sections = ['trotuar', 'fasad', 'zabor', 'dekor', 'skameyka'];
+  const seen = { uz: new Set(), ru: new Set(), en: new Set() };
 
-      const words = [
-        seo.lead,
-        ...seo.body.map((block) => `${block.heading} ${block.text}`),
-        ...seo.bullets,
-        ...seo.faq.flatMap((entry) => [entry.q, entry.a]),
-      ]
-        .join(' ')
-        .split(/\s+/)
-        .filter(Boolean).length;
-
-      assert.ok(words >= 300, `${category.id}/${locale}: faqat ${words} so‘z (300+ kerak)`);
-      assert.ok(seo.faq.length >= 5, `${category.id}/${locale}: FAQ 5 tadan kam`);
+  for (const lang of ['uz', 'ru', 'en']) {
+    for (const section of sections) {
+      const name = getUi(lang).sections[section];
+      assert.ok(name && name.length > 2, `${lang}/${section}: bo'lim nomi yo'q`);
+      // Ikki bo'lim bir xil nomda bo'lsa, title/description duplikat bo'ladi.
+      assert.ok(!seen[lang].has(name), `${lang}: "${name}" ikki bo'limda takrorlandi`);
+      seen[lang].add(name);
     }
   }
-});
 
-test('9. FAQ JSON-LD sahifadagi matn bilan bir manbadan yasaladi', async (t) => {
-  if (!supportsTypeStripping) return t.skip("Node type-stripping yo'q");
-  const { HOME_FAQ, faqItems, faqJsonLd } = await loadTs('src/lib/faq.ts');
-
-  const entries = faqItems(HOME_FAQ, 'ru');
-  const jsonLd = faqJsonLd(entries);
-  assert.strictEqual(jsonLd['@type'], 'FAQPage');
-  assert.strictEqual(jsonLd.mainEntity.length, entries.length);
-  assert.strictEqual(jsonLd.mainEntity[0].name, HOME_FAQ[0].ru.q);
-  assert.strictEqual(jsonLd.mainEntity[0].acceptedAnswer.text, HOME_FAQ[0].ru.a);
-});
-
-test('10. Qidiruv indeksi statik fayl — /api/search chaqirilmaydi', () => {
-  const indexPath = path.join(__dirname, '..', 'public', 'search-index.json');
-  const index = JSON.parse(fs.readFileSync(indexPath, 'utf8'));
-
-  assert.strictEqual(index.products.length, 192);
-  assert.strictEqual(index.categories.length, 3);
-  // Har bir mahsulotda ikkala til uchun slug va sarlavha bo'lishi kerak:
-  // 62 mahsulotda uz/ru slug'lari farq qiladi.
-  for (const product of index.products) {
-    assert.ok(product.slugUz && product.slugRu && product.titleUz && product.titleRu, `to‘liq emas: ${product.sku}`);
+  // Tarjima haqiqiy: ru/en nomlari uz dan farq qiladi.
+  for (const section of sections) {
+    assert.notStrictEqual(getUi('ru').sections[section], getUi('uz').sections[section], `${section}: ru tarjimasi yo'q`);
+    assert.notStrictEqual(getUi('en').sections[section], getUi('uz').sections[section], `${section}: en tarjimasi yo'q`);
   }
 
-  // Regression guard: header ilgari mavjud bo'lmagan qidiruv API'siga so'rov
-  // yuborardi va takliflar jimgina bo'sh qolardi. Endi qidiruv statik indeks
-  // ustida, brauzerda bajariladi.
+  // Bo'lim sahifasining metadata'si shu lug'atdan yasaladi (qattiq matn emas).
+  const source = fs.readFileSync(
+    path.join(__dirname, '..', 'src', 'app', '[lang]', 'catalog', '[section]', 'page.tsx'), 'utf8');
+  assert.ok(source.includes('pageMetadata('), "bo'lim sahifasida pageMetadata yo'q");
+  assert.ok(source.includes('getUi(locale).sections'), "bo'lim nomi lug'atdan olinmayapti");
+  assert.ok(source.includes('getModelsBySection'), "sarlavhadagi son ma'lumotdan olinmayapti");
+});
+
+test('9. Qidiruv API’siz ishlaydi: form → /catalog?q=, filtr mijoz tomonida', async (t) => {
+  if (!supportsTypeStripping) return t.skip("Node type-stripping yo'q");
+  const { loadAliased } = await import(path.join(__dirname, 'helpers', 'load-alias.mjs'));
+  const { getUi } = await loadAliased('src/lib/ui.ts');
+
+  // Qidiruv JS ishlamasa ham natija berishi kerak: forma GET bilan katalogga
+  // yuboriladi, maydon nomi `q` — CatalogClient uni URL'dan o'qiydi.
+  for (const lang of ['uz', 'ru', 'en']) {
+    assert.ok(getUi(lang).catalog.searchPlaceholder.length > 3, `${lang}: qidiruv placeholder yo'q`);
+  }
+
+  const header = fs.readFileSync(
+    path.join(__dirname, '..', 'src', 'components', 'site', 'HeaderClient.tsx'), 'utf8');
+  assert.ok(header.includes('name="q"'), "header qidiruv formasida name=q maydoni yo'q");
+  assert.ok(header.includes('/catalog'), "header qidiruvi katalogga yo'naltirmaydi");
+
+  const client = fs.readFileSync(
+    path.join(__dirname, '..', 'src', 'components', 'catalog2027', 'CatalogClient.tsx'), 'utf8');
+  // Bo'lim sahifalari statik (searchParams server'da o'qilmaydi), shuning uchun
+  // filtr URL'dan mijoz tomonida o'qiladi.
+  assert.ok(client.includes('window.location.search'), "CatalogClient URL paramlarini o'qimaydi");
+  assert.ok(client.includes('parseFilters'), "CatalogClient filtr parse funksiyasi yo'q");
+  assert.ok(client.includes('filters.q'), 'CatalogClient qidiruv qiymatini ishlatmaydi');
+
+  // Qidiruv va filtrlar bitta joyda (`catalogFilters.ts`) URL'dan o'qiladi:
+  // parametrlar HANDOFF 5 bo'yicha q/use/size/set/sort/view.
+  const filters = fs.readFileSync(path.join(__dirname, '..', 'src', 'lib', 'catalogFilters.ts'), 'utf8');
+  for (const param of ['q', 'use', 'size', 'set', 'sort', 'view']) {
+    assert.ok(filters.includes(`sp.get('${param}')`), `filtr parametri o'qilmaydi: ${param}`);
+  }
+
+  // Qidiruv analytics hodisasi bilan kuzatiladi (docs/analytics-events.md).
+  assert.ok(client.includes("trackEvent('search'"), "search hodisasi yuborilmaydi");
+
+  // Regression guard: ilgari header mavjud bo'lmagan /api/search ga so'rov
+  // yuborar va takliflar jimgina bo'sh qolardi. API faqat leads + health.
   const srcDir = path.join(__dirname, '..', 'src');
   const offenders = [];
   const walk = (dir) => {
@@ -173,12 +189,62 @@ test('10. Qidiruv indeksi statik fayl — /api/search chaqirilmaydi', () => {
       if (entry.isDirectory()) walk(full);
       else if (/\.(ts|tsx)$/.test(entry.name)) {
         const source = fs.readFileSync(full, 'utf8');
-        if (/fetch\(\s*[`'"]\/api\/search/.test(source)) offenders.push(path.relative(srcDir, full));
+        if (source.includes('/api/search')) offenders.push(path.relative(srcDir, full));
       }
     }
   };
   walk(srcDir);
-  assert.deepStrictEqual(offenders, [], `Mavjud bo'lmagan API'ga so'rov: ${offenders.join(', ')}`);
+  assert.deepStrictEqual(offenders, [], `Mavjud bo'lmagan /api/search chaqiruvi: ${offenders.join(', ')}`);
+});
+
+test('10. Eski (2026) kontent qatlami o‘chirilgan — manba bitta', () => {
+  const root = path.join(__dirname, '..');
+
+  // Ma'lumot: faqat 2027 to'plami + migratsiya uchun arxiv (docs/legacy).
+  const dataFiles = fs.readdirSync(path.join(root, 'data')).sort();
+  assert.deepStrictEqual(dataFiles, ['image-jobs-2027.json', 'models-2027.json'],
+    `data/ da eski fayllar qolgan: ${dataFiles.join(', ')}`);
+  assert.deepStrictEqual(fs.readdirSync(path.join(root, 'src', 'data')).sort(), ['models2027.ts']);
+  assert.ok(fs.existsSync(path.join(root, 'docs', 'legacy', 'catalog-2026.json')),
+    'migratsiya manbasi (docs/legacy/catalog-2026.json) saqlanmagan');
+
+  // Kod: eski modul/store/lug'atlardan hech qanday iz qolmasligi kerak.
+  // Import yo'llari bo'yicha tekshiramiz: shunda yangi qatlamdagi o'xshash nomlar
+  // (masalan `spsLists.ts` ichidagi mahalliy `compareStore` o'zgaruvchisi)
+  // noto'g'ri signal bermaydi.
+  const banned = [
+    '@/lib/store/wishlistStore', '@/lib/store/compareStore', '@/lib/store/recentStore',
+    '@/lib/store/uiStore', '@/lib/blogContent', '@/lib/faq', '@/lib/slug', '@/lib/utils',
+    '@/lib/constants/contacts', '@/lib/catalog/categories', '@/data/catalog.json',
+    '@/dictionaries/uz.json', '@/dictionaries/ru.json', '@/components/ui/', '@/components/product/',
+  ];
+  const offenders = [];
+  const walk = (dir) => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) walk(full);
+      else if (/\.(ts|tsx)$/.test(entry.name)) {
+        // Izoh qatorlari hisobga olinmaydi: masalan i18n.ts "getDictionary()
+        // o'chirildi" deb yozadi — bu kod emas, hujjat.
+        const code = fs.readFileSync(full, 'utf8')
+          .split('\n')
+          .filter((line) => !line.trim().startsWith('*') && !line.trim().startsWith('//'))
+          .join('\n');
+        for (const needle of banned) {
+          if (code.includes(needle)) offenders.push(`${path.relative(root, full)}: ${needle}`);
+        }
+      }
+    }
+  };
+  walk(path.join(root, 'src'));
+  assert.deepStrictEqual(offenders, [], `Eski qatlam izlari: ${offenders.join(', ')}`);
+
+  // Media: eski foto/galereya papkalari o'chirilgan, PDF katalog saqlangan.
+  for (const gone of ['public/catalog/2026', 'public/media', 'public/search-index.json', 'public/manifest.json']) {
+    assert.ok(!fs.existsSync(path.join(root, gone)), `${gone} hali ham mavjud`);
+  }
+  assert.ok(fs.existsSync(path.join(root, 'public', 'catalog', '2027')), `yangi foto to'plami yo'q`);
+  assert.ok(fs.existsSync(path.join(root, 'public', 'catalog', 'pdf')), `PDF katalog yo'q`);
 });
 
 test('11. Ichki havolalar faqat haqiqiy bo‘lim slug‘laridan foydalanadi', () => {
@@ -200,7 +266,7 @@ test('11. Ichki havolalar faqat haqiqiy bo‘lim slug‘laridan foydalanadi', ()
         for (const match of source.matchAll(/\/catalog\/([a-z0-9-]{4,})(?![a-z0-9.-])/g)) {
           const slug = match[1];
           // statik fayl yo'llari (renderlar, pdf) katalog marshruti emas
-          if (slug === '2027' || slug === '2026' || slug === 'pdf') continue;
+          if (slug === '2027' || slug === 'pdf') continue;
           if (!validSlugs.has(slug) && !slug.startsWith('[')) {
             offenders.push(`${path.relative(srcDir, full)}: /catalog/${slug}`);
           }
@@ -211,6 +277,29 @@ test('11. Ichki havolalar faqat haqiqiy bo‘lim slug‘laridan foydalanadi', ()
   walk(srcDir);
 
   assert.deepStrictEqual(offenders, [], `Noma'lum kategoriya slug'i: ${offenders.join(', ')}`);
+
+  // Ikkinchi qatlam: dinamik havolalar ham `SECTION_SLUGS` orqali qurilishi
+  // kerak. Bo'lim nomi (`trotuar`) va marshrut slug'i (`paving`) farq qiladi —
+  // shu xato tufayli header/footer havolalari bir paytlar 404 bergan.
+  const dynamicOffenders = [];
+  const walkDynamic = (dir) => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) walkDynamic(full);
+      else if (/\.(ts|tsx)$/.test(entry.name)) {
+        const source = fs.readFileSync(full, 'utf8');
+        for (const match of source.matchAll(/catalog\/\$\{([^}]*)\}/g)) {
+          const expr = match[1].trim();
+          const ok = expr.startsWith('SECTION_SLUGS[') || expr === 'section' || expr === 'sec';
+          if (!ok) dynamicOffenders.push(`${path.relative(srcDir, full)}: /catalog/\${${expr}}`);
+        }
+      }
+    }
+  };
+  walkDynamic(srcDir);
+
+  assert.deepStrictEqual(dynamicOffenders, [],
+    `Bo'lim havolasi SECTION_SLUGS orqali qurilmagan: ${dynamicOffenders.join(', ')}`);
 });
 
 test('12. Forma maydonlari ekran o‘quvchi uchun nomlangan (a11y)', () => {
@@ -262,29 +351,65 @@ test('12. Forma maydonlari ekran o‘quvchi uchun nomlangan (a11y)', () => {
 test('13. Dinamik sahifalar nomaʼlum slug uchun 404 beradi (soft-404 yo‘q)', () => {
   const routes = [
     path.join('src', 'app', '[lang]', 'layout.tsx'),
-    path.join('src', 'app', '[lang]', 'product', '[slug]', 'page.tsx'),
     path.join('src', 'app', '[lang]', 'catalog', '[section]', 'page.tsx'),
-    path.join('src', 'app', '[lang]', 'blog', '[slug]', 'page.tsx'),
+    path.join('src', 'app', '[lang]', 'catalog', '[section]', '[slug]', 'page.tsx'),
   ];
   for (const route of routes) {
     const source = fs.readFileSync(path.join(__dirname, '..', route), 'utf8');
-    assert.match(
-      source,
-      /export const dynamicParams = false/,
+    assert.ok(
+      source.includes('export const dynamicParams = false'),
       `${route}: \`dynamicParams = false\` bo'lmasa notFound() 200 status bilan qaytadi`
     );
-    assert.match(source, /generateStaticParams/, `${route}: generateStaticParams yo'q`);
+    assert.ok(source.includes('generateStaticParams'), `${route}: generateStaticParams yo'q`);
+    assert.ok(source.includes('notFound()'), `${route}: noma'lum parametr uchun notFound() chaqirilmaydi`);
   }
+
+  // Til segmenti ham tekshiriladi: /xx/... uchun 404 (yoki /uz ga qaytish).
+  const layout = fs.readFileSync(
+    path.join(__dirname, '..', 'src', 'app', '[lang]', 'layout.tsx'), 'utf8');
+  assert.ok(layout.includes('isValidLocale'), 'layout til segmentini tekshirmaydi');
 });
 
-test('14. (redesign) hreflang/sitemap Stage 5 da yangi marshrutlar uchun qayta yoziladi', () => {
-  // Eski 2026 katalog/hreflang testlari redesign tugagach yangi sitemap.ts
-  // va seo qatlami uchun qayta tiklanadi (CLAUDE.md "Stage Status").
-  const sitemap = fs.readFileSync(path.join(__dirname, '..', 'src', 'app', 'sitemap.ts'), 'utf8');
-  assert.ok(sitemap.length > 0);
+test('14. Sitemap/robots/hreflang yangi marshrutlar uchun (3 til + x-default)', async (t) => {
+  if (!supportsTypeStripping) return t.skip("Node type-stripping yo'q");
+  const { loadAliased } = await import(path.join(__dirname, 'helpers', 'load-alias.mjs'));
+  const { default: sitemap } = await loadAliased('src/app/sitemap.ts');
+  const { default: robots } = await loadAliased('src/app/robots.ts');
+
+  const entries = sitemap();
+  assert.ok(entries.length > 300, `sitemap juda kichik: ${entries.length}`);
+
+  // Har bir URL uch tilda va har birida hreflang to'plami bor.
+  const perPath = new Map();
+  for (const entry of entries) {
+    const langs = entry.alternates.languages;
+    assert.deepStrictEqual(Object.keys(langs).sort(), ['en', 'ru', 'uz', 'x-default'],
+      `hreflang to'plami noto'g'ri: ${entry.url}`);
+    assert.strictEqual(langs['x-default'], langs.uz, `x-default uz emas: ${entry.url}`);
+
+    // "https://sps.uz/uz/catalog/..." -> "/catalog/...": til prefiksi olib
+    // tashlanadi, shunda bir sahifaning uch tilli nusxasi bitta guruhga tushadi.
+    const key = entry.url.split('/').slice(4).join('/');
+    perPath.set(key, (perPath.get(key) || 0) + 1);
+  }
+  for (const [key, count] of perPath) {
+    assert.strictEqual(count, 3, `${key}: uch tilda ham emas (${count})`);
+  }
+
+  // O'chirilgan marshrutlar va shaxsiy sahifalar sitemap'da bo'lmasligi kerak.
+  const dead = ['/blog', '/projects', '/wishlist', '/search', '/about', '/product/', '/compare', '/request'];
+  const offenders = entries.map((e) => e.url).filter((url) => dead.some((d) => url.includes(d)));
+  assert.deepStrictEqual(offenders, [], `sitemap'da keraksiz URL: ${offenders.join(', ')}`);
+
+  const rules = robots();
+  const disallow = Array.isArray(rules.rules[0].disallow) ? rules.rules[0].disallow : [rules.rules[0].disallow];
+  assert.ok(disallow.includes('/api/'), 'robots: /api/ yopilmagan');
+  assert.ok(disallow.includes('/*/compare'), 'robots: compare yopilmagan');
+  assert.ok(disallow.includes('/*/request'), 'robots: request yopilmagan');
+  assert.ok(rules.sitemap.endsWith('/sitemap.xml'), "robots: sitemap manzili yo'q");
 });
 
-test('15. Brendlangan 404 sahifasi mavjud va ikki tilda', () => {
+test('15. Brendlangan 404 sahifasi mavjud va uch tilda', () => {
   const notFound = fs.readFileSync(path.join(__dirname, '..', 'src', 'app', 'not-found.tsx'), 'utf8');
 
   // Qidiruv tizimlari 404 sahifani indekslamasin.

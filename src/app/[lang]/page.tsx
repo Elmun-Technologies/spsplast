@@ -12,6 +12,7 @@ import {
   sectionCover,
 } from '@/lib/catalog2027';
 import { CatalogClient } from '@/components/catalog2027/CatalogClient';
+import { pageMetadata } from '@/lib/seo';
 import { PDF_CATALOG_HREF } from '@/components/site/SiteHeader';
 import { notFound } from 'next/navigation';
 
@@ -23,11 +24,12 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const { lang } = await params;
   const locale = isValidLocale(lang) ? (lang as Locale) : 'uz';
   const p = getPages(locale);
-  const n = getTotalCount();
-  return {
-    title: p.home.h1(n).replace(/\.$/, '') + ' — SPS Plast',
+  return pageMetadata({
+    lang: locale,
+    path: '',
+    title: p.home.h1(getTotalCount()).replace(/\.$/, ''),
     description: p.home.lead,
-  };
+  });
 }
 
 /** Afzallik bloki ikonlari — Main.dc.html dagi chiziqli svg'lar. */

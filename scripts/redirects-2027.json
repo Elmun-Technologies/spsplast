@@ -1,0 +1,2185 @@
+{
+ "$comment": "GENERATED — scripts/extract/build_redirects_2027.py. Eski URL → yangi marshrut (301).",
+ "redirects": [
+  {
+   "source": "/uz/product/g001-floriya",
+   "destination": "/uz/catalog/paving/15-floriya",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g001-floriya",
+   "destination": "/ru/catalog/paving/15-floriya",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g002-magna",
+   "destination": "/uz/catalog/paving/05-magna",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g002-magna",
+   "destination": "/ru/catalog/paving/05-magna",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g003-versache-1",
+   "destination": "/uz/catalog/paving/09-versache-1",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g003-versache-1",
+   "destination": "/ru/catalog/paving/09-versache-1",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g004-azara",
+   "destination": "/uz/catalog/paving/06-azara",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g004-azara",
+   "destination": "/ru/catalog/paving/06-azara",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g005-yalta",
+   "destination": "/uz/catalog/paving/03-yalta",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g005-yalta",
+   "destination": "/ru/catalog/paving/03-yalta",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g006-monako",
+   "destination": "/uz/catalog/paving/01-monako",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g006-monako",
+   "destination": "/ru/catalog/paving/01-monako",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g007-shersha",
+   "destination": "/uz/catalog/paving/14-shersha",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g007-shersha",
+   "destination": "/ru/catalog/paving/14-shersha",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g008-rokki",
+   "destination": "/uz/catalog/paving/58-rokki",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g008-rokki",
+   "destination": "/ru/catalog/paving/58-rokki",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g009-rombik-yangi",
+   "destination": "/uz/catalog/paving/38-rombik-yangi",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g009-rombik-yangi",
+   "destination": "/ru/catalog/paving/38-rombik-yangi",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g010-azaliya-1",
+   "destination": "/uz/catalog/paving/50-azaliya-1",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g010-azaliya-1",
+   "destination": "/ru/catalog/paving/50-azaliya-1",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g011-astana",
+   "destination": "/uz/catalog/paving/26-astana",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g011-astana",
+   "destination": "/ru/catalog/paving/26-astana",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g012-yulduz",
+   "destination": "/uz/catalog/paving/27-yulduz",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g012-yulduz",
+   "destination": "/ru/catalog/paving/27-yulduz",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g013-turkman-guli",
+   "destination": "/uz/catalog/paving/28-turkman-guli",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g013-turkman-guli",
+   "destination": "/ru/catalog/paving/28-turkman-guli",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g014-eksklyuziv",
+   "destination": "/uz/catalog/paving/19-eksklyuziv",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g014-eksklyuziv",
+   "destination": "/ru/catalog/paving/19-eksklyuziv",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g015-vegas-1",
+   "destination": "/uz/catalog/paving/62-vegas",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g015-vegas-1",
+   "destination": "/ru/catalog/paving/62-vegas",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g016-buxoro",
+   "destination": "/uz/catalog/paving/56-buxoro",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g016-buxoro",
+   "destination": "/ru/catalog/paving/56-buxoro",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g017-afina",
+   "destination": "/uz/catalog/paving/57-afina",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g017-afina",
+   "destination": "/ru/catalog/paving/57-afina",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g018-royal-2",
+   "destination": "/uz/catalog/paving/64-royal-2",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g018-royal-2",
+   "destination": "/ru/catalog/paving/64-royal-2",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g019-palma",
+   "destination": "/uz/catalog/paving/79-palma",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g019-palma",
+   "destination": "/ru/catalog/paving/79-palma",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g020-bumerang",
+   "destination": "/uz/catalog/paving/bumerang",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g020-bumerang",
+   "destination": "/ru/catalog/paving/bumerang",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g021-dubay-tosh",
+   "destination": "/uz/catalog/paving/39-dubay-toshli",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g021-dubay-tosh",
+   "destination": "/ru/catalog/paving/39-dubay-toshli",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g022-dubay-shersha",
+   "destination": "/uz/catalog/paving/14-shersha",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g022-dubay-shersha",
+   "destination": "/ru/catalog/paving/14-shersha",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g023-dubay-aylana",
+   "destination": "/uz/catalog/paving/dubay-aylana-okrujnost",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g023-dubay-aylana",
+   "destination": "/ru/catalog/paving/dubay-aylana-okrujnost",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g024-parus",
+   "destination": "/uz/catalog/paving/07-parus",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g024-parus",
+   "destination": "/ru/catalog/paving/07-parus",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g025-rio",
+   "destination": "/uz/catalog/paving/12-rio",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g025-rio",
+   "destination": "/ru/catalog/paving/12-rio",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g026-dojdik",
+   "destination": "/uz/catalog/paving/46-dojdik-18-36",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g026-dojdik",
+   "destination": "/ru/catalog/paving/46-dojdik-18-36",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g027-qabanchik-10",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g027-qabanchik-10",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g028-vindovs",
+   "destination": "/uz/catalog/paving/81-vindovs",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g028-vindovs",
+   "destination": "/ru/catalog/paving/81-vindovs",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g029-4d-shersha",
+   "destination": "/uz/catalog/paving/14-shersha",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g029-4d-shersha",
+   "destination": "/ru/catalog/paving/14-shersha",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g030-sakkiz-qirrali-gul",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g030-sakkiz-qirrali-gul",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g031-diagonal-tosh",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g031-diagonal-tosh",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g032-juft-tosh-tekstura",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g032-juft-tosh-tekstura",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g033-gisht-bolinmalari",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g033-gisht-bolinmalari",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g034-olti-tekis-katak",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g034-olti-tekis-katak",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g035-tort-qanot",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g035-tort-qanot",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g036-ichma-ich-kvadrat",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g036-ichma-ich-kvadrat",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g037-naqshli-medalyon",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g037-naqshli-medalyon",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g038-juft-sakkiz-qirrali-gul",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g038-juft-sakkiz-qirrali-gul",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g039-ikki-tekis-bolim",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g039-ikki-tekis-bolim",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g040-uzun-tolqin",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g040-uzun-tolqin",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g041-olti-qirra",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g041-olti-qirra",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g042-chiziqli-hoshiya",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g042-chiziqli-hoshiya",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g043-uzun-tekis-panel",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g043-uzun-tekis-panel",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g044-rombli-panel",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g044-rombli-panel",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g045-gisht-va-tosh",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g045-gisht-va-tosh",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g046-tort-qanot",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g046-tort-qanot",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g047-keng-sakkiz-qirra",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g047-keng-sakkiz-qirra",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g048-choziq-bezak",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g048-choziq-bezak",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g049-nursimon-yulduz",
+   "destination": "/uz/catalog/paving/27-yulduz",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g049-nursimon-yulduz",
+   "destination": "/ru/catalog/paving/27-yulduz",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g050-kvadrat-medalyon",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g050-kvadrat-medalyon",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g051-egri-gisht",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g051-egri-gisht",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g052-tolqinli-panel",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g052-tolqinli-panel",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g053-diagonal-chiziqlar",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g053-diagonal-chiziqlar",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g054-tutashgan-kataklar",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g054-tutashgan-kataklar",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g055-mayda-toshlar",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g055-mayda-toshlar",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g056-ramkali-panel",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g056-ramkali-panel",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g057-donador-tekstura",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g057-donador-tekstura",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g058-yoysimon-gisht",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g058-yoysimon-gisht",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g059-tolqinli-relyef",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g059-tolqinli-relyef",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g060-olti-katak",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g060-olti-katak",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g061-sakkiz-qirrali-bezak",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g061-sakkiz-qirrali-bezak",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g062-tort-naqshli-katak",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g062-tort-naqshli-katak",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g063-boylama-kanal",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g063-boylama-kanal",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g064-juft-gul-medalyoni",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g064-juft-gul-medalyoni",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g065-piramidasimon-markaz",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g065-piramidasimon-markaz",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g066-geometrik-piramida",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g066-geometrik-piramida",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g067-tekis-gisht",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g067-tekis-gisht",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g068-toshli-gisht",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g068-toshli-gisht",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g069-tekis-panel",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g069-tekis-panel",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g070-osimliksimon-tekstura",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g070-osimliksimon-tekstura",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g071-tekis-sakkiz-qirra",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g071-tekis-sakkiz-qirra",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g072-tort-yaproqli-gul",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g072-tort-yaproqli-gul",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g073-juft-osimlik-naqshi",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g073-juft-osimlik-naqshi",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g074-choziq-gul-markazi",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g074-choziq-gul-markazi",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g075-qovurgali-profil",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g075-qovurgali-profil",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g076-tortburchak-geometriya",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g076-tortburchak-geometriya",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g077-choziq-yulduz",
+   "destination": "/uz/catalog/paving/27-yulduz",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g077-choziq-yulduz",
+   "destination": "/ru/catalog/paving/27-yulduz",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g078-choziq-tosh",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g078-choziq-tosh",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g079-ikki-uchli-kontur",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g079-ikki-uchli-kontur",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g080-juft-geometrik-gul",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g080-juft-geometrik-gul",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g081-sakkiz-qirra",
+   "destination": "/uz/catalog/paving/29-eksklyuziv-30-30-4-sakkiz-qirra",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g081-sakkiz-qirra",
+   "destination": "/ru/catalog/paving/29-eksklyuziv-30-30-4-sakkiz-qirra",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g082-uchli-gul-naqshi",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g082-uchli-gul-naqshi",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g083-dagal-gisht",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g083-dagal-gisht",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g084-qatlamli-gisht",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g084-qatlamli-gisht",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g085-juft-toshli-sakkiz-qirra",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g085-juft-toshli-sakkiz-qirra",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g086-hoshiyali-osimlik-naqshi",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g086-hoshiyali-osimlik-naqshi",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g087-tutashgan-romblar",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g087-tutashgan-romblar",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g088-juft-tolali-tekstura",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g088-juft-tolali-tekstura",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g089-choziq-tolqin",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g089-choziq-tolqin",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g090-ikki-chuqur-bolim",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g090-ikki-chuqur-bolim",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g091-juft-orama-naqsh",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g091-juft-orama-naqsh",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g092-tort-uchli-geometriya",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g092-tort-uchli-geometriya",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g093-olti-qirrali-markaz",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g093-olti-qirrali-markaz",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g094-qirrali-diagonal-panel",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g094-qirrali-diagonal-panel",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g095-pogonali-uzun-ramka",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g095-pogonali-uzun-ramka",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g096-pogonali-kvadrat-ramka",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g096-pogonali-kvadrat-ramka",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g097-pogonali-keng-ramka",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g097-pogonali-keng-ramka",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g098-tekis-uzun-panel",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g098-tekis-uzun-panel",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g099-boylama-tasmalar",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g099-boylama-tasmalar",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g100-keng-boylama-tasmalar",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g100-keng-boylama-tasmalar",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g101-figurali-boylama-profil",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g101-figurali-boylama-profil",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g102-silliq-egri-profil",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g102-silliq-egri-profil",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/g103-hoshiyali-uzun-panel",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/g103-hoshiyali-uzun-panel",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/a10-001-bolakli-relyef",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/a10-001-bolakli-relyef",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/a10-002-donador-yuza",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/a10-002-donador-yuza",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/a10-003-pogonali-hoshiya",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/a10-003-pogonali-hoshiya",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/a10-004-tekis-markaz",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/a10-004-tekis-markaz",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/a10-005-klassik-hoshiya",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/a10-005-klassik-hoshiya",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/a10-006-ingichka-hoshiya",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/a10-006-ingichka-hoshiya",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/a10-007-silliq-panel",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/a10-007-silliq-panel",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/a10-008-gisht-ritmi",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/a10-008-gisht-ritmi",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/a10-009-donador-tekstura",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/a10-009-donador-tekstura",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/a10-010-tolali-tekstura",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/a10-010-tolali-tekstura",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/a10-011-gisht-terimi",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/a10-011-gisht-terimi",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/a10-012-ichki-ramka",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/a10-012-ichki-ramka",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/a10-013-markaziy-bezak",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/a10-013-markaziy-bezak",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/a10-023-takroriy-kataklar",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/a10-023-takroriy-kataklar",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/a10-024-tekis-profil",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/a10-024-tekis-profil",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/a10-025-pogonali-profil",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/a10-025-pogonali-profil",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/a10-026-geometrik-naqsh",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/a10-026-geometrik-naqsh",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/a10-027-ramkali-kataklar",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/a10-027-ramkali-kataklar",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/a10-028-qatlamli-tosh",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/a10-028-qatlamli-tosh",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/a10-029-tosh-terimi",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/a10-029-tosh-terimi",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/a10-030-choziq-kataklar",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/a10-030-choziq-kataklar",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/a10-031-tortburchak-toshlar",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/a10-031-tortburchak-toshlar",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/a10-032-naqshli-hoshiya",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/a10-032-naqshli-hoshiya",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/a10-033-tosh-va-geometriya",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/a10-033-tosh-va-geometriya",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/a10-034-tutashgan-chiziqlar",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/a10-034-tutashgan-chiziqlar",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/a10-035-qirrali-geometriya",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/a10-035-qirrali-geometriya",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/a10-036-oval-ritm",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/a10-036-oval-ritm",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/gisht-t-4-li-qolipi-tosh-tolqini",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-kirpich-t-4-ki-kamen-volna",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/sakkizburchak-naqshli-qolipi-30x30",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-vosmiugolnik-ornament-30x30",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/tosh-yogoch-x-qolipi-30x30",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-kamen-derevo-x-30x30",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/gisht-t-4-li-qolipi-tolqinsimon",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-kirpich-t-4-ki-volna",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/qosh-sakkizburchak-qolipi",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-dvojnoj-vosmiugolnik",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/geometrik-doiralar-qolipi-30x30",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-geometriya-krugi-30x30",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/diagonal-yulduz-qolipi-30x30",
+   "destination": "/uz/catalog/paving/27-yulduz",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-diagonal-zvezda-30x30",
+   "destination": "/ru/catalog/paving/27-yulduz",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/romb-8-shakl-3-li-qolipi",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-romb-8ka-trojnoj",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/marmar-2-li-qolipi-40x20",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-mramor-dvoynaya-40x20",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/choziq-sakkizburchak-qolipi",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-vytyanutyj-vosmiugolnik",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/marmar-kvadrat-qolipi-30x30",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-mramor-kvadrat-30x30",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/strelka-oq-qolipi",
+   "destination": "/uz/catalog/paving/16-strelka",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-strelka",
+   "destination": "/ru/catalog/paving/16-strelka",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/devor-paneli-qolipi-kamen-skala",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-stenovoj-paneli-kamen-skala",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/devor-paneli-qolipi-tosh-gisht",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-stenovoj-paneli-kamen-kirpich",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/devor-paneli-qolipi-tosh-terim",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-stenovoj-paneli-kamennaya-kladka",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/devor-paneli-qolipi-kirpich-klassik",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-stenovoj-paneli-kirpich-klassik",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/devor-paneli-qolipi-kirpich-ramkali",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-stenovoj-paneli-kirpich-v-ramke",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/devor-paneli-qolipi-kirpich-aralash",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-stenovoj-paneli-kirpich-miks",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/devor-paneli-qolipi-kirpich-kamen",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-stenovoj-paneli-kirpich-kamen",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/devor-paneli-qolipi-rombi-3d",
+   "destination": "/uz/catalog/paving/60-3d",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-stenovoj-paneli-romby-3d",
+   "destination": "/ru/catalog/paving/60-3d",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/devor-paneli-qolipi-rombi-3d-keng",
+   "destination": "/uz/catalog/paving/60-3d",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-stenovoj-paneli-romby-3d-shirokie",
+   "destination": "/ru/catalog/paving/60-3d",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/devor-paneli-qolipi-uzor",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-stenovoj-paneli-uzor",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/devor-paneli-qolipi-uzor-geometrik",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-stenovoj-paneli-uzor-geometricheskij",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/devor-paneli-qolipi-uzor-medalyon",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-stenovoj-paneli-uzor-medalon",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/devor-paneli-qolipi-uzor-gilam",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-stenovoj-paneli-uzor-kovyor",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/devor-paneli-qolipi-uzor-tolqin",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-stenovoj-paneli-uzor-volna",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/karniz-qolipi-qosh-chiziqli",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-karniza-dvojnoj-profil",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/karniz-qolipi-pogonali",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-karniza-stupenchatyj",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/karniz-qolipi-yarim-dumaloq",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-karniza-polukruglyj",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/pilyastra-qolipi-pogonali",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-pilyastry-stupenchataya",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/pilyastra-qolipi-ustunli",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-pilyastry-kolonnaya",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/ustun-qopqogi-kapitel-baza-qolipi",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-kapiteli-bazy-kolonny",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/tsokol-paneli-qolipi-ramkali",
+   "destination": "/uz/catalog/decor/sokol",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-cokolnoj-paneli-ramochnaya",
+   "destination": "/ru/catalog/decor/sokol",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/dekor-panel-qolipi-klassik-ramka",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-dekor-paneli-klassicheskaya-ramka",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/dekor-panel-qolipi-profilli-ramka",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-dekor-paneli-profilnaya-ramka",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/dekor-panel-qolipi-ikki-bolmali",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-dekor-paneli-dvuhsekcionnaya",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/jalyuzi-dekor-panel-qolipi-6",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-dekor-paneli-zhalyuzi-6",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/jalyuzi-dekor-panel-qolipi-7",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-dekor-paneli-zhalyuzi-7",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/deraza-tokchasi-podokonnik-qolipi",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-podokonnika",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/qovurgali-dekor-panel-qolipi",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-dekor-paneli-riflenaya",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/termopanel-qolipi-gladkiy",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-termopaneli-gladkij",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/termopanel-qolipi-gladkiy-yumaloq",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-termopaneli-gladkij-skruglennyj",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/bordyur-qolipi-tekis",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-bordyura-gladkij",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/bruschatka-qolipi-farovon",
+   "destination": "/uz/catalog/paving/65-farovon",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-bruschatki-farovon",
+   "destination": "/ru/catalog/paving/65-farovon",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/bruschatka-qolipi-tort-yaproqli-gul",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-bruschatki-chetyrehlistnik",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/plitka-qolipi-kaliforniya",
+   "destination": "/uz/catalog/paving/kaliforniya",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-plitki-kaliforniya",
+   "destination": "/ru/catalog/paving/kaliforniya",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/plitka-qolipi-mozayka-tosh",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-plitki-mozaika-kamen",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/plitka-qolipi-dagal-tosh-30x30",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-plitki-dikij-kamen-30x30",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/plitka-qolipi-zanjir-30x30",
+   "destination": "/uz/catalog/paving/10-zanjir",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-plitki-zanzhir-30x30",
+   "destination": "/ru/catalog/paving/10-zanjir",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/plitka-qolipi-sharq-naqshi-30x30",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-plitki-vostochnyj-ornament-30x30",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/plitka-qolipi-setka",
+   "destination": "/uz/catalog/paving/11-setka",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-plitki-setka",
+   "destination": "/ru/catalog/paving/11-setka",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/plitka-qolipi-yogoch-taxta",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-plitki-derevyannaya-doska",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/bruschatka-qolipi-gisht-3-li",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-bruschatki-kirpich-3-ki",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/fasad-toshi-qolipi-tosh-2-li",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-fasadnogo-kamnya-2-ki",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/fasad-toshi-qolipi-marmar-terim",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-fasadnogo-kamnya-mramor",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/fasad-gishti-qolipi-kirpich-terim",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-fasadnogo-kirpicha-kladka",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/bruschatka-qolipi-sakkiz-qirrali-naqsh",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-bruschatki-vosmigrannik-ornament",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/bruschatka-qolipi-sakkiz-qirra-medalyon",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-bruschatki-vosmigrannik-medalon",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/bruschatka-qolipi-tekis-sakkiz-qirra",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-bruschatki-vosmigrannik-gladkij",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/bruschatka-qolipi-sakkiz-qirra-donador",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-bruschatki-vosmigrannik-zernistyj",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/bruschatka-qolipi-romb-naqsh",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-bruschatki-romb-ornament",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/bruschatka-qolipi-romb-tosh",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/forma-bruschatki-romb-kamen",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/catalog/bruschatka-trotuar-qoliplari",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/catalog/formy-dlya-bruschatki",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/catalog/dekorativ-plitka-qoliplari",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/catalog/formy-dlya-dekorativnoy-plitki",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/catalog/panel-profil-qoliplari",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/catalog/formy-dlya-paneley-profiley",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/about",
+   "destination": "/uz/production",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/blog",
+   "destination": "/uz",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/blog/:slug",
+   "destination": "/uz",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/projects",
+   "destination": "/uz",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/projects/:slug",
+   "destination": "/uz",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/delivery-payment",
+   "destination": "/uz/partners",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/how-to-order",
+   "destination": "/uz/request",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/returns",
+   "destination": "/uz/partners",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/terms",
+   "destination": "/uz/privacy",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/wishlist",
+   "destination": "/uz/request",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/search",
+   "destination": "/uz/catalog",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/product/:slug",
+   "destination": "/uz/catalog",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/about",
+   "destination": "/ru/production",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/blog",
+   "destination": "/ru",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/blog/:slug",
+   "destination": "/ru",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/projects",
+   "destination": "/ru",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/projects/:slug",
+   "destination": "/ru",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/delivery-payment",
+   "destination": "/ru/partners",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/how-to-order",
+   "destination": "/ru/request",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/returns",
+   "destination": "/ru/partners",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/terms",
+   "destination": "/ru/privacy",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/wishlist",
+   "destination": "/ru/request",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/search",
+   "destination": "/ru/catalog",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/product/:slug",
+   "destination": "/ru/catalog",
+   "statusCode": 301
+  },
+  {
+   "source": "/about",
+   "destination": "/ru/production",
+   "statusCode": 301
+  },
+  {
+   "source": "/produkciya",
+   "destination": "/ru/catalog",
+   "statusCode": 301
+  },
+  {
+   "source": "/formi",
+   "destination": "/ru/catalog",
+   "statusCode": 301
+  },
+  {
+   "source": "/formi/p/:page*",
+   "destination": "/ru/catalog",
+   "statusCode": 301
+  },
+  {
+   "source": "/formi/image/:id*",
+   "destination": "/ru/catalog",
+   "statusCode": 301
+  },
+  {
+   "source": "/plitki",
+   "destination": "/ru/catalog",
+   "statusCode": 301
+  },
+  {
+   "source": "/kolodtsy",
+   "destination": "/ru/catalog",
+   "statusCode": 301
+  },
+  {
+   "source": "/bordyury-i-lotki",
+   "destination": "/ru/catalog",
+   "statusCode": 301
+  },
+  {
+   "source": "/uslugi",
+   "destination": "/ru/production",
+   "statusCode": 301
+  },
+  {
+   "source": "/proizvoditeli",
+   "destination": "/ru/production",
+   "statusCode": 301
+  },
+  {
+   "source": "/doc",
+   "destination": "/ru/partners",
+   "statusCode": 301
+  },
+  {
+   "source": "/otzyvy-o-nas",
+   "destination": "/ru/production",
+   "statusCode": 301
+  },
+  {
+   "source": "/fotogalereya",
+   "destination": "/ru",
+   "statusCode": 301
+  },
+  {
+   "source": "/novosti",
+   "destination": "/ru",
+   "statusCode": 301
+  },
+  {
+   "source": "/novosti/news_post/:slug*",
+   "destination": "/ru",
+   "statusCode": 301
+  },
+  {
+   "source": "/napishite-nam",
+   "destination": "/ru/contact",
+   "statusCode": 301
+  },
+  {
+   "source": "/kontakty",
+   "destination": "/ru/contact",
+   "statusCode": 301
+  },
+  {
+   "source": "/search",
+   "destination": "/ru/catalog",
+   "statusCode": 301
+  },
+  {
+   "source": "/karta-sayta",
+   "destination": "/ru",
+   "statusCode": 301
+  },
+  {
+   "source": "/user",
+   "destination": "/ru",
+   "statusCode": 301
+  },
+  {
+   "source": "/product/:slug",
+   "destination": "/uz/catalog",
+   "statusCode": 301
+  },
+  {
+   "source": "/catalog/:slug",
+   "destination": "/uz/catalog",
+   "statusCode": 301
+  }
+ ]
+}

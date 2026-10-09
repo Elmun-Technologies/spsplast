@@ -434,4 +434,14 @@ export const pagesEn: PagesDictionary = {
     helpText: 'Send a photo or size on Telegram — the manager will find the right mold.',
     img: 'Laid Monako tiles',
   },
+
+  error: {
+    title: 'Something went wrong',
+    text: 'The page failed to load. Try again, or contact us and we will submit the request together.',
+    retry: 'Reload',
+    home: 'Home page',
+    catalog: 'Open catalog',
+    call: 'Contact a manager',
+    loading: 'Loading',
+  },
 };

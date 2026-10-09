@@ -1,4 +1,4 @@
-import { getSectionCounts, SECTIONS } from '@/lib/catalog2027';
+import { getSectionCounts, SECTIONS, SECTION_SLUGS } from '@/lib/catalog2027';
 import { type Locale } from '@/lib/i18n';
 import { getUi } from '@/lib/ui';
 import { HeaderClient } from '@/components/site/HeaderClient';
@@ -11,7 +11,7 @@ export function SiteHeader({ lang, current }: { lang: Locale; current?: string }
   const counts = getSectionCounts();
 
   const sections = SECTIONS.map((s) => ({
-    href: `/${lang}/catalog/${s}`,
+    href: `/${lang}/catalog/${SECTION_SLUGS[s]}`,
     label: t.sections[s],
     count: counts[s],
     current: current === s,

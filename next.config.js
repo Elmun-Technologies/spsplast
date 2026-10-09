@@ -5,15 +5,10 @@ const nextConfig = {
   poweredByHeader: false,
   /**
    * Barcha rasmlar repozitoriy ichida (`public/`) — S3/R2 yoki tashqi CDN
-   * ishlatilmaydi, shuning uchun faqat kelajakda kerak bo'lishi mumkin bo'lgan
-   * eng ehtimoliy hostlar qoldirildi. Mahalliy fayllar `remotePatterns`siz
-   * ishlaydi.
+   * ishlatilmaydi, shuning uchun `remotePatterns` umuman yo'q: ochiq rasm
+   * proksisi bo'lib qolish xavfi ham yo'qoladi.
    */
   images: {
-    remotePatterns: [
-      { protocol: 'https', hostname: 'sps.uz' },
-      { protocol: 'https', hostname: '*.sps.uz' },
-    ],
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
@@ -45,12 +40,12 @@ const nextConfig = {
         headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
       },
       {
-        // Self-hosted Inter woff2 files never change without a deploy.
+        // Self-hosted Onest woff2 fayllari deploy'siz o'zgarmaydi.
         source: '/fonts/(.*)',
         headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
       },
       {
-        // Catalog photography is static and heavy: let browsers/CDN reuse it.
+        // Katalog suratlari statik va og'ir: brauzer/CDN qayta ishlataversin.
         source: '/catalog/(.*)',
         headers: [{ key: 'Cache-Control', value: 'public, max-age=604800, stale-while-revalidate=604800' }],
       },
@@ -59,58 +54,26 @@ const nextConfig = {
         headers: [{ key: 'Cache-Control', value: 'public, max-age=604800, stale-while-revalidate=604800' }],
       },
       {
-        source: '/manifest.json',
-        headers: [{ key: 'Cache-Control', value: 'public, max-age=3600, stale-while-revalidate=86400' }],
-      },
-      {
         source: '/sw.js',
         headers: [{ key: 'Cache-Control', value: 'public, max-age=0, must-revalidate' }],
       },
     ];
   },
   /**
-   * Migratsiya: eski `sps.uz` (2017-yilgi CMS) manzillarini yangi marshrutlarga
-   * doimiy (301) bog'laymiz.
+   * Migratsiya (HANDOFF 7): eski URL'lar → yangi marshrutlar, 301.
    *
-   * Nega bu shart: eski sayt 2017-yildan beri indeksda va unga tashqi havolalar
-   * bor. Bu blok bo'lmasa, yangi sayt ishga tushganda o'sha URL'lar 404 qaytaradi
-   * va to'plangan organik trafik hamda link-massasi yo'qoladi
-   * (docs/MADANI-RAQOBAT-AUDITI.md, P0-2 va 8.1).
-   *
-   * Manba ro'yxati eski saytning haqiqiy `sitemap.xml`idan olingan. Qidiruv
-   * tizimlari 301 ni "signal yangi manzilga o'tdi" deb tushunadi, shuning uchun
-   * `permanent: true` (308) emas, aynan 301 ishlatiladi.
+   * Ro'yxat `scripts/redirects-2027.json` da (generator:
+   * `scripts/extract/build_redirects_2027.py`). U eski `src/data/catalog.json`
+   * (192 mahsulot, 3 kategoriya) va yangi `data/models-2027.json` ni
+   * solishtirib, nom mos kelsa aniq model sahifasiga, kelmasa bo'lim/katalogga
+   * yo'naltiradi. 2017-yilgi CMS manzillari ham shu yerda.
    */
   async redirects() {
-    /** Eski manzil → yangi manzil (rus tilidagi kontent edi, shuning uchun /ru). */
-    const legacy = [
-      { source: '/about', destination: '/ru/about' },
-      { source: '/produkciya', destination: '/ru/catalog' },
-      { source: '/formi', destination: '/ru/catalog' },
-      { source: '/formi/p/:page*', destination: '/ru/catalog' },
-      { source: '/formi/image/:id*', destination: '/ru/catalog' },
-      { source: '/plitki', destination: '/ru/catalog' },
-      { source: '/kolodtsy', destination: '/ru/catalog' },
-      { source: '/bordyury-i-lotki', destination: '/ru/catalog' },
-      { source: '/uslugi', destination: '/ru/production' },
-      { source: '/proizvoditeli', destination: '/ru/production' },
-      { source: '/doc', destination: '/ru/delivery-payment' },
-      { source: '/otzyvy-o-nas', destination: '/ru/about' },
-      { source: '/fotogalereya', destination: '/ru/projects' },
-      { source: '/novosti', destination: '/ru/blog' },
-      { source: '/novosti/news_post/:slug*', destination: '/ru/blog' },
-      { source: '/napishite-nam', destination: '/ru/contact' },
-      { source: '/kontakty', destination: '/ru/contact' },
-      { source: '/search', destination: '/ru/search' },
-      { source: '/karta-sayta', destination: '/ru' },
-      // Ma'nosi yo'q shaxsiy sahifa — trafikni bosh sahifaga qaytaramiz.
-      { source: '/user', destination: '/ru' },
-    ].map((entry) => ({ ...entry, statusCode: 301 }));
+    const migration = require('./scripts/redirects-2027.json').redirects;
 
     /**
-     * `www` ni asosiy domenga (apex) yo'naltiramiz: bir xil kontent ikki hostda
-     * ochilsa, qidiruv tizimlari dublikat deb hisoblaydi va canonical signal
-     * kuchsizlanadi.
+     * `www` ni apex domenga: bir xil kontent ikki hostda ochilsa duplikat
+     * hisoblanadi va canonical signal kuchsizlanadi.
      */
     const canonicalHost = {
       source: '/:path*',
@@ -119,7 +82,7 @@ const nextConfig = {
       statusCode: 301,
     };
 
-    return [canonicalHost, ...legacy];
+    return [canonicalHost, ...migration];
   },
   async rewrites() {
     return [

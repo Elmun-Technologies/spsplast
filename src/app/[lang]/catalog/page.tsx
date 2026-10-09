@@ -2,6 +2,8 @@ import { getModels, getTotalCount } from '@/lib/catalog2027';
 import { isValidLocale, type Locale } from '@/lib/i18n';
 import { getUi, pluralModels } from '@/lib/ui';
 import { CatalogClient } from '@/components/catalog2027/CatalogClient';
+import { JsonLd } from '@/components/site/JsonLd';
+import { jsonLdBreadcrumb, pageMetadata } from '@/lib/seo';
 import { notFound } from 'next/navigation';
 
 export function generateStaticParams() {
@@ -10,11 +12,15 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
-  const t = getUi(isValidLocale(lang) ? (lang as Locale) : 'uz');
-  return {
-    title: `${t.header.catalog} · ${getTotalCount()} ${pluralModels(lang as Locale, getTotalCount())} — SPS`,
-    description: t.sections.trotuar + ', ' + t.sections.fasad + ', ' + t.sections.dekor + ' — SPS',
-  };
+  const locale = isValidLocale(lang) ? (lang as Locale) : 'uz';
+  const t = getUi(locale);
+  const total = getTotalCount();
+  return pageMetadata({
+    lang: locale,
+    path: '/catalog',
+    title: `${t.header.catalog} · ${total} ${pluralModels(locale, total)}`,
+    description: `${t.sections.trotuar}, ${t.sections.fasad}, ${t.sections.zabor}, ${t.sections.dekor}, ${t.sections.skameyka} — ${total} ${pluralModels(locale, total)}.`,
+  });
 }
 
 export default async function CatalogPage({
@@ -34,6 +40,12 @@ export default async function CatalogPage({
 
   return (
     <div className="wrap sec">
+      <JsonLd
+        data={jsonLdBreadcrumb(lang, [
+          { name: 'SPS', path: '' },
+          { name: getUi(lang).header.catalog, path: '/catalog' },
+        ])}
+      />
       <div className="sps-section-head" style={{ marginBottom: 'var(--space-5)' }}>
         <div>
           <p className="sps-eyebrow">

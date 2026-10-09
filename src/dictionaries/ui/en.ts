@@ -54,6 +54,9 @@ export const en: UiDictionary = {
     copyright: '© 2026 SPS · Stone Profy Servise. Made in Tashkent.',
     privacy: 'Privacy policy',
   },
+  seo: {
+    leadCta: 'Submit a request — the manager will calculate the mold count and the price.',
+  },
   models: {
     one: 'model',
     few: 'models',

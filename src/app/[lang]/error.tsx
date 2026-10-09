@@ -1,60 +1,66 @@
 'use client';
 
-import React from 'react';
 import { usePathname } from 'next/navigation';
-import Link from 'next/link';
-import { Container } from '@/components/ui/Container';
-import { Button } from '@/components/ui/Button';
-import { AlertTriangle, RefreshCw, Phone } from 'lucide-react';
-import { COMPANY_CONTACTS } from '@/lib/constants/contacts';
+import { Icon } from '@/components/site/icons';
+import { CONTACTS_2027 } from '@/lib/contacts2027';
+import { isValidLocale, type Locale } from '@/lib/i18n';
+import { getPages } from '@/lib/pages';
 
-export default function Error({ error, reset }: { error: Error; reset: () => void }) {
+/**
+ * Xatolik chegarasi (error boundary).
+ *
+ * Next bu faylga `params` uzatmaydi, shuning uchun til `usePathname()` ning
+ * birinchi segmentidan olinadi (404 dagi kabi). Vizual til 404 sahifasi bilan
+ * bir xil: kulgi fon, markazlashtirilgan karta, qizil aksent (style-B).
+ *
+ * Xom xato matni faqat developmentda ko'rsatiladi — production foydalanuvchisi
+ * harakatga undaydigan xabar va bog'lanish yo'llarini ko'radi.
+ */
+export default function Error({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string };
+  reset: () => void;
+}) {
   const pathname = usePathname();
-  const isRu = Boolean(pathname?.startsWith('/ru'));
+  const segment = pathname?.split('/')[1] ?? '';
+  const lang: Locale = isValidLocale(segment) ? segment : 'uz';
+  const p = getPages(lang).error;
+
   const isDev = process.env.NODE_ENV !== 'production';
+  const Alert = Icon.alert;
+  const Refresh = Icon.refresh;
+  const Tel = Icon.phone;
 
   return (
-    <div className="bg-surface-page min-h-screen py-16">
-      <Container>
-        <div className="max-w-md mx-auto bg-surface border border-line rounded-[20px] p-8 text-center space-y-4 shadow-card">
-          <div className="w-14 h-14 rounded-[20px] bg-[#FEF0F0] flex items-center justify-center mx-auto">
-            <AlertTriangle className="w-7 h-7 text-brand-red" />
-          </div>
-          <h1 className="text-lg font-bold text-ink">
-            {isRu ? 'Что-то пошло не так' : 'Xatolik yuz berdi'}
-          </h1>
-          {/* Raw error text is only shown in development — production users get an actionable message */}
-          <p className="text-sm text-ink-sub">
-            {isDev && error?.message
-              ? error.message
-              : isRu
-              ? 'Страница не загрузилась. Попробуйте ещё раз или свяжитесь с нами — поможем оформить заказ.'
-              : 'Sahifa yuklanmadi. Qayta urinib ko‘ring yoki biz bilan bog‘laning — buyurtmani birga rasmiylashtiramiz.'}
-          </p>
+    <section className="state-sec">
+      <div className="wrap state-card">
+        <div className="state-mark" aria-hidden="true">
+          <Alert strokeWidth={1.5} />
+        </div>
 
-          <div className="flex flex-col gap-2">
-            <Button onClick={reset} className="w-full rounded-[16px] gap-2 min-h-[48px]">
-              <RefreshCw className="w-4 h-4" />
-              {isRu ? 'Загрузить снова' : 'Qayta yuklash'}
-            </Button>
+        <h1 className="h1">{p.title}</h1>
+        <p className="lead muted">{isDev && error?.message ? error.message : p.text}</p>
 
-            <Link
-              href={`/${isRu ? 'ru' : 'uz'}`}
-              className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-[16px] border border-[#DDE3EB] bg-surface text-sm font-bold text-ink hover:bg-surface-soft min-h-[48px]"
-            >
-              {isRu ? 'На главную' : 'Bosh sahifaga'}
-            </Link>
-          </div>
-
-          <a
-            href={`tel:${COMPANY_CONTACTS.phoneRaw}`}
-            className="inline-flex items-center gap-2 text-sm font-semibold text-brand-red hover:underline pt-1"
-          >
-            <Phone className="w-4 h-4" />
-            {COMPANY_CONTACTS.phoneDisplay}
+        <div className="state-actions">
+          <button className="sps-btn sps-btn--primary" type="button" onClick={reset}>
+            <Refresh strokeWidth={1.5} />
+            {p.retry}
+          </button>
+          <a className="sps-btn sps-btn--outline" href={`/${lang}/catalog`}>
+            {p.catalog}
+          </a>
+          <a className="sps-btn sps-btn--outline" href={`/${lang}`}>
+            {p.home}
           </a>
         </div>
-      </Container>
-    </div>
+
+        <a className="state-tel" href={`tel:${CONTACTS_2027.mainPhoneRaw}`}>
+          <Tel strokeWidth={1.5} />
+          {CONTACTS_2027.mainPhone} · {p.call}
+        </a>
+      </div>
+    </section>
   );
 }

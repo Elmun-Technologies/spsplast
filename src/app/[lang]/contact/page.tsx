@@ -3,6 +3,8 @@ import { isValidLocale, locales, type Locale } from '@/lib/i18n';
 import { getUi } from '@/lib/ui';
 import { getPages } from '@/lib/pages';
 import { CONTACTS_2027 } from '@/lib/contacts2027';
+import { JsonLd } from '@/components/site/JsonLd';
+import { jsonLdBreadcrumb, jsonLdLocalBusiness, pageMetadata } from '@/lib/seo';
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -12,7 +14,12 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const { lang } = await params;
   const locale = isValidLocale(lang) ? (lang as Locale) : 'uz';
   const p = getPages(locale);
-  return { title: `${getUi(locale).nav.contact} — SPS`, description: p.contact.hours };
+  return pageMetadata({
+    lang: locale,
+    path: '/contact',
+    title: getUi(locale).nav.contact,
+    description: p.contact.hours,
+  });
 }
 
 /** Kontakt (Contact.dc.html): mobilda 3 tez tugma, qatorlar, xarita, CTA. */
@@ -26,6 +33,15 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
 
   return (
     <section className="ct-sec">
+      <JsonLd
+        data={[
+          jsonLdBreadcrumb(lang, [
+            { name: 'SPS', path: '' },
+            { name: p.contact.title, path: '/contact' },
+          ]),
+          jsonLdLocalBusiness(),
+        ]}
+      />
       <div className="wrap" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           <nav className="crumbs" aria-label="breadcrumb">

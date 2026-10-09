@@ -1,5 +1,8 @@
 import './globals.css';
 import { AnalyticsScripts } from '@/components/analytics/AnalyticsScripts';
+import { JsonLd } from '@/components/site/JsonLd';
+import { getTotalCount } from '@/lib/catalog2027';
+import { SITE_NAME, SITE_URL, jsonLdOrganization, jsonLdWebSite } from '@/lib/seo';
 
 /**
  * Onest self-host (`/public/fonts`, @fontsource-variable/onest 5.3.1, OFL 1.1).
@@ -10,7 +13,7 @@ import { AnalyticsScripts } from '@/components/analytics/AnalyticsScripts';
 const FONT_PRELOAD = '/fonts/onest-latin-wght-normal.woff2';
 
 /** Barcha nisbiy havolalar (canonical, OG, sitemap) shu manzilga nisbatan. */
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://sps.uz';
+// SITE_URL / SITE_NAME — src/lib/seo.ts (bitta manba).
 
 function toMetadataBase(value: string): URL | undefined {
   for (const candidate of [value, `https://${value}`, 'https://sps.uz']) {
@@ -23,9 +26,14 @@ function toMetadataBase(value: string): URL | undefined {
   return undefined;
 }
 
+const MODELS = getTotalCount();
+
 export const metadata = {
   metadataBase: toMetadataBase(SITE_URL),
-  title: 'SPS — beton plitka va fasad uchun plastik qoliplar, 152 model',
+  title: {
+    default: `SPS — beton plitka va fasad uchun plastik qoliplar, ${MODELS} model`,
+    template: `%s · ${SITE_NAME}`,
+  },
   description:
     "SPS — Toshkentda plastik qoliplar ishlab chiqaruvchi zavod: trotuar plitkasi, fasad, zabor va dekor elementlari. Zayafka qoldiring — menejer narx va qolip sonini hisoblab aytadi.",
   openGraph: {
@@ -60,6 +68,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preload" href={FONT_PRELOAD} as="font" type="font/woff2" crossOrigin="anonymous" />
         {/* Analitika: faqat env ID bo'lsa yuklanadi */}
         <AnalyticsScripts />
+        {/* Sayt darajasidagi strukturaviy ma'lumot (HANDOFF 7) */}
+        <JsonLd data={[jsonLdOrganization(), jsonLdWebSite()]} />
         {children}
       </body>
     </html>

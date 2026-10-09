@@ -1,6 +1,8 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, locales, type Locale } from '@/lib/i18n';
 import { getPages } from '@/lib/pages';
+import { JsonLd } from '@/components/site/JsonLd';
+import { jsonLdBreadcrumb, pageMetadata } from '@/lib/seo';
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -9,7 +11,12 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   const locale = isValidLocale(lang) ? (lang as Locale) : 'uz';
-  return { title: `${getPages(locale).privacy.title} — SPS`, description: getPages(locale).privacy.summary };
+  return pageMetadata({
+    lang: locale,
+    path: '/privacy',
+    title: getPages(locale).privacy.title,
+    description: getPages(locale).privacy.summary,
+  });
 }
 
 /** Maxfiylik siyosati (Privacy.dc.html). Matn yuristdan o'tishi kerak. */
@@ -21,6 +28,12 @@ export default async function PrivacyPage({ params }: { params: Promise<{ lang: 
 
   return (
     <>
+      <JsonLd
+        data={jsonLdBreadcrumb(lang, [
+          { name: 'SPS', path: '' },
+          { name: p.privacy.title, path: '/privacy' },
+        ])}
+      />
       <section className="pv-hero">
         <div className="wrap" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           <nav className="crumbs" aria-label="breadcrumb">
