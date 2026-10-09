@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>SPS katalog</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/sps/tokens.css">
+<link rel="stylesheet" href="ds/sps/components/bundle.css">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&amp;display=swap">
+<style>body{margin:0}a{color:var(--red-ink)}@media (max-width:640px){.cta-row>a{flex:1 1 0!important;padding:0 10px;font-size:14px}.cat-guide{grid-template-columns:minmax(0,1fr)!important}}</style>
+</helmet>
+<div class="sps" style="background: var(--surface)">
+<dc-import name="Header" current="catalog" hint-size="100%,117px"></dc-import>
+
+<section style="background: var(--surface-alt); padding-block: 28px; border-bottom: 1px solid var(--line)">
+<div class="wrap" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="Main.dc.html">Bosh sahifa</a><span>/</span><span>Katalog</span></nav>
+<h1 class="disp-l">Qoliplar katalogi</h1>
+<p class="body muted">152 model · 5 bo'lim. Narx saytda yo'q — zayafka qoldiring, menejer hisoblab beradi.</p>
+</div>
+<div class="cta-row" style="display: flex; gap: 12px; flex-wrap: wrap"><a class="sps-btn sps-btn--outline" href="#">PDF katalog</a><a class="sps-btn sps-btn--primary" href="RequestList.dc.html">Zayafka qoldirish</a></div>
+</div>
+</section>
+
+<section style="padding-block: 32px 72px">
+<div class="wrap">
+<dc-import name="Shop" limit="{{limit}}" compare-demo="{{no}}" hint-size="100%,3900px"></dc-import>
+</div>
+</section>
+
+<section class="sec-alt" style="padding-block: 56px">
+<div class="wrap split">
+<div style="display: flex; flex-direction: column; gap: 12px"><h2 class="h2">Qolip qanday tanlanadi?</h2></div>
+<div class="g2" style="gap: 24px 40px">
+<div><h3 class="h3" style="margin-bottom: 6px">Qalinlik — yuklamaga qarab</h3><p class="body muted">25–30 mm — piyoda yo'lak va ayvon, 35–40 mm — hovli, 45–50 mm — avtomobil kiradigan joylar.</p></div>
+<div><h3 class="h3" style="margin-bottom: 6px">To'plam yoki bitta qolip</h3><p class="body muted">Figurali naqshlar 2–3 qolipdan iborat to'plam bilan teriladi. Kartochkada qoliplar soni ko'rsatilgan.</p></div>
+<div><h3 class="h3" style="margin-bottom: 6px">Material</h3><p class="body muted">Polipropilen (qora) va ABS (oq). Qaysi biri sexingizga mos kelishini menejer aytadi.</p></div>
+<div><h3 class="h3" style="margin-bottom: 6px">Qolip soni</h3><p class="body muted">Model sahifasidagi kalkulyator kunlik m² bo'yicha qolip soni va vaznini chiqaradi.</p></div>
+</div>
+</div>
+</section>
+
+<dc-import name="Footer" hint-size="100%,460px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":4800}}'>
+class Component extends DCLogic {
+  renderVals() { return { limit: 24, no: false }; }
+}
+</script>
+</body>
+</html>

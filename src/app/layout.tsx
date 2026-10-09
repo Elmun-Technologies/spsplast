@@ -2,27 +2,16 @@ import './globals.css';
 import { AnalyticsScripts } from '@/components/analytics/AnalyticsScripts';
 
 /**
- * Inter is self-hosted from `/public/fonts` (see `globals.css` for the
- * `@font-face` rules and why we no longer use `next/font/google`).
- *
- * The latin subset is on the critical path of every page, so it is preloaded;
- * the cyrillic subset is only fetched by the browser when a Cyrillic glyph is
- * actually rendered (unicode-range), which keeps the Russian UI covered without
- * making uz-only visitors pay for it.
+ * Onest self-host (`/public/fonts`, @fontsource-variable/onest 5.3.1, OFL 1.1).
+ * lotin subset har sahifaning kritik yo'lida; kirill subset faqat kirill
+ * glif chiqqanda yuklanadi (unicode-range). `next/font/google` ishlatilmaydi:
+ * build tarmoqsiz ham ishlashi shart (HANDOFF 2-bo'lim).
  */
-const FONT_PRELOAD = '/fonts/inter-latin-wght-normal.woff2';
+const FONT_PRELOAD = '/fonts/onest-latin-wght-normal.woff2';
 
-/**
- * Barcha nisbiy havolalar (canonical, OG rasm, sitemap) shu manzilga nisbatan
- * hisoblanadi. `metadataBase` bo'lmasa Next.js ularni `localhost:3000` ga
- * bog'laydi — natijada Telegram/Facebook'da havola noto'g'ri ochiladi.
- */
+/** Barcha nisbiy havolalar (canonical, OG, sitemap) shu manzilga nisbatan. */
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://sps.uz';
 
-/**
- * NEXT_PUBLIC_SITE_URL noto'g'ri yozilgan bo'lsa (masalan sxemasiz "sps.uz"),
- * `new URL()` butun saytni yiqitib qo'ymasligi kerak.
- */
 function toMetadataBase(value: string): URL | undefined {
   for (const candidate of [value, `https://${value}`, 'https://sps.uz']) {
     try {
@@ -36,14 +25,12 @@ function toMetadataBase(value: string): URL | undefined {
 
 export const metadata = {
   metadataBase: toMetadataBase(SITE_URL),
-  title: 'SPS — Bruschatka, Bordyur va Plitka Qoliplari, Fasad Dekor',
-  description: 'SPS — O‘zbekistonda bruschatka, bordyur va trotuar plitka qoliplari hamda fasad dekor elementlarini ishlab chiqaruvchi zavod. Sifatli xomashyo, zavod narxlari.',
-  // No web-app manifest / appleWebApp: this is a regular website. It used to
-  // ship a `display: standalone` manifest + service worker, which made browsers
-  // open links in a separate app window and freeze on stale cached pages.
+  title: 'SPS — beton plitka va fasad uchun plastik qoliplar, 152 model',
+  description:
+    "SPS — Toshkentda plastik qoliplar ishlab chiqaruvchi zavod: trotuar plitkasi, fasad, zabor va dekor elementlari. Zayafka qoldiring — menejer narx va qolip sonini hisoblab aytadi.",
   openGraph: {
-    title: 'SPS — Qoliplar va Fasad Dekor Zavodi',
-    description: 'Bruschatka qoliplari, bordyur qoliplari, plitka qoliplari va fasad dekor — zavoddan to‘g‘ridan-to‘g‘ri',
+    title: 'SPS — Qoliplar zavodi, Toshkent',
+    description: 'Beton plitka va fasad uchun plastik qoliplar. 20 yil tajriba, 8 eksport davlati.',
     type: 'website',
     locale: 'uz_UZ',
     images: [
@@ -51,44 +38,27 @@ export const metadata = {
         url: '/images/og-logo.jpg',
         width: 1200,
         height: 630,
-        alt: 'SPS — Qoliplar va Fasad Dekor Zavodi',
+        alt: 'SPS — Qoliplar zavodi, Toshkent',
       },
     ],
   },
   icons: {
-    icon: [
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
-      { url: '/icons/icon-512.png', sizes: '512x512', type: 'image/png' },
-    ],
-    apple: '/icons/apple-touch-icon.png',
+    icon: [{ url: '/favicon.ico', sizes: 'any' }],
   },
 };
 
 export const viewport = {
-  themeColor: '#E61C24',
+  themeColor: '#e3202a',
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 5,
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="uz">
-      <body className="font-sans antialiased">
-        {/* Hoisted into <head> by React — keeps the LCP font off the CSS round-trip. */}
-        <link
-          rel="preload"
-          href={FONT_PRELOAD}
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        {/* Analitika (P0-12): faqat env ID bo'lsa yuklanadi */}
+      <body>
+        <link rel="preload" href={FONT_PRELOAD} as="font" type="font/woff2" crossOrigin="anonymous" />
+        {/* Analitika: faqat env ID bo'lsa yuklanadi */}
         <AnalyticsScripts />
         {children}
       </body>

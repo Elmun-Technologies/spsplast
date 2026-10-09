@@ -1,63 +1,89 @@
-import React from 'react';
-import { getDictionary, Locale } from '@/lib/i18n';
-import { Container } from '@/components/ui/Container';
-import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-import { pageMetadata } from '@/lib/seo';
+import { notFound } from 'next/navigation';
+import { isValidLocale, locales, type Locale } from '@/lib/i18n';
+import { getPages } from '@/lib/pages';
 
-/**
- * SEO: sarlavha, tavsif, canonical va uz/ru hreflang (x-default bilan).
- * Ilgari bu sahifada generateMetadata yo'q edi va u bosh sahifa sarlavhasini
- * meros olardi (docs/MADANI-RAQOBAT-AUDITI.md, P0-11).
- */
-export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }) {
-  const { lang } = await params;
-  const isRu = lang === 'ru';
-  return pageMetadata({
-    lang,
-    path: '/privacy',
-    title: isRu ? 'Политика конфиденциальности | SPS' : 'Maxfiylik siyosati | SPS',
-    description: isRu
-      ? 'Как сайт собирает и использует персональные данные: данные заказов, cookie-файлы, формы связи и права пользователя.'
-      : 'Sayt shaxsiy ma’lumotlarni qanday yig‘adi va ishlatadi: buyurtma ma’lumotlari, cookie fayllar, aloqa shakllari va foydalanuvchi huquqlari.',
-  });
+export function generateStaticParams() {
+  return locales.map((lang) => ({ lang }));
 }
 
-export default async function PrivacyPage({ params }: { params: Promise<{ lang: Locale }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
-  const dict = getDictionary(lang);
+  const locale = isValidLocale(lang) ? (lang as Locale) : 'uz';
+  return { title: `${getPages(locale).privacy.title} — SPS`, description: getPages(locale).privacy.summary };
+}
+
+/** Maxfiylik siyosati (Privacy.dc.html). Matn yuristdan o'tishi kerak. */
+export default async function PrivacyPage({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang: langParam } = await params;
+  if (!isValidLocale(langParam)) notFound();
+  const lang = langParam as Locale;
+  const p = getPages(lang);
 
   return (
-    <div className="bg-surface-page min-h-screen text-ink py-8">
-      <Container>
-        <Breadcrumbs lang={lang} items={[{ label: dict.footer.privacy, active: true }]} className="mb-6" />
-        <div className="max-w-3xl bg-surface border border-line rounded-[20px] p-6 sm:p-8 shadow-card space-y-6">
-          <div>
-            <h1 className="text-[30px] sm:text-[38px] font-bold text-ink tracking-[-0.03em] leading-[1.15]">{dict.footer.privacy}</h1>
-            <p className="text-xs text-ink-sub mt-1">Oxirgi yangilanish: {new Date().toLocaleDateString()}</p>
-          </div>
-
-          <section className="space-y-3">
-            <h2 className="text-lg font-bold text-ink">1. Umumiy qoidalar</h2>
-            <p className="text-sm text-ink-soft leading-relaxed">
-              Ushbu Maxfiylik siyosati SPS MCHJ saytidan (sps.uz) foydalanuvchilarning shaxsiy ma’lumotlarini yig‘ish, saqlash va qayta ishlash tartibini belgilaydi.
-            </p>
-          </section>
-
-          <section className="space-y-3">
-            <h2 className="text-lg font-bold text-ink">2. Yig‘iladigan ma’lumotlar</h2>
-            <p className="text-sm text-ink-soft leading-relaxed">
-              Buyurtma rasmiylashtirishda va ulgurji so‘rov yuborishda quyidagi ma’lumotlar yig‘iladi: Ism, Telefon raqami, Viloyat va Manzil, Kompaniya nomi hamda UTM teglar.
-            </p>
-          </section>
-
-          <section className="space-y-3">
-            <h2 className="text-lg font-bold text-ink">3. Ma’lumotlardan foydalanish</h2>
-            <p className="text-sm text-ink-soft leading-relaxed">
-              Kiritilgan shaxsiy ma’lumotlar faqat buyurtmani yetkazib berish, mijoz bilan bog‘lanish va sifatni oshirish maqsadida ishlatiladi hamda uchinchi shaxslarga berilmaydi.
-            </p>
-          </section>
+    <>
+      <section className="pv-hero">
+        <div className="wrap" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <nav className="crumbs" aria-label="breadcrumb">
+            <a href={`/${lang}`}>{p.model.breadcrumbHome}</a>
+            <span>/</span>
+            <span>{p.privacy.title}</span>
+          </nav>
+          <h1 className="disp-l">{p.privacy.title}</h1>
+          <p className="body muted">
+            {p.privacy.updated} <span className="ph-in">{p.privacy.updatedMeta}</span>
+          </p>
         </div>
-      </Container>
-    </div>
+      </section>
+
+      <section style={{ paddingBlock: 'var(--space-7) var(--space-9)' }}>
+        <div className="wrap pv">
+          <nav className="toc" aria-label={p.privacy.tocLabel}>
+            {p.privacy.toc.map((label, i) => (
+              <a key={label} href={`#${p.privacy.sections[i].id}`}>
+                {label}
+              </a>
+            ))}
+          </nav>
+
+          <div className="pv-body">
+            <p className="note">{p.privacy.summary}</p>
+            {p.privacy.sections.map((s) => (
+              <section id={s.id} key={s.id}>
+                <h2>{s.h2}</h2>
+                {s.p.map((line) => (
+                  <p key={line}>{renderPlaceholders(line)}</p>
+                ))}
+                {s.ul.length ? (
+                  <ul>
+                    {s.ul.map((li) => (
+                      <li key={li}>{renderPlaceholders(li)}</li>
+                    ))}
+                  </ul>
+                ) : null}
+                {s.p2.map((line) => (
+                  <p key={line}>{renderPlaceholders(line)}</p>
+                ))}
+              </section>
+            ))}
+            <p className="note muted">{renderPlaceholders(p.privacy.legalNote)}</p>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+/** `[...]` placeholderlar qizil belgilanadi (HANDOFF 1: ular joyida qoladi). */
+function renderPlaceholders(text: string) {
+  const parts = text.split(/(\[[^\]]+\])/g);
+  if (parts.length === 1) return text;
+  return parts.map((part, i) =>
+    part.startsWith('[') && part.endsWith(']') ? (
+      <span className="ph-in" key={`${part}-${i}`}>
+        {part}
+      </span>
+    ) : (
+      <span key={`${part}-${i}`}>{part}</span>
+    ),
   );
 }

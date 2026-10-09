@@ -1,324 +1,142 @@
-'use client';
+import { notFound } from 'next/navigation';
+import { isValidLocale, locales, type Locale } from '@/lib/i18n';
+import { getUi } from '@/lib/ui';
+import { getPages } from '@/lib/pages';
+import { CONTACTS_2027 } from '@/lib/contacts2027';
 
-import React, { useState } from 'react';
-import { Phone, Mail, MapPin, Send, MessageSquare, Clock, CheckCircle2 } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
-import { Container } from '@/components/ui/Container';
-import { getDictionary, Locale } from '@/lib/i18n';
-import { trackEvent } from '@/lib/analytics';
-import { COMPANY_CONTACTS } from '@/lib/constants/contacts';
-
-function formatPhone(value: string) {
-  let digits = value.replace(/\D/g, '');
-  if (digits.startsWith('998')) digits = digits.slice(3);
-  digits = digits.slice(0, 9);
-  if (!digits) return '+998';
-  let formatted = '+998';
-  if (digits.length > 0) formatted += ' ' + digits.slice(0, 2);
-  if (digits.length > 2) formatted += ' ' + digits.slice(2, 5);
-  if (digits.length > 5) formatted += ' ' + digits.slice(5, 7);
-  if (digits.length > 7) formatted += ' ' + digits.slice(7, 9);
-  return formatted;
+export function generateStaticParams() {
+  return locales.map((lang) => ({ lang }));
 }
 
-export default function ContactPage({ params }: { params: Promise<{ lang: Locale }> }) {
-  // Next.js 15 passes `params` to client components as a promise.
-  const { lang } = React.use(params);
-  const dict = getDictionary(lang);
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  const locale = isValidLocale(lang) ? (lang as Locale) : 'uz';
+  const p = getPages(locale);
+  return { title: `${getUi(locale).nav.contact} — SPS`, description: p.contact.hours };
+}
 
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('+998');
-  const [message, setMessage] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [sent, setSent] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-
-    try {
-      const res = await fetch('/api/leads', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name,
-          phone: phone.replace(/\s/g, ''),
-          message,
-          type: 'CONSULTATION',
-        }),
-      });
-
-      if (res.ok) {
-        setSent(true);
-        trackEvent('generate_lead', { lead_type: 'CONSULTATION' });
-      }
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+/** Kontakt (Contact.dc.html): mobilda 3 tez tugma, qatorlar, xarita, CTA. */
+export default async function ContactPage({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang: langParam } = await params;
+  if (!isValidLocale(langParam)) notFound();
+  const lang = langParam as Locale;
+  const p = getPages(lang);
+  const maps = `https://www.google.com/maps/search/?api=1&query=${CONTACTS_2027.coords.lat},${CONTACTS_2027.coords.lng}`;
+  const yandex = `https://yandex.uz/maps/?pt=${CONTACTS_2027.coords.lng},${CONTACTS_2027.coords.lat}&z=16`;
 
   return (
-    <div className="bg-surface-page min-h-screen text-ink">
-      <Container>
-        <div className="py-12 space-y-10">
-          <div className="text-center max-w-2xl mx-auto space-y-3">
-            <span className="inline-flex px-3 py-1 rounded-full bg-[#FEF0F0] text-brand-red text-[12px] font-semibold">
-              {lang === 'ru' ? 'Контакты' : 'Bog‘lanish'}
-            </span>
-            <h1 className="text-[30px] sm:text-[42px] font-bold text-ink tracking-[-0.03em] leading-[1.1]">
-              SPS {lang === 'ru' ? 'Свяжитесь с нами' : 'Bilan aloqaga chiqing'}
-            </h1>
-            <p className="text-sm sm:text-base text-ink-soft">
-              {lang === 'ru'
-                ? 'По вопросам наличия, оптовых заказов и технической консультации свяжитесь по телефону или мессенджерам.'
-                : 'Mahsulotlar mavjudligi, ulgurji buyurtma va texnik maslahatlar uchun telefon yoki messenjerlar orqali bog‘lanishingiz mumkin.'}
-            </p>
-          </div>
+    <section className="ct-sec">
+      <div className="wrap" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <nav className="crumbs" aria-label="breadcrumb">
+            <a href={`/${lang}`}>{p.model.breadcrumbHome}</a>
+            <span>/</span>
+            <span>{p.contact.title}</span>
+          </nav>
+          <h1 className="disp-l">{p.contact.title}</h1>
+          <p className="body muted">{p.contact.hours}</p>
+        </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-            {/* Contact Info Cards */}
-            <div className="lg:col-span-5 space-y-4">
-              <div className="bg-surface border border-line rounded-[20px] p-6 space-y-4 shadow-card">
-                <h3 className="text-base font-bold text-ink border-b border-line-soft pb-3">
-                  {lang === 'ru' ? 'Реквизиты' : 'Aloqa rekvizitlari'}
-                </h3>
+        <div className="qa">
+          <a href={`tel:${CONTACTS_2027.mainPhoneRaw}`}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+              <path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" />
+            </svg>
+            {p.contact.quick.call}
+          </a>
+          <a href={CONTACTS_2027.telegramUrl} target="_blank" rel="noopener noreferrer">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+              <path d="M21 4L3 11l6 2 2 6 3-4 5 4z" />
+            </svg>
+            {p.contact.quick.telegram}
+          </a>
+          <a href={CONTACTS_2027.whatsappUrl} target="_blank" rel="noopener noreferrer">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+              <path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z" />
+            </svg>
+            {p.contact.quick.whatsapp}
+          </a>
+        </div>
 
-                <div className="space-y-3">
-                  {/* Barcha raqamlar: savdo, buyurtma, ombor va ofis.
-                      Ilgari faqat bitta raqam ko'rinardi (P0-3). */}
-                  <div className="p-4 rounded-[16px] bg-surface-soft border border-line space-y-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-11 h-11 rounded-[16px] bg-surface border border-line flex items-center justify-center shrink-0 shadow-card">
-                        <Phone className="w-5 h-5 text-brand-red" />
-                      </div>
-                      <div>
-                        <p className="text-ink-sub text-xs">
-                          {lang === 'ru' ? 'Телефоны' : 'Telefon raqamlarimiz'}
-                        </p>
-                        <p className="font-bold text-ink text-sm">{COMPANY_CONTACTS.phoneDisplay}</p>
-                      </div>
-                    </div>
-                    <div className="divide-y divide-line border-t border-line">
-                      {COMPANY_CONTACTS.phones.map((item) => (
-                        <a
-                          key={item.raw}
-                          href={`tel:${item.raw}`}
-                          onClick={() => trackEvent('phone_click', { location: 'contact_page_list' })}
-                          className="flex items-center justify-between gap-3 py-2.5 hover:text-brand-red transition-colors"
-                        >
-                          <span className="text-ink-sub text-xs">
-                            {lang === 'ru' ? item.label.ru : item.label.uz}
-                          </span>
-                          <span className="font-semibold text-ink text-sm font-mono">{item.display}</span>
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-
-                  <a
-                    href={COMPANY_CONTACTS.telegramUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackEvent('telegram_click', { location: 'contact_page' })}
-                    className="flex items-center gap-3 p-4 rounded-[16px] bg-surface-soft border border-line hover:border-sky-300 hover:bg-sky-50 text-ink transition-colors group"
-                  >
-                    <div className="w-11 h-11 rounded-[16px] bg-surface border border-line group-hover:border-sky-200 flex items-center justify-center shrink-0 shadow-card">
-                      <Send className="w-5 h-5 text-sky-600" />
-                    </div>
-                    <div>
-                      <p className="text-ink-sub text-xs">Telegram</p>
-                      <p className="font-bold text-sky-700 text-sm">{COMPANY_CONTACTS.telegramHandle}</p>
-                    </div>
+        <div className="ct-grid">
+          <div>
+            <div className="ct-row">
+              <span className="sps-label" style={{ paddingTop: 6 }}>
+                {p.contact.rows.sales}
+              </span>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                {CONTACTS_2027.sales.map((s) => (
+                  <a className="ct-big" key={s.raw} href={`tel:${s.raw}`}>
+                    {s.display}
                   </a>
-
-                  <a
-                    href={COMPANY_CONTACTS.whatsappUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackEvent('whatsapp_click', { location: 'contact_page' })}
-                    className="flex items-center gap-3 p-4 rounded-[16px] bg-surface-soft border border-line hover:border-green-300 hover:bg-green-50 text-ink transition-colors group"
-                  >
-                    <div className="w-11 h-11 rounded-[16px] bg-surface border border-line group-hover:border-green-200 flex items-center justify-center shrink-0 shadow-card">
-                      <MessageSquare className="w-5 h-5 text-green-600" />
-                    </div>
-                    <div>
-                      <p className="text-ink-sub text-xs">WhatsApp</p>
-                      <p className="font-bold text-green-700 text-sm">{COMPANY_CONTACTS.phoneDisplay}</p>
-                    </div>
-                  </a>
-
-                  <a
-                    href={COMPANY_CONTACTS.mapUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-4 rounded-[16px] bg-surface-soft border border-line hover:border-brand-red hover:bg-[#FEF0F0] text-ink transition-colors group"
-                  >
-                    <div className="w-11 h-11 rounded-[16px] bg-surface border border-line group-hover:border-red-200 flex items-center justify-center shrink-0 shadow-card">
-                      <MapPin className="w-5 h-5 text-brand-red" />
-                    </div>
-                    <div>
-                      <p className="text-ink-sub text-xs">{lang === 'ru' ? 'Адрес завода' : 'Zavod manzili'}</p>
-                      <p className="font-bold text-ink text-sm">{lang === 'ru' ? COMPANY_CONTACTS.addressRu : COMPANY_CONTACTS.addressUz}</p>
-                      <p className="text-[11px] text-ink-sub mt-0.5">
-                        {lang === 'ru' ? 'Открыть в Яндекс Картах →' : 'Yandex xaritada ochish →'}
-                      </p>
-                    </div>
-                  </a>
-
-                  <div className="flex items-center gap-3 p-4 rounded-[16px] bg-surface-soft border border-line">
-                    <div className="w-11 h-11 rounded-[16px] bg-surface border border-line flex items-center justify-center shrink-0 shadow-card">
-                      <Clock className="w-5 h-5 text-amber-600" />
-                    </div>
-                    <div>
-                      <p className="text-ink-sub text-xs">{lang === 'ru' ? 'Время работы' : 'Ish vaqti'}</p>
-                      <p className="font-bold text-ink text-sm">
-                        {lang === 'ru' ? COMPANY_CONTACTS.workHoursRu : COMPANY_CONTACTS.workHoursUz}
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
-
-            {/* Contact Form */}
-            <div className="lg:col-span-7 bg-surface border border-line rounded-[20px] p-6 sm:p-8 space-y-6 shadow-card">
-              <h3 className="text-lg font-bold text-ink border-b border-line-soft pb-4">
-                {lang === 'ru' ? 'Отправить сообщение' : 'Xabar yoki konsultatsiya so‘rovi yuborish'}
-              </h3>
-
-              {sent ? (
-                <div className="text-center py-12 space-y-4">
-                  <div className="w-16 h-16 rounded-[20px] bg-emerald-100 text-emerald-600 border flex items-center justify-center mx-auto">
-                    <CheckCircle2 className="w-8 h-8" />
-                  </div>
-                  <h4 className="text-xl font-bold text-ink">{lang === 'ru' ? 'Сообщение получено!' : 'Xabaringiz qabul qilindi!'}</h4>
-                  <p className="text-sm text-ink-soft max-w-sm mx-auto">
-                    {lang === 'ru' ? 'Наш специалист свяжется с вами в ближайшее время.' : 'Tez orada mutaxassisimiz siz bilan bog‘lanadi.'}
-                  </p>
-                  <Button onClick={() => setSent(false)} className="mt-2">
-                    {lang === 'ru' ? 'Отправить еще' : 'Boshqa xabar yuborish'}
-                  </Button>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <div>
-                    <label htmlFor="contact-name" className="block text-sm font-semibold text-ink-soft mb-1.5">
-                      {lang === 'ru' ? 'Ваше имя' : 'Ismingiz'} *
-                    </label>
-                    <input
-                      id="contact-name"
-                      type="text"
-                      autoComplete="name"
-                      required
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      placeholder="Ali Vohidov"
-                      className="w-full bg-surface border border-[#DDE3EB] rounded-[16px] px-4 py-3 text-[16px] md:text-sm text-ink focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 min-h-[48px]"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="contact-phone" className="block text-sm font-semibold text-ink-soft mb-1.5">
-                      {lang === 'ru' ? 'Телефон' : 'Telefon raqamingiz'} *
-                    </label>
-                    <input
-                      id="contact-phone"
-                      type="tel"
-                      autoComplete="tel"
-                      required
-                      value={phone}
-                      onChange={(e) => setPhone(formatPhone(e.target.value))}
-                      placeholder="+998 90 123 45 67"
-                      className="w-full bg-surface border border-[#DDE3EB] rounded-[16px] px-4 py-3 text-[16px] md:text-sm text-ink focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20 min-h-[48px] font-mono"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="contact-message" className="block text-sm font-semibold text-ink-soft mb-1.5">
-                      {lang === 'ru' ? 'Сообщение' : 'Savolingiz yoki izoh'}
-                    </label>
-                    <textarea
-                      id="contact-message"
-                      rows={4}
-                      required
-                      value={message}
-                      onChange={(e) => setMessage(e.target.value)}
-                      placeholder={lang === 'ru' ? 'Расскажите, что вас интересует...' : 'Bruschatka qoliplari va ulgurji narxlar haqida ma’lumot berishingizni so‘rayman...'}
-                      className="w-full bg-surface border border-[#DDE3EB] rounded-[16px] px-4 py-3 text-[16px] md:text-sm text-ink focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/20"
-                    />
-                  </div>
-
-                  <Button type="submit" isLoading={loading} size="lg" className="w-full font-bold rounded-[16px] min-h-[48px]">
-                    {lang === 'ru' ? 'Отправить сообщение' : 'Xabarni yuborish'}
-                  </Button>
-                </form>
-              )}
+            <div className="ct-row">
+              <span className="sps-label" style={{ paddingTop: 6 }}>
+                {p.contact.rows.office}
+              </span>
+              <a className="ct-big" href={`tel:${CONTACTS_2027.office.raw}`}>
+                {CONTACTS_2027.office.display}
+              </a>
+            </div>
+            <div className="ct-row">
+              <span className="sps-label" style={{ paddingTop: 6 }}>
+                {p.contact.rows.messenger}
+              </span>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                <a className="ct-big" href={CONTACTS_2027.telegramUrl} target="_blank" rel="noopener noreferrer">
+                  Telegram · {CONTACTS_2027.telegramHandle}
+                </a>
+                <a className="ct-big" href={CONTACTS_2027.instagramUrl} target="_blank" rel="noopener noreferrer">
+                  Instagram · {CONTACTS_2027.instagramHandle}
+                </a>
+              </div>
+            </div>
+            <div className="ct-row">
+              <span className="sps-label" style={{ paddingTop: 6 }}>
+                {p.contact.rows.email}
+              </span>
+              <span className="ct-big ph-in">{p.contact.emailPlaceholder}</span>
+            </div>
+            <div className="ct-row">
+              <span className="sps-label" style={{ paddingTop: 6 }}>
+                {p.contact.rows.address}
+              </span>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                <span style={{ font: '500 18px/26px var(--font-sans)' }}>{CONTACTS_2027.address[lang]}</span>
+                <span className="ct-sub">{p.contact.addressNote}</span>
+              </div>
             </div>
           </div>
 
-          {/* Xarita: raqibda bor, bizda yo'q edi — mijoz zavodni topa olmasdi.
-              `mapEmbedUrl` Yandex konfigurator havolasi (API kalit talab qilmaydi). */}
-          <div className="bg-surface border border-line rounded-[20px] overflow-hidden shadow-card">
-            <iframe
-              src={COMPANY_CONTACTS.mapEmbedUrl}
-              title={lang === 'ru' ? 'Расположение завода SPS на карте' : 'SPS zavodining xaritadagi joylashuvi'}
-              loading="lazy"
-              className="w-full h-[320px] sm:h-[400px] border-0"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
-          </div>
-
-          {/* Rekvizitlar: B2B xaridor (sex, diler) shartnoma uchun so'raydi (P1-4). */}
-          <div className="bg-surface border border-line rounded-[20px] p-6 sm:p-8 shadow-card space-y-4">
-            <h3 className="text-lg font-bold text-ink border-b border-line-soft pb-4">
-              {lang === 'ru' ? 'Реквизиты организации' : 'Tashkilot rekvizitlari'}
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 text-sm">
-              {[
-                {
-                  label: lang === 'ru' ? 'Организация' : 'Tashkilot',
-                  value: COMPANY_CONTACTS.legalName,
-                },
-                {
-                  label: lang === 'ru' ? 'Юридический адрес' : 'Yuridik manzil',
-                  value: lang === 'ru' ? COMPANY_CONTACTS.legalAddressRu : COMPANY_CONTACTS.legalAddressUz,
-                },
-                {
-                  label: 'ИНН / INN',
-                  value: COMPANY_CONTACTS.requisites.inn,
-                },
-                {
-                  label: 'МФО',
-                  value: COMPANY_CONTACTS.requisites.mfo,
-                },
-                {
-                  label: lang === 'ru' ? 'Расчётный счёт' : 'Hisob raqami',
-                  value: COMPANY_CONTACTS.requisites.accountNumber,
-                },
-                {
-                  label: lang === 'ru' ? 'Банк' : 'Bank',
-                  value:
-                    lang === 'ru'
-                      ? COMPANY_CONTACTS.requisites.bankNameRu
-                      : COMPANY_CONTACTS.requisites.bankNameUz,
-                },
-              ].map((row) => (
-                <div key={row.label} className="flex flex-col gap-0.5 py-2 border-b border-line-soft">
-                  <span className="text-xs text-ink-sub">{row.label}</span>
-                  <span className="font-semibold text-ink">{row.value}</span>
-                </div>
-              ))}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+            <div className="map">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--red)" strokeWidth="1.5" aria-hidden="true">
+                <path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z" />
+                <circle cx="12" cy="9.5" r="2.5" />
+              </svg>
+              <b style={{ font: '600 16px/22px var(--font-sans)' }}>{p.contact.mapTitle}</b>
+              <span className="mono" style={{ fontSize: 13, color: 'var(--ink-muted)' }}>
+                {CONTACTS_2027.coords.lat.toFixed(5)}, {CONTACTS_2027.coords.lng.toFixed(5)}
+              </span>
+              <a className="sps-btn sps-btn--outline sps-btn--sm" href={maps} target="_blank" rel="noopener noreferrer">
+                {p.contact.mapOpen}
+              </a>
+              <a className="sps-btn sps-btn--link sps-btn--sm" href={yandex} target="_blank" rel="noopener noreferrer">
+                Yandex Maps
+              </a>
             </div>
-            <p className="text-xs text-ink-sub leading-relaxed">
-              {lang === 'ru'
-                ? 'Работаем по договору с НДС и без НДС. Счёт выставляем в течение рабочего дня — реквизиты выше можно использовать для оплаты.'
-                : 'QQS bilan va QQSsiz shartnoma asosida ishlaymiz. Hisob-faktura ish kuni ichida tayyorlanadi — to‘lov uchun yuqoridagi rekvizitlardan foydalanish mumkin.'}
-            </p>
+            <div className="ct-note">
+              <b>{p.contact.ctaTitle}</b>
+              <span>{p.contact.ctaText}</span>
+              <a className="sps-btn sps-btn--primary" href={`/${lang}/request`} style={{ alignSelf: 'stretch' }}>
+                {p.contact.cta}
+              </a>
+            </div>
           </div>
         </div>
-      </Container>
-    </div>
+      </div>
+    </section>
   );
 }

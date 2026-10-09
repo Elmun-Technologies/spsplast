@@ -1,0 +1,22 @@
+/* SPS Plast — generated from tokens.json */
+:root, [data-theme="light"] {
+  --surface: #ffffff; --surface-alt: #f2f1ee; --surface-ink: #141414; --line: #dedbd5; --line-strong: #8f8b84;
+  --ink: #141414; --ink-muted: #5e5b56; --on-ink: #ffffff; --on-ink-muted: #a7a39c;
+  --red: #e3202a; --red-hover: #c41a23; --red-ink: #c8161f; --on-red: #ffffff; --concrete: #9c9993; --focus: #141414;
+  --success: #1f7a4d; --warning: #a35f00;
+  --shadow-raise: 0 1px 0 rgba(20,20,20,0.06), 0 12px 32px rgba(20,20,20,0.08);
+}
+[data-theme="dark"] {
+  --surface: #111112; --surface-alt: #1b1b1d; --surface-ink: #0a0a0b; --line: #2e2e31; --line-strong: #6d6a65;
+  --ink: #f2f1ee; --ink-muted: #a7a39c; --on-ink: #f2f1ee; --on-ink-muted: #8f8b84;
+  --red-hover: #ff3a43; --red-ink: #ff5a5f; --concrete: #6e6b66; --focus: #f2f1ee; --success: #4cc38a; --warning: #f0a43a;
+  --shadow-raise: 0 1px 0 rgba(0,0,0,0.5), 0 12px 32px rgba(0,0,0,0.5);
+}
+:root {
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 24px; --space-6: 32px; --space-7: 48px; --space-8: 64px; --space-9: 96px; --space-10: 128px;
+  --radius-0: 0px; --radius-sm: 2px; --radius-pill: 999px;
+  --container-max: 1320px; --gutter: 24px; --grid-columns: 12; --header-height: 72px;
+  --font-display: "Unbounded", "Arial Black", sans-serif;
+  --font-sans: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}

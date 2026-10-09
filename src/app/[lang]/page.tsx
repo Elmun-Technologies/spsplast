@@ -1,515 +1,211 @@
-import React from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
-import nextDynamic from 'next/dynamic';
-import { Locale } from '@/lib/i18n';
-import { hreflang } from '@/lib/seo';
-import { HOME_FAQ, faqItems, faqJsonLd } from '@/lib/faq';
-import { getCategoryUrl } from '@/lib/catalog';
-import { getProductsServer, getCategoriesWithMeta } from '@/lib/catalog';
-import { ProductCard } from '@/components/product/ProductCard';
-import { CategoryCard } from '@/components/product/CategoryCard';
-import { Container } from '@/components/ui/Container';
-import { SectionHeader } from '@/components/ui/SectionHeader';
-import { Price } from '@/components/ui/Price';
-import { FaqAccordion } from '@/components/ui/FaqAccordion';
-import { LeadButton } from '@/components/lead/LeadButton';
+import { isValidLocale, locales, type Locale } from '@/lib/i18n';
+import { getUi, pluralModels } from '@/lib/ui';
+import { getPages } from '@/lib/pages';
+import { CONTACTS_2027 } from '@/lib/contacts2027';
 import {
-  ArrowRight,
-  ShieldCheck,
-  Truck,
-  PackageCheck,
-  Headphones,
-  Sparkles,
-  FileDown,
-} from 'lucide-react';
+  SECTIONS,
+  SECTION_SLUGS,
+  getPopular,
+  getSectionCounts,
+  getTotalCount,
+  sectionCover,
+} from '@/lib/catalog2027';
+import { CatalogClient } from '@/components/catalog2027/CatalogClient';
+import { PDF_CATALOG_HREF } from '@/components/site/SiteHeader';
+import { notFound } from 'next/navigation';
 
-/**
- * Below-the-fold sections are lazily imported: their JS is served as separate
- * chunks (still SSR'd for SEO) instead of competing with the hero + first
- * product grid for bandwidth during the initial load.
- */
-const MoldResultShowcase = nextDynamic(() => import('@/components/product/MoldResultShowcase').then((m) => m.MoldResultShowcase));
-const RecentlyViewed = nextDynamic(() => import('@/components/product/RecentlyViewed').then((m) => m.RecentlyViewed));
-const B2BBanner = nextDynamic(() => import('@/components/product/B2BBanner').then((m) => m.B2BBanner));
-
-interface HomePageProps {
-  params: Promise<{ lang: Locale }>;
+export function generateStaticParams() {
+  return locales.map((lang) => ({ lang }));
 }
 
-export const revalidate = 60; // ISR 60s for high traffic
-export const dynamic = 'force-static';
-
-/**
- * uz/ru bosh sahifalari bir xil kontentning ikki tildagi versiyasi: canonical
- * o'z tilini ko'rsatadi, hreflang esa ikkinchisini bog'laydi.
- */
-export async function generateMetadata({ params }: HomePageProps) {
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
+  const locale = isValidLocale(lang) ? (lang as Locale) : 'uz';
+  const p = getPages(locale);
+  const n = getTotalCount();
   return {
-    alternates: {
-      canonical: `/${lang}`,
-      languages: hreflang(''),
-    },
+    title: p.home.h1(n).replace(/\.$/, '') + ' — SPS Plast',
+    description: p.home.lead,
   };
 }
 
-export default async function HomePage({ params }: HomePageProps) {
-  const { lang } = await params;
-  // Ma'lumot statik katalogdan o'qiladi: so'rovlar bir-birini kutmaydi, tashqi
-  // xizmat yo'q, shuning uchun avvalgi `Promise.allSettled` + zaxira mantiqi
-  // ham kerak emas — natija har doim to'liq bo'ladi.
-  const categories = getCategoriesWithMeta(lang);
-  let bestsellers = getProductsServer({ locale: lang, isBestseller: true, limit: 8 }).products;
-  const allProducts = getProductsServer({ locale: lang, limit: 48 }).products;
+/** Afzallik bloki ikonlari — Main.dc.html dagi chiziqli svg'lar. */
+const USP_ICONS = [
+  <svg key="1" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+    <path d="M3 21V9l6 3V9l6 3V5h6v16z" />
+  </svg>,
+  <svg key="2" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+    <rect x="3" y="3" width="8" height="8" />
+    <rect x="13" y="13" width="8" height="8" />
+    <path d="M13 7h8M3 17h8" />
+  </svg>,
+  <svg key="3" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+    <rect x="4" y="3" width="16" height="18" rx="1" />
+    <path d="M8 7h8M8 11h2M12 11h2M8 15h2M12 15h2M8 18h8" />
+  </svg>,
+  <svg key="4" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+    <path d="M3 7h11v10H3zM14 10h4l3 3v4h-7" />
+    <circle cx="7" cy="18" r="2" />
+    <circle cx="17" cy="18" r="2" />
+  </svg>,
+];
 
-  // Top mahsulot belgilangan bo'lmasa — birinchi 8 tasi ko'rsatiladi.
-  if (!bestsellers || bestsellers.length === 0) {
-    bestsellers = allProducts.slice(0, 8);
-  }
-
-  const bruschatkaProducts = allProducts.filter((p) => {
-    const cat = (p as any).category;
-    return (
-      cat?.slug?.includes('bruschatka') ||
-      cat?.nameUz?.toLowerCase().includes('bruschatka') ||
-      p.titleUz?.toLowerCase().includes('bruschatka') ||
-      p.titleRu?.toLowerCase().includes('брусчатк')
-    );
-  }).slice(0, 4);
-
-  const termopanelProducts = allProducts.filter((p) => {
-    const cat = (p as any).category;
-    return (
-      cat?.slug?.includes('fasad') ||
-      cat?.nameUz?.toLowerCase().includes('fasad') ||
-      p.titleUz?.toLowerCase().includes('fasad') ||
-      p.titleRu?.toLowerCase().includes('фасад')
-    );
-  }).slice(0, 4);
-
-  const bordyurProducts = allProducts.filter((p) => {
-    const cat = (p as any).category;
-    return (
-      cat?.slug?.includes('bordyur') ||
-      cat?.nameUz?.toLowerCase().includes('bordyur') ||
-      p.titleUz?.toLowerCase().includes('bordyur') ||
-      p.titleRu?.toLowerCase().includes('бордюр')
-    );
-  }).slice(0, 4);
-
-  const plitkaProducts = allProducts.filter((p) => {
-    const cat = (p as any).category;
-    return (
-      cat?.slug?.includes('plitka') ||
-      cat?.nameUz?.toLowerCase().includes('plitka') ||
-      p.titleUz?.toLowerCase().includes('plitka') ||
-      p.titleRu?.toLowerCase().includes('плитка')
-    );
-  }).slice(0, 4);
-
-  const block1Products = bruschatkaProducts.length > 0 ? bruschatkaProducts : allProducts.slice(0, 4);
-  const block2Products = termopanelProducts.length > 0 ? termopanelProducts : allProducts.slice(4, 8);
-  const block3Products = bordyurProducts.length > 0 ? bordyurProducts : allProducts.slice(8, 12);
-  const block4Products = plitkaProducts.length > 0 ? plitkaProducts : allProducts.slice(12, 16);
-
-  const featuredMold = allProducts.find((p) => p.resultImage) || allProducts[0];
-  /**
-   * Tanlangan model — menejer tavsiyasi.
-   *
-   * P0-8: bu blokda soxta shoshiltirish yo'q. Ilgari bu yerda "Tovar dnya",
-   * "skidka ogranichena" yozuvi va har kuni yarim tunda nolga qaytadigan
-   * taymer bor edi — hech qanday haqiqiy aksiya ortida turmasdi. Endi faqat
-   * katalogdagi `isBestseller` belgisi asosida bitta model ko'rsatiladi.
-   */
-  const featuredPick = bestsellers[0] || allProducts[0];
-
-  // FAQ matni `src/lib/faq.ts` dan — sahifada ko'rinadigan matn bilan JSON-LD
-  // bir xil manbadan olinadi (ilgari ular ikki nusxada yurardi).
-  const homeFaqItems = faqItems(HOME_FAQ, lang);
-  const homeFaqJsonLd = faqJsonLd(homeFaqItems);
-
-  // Bloklar mavzu bo'yicha guruhlangan, lekin havolalar haqiqiy kategoriya
-  // sahifalariga ketishi kerak: slug'lar tilga qarab farq qiladi (uz/ru),
-  // shuning uchun ularni katalogdan olamiz, qo'lda yozmaymiz.
-  const categoryUrlById = Object.fromEntries(
-    getCategoriesWithMeta(lang).map((category) => [category.id, getCategoryUrl(lang, category)])
-  );
-
-  const orgJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: 'SPS STONE PROFY SERVISE',
-    url: 'https://sps.uz',
-    logo: 'https://sps.uz/logo.png',
-    description: 'SPS — O‘zbekistonda bruschatka, bordyur va trotuar plitka qoliplari hamda fasad dekor elementlarini ishlab chiqaruvchi zavod',
-  };
+export default async function HomePage({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang: langParam } = await params;
+  if (!isValidLocale(langParam)) notFound();
+  const lang = langParam as Locale;
+  const t = getUi(lang);
+  const p = getPages(lang);
+  const counts = getSectionCounts();
+  const total = getTotalCount();
+  const tg = CONTACTS_2027.telegramUrl;
+  const pdf = PDF_CATALOG_HREF;
 
   return (
-    <div className="bg-surface-page text-ink min-h-screen pb-16">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeFaqJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
-
-      <section className="pt-5 pb-2">
-        <Container>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
-            {/* Promo panel — light, spacious, one clear primary action */}
-            <div className="lg:col-span-8 relative overflow-hidden rounded-[24px] bg-[#EDF0F5] p-6 sm:p-9 lg:p-11 flex flex-col justify-between">
-              {/* Soft brand glow, kept subtle so the copy stays the hero */}
-              <div className="absolute -right-24 -top-24 w-[380px] h-[380px] rounded-full bg-brand-red/10 blur-3xl pointer-events-none" />
-              <div className="absolute -left-20 -bottom-20 w-[280px] h-[280px] rounded-full bg-surface/70 blur-3xl pointer-events-none" />
-
-              <div className="relative z-10 space-y-4 max-w-[560px]">
-                <span className="inline-flex items-center gap-2 rounded-full bg-surface px-3.5 py-1.5 text-[12px] font-semibold text-ink-soft">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                  {lang === 'ru' ? 'Собственное производство · Ташкент' : 'O‘z ishlab chiqarishimiz · Toshkent'}
-                </span>
-
-                <h1 className="text-[30px] sm:text-[40px] lg:text-[48px] font-bold tracking-[-0.035em] leading-[1.05] text-ink">
-                  {lang === 'ru' ? (
-                    <>
-                      Формы для <span className="text-brand-red">брусчатки</span> и термопанелей
-                    </>
-                  ) : (
-                    <>
-                      Bruschatka <span className="text-brand-red">qoliplari</span> va termopanellar
-                    </>
-                  )}
-                </h1>
-
-                <p className="text-[15px] sm:text-base leading-[1.6] text-ink-soft max-w-[520px]">
-                  {lang === 'ru'
-                    ? 'Формы из полипропилена и ABS, цены от завода и доставка по всему Узбекистану. Поможем подобрать формы под ваш объём.'
-                    : 'Polipropilen va ABS asosidagi qoliplar, zavod narxlari va O‘zbekiston bo‘ylab yetkazib berish. Hajmingizga mos qolipni tanlashda yordam beramiz.'}
-                </p>
-
-                <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-1">
-                  <div>
-                    <div className="text-[17px] font-bold text-ink leading-none">Polipropilen</div>
-                    <div className="text-[12px] text-ink-sub mt-1">{lang === 'ru' ? 'Основной материал' : 'Asosiy material'}</div>
-                  </div>
-                  <div className="w-px h-8 bg-[#DDE3EB]" />
-                  <div>
-                    <div className="text-[17px] font-bold text-ink leading-none">ABS plastik</div>
-                    <div className="text-[12px] text-ink-sub mt-1">{lang === 'ru' ? 'Для сложных форм' : 'Murakkab shakllar uchun'}</div>
-                  </div>
-                  <div className="w-px h-8 bg-[#DDE3EB]" />
-                  <div>
-                    <div className="text-[17px] font-bold text-brand-red leading-none">1 m²</div>
-                    <div className="text-[12px] text-ink-sub mt-1">{lang === 'ru' ? 'Точный расчёт' : 'Aniq hisob'}</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="relative z-10 pt-8 flex flex-wrap items-center gap-3">
-                <Link
-                  href={`/${lang}/catalog`}
-                  className="inline-flex items-center gap-2.5 px-7 py-3.5 bg-brand-red text-white font-semibold text-[15px] rounded-full hover:bg-brand-red-dark transition-all group min-h-[50px] shadow-[0_12px_28px_-12px_rgba(230,28,36,0.75)]"
-                >
-                  <span>{lang === 'ru' ? 'Смотреть каталог' : 'Katalogni ko‘rish'}</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                </Link>
-
-                <Link
-                  href={`/${lang}/contact`}
-                  className="inline-flex items-center gap-2 px-6 py-3.5 bg-surface text-ink font-semibold text-sm rounded-full hover:bg-[#F7F8FA] transition-colors min-h-[50px]"
-                >
-                  <span>{lang === 'ru' ? 'Получить консультацию' : 'Maslahat olish'}</span>
-                </Link>
-
-                <div className="hidden sm:flex items-center gap-2 text-[12px] font-medium text-ink-soft ml-1">
-                  <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span>{lang === 'ru' ? 'Работаем напрямую от завода' : 'Zavoddan to‘g‘ridan-to‘g‘ri'}</span>
-                </div>
-              </div>
+    <>
+      {/* 1. Hero */}
+      <section className="sec-alt" style={{ paddingBlock: 'var(--space-7) var(--space-6)' }}>
+        <div className="wrap" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
+          <div className="band">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+              <p className="sps-eyebrow">
+                <b>SPS</b> {p.home.eyebrow}
+              </p>
+              <h1 className="disp-l hero-h">{p.home.h1(total)}</h1>
+              <p className="lead hero-p muted">{p.home.lead}</p>
             </div>
-
-            <div className="lg:col-span-4 bg-surface rounded-[24px] p-5 flex flex-col shadow-card">
-              <div className="flex items-center justify-between pb-4 mb-4 border-b border-line-soft">
+            <div className="hs">
+              {p.home.stats.map((s) => (
+                <div key={s.label}>
+                  <b>
+                    {s.value}
+                    {s.unit ? <small>{s.unit}</small> : null}
+                  </b>
+                  <span>{s.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="secs" aria-label={p.home.sectionTiles}>
+            {SECTIONS.map((s) => (
+              <a key={s} className="st" href={`/${lang}/catalog/${SECTION_SLUGS[s]}`}>
+                <Image src={sectionCover(s)} alt="" fill sizes="(max-width: 760px) 50vw, 260px" priority={s === 'trotuar'} />
                 <div>
-                  <div className="text-[15px] font-bold text-ink">
-                    {lang === 'ru' ? 'Выбор менеджера' : 'Menejer tanlovi'}
-                  </div>
-                  <div className="text-[12px] text-ink-sub mt-0.5">
-                    {lang === 'ru' ? 'Рекомендуем эту модель' : 'Shu modelni tavsiya qilamiz'}
-                  </div>
+                  <b>{t.sections[s]}</b>
+                  <span>
+                    {counts[s]} {pluralModels(lang, counts[s])}
+                  </span>
                 </div>
-              </div>
-
-              {featuredPick && (
-                <div className="flex-1 flex flex-col justify-between gap-3">
-                  <Link
-                    href={`/${lang}/product/${featuredPick.slug}`}
-                    className="block relative aspect-[4/3] w-full bg-surface-soft rounded-[18px] overflow-hidden p-2 group"
-                  >
-                    {featuredPick.images?.[0]?.url && (
-                      <Image
-                        src={featuredPick.images[0].url}
-                        alt={lang === 'ru' ? featuredPick.titleRu : featuredPick.titleUz}
-                        fill
-                        priority
-                        sizes="(max-width: 1024px) 100vw, 420px"
-                        className="object-contain p-2 group-hover:scale-105 transition-transform duration-300"
-                      />
-                    )}
-                  </Link>
-
-                  <div className="space-y-1.5">
-                    <Link
-                      href={`/${lang}/product/${featuredPick.slug}`}
-                      className="text-[15px] font-semibold text-ink hover:text-brand-red line-clamp-2 leading-snug"
-                    >
-                      {lang === 'ru' ? featuredPick.titleRu : featuredPick.titleUz}
-                    </Link>
-
-                    <Price price={featuredPick.price} oldPrice={featuredPick.oldPrice} lang={lang} size="md" />
-                  </div>
-
-                  <LeadButton
-                    lang={lang}
-                    product={{
-                      title: (lang === 'ru' ? featuredPick.titleRu : featuredPick.titleUz) || featuredPick.sku,
-                      sku: featuredPick.sku,
-                    }}
-                    type="CONSULTATION"
-                    className="w-full flex items-center justify-center gap-2 text-sm font-semibold bg-brand-red hover:bg-brand-red-dark text-white py-3 px-4 rounded-full transition-colors mt-1 min-h-[46px] shadow-[0_10px_24px_-12px_rgba(230,28,36,0.8)]"
-                  >
-                    <span>{lang === 'ru' ? 'Оставить заявку' : 'Zayafka berish'}</span>
-                  </LeadButton>
-                </div>
-              )}
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      <section className="py-6">
-        <Container>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-            <div className="flex items-start gap-3.5 p-5 bg-surface rounded-[20px]">
-              <div className="w-11 h-11 rounded-[20px] bg-surface-soft flex items-center justify-center text-ink shrink-0">
-                <Truck className="w-5 h-5" />
-              </div>
-              <div>
-                <h4 className="text-sm font-semibold text-ink">{lang === 'ru' ? 'Доставка по Узбекистану' : 'O‘zbekiston bo‘ylab yetkazish'}</h4>
-                <p className="text-[13px] text-ink-sub mt-1 leading-relaxed">Toshkent — 1 ish kuni, viloyatlar — 1–3 ish kuni</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3.5 p-5 bg-surface rounded-[20px]">
-              <div className="w-11 h-11 rounded-[20px] bg-surface-soft flex items-center justify-center text-ink shrink-0">
-                <ShieldCheck className="w-5 h-5" />
-              </div>
-              <div>
-                <h4 className="text-sm font-semibold text-ink">{lang === 'ru' ? 'Прочный материал' : 'Mustahkam material'}</h4>
-                <p className="text-[13px] text-ink-sub mt-1 leading-relaxed">Polipropilen va ABS, uzoq resurs</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3.5 p-5 bg-surface rounded-[20px]">
-              <div className="w-11 h-11 rounded-[20px] bg-[#FEF0F0] flex items-center justify-center text-brand-red shrink-0">
-                <PackageCheck className="w-5 h-5" />
-              </div>
-              <div>
-                <h4 className="text-sm font-semibold text-ink">{lang === 'ru' ? 'Завод, без посредников' : 'Zavod, vositachisiz'}</h4>
-                <p className="text-[13px] text-ink-sub mt-1 leading-relaxed">{lang === 'ru' ? 'Цена от завода, условия — по объёму' : 'Zavod narxi, shartlar — hajmga qarab'}</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3.5 p-5 bg-surface rounded-[20px]">
-              <div className="w-11 h-11 rounded-[20px] bg-surface-soft flex items-center justify-center text-ink shrink-0">
-                <Headphones className="w-5 h-5" />
-              </div>
-              <div>
-                <h4 className="text-sm font-semibold text-ink">{lang === 'ru' ? 'Техподдержка' : 'Texnik yordam'}</h4>
-                <p className="text-[13px] text-ink-sub mt-1 leading-relaxed">{lang === 'ru' ? 'Бесплатная консультация' : 'Tanlashda bepul maslahat'}</p>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      <section className="py-6 sm:py-8">
-        <Container>
-          <SectionHeader
-            title={lang === 'ru' ? 'Категории товаров' : 'Mahsulot kategoriyalari'}
-            subtitle={lang === 'ru' ? 'Выберите нужный раздел каталога' : 'Kerakli bo‘limni tanlang'}
-            linkText={lang === 'ru' ? 'Все категории' : 'Barcha kategoriyalar'}
-            linkHref={`/${lang}/catalog`}
-          />
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
-            {categories.slice(0, 6).map((cat) => (
-              <CategoryCard key={cat.id} category={cat} lang={lang} />
+              </a>
             ))}
           </div>
-        </Container>
+        </div>
       </section>
 
-      <section className="py-6 sm:py-8">
-        <Container>
-          <SectionHeader
-            title={lang === 'ru' ? 'Популярные товары' : 'Ommabop mahsulotlar'}
-            subtitle={lang === 'ru' ? 'Самые покупаемые позиции' : 'Eng ko‘p sotiladigan qoliplar'}
-            linkText={lang === 'ru' ? 'Смотреть все' : 'Barchasini ko‘rish'}
-            linkHref={`/${lang}/catalog`}
-          />
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
-            {bestsellers.map((product) => (
-              <ProductCard key={product.id} product={product} lang={lang} />
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      <section className="py-6 sm:py-8 cv-auto">
-        <Container>
-          <SectionHeader
-            title={lang === 'ru' ? 'Формы для брусчатки' : 'Bruschatka qoliplari'}
-            linkText={lang === 'ru' ? 'Все брусчатки' : 'Barcha qoliplar'}
-            linkHref={categoryUrlById['cat-s1']}
-          />
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
-            {block1Products.map((product) => (
-              <ProductCard key={product.id} product={product} lang={lang} />
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      <section className="py-6 sm:py-8 cv-auto">
-        <Container>
-          <SectionHeader
-            title={lang === 'ru' ? 'Фасадные декор-элементы' : 'Fasad dekor elementlari'}
-            linkText={lang === 'ru' ? 'Все декоры' : 'Barcha dekorlar'}
-            linkHref={categoryUrlById['cat-s3']}
-          />
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
-            {block2Products.map((product) => (
-              <ProductCard key={product.id} product={product} lang={lang} />
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      <section className="py-6 sm:py-8 cv-auto">
-        <Container>
-          <SectionHeader
-            title={lang === 'ru' ? 'Бордюры и дорожные формы' : 'Bordyur va yo‘l qoliplari'}
-            linkText={lang === 'ru' ? 'Все формы' : 'Barcha qoliplar'}
-            linkHref={categoryUrlById['cat-s1']}
-          />
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
-            {block3Products.map((product) => (
-              <ProductCard key={product.id} product={product} lang={lang} />
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      <section className="py-6 sm:py-8 cv-auto">
-        <Container>
-          <SectionHeader
-            title={lang === 'ru' ? 'Тротуарная плитка' : 'Trotuar plitka qoliplari'}
-            linkText={lang === 'ru' ? 'Все плитки' : 'Barcha plitkalar'}
-            linkHref={categoryUrlById['cat-s2']}
-          />
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
-            {block4Products.map((product) => (
-              <ProductCard key={product.id} product={product} lang={lang} />
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      {featuredMold && (
-        <section className="py-6 sm:py-8">
-          <Container>
-            <MoldResultShowcase
-              moldImage={featuredMold.moldImage || featuredMold.images?.[0]?.url || ''}
-              resultImage={featuredMold.resultImage || featuredMold.images?.[0]?.url || ''}
-              moldTitle={featuredMold.titleUz}
-              resultTitle={lang === 'ru' ? 'Готовая брусчатка после заливки' : 'Tayyor quyilgan bruschatka'}
-              productSlug={featuredMold.slug}
-              productPrice={featuredMold.price}
-              lang={lang}
-            />
-          </Container>
-        </section>
-      )}
-
-      <B2BBanner lang={lang} />
-
-      {/*
-       * Katalog PDF: raqibda bu CTA bor, lekin u haqiqiy faylni bermaydi
-       * (katalog sahifasiga olib boradi). Bizda fayl haqiqiy, hajmi va bet
-       * soni oldindan ko'rsatilgan — yuklab olishdan oldin nima kutishni
-       * mijoz biladi (docs/MADANI-RAQOBAT-AUDITI.md, P0-7).
-       */}
-      <Container>
-        <section className="py-6 sm:py-8">
-          <div className="bg-[#EDF0F5] rounded-[24px] p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-[16px] bg-surface flex items-center justify-center shrink-0 shadow-card">
-                <FileDown className="w-6 h-6 text-brand-red" />
-              </div>
-              <div className="space-y-1">
-                <h2 className="text-lg sm:text-xl font-bold text-ink tracking-[-0.02em]">
-                  {lang === 'ru' ? 'Полный каталог продукции SPS' : 'SPS to‘liq mahsulot katalogi'}
-                </h2>
-                <p className="text-sm text-ink-soft max-w-xl">
-                  {lang === 'ru'
-                    ? 'Все коллекции форм, размеры и характеристики в одном PDF-файле.'
-                    : 'Barcha qolip kolleksiyalari, o‘lchamlar va xususiyatlar bitta PDF faylda.'}
-                </p>
-                <p className="text-[12px] text-ink-sub">
-                  {lang === 'ru' ? 'PDF · 108 страниц · 15 МБ' : 'PDF · 108 bet · 15 MB'}
-                </p>
-              </div>
+      {/* 2. Katalog bloki — 12 ta mashhur model */}
+      <section style={{ paddingBlock: 'var(--space-6) var(--space-9)' }}>
+        <div className="wrap" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'space-between',
+              alignItems: 'flex-end',
+              gap: 'var(--space-4)',
+            }}
+          >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <p className="sps-eyebrow">
+                <b>{t.header.catalog}</b> {p.home.catalogEyebrow}
+              </p>
+              <h2 className="h1">{p.home.catalogTitle}</h2>
             </div>
-            <a
-              href="/catalog/pdf/sps-qoliplar-katalogi-2026.pdf"
-              download
-              className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 bg-ink text-white font-semibold text-sm rounded-full hover:bg-black transition-colors min-h-[50px] shrink-0"
-            >
-              <FileDown className="w-4 h-4" />
-              <span>{lang === 'ru' ? 'Скачать каталог' : 'Katalogni yuklab olish'}</span>
+            <a className="sps-btn sps-btn--outline hide-m" href={`/${lang}/catalog`}>
+              {p.home.catalogAll} · {total} {pluralModels(lang, total)}
             </a>
           </div>
-        </section>
-      </Container>
+          <CatalogClient lang={lang} models={getPopular(12)} variant="home" />
+        </div>
+      </section>
 
-      <Container>
-        <RecentlyViewed lang={lang} />
-      </Container>
-
-      <section className="py-6 sm:py-8 cv-auto">
-        <Container>
-          <div className="bg-surface rounded-[24px] p-6 sm:p-9 shadow-card">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-              <div className="lg:col-span-6 space-y-4">
-                <h2 className="text-[22px] sm:text-2xl font-bold text-ink tracking-[-0.02em]">SPS — SIFATLI QOLIPLAR VA FASAD DEKOR ELEMENTLARI</h2>
-                <p className="text-sm text-ink-soft leading-relaxed">
-                  SPS — bruschatka, bordyur va trotuar plitka uchun plastik qoliplar hamda fasad dekor elementlarini ishlab chiqaruvchi zavod. Mahsulotlarimiz polipropilen va ABS plastikdan tayyorlanadi.
-                </p>
-                <p className="text-sm text-ink-soft leading-relaxed">
-                  Bruschatka, bordyur, dekorativ plitkalar hamda fasad tizimlari uchun sifatli qoliplarni onlayn buyurtma qilishingiz mumkin.
-                </p>
-                <div className="pt-2 flex flex-wrap gap-2 text-[12px] font-semibold text-brand-red">
-                  <Link href={`/${lang}/catalog`} className="bg-surface-soft hover:bg-[#FEF0F0] px-3.5 py-2 rounded-full transition-colors">#Qoliplar</Link>
-                  <Link href={categoryUrlById['cat-s1']} className="bg-surface-soft hover:bg-[#FEF0F0] px-3.5 py-2 rounded-full transition-colors">#Bruschatka</Link>
-                  <Link href={categoryUrlById['cat-s3']} className="bg-surface-soft hover:bg-[#FEF0F0] px-3.5 py-2 rounded-full transition-colors">#Panellar</Link>
+      {/* 3. Afzalliklar */}
+      <section style={{ paddingBottom: 'var(--space-9)' }}>
+        <div className="wrap">
+          <div className="usp">
+            {p.home.usp.map((u, i) => (
+              <div key={u.title}>
+                {USP_ICONS[i]}
+                <div>
+                  <b>{u.title}</b>
+                  <p>{u.text}</p>
                 </div>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-              <div className="lg:col-span-6 space-y-3">
-                <h3 className="text-base font-semibold text-ink mb-3">{lang === 'ru' ? 'Часто задаваемые вопросы' : 'Ko‘p beriladigan savollar'}</h3>
-
-                <FaqAccordion items={homeFaqItems} />
+      {/* 4. Uch qadamda narx */}
+      <section className="sec sec-alt">
+        <div className="wrap" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
+          <div className="split" style={{ alignItems: 'end' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <p className="sps-eyebrow">
+                <b>{p.home.stepsEyebrowLabel}</b> {p.home.stepsEyebrow}
+              </p>
+              <h2 className="h1">{p.home.stepsTitle}</h2>
+            </div>
+            <p className="lead muted">{p.home.stepsLead}</p>
+          </div>
+          <div className="steps3">
+            {p.home.steps.map((s) => (
+              <div key={s.n}>
+                <span className="step-n">{s.n}</span>
+                <h3 className="h3">{s.title}</h3>
+                <p className="body muted">{s.text}</p>
               </div>
+            ))}
+          </div>
+          <div className="cta-row row">
+            <a className="sps-btn sps-btn--primary sps-btn--lg" href={`/${lang}/request`}>
+              {t.header.cta}
+            </a>
+            <a className="sps-btn sps-btn--outline sps-btn--lg" href={tg} target="_blank" rel="noopener noreferrer">
+              {p.home.stepsCtaTelegram}
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Ulgurji bloki */}
+      <section className="sec">
+        <div className="wrap g2" style={{ gap: 'var(--space-8)', alignItems: 'center' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>
+            <p className="sps-eyebrow">
+              <b>{p.home.wholesaleEyebrowLabel}</b> {p.home.wholesaleEyebrow}
+            </p>
+            <h2 className="h1">{p.home.wholesaleTitle}</h2>
+            <p className="lead muted">{p.home.wholesaleLead}</p>
+            <div className="cta-row row">
+              <a className="sps-btn sps-btn--primary sps-btn--lg" href={`/${lang}/partners`}>
+                {p.home.wholesaleCta}
+              </a>
+              <a className="sps-btn sps-btn--outline sps-btn--lg" href={pdf} download>
+                {p.home.wholesalePdf}
+              </a>
             </div>
           </div>
-        </Container>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+            <div style={{ aspectRatio: '1', overflow: 'hidden', borderRadius: 'var(--radius-card)', position: 'relative' }}>
+              <Image src="/images/site/factory.webp" alt={p.home.wholesaleImg1} fill sizes="(max-width: 760px) 45vw, 300px" loading="lazy" />
+            </div>
+            <div style={{ aspectRatio: '1', overflow: 'hidden', borderRadius: 'var(--radius-card)', position: 'relative' }}>
+              <Image src="/images/site/containers.webp" alt={p.home.wholesaleImg2} fill sizes="(max-width: 760px) 45vw, 300px" loading="lazy" />
+            </div>
+          </div>
+        </div>
       </section>
-    </div>
+    </>
   );
 }

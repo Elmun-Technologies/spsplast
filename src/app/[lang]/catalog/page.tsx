@@ -1,79 +1,50 @@
-import React from 'react';
-import { Locale } from '@/lib/i18n';
-import { hreflang } from '@/lib/seo';
-import { getProductsServer, getCategoryOptions } from '@/lib/catalog';
-import { CatalogClient } from '@/components/catalog/CatalogClient';
+import { getModels, getTotalCount } from '@/lib/catalog2027';
+import { isValidLocale, type Locale } from '@/lib/i18n';
+import { getUi, pluralModels } from '@/lib/ui';
+import { CatalogClient } from '@/components/catalog2027/CatalogClient';
+import { notFound } from 'next/navigation';
 
-export const revalidate = 30;
-
-/**
- * Filtrlangan URL'lar (`?category=...&sort=...`) alohida sahifa emas: canonical
- * har doim toza katalog manziliga ishora qiladi.
- */
-export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }) {
-  const { lang } = await params;
-  return {
-    title: lang === 'ru' ? 'Каталог форм и фасадного декора | SPS' : 'Qoliplar va fasad dekor katalogi | SPS',
-    alternates: {
-      canonical: `/${lang}/catalog`,
-      languages: hreflang('/catalog'),
-    },
-  };
+export function generateStaticParams() {
+  return ['uz', 'ru', 'en'].map((lang) => ({ lang }));
 }
 
-interface CatalogPageProps {
-  params: Promise<{ lang: Locale }>;
-  searchParams: Promise<{
-    category?: string;
-    search?: string;
-    isNew?: string;
-    isBestseller?: string;
-    sort?: string;
-    page?: string;
-    minPrice?: string;
-    maxPrice?: string;
-    material?: string;
-  }>;
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  const t = getUi(isValidLocale(lang) ? (lang as Locale) : 'uz');
+  return {
+    title: `${t.header.catalog} · ${getTotalCount()} ${pluralModels(lang as Locale, getTotalCount())} — SPS`,
+    description: t.sections.trotuar + ', ' + t.sections.fasad + ', ' + t.sections.dekor + ' — SPS',
+  };
 }
 
 export default async function CatalogPage({
   params,
-  searchParams: searchParamsPromise,
-}: CatalogPageProps) {
-  const { lang } = await params;
-  const searchParams = await searchParamsPromise;
-  const page = parseInt(searchParams.page || '1', 10) || 1;
-  const minPrice = searchParams.minPrice ? parseInt(searchParams.minPrice, 10) : undefined;
-  const maxPrice = searchParams.maxPrice ? parseInt(searchParams.maxPrice, 10) : undefined;
-
-  const { products, total, totalPages } = getProductsServer({
-    locale: lang,
-    categorySlug: searchParams.category,
-    search: searchParams.search,
-    isNew: searchParams.isNew === 'true',
-    isBestseller: searchParams.isBestseller === 'true',
-    sort: searchParams.sort,
-    page,
-    pageSize: 24,
-    minPrice,
-    maxPrice,
-    material: searchParams.material,
-  });
-
-  const categories = getCategoryOptions(lang);
-
-  const selectedCategory = categories.find((c) => c.slug === searchParams.category);
+  searchParams,
+}: {
+  params: Promise<{ lang: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const { lang: langParam } = await params;
+  if (!isValidLocale(langParam)) notFound();
+  const lang = langParam as Locale;
+  const sp = new URLSearchParams();
+  for (const [k, v] of Object.entries(await searchParams)) {
+    if (typeof v === 'string') sp.set(k, v);
+  }
 
   return (
-    <CatalogClient
-      lang={lang}
-      products={products}
-      categories={categories}
-      selectedCategory={selectedCategory}
-      total={total}
-      totalPages={totalPages}
-      currentPage={page}
-      searchParams={searchParams as any}
-    />
+    <div className="wrap sec">
+      <div className="sps-section-head" style={{ marginBottom: 'var(--space-5)' }}>
+        <div>
+          <p className="sps-eyebrow">
+            <b>SPS</b> · {getUi(lang).header.catalog}
+          </p>
+          <h1 className="h1" style={{ marginTop: 'var(--space-3)' }}>
+            {getUi(lang).header.catalog}
+          </h1>
+        </div>
+      </div>
+      <CatalogClient lang={lang} models={getModels()} initialQuery={sp.toString()} variant="catalog" />
+    </div>
   );
 }

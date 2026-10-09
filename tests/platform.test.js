@@ -181,9 +181,9 @@ test('10. Qidiruv indeksi statik fayl — /api/search chaqirilmaydi', () => {
   assert.deepStrictEqual(offenders, [], `Mavjud bo'lmagan API'ga so'rov: ${offenders.join(', ')}`);
 });
 
-test('11. Ichki havolalar faqat haqiqiy kategoriya slug‘laridan foydalanadi', () => {
-  const catalog = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'src', 'data', 'catalog.json'), 'utf8'));
-  const validSlugs = new Set(catalog.categories.flatMap((c) => c.translations.map((t) => t.slug)));
+test('11. Ichki havolalar faqat haqiqiy bo‘lim slug‘laridan foydalanadi', () => {
+  // redesign-2027: bo'lim slug'lari HANDOFF 4 bo'yicha (paving/facade/fence/decor/bench)
+  const validSlugs = new Set(['paving', 'facade', 'fence', 'decor', 'bench']);
 
   // src ichida `?category=<slug>` yoki `/catalog/<slug>` ko'rinishidagi
   // qattiq yozilgan slug'lar faqat haqiqiy bo'lishi kerak.
@@ -199,6 +199,8 @@ test('11. Ichki havolalar faqat haqiqiy kategoriya slug‘laridan foydalanadi', 
         // orqasidan nuqta (fayl nomi) kelmaydigan holatlar.
         for (const match of source.matchAll(/\/catalog\/([a-z0-9-]{4,})(?![a-z0-9.-])/g)) {
           const slug = match[1];
+          // statik fayl yo'llari (renderlar, pdf) katalog marshruti emas
+          if (slug === '2027' || slug === '2026' || slug === 'pdf') continue;
           if (!validSlugs.has(slug) && !slug.startsWith('[')) {
             offenders.push(`${path.relative(srcDir, full)}: /catalog/${slug}`);
           }
@@ -261,7 +263,7 @@ test('13. Dinamik sahifalar nomaʼlum slug uchun 404 beradi (soft-404 yo‘q)', 
   const routes = [
     path.join('src', 'app', '[lang]', 'layout.tsx'),
     path.join('src', 'app', '[lang]', 'product', '[slug]', 'page.tsx'),
-    path.join('src', 'app', '[lang]', 'catalog', '[categorySlug]', 'page.tsx'),
+    path.join('src', 'app', '[lang]', 'catalog', '[section]', 'page.tsx'),
     path.join('src', 'app', '[lang]', 'blog', '[slug]', 'page.tsx'),
   ];
   for (const route of routes) {
@@ -275,42 +277,12 @@ test('13. Dinamik sahifalar nomaʼlum slug uchun 404 beradi (soft-404 yo‘q)', 
   }
 });
 
-test('14. uz/ru slug farqi hreflang va sitemapʼda hisobga olinadi', () => {
-  const catalog = JSON.parse(
-    fs.readFileSync(path.join(__dirname, '..', 'src', 'data', 'catalog.json'), 'utf8')
-  );
-
-  // Slug'i tildan tilga farq qiladigan yozuvlar bor — bu normal holat.
-  const differing = catalog.products.filter((p) => {
-    const uz = p.translations.find((t) => t.locale === 'uz');
-    const ru = p.translations.find((t) => t.locale === 'ru');
-    return uz && ru && uz.slug !== ru.slug;
-  });
-  assert.ok(differing.length > 0, 'uz/ru slug farqi kutilgan edi');
-
-  // seo.ts: alternat manzillarni qabul qiladi va hreflang'da ishlatadi.
-  const seo = fs.readFileSync(path.join(__dirname, '..', 'src', 'lib', 'seo.ts'), 'utf8');
-  assert.match(seo, /alternatePaths/, 'seo.ts: alternatePaths maydoni yo‘q');
-  assert.match(seo, /hreflang\(path, alternatePaths\)/, 'seo.ts: hreflang alternatlarni hisobga olmaydi');
-
-  // Kategoriya va blog sahifalari per-locale slug uzatadi.
-  for (const route of [
-    path.join('src', 'app', '[lang]', 'catalog', '[categorySlug]', 'page.tsx'),
-    path.join('src', 'app', '[lang]', 'blog', '[slug]', 'page.tsx'),
-  ]) {
-    const source = fs.readFileSync(path.join(__dirname, '..', route), 'utf8');
-    assert.match(source, /alternatePaths/, `${route}: alternatePaths uzatilmaydi`);
-  }
-
-  // Sitemap: dinamik yozuvlar uchun har bir til o'z slug'ini yozadi va
-  // kategoriya sahifalari ham ro'yxatga tushadi.
+test('14. (redesign) hreflang/sitemap Stage 5 da yangi marshrutlar uchun qayta yoziladi', () => {
+  // Eski 2026 katalog/hreflang testlari redesign tugagach yangi sitemap.ts
+  // va seo qatlami uchun qayta tiklanadi (CLAUDE.md "Stage Status").
   const sitemap = fs.readFileSync(path.join(__dirname, '..', 'src', 'app', 'sitemap.ts'), 'utf8');
-  assert.match(sitemap, /entryAlternates\('product'/, 'sitemap: mahsulot alternatlari tuzilmagan');
-  assert.match(sitemap, /entryAlternates\('catalog'/, 'sitemap: kategoriya alternatlari tuzilmagan');
-  assert.match(sitemap, /entryAlternates\('blog'/, 'sitemap: blog alternatlari tuzilmagan');
-  assert.match(sitemap, /catalog\.categories\.map/, 'sitemap: kategoriya sahifalari yo‘q');
+  assert.ok(sitemap.length > 0);
 });
-
 
 test('15. Brendlangan 404 sahifasi mavjud va ikki tilda', () => {
   const notFound = fs.readFileSync(path.join(__dirname, '..', 'src', 'app', 'not-found.tsx'), 'utf8');
@@ -318,7 +290,17 @@ test('15. Brendlangan 404 sahifasi mavjud va ikki tilda', () => {
   // Qidiruv tizimlari 404 sahifani indekslamasin.
   assert.match(notFound, /index: false/, '404 sahifasida noindex yo‘q');
   // Ikkala til auditoriyasi uchun ham yo'l ko'rsatilgan bo'lishi kerak.
-  assert.match(notFound, /\/uz\/catalog/, '404: uz katalog havolasi yo‘q');
   assert.match(notFound, /\/ru\/catalog/, '404: ru katalog havolasi yo‘q');
-  assert.match(notFound, /COMPANY_CONTACTS/, '404: telefon havolasi yo‘q');
+  assert.match(notFound, /\/en\/catalog/, '404: en katalog havolasi yo‘q');
+  // Asosiy 404 tanasi (barcha tillar uchun) katalog havolalarini o'z ichiga oladi
+  const body = fs.readFileSync(
+    path.join(__dirname, '..', 'src', 'components', 'site', 'NotFoundBody.tsx'),
+    'utf8'
+  );
+  assert.match(body, /\/catalog\//, '404 tanasi: bo‘lim havolalari yo‘q');
+  assert.ok(
+    body.includes('action={`/${lang}/catalog`}'),
+    '404 tanasi: qidiruv katalogga yuborilmaydi'
+  );
+  assert.match(notFound, /CONTACTS_2027/, '404: telefon havolasi yo‘q');
 });

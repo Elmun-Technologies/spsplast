@@ -22,11 +22,13 @@ export interface FaqEntry {
 export interface FaqItem {
   uz: FaqEntry;
   ru: FaqEntry;
+  /** EN tarjima biznesdan kutilmoqda: bo'lmasa uz ko'rsatiladi. */
+  en?: FaqEntry;
 }
 
 /** Tanlangan tilga mos savol-javoblar ro'yxati. */
 export function faqItems(items: FaqItem[], lang: Locale): FaqEntry[] {
-  return items.map((item) => item[lang]);
+  return items.map((item) => (lang === 'ru' ? item.ru : lang === 'en' && item.en ? item.en : item.uz));
 }
 
 /**

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Modellarni solishtirish</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/sps/tokens.css">
+<link rel="stylesheet" href="ds/sps/components/bundle.css">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+.ct{width:100%;border-collapse:collapse;min-width:820px;table-layout:fixed}
+.ct th,.ct td{padding:14px 16px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.ct tbody th{width:200px;font:500 12px/16px var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-muted);background:var(--surface-alt)}
+.ct td{font:500 15px/22px var(--font-mono)}
+.ct .diff td{background:#fff7e6}
+.mc{display:flex;flex-direction:column;gap:10px}
+.mc img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.ct tbody th,.ct thead th:first-child{position:sticky;left:0;z-index:1}
+.ct thead th:first-child{background:var(--surface)}
+.cmp-act{display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end;padding-top:8px}
+@media (max-width:760px){.ct{min-width:0;width:auto}.ct tbody th,.ct thead th:first-child{width:96px;min-width:96px;padding:12px 8px;font-size:10px;letter-spacing:.04em}.ct td,.ct thead th{width:150px;min-width:150px;padding:12px 10px;font-size:13px;line-height:19px}.mc a{font-size:16px!important;line-height:20px!important}.mc .sps-btn{height:36px;font-size:13px}.cmp-act>.sps-btn{flex:1 1 100%}.cmp-scroll{margin-inline:-16px;padding-left:16px}}
+</style>
+</helmet>
+<div class="sps" style="background: var(--surface)">
+<dc-import name="Header" current="catalog" cmp="{{three}}" hint-size="100%,117px"></dc-import>
+<section style="padding-block: 28px 72px">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 24px">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="Main.dc.html">Bosh sahifa</a><span>/</span><a href="Catalog.dc.html">Katalog</a><span>/</span><span>Solishtirish</span></nav>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 8px"><h1 class="disp-l">Solishtirish</h1><p class="body muted">3 ta model · farq qiladigan qatorlar sariq bilan belgilangan</p></div>
+<label class="check" style="display: flex; gap: 8px; align-items: center; font-size: 15px"><input type="checkbox" checked="{{onlyDiff}}" onChange="{{toggleDiff}}" style="width: 18px; height: 18px; accent-color: var(--ink)">Faqat farqlarni ko'rsatish</label>
+</div>
+<div class="cmp-scroll" style="overflow-x: auto">
+<table class="ct">
+<thead><tr><th style="width: 200px; border-bottom: 2px solid var(--ink)"></th>
+<sc-for list="{{models}}" as="m" hint-placeholder-count="3"><th style="border-bottom: 2px solid var(--ink)"><div class="mc"><img src="{{m.img}}" alt="{{m.name}}"><span class="mono" style="font-size: 12px; color: var(--ink-muted); font-weight: 500">{{m.code}}</span><a href="Model.dc.html" style="font: 600 20px/24px var(--font-display); color: var(--ink); text-decoration: none">{{m.name}}</a><div style="display: flex; gap: 8px"><a class="sps-btn sps-btn--primary sps-btn--sm" href="RequestList.dc.html" style="flex: 1">Zayafka</a><button class="sps-btn sps-btn--outline sps-btn--sm" aria-label="Olib tashlash: {{m.name}}">✕</button></div></div></th></sc-for>
+</tr></thead>
+<tbody>
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="8"><tr class="{{r.cls}}"><th>{{r.label}}</th><sc-for list="{{r.vals}}" as="v" hint-placeholder-count="3"><td>{{v}}</td></sc-for></tr></sc-for>
+</tbody>
+</table>
+</div>
+<div class="cmp-act"><a class="sps-btn sps-btn--outline sps-btn--lg" href="Catalog.dc.html">+ Model qo'shish</a><a class="sps-btn sps-btn--primary sps-btn--lg" href="RequestList.dc.html">Hammasini zayafkaga qo'shish</a></div>
+</div>
+</section>
+<dc-import name="Footer" hint-size="100%,460px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1700}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { onlyDiff: false }; }
+  renderVals() {
+    const M = [
+      { code: '№ 01 · Trotuar', name: 'Monako', img: '/_blob/1d9dca84af289ecdaa69b4fafe919e7c', v: ['300 × 300 × 30 mm', '30 mm', '1', '11 dona', '320 g', '3,52 kg', 'Piyoda yo’lak, hovli', 'PP / ABS'] },
+      { code: '№ 05 · Trotuar', name: 'Magna', img: '/_blob/9c0146f25f15a001346a674e89d19255', v: ['300 × 300 × 30 mm', '30 mm', '1', '11 dona', '340 g', '3,74 kg', 'Piyoda yo’lak, hovli', 'PP / ABS'] },
+      { code: '№ 70 · Trotuar', name: 'Farovon', img: '/_blob/6edbad90bf41cfd6416ca718689fb5ff', v: ['150 × 150 × 25 mm + figurali', '25 mm', '2 (A + B)', '15 + 15 dona', '—', '5,55 kg', 'Piyoda yo’lak', 'PP / ABS'] },
+    ];
+    const L = ['Tayyor element', 'Qalinlik', 'Qoliplar soni', '1 m² ga', 'Bitta qolip vazni', '1 m² uchun qoliplar', 'Qo’llanish', 'Material'];
+    let rows = L.map((label, i) => { const vals = M.map((m) => m.v[i]); const diff = new Set(vals).size > 1; return { label, vals, diff, cls: diff ? 'diff' : '' }; });
+    if (this.state.onlyDiff) rows = rows.filter((r) => r.diff);
+    return { models: M, rows, onlyDiff: this.state.onlyDiff, toggleDiff: () => this.setState({ onlyDiff: !this.state.onlyDiff }), three: 3 };
+  }
+}
+</script>
+</body>
+</html>

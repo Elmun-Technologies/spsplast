@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>SPS — qoliplar katalogi (bosh sahifa)</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/sps/tokens.css">
+<link rel="stylesheet" href="ds/sps/components/bundle.css">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:var(--red-ink)}
+.band{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:48px;align-items:end}
+.secs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.st{position:relative;display:block;height:150px;overflow:hidden;background:var(--surface-ink);color:#fff;text-decoration:none}
+.st img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.72;transition:transform .3s ease-out,opacity .3s}
+.st:hover img{transform:scale(1.04);opacity:.6}
+.st::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,20,20,0) 30%,rgba(20,20,20,.88) 100%)}
+.st div{position:absolute;z-index:1;left:14px;right:14px;bottom:12px;display:flex;flex-direction:column;gap:2px}
+.hs{display:flex;flex-wrap:wrap;gap:16px 40px;border-top:1px solid var(--line)}
+.hs div{padding:18px 16px 0 0;display:flex;flex-direction:column;gap:6px}
+.hs b{font:600 36px/40px var(--font-display);letter-spacing:-.02em;white-space:nowrap;color:var(--ink)}
+.hs b small{font:500 14px/18px var(--font-mono);margin-left:4px;color:var(--ink-muted);letter-spacing:0}
+.hs span{font:400 14px/20px var(--font-sans);color:var(--ink-muted)}
+.usp{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--line);background:var(--surface)}
+.usp>div{padding:24px;border-right:1px solid var(--line);display:flex;gap:14px;align-items:flex-start}
+.usp>div:last-child{border-right:0}
+.usp svg{flex:none;color:var(--red-ink)}
+.steps3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:2px solid var(--ink)}
+.steps3>div{padding:24px 24px 0 0;display:flex;flex-direction:column;gap:10px}
+@media (max-width:1100px){.band{grid-template-columns:minmax(0,1fr);gap:24px}.secs{grid-template-columns:repeat(3,minmax(0,1fr))}.usp{grid-template-columns:repeat(2,minmax(0,1fr))}.usp>div:nth-child(2){border-right:0}.usp>div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+@media (max-width:640px){.hero-h{font-size:30px!important;line-height:34px!important}.hero-p{font-size:16px!important;line-height:24px!important}.hs{gap:24px}.hs div{padding:14px 0 0}.hs b{font-size:22px;line-height:28px;letter-spacing:-.01em}.hs b small{font-size:11px}.hs span{font-size:12px;line-height:16px}.secs{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.secs .st:first-child{grid-column:1/-1;height:150px}.st{height:110px}.st div b{font-size:15px!important}.cta-row>a{flex:1 1 100%}.usp>div{padding:18px 16px}.mob-hide{display:none}.usp{grid-template-columns:minmax(0,1fr)}.usp>div{border-right:0!important;border-bottom:1px solid var(--line)}.steps3{grid-template-columns:minmax(0,1fr)}}
+</style>
+</helmet>
+<div class="sps" style="background: var(--surface)">
+<dc-import name="Header" current="home" hint-size="100%,117px"></dc-import>
+
+<section style="background: var(--surface-alt); color: var(--ink); padding-block: 48px 40px">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 28px">
+<div class="band">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div class="sps-eyebrow"><b>SPS</b> Qoliplar zavodi · Toshkent</div>
+<h1 class="disp-l hero-h">Beton plitka va fasad uchun plastik qoliplar — 152 model.</h1>
+<p class="lead hero-p muted">Modelni tanlang, zayafka qoldiring — menejer qolip soni va narxini hisoblab beradi. Zavoddan to'g'ridan-to'g'ri, 8 davlatga yetkazib beramiz.</p>
+</div>
+<div class="hs">
+<div><b>20<small>yil</small></b><span>Tajriba</span></div>
+<div><b>18 000<small>m²</small></b><span>Oylik quvvat</span></div>
+<div><b>8</b><span>Eksport davlati</span></div>
+</div>
+</div>
+<div class="secs">
+<a class="st" href="Catalog.dc.html"><img src="/_blob/1d9dca84af289ecdaa69b4fafe919e7c" alt=""><div><b style="font: 600 17px/20px var(--font-display)">Trotuar plitkasi</b><span class="mono" style="font-size: 12px; color: #ff8a8e">91 model</span></div></a>
+<a class="st" href="Catalog.dc.html"><img src="/_blob/b5560e5c0b1ac0b9ef7c851b42a5f031" alt=""><div><b style="font: 600 17px/20px var(--font-display)">Fasad</b><span class="mono" style="font-size: 12px; color: #ff8a8e">26 model</span></div></a>
+<a class="st" href="Catalog.dc.html"><img src="/_blob/cc505085c93449c96a834da185b2a293" alt=""><div><b style="font: 600 17px/20px var(--font-display)">Zabor panellari</b><span class="mono" style="font-size: 12px; color: #ff8a8e">10 model</span></div></a>
+<a class="st" href="Catalog.dc.html"><img src="/_blob/a97ba7109d5c4f6b384e3145632ce853" alt=""><div><b style="font: 600 17px/20px var(--font-display)">Dekor panellar</b><span class="mono" style="font-size: 12px; color: #ff8a8e">18 model</span></div></a>
+<a class="st" href="Catalog.dc.html"><img src="/_blob/4e9a4cc036673dbacf9df18cda099374" alt=""><div><b style="font: 600 17px/20px var(--font-display)">Skameyka oyoqlari</b><span class="mono" style="font-size: 12px; color: #ff8a8e">7 model</span></div></a>
+</div>
+</div>
+</section>
+
+<section style="padding-block: 40px 72px">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 8px"><div class="sps-eyebrow"><b>KATALOG</b> Ko'p so'raladigan modellar</div><h2 class="h1">Qolipni tanlang</h2></div>
+<a class="sps-btn sps-btn--outline mob-hide" href="Catalog.dc.html">Butun katalog · 152 model</a>
+</div>
+<dc-import name="Shop" limit="{{twelve}}" compare-demo="{{no}}" no-search="{{yes}}" hint-size="100%,2300px"></dc-import>
+</div>
+</section>
+
+<section style="padding-block: 0 72px">
+<div class="wrap">
+<div class="usp">
+<div><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21V9l6 3V9l6 3V5h6v16z"></path></svg><div><b style="font: 600 16px/22px var(--font-sans)">Zavoddan to'g'ridan-to'g'ri</b><p style="margin: 4px 0 0; font-size: 14px; line-height: 20px; color: var(--ink-muted)">Toshkentdagi o'z zavodimiz, vositachisiz.</p></div></div>
+<div><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="8" height="8"></rect><rect x="13" y="13" width="8" height="8"></rect><path d="M13 7h8M3 17h8"></path></svg><div><b style="font: 600 16px/22px var(--font-sans)">Qolip + plitka + natija</b><p style="margin: 4px 0 0; font-size: 14px; line-height: 20px; color: var(--ink-muted)">Har modelda qolip surati, tayyor element va terilgan ko'rinish.</p></div></div>
+<div><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="3" width="16" height="18" rx="1"></rect><path d="M8 7h8M8 11h2M12 11h2M16 11h0M8 15h2M12 15h2M8 18h8"></path></svg><div><b style="font: 600 16px/22px var(--font-sans)">Qolip soni hisob-kitobi</b><p style="margin: 4px 0 0; font-size: 14px; line-height: 20px; color: var(--ink-muted)">Kunlik m² bo'yicha kerakli qolip soni va vazni.</p></div></div>
+<div><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7"></path><circle cx="7" cy="18" r="2"></circle><circle cx="17" cy="18" r="2"></circle></svg><div><b style="font: 600 16px/22px var(--font-sans)">8 davlatga yetkazish</b><p style="margin: 4px 0 0; font-size: 14px; line-height: 20px; color: var(--ink-muted)">MDH va qo'shni davlatlar, invoys va qadoqlash ro'yxati bilan.</p></div></div>
+</div>
+</div>
+</section>
+
+<section class="sec sec-alt">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 40px">
+<div class="split" style="align-items: end"><div style="display: flex; flex-direction: column; gap: 12px"><div class="sps-eyebrow"><b>ZAYAFKA</b> Narx saytda yo'q — hisoblab aytamiz</div><h2 class="h1">Uch qadamda narx oling</h2></div><p class="lead muted">Qolip narxi model, material va hajmga bog'liq. Shuning uchun narxni menejer sizning hajmingizga qarab hisoblaydi.</p></div>
+<div class="steps3">
+<div><span class="step-n">01</span><h3 class="h3">Modelni tanlang</h3><p class="body muted">Katalogdan bir yoki bir nechta qolipni "Zayafka ro'yxati"ga qo'shing.</p></div>
+<div><span class="step-n">02</span><h3 class="h3">Zayafka qoldiring</h3><p class="body muted">Ism, telefon va kunlik hajmni yozing. 1 daqiqa vaqt oladi.</p></div>
+<div><span class="step-n">03</span><h3 class="h3">Hisob-kitob oling</h3><p class="body muted">Menejer qolip soni, vazni va narxini telefon yoki Telegram orqali aytadi.</p></div>
+</div>
+<div class="cta-row" style="display: flex; gap: 12px; flex-wrap: wrap"><a class="sps-btn sps-btn--primary sps-btn--lg" href="RequestList.dc.html">Zayafka qoldirish</a><a class="sps-btn sps-btn--outline sps-btn--lg" href="#">Telegram orqali yozish</a></div>
+</div>
+</section>
+
+<section class="sec" style="background: #fff">
+<div class="wrap g2" style="gap: 56px; align-items: center">
+<div style="display: flex; flex-direction: column; gap: 20px">
+<div class="sps-eyebrow"><b>ULGURJI</b> Sexlar va distribyutorlar</div>
+<h2 class="h1">Plitka sexi yoki distribyutormisiz?</h2>
+<p class="lead muted">Butun sex uchun qolip to'plamini hisoblaymiz, distribyutorlarga ulgurji shart va 3 tilda katalog beramiz.</p>
+<div class="cta-row" style="display: flex; gap: 12px; flex-wrap: wrap"><a class="sps-btn sps-btn--primary sps-btn--lg" href="Partners.dc.html">Ulgurji shartlar</a><a class="sps-btn sps-btn--outline sps-btn--lg" href="#">PDF katalog · 3 tilda</a></div>
+</div>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px">
+<div style="aspect-ratio: 1; overflow: hidden; border-radius: 14px"><img class="cover" src="/_blob/0f675fa60d42a0bf9f95324ba244533d" alt="Quyish sexi"></div>
+<div style="aspect-ratio: 1; overflow: hidden; border-radius: 14px"><img class="cover" src="/_blob/5f877707bfa6a902ebb5ec0d3862c27c" alt="Eksport yuki"></div>
+</div>
+</div>
+</section>
+
+<dc-import name="Footer" hint-size="100%,460px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":4500}}'>
+class Component extends DCLogic {
+  renderVals() { return { twelve: 12, no: false, yes: true }; }
+}
+</script>
+</body>
+</html>

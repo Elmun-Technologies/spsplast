@@ -26,3 +26,12 @@ export function isValidUzPhone(phone: string): boolean {
   const normalized = normalizePhone(phone);
   return /^\+998\d{9}$/.test(normalized);
 }
+
+/**
+ * Xalqaro telefon validatsiyasi (HANDOFF 5: +998, +7, +992 ...).
+ * E.164: plus + 9..15 raqam; kirishda 7–32 belgi bo'lishi mumkin.
+ */
+export function isValidIntlPhone(input: string): boolean {
+  if (!input || input.trim().length < 7 || input.trim().length > 32) return false;
+  return /^\+\d{9,15}$/.test(normalizePhone(input));
+}

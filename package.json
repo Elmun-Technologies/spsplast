@@ -11,6 +11,9 @@
     "test": "node --test --experimental-strip-types tests/*.test.js",
     "catalog:build": "node scripts/build-static-catalog.js",
     "catalog:check": "node scripts/build-static-catalog.js --check",
+    "models:build": "python3 scripts/extract/build_models_2027.py",
+    "models:images": "python3 scripts/extract/build_images_2027.py",
+    "models:check": "node scripts/validate-models-2027.mjs",
     "fonts:sync": "node scripts/sync-fonts.js",
     "media:build": "python3 scripts/build-media.py"
   },
@@ -25,15 +28,12 @@
     "zustand": "^4.5.5"
   },
   "devDependencies": {
-    "@fontsource-variable/inter": "^5.3.0",
     "@types/node": "^20.14.12",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "autoprefixer": "^10.4.20",
     "eslint": "^8.57.0",
     "eslint-config-next": "^15.5.26",
     "postcss": "^8.4.41",
-    "tailwindcss": "^3.4.10",
     "typescript": "^5.5.4"
   }
 }

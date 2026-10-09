@@ -108,16 +108,14 @@ test('4. loyihalar: oldin/keyin rasmlari va tavsiflar', () => {
   }
 });
 
-test('5. ishlab chiqarish galereyasi rasmlari joyida', () => {
-  // src/app/[lang]/production/page.tsx shu fayllarni ko'rsatadi.
-  const productionDir = path.join(ROOT, 'public/media/production');
-  assert.ok(fs.existsSync(productionDir), 'public/media/production katalogi yo‘q');
-
+test('5. ishlab chiqarish sahifasi rasmlari joyida (redesign 2027)', () => {
+  // Yangi Production.dc.html maketi: zavod hero, 4 qadam, eksport xaritasi va
+  // 2 ta rasm. Barcha havolalar real fayl bo'lishi shart.
   const page = fs.readFileSync(path.join(ROOT, 'src/app/[lang]/production/page.tsx'), 'utf8');
-  const referenced = [...page.matchAll(/'(\/media\/production\/[^']+)'/g)].map((m) => m[1]);
-  assert.ok(referenced.length >= 10, `galereyada ${referenced.length} rasm — kamida 10 kutilgan`);
+  const referenced = [...page.matchAll(/['"](\/(?:images|catalog)\/[^'"]+\.webp)['"]/g)].map((m) => m[1]);
+  assert.ok(referenced.length >= 7, `sahifada ${referenced.length} rasm — kamida 7 kutilgan`);
 
   for (const image of referenced) {
-    assert.ok(fs.existsSync(path.join(ROOT, 'public', image)), `galereya rasmi topilmadi: ${image}`);
+    assert.ok(fs.existsSync(path.join(ROOT, 'public', image)), `rasm topilmadi: ${image}`);
   }
 });

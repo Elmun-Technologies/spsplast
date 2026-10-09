@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Monako qolipi</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/sps/tokens.css">
+<link rel="stylesheet" href="ds/sps/components/bundle.css">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:var(--red-ink)}
+.pdp{display:grid;grid-template-columns:96px minmax(0,1fr) 440px;gap:24px;align-items:start}
+.th{display:flex;flex-direction:column;gap:10px}
+.th button{width:96px;height:96px;padding:0;border:1px solid var(--line);background:var(--surface-alt);cursor:pointer;overflow:hidden}
+.th button img{width:100%;height:100%;object-fit:cover}
+.th .on{border:2px solid var(--ink)}
+.stage{position:relative;aspect-ratio:1;background:var(--surface-alt);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.key{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.key div{padding:14px 16px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.key span{display:block;font:500 11px/14px var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-muted)}
+.key b{display:block;margin-top:4px;font:500 18px/24px var(--font-mono)}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);overflow-x:auto}
+.tabs button{height:48px;padding:0 18px;border:0;border-bottom:2px solid transparent;background:none;font:500 15px/20px var(--font-sans);color:var(--ink-muted);cursor:pointer;white-space:nowrap}
+.tabs .on{color:var(--ink);border-bottom-color:var(--red)}
+.mbar{display:none}
+.rel{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.rc{border:1px solid var(--line);background:var(--surface);text-decoration:none;color:var(--ink);display:flex;flex-direction:column}
+.rc img{aspect-ratio:4/3;object-fit:cover;width:100%}
+.ov{position:fixed;inset:0;z-index:40;background:rgba(20,20,20,.6);display:flex;align-items:center;justify-content:center;padding:24px}
+.spec-split{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:64px;align-items:start}
+.calc-row{display:flex;gap:12px;align-items:flex-end}
+.calc-out{display:flex;flex-direction:column;min-width:96px}
+@media (max-width:1100px){.pdp{grid-template-columns:minmax(0,1fr);gap:12px}.stage{order:1}.th{flex-direction:row;order:2;overflow-x:auto}.th button{width:72px;height:72px;flex:none}.side-sticky{order:3;position:static!important;margin-top:12px}.rel{grid-template-columns:repeat(2,minmax(0,1fr))}.spec-split{grid-template-columns:minmax(0,1fr);gap:24px}}
+@media (max-width:640px){.mbar{display:flex;position:sticky;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);padding:10px 16px;gap:8px;box-shadow:0 -8px 24px rgba(20,20,20,.08)}.desk-cta{display:none!important}.rel{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}.stage{margin-inline:-16px}.th button{width:64px;height:64px}.key b{font-size:16px}.key div{padding:12px}.calc-row{flex-wrap:wrap}.calc-row .sps-field{flex:1 1 100%!important}.calc-out{flex:1 1 0}.tabs button{padding:0 12px;font-size:14px}.rc b{font-size:15px!important}.pd-sec{padding-block:16px 40px!important}}
+</style>
+</helmet>
+<div class="sps" style="background: var(--surface)">
+<dc-import name="Header" current="catalog" hint-size="100%,117px"></dc-import>
+
+<section class="pd-sec" style="padding-block: 24px 64px">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 20px">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="Main.dc.html">Bosh sahifa</a><span>/</span><a href="Catalog.dc.html">Katalog</a><span>/</span><a href="Catalog.dc.html">Trotuar plitkasi</a><span>/</span><span>№ 01 Monako</span></nav>
+<div class="pdp">
+<div class="th">
+<sc-for list="{{thumbs}}" as="t" hint-placeholder-count="4"><button class="{{t.cls}}" onClick="{{t.pick}}" aria-label="{{t.label}}"><img src="{{t.src}}" alt="" style="{{t.fit}}"></button></sc-for>
+</div>
+<div class="stage">
+<img src="{{img.src}}" alt="Monako — {{img.label}}" style="{{img.style}}">
+<span class="sps-tag" style="position: absolute; left: 16px; top: 16px">{{img.label}}</span>
+</div>
+<div class="side-sticky" style="display: flex; flex-direction: column; gap: 20px; position: sticky; top: 140px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; justify-content: space-between; align-items: center"><span class="mono" style="font-size: 14px; color: var(--ink-muted)">№ 01 · Trotuar plitkasi qolipi</span><span class="sps-tag">PP / ABS</span></div>
+<h1 class="disp-l">Monako</h1>
+<p class="body muted">Toshlar va diagonal chiziqli naqsh, 300 × 300 mm plitka. Bitta qolip, bitta katak. Ikki rangda shaxmat tartibida teriladi.</p>
+</div>
+<div class="key">
+<div><span>Tayyor plitka</span><b>300×300×30</b></div>
+<div><span>1 m² ga</span><b>11 dona</b></div>
+<div><span>Qolip vazni</span><b>320 g</b></div>
+<div><span>Qoliplar / 1 m²</span><b>3,52 kg</b></div>
+</div>
+<div style="background: var(--surface-alt); padding: 20px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; justify-content: space-between; align-items: baseline"><b style="font: 600 16px/22px var(--font-sans)">Qolip kalkulyatori</b><span style="font-size: 13px; color: var(--ink-muted)">kuniga 1 aylanma</span></div>
+<div class="calc-row">
+<div class="sps-field" style="flex: 1"><label class="sps-label" for="m2">Kunlik hajm, m²</label><input class="sps-input mono" id="m2" inputmode="decimal" value="{{m2}}" onChange="{{setM2}}" style="font-size: 18px"></div>
+<div class="calc-out"><span class="sps-label">Qolip</span><b class="mono" style="font-size: 22px; line-height: 48px">{{molds}}</b></div>
+<div class="calc-out"><span class="sps-label">Vazni</span><b class="mono" style="font-size: 22px; line-height: 48px">{{kg}} kg</b></div>
+</div>
+</div>
+<div class="desk-cta" style="display: flex; flex-direction: column; gap: 10px">
+<button class="sps-btn sps-btn--primary sps-btn--lg" onClick="{{openLead}}">Zayafka qoldirish — narxni bilish</button>
+<div style="display: flex; gap: 10px"><button class="{{listBtn}}" onClick="{{toggleList}}" style="flex: 1">{{listText}}</button><button class="{{cmpBtn}}" onClick="{{toggleCmp}}" style="flex: 1">{{cmpText}}</button></div>
+</div>
+<div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center; padding-top: 4px; font-size: 14px"><span class="mono" style="font-size: 15px; font-weight: 500">+998 98 300 77 72</span><a href="#">Telegram</a><a href="#">WhatsApp</a><span style="color: var(--ink-muted)">Du–Sha 09:00–18:00</span></div>
+</div>
+</div>
+</div>
+</section>
+
+<section style="padding-block: 0 72px">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 24px">
+<div class="tabs" role="tablist"><sc-for list="{{tabs}}" as="t" hint-placeholder-count="4"><button class="{{t.cls}}" role="tab" aria-selected="{{t.on}}" onClick="{{t.pick}}">{{t.label}}</button></sc-for></div>
+<sc-if value="{{tSpec}}" hint-placeholder-val="{{true}}">
+<div class="spec-split">
+<table class="sps-spec"><tbody>
+<tr><th>Kod</th><td>№ 01</td></tr><tr><th>Qolip o'lchami</th><td>300 × 300 mm</td></tr><tr><th>Tayyor plitka</th><td>300 × 300 × 30 mm</td></tr><tr><th>Katak soni</th><td>1</td></tr><tr><th>1 m² ga</th><td>11 dona</td></tr><tr><th>Bitta qolip vazni</th><td>320 g</td></tr><tr><th>1 m² uchun qoliplar</th><td>3,52 kg</td></tr><tr><th>Material</th><td>Polipropilen (qora) / ABS (oq)</td></tr>
+</tbody></table>
+<div style="display: flex; flex-direction: column; gap: 12px"><div style="background: var(--surface-alt); aspect-ratio: 4 / 3; display: flex; align-items: center; justify-content: center"><img src="/_blob/128edf3cd9a9a0e1f46fa3ceaa20005a" alt="Tayyor Monako plitkasi" style="max-width: 70%"></div><p style="margin: 0; font-size: 13px; color: var(--ink-muted)">Tayyor plitka, 300 × 300 × 30 mm. Rang betonga qo'shiladigan pigmentga bog'liq.</p></div>
+</div>
+</sc-if>
+<sc-if value="{{tUse}}" hint-placeholder-val="{{false}}">
+<div class="g2" style="gap: 32px"><div style="display: flex; flex-direction: column; gap: 10px"><h3 class="h3">Qo'llanishi</h3><p class="body muted">30 mm qalinlikdagi plitka piyoda yo'laklar, ayvon, bog' yo'laklari va hovli uchun mo'ljallangan.</p><h3 class="h3">Terish</h3><p class="body muted">Rasmdagi namuna qizil va kulrang betondan shaxmat tartibida terilgan. Plitkani burab terib, boshqa naqsh olish mumkin.</p></div><div style="aspect-ratio: 4 / 3; overflow: hidden"><img class="cover" src="/_blob/a3dac3ade34ae0c4f8c326b17b0a07f3" alt=""></div></div>
+</sc-if>
+<sc-if value="{{tDel}}" hint-placeholder-val="{{false}}">
+<table class="sps-spec" style="max-width: 760px"><tbody><tr><th>Narx</th><td style="font-family: var(--font-sans)">Zayafka orqali — hajm va materialga bog'liq</td></tr><tr><th>O'zbekiston bo'ylab</th><td style="font-family: var(--font-sans)">Kelishuv bo'yicha</td></tr><tr><th>Eksport</th><td style="font-family: var(--font-sans)">Rossiya, Qozog'iston, Qirg'iziston, Tojikiston, Ozarbayjon, Gruziya, Armaniston, Belarus</td></tr><tr><th>Hujjatlar</th><td style="font-family: var(--font-sans)">Invoys, qadoqlash ro'yxati</td></tr></tbody></table>
+</sc-if>
+<sc-if value="{{tFaq}}" hint-placeholder-val="{{false}}">
+<div style="max-width: 860px"><div class="faq"><h3 class="h3">Bitta qolipdan necha marta quyish mumkin?</h3><p class="body muted">Qoliplar ko'p martalik quyish uchun mo'ljallangan. Aniq ko'rsatkich quyish texnologiyasiga bog'liq — menejer maslahat beradi.</p></div><div class="faq" style="border-bottom: 1px solid var(--line)"><h3 class="h3">Namuna olish mumkinmi?</h3><p class="body muted">Zayafkada yozing — menejer namuna shartlarini aytadi.</p></div></div>
+</sc-if>
+</div>
+</section>
+
+<section class="sec-alt" style="padding-block: 56px">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 12px"><h2 class="h1">300 × 300 mm — boshqa modellar</h2><a class="sps-btn sps-btn--link" href="Catalog.dc.html">Hammasi →</a></div>
+<div class="rel">
+<a class="rc" href="Model.dc.html"><img src="/_blob/f7bc5c7d7ea4c49e05064900a4b037fc" alt="Tsvetok"><div style="padding: 12px 14px; display: flex; flex-direction: column; gap: 4px"><span class="mono" style="font-size: 12px; color: var(--ink-muted)">№ 04</span><b style="font: 600 17px/20px var(--font-display)">Tsvetok</b><span class="mono" style="font-size: 12px; color: var(--ink-muted)">300 × 300 · 30 mm · 11 dona/m²</span></div></a>
+<a class="rc" href="Model.dc.html"><img src="/_blob/9c0146f25f15a001346a674e89d19255" alt="Magna"><div style="padding: 12px 14px; display: flex; flex-direction: column; gap: 4px"><span class="mono" style="font-size: 12px; color: var(--ink-muted)">№ 05</span><b style="font: 600 17px/20px var(--font-display)">Magna</b><span class="mono" style="font-size: 12px; color: var(--ink-muted)">300 × 300 · 30 mm · 11 dona/m²</span></div></a>
+<a class="rc" href="Model.dc.html"><img src="/_blob/1c24195f028699aecfd987c5dc0c4de2" alt="Versache 1"><div style="padding: 12px 14px; display: flex; flex-direction: column; gap: 4px"><span class="mono" style="font-size: 12px; color: var(--ink-muted)">№ 09</span><b style="font: 600 17px/20px var(--font-display)">Versache 1</b><span class="mono" style="font-size: 12px; color: var(--ink-muted)">300 × 300 · 30 mm · 11 dona/m²</span></div></a>
+<a class="rc" href="Model.dc.html"><img src="/_blob/0f0a158af1db2caef579dbd2cac7d285" alt="Floriya"><div style="padding: 12px 14px; display: flex; flex-direction: column; gap: 4px"><span class="mono" style="font-size: 12px; color: var(--ink-muted)">№ 15</span><b style="font: 600 17px/20px var(--font-display)">Floriya</b><span class="mono" style="font-size: 12px; color: var(--ink-muted)">300 × 300 · 30 mm · 11 dona/m²</span></div></a>
+</div>
+</div>
+</section>
+
+<dc-import name="Footer" hint-size="100%,460px"></dc-import>
+
+<div class="mbar"><a class="sps-btn sps-btn--outline" href="#" aria-label="Qo'ng'iroq qilish" style="width: 52px; padding: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"></path></svg></a><button class="sps-btn sps-btn--outline" onClick="{{toggleList}}" style="flex: 1">{{listShort}}</button><button class="sps-btn sps-btn--primary" onClick="{{openLead}}" style="flex: 1.4">Zayafka</button></div>
+
+<sc-if value="{{lead}}" hint-placeholder-val="{{false}}">
+<div class="ov" onClick="{{closeLead}}">
+<div role="dialog" aria-modal="true" aria-label="Zayafka" onClick="{{stop}}" style="background: var(--surface); width: 100%; max-width: 520px">
+<div style="display: flex; gap: 14px; padding: 20px 20px 16px; background: var(--surface-alt); align-items: center"><img src="/_blob/1d9dca84af289ecdaa69b4fafe919e7c" alt="" style="width: 72px; height: 72px; object-fit: cover"><div style="display: flex; flex-direction: column; gap: 2px; flex: 1"><span class="mono" style="font-size: 12px; color: var(--ink-muted)">№ 01 · Trotuar</span><b style="font: 600 20px/24px var(--font-display)">Monako</b><span class="mono" style="font-size: 13px; color: var(--ink-muted)">{{m2}} m²/kun · {{molds}} qolip</span></div><button onClick="{{closeLead}}" aria-label="Yopish" style="width: 40px; height: 40px; border: 0; background: var(--surface); cursor: pointer">✕</button></div>
+<sc-if value="{{sent}}" hint-placeholder-val="{{false}}"><div style="padding: 28px 20px; display: flex; flex-direction: column; gap: 10px"><b style="font: 600 22px/28px var(--font-display); color: var(--success)">Zayafka qabul qilindi ✓</b><p style="margin: 0; color: var(--ink-muted)">Menejer ish vaqtida bog'lanib, {{molds}} ta qolip narxini aytadi.</p></div></sc-if>
+<sc-if value="{{notSent}}" hint-placeholder-val="{{true}}"><form onSubmit="{{submit}}" style="padding: 20px; display: flex; flex-direction: column; gap: 14px"><div class="sps-form__row"><div class="sps-field"><label class="sps-label" for="l-name">Ism *</label><input class="sps-input" id="l-name" placeholder="Ism"></div><div class="sps-field"><label class="sps-label" for="l-phone">Telefon / WhatsApp *</label><input class="sps-input" id="l-phone" placeholder="+998"></div></div><div class="sps-field"><label class="sps-label" for="l-msg">Izoh</label><input class="sps-input" id="l-msg" placeholder="Rang, material, yetkazish manzili"></div><button class="sps-btn sps-btn--primary sps-btn--lg" type="submit">Zayafka yuborish</button></form></sc-if>
+</div>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2400}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { img: 0, m2: '100', tab: 'spec', inList: false, inCmp: true, lead: false, sent: false }; }
+  renderVals() {
+    const s = this.state; const set = (x) => this.setState(x);
+    const G = [
+      { src: '/_blob/a3dac3ade34ae0c4f8c326b17b0a07f3', label: "Terilgan ko'rinish · 3D", cover: true },
+      { src: '/_blob/2febc1535fa82da649d3433b5cffe1de', label: 'Qolip · haqiqiy surat', cover: false },
+      { src: '/_blob/128edf3cd9a9a0e1f46fa3ceaa20005a', label: 'Tayyor plitka', cover: false },
+      { src: '/_blob/1d9dca84af289ecdaa69b4fafe919e7c', label: 'Yaqindan', cover: true },
+    ];
+    const g = G[s.img];
+    const v = Math.max(0, Number(String(s.m2).replace(',', '.')) || 0);
+    const fmt = (n) => n.toLocaleString('ru-RU', { maximumFractionDigits: 1 });
+    const T = [['spec', "Texnik ma'lumot"], ['use', "Qo'llanish va terish"], ['del', "Yetkazish va narx"], ['faq', 'Savollar']];
+    return {
+      img: { ...g, style: g.cover ? 'width:100%;height:100%;object-fit:cover' : 'max-width:70%;max-height:80%;object-fit:contain' },
+      thumbs: G.map((x, i) => ({ ...x, cls: i === s.img ? 'on' : '', fit: x.cover ? '' : 'object-fit:contain;padding:8px;box-sizing:border-box', pick: () => set({ img: i }) })),
+      m2: s.m2, setM2: (e) => set({ m2: e.target.value.replace(/[^\d.,]/g, '') }),
+      molds: fmt(Math.ceil(v * 11)), kg: fmt(v * 3.52),
+      tabs: T.map(([id, label]) => ({ label, on: s.tab === id, cls: s.tab === id ? 'on' : '', pick: () => set({ tab: id }) })),
+      tSpec: s.tab === 'spec', tUse: s.tab === 'use', tDel: s.tab === 'del', tFaq: s.tab === 'faq',
+      listBtn: 'sps-btn ' + (s.inList ? 'sps-btn--dark' : 'sps-btn--outline'), listText: s.inList ? "Ro'yxatda ✓" : "Zayafka ro'yxatiga", listShort: s.inList ? "Ro'yxatda ✓" : "Ro'yxatga",
+      cmpBtn: 'sps-btn ' + (s.inCmp ? 'sps-btn--dark' : 'sps-btn--outline'), cmpText: s.inCmp ? 'Solishtirishda ✓' : 'Solishtirish',
+      toggleList: () => set({ inList: !s.inList }), toggleCmp: () => set({ inCmp: !s.inCmp }),
+      lead: s.lead, openLead: () => set({ lead: true, sent: false }), closeLead: () => set({ lead: false }), stop: (e) => e.stopPropagation(),
+      sent: s.sent, notSent: !s.sent, submit: (e) => { e.preventDefault(); set({ sent: true }); },
+    };
+  }
+}
+</script>
+</body>
+</html>
