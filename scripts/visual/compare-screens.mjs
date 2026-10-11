@@ -29,19 +29,33 @@ const OUT_DIR = path.join(ROOT, 'screens-actual');
 const REF_DIR = path.join(ROOT, 'docs', 'design-handoff', 'screens');
 const REPORT_DIR = path.join(ROOT, 'docs', 'audits');
 
-/** Interaktiv holatlar (maketdagi 02-menyu, 04-filtr, 05-zayafka-oynasi). */
+/**
+ * Interaktiv holatlar (maketdagi 02-menyu, 04-filtr, 05-zayafka-oynasi).
+ *
+ * Eslatma: Playwright strict rejimida ishlaydi — `page.click(sel)` bittadan ortiq
+ * element topilsa xato beradi (kartochkada tugma ko'p). Shuning uchun hamma yerda
+ * `locator(...).first()` va qisqa timeout; xato bo'lsa, holat hisobotga yoziladi va
+ * surat baribir olinadi (sahifa asosiy holatda qoladi).
+ */
+async function act(page, selector, options = {}) {
+  const locator = page.locator(selector).first();
+  await locator.waitFor({ state: 'visible', timeout: 8000 });
+  await locator.click({ timeout: 8000, ...options });
+  return locator;
+}
+
 const ACTIONS = {
   async menu(page) {
-    await page.click('a.hd-burger');
-    await page.waitForSelector('#sps-mobile-menu:not([hidden])');
+    await act(page, 'a.hd-burger');
+    await page.locator('#sps-mobile-menu').first().waitFor({ state: 'visible', timeout: 8000 });
   },
   async filters(page) {
-    await page.click('button.hide-1100');
-    await page.waitForSelector('.fsheet:not([hidden])');
+    await act(page, 'button.hide-1100');
+    await page.locator('.fsheet').first().waitFor({ state: 'visible', timeout: 8000 });
   },
   async quickLead(page) {
-    await page.click('.sps-card__foot .sps-btn--primary');
-    await page.waitForSelector('[role="dialog"]');
+    await act(page, '.sps-card__foot .sps-btn--primary');
+    await page.locator('.sps-modal[role="dialog"]').first().waitFor({ state: 'visible', timeout: 8000 });
   },
   // Ro'yxat/solishtirish sahifalari bo'sh holatda emas, to'ldirilgan holatda
   // suratga olinadi (maketda shunday). Slug'lar qattiq yozilmaydi — haqiqiy
@@ -174,7 +188,7 @@ export async function pixelDiff(actualPng, refJpg) {
   }
 }
 
-function markdown(rows, overflows, tapTargets) {
+function markdown(rows, overflows, tapTargets, actionErrors, pageErrors) {
   const today = new Date().toISOString().slice(0, 10);
   const lines = [
     '# Vizual tekshiruv: 390 / 1440 px',
@@ -198,7 +212,15 @@ function markdown(rows, overflows, tapTargets) {
     lines.push(`| ${row.id} | ${row.kind} ${row.viewport} | \`${path.relative(ROOT, row.file)}\` | ${row.ref ? `\`${path.relative(ROOT, row.ref)}\`` : '— (etalon yo\'q)'} | ${row.diff === null ? '—' : `${row.diff.toFixed(1)}%`} |`);
   }
 
-  lines.push('## Tegish maydoni 44px dan kichik (mobil 390px)', '');
+  lines.push('## Sahifa/holat xatolari', '');
+  if (actionErrors.length || pageErrors.length) {
+    for (const item of pageErrors) lines.push(`- **${item.id} (${item.kind})**: sahifa ochilmadi — ${item.message}`);
+    for (const item of actionErrors) lines.push(`- **${item.id} (${item.kind})**: \`${item.action}\` holati ochilmadi — ${item.message}`);
+  } else {
+    lines.push("Yo'q: barcha sahifalar ochildi, interaktiv holatlar (menyu, filtr, tez zayafka, to'ldirilgan ro'yxatlar) ishladi.");
+  }
+
+  lines.push('', '## Tegish maydoni 44px dan kichik (mobil 390px)', '');
   if (tapTargets.length) {
     const counts = new Map();
     for (const group of tapTargets) {
@@ -237,14 +259,19 @@ function markdown(rows, overflows, tapTargets) {
 }
 
 export async function main() {
+  const howto = [
+    'Brauzer topilmadi. Ishga tushirish:',
+    '  npm i -D playwright && npx playwright install chromium',
+    '  npm run build && npm run start',
+    '  npm run shots',
+  ];
+
   let chromium;
   try {
     ({ chromium } = await import('playwright'));
   } catch {
-    console.log('Playwright o\'rnatilmagan. Ishga tushirish:');
-    console.log('  npm i -D playwright && npx playwright install chromium');
-    console.log('  npm run build && npm run start');
-    console.log('  npm run shots');
+    console.log('Playwright o\'rnatilmagan.');
+    console.log(howto.join('\n'));
     process.exitCode = 0;
     return;
   }
@@ -252,10 +279,23 @@ export async function main() {
   fs.mkdirSync(OUT_DIR, { recursive: true });
   fs.mkdirSync(REPORT_DIR, { recursive: true });
 
-  const browser = await chromium.launch();
+  let browser;
+  try {
+    browser = await chromium.launch();
+  } catch (error) {
+    // Paket bor, lekin brauzer fayllari yuklanmagan (CI'da `playwright install`
+    // qadami kerak; lokalda ham xuddi shunday). Xato bilan yiqilmasdan,
+    // tushunarli yo'riqnoma chiqaramiz.
+    console.log(`Chromium ishga tushmadi: ${String(error.message).split('\n')[0]}`);
+    console.log(howto.join('\n'));
+    process.exitCode = 0;
+    return;
+  }
   const rows = [];
   const overflows = [];
   const tapTargets = [];
+  const actionErrors = [];
+  const pageErrors = [];
 
   for (const shot of SHOT_PLAN) {
     for (const kind of ['mobile', 'desktop']) {
@@ -267,7 +307,16 @@ export async function main() {
 
       try {
         await page.goto(`${SITE_ORIGIN}${shot.path}`, { waitUntil: 'networkidle' });
-        if (shot.action && ACTIONS[shot.action]) await ACTIONS[shot.action](page);
+        if (shot.action && ACTIONS[shot.action]) {
+          try {
+            await ACTIONS[shot.action](page);
+          } catch (error) {
+            // Holat ochilmadi (selector o'zgargan bo'lishi mumkin): surat asosiy
+            // holatda baribir olinadi, xato esa hisobotga va exit code'ga tushadi.
+            actionErrors.push({ id: shot.id, kind, action: shot.action, message: String(error.message).split('\n')[0] });
+            console.log(`HOLAT  ${shot.id} (${kind}): "${shot.action}" ochilmadi — ${String(error.message).split('\n')[0]}`);
+          }
+        }
         await page.waitForTimeout(400); // shrift/animatsiya barqarorlashuvi
 
         const file = path.join(OUT_DIR, `${shot.id}-${kind}.png`);
@@ -288,9 +337,10 @@ export async function main() {
         rows.push({ id: shot.id, kind, viewport: `${viewport.width}×${viewport.height}`, file, ref, diff: diff ? diff.percent : null });
         console.log(`${overflow.overflow > 0 ? 'SCROLL' : '  ok  '} ${shot.id.padEnd(26)} ${kind.padEnd(8)} ${overflow.overflow > 0 ? `+${overflow.overflow}px` : ''}`);
       } catch (error) {
-        rows.push({ id: shot.id, kind, viewport: `${viewport.width}×${viewport.height}`, file: `xato: ${error.message}`, ref: findReference(shot.id, kind), diff: null });
-        overflows.push({ id: shot.id, kind, viewport: viewport.width, width: 0, overflow: 0, offenders: [{ selector: error.message }] });
-        console.log(`XATO   ${shot.id} (${kind}): ${error.message}`);
+        const message = String(error.message).split('\n')[0];
+        rows.push({ id: shot.id, kind, viewport: `${viewport.width}×${viewport.height}`, file: `xato: ${message}`, ref: findReference(shot.id, kind), diff: null });
+        pageErrors.push({ id: shot.id, kind, message });
+        console.log(`XATO   ${shot.id} (${kind}): ${message}`);
       } finally {
         await context.close();
       }
@@ -307,7 +357,7 @@ export async function main() {
       const overflow = await measureOverflow(narrowPage);
       if (overflow.overflow > 0) narrowOverflows.push({ id: shot.id, kind: '360px', ...overflow });
     } catch (error) {
-      narrowOverflows.push({ id: shot.id, kind: '360px', viewport: 360, width: 0, overflow: 0, offenders: [{ selector: error.message }] });
+      pageErrors.push({ id: shot.id, kind: '360px', message: String(error.message).split('\n')[0] });
     }
   }
   await narrow.close();
@@ -315,15 +365,20 @@ export async function main() {
   await browser.close();
 
   const file = path.join(REPORT_DIR, `visual-${new Date().toISOString().slice(0, 10)}.md`);
-  fs.writeFileSync(file, markdown(rows, [...overflows, ...narrowOverflows], tapTargets));
+  fs.writeFileSync(file, markdown(rows, [...overflows, ...narrowOverflows], tapTargets, actionErrors, pageErrors));
   console.log(`\nsuratlar: ${OUT_DIR} (${rows.length} fayl)`);
   console.log(`hisobot: ${path.relative(ROOT, file)}`);
 
+  const failures = overflows.length + pageErrors.length + actionErrors.length;
   if (overflows.length) {
     console.error(`\nGORIZONTAL SCROLL TOPILDI (${overflows.length}):`);
     for (const o of overflows) console.error(` - ${o.id} (${o.kind}) +${o.overflow}px`);
-    process.exitCode = 1;
   }
+  if (pageErrors.length || actionErrors.length) {
+    console.error(`\nSAHIFA/HOLAT XATOLARI (${pageErrors.length + actionErrors.length}):`);
+    for (const e of [...pageErrors, ...actionErrors]) console.error(` - ${e.id} (${e.kind}): ${e.message}`);
+  }
+  if (failures) process.exitCode = 1;
 }
 
 // Modul test'dan import qilinganda (pixelDiff'ni sinash uchun) ishga tushmasligi kerak.

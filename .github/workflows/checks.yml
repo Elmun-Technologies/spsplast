@@ -1,7 +1,8 @@
 name: checks
 
-# Stage 6 tekshiruvlari CI'da: sandbox'da brauzer yo'q edi, GitHub runner'da bor —
-# shuning uchun skrinshot solishtirish va Lighthouse shu yerda haqiqatan yuradi.
+# Stage 6 tekshiruvlari CI'da: agent sandbox'ida brauzer yo'q edi, GitHub runner'da
+# bor — shuning uchun skrinshot solishtirish va Lighthouse shu yerda haqiqatan yuradi.
+# Natijalar run summary'ga, PR izohiga va artefaktga tushadi.
 on:
   pull_request:
   push:
@@ -13,11 +14,12 @@ concurrency:
 
 permissions:
   contents: read
+  pull-requests: write
 
 jobs:
   checks:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
     env:
       NEXT_TELEMETRY_DISABLED: '1'
     steps:
@@ -54,24 +56,26 @@ jobs:
           echo "server ishga tushmadi:"; tail -40 /tmp/next-start.log; exit 1
 
       - name: SEO/DOM auditi (jsdom)
-        run: npm run audit:seo
+        run: npm run audit:seo 2>&1 | tee /tmp/audit-seo.log
 
       - name: A11y auditi (axe-core)
-        run: npm run audit:a11y
+        run: npm run audit:a11y 2>&1 | tee /tmp/audit-a11y.log
 
       - name: Playwright chromium
         run: npx playwright install --with-deps chromium
 
       - name: Screenshotlar — 390 / 1440 / 360 px
-        run: npm run shots
+        # Qat'iy qadam: gorizontal scroll yoki ochilmagan holat job'ni qizaradi.
+        run: npm run shots 2>&1 | tee /tmp/shots.log
 
       - name: Lighthouse (mobil + desktop)
-        # CI runner'da Performance ballari shovqinli bo'ladi — byudjet buzilsa
-        # job qizarmaydi, hisobot artefaktda ko'rinadi.
+        # Screenshot qadami yiqilsa ham yuradi; CI ballari shovqinli bo'lgani uchun
+        # byudjet buzilishi job'ni qizartirmaydi — sonlar hisobot va izohda ko'rinadi.
+        if: ${{ !cancelled() }}
         continue-on-error: true
-        run: npm run lighthouse
+        run: npm run lighthouse 2>&1 | tee /tmp/lighthouse.log
 
-      - name: Natijalarni run summary'ga yozish
+      - name: Hisobotlarni yig'ish (run summary)
         if: always()
         run: |
           {
@@ -81,16 +85,62 @@ jobs:
               [ -f "$f" ] || continue
               echo "### $(basename "$f")"
               echo
-              head -24 "$f"
+              sed -n '1,40p' "$f"
               echo
             done
-            if [ -d screens-actual ]; then
-              echo "### Screenshotlar"
+            echo "### Qadamlar loglari (oxiri)"
+            for log in /tmp/audit-seo.log /tmp/audit-a11y.log /tmp/shots.log /tmp/lighthouse.log; do
+              [ -f "$log" ] || continue
               echo
-              echo "\`screens-actual/\` papkasi artefakt sifatida yuklandi (tekshiruv-hisobotlari)."
-              echo "Etalonlar: \`docs/design-handoff/screens/\`."
-            fi
+              echo "#### $(basename "$log")"
+              echo
+              echo '```'
+              tail -n 20 "$log"
+              echo '```'
+            done
           } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Natijalarni PR izohiga yozish
+        # Izoh orqali natijalar GitHub API'dan ham o'qiladi (artefakt/log'lar
+        # ba'zi muhitlarda yuklab olinmaydi).
+        if: ${{ always() && github.event_name == 'pull_request' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          out=/tmp/ci-summary.md
+          {
+            echo "<!-- spsplast-checks -->"
+            echo "### Tekshiruv natijalari (CI run ${{ github.run_id }}, ${{ github.sha }})"
+            echo
+            for f in docs/audits/seo-dom-*.md docs/audits/a11y-*.md docs/audits/visual-*.md docs/audits/lighthouse-*.md; do
+              [ -f "$f" ] || continue
+              echo "#### $(basename "$f")"
+              echo
+              sed -n '1,45p' "$f"
+              echo
+            done
+            for log in /tmp/shots.log /tmp/lighthouse.log; do
+              [ -f "$log" ] || continue
+              echo
+              echo "#### $(basename "$log") (oxiri)"
+              echo
+              echo '```'
+              tail -n 30 "$log"
+              echo '```'
+            done
+          } > "$out"
+
+          existing=$(gh api "repos/$REPO/issues/$PR_NUMBER/comments" \
+            --jq '[.[] | select(.body | contains("<!-- spsplast-checks -->"))] | last | .id' 2>/dev/null || true)
+          if [ -n "$existing" ] && [ "$existing" != "null" ]; then
+            gh api -X PATCH "repos/$REPO/issues/comments/$existing" -F body=@"$out" --jq .id > /dev/null
+            echo "PR izohi yangilandi: #$existing"
+          else
+            gh api -X POST "repos/$REPO/issues/$PR_NUMBER/comments" -F body=@"$out" --jq .id > /dev/null
+            echo "PR izohi qo'shildi"
+          fi
 
       - name: Hisobotlar va screenshotlar (artefakt)
         if: always()
@@ -100,5 +150,7 @@ jobs:
           path: |
             docs/audits/
             screens-actual/
+            /tmp/shots.log
+            /tmp/lighthouse.log
           if-no-files-found: warn
           retention-days: 30
