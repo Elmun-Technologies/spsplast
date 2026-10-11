@@ -72,3 +72,22 @@ Qaror qilinmaguncha kod A variantda qoldi. `npm run shots` hisoboti aniq ro'yxat
 | B10 | Analitika ID'lari faqat env orqali; ID bo'lmasa skript yuklanmaydi. | Secret'lar kodda bo'lmasligi kerak (foydalanuvchi talabi) va preview'da statistika ifloslanmasligi kerak. |
 | B11 | Filtrlar/qidiruv mijoz tomonida (`window.location.search`), server `searchParams` o'qimaydi. | Bo'lim sahifalari to'liq statik qoladi (`dynamicParams = false`) — noma'lum slug uchun qattiq 404, CDN kesh va yuqori Lighthouse balli. |
 | B12 | `npm test` node:test + type-stripping (Playwright/Vitest yo'q), `@/` aliasli modullar `tests/helpers/load-alias.mjs` orqali yuklanadi. | Sandbox'da brauzer o'rnatib bo'lmaydi; testlar haqiqiy `sitemap.ts`/`seo.ts` kodini chaqiradi (nusxa emas). |
+## C. O'lchov metodikasi eslatmalari (2026-10-11)
+
+- **Lighthouse mediana**: CI runner'ida bitta yurish shovqini katta (bosh sahifa
+  mobil perf bir xil kodda 83–98 oralig'ida sachragan). Shuning uchun
+  `scripts/visual/lighthouse.mjs` har maqsadni 3 martadan o'lchaydi
+  (`LH_RUNS` env) va hisobotga **mediana** yoziladi; xom JSON'lar har yurish
+  uchun alohida (`docs/audits/lighthouse/<id>-<ff>-r{1,2,3}.json`, git'da emas).
+- **Piksel farqi — yo'nalish ko'rsatkichi, qat'iy mezon emas**: etalonlar
+  (`screens/*.jpg`) dizayn maketlari — demo mazmun, JPG siqishi va boshqa DPR
+  bilan. Farq qiymatlari (`docs/audits/visual-*.md`) katta bo'lishi kutiladi
+  (masalan model sahifasida haqiqiy rasm maketdagi kulrang placeholder o'rnida).
+  Qat'iy qoidalar: gorizontal scroll yo'qligi (390/1440/360) va interaktiv
+  holatlar ochilishi (menyu, filtr, zayafka) — ular hisobotda alohida.
+- **To'liq sahifa suratlari 4000 px bilan cheklangan** (`-full.png`): 119 kartali
+  katalog 390px da o'n minglab px balandlikda; DPR 2 bilan cheksiz suratlar CI'ni
+  tiqib qo'ygan (30+ daqiqa). Chegaradan baland sahifalar hisobotda sanab o'tiladi.
+- **`about:blank` va innerWidth**: Playwright mobil emulyatsiyasida sahifa
+  yuklanmaguncha `window.innerWidth` 980px (meta viewport yo'qligi sababli).
+  Kenglik nazoratlari faqat `goto` dan keyin bajariladi.
