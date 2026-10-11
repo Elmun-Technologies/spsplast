@@ -125,6 +125,9 @@ jobs:
               # bo'limi faylning oxirida — kesilsa, sabab ko'rinmay qoladi.
               case "$f" in
                 *lighthouse-*) sed -n '1,300p' "$f" ;;
+                # Vizual hisobotda 28 qatorli surat jadvali bor; undan keyin
+                # tegish maydoni (44px) bo'limi keladi — qaror uchun ko'rinishi shart.
+                *visual-*) sed -n '1,150p' "$f" ;;
                 *a11y-*) sed -n '1,20p' "$f" ;;
                 *) sed -n '1,45p' "$f" ;;
               esac

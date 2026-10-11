@@ -125,7 +125,29 @@ npm run models:build   # xlsx (+2026 images) -> data/models-2027.json + image jo
 npm run models:images  # ImageMagick -> public/catalog/2027/*.webp, prunes failed refs to null
 npm run models:check   # validator: XATO exit 1, OGOH = business-pending
 npm run redirects:build # regenerate scripts/redirects-2027.json from docs/legacy/catalog-2026.json
+npm run images:variants # sharp: container-ratio crops (1:1/4:3/16:9) -> public/images/site/*-<ratio>.webp
 ```
+
+## Visuals & measurement (Stage 6)
+
+```bash
+npm run shots          # Playwright: 28 screen @390/1440 + 360px scroll check -> screens-actual/ + docs/audits/visual-*.md
+npm run lighthouse     # 8 targets x {mobile,desktop}, 3 runs each, MEDIAN -> docs/audits/lighthouse-*.md
+```
+
+- `SHOTS_MAX_TOTAL_MS` / `SHOTS_MAX_SHOT_MS` cap the shots step (a hung page must
+  not stall CI); `LH_RUNS` changes repeats (median-of-3 because single CI runs
+  swing ±10 points). Both scripts exit 0 with a hint when no Chromium exists
+  (agent sandbox) — real numbers come from CI or a machine with Chrome.
+- **Playwright viewports**: `width/height` must live inside a `viewport` object
+  (`VIEWPORTS` in `scripts/lib/routes.mjs`); flat options are silently ignored
+  and every "mobile" shot becomes 1280×720. Width assertions run only after
+  `goto` — on `about:blank` mobile emulation reports 980px (no meta viewport).
+- **Restart the server after every `npm run build`**: a running `next start`
+  keeps serving the previous build and probes/audits then measure stale HTML.
+- Pixel diffs vs `screens/` are directional (mock content, JPG refs, DPR);
+  hard gates are: no horizontal scroll (390/1440/360) and interactive states
+  opening (menu, filter sheet, quick-lead). Methodology: `docs/unresolved-questions.md` §C.
 
 `npm run build` = `models:check` + `next build` (the old `build-static-catalog.js --check`
 step is gone with the 2026 layer). `public/catalog/2026` (18 MB of served JPGs) was
