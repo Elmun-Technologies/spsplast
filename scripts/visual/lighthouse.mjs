@@ -2,18 +2,21 @@
 /**
  * Lighthouse tekshiruvi (Stage 6, HANDOFF 7).
  *
- * Ishlatish (Chrome kerak — sandbox'da yo'q, lokalda yoki CI'da):
+ * Ishlatish (Chrome kerak — agent sandbox'ida yo'q, CI/lokalda bor):
  *   npm run build && npm run start
- *   npm i -D lighthouse                     # yoki: npx --yes lighthouse ...
  *   npm run lighthouse                      # mobil + desktop, JSON + hisobot
  *   LH_ORIGIN=https://sps-uz.vercel.app npm run lighthouse   # Vercel preview
  *
- * Byudjet (hisobotda tekshiriladi):
- *   mobil:  Performance ≥ 90, Accessibility ≥ 95, Best practices ≥ 95, SEO ≥ 95
- *   desktop: Performance ≥ 95, qolganlari ≥ 95
+ * Byudjet (HANDOFF 7): mobil Performance ≥ 90, Accessibility ≥ 95,
+ * Best-practices ≥ 95, SEO = 100; desktop Performance ≥ 95.
+ *
+ * Hisobotda nafaqat ballar, balki **ballni tushirgan aniq auditlar** ham chiqadi
+ * (id + sarlavha + displayValue) — shunda "SEO 92" kabi natijani sababsiz
+ * qoldirmaymiz. Performance uchun LCP elementi va eng katta imkoniyatlar
+ * (overallSavingsMs bo'yicha) ham ko'rsatiladi.
  *
  * Natijalar: `docs/audits/lighthouse/<manzil>-<rejim>.json` va
- * `docs/audits/lighthouse-<sana>.md` (jamlanma jadval). Byudjet buzilsa exit 1.
+ * `docs/audits/lighthouse-<sana>.md`. Byudjet buzilsa exit 1.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -36,7 +39,6 @@ const TARGETS = [
   { id: 'home-ru', path: '/ru' },
 ];
 
-// HANDOFF 7: mobil Performance ≥ 90, Accessibility ≥ 95, SEO 100.
 const BUDGETS = {
   mobile: { performance: 0.9, accessibility: 0.95, 'best-practices': 0.95, seo: 1.0 },
   desktop: { performance: 0.95, accessibility: 0.95, 'best-practices': 0.95, seo: 1.0 },
@@ -50,13 +52,16 @@ const METRICS = [
   ['speed-index', 'SI'],
 ];
 
+/** Ballni tushiradigan auditlarni qaysi kategoriyalardan yig'amiz. */
+const DETAIL_CATEGORIES = ['seo', 'accessibility', 'best-practices'];
+
 function runLighthouse(url, formFactor, outFile) {
   const args = [
     '--yes', 'lighthouse', url,
     '--quiet',
     '--output=json',
     `--output-path=${outFile}`,
-    `--only-categories=performance,accessibility,best-practices,seo`,
+    '--only-categories=performance,accessibility,best-practices,seo',
     '--chrome-flags=--headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage',
   ];
   if (formFactor === 'desktop') {
@@ -85,13 +90,78 @@ function metric(report, id) {
   return typeof audit.displayValue === 'string' ? audit.displayValue : String(audit.numericValue ?? '—');
 }
 
+/** Kategoriyadagi ballni tushirgan auditlar (score < 1). */
+function failedAudits(report, category) {
+  const cat = report.categories && report.categories[category];
+  if (!cat) return [];
+  const out = [];
+  for (const ref of cat.auditRefs || []) {
+    const audit = report.audits[ref.id];
+    if (!audit || audit.score === null || audit.score === undefined) continue;
+    if (audit.score >= 1) continue;
+    out.push({
+      id: ref.id,
+      weight: ref.weight ?? 0,
+      title: audit.title,
+      score: Math.round(audit.score * 100),
+      displayValue: audit.displayValue || '',
+      items: describeItems(audit).slice(0, 4),
+    });
+  }
+  return out.sort((a, b) => b.weight - a.weight);
+}
+
+/** Audit natijasidagi muhim elementlarni qisqa matnga aylantiradi. */
+function describeItems(audit) {
+  const rows = [];
+  const items = audit.details && (audit.details.items || []);
+  for (const item of items) {
+    if (!item) continue;
+    const node = item.node && (item.node.snippet || item.node.selector);
+    const savings = item.overallSavingsMs || item.wastedMs || item.totalBytes;
+    const text = item.url || item.source || item.label || item.description || item.text || '';
+    const parts = [String(text).slice(0, 90)];
+    if (node) parts.push(String(node).slice(0, 90));
+    if (savings) parts.push(typeof savings === 'number' && savings > 10000 ? `${Math.round(savings / 1024)} KB` : `${Math.round(savings)} ms`);
+    rows.push(parts.filter(Boolean).join(' · '));
+  }
+  if (!rows.length && audit.details && audit.details.type === 'table' && audit.details.headings) {
+    rows.push(audit.details.headings.map((h) => h.text).join(', '));
+  }
+  return rows;
+}
+
+/** LCP elementi va eng katta performance imkoniyatlari. */
+function perfDetails(report) {
+  const out = { lcpElement: '', opportunities: [], diagnostics: [] };
+
+  const lcpElement = report.audits['largest-contentful-paint-element'];
+  if (lcpElement && lcpElement.details && lcpElement.details.items && lcpElement.details.items[0]) {
+    const item = lcpElement.details.items[0];
+    const node = item.node || (item.items && item.items[0] && item.items[0].node);
+    if (node) out.lcpElement = `${node.snippet || ''} ${node.selector || ''}`.trim().slice(0, 140);
+  }
+
+  for (const ref of (report.categories.performance.auditRefs || [])) {
+    const audit = report.audits[ref.id];
+    if (!audit || audit.score === null || audit.score >= 0.9) continue;
+    const savings = audit.numericValue || (audit.details && audit.details.overallSavingsMs) || 0;
+    const entry = `${audit.title}${audit.displayValue ? ` (${audit.displayValue})` : ''}${savings ? ` · ~${Math.round(savings)} ms` : ''}`;
+    if (ref.group === 'load-opportunities') out.opportunities.push(entry);
+    else out.diagnostics.push(entry);
+  }
+  out.opportunities = out.opportunities.slice(0, 6);
+  out.diagnostics = out.diagnostics.slice(0, 6);
+  return out;
+}
+
 function markdown(results, failures) {
   const today = new Date().toISOString().slice(0, 10);
   const lines = [
     '# Lighthouse hisoboti',
     '',
     `> Sana: ${today} · manba: \`${ORIGIN}\` · rejimlar: mobil (throttled) + desktop`,
-    `> Byudjet (HANDOFF 7): mobil perf ≥ 90, desktop perf ≥ 95, a11y ≥ 95, best-practices ≥ 95, SEO = 100`,
+    '> Byudjet (HANDOFF 7): mobil perf \u2265 90, desktop perf \u2265 95, a11y \u2265 95, best-practices \u2265 95, SEO = 100',
     `> Yurishlar: ${results.length} · byudjet buzilishi: **${failures.length}**`,
     '',
     '## Ballar',
@@ -111,13 +181,39 @@ function markdown(results, failures) {
     lines.push("Yo'q — barcha ballar byudjet ichida.");
   }
 
+  // Ballni tushirgan aniq auditlar — sababini ko'rsatish uchun.
+  lines.push('', '## Ballni tushirgan auditlar (score < 1)', '');
+  const detailed = results.filter((r) => r.failed.length);
+  if (!detailed.length) {
+    lines.push('Barcha kategoriyalarda auditlar to\'liq o\'tgan.');
+  }
+  for (const row of detailed) {
+    lines.push(`### \`${row.path}\` — ${row.formFactor}`, '');
+    for (const item of row.failed) {
+      lines.push(`- **${item.category} / ${item.id}** (score ${item.score}, weight ${item.weight}) — ${item.title}${item.displayValue ? ` · ${item.displayValue}` : ''}`);
+      for (const detail of item.items) lines.push(`  - ${detail}`);
+    }
+    lines.push('');
+  }
+
+  // Performance tafsilotlari (LCP elementi + imkoniyatlar).
+  const perfRows = results.filter((r) => r.formFactor === 'mobile' && r.perf && (r.perf.lcpElement || r.perf.opportunities.length));
+  if (perfRows.length) {
+    lines.push('## Mobil performance tafsilotlari', '');
+    for (const row of perfRows) {
+      lines.push(`### \`${row.path}\` — perf ${row.performance}`, '');
+      if (row.perf.lcpElement) lines.push(`- LCP elementi: \`${row.perf.lcpElement}\``);
+      for (const item of row.perf.opportunities) lines.push(`- Imkoniyat: ${item}`);
+      for (const item of row.perf.diagnostics) lines.push(`- Diagnostika: ${item}`);
+      lines.push('');
+    }
+  }
+
   lines.push(
-    '',
     '## Qayta ishga tushirish',
     '',
     '```bash',
     'npm run build && npm run start',
-    'npm i -D lighthouse        # bir marta',
     'npm run lighthouse         # yoki LH_ORIGIN=https://<vercel-preview> npm run lighthouse',
     '```',
     '',
@@ -173,6 +269,11 @@ function main() {
         }
       }
 
+      const failed = [];
+      for (const category of DETAIL_CATEGORIES) {
+        for (const item of failedAudits(report, category)) failed.push({ category, ...item });
+      }
+
       results.push({
         path: target.path,
         formFactor,
@@ -181,8 +282,10 @@ function main() {
         lcp: metric(report, 'largest-contentful-paint'),
         tbt: metric(report, 'total-blocking-time'),
         cls: metric(report, 'cumulative-layout-shift'),
+        failed,
+        perf: formFactor === 'mobile' ? perfDetails(report) : null,
       });
-      console.log(`perf ${scores.performance} · a11y ${scores.accessibility} · bp ${scores.bestPractices} · seo ${scores.seo}`);
+      console.log(`perf ${scores.performance} · a11y ${scores.accessibility} · bp ${scores.bestPractices} · seo ${scores.seo}${failed.length ? ` · buzilgan audit: ${failed.length}` : ''}`);
     }
   }
 

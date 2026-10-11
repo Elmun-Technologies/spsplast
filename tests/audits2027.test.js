@@ -242,18 +242,35 @@ test('7. Screenshot rejasi haqiqiy etalon fayllarga bog\'langan', async () => {
   assert.strictEqual(VIEWPORTS.mobile.width, 390, 'mobil kenglik 390 emas');
   assert.strictEqual(VIEWPORTS.desktop.width, 1440, 'desktop kenglik 1440 emas');
 
+  // Har bir o'lcham uchun etalon ANIQ topilishi kerak: mobil va desktop
+  // to'plamlarida raqamlash farq qiladi (mobil 03-katalog, desktop 02-katalog),
+  // shuning uchun `id` bo'yicha qidiruv desktop'da ko'pincha mos kelmaydi.
   const missing = [];
   for (const shot of SHOT_PLAN) {
-    const kinds = ['mobile', 'desktop'].filter((k) => shot[k]);
-    assert.ok(kinds.length, `${shot.id}: bitta ham o'lchov belgilanmagan`);
-
-    const candidates = [
-      ...kinds.map((k) => path.join(screens, k, `${shot.id}.jpg`)),
-      path.join(screens, 'i18n', `${shot.id}.jpg`),
-    ];
-    if (!candidates.some((file) => fs.existsSync(file))) missing.push(shot.id);
+    for (const kind of ['mobile', 'desktop']) {
+      if (!shot[kind]) continue;
+      const name = (kind === 'mobile' ? shot.refMobile : shot.refDesktop) || shot.id;
+      const candidates = [
+        path.join(screens, kind, `${name}.jpg`),
+        path.join(screens, 'i18n', `${name}.jpg`),
+        path.join(screens, 'i18n', `${shot.id}.jpg`),
+      ];
+      if (!candidates.some((file) => fs.existsSync(file))) missing.push(`${shot.id}/${kind} -> ${name}.jpg`);
+    }
   }
   assert.deepStrictEqual(missing, [], `etalon topilmadi: ${missing.join(', ')}`);
+
+  // Har ikki o'lcham qamrab olingan: kamida 10 ta mobil va 10 ta desktop ekran.
+  const mobileCount = SHOT_PLAN.filter((s) => s.mobile).length;
+  const desktopCount = SHOT_PLAN.filter((s) => s.desktop).length;
+  assert.ok(mobileCount >= 10, `mobil ekranlar kam: ${mobileCount}`);
+  assert.ok(desktopCount >= 10, `desktop ekranlar kam: ${desktopCount}`);
+
+  // Interaktiv holatlar faqat mavjud amallar bo'lishi kerak.
+  const known = ['menu', 'filters', 'quickLead', 'seedCompare', 'seedRequest'];
+  for (const shot of SHOT_PLAN) {
+    if (shot.action) assert.ok(known.includes(shot.action), `${shot.id}: noma'lum action "${shot.action}"`);
+  }
 });
 
 test('8. Audit skriptlari va npm buyruqlari ulangan', () => {

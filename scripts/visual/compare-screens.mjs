@@ -155,11 +155,18 @@ async function measureTapTargets(page) {
   });
 }
 
-/** Etalon faylni topadi (mobile/desktop/i18n papkalaridan). */
-function findReference(id, kind) {
-  const candidates = kind === 'mobile'
-    ? [path.join(REF_DIR, 'mobile', `${id}.jpg`), path.join(REF_DIR, 'i18n', `${id}.jpg`)]
-    : [path.join(REF_DIR, 'desktop', `${id}.jpg`), path.join(REF_DIR, 'i18n', `${id}.jpg`)];
+/**
+ * Etalon faylni topadi. Mobil va desktop to'plamlarida raqamlash farq qiladi,
+ * shuning uchun avval `refMobile`/`refDesktop`, keyin `id` bo'yicha qidiriladi
+ * (i18n ekranlari `screens/i18n/` da — nomlari ikki o'lchamda ham bir xil).
+ */
+function findReference(shot, kind) {
+  const name = (kind === 'mobile' ? shot.refMobile : shot.refDesktop) || shot.id;
+  const candidates = [
+    path.join(REF_DIR, kind, `${name}.jpg`),
+    path.join(REF_DIR, 'i18n', `${name}.jpg`),
+    path.join(REF_DIR, 'i18n', `${shot.id}.jpg`),
+  ];
   return candidates.find((file) => fs.existsSync(file)) || null;
 }
 
@@ -176,10 +183,21 @@ export async function pixelDiff(actualPng, refJpg) {
     const sharp = sharpModule ? (sharpModule.default || sharpModule) : null;
     if (!sharp || !pixelmatch || !PNG) return null;
 
-    const actual = PNG.sync.read(fs.readFileSync(actualPng));
-    const refBuffer = await sharp(refJpg).resize(actual.width, actual.height, { fit: 'fill' }).png().toBuffer();
-    const ref = PNG.sync.read(refBuffer);
+    // Etalon — butun sahifaning ma'lum o'lchamdagi kadri. Haqiqiy surat
+    // (fullPage, boshqa balandlik) butunlay siqilsa, har qanday farq butun
+    // rasmga yoyilib ketadi va foiz ma'nosiz bo'ladi. Shuning uchun suratni
+    // etalon o'lchamiga keltirib, **yuqori qismini** (above-the-fold) solishtiramiz.
+    const { width, height } = await sharp(refJpg).metadata();
+    if (!width || !height) return null;
 
+    const actualBuffer = await sharp(actualPng)
+      .resize(width, height, { fit: 'cover', position: 'top' })
+      .png()
+      .toBuffer();
+    const refBuffer = await sharp(refJpg).png().toBuffer();
+
+    const actual = PNG.sync.read(actualBuffer);
+    const ref = PNG.sync.read(refBuffer);
     const diff = new PNG({ width: actual.width, height: actual.height });
     const mismatched = pixelmatch(actual.data, ref.data, diff.data, actual.width, actual.height, { threshold: 0.25 });
     return { percent: (mismatched / (actual.width * actual.height)) * 100 };
@@ -247,8 +265,10 @@ function markdown(rows, overflows, tapTargets, actionErrors, pageErrors) {
     '',
     '## Qanday o\'qish kerak',
     '',
-    '- Piksel farqi **yo\'nalish beruvchi**: etalonlar JPG (siqilgan) va boshqa DPR\'da olingan,',
-    '  shuning uchun 0% hech qachon chiqmaydi. Muhimi — tartib, bloklar nisbati, rang va tipografika.',
+    '- Piksel farqi **yo\'nalish beruvchi**: surat etalon o\'lchamiga keltirilib, yuqori qismi',
+    '  (above-the-fold) solishtiriladi. Etalonlar JPG va boshqa DPR\'da olingan, kontent ham',
+    '  haqiqiy ma\'lumot bilan to\'ldirilgan (maketda demo matn) — shuning uchun 0% chiqmaydi.',
+    '  Asosiy mezon: tartib, bloklar nisbati, rang va tipografika (ko\'z bilan).',
     '- `pixelmatch`/`pngjs`/`sharp` o\'rnatilmagan bo\'lsa, ustun "—" bo\'ladi: fayllarni yonma-yon',
     '  ochib ko\'z bilan solishtiring (`screens-actual/` va `docs/design-handoff/screens/`).',
     '- Suratlarni qayta olish: `npm run shots` (server ishlab turgan bo\'lsin).',
@@ -332,13 +352,13 @@ export async function main() {
           if (small.length) tapTargets.push({ id: shot.id, path: shot.path, items: small });
         }
 
-        const ref = findReference(shot.id, kind);
+        const ref = findReference(shot, kind);
         const diff = ref ? await pixelDiff(file, ref) : null;
         rows.push({ id: shot.id, kind, viewport: `${viewport.width}×${viewport.height}`, file, ref, diff: diff ? diff.percent : null });
         console.log(`${overflow.overflow > 0 ? 'SCROLL' : '  ok  '} ${shot.id.padEnd(26)} ${kind.padEnd(8)} ${overflow.overflow > 0 ? `+${overflow.overflow}px` : ''}`);
       } catch (error) {
         const message = String(error.message).split('\n')[0];
-        rows.push({ id: shot.id, kind, viewport: `${viewport.width}×${viewport.height}`, file: `xato: ${message}`, ref: findReference(shot.id, kind), diff: null });
+        rows.push({ id: shot.id, kind, viewport: `${viewport.width}×${viewport.height}`, file: `xato: ${message}`, ref: findReference(shot, kind), diff: null });
         pageErrors.push({ id: shot.id, kind, message });
         console.log(`XATO   ${shot.id} (${kind}): ${message}`);
       } finally {
