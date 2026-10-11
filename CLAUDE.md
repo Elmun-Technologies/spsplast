@@ -60,6 +60,7 @@ docs/unresolved-questions.md # open business questions + accepted deviations wit
 docs/legacy/                 # archive of the deleted 2026 data (catalog-2026.json, molds-2026.json)
 tests/helpers/load-alias.mjs # runs `@/`-aliased TS in Node (writes .tmp-tests/, gitignored)
 screens-actual/              # GENERATED screenshots from `npm run shots` (gitignored)
+media-src/                   # SOURCE photos the image pipeline reads (factory/, studio/, pdf/ — 86 MB)
 public/catalog/2027/         # generated WebP (scene 1400/720w, mold/tile 800w)
 public/catalog/pdf/          # PDF catalog (2026, uz) — header download link
 public/fonts/                # onest-latin/cyrillic-wght-normal.woff2
@@ -126,9 +127,12 @@ npm run redirects:build # regenerate scripts/redirects-2027.json from docs/legac
 ```
 
 `npm run build` = `models:check` + `next build` (the old `build-static-catalog.js --check`
-step is gone with the 2026 layer). `public/catalog/2026` (18 MB of source JPGs) was
-deleted in Stage 5, so re-running `models:images` from scratch needs those photos again —
-the generated `public/catalog/2027/*.webp` set is committed and self-sufficient.
+step is gone with the 2026 layer). `public/catalog/2026` (18 MB of served JPGs) was
+deleted in Stage 5; the **source** photos the pipeline reads live in `media-src/`
+(tracked: `factory/` 37 MB, `studio/` 3.4 MB, `pdf/` 46 MB) — `build_images_2027.py`
+takes its inputs from there, so `npm run models:images` stays reproducible from a clean
+checkout. What is still missing from the repo are the 2027 assets listed in
+`docs/data-questions.md` (final catalog PDFs and the render archives).
 
 Missing sources (ask business, see `docs/data-questions.md`): `SPS_katalog_A.pdf`
 (+ `_RU`, `_EN`) and `SPS_blender_yakuniy*.zip` / `bgeraser_results_*.zip`.

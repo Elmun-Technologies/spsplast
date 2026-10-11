@@ -30,7 +30,8 @@ qarorlar va og'ishlar (sababi bilan). Ma'lumot darajasidagi batafsil savollar:
 |---|---|---|
 | 2.1 | Eski 192 mahsulotning 304 tasi nom mos kelmagani uchun bo'lim darajasiga (`/catalog/paving`, `/catalog/facade`) 301 qilinadi. Aniq modelga tushirish uchun **eski slug ↔ yangi kod** jadvali beriladimi? | 80 tasi aniq model sahifasiga tushdi. Xarita: `scripts/redirects-2027.json`. |
 | 2.2 | Eski blog (7 maqola) va loyihalar (6) kontenti qayta ishlatiladimi (masalan "Ishlab chiqarish" sahifasida keyslar bloki)? | Sahifalar o'chirildi, `/blog*` va `/projects*` → bosh sahifaga 301. Matnlar arxivda: `docs/legacy/catalog-2026.json`. |
-| 2.3 | `public/catalog/2026` (18 MB asl JPG) o'chirildi — asl papka biznes arxivida saqlanadimi? | `npm run models:images` ni noldan qayta ishga tushirish uchun asl JPG'lar kerak bo'ladi (hozirgi WebP to'plam yetarli). |
+| 2.3 | `public/catalog/2026` (18 MB, saytga chiqarilgan JPG) o'chirildi. Asl nusxasi biznes arxivida kerakmi? | Pipeline bundan zarar ko'rmaydi: `npm run models:images` manba sifatida repodagi `media-src/` (`factory/`, `studio/`, `pdf/`) dan o'qiydi. Savol faqat arxiv siyosati haqida. |
+| 2.4 | `media-src/` repoda 86 MB joy egallaydi (shu jumladan `pdf/` 46 MB). Uni Git LFS'ga yoki tashqi xotiraga ko'chirish kerakmi? | Hozircha oddiy fayl sifatida kuzatiladi (bazaviy commit'dan kelgan). Ko'chirilsa, `build_images_2027.py` dagi yo'llar yangilanishi kerak. |
 
 ### 3. Infrastruktura
 
