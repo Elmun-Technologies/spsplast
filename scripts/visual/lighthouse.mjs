@@ -179,7 +179,7 @@ function markdown(results, failures) {
     `> Sana: ${today} · manba: \`${ORIGIN}\` · rejimlar: mobil (throttled) + desktop`,
     '> Byudjet (HANDOFF 7): mobil perf \u2265 90, desktop perf \u2265 95, a11y \u2265 95, best-practices \u2265 95, SEO = 100',
     `> Yurishlar: ${results.length} · byudjet buzilishi: **${failures.length}**
-> Har maqsad ${RUNS} martadan o'lchanadi va **mediana** hisobotga yoziladi (CI shovqiniga qarshi); xom JSON'larda har yurish alohida (`-r1/-r2/-r3`).`,
+> Har maqsad ${RUNS} martadan o'lchanadi va **mediana** hisobotga yoziladi (CI shovqiniga qarshi); xom JSON'larda har yurish alohida (\`-r1/-r2/-r3\`).`,
     '',
     '## Ballar',
     '',
@@ -360,9 +360,15 @@ function main() {
   }
 }
 
-try {
-  main();
-} catch (error) {
-  console.error(error);
-  process.exitCode = 1;
+// Faqat to'g'ridan-to'g'ri ishga tushirilganda (`node scripts/...`); import
+// qilinganda (test/tekshiruv) o'zi yurib ketmasin.
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  try {
+    main();
+  } catch (error) {
+    console.error(error);
+    process.exitCode = 1;
+  }
 }
+
+export { markdown as __markdown };
