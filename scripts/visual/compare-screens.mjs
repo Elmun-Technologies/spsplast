@@ -33,6 +33,14 @@ const REPORT_DIR = path.join(ROOT, 'docs', 'audits');
 const MAX_FULL_HEIGHT = 4000;
 
 /**
+ * Vaqt chegaralari: bitta sekin/tilga tushgan sahifa butun CI yurishini
+ * to'xtatib qo'ymasligi kerak (2026-10-11: shots qadami 30+ daqiqa osilib qoldi).
+ * Muddat tugasa, qolgan ekranlar "o'tkazib yuborildi" deb hisobotga yoziladi.
+ */
+const MAX_TOTAL_MS = Number(process.env.SHOTS_MAX_TOTAL_MS || 8 * 60 * 1000);
+const MAX_SHOT_MS = Number(process.env.SHOTS_MAX_SHOT_MS || 60 * 1000);
+
+/**
  * Interaktiv holatlar (maketdagi 02-menyu, 04-filtr, 05-zayafka-oynasi).
  *
  * Eslatma: Playwright strict rejimida ishlaydi — `page.click(sel)` bittadan ortiq
@@ -56,6 +64,16 @@ async function act(page, selector, options = {}) {
  * bo'lgani uchun xato ham bermaydi). Qayta urinish shu poygani yopadi va haqiqiy
  * xatoni (element umuman ochilmasa) aniq xabar bilan ko'rsatadi.
  */
+/** Amalni vaqt chegarasi bilan o'raydi (osilib qolgan Playwright chaqiruvi uchun). */
+function withDeadline(promise, ms, label) {
+  return Promise.race([
+    promise,
+    new Promise((resolve, reject) => {
+      setTimeout(() => reject(new Error(`${label}: ${ms / 1000}s muddat tugadi (osilib qolgan bo'lishi mumkin)`)), ms).unref();
+    }),
+  ]);
+}
+
 /**
  * Nima uchun element ko'rinmayotganini tushuntiruvchi ma'lumot (diagnostika).
  * Xato xabariga qo'shiladi — CI loglarida sababni darhol ko'rish uchun.
@@ -269,7 +287,7 @@ export async function pixelDiff(actualPng, refJpg) {
   }
 }
 
-function markdown(rows, overflows, tapTargets, actionErrors, pageErrors, tallPages) {
+function markdown(rows, overflows, tapTargets, actionErrors, pageErrors, tallPages, skipped) {
   const today = new Date().toISOString().slice(0, 10);
   const lines = [
     '# Vizual tekshiruv: 390 / 1440 px',
@@ -299,6 +317,12 @@ function markdown(rows, overflows, tapTargets, actionErrors, pageErrors, tallPag
     for (const item of tallPages) {
       lines.push(`- ${item.id} (${item.kind}): scrollHeight ${item.fullHeight}px${item.error ? ` · xato: ${item.error}` : ''}`);
     }
+    lines.push('');
+  }
+
+  if (skipped && skipped.length) {
+    lines.push('## O\'tkazib yuborilgan ekranlar (vaqt chegarasi)', '');
+    for (const item of skipped) lines.push(`- ${item.id} (${item.kind}): ${item.reason}`);
     lines.push('');
   }
 
@@ -389,10 +413,20 @@ export async function main() {
   const actionErrors = [];
   const pageErrors = [];
   const tallPages = [];
+  const skipped = [];
+
+  const startedAt = Date.now();
+  const elapsed = () => `+${((Date.now() - startedAt) / 1000).toFixed(1)}s`;
 
   for (const shot of SHOT_PLAN) {
     for (const kind of ['mobile', 'desktop']) {
       if (!shot[kind]) continue;
+
+      if (Date.now() - startedAt > MAX_TOTAL_MS) {
+        skipped.push({ id: shot.id, kind, reason: `umumiy muddat (${MAX_TOTAL_MS / 1000}s) tugadi` });
+        console.log(`O'TKAZ ${shot.id} (${kind}) — muddat tugadi`);
+        continue;
+      }
 
       const options = VIEWPORTS[kind];
       const size = `${options.viewport.width}×${options.viewport.height}`;
@@ -412,6 +446,7 @@ export async function main() {
       }
 
       try {
+        await withDeadline((async () => {
         await page.goto(`${SITE_ORIGIN}${shot.path}`, { waitUntil: 'load' });
         if (shot.action && ACTIONS[shot.action]) {
           try {
@@ -462,7 +497,8 @@ export async function main() {
         const ref = findReference(shot, kind);
         const diff = ref ? await pixelDiff(file, ref) : null;
         rows.push({ id: shot.id, kind, viewport: size, file, fullFile, ref, diff: diff ? diff.percent : null });
-        console.log(`${overflow.overflow > 0 ? 'SCROLL' : '  ok  '} ${shot.id.padEnd(26)} ${kind.padEnd(8)} ${overflow.overflow > 0 ? `+${overflow.overflow}px` : ''}`);
+        console.log(`${overflow.overflow > 0 ? 'SCROLL' : '  ok  '} ${shot.id.padEnd(26)} ${kind.padEnd(8)} ${elapsed().padStart(9)} ${overflow.overflow > 0 ? `+${overflow.overflow}px` : ''}`);
+        })(), MAX_SHOT_MS, `${shot.id} (${kind})`);
       } catch (error) {
         const message = String(error.message).split('\n')[0];
         rows.push({ id: shot.id, kind, viewport: size, file: `xato: ${message}`, ref: findReference(shot, kind), diff: null });
@@ -483,8 +519,12 @@ export async function main() {
   }
   const narrowOverflows = [];
   for (const shot of SHOT_PLAN) {
+    if (Date.now() - startedAt > MAX_TOTAL_MS) {
+      skipped.push({ id: shot.id, kind: '360px', reason: 'umumiy muddat tugadi' });
+      continue;
+    }
     try {
-      await narrowPage.goto(`${SITE_ORIGIN}${shot.path}`, { waitUntil: 'load' });
+      await withDeadline(narrowPage.goto(`${SITE_ORIGIN}${shot.path}`, { waitUntil: 'load' }), MAX_SHOT_MS, `${shot.id} (360px)`);
       const overflow = await measureOverflow(narrowPage);
       if (overflow.overflow > 0) narrowOverflows.push({ id: shot.id, kind: '360px', ...overflow });
     } catch (error) {
@@ -496,11 +536,11 @@ export async function main() {
   await browser.close();
 
   const file = path.join(REPORT_DIR, `visual-${new Date().toISOString().slice(0, 10)}.md`);
-  fs.writeFileSync(file, markdown(rows, [...overflows, ...narrowOverflows], tapTargets, actionErrors, pageErrors, tallPages));
+  fs.writeFileSync(file, markdown(rows, [...overflows, ...narrowOverflows], tapTargets, actionErrors, pageErrors, tallPages, skipped));
   console.log(`\nsuratlar: ${OUT_DIR} (${rows.length} fayl)`);
   console.log(`hisobot: ${path.relative(ROOT, file)}`);
 
-  const failures = overflows.length + pageErrors.length + actionErrors.length;
+  const failures = overflows.length + pageErrors.length + actionErrors.length + skipped.length;
   if (overflows.length) {
     console.error(`\nGORIZONTAL SCROLL TOPILDI (${overflows.length}):`);
     for (const o of overflows) console.error(` - ${o.id} (${o.kind}) +${o.overflow}px`);
@@ -509,13 +549,22 @@ export async function main() {
     console.error(`\nSAHIFA/HOLAT XATOLARI (${pageErrors.length + actionErrors.length}):`);
     for (const e of [...pageErrors, ...actionErrors]) console.error(` - ${e.id} (${e.kind}): ${e.message}`);
   }
+  if (skipped.length) {
+    console.error(`\nO'TKAZIB YUBORILDI (${skipped.length}):`);
+    for (const item of skipped) console.error(` - ${item.id} (${item.kind}): ${item.reason}`);
+  }
   if (failures) process.exitCode = 1;
 }
 
 // Modul test'dan import qilinganda (pixelDiff'ni sinash uchun) ishga tushmasligi kerak.
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  main().catch((error) => {
-    console.error(error);
-    process.exitCode = 1;
-  });
+  main()
+    .catch((error) => {
+      console.error(error);
+      process.exitCode = 1;
+    })
+    .finally(() => {
+      // Osub qolgan Playwright chaqiruvi procesni ushlab qolmasligi uchun.
+      process.exit(process.exitCode || 0);
+    });
 }
