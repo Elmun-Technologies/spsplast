@@ -4,6 +4,10 @@
  */
 export const uz = {
   a11y: {
+    mobileNav: 'Mobil menyu',
+    langNavHeader: 'Til / Language',
+    langNavMenu: 'Til (mobil menyu)',
+    langNavFooter: 'Til (sahifa oxiri)',
     skip: "Asosiy kontentga o'tish",
     sectionsNav: "Bo'limlar",
     close: 'Yopish',
@@ -54,6 +58,12 @@ export const uz = {
     hours: 'Du–Sha · 09:00–18:00',
     copyright: "© 2026 SPS · Stone Profy Servise. Toshkentda ishlab chiqarilgan.",
     privacy: 'Maxfiylik siyosati',
+  },
+  alt: {
+    scene: "terilgan ko'rinishi",
+    mold: 'qolip',
+    tile: 'plitka',
+    logo: 'SPS Stone Profy Servise logotipi',
   },
   seo: {
     leadCta: "Zayafka qoldiring — menejer qolip soni va narxini hisoblab beradi.",

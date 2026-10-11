@@ -107,6 +107,7 @@ export function PartnersForm({ lang }: { lang: Locale }) {
           <input
             className="sps-input"
             id="p-name"
+            autoComplete="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder={p.request.namePlaceholder}
@@ -122,6 +123,7 @@ export function PartnersForm({ lang }: { lang: Locale }) {
           <input
             className="sps-input"
             id="p-company"
+            autoComplete="organization"
             value={company}
             onChange={(e) => setCompany(e.target.value)}
             placeholder={p.partners.companyPlaceholder}
@@ -151,6 +153,7 @@ export function PartnersForm({ lang }: { lang: Locale }) {
             className="sps-input"
             id="p-phone"
             type="tel"
+            autoComplete="tel"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             placeholder={p.request.phonePlaceholder}

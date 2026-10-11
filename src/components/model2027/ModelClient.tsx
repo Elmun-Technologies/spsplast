@@ -373,7 +373,7 @@ export function ModelClient({
               </div>
               {model.images.scene ? (
                 <div style={{ aspectRatio: '4 / 3', overflow: 'hidden', position: 'relative', borderRadius: 'var(--radius-card)' }}>
-                  <Image src={model.images.scene} alt="" fill sizes="(max-width: 1100px) 100vw, 520px" style={{ objectFit: 'cover' }} loading="lazy" />
+                  <Image src={model.images.scene} alt={`${modelName(model, lang)} — ${t.alt.scene}`} fill sizes="(max-width: 1100px) 100vw, 520px" style={{ objectFit: 'cover' }} loading="lazy" />
                 </div>
               ) : (
                 <div className="ph" style={{ aspectRatio: '4 / 3' }}>

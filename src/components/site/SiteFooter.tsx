@@ -17,7 +17,7 @@ export function SiteFooter({ lang }: { lang: Locale }) {
           <div className="ft-about">
             <Image src="/images/brand/logo-white.webp" alt="SPS Stone Profy Servise" width={72} height={44} />
             <p>{t.footer.about}</p>
-            <LangSwitch lang={lang} dark />
+            <LangSwitch lang={lang} dark label={t.a11y.langNavFooter} />
           </div>
           <div className="ft-col">
             <span className="sps-eyebrow">{t.footer.catalog}</span>

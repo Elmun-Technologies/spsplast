@@ -138,7 +138,7 @@ export function HeaderClient({
       <div className="mm" id="sps-mobile-menu" hidden={!menuOpen} role="dialog" aria-modal="true" aria-label={t.header.menu}>
         <div className="mm-head">
           <Image src="/images/brand/logo-ink.webp" alt="SPS" width={52} height={32} />
-          <LangSwitch lang={lang} />
+          <LangSwitch lang={lang} label={t.a11y.langNavMenu} />
           <button
             ref={closeRef}
             className="mm-close"
@@ -152,7 +152,7 @@ export function HeaderClient({
             <Icon.close width={20} height={20} strokeWidth={1.5} aria-hidden="true" />
           </button>
         </div>
-        <nav className="mm-nav" aria-label={t.a11y.sectionsNav}>
+        <nav className="mm-nav" aria-label={t.a11y.mobileNav}>
           {sections.map((s) => (
             <a key={s.href} className="mm-link" href={s.href}>
               {s.label} <span className="mono">{s.count}</span>

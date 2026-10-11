@@ -49,7 +49,7 @@ export function ProductCard({
         )}
         {model.images.molds.A ? (
           <span className="sps-card__mold">
-            <Image src={model.images.molds.A} alt="" fill sizes="(max-width: 640px) 19vw, 9vw" style={{ objectFit: 'contain' }} loading="lazy" />
+            <Image src={model.images.molds.A} alt={`${modelName(model, lang)} — ${getUi(lang).alt.mold}`} fill sizes="(max-width: 640px) 19vw, 9vw" style={{ objectFit: 'contain' }} loading="lazy" />
           </span>
         ) : null}
         <button
@@ -73,9 +73,9 @@ export function ProductCard({
           {model.code ? `№ ${model.code} · ` : ''}
           {getUi(lang).sections[model.section]}
         </span>
-        <h3 className="sps-card__name">
+        <h2 className="sps-card__name">
           <a href={href}>{modelName(model, lang)}</a>
-        </h3>
+        </h2>
         <div className="sps-card__meta">
           <span>
             {t.mSize}: <b>{size || '—'}</b>

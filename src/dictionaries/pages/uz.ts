@@ -8,6 +8,9 @@ export const pagesUz = {
   home: {
     eyebrow: "Qoliplar zavodi · Toshkent",
     h1: (n: number) => `Beton plitka va fasad uchun plastik qoliplar — ${n} model.`,
+    // SERP sarlavhasi: H1 maketdagi matn bilan qoladi, <title> esa 65 belgigacha
+    // sig'adigan qisqa variant (brand qo'shimchasi bilan) — aks holda kesiladi.
+    seoTitle: (n: number) => `Beton plitka qoliplari — ${n} model, Toshkent`,
     lead: "Modelni tanlang, zayafka qoldiring — menejer qolip soni va narxini hisoblab beradi. Zavoddan to'g'ridan-to'g'ri, 8 davlatga yetkazib beramiz.",
     stats: [
       { value: '20', unit: 'yil', label: 'Tajriba' },

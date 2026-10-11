@@ -8,6 +8,7 @@ export const pagesEn: PagesDictionary = {
   home: {
     eyebrow: 'Mold plant · Tashkent',
     h1: (n: number) => `Plastic molds for concrete paving and facades — ${n} models.`,
+    seoTitle: (n: number) => `Plastic molds for paving slabs — ${n} models`,
     lead: 'Pick a model and request a quote — your manager will calculate the mold count and price. Direct from the plant, we ship to 8 countries.',
     stats: [
       { value: '20', unit: 'years', label: 'Experience' },

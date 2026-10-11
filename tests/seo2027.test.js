@@ -582,6 +582,30 @@ test('17. Metadata matnlari har bir tilda o‘z lug‘atidan (qattiq yozilgan uz
   assert.deepStrictEqual(offenders, [], `Sahifa kodida qattiq yozilgan uz CTA: ${offenders.join(', ')}`);
 });
 
+test('18. Bosh sahifa <title> SERP chegarasida, H1 maket matni saqlanadi', async (t) => {
+  if (!supportsTypeStripping) return t.skip("Node type-stripping yo'q");
+  const { loadAliased } = await helper();
+  const { getPages } = await loadAliased('src/lib/pages.ts');
+  const { SITE_NAME } = await loadAliased('src/lib/seo.ts');
+  const { getTotalCount } = await loadAliased('src/lib/catalog2027.ts');
+
+  const count = getTotalCount();
+  for (const lang of ['uz', 'ru', 'en']) {
+    const p = getPages(lang);
+    const full = `${p.home.seoTitle(count)} · ${SITE_NAME}`;
+
+    // Google ~60 belgi / 580px dan keyin kesadi; 30 belgidan qisqa — kam signal.
+    assert.ok(full.length <= 65, `${lang}: title ${full.length} belgi (65 dan uzun): "${full}"`);
+    assert.ok(full.length >= 30, `${lang}: title juda qisqa (${full.length})`);
+
+    // <title> H1 bilan bir xil bo'lmasligi kerak: H1 maket matni (uzun),
+    // title esa qisqa SEO varianti.
+    const h1 = p.home.h1(count).replace(/\.$/, '');
+    assert.notStrictEqual(p.home.seoTitle(count), h1, `${lang}: seoTitle H1 bilan bir xil`);
+    assert.ok(h1.length > 40, `${lang}: H1 maket matni qisqarib ketgan`);
+  }
+});
+
 // Vaqtinchalik papkani tozalash: `loadAliased` `.tmp-tests/` ga nusxa yozadi
 // (gitignore'da), lekin ish papkasini toza saqlash yaxshi.
 require('node:test').after(async () => {

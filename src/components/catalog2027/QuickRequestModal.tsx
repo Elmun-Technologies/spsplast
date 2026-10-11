@@ -58,7 +58,7 @@ export function QuickRequestModal({
         <div className="sps-sheet__head">
           <div className="qr-head">
             {model.images.sceneSm || model.images.scene ? (
-              <Image src={(model.images.sceneSm || model.images.scene) as string} alt="" width={88} height={88} style={{ objectFit: 'cover', borderRadius: 'var(--radius-mini)' }} />
+              <Image src={(model.images.sceneSm || model.images.scene) as string} alt={`${modelName(model, lang)} — ${getUi(lang).alt.scene}`} width={88} height={88} style={{ objectFit: 'cover', borderRadius: 'var(--radius-mini)' }} />
             ) : null}
             <div>
               <span className="sps-card__code">{model.code ? `№ ${model.code}` : getUi(lang).sections[model.section]}</span>
@@ -122,7 +122,7 @@ export function QuickRequestModal({
               </label>
               <label className="sps-field">
                 <span className="sps-label">{t.formCity}</span>
-                <input className="sps-input" value={city} aria-label={t.formCity} onChange={(e) => setCity(e.target.value)} maxLength={120} />
+                <input className="sps-input" value={city} aria-label={t.formCity} onChange={(e) => setCity(e.target.value)} maxLength={120} autoComplete="address-level2" />
               </label>
             </div>
             <label className="sps-field">

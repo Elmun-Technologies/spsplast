@@ -14,7 +14,9 @@ export const metadata = {
 
 export default function NotFound() {
   return (
-    <>
+    // `<main>`: ildiz 404 `[lang]/layout.tsx` dan tashqarida renderlanadi,
+    // shuning uchun uning kontenti landmark'siz qoladi (axe `region` qoidasi).
+    <main id="main-content">
       <NotFoundBody lang="uz" />
       <section style={{ paddingBlock: 'var(--space-6)', borderTop: '1px solid var(--line)' }}>
         <div className="wrap row" style={{ justifyContent: 'center' }}>
@@ -30,6 +32,6 @@ export default function NotFound() {
           </a>
         </div>
       </section>
-    </>
+    </main>
   );
 }

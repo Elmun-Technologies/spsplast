@@ -27,7 +27,8 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   return pageMetadata({
     lang: locale,
     path: '',
-    title: p.home.h1(getTotalCount()).replace(/\.$/, ''),
+    // H1 (`p.home.h1`) maket matni — <title> uchun qisqa `seoTitle` ishlatiladi.
+    title: p.home.seoTitle(getTotalCount()),
     description: p.home.lead,
   });
 }

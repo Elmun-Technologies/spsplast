@@ -48,8 +48,18 @@ src/app/robots.ts            # allow all; disallow /api/, /*/compare, /*/request
 src/components/site/JsonLd.tsx     # server-only <script type="application/ld+json"> renderer
 scripts/redirects-2027.json  # GENERATED 301 map (436 entries) — read by next.config.js
 scripts/extract/build_redirects_2027.py  # generator: legacy catalog × models-2027 name match
+scripts/lib/routes.mjs       # audit routes (AUDIT_ROUTES) + screenshot plan (SHOT_PLAN) + viewports
+scripts/lib/dom-rules.mjs    # the SEO/DOM rule set itself (unit-tested by tests/audits2027.test.js)
+scripts/audit-seo-dom.mjs    # jsdom audit: meta, hreflang, headings, links, forms, JSON-LD, weight
+scripts/audit-a11y.mjs       # axe-core (WCAG 2.1 AA) audit over the same routes
+scripts/visual/compare-screens.mjs  # Playwright: 390/1440/360 shots + overflow + tap targets
+scripts/visual/lighthouse.mjs       # Playwright-free Lighthouse runner with HANDOFF §7 budgets
+docs/audits/                 # GENERATED reports (seo-dom-*, a11y-*, visual-*, lighthouse-*)
+docs/checks.md               # how to verify HANDOFF §7 acceptance criteria (what runs where)
+docs/unresolved-questions.md # open business questions + accepted deviations with reasons
 docs/legacy/                 # archive of the deleted 2026 data (catalog-2026.json, molds-2026.json)
 tests/helpers/load-alias.mjs # runs `@/`-aliased TS in Node (writes .tmp-tests/, gitignored)
+screens-actual/              # GENERATED screenshots from `npm run shots` (gitignored)
 public/catalog/2027/         # generated WebP (scene 1400/720w, mold/tile 800w)
 public/catalog/pdf/          # PDF catalog (2026, uz) — header download link
 public/fonts/                # onest-latin/cyrillic-wght-normal.woff2
@@ -154,6 +164,27 @@ There is **no `DATABASE_URL`** — see `.env.example`.
 - `<html lang>` is `uz` in the SSR markup for every locale (single root layout) and is
   corrected after hydration by `HtmlLangSync`. Fixing it server-side requires route
   groups with per-locale root layouts — deliberate deferral, see Stage 5 notes.
+- **jsdom audits cannot see layout**: `color-contrast` and `target-size` are disabled in
+  `scripts/audit-a11y.mjs` (documented in the report) — those two need a real browser
+  (`npm run lighthouse` / `npm run shots`).
+- **Page weight must exclude `nomodule` bundles**: Next ships `polyfills-*.js` (39 KB gzip)
+  with the `nomodule` attribute; modern browsers never download it. `audit-seo-dom.mjs`
+  counts it separately — do not merge it into the per-page budget.
+- **`undici` fetch hides compression**: `Content-Encoding`/`Content-Length` are stripped,
+  so the audit measures transfer size with `zlib.gzipSync(body).length` (the server does
+  gzip — verified with curl).
+- **jsdom `body.textContent` includes the Next RSC flight payload** (`self.__next_f.push(...)`,
+  e.g. `["__PAGE__",{}]`) — `dom-rules.text()` strips `script/style/noscript/template` from a
+  clone first, otherwise placeholder/copy rules fire on serialization noise.
+- **Every landmark needs a unique accessible name** (axe `landmark-unique`): the site has
+  three language switchers, so `LangSwitch` takes a `label` prop and each call site passes
+  its own (`a11y.langNavHeader` / `langNavMenu` / `langNavFooter`), and the mobile menu nav
+  uses `a11y.mobileNav` (not the header's `sectionsNav`).
+- **The root `not-found.tsx` renders outside `[lang]/layout.tsx`**, so it must wrap its own
+  `<main id="main-content">` — otherwise axe reports `region` (content outside a landmark).
+- `ASSET_PREFIXES` in `dom-rules.mjs` must stay file-specific (`/catalog/2027/`,
+  `/catalog/pdf/`): a bare `/catalog/` would hide lang-less internal links like
+  `/catalog/paving` from the audit.
 
 ## Common Commands
 
@@ -162,8 +193,17 @@ npm run dev            # local dev server
 npm run build          # models:check + next build (402 static pages)
 npm run typecheck      # tsc --noEmit
 npm run lint           # next lint
-npm test               # node --test --experimental-strip-types tests/*.test.js
+npm test               # node --test --experimental-strip-types tests/*.test.js (93 tests)
 npm run models:build && npm run models:images && npm run models:check
+
+# Stage 6 checks — server must be running (`npm run start` or `npm run dev`)
+npm run audit          # audit:seo + audit:a11y → docs/audits/*.md
+npm run audit:seo      # SEO/DOM rules over 35 routes (jsdom, no browser needed)
+npm run audit:a11y     # axe-core WCAG 2.1 AA over 31 pages (jsdom, no browser needed)
+npm run shots          # NEEDS a browser: npm i -D playwright && npx playwright install chromium
+npm run lighthouse     # NEEDS a browser: npm i -D lighthouse
+AUDIT_ORIGIN=https://<preview>.vercel.app npm run audit   # audit a deployed preview
+LH_ORIGIN=https://<preview>.vercel.app npm run lighthouse
 ```
 
 ## Texnik qoidalar (Stage 2–3 da tasdiqlangan)
@@ -188,7 +228,7 @@ npm run models:build && npm run models:images && npm run models:check
 - [x] 3 — pages: bosh, model (`catalog/[section]/[slug]`), solishtirish, zayafka ro'yxati, ulgurji, ishlab chiqarish, kontakt, maxfiylik, 404 (uz/ru/en)
 - [x] 4 — API + analitika: `/api/leads` (Zod, honeypot, rate limit, xalqaro telefon, Telegram, `requestId`, `bad_phone`) va voqealar `generate_lead` / `add_to_request` / `add_to_compare` (+ view_item, view_item_list, search); `/api/health` katalog va analitika tekshiruvlari bilan. Ro'yxat: docs/analytics-events.md
 - [x] 5 — SEO + migratsiya: `src/lib/seo.ts` (pageMetadata/noindexMetadata, hreflang uz/ru/en + x-default, JSON-LD Organization/WebSite/LocalBusiness/Breadcrumb/Product/FAQ/ItemList — Product narxsiz), `JsonLd.tsx`, sitemap (387 URL, mutlaq alternate'lar, bo'sh bo'lim va compare/request kiritilmagan), robots, 436 ta 301 (`scripts/redirects-2027.json` + generator), eski 2026 qatlam va `public/catalog/2026` o'chirildi, `error.tsx`/`loading.tsx` yangi dizayn tilida qayta yozildi, header/footer bo'lim havolalari `SECTION_SLUGS` orqali tuzatildi. Testlar: 82 pass (`tests/seo2027.test.js` — 17)
-- [ ] 6 — checks: 390/1440 screenshots vs screens/, a11y, Lighthouse (needs a real browser outside sandbox)
+- [~] 6 — checks (qisman): brauzersiz tekshiruvlar bajarildi va yashil — `npm run audit:seo` (35 marshrut, **0 xato / 0 ogohlantirish**, JS+CSS gzip ~167 KB/sahifa), `npm run audit:a11y` (31 sahifa, axe WCAG 2.1 AA, **0 buzilish**, 1139 o'tgan qoida), ichki havolalar krawli (186 manzil, 0 buzilgan), curl 200/301/404 matritsasi, `tests/audits2027.test.js` (audit qoidalarining o'zi fixture'lar bilan sinaldi). Testlar jami: **93 pass**. Brauzer talab qiladigan qism (sandbox'da Chromium yo'q) skript sifatida tayyor va foydalanuvchi tomonidan ishga tushiriladi: `npm run shots` (390/1440/360 px skrinshot + gorizontal scroll + <44px tegish maydonlari, `screens/` bilan juftlanadi) va `npm run lighthouse` (mobil Perf ≥ 90 / A11y ≥ 95 / SEO 100, desktop Perf ≥ 95). Batafsil: `docs/checks.md`; ochiq savollar: `docs/unresolved-questions.md`
 
 ## SEO qoidalari (Stage 5 da tasdiqlangan)
 
@@ -201,3 +241,35 @@ npm run models:build && npm run models:images && npm run models:check
 - Sitemap: 6 doimiy sahifa + modeli bor bo'limlar + 119 model, har biri 3 tilda (`alternates.languages` mutlaq URL). `zabor` (0 model) kiritilmaydi; ma'lumot to'ldirilgach o'zi qo'shiladi.
 - 301 xaritasi: nom mos kelsa aniq model sahifasi (80 ta), kelmasa eski kategoriyaning yangi bo'limi (304 ta), eski kategoriya slug'lari (6), statik sahifalar (18), 2017-yilgi CMS manzillari + wildcard zaxira qoidalari (22). Hammasi `statusCode: 301` (308 emas).
 - Yagona root layout tufayli SSR `<html lang="uz">`; til gidratatsiyadan keyin `HtmlLangSync` bilan to'g'rilanadi. Muqobil (route groups + til bo'yicha root layout) butun marshrut daraxtini ko'chirishni talab qiladi — Stage 5 da ataylab qoldirildi.
+
+## Audit qoidalari (Stage 6 da tasdiqlangan)
+
+- **Ikki audit, ikki xil maqsad.** `audit-seo-dom.mjs` — SERP/indeks sifati va kontent
+  intizomi (title/description uzunligi va tili, canonical, hreflang to'plami, meta robots,
+  OG/Twitter, bitta `h1` va daraja sakramasligi, `alt`, ichki havolalar, forma maydonlari,
+  JSON-LD turlari va **narx yo'qligi**, sahifa og'irligi). `audit-a11y.mjs` — axe-core
+  WCAG 2.1 AA + best-practice. Ikkalasi ham jsdom ustida, brauzersiz ishlaydi.
+- **Yangi sahifa qo'shilsa — `scripts/lib/routes.mjs` ga qo'shing** (`AUDIT_ROUTES`:
+  `expect` bloki bilan; kerak bo'lsa `SHOT_PLAN`: qaysi o'lchamda suratga olinadi va qanday
+  interaktiv holat — `menu`, `filters`, `quickLead`, `seedCompare`, `seedRequest`).
+  Qo'shilmasa, sahifa tekshiruvdan tashqarida qoladi.
+- **Rasm `alt` qoidalari.** SSR'da chiqadigan mazmunli rasm (model, sahna, plitka, bo'lim
+  muqovasi) `alt` talab qiladi — bo'sh `alt` faqat bezak uchun to'g'ri: `aria-hidden`
+  havolada, nomli tugmada yoki yonidagi matn bilan bir xil ma'noni takrorlaydigan holda
+  (audit buni *qayd* deb hisoblaydi, xato emas). `alt` matnlari lug'atda:
+  `getUi(lang).alt.{scene,mold,tile,logo}` — sahifa kodida qattiq yozilmaydi.
+- **Sarlavha ierarxiyasi.** `h1 → h2 → h3`; daraja sakrash (masalan kartochka nomini `h3`
+  qilish) audit'da ogohlantirish. Katalog/bo'lim sahifalarida filtr guruhlari `.fgroup h2`
+  (vizual ko'rinishi CSS bilan kichraytirilgan), kartochka nomi `h3`.
+- **Forma maydonlari.** Har bir `input/select/textarea` `label[for]`, `aria-label` yoki
+  `label` ichiga o'ralgan bo'lishi shart; `name/tel/email/shahar` maydonlarida
+  `autocomplete` (`name`, `tel`, `email`, `address-level2`) — mobil klaviatura va
+  avtoto'ldirish uchun. Honeypot `aria-hidden="true"` ichida bo'ladi.
+- **`<title>` H1 dan farq qilishi mumkin va kerak.** Bosh sahifada `p.home.seoTitle(count)`
+  (SERP'da 65 belgigacha sig'adi), H1 esa maket matni (`p.home.h1`) — H1'ni qisqartirish
+  taqiqlangan. `tests/seo2027.test.js` testi 18 ikkalasini ham nazorat qiladi.
+- **Landmark nomlari unikal.** Bir sahifada bir nechta `nav`/`aside` bo'lsa, har biriga
+  alohida `aria-label` (til almashtirgichlari: header/mobil menyu/footer — uch xil nom).
+- **Og'irlik byudjeti.** Sahifa boshiga zamonaviy JS+CSS gzip ~170 KB (`nomodule` polyfill
+  39 KB bundan tashqari). Yangi kutubxona qo'shishdan oldin auditni ishga tushiring —
+  200 KB dan oshsa ogohlantirish chiqadi.

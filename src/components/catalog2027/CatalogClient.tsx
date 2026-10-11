@@ -76,7 +76,7 @@ function FilterGroups({
     <>
       {groups.map((g) => (
         <div className="fgroup" key={g.title}>
-          <h3>{g.title}</h3>
+          <h2>{g.title}</h2>
           {g.items
             .filter((i) => i.count > 0 || i.on)
             .map((i) => (

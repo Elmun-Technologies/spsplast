@@ -263,6 +263,7 @@ export function RequestClient({ lang }: { lang: Locale }) {
                   <input
                     className="sps-input"
                     id="r-name"
+                    autoComplete="name"
                     placeholder={p.request.namePlaceholder}
                     value={name}
                     onChange={(e) => setName(e.target.value)}
@@ -279,6 +280,7 @@ export function RequestClient({ lang }: { lang: Locale }) {
                     className="sps-input"
                     id="r-phone"
                     type="tel"
+                    autoComplete="tel"
                     placeholder={p.request.phonePlaceholder}
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
@@ -293,6 +295,7 @@ export function RequestClient({ lang }: { lang: Locale }) {
                   <input
                     className="sps-input"
                     id="r-city"
+                    autoComplete="address-level2"
                     placeholder={p.request.cityPlaceholder}
                     value={city}
                     onChange={(e) => setCity(e.target.value)}

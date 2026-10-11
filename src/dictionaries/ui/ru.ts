@@ -3,6 +3,10 @@ import type { UiDictionary } from './uz';
 /** RU lug'ati. Atamalar (HANDOFF 4.10): «Заявка», «Список заявки», «Опт и партнёрство». */
 export const ru: UiDictionary = {
   a11y: {
+    mobileNav: 'Мобильное меню',
+    langNavHeader: 'Язык / Language',
+    langNavMenu: 'Язык (мобильное меню)',
+    langNavFooter: 'Язык (внизу страницы)',
     skip: 'Перейти к содержимому',
     sectionsNav: 'Разделы',
     close: 'Закрыть',
@@ -53,6 +57,12 @@ export const ru: UiDictionary = {
     hours: 'Пн–Сб · 09:00–18:00',
     copyright: '© 2026 SPS · Stone Profy Servise. Произведено в Ташкенте.',
     privacy: 'Политика конфиденциальности',
+  },
+  alt: {
+    scene: 'укладка в интерьере',
+    mold: 'форма',
+    tile: 'плитка',
+    logo: 'Логотип SPS Stone Profy Servise',
   },
   seo: {
     leadCta: 'Оставьте заявку — менеджер рассчитает количество форм и цену.',

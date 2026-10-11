@@ -3,6 +3,10 @@ import type { UiDictionary } from './uz';
 /** EN lug'ati. Atamalar (HANDOFF 4.10): "Request a quote", "Request list", "Wholesale & partners". */
 export const en: UiDictionary = {
   a11y: {
+    mobileNav: 'Mobile menu',
+    langNavHeader: 'Language',
+    langNavMenu: 'Language (mobile menu)',
+    langNavFooter: 'Language (footer)',
     skip: 'Skip to main content',
     sectionsNav: 'Sections',
     close: 'Close',
@@ -53,6 +57,12 @@ export const en: UiDictionary = {
     hours: 'Mon–Sat · 09:00–18:00',
     copyright: '© 2026 SPS · Stone Profy Servise. Made in Tashkent.',
     privacy: 'Privacy policy',
+  },
+  alt: {
+    scene: 'laid in a real setting',
+    mold: 'mold',
+    tile: 'slab',
+    logo: 'SPS Stone Profy Servise logo',
   },
   seo: {
     leadCta: 'Submit a request — the manager will calculate the mold count and the price.',
