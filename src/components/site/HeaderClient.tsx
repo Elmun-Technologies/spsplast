@@ -135,7 +135,16 @@ export function HeaderClient({
         </div>
       </header>
 
+      {/*
+        Panel ichidagi tugunlar faqat ochilganda montaj qilinadi: `hidden` panel
+        har sahifada SSR + gidratatsiya qilinardi (~60 tugun: logo, til, nav,
+        kontaktlar) — TBT ga hissa qo'shadi (CI Lighthouse mobil TBT 350 ms).
+        Tashqi `div` (role/hidden/ref) doim qoladi, shuning uchun ochilganda
+        semantika va fokus oqimi o'zgarmaydi.
+      */}
       <div className="mm" id="sps-mobile-menu" hidden={!menuOpen} role="dialog" aria-modal="true" aria-label={t.header.menu}>
+        {menuOpen ? (
+          <>
         <div className="mm-head">
           <Image src="/images/brand/logo-ink.webp" alt="SPS" width={52} height={32} />
           <LangSwitch lang={lang} label={t.a11y.langNavMenu} />
@@ -192,6 +201,8 @@ export function HeaderClient({
             {t.header.cta}
           </a>
         </div>
+          </>
+        ) : null}
       </div>
     </>
   );

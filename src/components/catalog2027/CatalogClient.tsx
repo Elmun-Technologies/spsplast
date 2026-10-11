@@ -295,7 +295,11 @@ export function CatalogClient({
         </div>
       </div>
 
+      {/* Panel ichidagi tugunlar faqat ochilganda montaj qilinadi (q. HeaderClient
+          izohi): yashirin sheet har sahifada gidratatsiya qilinmasligi kerak. */}
       <div className="fsheet" hidden={!sheetOpen} role="dialog" aria-modal="true" aria-label={t.filters} ref={sheetRef}>
+        {sheetOpen ? (
+          <>
         <div className="fsheet__head">
           <span className="h3">{t.filters}</span>
           <button type="button" className="sps-iconbtn" aria-label={getUi(lang).a11y.close} onClick={() => setSheetOpen(false)}>
@@ -313,6 +317,8 @@ export function CatalogClient({
             {filtered.length} {t.show}
           </button>
         </div>
+          </>
+        ) : null}
       </div>
 
       {requestModel ? (

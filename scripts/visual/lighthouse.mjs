@@ -178,7 +178,8 @@ function markdown(results, failures) {
     '',
     `> Sana: ${today} · manba: \`${ORIGIN}\` · rejimlar: mobil (throttled) + desktop`,
     '> Byudjet (HANDOFF 7): mobil perf \u2265 90, desktop perf \u2265 95, a11y \u2265 95, best-practices \u2265 95, SEO = 100',
-    `> Yurishlar: ${results.length} · byudjet buzilishi: **${failures.length}**`,
+    `> Yurishlar: ${results.length} · byudjet buzilishi: **${failures.length}**
+> Har maqsad ${RUNS} martadan o'lchanadi va **mediana** hisobotga yoziladi (CI shovqiniga qarshi); xom JSON'larda har yurish alohida (`-r1/-r2/-r3`).`,
     '',
     '## Ballar',
     '',
@@ -241,6 +242,22 @@ function markdown(results, failures) {
   return lines.join('\n');
 }
 
+/**
+ * Har maqsad uchun necha marta o'lchash (sukut 3). CI runner'ida Lighthouse
+ * shovqini katta (bitta sahifa 83 dan 98 gacha sachragan), shuning uchun
+ * bitta o'lchovga qarab byudjet buzildi/yaxshi deyish noto'g'ri bo'ladi.
+ * Hisobotga **mediana** yoziladi (Lighthouse hujjatlarining tavsiyasi ham shu).
+ */
+const RUNS = Number(process.env.LH_RUNS || 3);
+
+/** Sonlar ro'yxati medianasi. */
+function median(values) {
+  const sorted = values.filter((v) => typeof v === 'number' && !Number.isNaN(v)).sort((a, b) => a - b);
+  if (!sorted.length) return null;
+  const mid = Math.floor(sorted.length / 2);
+  return sorted.length % 2 ? sorted[mid] : Math.round((sorted[mid - 1] + sorted[mid]) / 2);
+}
+
 function main() {
   fs.mkdirSync(OUT_DIR, { recursive: true });
 
@@ -250,17 +267,31 @@ function main() {
   for (const target of TARGETS) {
     for (const formFactor of ['mobile', 'desktop']) {
       const url = `${ORIGIN}${target.path}`;
-      const outFile = path.join(OUT_DIR, `${target.id}-${formFactor}.json`);
       process.stdout.write(`${target.path} (${formFactor}) ... `);
 
-      let report;
-      try {
-        report = runLighthouse(url, formFactor, outFile);
-      } catch (error) {
-        console.log(`XATO: ${error.message}`);
-        failures.push(`${target.path} (${formFactor}): yurish bajarilmadi — ${error.message}`);
-        // Birinchi yurishdayoq muhit yo'q bo'lsa (Chrome/Lighthouse o'rnatilmagan),
-        // qolgan 15 ta urinishni bekorga sarflamaymiz.
+      const perRun = [];
+      const errors = [];
+      for (let attempt = 1; attempt <= RUNS; attempt += 1) {
+        const outFile = path.join(OUT_DIR, `${target.id}-${formFactor}-r${attempt}.json`);
+        try {
+          const report = runLighthouse(url, formFactor, outFile);
+          perRun.push({
+            report,
+            performance: score(report, 'performance'),
+            accessibility: score(report, 'accessibility'),
+            bestPractices: score(report, 'best-practices'),
+            seo: score(report, 'seo'),
+          });
+        } catch (error) {
+          errors.push(String(error.message));
+        }
+      }
+
+      if (!perRun.length) {
+        console.log(`XATO: ${errors.join('; ')}`);
+        failures.push(`${target.path} (${formFactor}): yurish bajarilmadi — ${errors.join('; ')}`);
+        // Birinchi maqsaddayoq muhit yo'q bo'lsa (Chrome/Lighthouse o'rnatilmagan),
+        // qolgan urinishlarni bekorga sarflamaymiz.
         if (results.length === 0 && failures.length === 1) {
           console.log('\nLighthouse/Chrome topilmadi. O\'rnatish:');
           console.log('  npm i -D lighthouse');
@@ -271,12 +302,19 @@ function main() {
         continue;
       }
 
+      // Mediana ballar; tafsilotlar (auditlar, metrikalar) esa performance
+      // mediansiga eng yaqin yurishdan olinadi — shunda jadval izchil bo'ladi.
       const scores = {
-        performance: score(report, 'performance'),
-        accessibility: score(report, 'accessibility'),
-        bestPractices: score(report, 'best-practices'),
-        seo: score(report, 'seo'),
+        performance: median(perRun.map((x) => x.performance)),
+        accessibility: median(perRun.map((x) => x.accessibility)),
+        bestPractices: median(perRun.map((x) => x.bestPractices)),
+        seo: median(perRun.map((x) => x.seo)),
       };
+      const representative = perRun.reduce(
+        (best, x) => (Math.abs((x.performance ?? 0) - (scores.performance ?? 0)) < Math.abs((best.performance ?? 0) - (scores.performance ?? 0)) ? x : best),
+        perRun[0],
+      ).report;
+      const report = representative;
 
       for (const [category, minimum] of Object.entries(BUDGETS[formFactor])) {
         const key = category === 'best-practices' ? 'bestPractices' : category;
@@ -306,7 +344,7 @@ function main() {
         failed,
         perf: formFactor === 'mobile' ? safePerf(report) : null,
       });
-      console.log(`perf ${scores.performance} · a11y ${scores.accessibility} · bp ${scores.bestPractices} · seo ${scores.seo}${failed.length ? ` · buzilgan audit: ${failed.length}` : ''}`);
+      console.log(`perf ${scores.performance} · a11y ${scores.accessibility} · bp ${scores.bestPractices} · seo ${scores.seo} (${perRun.length} o'lchov mediansi)${failed.length ? ` · buzilgan audit: ${failed.length}` : ''}`);
     }
   }
 

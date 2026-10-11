@@ -374,7 +374,7 @@ export const pagesUz = {
     title: 'Maxfiylik siyosati',
     updated: 'Oxirgi yangilanish:',
     updatedMeta: '[SANA] · [YURIDIK NOMI]',
-    tocLabel: "Bo'limlar",
+    tocLabel: 'Mundarija',
     summary: "Qisqasi: biz faqat zayafkangizga javob berish uchun kerakli ma'lumotni olamiz, uni sotmaymiz va uchinchi shaxslarga reklama uchun bermaymiz.",
     toc: [
       "1. Qanday ma'lumot olamiz",

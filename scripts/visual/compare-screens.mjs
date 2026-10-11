@@ -516,10 +516,8 @@ export async function main() {
   // HANDOFF 7: 360–390 px oralig'ida ham gorizontal scroll bo'lmasligi kerak.
   const narrow = await browser.newContext({ viewport: { width: 360, height: 800 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 });
   const narrowPage = await narrow.newPage();
-  const narrowWidth = await narrowPage.evaluate(() => window.innerWidth);
-  if (narrowWidth !== 360) {
-    console.log(`OGOHLANTIRISH: 360px kontekst qo'llanilmadi (innerWidth=${narrowWidth})`);
-  }
+  narrowPage.setDefaultTimeout(15000);
+  let narrowWidthWarned = false;
   const narrowOverflows = [];
   for (const shot of SHOT_PLAN) {
     if (Date.now() - startedAt > MAX_TOTAL_MS) {
@@ -528,6 +526,15 @@ export async function main() {
     }
     try {
       await withDeadline(narrowPage.goto(`${SITE_ORIGIN}${shot.path}`, { waitUntil: 'load' }), MAX_SHOT_MS, `${shot.id} (360px)`);
+      // Kenglik nazorati faqat yuklangan sahifada ma'noli: `about:blank` da
+      // mobil emulyatsiya 980px qaytaradi (meta viewport yo'q).
+      if (!narrowWidthWarned) {
+        const narrowWidth = await narrowPage.evaluate(() => window.innerWidth);
+        if (narrowWidth !== 360) {
+          console.log(`OGOHLANTIRISH: 360px kontekst qo'llanilmadi (${shot.path} da innerWidth=${narrowWidth})`);
+        }
+        narrowWidthWarned = true;
+      }
       const overflow = await measureOverflow(narrowPage);
       if (overflow.overflow > 0) narrowOverflows.push({ id: shot.id, kind: '360px', ...overflow });
     } catch (error) {

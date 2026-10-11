@@ -359,7 +359,7 @@ export const pagesEn: PagesDictionary = {
     title: 'Privacy policy',
     updated: 'Last updated:',
     updatedMeta: '[DATE] · [LEGAL NAME]',
-    tocLabel: 'Sections',
+    tocLabel: 'Contents',
     summary: 'In short: we collect only the data needed to answer your request, we do not sell it and we do not share it with third parties for advertising.',
     toc: [
       '1. What data we collect',
