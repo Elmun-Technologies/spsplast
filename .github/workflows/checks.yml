@@ -118,7 +118,13 @@ jobs:
               [ -f "$f" ] || continue
               echo "#### $(basename "$f")"
               echo
-              sed -n '1,45p' "$f"
+              # Lighthouse hisoboti to'liq chiqadi: "ballni tushirgan auditlar"
+              # bo'limi faylning oxirida — kesilsa, sabab ko'rinmay qoladi.
+              case "$f" in
+                *lighthouse-*) sed -n '1,170p' "$f" ;;
+                *a11y-*) sed -n '1,20p' "$f" ;;
+                *) sed -n '1,45p' "$f" ;;
+              esac
               echo
             done
             for log in /tmp/shots.log /tmp/lighthouse.log; do
@@ -127,7 +133,7 @@ jobs:
               echo "#### $(basename "$log") (oxiri)"
               echo
               echo '```'
-              tail -n 30 "$log"
+              tail -n 40 "$log"
               echo '```'
             done
           } > "$out"

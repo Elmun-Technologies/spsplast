@@ -114,7 +114,10 @@ function failedAudits(report, category) {
 /** Audit natijasidagi muhim elementlarni qisqa matnga aylantiradi. */
 function describeItems(audit) {
   const rows = [];
-  const items = audit.details && (audit.details.items || []);
+  // Ba'zi auditlarda `details.items` massiv emas (obyekt yoki undefined) —
+  // shuning uchun tekshirib olamiz, aks holda butun yurish yiqiladi.
+  const raw = audit.details ? audit.details.items : null;
+  const items = Array.isArray(raw) ? raw : [];
   for (const item of items) {
     if (!item) continue;
     const node = item.node && (item.node.snippet || item.node.selector);
@@ -153,6 +156,15 @@ function perfDetails(report) {
   out.opportunities = out.opportunities.slice(0, 6);
   out.diagnostics = out.diagnostics.slice(0, 6);
   return out;
+}
+
+/** perfDetails xatosi butun hisobotni yo'q qilmasin. */
+function safePerf(report) {
+  try {
+    return perfDetails(report);
+  } catch (error) {
+    return { lcpElement: `tahlil xatosi: ${error.message}`, opportunities: [], diagnostics: [] };
+  }
 }
 
 function markdown(results, failures) {
@@ -271,7 +283,11 @@ function main() {
 
       const failed = [];
       for (const category of DETAIL_CATEGORIES) {
-        for (const item of failedAudits(report, category)) failed.push({ category, ...item });
+        try {
+          for (const item of failedAudits(report, category)) failed.push({ category, ...item });
+        } catch (error) {
+          failed.push({ category, id: '(tahlil xatosi)', weight: 0, score: 0, title: String(error.message), displayValue: '', items: [] });
+        }
       }
 
       results.push({
@@ -283,7 +299,7 @@ function main() {
         tbt: metric(report, 'total-blocking-time'),
         cls: metric(report, 'cumulative-layout-shift'),
         failed,
-        perf: formFactor === 'mobile' ? perfDetails(report) : null,
+        perf: formFactor === 'mobile' ? safePerf(report) : null,
       });
       console.log(`perf ${scores.performance} · a11y ${scores.accessibility} · bp ${scores.bestPractices} · seo ${scores.seo}${failed.length ? ` · buzilgan audit: ${failed.length}` : ''}`);
     }

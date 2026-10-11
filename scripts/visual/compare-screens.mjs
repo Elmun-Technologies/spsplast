@@ -39,23 +39,46 @@ const REPORT_DIR = path.join(ROOT, 'docs', 'audits');
  */
 async function act(page, selector, options = {}) {
   const locator = page.locator(selector).first();
-  await locator.waitFor({ state: 'visible', timeout: 8000 });
-  await locator.click({ timeout: 8000, ...options });
+  await locator.waitFor({ state: 'visible', timeout: 10000 });
+  await locator.click({ timeout: 10000, ...options });
   return locator;
+}
+
+/**
+ * Bosish → holat ochilishini kutish, ochilmasa QAYTA urinish.
+ *
+ * Nega kerak: Playwright `networkidle` dan keyin darhol bosadi, lekin React
+ * gidratatsiyasi sekin mashinada (CI) hali tugamagan bo'lishi mumkin — o'shanda
+ * `onClick` biriktirilmagan, bosish hech narsa qilmaydi (burger `<a href="#menyu">`
+ * bo'lgani uchun xato ham bermaydi). Qayta urinish shu poygani yopadi va haqiqiy
+ * xatoni (element umuman ochilmasa) aniq xabar bilan ko'rsatadi.
+ */
+async function toggle(page, trigger, target, attempts = 4) {
+  const button = page.locator(trigger).first();
+  await button.waitFor({ state: 'visible', timeout: 10000 });
+  const panel = page.locator(target).first();
+
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    await button.click({ timeout: 10000 });
+    try {
+      await panel.waitFor({ state: 'visible', timeout: 3000 });
+      return;
+    } catch {
+      await page.waitForTimeout(600 * attempt); // gidratatsiyani kutamiz
+    }
+  }
+  throw new Error(`${target} ochilmadi (${attempts} urinish, trigger: ${trigger})`);
 }
 
 const ACTIONS = {
   async menu(page) {
-    await act(page, 'a.hd-burger');
-    await page.locator('#sps-mobile-menu').first().waitFor({ state: 'visible', timeout: 8000 });
+    await toggle(page, 'a.hd-burger', '#sps-mobile-menu');
   },
   async filters(page) {
-    await act(page, 'button.hide-1100');
-    await page.locator('.fsheet').first().waitFor({ state: 'visible', timeout: 8000 });
+    await toggle(page, 'button.hide-1100', '.fsheet');
   },
   async quickLead(page) {
-    await act(page, '.sps-card__foot .sps-btn--primary');
-    await page.locator('.sps-modal[role="dialog"]').first().waitFor({ state: 'visible', timeout: 8000 });
+    await toggle(page, '.sps-card__foot .sps-btn--primary', '.sps-modal[role="dialog"]');
   },
   // Ro'yxat/solishtirish sahifalari bo'sh holatda emas, to'ldirilgan holatda
   // suratga olinadi (maketda shunday). Slug'lar qattiq yozilmaydi — haqiqiy
