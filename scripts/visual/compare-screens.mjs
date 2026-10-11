@@ -29,6 +29,9 @@ const OUT_DIR = path.join(ROOT, 'screens-actual');
 const REF_DIR = path.join(ROOT, 'docs', 'design-handoff', 'screens');
 const REPORT_DIR = path.join(ROOT, 'docs', 'audits');
 
+/** To'liq sahifa surati uchun balandlik chegarasi (px) — CI vaqtini asraydi. */
+const MAX_FULL_HEIGHT = 4000;
+
 /**
  * Interaktiv holatlar (maketdagi 02-menyu, 04-filtr, 05-zayafka-oynasi).
  *
@@ -126,7 +129,7 @@ const ACTIONS = {
     await page.evaluate((value) => {
       window.localStorage.setItem('sps_compare', JSON.stringify(value));
     }, slugs);
-    await page.reload({ waitUntil: 'networkidle' });
+    await page.reload({ waitUntil: 'load' });
   },
   async seedRequest(page) {
     const items = seedModels().slice(0, 3).map((m, i) => ({
@@ -138,7 +141,7 @@ const ACTIONS = {
     await page.evaluate((value) => {
       window.localStorage.setItem('sps_request', JSON.stringify(value));
     }, items);
-    await page.reload({ waitUntil: 'networkidle' });
+    await page.reload({ waitUntil: 'load' });
   },
 };
 
@@ -266,7 +269,7 @@ export async function pixelDiff(actualPng, refJpg) {
   }
 }
 
-function markdown(rows, overflows, tapTargets, actionErrors, pageErrors) {
+function markdown(rows, overflows, tapTargets, actionErrors, pageErrors, tallPages) {
   const today = new Date().toISOString().slice(0, 10);
   const lines = [
     '# Vizual tekshiruv: 390 / 1440 px',
@@ -282,12 +285,21 @@ function markdown(rows, overflows, tapTargets, actionErrors, pageErrors) {
     '',
     '## Screenshot ↔ etalon juftligi',
     '',
-    '| Ekran | Oʻlcham | Haqiqiy surat | Etalon (HANDOFF) | Piksel farqi |',
-    '|---|---|---|---|---|',
+    '| Ekran | Oʻlcham | Viewport surati | Toʻliq sahifa | Etalon (HANDOFF) | Piksel farqi |',
+    '|---|---|---|---|---|---|',
   ];
 
   for (const row of rows) {
-    lines.push(`| ${row.id} | ${row.kind} ${row.viewport} | \`${path.relative(ROOT, row.file)}\` | ${row.ref ? `\`${path.relative(ROOT, row.ref)}\`` : '— (etalon yo\'q)'} | ${row.diff === null ? '—' : `${row.diff.toFixed(1)}%`} |`);
+    lines.push(`| ${row.id} | ${row.kind} ${row.viewport} | \`${path.relative(ROOT, row.file)}\` | ${row.fullFile ? `\`${path.relative(ROOT, row.fullFile)}\`` : '—'} | ${row.ref ? `\`${path.relative(ROOT, row.ref)}\`` : '— (etalon yo\'q)'} | ${row.diff === null ? '—' : `${row.diff.toFixed(1)}%`} |`);
+  }
+
+  if (tallPages && tallPages.length) {
+    lines.push('## Balandligi chegaralangan sahifalar', '');
+    lines.push(`To'liq sahifa surati ${MAX_FULL_HEIGHT} px bilan cheklandi (qolgan qismi kesiladi):`);
+    for (const item of tallPages) {
+      lines.push(`- ${item.id} (${item.kind}): scrollHeight ${item.fullHeight}px${item.error ? ` · xato: ${item.error}` : ''}`);
+    }
+    lines.push('');
   }
 
   lines.push('## Sahifa/holat xatolari', '');
@@ -376,6 +388,7 @@ export async function main() {
   const tapTargets = [];
   const actionErrors = [];
   const pageErrors = [];
+  const tallPages = [];
 
   for (const shot of SHOT_PLAN) {
     for (const kind of ['mobile', 'desktop']) {
@@ -389,6 +402,7 @@ export async function main() {
         locale: localePrefix === 'ru' ? 'ru-RU' : localePrefix === 'en' ? 'en-US' : 'uz-UZ',
       });
       const page = await context.newPage();
+      page.setDefaultTimeout(15000);
 
       // Kontekst kengligi haqiqatan qo'llanilganini tekshiramiz: aks holda
       // "mobil" suratlari 1280px da olinib, hisobot yolg'on aytadi.
@@ -398,7 +412,7 @@ export async function main() {
       }
 
       try {
-        await page.goto(`${SITE_ORIGIN}${shot.path}`, { waitUntil: 'networkidle' });
+        await page.goto(`${SITE_ORIGIN}${shot.path}`, { waitUntil: 'load' });
         if (shot.action && ACTIONS[shot.action]) {
           try {
             await ACTIONS[shot.action](page);
@@ -411,8 +425,29 @@ export async function main() {
         }
         await page.waitForTimeout(400); // shrift/animatsiya barqarorlashuvi
 
+        // Etalonlar (screens/) — bitta ekrandagi maket, shuning uchun solishtirish
+        // uchun viewport surati olinadi. To'liq sahifa surati ham saqlanadi, lekin
+        // balandligi cheklanadi: 119 kartali katalog 390px da o'n minglab px bo'lib,
+        // DPR 2 bilan butun CI'ni tiqib qo'yadi (30+ daqiqa).
         const file = path.join(OUT_DIR, `${shot.id}-${kind}.png`);
-        await page.screenshot({ path: file, fullPage: true });
+        await page.screenshot({ path: file, timeout: 30000 });
+
+        const fullFile = path.join(OUT_DIR, `${shot.id}-${kind}-full.png`);
+        try {
+          const fullHeight = await page.evaluate(() => document.documentElement.scrollHeight);
+          if (fullHeight <= MAX_FULL_HEIGHT) {
+            await page.screenshot({ path: fullFile, fullPage: true, timeout: 60000 });
+          } else {
+            await page.screenshot({
+              path: fullFile,
+              clip: { x: 0, y: 0, width: options.viewport.width, height: MAX_FULL_HEIGHT },
+              timeout: 60000,
+            });
+            tallPages.push({ id: shot.id, kind, fullHeight, captured: MAX_FULL_HEIGHT });
+          }
+        } catch (error) {
+          tallPages.push({ id: shot.id, kind, fullHeight: 0, captured: 0, error: String(error.message).split('\n')[0] });
+        }
 
         const overflow = await measureOverflow(page);
         if (overflow.overflow > 0) {
@@ -426,7 +461,7 @@ export async function main() {
 
         const ref = findReference(shot, kind);
         const diff = ref ? await pixelDiff(file, ref) : null;
-        rows.push({ id: shot.id, kind, viewport: size, file, ref, diff: diff ? diff.percent : null });
+        rows.push({ id: shot.id, kind, viewport: size, file, fullFile, ref, diff: diff ? diff.percent : null });
         console.log(`${overflow.overflow > 0 ? 'SCROLL' : '  ok  '} ${shot.id.padEnd(26)} ${kind.padEnd(8)} ${overflow.overflow > 0 ? `+${overflow.overflow}px` : ''}`);
       } catch (error) {
         const message = String(error.message).split('\n')[0];
@@ -449,7 +484,7 @@ export async function main() {
   const narrowOverflows = [];
   for (const shot of SHOT_PLAN) {
     try {
-      await narrowPage.goto(`${SITE_ORIGIN}${shot.path}`, { waitUntil: 'networkidle' });
+      await narrowPage.goto(`${SITE_ORIGIN}${shot.path}`, { waitUntil: 'load' });
       const overflow = await measureOverflow(narrowPage);
       if (overflow.overflow > 0) narrowOverflows.push({ id: shot.id, kind: '360px', ...overflow });
     } catch (error) {
@@ -461,7 +496,7 @@ export async function main() {
   await browser.close();
 
   const file = path.join(REPORT_DIR, `visual-${new Date().toISOString().slice(0, 10)}.md`);
-  fs.writeFileSync(file, markdown(rows, [...overflows, ...narrowOverflows], tapTargets, actionErrors, pageErrors));
+  fs.writeFileSync(file, markdown(rows, [...overflows, ...narrowOverflows], tapTargets, actionErrors, pageErrors, tallPages));
   console.log(`\nsuratlar: ${OUT_DIR} (${rows.length} fayl)`);
   console.log(`hisobot: ${path.relative(ROOT, file)}`);
 
