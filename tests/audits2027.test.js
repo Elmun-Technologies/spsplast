@@ -239,8 +239,19 @@ test('7. Screenshot rejasi haqiqiy etalon fayllarga bog\'langan', async () => {
   const { SHOT_PLAN, VIEWPORTS } = await loadRoutes();
   const screens = path.join(ROOT, 'docs', 'design-handoff', 'screens');
 
-  assert.strictEqual(VIEWPORTS.mobile.width, 390, 'mobil kenglik 390 emas');
-  assert.strictEqual(VIEWPORTS.desktop.width, 1440, 'desktop kenglik 1440 emas');
+  // Playwright `browser.newContext()` da width/height **viewport obyekti ichida**
+  // bo'lishi shart; tekis (flat) berilsa e'tiborsiz qoladi va standart 1280×720
+  // ishlatiladi — "mobil" suratlari desktop bo'lib chiqadi. Shu regression'ni
+  // ushlab turish uchun tuzilma ham tekshiriladi.
+  for (const kind of ['mobile', 'desktop']) {
+    const options = VIEWPORTS[kind];
+    assert.ok(options && options.viewport, `${kind}: viewport obyekti yo'q (flat width/height Playwright'da ishlamaydi)`);
+    assert.strictEqual(typeof options.viewport.width, 'number', `${kind}: viewport.width son emas`);
+    assert.strictEqual(typeof options.viewport.height, 'number', `${kind}: viewport.height son emas`);
+    assert.ok(!('width' in options), `${kind}: width yuqori darajada qolgan — newContext uni e'tiborsiz qoldiradi`);
+  }
+  assert.strictEqual(VIEWPORTS.mobile.viewport.width, 390, 'mobil kenglik 390 emas');
+  assert.strictEqual(VIEWPORTS.desktop.viewport.width, 1440, 'desktop kenglik 1440 emas');
 
   // Har bir o'lcham uchun etalon ANIQ topilishi kerak: mobil va desktop
   // to'plamlarida raqamlash farq qiladi (mobil 03-katalog, desktop 02-katalog),

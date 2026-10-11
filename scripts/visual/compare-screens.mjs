@@ -381,9 +381,21 @@ export async function main() {
     for (const kind of ['mobile', 'desktop']) {
       if (!shot[kind]) continue;
 
-      const viewport = VIEWPORTS[kind];
-      const context = await browser.newContext({ ...viewport, locale: shot.path.slice(1, 3) === 'ru' ? 'ru-RU' : shot.path.slice(1, 3) === 'en' ? 'en-US' : 'uz-UZ' });
+      const options = VIEWPORTS[kind];
+      const size = `${options.viewport.width}×${options.viewport.height}`;
+      const localePrefix = shot.path.slice(1, 3);
+      const context = await browser.newContext({
+        ...options,
+        locale: localePrefix === 'ru' ? 'ru-RU' : localePrefix === 'en' ? 'en-US' : 'uz-UZ',
+      });
       const page = await context.newPage();
+
+      // Kontekst kengligi haqiqatan qo'llanilganini tekshiramiz: aks holda
+      // "mobil" suratlari 1280px da olinib, hisobot yolg'on aytadi.
+      const actualWidth = await page.evaluate(() => window.innerWidth);
+      if (actualWidth !== options.viewport.width) {
+        throw new Error(`viewport qo'llanilmadi: kutilgan ${options.viewport.width}, haqiqiy ${actualWidth}`);
+      }
 
       try {
         await page.goto(`${SITE_ORIGIN}${shot.path}`, { waitUntil: 'networkidle' });
@@ -414,11 +426,11 @@ export async function main() {
 
         const ref = findReference(shot, kind);
         const diff = ref ? await pixelDiff(file, ref) : null;
-        rows.push({ id: shot.id, kind, viewport: `${viewport.width}×${viewport.height}`, file, ref, diff: diff ? diff.percent : null });
+        rows.push({ id: shot.id, kind, viewport: size, file, ref, diff: diff ? diff.percent : null });
         console.log(`${overflow.overflow > 0 ? 'SCROLL' : '  ok  '} ${shot.id.padEnd(26)} ${kind.padEnd(8)} ${overflow.overflow > 0 ? `+${overflow.overflow}px` : ''}`);
       } catch (error) {
         const message = String(error.message).split('\n')[0];
-        rows.push({ id: shot.id, kind, viewport: `${viewport.width}×${viewport.height}`, file: `xato: ${message}`, ref: findReference(shot, kind), diff: null });
+        rows.push({ id: shot.id, kind, viewport: size, file: `xato: ${message}`, ref: findReference(shot, kind), diff: null });
         pageErrors.push({ id: shot.id, kind, message });
         console.log(`XATO   ${shot.id} (${kind}): ${message}`);
       } finally {
@@ -428,8 +440,12 @@ export async function main() {
   }
 
   // HANDOFF 7: 360–390 px oralig'ida ham gorizontal scroll bo'lmasligi kerak.
-  const narrow = await browser.newContext({ viewport: { width: 360, height: 800 }, isMobile: true, hasTouch: true });
+  const narrow = await browser.newContext({ viewport: { width: 360, height: 800 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 });
   const narrowPage = await narrow.newPage();
+  const narrowWidth = await narrowPage.evaluate(() => window.innerWidth);
+  if (narrowWidth !== 360) {
+    console.log(`OGOHLANTIRISH: 360px kontekst qo'llanilmadi (innerWidth=${narrowWidth})`);
+  }
   const narrowOverflows = [];
   for (const shot of SHOT_PLAN) {
     try {

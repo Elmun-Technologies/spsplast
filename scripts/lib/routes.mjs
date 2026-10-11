@@ -107,7 +107,15 @@ export const SHOT_PLAN = [
   { id: 'en-desktop-bosh-sahifa', path: '/en', desktop: true, ref: 'en-bosh-sahifa' },
 ];
 
+/**
+ * Playwright kontekst parametrlari.
+ *
+ * MUHIM: `width`/`height` **`viewport` obyekti ichida** bo'lishi shart —
+ * `browser.newContext({ width: 390 })` e'tiborsiz qoldiriladi va Playwright
+ * standart 1280×720 ni ishlatadi (shunda "mobil" suratlari aslida desktop
+ * bo'lib chiqadi, `.hd-burger` esa `display: none` bo'ladi).
+ */
 export const VIEWPORTS = {
-  mobile: { width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true },
-  desktop: { width: 1440, height: 900, deviceScaleFactor: 1, isMobile: false, hasTouch: false },
+  mobile: { viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true },
+  desktop: { viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1, isMobile: false, hasTouch: false },
 };
