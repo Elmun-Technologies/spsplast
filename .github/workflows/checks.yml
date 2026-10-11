@@ -1,0 +1,104 @@
+name: checks
+
+# Stage 6 tekshiruvlari CI'da: sandbox'da brauzer yo'q edi, GitHub runner'da bor —
+# shuning uchun skrinshot solishtirish va Lighthouse shu yerda haqiqatan yuradi.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Bog'liqliklar
+        run: npm ci --no-audit --no-fund
+
+      - name: TypeScript
+        run: npm run typecheck
+
+      - name: ESLint
+        run: npm run lint
+
+      - name: Testlar (node:test)
+        run: npm test
+
+      - name: Build (statik sahifalar)
+        run: npm run build
+
+      - name: Serverni ishga tushirish
+        run: |
+          npm run start -- -H 127.0.0.1 -p 3000 > /tmp/next-start.log 2>&1 &
+          for i in $(seq 1 90); do
+            code=$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:3000/uz || true)
+            if [ "$code" = "200" ]; then echo "server tayyor (${i}s)"; exit 0; fi
+            sleep 1
+          done
+          echo "server ishga tushmadi:"; tail -40 /tmp/next-start.log; exit 1
+
+      - name: SEO/DOM auditi (jsdom)
+        run: npm run audit:seo
+
+      - name: A11y auditi (axe-core)
+        run: npm run audit:a11y
+
+      - name: Playwright chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Screenshotlar — 390 / 1440 / 360 px
+        run: npm run shots
+
+      - name: Lighthouse (mobil + desktop)
+        # CI runner'da Performance ballari shovqinli bo'ladi — byudjet buzilsa
+        # job qizarmaydi, hisobot artefaktda ko'rinadi.
+        continue-on-error: true
+        run: npm run lighthouse
+
+      - name: Natijalarni run summary'ga yozish
+        if: always()
+        run: |
+          {
+            echo "## Tekshiruv natijalari"
+            echo
+            for f in docs/audits/seo-dom-*.md docs/audits/a11y-*.md docs/audits/visual-*.md docs/audits/lighthouse-*.md; do
+              [ -f "$f" ] || continue
+              echo "### $(basename "$f")"
+              echo
+              head -24 "$f"
+              echo
+            done
+            if [ -d screens-actual ]; then
+              echo "### Screenshotlar"
+              echo
+              echo "\`screens-actual/\` papkasi artefakt sifatida yuklandi (tekshiruv-hisobotlari)."
+              echo "Etalonlar: \`docs/design-handoff/screens/\`."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Hisobotlar va screenshotlar (artefakt)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tekshiruv-hisobotlari
+          path: |
+            docs/audits/
+            screens-actual/
+          if-no-files-found: warn
+          retention-days: 30

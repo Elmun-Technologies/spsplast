@@ -52,8 +52,9 @@ scripts/lib/routes.mjs       # audit routes (AUDIT_ROUTES) + screenshot plan (SH
 scripts/lib/dom-rules.mjs    # the SEO/DOM rule set itself (unit-tested by tests/audits2027.test.js)
 scripts/audit-seo-dom.mjs    # jsdom audit: meta, hreflang, headings, links, forms, JSON-LD, weight
 scripts/audit-a11y.mjs       # axe-core (WCAG 2.1 AA) audit over the same routes
-scripts/visual/compare-screens.mjs  # Playwright: 390/1440/360 shots + overflow + tap targets
-scripts/visual/lighthouse.mjs       # Playwright-free Lighthouse runner with HANDOFF §7 budgets
+scripts/visual/compare-screens.mjs  # Playwright: 390/1440/360 shots + overflow + tap targets + pixelmatch
+scripts/visual/lighthouse.mjs       # Lighthouse CLI runner with HANDOFF §7 budgets
+.github/workflows/checks.yml        # CI: gates + audits + Playwright shots + Lighthouse (artifacts)
 docs/audits/                 # GENERATED reports (seo-dom-*, a11y-*, visual-*, lighthouse-*)
 docs/checks.md               # how to verify HANDOFF §7 acceptance criteria (what runs where)
 docs/unresolved-questions.md # open business questions + accepted deviations with reasons
@@ -209,6 +210,17 @@ npm run lighthouse     # NEEDS a browser: npm i -D lighthouse
 AUDIT_ORIGIN=https://<preview>.vercel.app npm run audit   # audit a deployed preview
 LH_ORIGIN=https://<preview>.vercel.app npm run lighthouse
 ```
+
+**CI** (`.github/workflows/checks.yml`) runs all of the above on every PR and push to
+`main`, including the browser steps: it installs chromium (`npx playwright install
+--with-deps chromium`), takes the 390/1440/360 shots, runs Lighthouse
+(`continue-on-error` — CI perf scores are noisy), writes the report heads into the run
+summary and uploads `docs/audits/` + `screens-actual/` as the `tekshiruv-hisobotlari`
+artifact (30 days). The `shots` step is strict: horizontal scroll fails the job.
+
+Audit-only devDependencies: `axe-core`, `jsdom` (no browser needed); browser checks add
+`playwright`, `lighthouse`, and `pixelmatch` + `pngjs` + `sharp` (optional pixel diff —
+`pixelDiff()` returns `null` and the report prints `—` when they are absent).
 
 ## Texnik qoidalar (Stage 2–3 da tasdiqlangan)
 

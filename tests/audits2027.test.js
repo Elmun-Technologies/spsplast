@@ -303,3 +303,33 @@ test('9. Yozilgan hisobotlar toza (0 xato)', () => {
   assert.ok(/buzilish: \*\*0\*\*/.test(a11y), `a11y hisobotida buzilish bor: ${a11yReport}`);
   assert.ok(/## Jiddiy buzilishlar yo'q/.test(a11y), 'a11y hisobotida jiddiy buzilish bor');
 });
+
+test('10. Piksel solishtirish yordamchisi ishlaydi (sharp + pngjs + pixelmatch)', async (t) => {
+  let sharp, compareScreens;
+  try {
+    ({ default: sharp } = await import('sharp'));
+    compareScreens = await import(path.join(__dirname, '..', 'scripts', 'visual', 'compare-screens.mjs'));
+  } catch {
+    t.skip('sharp/playwright devDependency o\'rnatilmagan — CI\'da tekshiriladi');
+    return;
+  }
+
+  const os = await import('node:os');
+  const ref = path.join(ROOT, 'docs', 'design-handoff', 'screens', 'mobile', '01-bosh-sahifa.jpg');
+  if (!fs.existsSync(ref)) { t.skip('etalon fayl yo\'q'); return; }
+
+  const same = path.join(os.tmpdir(), `audit-same-${process.pid}.png`);
+  await sharp(ref).png().toFile(same);
+
+  try {
+    const identical = await compareScreens.pixelDiff(same, ref);
+    assert.ok(identical, 'pixelDiff null qaytardi — kutubxonalar ulanmagan (pngjs CJS interop?)');
+    assert.ok(identical.percent < 1, `bir xil rasm farqi ${identical.percent}% — 1% dan kichik bo\'lishi kerak`);
+
+    // Modul import qilinganda Playwright oqimi ishga tushmasligi kerak
+    // (aks holda test brauzer o\'rnatishni talab qiladi).
+    assert.strictEqual(typeof compareScreens.main, 'function');
+  } finally {
+    fs.rmSync(same, { force: true });
+  }
+});

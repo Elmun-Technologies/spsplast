@@ -44,26 +44,45 @@ const ACTIONS = {
     await page.waitForSelector('[role="dialog"]');
   },
   // Ro'yxat/solishtirish sahifalari bo'sh holatda emas, to'ldirilgan holatda
-  // suratga olinadi (maketda shunday): localStorage'ga test ma'lumoti yozamiz.
+  // suratga olinadi (maketda shunday). Slug'lar qattiq yozilmaydi — haqiqiy
+  // katalogdan olinadi (`seedModels()`), aks holda ma'lumot o'zgarganda
+  // suratlar bo'sh holatni ko'rsatib qo'yadi.
   async seedCompare(page) {
-    await page.evaluate(() => {
-      window.localStorage.setItem('sps_compare', JSON.stringify(['01-monako', '15-floriya']));
-    });
+    const slugs = seedModels().map((m) => m.slug).slice(0, 2);
+    await page.evaluate((value) => {
+      window.localStorage.setItem('sps_compare', JSON.stringify(value));
+    }, slugs);
     await page.reload({ waitUntil: 'networkidle' });
   },
   async seedRequest(page) {
-    await page.evaluate(() => {
-      window.localStorage.setItem(
-        'sps_request',
-        JSON.stringify([
-          { slug: '01-monako', code: 'G001', m2: 120 },
-          { slug: '15-floriya', code: 'G002', m2: 80 },
-        ]),
-      );
-    });
+    const items = seedModels().slice(0, 3).map((m, i) => ({
+      slug: m.slug,
+      code: m.code,
+      name: m.name.uz,
+      m2: [120, 80, 45][i] ?? 50,
+    }));
+    await page.evaluate((value) => {
+      window.localStorage.setItem('sps_request', JSON.stringify(value));
+    }, items);
     await page.reload({ waitUntil: 'networkidle' });
   },
 };
+
+/**
+ * Solishtirish/ro'yxat suratlari uchun haqiqiy modellar: rasmi bor ilk 3 ta.
+ * Format `src/lib/store/spsLists.ts` dagi `RequestItem`/`sps_compare` bilan bir xil.
+ */
+let cachedSeeds = null;
+function seedModels() {
+  if (cachedSeeds) return cachedSeeds;
+  const file = path.join(ROOT, 'data', 'models-2027.json');
+  const models = JSON.parse(fs.readFileSync(file, 'utf8')).models || [];
+  cachedSeeds = models.filter((m) => m.images && m.images.scene).slice(0, 3);
+  if (cachedSeeds.length < 2) {
+    cachedSeeds = models.slice(0, 3); // rasmlar kam bo'lsa ham holat to'ldiriladi
+  }
+  return cachedSeeds;
+}
 
 /** Gorizontal scroll va uni keltirib chiqargan elementlar. */
 async function measureOverflow(page) {
@@ -131,14 +150,17 @@ function findReference(id, kind) {
 }
 
 /** pixelmatch ixtiyoriy: o'rnatilgan bo'lsa piksel farqini hisoblaydi. */
-async function pixelDiff(actualPng, refJpg) {
+export async function pixelDiff(actualPng, refJpg) {
   try {
-    const [{ default: pixelmatch }, { default: PNG }, sharp] = await Promise.all([
+    // pngjs — CommonJS: `default` bu butun eksport obyekti, shuning uchun
+    // klassni nom bilan olamiz (`PNG.sync.read`), aks holda undefined bo'ladi.
+    const [{ default: pixelmatch }, { PNG }, sharpModule] = await Promise.all([
       import('pixelmatch'),
       import('pngjs'),
       import('sharp').catch(() => null),
     ]);
-    if (!sharp) return null;
+    const sharp = sharpModule ? (sharpModule.default || sharpModule) : null;
+    if (!sharp || !pixelmatch || !PNG) return null;
 
     const actual = PNG.sync.read(fs.readFileSync(actualPng));
     const refBuffer = await sharp(refJpg).resize(actual.width, actual.height, { fit: 'fill' }).png().toBuffer();
@@ -214,7 +236,7 @@ function markdown(rows, overflows, tapTargets) {
   return lines.join('\n');
 }
 
-async function main() {
+export async function main() {
   let chromium;
   try {
     ({ chromium } = await import('playwright'));
@@ -304,7 +326,10 @@ async function main() {
   }
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+// Modul test'dan import qilinganda (pixelDiff'ni sinash uchun) ishga tushmasligi kerak.
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  main().catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+  });
+}

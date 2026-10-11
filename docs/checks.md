@@ -29,6 +29,19 @@ Hisobotlar `docs/audits/` ga yoziladi (`seo-dom-<sana>.md`, `a11y-<sana>.md`,
 `visual-<sana>.md`, `lighthouse-<sana>.md`). Skrinshotlar `screens-actual/`
 (gitignore), xom Lighthouse JSON `docs/audits/lighthouse/*.json` (gitignore).
 
+**Hammasi CI'da ham yuradi** — `.github/workflows/checks.yml` (har PR va `main` ga push):
+typecheck → lint → 93 test → build → server → `audit:seo` → `audit:a11y` →
+Playwright chromium → `shots` (390/1440/360) → `lighthouse`. Natijalar:
+
+- **Run summary** da hisobotlarning bosh qismi (ballar, gorizontal scroll, tegish maydonlari);
+- **`tekshiruv-hisobotlari`** artefaktida to'liq hisobotlar + `screens-actual/` skrinshotlari
+  (30 kun saqlanadi) → PR'ning *Checks → checks → Artifacts* bo'limidan yuklab olinadi va
+  `docs/design-handoff/screens/` dagi etalonlar bilan yonma-yon qo'yiladi.
+
+Lighthouse qadami `continue-on-error`: CI runner'da Performance ballari shovqinli,
+shuning uchun byudjet buzilsa job qizarmaydi — sonlar hisobotda ko'rinadi. Screenshot
+qadami qat'iy: gorizontal scroll topilsa job qizaradi (bu deterministik xato).
+
 ## Qabul mezonlari (HANDOFF §7) va ularning holati
 
 | # | Mezon | Qanday tekshiriladi | Holat |
