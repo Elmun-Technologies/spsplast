@@ -1,0 +1,168 @@
+name: checks
+
+# Stage 6 tekshiruvlari CI'da: agent sandbox'ida brauzer yo'q edi, GitHub runner'da
+# bor — shuning uchun skrinshot solishtirish va Lighthouse shu yerda haqiqatan yuradi.
+# Natijalar run summary'ga, PR izohiga va artefaktga tushadi.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Bog'liqliklar
+        run: npm ci --no-audit --no-fund
+
+      - name: TypeScript
+        run: npm run typecheck
+
+      - name: ESLint
+        run: npm run lint
+
+      - name: Testlar (node:test)
+        run: npm test
+
+      - name: Build (statik sahifalar)
+        run: npm run build
+
+      - name: Serverni ishga tushirish
+        run: |
+          npm run start -- -H 127.0.0.1 -p 3000 > /tmp/next-start.log 2>&1 &
+          for i in $(seq 1 90); do
+            code=$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:3000/uz || true)
+            if [ "$code" = "200" ]; then echo "server tayyor (${i}s)"; exit 0; fi
+            sleep 1
+          done
+          echo "server ishga tushmadi:"; tail -40 /tmp/next-start.log; exit 1
+
+      - name: SEO/DOM auditi (jsdom)
+        run: npm run audit:seo 2>&1 | tee /tmp/audit-seo.log
+
+      - name: A11y auditi (axe-core)
+        run: npm run audit:a11y 2>&1 | tee /tmp/audit-a11y.log
+
+      - name: Playwright chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Screenshotlar — 390 / 1440 / 360 px
+        # Qat'iy qadam (gorizontal scroll yoki ochilmagan holat qizil belgilanadi),
+        # lekin job'ni to'xtatmaydi: aks holda Lighthouse va PR izohi ishlamaydi,
+        # demak muammoni ko'rsatadigan yagona kanal ham yo'qoladi.
+        continue-on-error: true
+        run: npm run shots 2>&1 | tee /tmp/shots.log
+
+      - name: Lighthouse (mobil + desktop)
+        # Screenshot qadami yiqilsa ham yuradi; CI ballari shovqinli bo'lgani uchun
+        # byudjet buzilishi job'ni qizartirmaydi — sonlar hisobot va izohda ko'rinadi.
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        run: npm run lighthouse 2>&1 | tee /tmp/lighthouse.log
+
+      - name: Hisobotlarni yig'ish (run summary)
+        if: always()
+        run: |
+          {
+            echo "## Tekshiruv natijalari"
+            echo
+            for f in docs/audits/seo-dom-*.md docs/audits/a11y-*.md docs/audits/visual-*.md docs/audits/lighthouse-*.md; do
+              [ -f "$f" ] || continue
+              echo "### $(basename "$f")"
+              echo
+              sed -n '1,40p' "$f"
+              echo
+            done
+            echo "### Qadamlar loglari (oxiri)"
+            for log in /tmp/audit-seo.log /tmp/audit-a11y.log /tmp/shots.log /tmp/lighthouse.log; do
+              [ -f "$log" ] || continue
+              echo
+              echo "#### $(basename "$log")"
+              echo
+              echo '```'
+              tail -n 20 "$log"
+              echo '```'
+            done
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Natijalarni PR izohiga yozish
+        # Izoh orqali natijalar GitHub API'dan ham o'qiladi (artefakt/log'lar
+        # ba'zi muhitlarda yuklab olinmaydi).
+        if: ${{ always() && github.event_name == 'pull_request' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          out=/tmp/ci-summary.md
+          {
+            echo "<!-- spsplast-checks -->"
+            echo "### Tekshiruv natijalari (CI run ${{ github.run_id }}, ${{ github.sha }})"
+            echo
+            for f in docs/audits/seo-dom-*.md docs/audits/a11y-*.md docs/audits/visual-*.md docs/audits/lighthouse-*.md; do
+              [ -f "$f" ] || continue
+              echo "#### $(basename "$f")"
+              echo
+              # Lighthouse hisoboti to'liq chiqadi: "ballni tushirgan auditlar"
+              # bo'limi faylning oxirida — kesilsa, sabab ko'rinmay qoladi.
+              case "$f" in
+                *lighthouse-*) sed -n '1,300p' "$f" ;;
+                # Vizual hisobotda 28 qatorli surat jadvali bor; undan keyin
+                # tegish maydoni (44px) bo'limi keladi — qaror uchun ko'rinishi shart.
+                *visual-*) sed -n '1,150p' "$f" ;;
+                *a11y-*) sed -n '1,20p' "$f" ;;
+                *) sed -n '1,45p' "$f" ;;
+              esac
+              echo
+            done
+            for log in /tmp/shots.log /tmp/lighthouse.log; do
+              [ -f "$log" ] || continue
+              echo
+              echo "#### $(basename "$log") (oxiri)"
+              echo
+              echo '```'
+              tail -n 40 "$log"
+              echo '```'
+            done
+          } > "$out"
+
+          existing=$(gh api "repos/$REPO/issues/$PR_NUMBER/comments" \
+            --jq '[.[] | select(.body | contains("<!-- spsplast-checks -->"))] | last | .id' 2>/dev/null || true)
+          if [ -n "$existing" ] && [ "$existing" != "null" ]; then
+            gh api -X PATCH "repos/$REPO/issues/comments/$existing" -F body=@"$out" --jq .id > /dev/null
+            echo "PR izohi yangilandi: #$existing"
+          else
+            gh api -X POST "repos/$REPO/issues/$PR_NUMBER/comments" -F body=@"$out" --jq .id > /dev/null
+            echo "PR izohi qo'shildi"
+          fi
+
+      - name: Hisobotlar va screenshotlar (artefakt)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tekshiruv-hisobotlari
+          path: |
+            docs/audits/
+            screens-actual/
+            /tmp/shots.log
+            /tmp/lighthouse.log
+          if-no-files-found: warn
+          retention-days: 30

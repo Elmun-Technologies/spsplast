@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Sahifa topilmadi</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/sps/tokens.css">
+<link rel="stylesheet" href="ds/sps/components/bundle.css">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:var(--red-ink)}
+.nf{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center}
+.nf-num{font:600 160px/1 var(--font-display);letter-spacing:-.05em;color:var(--ink)}
+.nf-num span{color:var(--red)}
+.nf-img{aspect-ratio:4/3;border-radius:14px;overflow:hidden;position:relative}
+.nf-img img{width:100%;height:100%;object-fit:cover}
+.srch{display:flex;align-items:center;gap:10px;height:52px;border:1px solid var(--line-strong);border-radius:999px;padding:0 6px 0 18px;background:#fff;max-width:520px}
+.srch input{flex:1;min-width:0;border:0;outline:0;font:400 16px/24px var(--font-sans);background:none}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip-a{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);text-decoration:none;font:500 14px/20px var(--font-sans)}
+.chip-a i{font-style:normal;color:var(--ink-muted);font-size:13px}
+@media (max-width:900px){.nf{grid-template-columns:minmax(0,1fr);gap:28px}.nf-num{font-size:96px}.nf-img{order:-1;aspect-ratio:16/10}}
+</style>
+</helmet>
+<div class="sps" style="background: var(--surface)">
+<dc-import name="Header" current="home" hint-size="100%,117px"></dc-import>
+<section style="background: var(--surface-alt); padding-block: 64px 80px">
+<div class="wrap nf">
+<div style="display: flex; flex-direction: column; gap: 20px">
+<div class="nf-num" aria-hidden="true">4<span>0</span>4</div>
+<h1 class="h1">Bu sahifa topilmadi</h1>
+<p class="lead muted">Havola eskirgan bo'lishi mumkin — saytimiz yangilandi va eski mahsulot sahifalari katalogga ko'chirildi. Qolipni nomi yoki kodi bo'yicha qidiring.</p>
+<label class="srch"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg><input type="search" placeholder="Model nomi yoki kodi: Monako, 70" aria-label="Katalogdan qidirish"><span class="sps-btn sps-btn--dark sps-btn--sm">Qidirish</span></label>
+<div class="chips">
+<a class="chip-a" href="Catalog.dc.html">Trotuar plitkasi <i>91</i></a>
+<a class="chip-a" href="Catalog.dc.html">Fasad <i>26</i></a>
+<a class="chip-a" href="Catalog.dc.html">Zabor panellari <i>10</i></a>
+<a class="chip-a" href="Catalog.dc.html">Dekor panellar <i>18</i></a>
+<a class="chip-a" href="Catalog.dc.html">Skameyka oyoqlari <i>7</i></a>
+</div>
+<div class="cta-row" style="display: flex; gap: 12px; flex-wrap: wrap; padding-top: 8px"><a class="sps-btn sps-btn--primary sps-btn--lg" href="Catalog.dc.html">Katalogni ochish</a><a class="sps-btn sps-btn--outline sps-btn--lg" href="Main.dc.html">Bosh sahifa</a></div>
+</div>
+<div class="nf-img"><img src="/_blob/a3dac3ade34ae0c4f8c326b17b0a07f3" alt="Monako plitkasi terilgan"></div>
+</div>
+</section>
+<section style="padding-block: 56px">
+<div class="wrap" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 6px"><b style="font: 600 20px/28px var(--font-sans)">Kerakli modelni topa olmayapsizmi?</b><span class="body muted">Rasm yoki o'lchamni Telegram'ga yuboring — menejer mos qolipni topib beradi.</span></div>
+<div class="cta-row" style="display: flex; gap: 12px; flex-wrap: wrap"><a class="sps-btn sps-btn--outline" href="#">Telegram · @spsplastuz</a><a class="sps-btn sps-btn--outline" href="tel:+998983007772">+998 98 300 77 72</a></div>
+</div>
+</section>
+<dc-import name="Footer" hint-size="100%,460px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1450}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

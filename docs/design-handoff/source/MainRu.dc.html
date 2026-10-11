@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>SPS — qoliplar katalogi (bosh sahifa)</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/sps/tokens.css">
+<link rel="stylesheet" href="ds/sps/components/bundle.css">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:var(--red-ink)}
+.band{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:48px;align-items:end}
+.secs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.st{position:relative;display:block;height:150px;overflow:hidden;background:var(--surface-ink);color:#fff;text-decoration:none}
+.st img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.72;transition:transform .3s ease-out,opacity .3s}
+.st:hover img{transform:scale(1.04);opacity:.6}
+.st::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,20,20,0) 30%,rgba(20,20,20,.88) 100%)}
+.st div{position:absolute;z-index:1;left:14px;right:14px;bottom:12px;display:flex;flex-direction:column;gap:2px}
+.hs{display:flex;flex-wrap:wrap;gap:16px 40px;border-top:1px solid var(--line)}
+.hs div{padding:18px 16px 0 0;display:flex;flex-direction:column;gap:6px}
+.hs b{font:600 36px/40px var(--font-display);letter-spacing:-.02em;white-space:nowrap;color:var(--ink)}
+.hs b small{font:500 14px/18px var(--font-mono);margin-left:4px;color:var(--ink-muted);letter-spacing:0}
+.hs span{font:400 14px/20px var(--font-sans);color:var(--ink-muted)}
+.usp{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--line);background:var(--surface)}
+.usp>div{padding:24px;border-right:1px solid var(--line);display:flex;gap:14px;align-items:flex-start}
+.usp>div:last-child{border-right:0}
+.usp svg{flex:none;color:var(--red-ink)}
+.steps3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:2px solid var(--ink)}
+.steps3>div{padding:24px 24px 0 0;display:flex;flex-direction:column;gap:10px}
+@media (max-width:1100px){.band{grid-template-columns:minmax(0,1fr);gap:24px}.secs{grid-template-columns:repeat(3,minmax(0,1fr))}.usp{grid-template-columns:repeat(2,minmax(0,1fr))}.usp>div:nth-child(2){border-right:0}.usp>div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+@media (max-width:640px){.hero-h{font-size:30px!important;line-height:34px!important}.hero-p{font-size:16px!important;line-height:24px!important}.hs{gap:24px}.hs div{padding:14px 0 0}.hs b{font-size:22px;line-height:28px;letter-spacing:-.01em}.hs b small{font-size:11px}.hs span{font-size:12px;line-height:16px}.secs{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.secs .st:first-child{grid-column:1/-1;height:150px}.st{height:110px}.st div b{font-size:15px!important}.cta-row>a{flex:1 1 100%}.usp>div{padding:18px 16px}.mob-hide{display:none}.usp{grid-template-columns:minmax(0,1fr)}.usp>div{border-right:0!important;border-bottom:1px solid var(--line)}.steps3{grid-template-columns:minmax(0,1fr)}}
+</style>
+</helmet>
+<div class="sps" style="background: var(--surface)">
+<dc-import name="HeaderRu" current="home" hint-size="100%,117px"></dc-import>
+
+<section style="background: var(--surface-alt); color: var(--ink); padding-block: 48px 40px">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 28px">
+<div class="band">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div class="sps-eyebrow"><b>SPS</b> Завод форм · Ташкент</div>
+<h1 class="disp-l hero-h">Пластиковые формы для тротуарной плитки и фасада — 152 модели.</h1>
+<p class="lead hero-p muted">Выберите модель и оставьте заявку — менеджер рассчитает количество форм и цену. Напрямую с завода, доставка в 8 стран.</p>
+</div>
+<div class="hs">
+<div><b>20<small>лет</small></b><span>Опыт</span></div>
+<div><b>18 000<small>m²</small></b><span>Мощность в месяц</span></div>
+<div><b>8</b><span>Стран экспорта</span></div>
+</div>
+</div>
+<div class="secs">
+<a class="st" href="Catalog.dc.html"><img src="/_blob/1d9dca84af289ecdaa69b4fafe919e7c" alt=""><div><b style="font: 600 17px/20px var(--font-display)">Тротуарная плитка</b><span class="mono" style="font-size: 12px; color: #ff8a8e">91 моделей</span></div></a>
+<a class="st" href="Catalog.dc.html"><img src="/_blob/b5560e5c0b1ac0b9ef7c851b42a5f031" alt=""><div><b style="font: 600 17px/20px var(--font-display)">Фасад</b><span class="mono" style="font-size: 12px; color: #ff8a8e">26 моделей</span></div></a>
+<a class="st" href="Catalog.dc.html"><img src="/_blob/cc505085c93449c96a834da185b2a293" alt=""><div><b style="font: 600 17px/20px var(--font-display)">Заборные панели</b><span class="mono" style="font-size: 12px; color: #ff8a8e">10 моделей</span></div></a>
+<a class="st" href="Catalog.dc.html"><img src="/_blob/a97ba7109d5c4f6b384e3145632ce853" alt=""><div><b style="font: 600 17px/20px var(--font-display)">Декоративные панели</b><span class="mono" style="font-size: 12px; color: #ff8a8e">18 моделей</span></div></a>
+<a class="st" href="Catalog.dc.html"><img src="/_blob/4e9a4cc036673dbacf9df18cda099374" alt=""><div><b style="font: 600 17px/20px var(--font-display)">Ножки скамеек</b><span class="mono" style="font-size: 12px; color: #ff8a8e">7 моделей</span></div></a>
+</div>
+</div>
+</section>
+
+<section style="padding-block: 40px 72px">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 8px"><div class="sps-eyebrow"><b>КАТАЛОГ</b> Популярные модели</div><h2 class="h1">Выберите форму</h2></div>
+<a class="sps-btn sps-btn--outline mob-hide" href="Catalog.dc.html">Весь каталог · 152 модели</a>
+</div>
+<dc-import name="ShopRu" limit="{{twelve}}" compare-demo="{{no}}" no-search="{{yes}}" hint-size="100%,2300px"></dc-import>
+</div>
+</section>
+
+<section style="padding-block: 0 72px">
+<div class="wrap">
+<div class="usp">
+<div><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21V9l6 3V9l6 3V5h6v16z"></path></svg><div><b style="font: 600 16px/22px var(--font-sans)">Напрямую с завода</b><p style="margin: 4px 0 0; font-size: 14px; line-height: 20px; color: var(--ink-muted)">Собственный завод в Ташкенте, без посредников.</p></div></div>
+<div><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="8" height="8"></rect><rect x="13" y="13" width="8" height="8"></rect><path d="M13 7h8M3 17h8"></path></svg><div><b style="font: 600 16px/22px var(--font-sans)">Форма + плитка + результат</b><p style="margin: 4px 0 0; font-size: 14px; line-height: 20px; color: var(--ink-muted)">У каждой модели — фото формы, готовое изделие и вид в укладке.</p></div></div>
+<div><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="3" width="16" height="18" rx="1"></rect><path d="M8 7h8M8 11h2M12 11h2M16 11h0M8 15h2M12 15h2M8 18h8"></path></svg><div><b style="font: 600 16px/22px var(--font-sans)">Расчёт количества форм</b><p style="margin: 4px 0 0; font-size: 14px; line-height: 20px; color: var(--ink-muted)">Количество и вес форм по дневному объёму в м².</p></div></div>
+<div><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7"></path><circle cx="7" cy="18" r="2"></circle><circle cx="17" cy="18" r="2"></circle></svg><div><b style="font: 600 16px/22px var(--font-sans)">Доставка в 8 стран</b><p style="margin: 4px 0 0; font-size: 14px; line-height: 20px; color: var(--ink-muted)">СНГ и соседние страны, с инвойсом и упаковочным листом.</p></div></div>
+</div>
+</div>
+</section>
+
+<section class="sec sec-alt">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 40px">
+<div class="split" style="align-items: end"><div style="display: flex; flex-direction: column; gap: 12px"><div class="sps-eyebrow"><b>ЗАЯВКА</b> Цены на сайте нет — рассчитаем</div><h2 class="h1">Цена в три шага</h2></div><p class="lead muted">Цена формы зависит от модели, материала и объёма, поэтому менеджер рассчитывает её под ваш объём.</p></div>
+<div class="steps3">
+<div><span class="step-n">01</span><h3 class="h3">Выберите модель</h3><p class="body muted">Добавьте одну или несколько форм в «Список заявки».</p></div>
+<div><span class="step-n">02</span><h3 class="h3">Оставьте заявку</h3><p class="body muted">Имя, телефон и дневной объём. Займёт 1 минуту.</p></div>
+<div><span class="step-n">03</span><h3 class="h3">Получите расчёт</h3><p class="body muted">Менеджер сообщит количество, вес и цену форм по телефону или в Telegram.</p></div>
+</div>
+<div class="cta-row" style="display: flex; gap: 12px; flex-wrap: wrap"><a class="sps-btn sps-btn--primary sps-btn--lg" href="RequestList.dc.html">Оставить заявку</a><a class="sps-btn sps-btn--outline sps-btn--lg" href="#">Написать в Telegram</a></div>
+</div>
+</section>
+
+<section class="sec" style="background: #fff">
+<div class="wrap g2" style="gap: 56px; align-items: center">
+<div style="display: flex; flex-direction: column; gap: 20px">
+<div class="sps-eyebrow"><b>ОПТ</b> Цеха и дистрибьюторы</div>
+<h2 class="h1">У вас цех плитки или вы дистрибьютор?</h2>
+<p class="lead muted">Рассчитаем комплект форм для всего цеха, дистрибьюторам — оптовые условия и каталог на 3 языках.</p>
+<div class="cta-row" style="display: flex; gap: 12px; flex-wrap: wrap"><a class="sps-btn sps-btn--primary sps-btn--lg" href="Partners.dc.html">Оптовые условия</a><a class="sps-btn sps-btn--outline sps-btn--lg" href="#">PDF-каталог · 3 языка</a></div>
+</div>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px">
+<div style="aspect-ratio: 1; overflow: hidden; border-radius: 14px"><img class="cover" src="/_blob/0f675fa60d42a0bf9f95324ba244533d" alt="Литейный цех"></div>
+<div style="aspect-ratio: 1; overflow: hidden; border-radius: 14px"><img class="cover" src="/_blob/5f877707bfa6a902ebb5ec0d3862c27c" alt="Экспортный груз"></div>
+</div>
+</div>
+</section>
+
+<dc-import name="FooterRu" hint-size="100%,460px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":4450}}'>
+class Component extends DCLogic {
+  renderVals() { return { twelve: 12, no: false, yes: true }; }
+}
+</script>
+</body>
+</html>

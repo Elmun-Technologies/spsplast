@@ -77,6 +77,47 @@ export function trackEvent(eventName: string, params: EventParams = {}) {
   }
 }
 
+/**
+ * Redesign 2027 hodisalari (HANDOFF 5): `generate_lead`, `add_to_request`,
+ * `add_to_compare`. Ro'yxat/solishtirish holati `src/lib/store/spsLists.ts`
+ * ichida kuzatiladi — shunda hech bir chaqiruv joyi tushib qolmaydi.
+ */
+export function trackAddToRequest(item: { slug: string; code?: string | null; name?: string }) {
+  trackEvent('add_to_request', { item_id: item.slug, item_code: item.code ?? '', item_name: item.name ?? '' });
+}
+
+export function trackRemoveFromRequest(slug: string) {
+  trackEvent('remove_from_request', { item_id: slug });
+}
+
+export function trackAddToCompare(slug: string, count: number) {
+  trackEvent('add_to_compare', { item_id: slug, compare_size: count });
+}
+
+export function trackRemoveFromCompare(slug: string, count: number) {
+  trackEvent('remove_from_compare', { item_id: slug, compare_size: count });
+}
+
+export function trackLeadSent(info: {
+  type: 'quick' | 'list' | 'partners';
+  requestId?: string;
+  items?: number;
+  lang?: string;
+  delivered?: boolean;
+}) {
+  trackEvent('generate_lead', {
+    lead_type: info.type,
+    request_id: info.requestId ?? '',
+    item_count: info.items ?? 0,
+    lang: info.lang ?? '',
+    delivered: info.delivered ?? false,
+  });
+}
+
+export function trackLeadFailed(info: { type: string; error: string }) {
+  trackEvent('lead_failed', { lead_type: info.type, error: info.error });
+}
+
 // Hodisa yordamchilari — chaqiruv joyida maydon nomlari chalkashmasin.
 export const analytics = {
   viewItem: (product: { id: string; name: string; category?: string }) =>

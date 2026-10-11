@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Zayafka ro'yxati</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/sps/tokens.css">
+<link rel="stylesheet" href="ds/sps/components/bundle.css">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:var(--red-ink)}
+.rl{display:grid;grid-template-columns:minmax(0,1fr) 440px;gap:40px;align-items:start}
+.ri{display:grid;grid-template-columns:120px minmax(0,1fr) 150px 44px;gap:20px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)}
+.ri img{width:120px;height:90px;object-fit:cover}
+@media (max-width:1100px){.rl{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:640px){.ri{grid-template-columns:88px minmax(0,1fr) 44px}.ri img{width:88px;height:66px}.ri .qty{grid-column:2/3}}
+</style>
+</helmet>
+<div class="sps" style="background: var(--surface)">
+<dc-import name="Header" current="catalog" list="{{n}}" hint-size="100%,117px"></dc-import>
+<section style="padding-block: 28px 72px">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 24px">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="Main.dc.html">Bosh sahifa</a><span>/</span><span>Zayafka ro'yxati</span></nav>
+<div style="display: flex; flex-direction: column; gap: 8px"><h1 class="disp-l">Zayafka ro'yxati</h1><p class="body muted">Bu savat emas — to'lov yo'q. Ro'yxatni yuborasiz, menejer qolip soni, vazni va narxini hisoblab aytadi.</p></div>
+<div class="rl">
+<div>
+<div style="display: flex; justify-content: space-between; padding-bottom: 12px; border-bottom: 2px solid var(--ink)"><span class="sps-label">Model</span><span class="sps-label">Kunlik hajm, m²</span></div>
+<sc-for list="{{items}}" as="i" hint-placeholder-count="3">
+<div class="ri">
+<img src="{{i.img}}" alt="{{i.name}}">
+<div style="display: flex; flex-direction: column; gap: 4px; min-width: 0"><span class="mono" style="font-size: 12px; color: var(--ink-muted)">{{i.code}}</span><a href="Model.dc.html" style="font: 600 18px/22px var(--font-display); color: var(--ink); text-decoration: none">{{i.name}}</a><span class="mono" style="font-size: 13px; color: var(--ink-muted)">{{i.meta}}</span></div>
+<div class="qty"><input class="sps-input mono" aria-label="Kunlik hajm, m²: {{i.name}}" value="{{i.m2}}" onChange="{{i.setM2}}"><span style="font-size: 12px; color: var(--ink-muted)">{{i.calc}}</span></div>
+<button onClick="{{i.remove}}" aria-label="Olib tashlash: {{i.name}}" style="width: 44px; height: 44px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; color: var(--ink-muted)">✕</button>
+</div>
+</sc-for>
+<sc-if value="{{empty}}" hint-placeholder-val="{{false}}"><div style="padding: 48px 0; display: flex; flex-direction: column; gap: 12px; align-items: flex-start"><b style="font: 600 22px/28px var(--font-display)">Ro'yxat bo'sh</b><p style="margin: 0; color: var(--ink-muted)">Katalogdan modellarni tanlang yoki shunchaki zayafka qoldiring — menejer o'zi tavsiya qiladi.</p><a class="sps-btn sps-btn--outline" href="Catalog.dc.html">Katalogga o'tish</a></div></sc-if>
+<a class="sps-btn sps-btn--link" href="Catalog.dc.html" style="margin-top: 16px">+ Yana model qo'shish</a>
+</div>
+<div style="background: var(--surface-alt); padding: 28px; display: flex; flex-direction: column; gap: 16px; position: sticky; top: 140px">
+<sc-if value="{{sent}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 12px"><div style="width: 48px; height: 48px; border-radius: 50%; background: #e7f3ec; color: var(--success); display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"></path></svg></div><b style="font: 600 24px/30px var(--font-display)">Zayafka yuborildi</b><p style="margin: 0; color: var(--ink-muted)">{{n}} ta model bo'yicha hisob-kitob tayyorlanadi. Menejer ish vaqtida (Du–Sha, 09:00–18:00) telefon yoki Telegram orqali bog'lanadi.</p><span class="mono" style="font-size: 13px">Zayafka № SPS-2610-0147</span><a class="sps-btn sps-btn--outline" href="Catalog.dc.html">Katalogga qaytish</a></div>
+</sc-if>
+<sc-if value="{{notSent}}" hint-placeholder-val="{{true}}">
+<form onSubmit="{{submit}}" style="display: flex; flex-direction: column; gap: 14px">
+<b style="font: 600 22px/28px var(--font-display)">Zayafkani yuborish</b>
+<div style="display: flex; justify-content: space-between" class="mono"><span>Modellar</span><b>{{n}}</b></div>
+<div style="display: flex; justify-content: space-between; padding-bottom: 14px; border-bottom: 1px solid var(--line)" class="mono"><span>Qoliplar (taxminan)</span><b>{{total}}</b></div>
+<fieldset style="border: 0; padding: 0; margin: 0"><legend class="sps-label">Siz kimsiz</legend><div class="sps-seg" style="margin-top: 6px"><label><input type="radio" name="ct" checked>Sex</label><label><input type="radio" name="ct">Diler</label><label><input type="radio" name="ct">Quruvchi</label><label><input type="radio" name="ct">Xususiy</label></div></fieldset>
+<div class="sps-field"><label class="sps-label" for="r-name">Ism *</label><input class="sps-input" id="r-name" placeholder="Ism familiya"></div>
+<div class="sps-field"><label class="sps-label" for="r-phone">Telefon / WhatsApp *</label><input class="sps-input" id="r-phone" placeholder="+998"></div>
+<div class="sps-field"><label class="sps-label" for="r-city">Shahar / davlat</label><input class="sps-input" id="r-city" placeholder="Toshkent, O'zbekiston"></div>
+<div class="sps-field"><label class="sps-label" for="r-msg">Izoh</label><textarea class="sps-textarea" id="r-msg" placeholder="Material (PP / ABS), ranglar, muddat"></textarea></div>
+<button class="sps-btn sps-btn--primary sps-btn--lg" type="submit">Zayafka yuborish</button>
+<p style="margin: 0; font-size: 13px; line-height: 18px; color: var(--ink-muted)">Yoki to'g'ridan-to'g'ri: <span class="mono">+998 98 300 77 72</span> · Telegram @spsplastuz</p>
+</form>
+</sc-if>
+</div>
+</div>
+</div>
+</section>
+<dc-import name="Footer" hint-size="100%,460px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1600}}'>
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    this.state = { sent: false, items: [
+      { id: '01', code: '№ 01 · Trotuar', name: 'Monako', img: '/_blob/1d9dca84af289ecdaa69b4fafe919e7c', meta: '300 × 300 × 30 mm · 1 qolip', per: 11, m2: '100' },
+      { id: '70', code: '№ 70 · Trotuar', name: 'Farovon', img: '/_blob/6edbad90bf41cfd6416ca718689fb5ff', meta: "150 × 150 × 25 mm · to'plam A + B", per: 0, m2: '60' },
+      { id: 'F17', code: 'F17 · Fasad', name: 'Pilyastr 3', img: '/_blob/b5560e5c0b1ac0b9ef7c851b42a5f031', meta: '300 × 1200 × 50 mm · ABS / PP', per: 0, m2: '' },
+    ] };
+  }
+  renderVals() {
+    const s = this.state;
+    const fmt = (n) => n.toLocaleString('ru-RU');
+    let total = 0;
+    const items = s.items.map((i) => {
+      const v = Number(String(i.m2).replace(',', '.')) || 0;
+      const molds = i.per ? Math.ceil(v * i.per) : 0;
+      total += molds;
+      return { ...i, calc: i.per ? (v ? '≈ ' + fmt(molds) + ' qolip' : '') : 'soni menejer hisoblaydi',
+        setM2: (e) => this.setState({ items: s.items.map((x) => (x.id === i.id ? { ...x, m2: e.target.value.replace(/[^\d.,]/g, '') } : x)) }),
+        remove: () => this.setState({ items: s.items.filter((x) => x.id !== i.id) }) };
+    });
+    return { items, n: s.items.length, empty: s.items.length === 0, total: total ? fmt(total) + '+' : '—', sent: s.sent, notSent: !s.sent, submit: (e) => { e.preventDefault(); this.setState({ sent: true }); } };
+  }
+}
+</script>
+</body>
+</html>

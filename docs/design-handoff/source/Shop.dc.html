@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<title>Katalog bloki: filtr, kartochkalar, zayafka</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/sps/tokens.css">
+<link rel="stylesheet" href="ds/sps/components/bundle.css">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+.shop{display:grid;grid-template-columns:248px minmax(0,1fr);gap:40px;align-items:start;font-family:var(--font-sans);color:var(--ink)}
+.sh-side{display:flex;flex-direction:column;gap:28px;position:sticky;top:132px}
+.fg-h{font:500 12px/16px var(--font-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-muted);margin:0 0 10px}
+.fo{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;padding:8px 10px;margin:0;border:0;border-radius: 10px;background:none;font:400 15px/20px var(--font-sans);color:var(--ink);cursor:pointer;text-align:left}
+.fo:hover{background:var(--surface-alt)}
+.fo b{font:500 12px/16px var(--font-mono);color:var(--ink-muted)}
+.fo-on{background:var(--ink)!important;color:var(--surface)}
+.fo-on b{color:var(--on-ink-muted)}
+.tb{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.tb-count{font:500 14px/20px var(--font-mono);margin-right:auto}
+@media (max-width:760px){.tb-nosearch .tb-search{display:none}}
+.vt{display:inline-flex;border:1px solid var(--line-strong);border-radius: 10px;overflow:hidden}
+.vt button{width:40px;height:40px;border:0;background:var(--surface);color:var(--ink-muted);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.vt .on{background:var(--ink);color:var(--surface)}
+.ac{display:flex;flex-wrap:wrap;gap:8px;padding-top:12px}
+.ac button{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);font:500 13px/16px var(--font-sans);cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;padding-top:20px}
+.list{display:flex;flex-direction:column;gap:12px;padding-top:20px}
+.pc{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;min-width:0;transition:box-shadow .16s ease-out}
+.pc:hover{box-shadow:var(--shadow-raise)}
+.pc-media{position:relative;aspect-ratio:4/3;background:var(--surface-alt);overflow:hidden}
+.pc-media>a>img{width:100%;height:100%;object-fit:cover;display:block}
+.pc-mold{border-radius:8px;position:absolute;left:10px;bottom:10px;width:30%;aspect-ratio:1;object-fit:contain;background:var(--surface);border:1px solid var(--line);padding:4px;box-sizing:border-box}
+.pc-cmp{position:absolute;right:10px;top:10px;display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 10px;background:var(--surface);border:1px solid var(--line);border-radius:999px;font:500 12px/16px var(--font-sans);cursor:pointer}
+.pc-cmp input{width:15px;height:15px;accent-color:var(--ink);margin:0}
+.pc-qv{position:absolute;right:10px;bottom:10px;height:30px;padding:0 12px;border:0;border-radius:999px;background:rgba(20,20,20,.86);color:#fff;font:500 12px/16px var(--font-sans);cursor:pointer}
+.pc-body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:10px;flex:1}
+.pc-code{font:500 12px/16px var(--font-mono);color:var(--ink-muted);letter-spacing:.04em}
+.pc-name{font:600 19px/23px var(--font-display);letter-spacing:-.01em;color:var(--ink);text-decoration:none}
+.pc-name:hover{color:var(--red-ink)}
+.pc-sp{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;margin:0;border-top:1px solid var(--line);padding-top:10px}
+.pc-sp dt{font:500 10px/14px var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-muted)}
+.pc-sp dd{margin:2px 0 0;font:500 13px/18px var(--font-mono);font-variant-numeric:tabular-nums}
+.pc-act{display:flex;gap:8px;margin-top:auto}
+.pc-act .sps-btn{flex:1}
+.ic{width:40px;height:36px;flex:none;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line-strong);border-radius: 10px;background:var(--surface);color:var(--ink);cursor:pointer}
+.ic-on{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.list .pc{flex-direction:row}
+.list .pc-media{width:240px;flex:none;aspect-ratio:auto;min-height:180px}
+.list .pc-body{flex-direction:row;flex-wrap:wrap;align-items:center;gap:16px 32px}
+.list .pc-sp{border:0;padding:0;flex:1;min-width:260px}
+.list .pc-act{margin:0;flex:0 0 260px}
+.more{display:flex;flex-direction:column;align-items:center;gap:10px;padding-top:32px}
+.cbar{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:30;width:min(760px,calc(100% - 32px));box-sizing:border-box;background:var(--surface-ink);color:var(--on-ink);padding:12px 16px;display:flex;align-items:center;gap:16px;box-shadow:0 12px 32px rgba(20,20,20,.25)}
+.cbar-imgs{display:flex;gap:8px}
+.cbar-t{font:500 13px/16px var(--font-mono);color:var(--on-ink-muted)}
+.cbar-x{margin-left:auto;color:var(--on-ink)!important;border:1px solid var(--on-ink-muted)!important;background:none!important}
+.cbar img{width:48px;height:48px;object-fit:cover;border:1px solid rgba(255,255,255,.2)}
+.ov{position:fixed;inset:0;z-index:40;background:rgba(20,20,20,.6);display:flex;align-items:center;justify-content:center;padding:24px}
+.dlg{background:var(--surface);width:100%;max-width:560px;max-height:calc(100vh - 48px);overflow:auto;position:relative}
+.dlg-x{position:absolute;right:12px;top:12px;width:40px;height:40px;border:0;background:var(--surface-alt);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2}
+.qv{max-width:960px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}
+.sheet{position:fixed;inset:0;z-index:40;background:var(--surface);display:flex;flex-direction:column}
+.filter-btn{display:none}
+.tb-sort{display:flex;align-items:center;gap:8px;font-size:14px}
+.tb-sort select{width:200px;height:40px}
+.tb-search{width:260px;height:40px}
+@media (max-width:1100px){.shop{grid-template-columns:minmax(0,1fr)}.sh-side{display:none}.filter-btn{display:inline-flex}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.qv{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:640px){
+.tb{gap:8px;padding-bottom:12px}
+.tb-search{order:-2;flex:1 1 100%;width:auto;height:44px}
+.filter-btn{order:-1;flex:1 1 0;height:44px}
+.tb-sort{order:-1;flex:1 1 0}.tb-sort span{display:none}.tb-sort select{width:100%;height:44px}
+.vt{display:none}
+.tb-count{order:0;flex:1 1 100%;margin:4px 0 0;font-size:13px;color:var(--ink-muted)}
+.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding-top:12px}
+.pc-media{aspect-ratio:1}
+.pc-mold{left:6px;bottom:6px;width:38%;padding:3px}
+.pc-cmp{right:6px;top:6px;height:32px;width:32px;padding:0;justify-content:center}
+.pc-cmp-t{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.pc-qv{display:none}
+.pc-body{padding:10px 10px 12px;gap:6px}
+.pc-code{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pc-name{font-size:15px;line-height:19px}
+.pc-sp{grid-template-columns:minmax(0,1fr);gap:2px;padding-top:6px}
+.pc-sp>div{display:flex;justify-content:space-between;gap:6px;align-items:baseline}
+.pc-sp>div:nth-child(2){display:none}
+.pc-sp dd{font-size:12px;margin:0;text-align:right}
+.pc-act{gap:6px}
+.pc-act .sps-btn{height:40px;padding:0 8px;font-size:14px}
+.ic{width:40px;height:40px}
+.list .pc{flex-direction:column}.list .pc-media{width:auto;aspect-ratio:4/3}.list .pc-act{flex:1 1 100%}
+.more{padding-top:24px}
+.cbar{gap:10px;padding:10px 12px;bottom:12px}.cbar-imgs img{width:36px;height:36px}.cbar-t{display:none}.cbar b{font-size:14px!important}
+.ov{align-items:flex-end;padding:0}
+.dlg{max-width:none;max-height:92vh}
+}
+</style>
+</helmet>
+<div class="shop sps">
+<aside class="sh-side" aria-label="Filtr">
+<sc-for list="{{groups}}" as="g" hint-placeholder-count="5">
+<div>
+<p class="fg-h">{{g.title}}</p>
+<sc-for list="{{g.opts}}" as="o" hint-placeholder-count="4">
+<button class="{{o.cls}}" onClick="{{o.pick}}" aria-pressed="{{o.on}}">{{o.label}}<b>{{o.n}}</b></button>
+</sc-for>
+</div>
+</sc-for>
+<button class="sps-btn sps-btn--outline sps-btn--sm" onClick="{{reset}}">Filtrni tozalash</button>
+<div style="background: var(--surface-ink); color: var(--on-ink); padding: 20px; display: flex; flex-direction: column; gap: 10px">
+<b style="font: 600 16px/22px var(--font-sans)">Modelni tanlashda yordam kerakmi?</b>
+<span style="font: 400 14px/20px var(--font-sans); color: var(--on-ink-muted)">Kunlik hajm va qo'llanishni ayting, menejer mos modellarni tavsiya qiladi.</span>
+<span class="mono" style="font-size: 15px">+998 98 300 77 72</span>
+</div>
+</aside>
+
+<div style="min-width: 0">
+<div class="{{tbCls}}">
+<span class="tb-count">{{countText}}</span>
+<button class="sps-btn sps-btn--outline sps-btn--sm filter-btn" onClick="{{openSheet}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"></path></svg>{{filterText}}</button>
+<input class="sps-input tb-search" type="search" aria-label="Qidiruv" placeholder="Nom yoki kod: 70, Monako" value="{{q}}" onChange="{{setQ}}">
+<label class="tb-sort"><span>Saralash</span>
+<select class="sps-select" aria-label="Saralash" value="{{sort}}" onChange="{{setSort}}"><option value="code">Kod bo'yicha</option><option value="pop">Ko'p so'raladigan</option><option value="th">Qalinlik</option><option value="size">O'lcham</option></select></label>
+<div class="vt" role="group" aria-label="Ko'rinish"><button class="{{gridCls}}" onClick="{{setGrid}}" aria-label="Panjara"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect></svg></button><button class="{{listCls}}" onClick="{{setList}}" aria-label="Ro'yxat"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 6h13M8 12h13M8 18h13M3 6h1M3 12h1M3 18h1"></path></svg></button></div>
+</div>
+<sc-if value="{{hasActive}}" hint-placeholder-val="{{false}}">
+<div class="ac">
+<sc-for list="{{active}}" as="a" hint-placeholder-count="2"><button onClick="{{a.clear}}">{{a.label}} <span aria-hidden="true">×</span></button></sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{empty}}" hint-placeholder-val="{{false}}">
+<div style="padding: 64px 0; display: flex; flex-direction: column; gap: 16px; align-items: flex-start">
+<b style="font: 600 22px/28px var(--font-display)">Bu filtrlar bo'yicha model topilmadi</b>
+<p style="margin: 0; color: var(--ink-muted)">Filtrni o'zgartiring yoki zayafka qoldiring — menejer mos modelni topib beradi.</p>
+<div style="display: flex; gap: 12px"><button class="sps-btn sps-btn--outline" onClick="{{reset}}">Filtrni tozalash</button><a class="sps-btn sps-btn--primary" href="RequestList.dc.html">Zayafka qoldirish</a></div>
+</div>
+</sc-if>
+
+<div class="{{layoutCls}}">
+<sc-for list="{{shown}}" as="p" hint-placeholder-count="9">
+<article class="pc">
+<div class="pc-media">
+<a href="Model.dc.html"><img src="{{p.img}}" alt="{{p.name}}"></a>
+<img class="pc-mold" src="{{p.mold}}" alt="">
+<label class="pc-cmp" title="Solishtirish"><input type="checkbox" checked="{{p.cmp}}" onChange="{{p.toggleCmp}}"><span class="pc-cmp-t">Solishtirish</span></label>
+<button class="pc-qv" onClick="{{p.openQv}}">Tez ko'rish</button>
+</div>
+<div class="pc-body">
+<div style="display: flex; flex-direction: column; gap: 4px; min-width: 160px"><span class="pc-code">{{p.codeLabel}}</span><a class="pc-name" href="Model.dc.html">{{p.name}}</a></div>
+<dl class="pc-sp"><div><dt>O'lcham</dt><dd>{{p.wl}}</dd></div><div><dt>Qalinlik</dt><dd>{{p.th}} mm</dd></div><div><dt>{{p.k3}}</dt><dd>{{p.v3}}</dd></div></dl>
+<div class="pc-act"><button class="sps-btn sps-btn--primary sps-btn--sm" onClick="{{p.openLead}}">Zayafka</button><button class="{{p.listCls}}" onClick="{{p.toggleList}}" aria-label="Zayafka ro'yxatiga qo'shish" aria-pressed="{{p.inList}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="4" width="14" height="17" rx="1"></rect><path d="M9 4h6v3H9zM12 11v6M9 14h6"></path></svg></button></div>
+</div>
+</article>
+</sc-for>
+</div>
+
+<sc-if value="{{hasMore}}" hint-placeholder-val="{{true}}">
+<div class="more"><span class="mono" style="font-size: 13px; color: var(--ink-muted)">{{moreText}}</span><button class="sps-btn sps-btn--outline" onClick="{{showMore}}">Yana ko'rsatish</button><a class="sps-btn sps-btn--link" href="Catalog.dc.html">Butun katalog · 152 model →</a></div>
+</sc-if>
+</div>
+
+<sc-if value="{{hasCmp}}" hint-placeholder-val="{{false}}">
+<div class="cbar" role="region" aria-label="Solishtirish">
+<b style="font: 600 15px/20px var(--font-sans)">Solishtirish</b>
+<div class="cbar-imgs"><sc-for list="{{cmpItems}}" as="c" hint-placeholder-count="2"><img src="{{c.img}}" alt="{{c.name}}"></sc-for></div>
+<span class="cbar-t">{{cmpText}}</span>
+<button class="sps-btn sps-btn--sm cbar-x" onClick="{{clearCmp}}" aria-label="Solishtirishni tozalash">Tozalash</button>
+<a class="sps-btn sps-btn--primary sps-btn--sm" href="Compare.dc.html">Solishtirish →</a>
+</div>
+</sc-if>
+
+<sc-if value="{{hasLead}}" hint-placeholder-val="{{false}}">
+<div class="ov" onClick="{{closeAll}}">
+<div class="dlg" role="dialog" aria-modal="true" aria-label="Zayafka" onClick="{{stop}}">
+<button class="dlg-x" onClick="{{closeAll}}" aria-label="Yopish"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+<div style="display: flex; gap: 16px; padding: 24px 64px 20px 24px; background: var(--surface-alt); align-items: center">
+<img src="{{lead.img}}" alt="" style="width: 88px; height: 88px; object-fit: cover">
+<div style="display: flex; flex-direction: column; gap: 4px"><span class="pc-code">{{lead.codeLabel}}</span><b style="font: 600 22px/26px var(--font-display)">{{lead.name}}</b><span class="mono" style="font-size: 13px; color: var(--ink-muted)">{{lead.wl}} · {{lead.th}} mm</span></div>
+</div>
+<sc-if value="{{sent}}" hint-placeholder-val="{{false}}">
+<div style="padding: 32px 24px; display: flex; flex-direction: column; gap: 12px; align-items: flex-start">
+<div style="width: 48px; height: 48px; border-radius: 50%; background: #e7f3ec; color: var(--success); display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"></path></svg></div>
+<b style="font: 600 22px/28px var(--font-display)">Zayafka qabul qilindi</b>
+<p style="margin: 0; color: var(--ink-muted)">Menejer ish vaqtida (Du–Sha, 09:00–18:00) siz bilan bog'lanadi va qolip soni hamda narxini aytadi.</p>
+<button class="sps-btn sps-btn--outline" onClick="{{closeAll}}">Katalogga qaytish</button>
+</div>
+</sc-if>
+<sc-if value="{{notSent}}" hint-placeholder-val="{{true}}">
+<form style="padding: 24px; display: flex; flex-direction: column; gap: 16px" onSubmit="{{submit}}">
+<div class="sps-form__row"><div class="sps-field"><label class="sps-label" for="ld-name">Ism *</label><input class="sps-input" id="ld-name" placeholder="Ism"></div><div class="sps-field"><label class="sps-label" for="ld-phone">Telefon / WhatsApp *</label><input class="sps-input" id="ld-phone" placeholder="+998"></div></div>
+<div class="sps-form__row"><div class="sps-field"><label class="sps-label" for="ld-vol">Kunlik hajm, m²</label><input class="sps-input" id="ld-vol" placeholder="Masalan, 100"></div><div class="sps-field"><label class="sps-label" for="ld-city">Shahar / davlat</label><input class="sps-input" id="ld-city" placeholder="Toshkent"></div></div>
+<p style="margin: 0; font: 400 13px/18px var(--font-sans); color: var(--ink-muted)">Narx va qolip sonini menejer hisoblab, telefon yoki Telegram orqali aytadi.</p>
+<div style="display: flex; gap: 12px; flex-wrap: wrap"><button class="sps-btn sps-btn--primary sps-btn--lg" type="submit" style="flex: 1">Zayafka yuborish</button><button class="sps-btn sps-btn--outline sps-btn--lg" type="button" onClick="{{leadToList}}">Ro'yxatga qo'shish</button></div>
+</form>
+</sc-if>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{hasQv}}" hint-placeholder-val="{{false}}">
+<div class="ov" onClick="{{closeAll}}">
+<div class="dlg qv" role="dialog" aria-modal="true" aria-label="Tez ko'rish" onClick="{{stop}}">
+<button class="dlg-x" onClick="{{closeAll}}" aria-label="Yopish"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+<div style="position: relative; background: var(--surface-alt); min-height: 360px"><img src="{{qv.img}}" alt="{{qv.name}}" style="width: 100%; height: 100%; object-fit: cover; display: block; position: absolute; inset: 0"><img src="{{qv.mold}}" alt="" style="position: absolute; left: 16px; bottom: 16px; width: 30%; aspect-ratio: 1; object-fit: contain; background: #fff; border: 1px solid var(--line); padding: 6px; box-sizing: border-box"></div>
+<div style="padding: 32px; display: flex; flex-direction: column; gap: 16px">
+<span class="pc-code">{{qv.codeLabel}}</span>
+<b style="font: 600 32px/36px var(--font-display)">{{qv.name}}</b>
+<table class="sps-spec"><tbody><tr><th>Tayyor element</th><td>{{qv.size}} mm</td></tr><tr><th>{{qv.k3}}</th><td>{{qv.v3}}</td></tr><tr><th>1 m² uchun qoliplar</th><td>{{qv.kgText}}</td></tr><tr><th>Material</th><td>Polipropilen / ABS</td></tr></tbody></table>
+<div style="display: flex; gap: 12px; flex-wrap: wrap"><button class="sps-btn sps-btn--primary" onClick="{{qvLead}}" style="flex: 1">Zayafka qoldirish</button><a class="sps-btn sps-btn--outline" href="Model.dc.html">Batafsil sahifa</a></div>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{sheet}}" hint-placeholder-val="{{false}}">
+<div class="sheet" role="dialog" aria-modal="true" aria-label="Filtr">
+<div style="display: flex; align-items: center; justify-content: space-between; padding: 0 16px; height: 64px; border-bottom: 1px solid var(--line)"><b style="font: 600 20px/24px var(--font-display)">Filtr</b><button class="dlg-x" style="position: static" onClick="{{closeSheet}}" aria-label="Yopish"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div>
+<div style="flex: 1; overflow: auto; padding: 16px; display: flex; flex-direction: column; gap: 24px">
+<sc-for list="{{groups}}" as="g" hint-placeholder-count="5">
+<div><p class="fg-h">{{g.title}}</p><div style="display: flex; flex-wrap: wrap; gap: 8px"><sc-for list="{{g.opts}}" as="o" hint-placeholder-count="4"><button class="{{o.chip}}" onClick="{{o.pick}}" aria-pressed="{{o.on}}">{{o.label}} · {{o.n}}</button></sc-for></div></div>
+</sc-for>
+</div>
+<div style="display: flex; gap: 12px; padding: 16px; border-top: 1px solid var(--line)"><button class="sps-btn sps-btn--outline" onClick="{{reset}}">Tozalash</button><button class="sps-btn sps-btn--primary" onClick="{{closeSheet}}" style="flex: 1">{{sheetCta}}</button></div>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"limit":{"editor":"int","default":12,"min":3,"max":60},"sheetOpen":{"editor":"boolean","default":false},"leadOpen":{"editor":"boolean","default":false},"compareDemo":{"editor":"boolean","default":true},"noSearch":{"editor":"boolean","default":false},"$preview":{"width":1320,"height":2000}}'>
+const D = [["01","Monako","trotuar","300 × 300 × 30",30,"11","3,52",1,"1d9dca84af289ecdaa69b4fafe919e7c","f7eba9c97adb34b05a6bce288c1af313"],["02","Ornament","trotuar","300 × 300 × 30",30,"11","4,24",1,"ee466d6bab74f2b9c62f8f2ffaa4a2e2","e8b3c81234e36099a5d54ce24a2b7b9a"],["03","Yalta","trotuar","300 × 300 × 30",30,"11","3,63",1,"b65b557512ea63bdf3f1d26c5f45dd3c","083cd68c3ece59067afe0da2e46fbc42"],["04","Tsvetok","trotuar","300 × 300 × 30",30,"11","4,07",1,"f7bc5c7d7ea4c49e05064900a4b037fc","c764ff5f5abc14f4ee626ea3d9b488d6"],["05","Magna","trotuar","300 × 300 × 30",30,"11","3,74",1,"9c0146f25f15a001346a674e89d19255","1c793d7de924907f7b346a9bbb422b1b"],["06","Azara","trotuar","300 × 300 × 30",30,"11","3,74",1,"7b90a258678ba587557a9e4286408e2f","5d1ae40c429d0a3dd7976d8456ba9b48"],["07","Parus","trotuar","300 × 300 × 30",30,"11","4,13",1,"291560cd98dd1b99003bb8be29776215","06a09aafb6a7db99868c71abd1a9576b"],["08","Travertino","trotuar","300 × 300 × 30",30,"11","4,24",1,"f3a3ba0aeb0ad54e65a4abfecea511fc","2dca16e857f4436b3a821a856e0b4459"],["09","Versache 1","trotuar","300 × 300 × 30",30,"11","3,96",1,"1c24195f028699aecfd987c5dc0c4de2","ee472433d6015960aec5d0077d7e22ab"],["12","Rio","trotuar","300 × 300 × 30",30,"11","3,52",1,"e0b2e4940a9b172287d7f3757643d433","40f29c6d7aeec20a2f85465e0e956582"],["15","Floriya","trotuar","300 × 300 × 30",30,"11","4,57",1,"0f0a158af1db2caef579dbd2cac7d285","3c5fcc8b77fbde3924e8d88187e01a93"],["16","Strelka","trotuar","300 × 300 × 30",30,"11","4,68",1,"ef55fb76050c8dd2acbaf3bcd97547ff","e1343a65d43f024947855b544d0dd747"],["19","Kaliforniya","trotuar","300 × 300 × 30",30,"11","4,13",1,"14af9eb960935e79708ea316efe6cf12","d3d54e8a4a47b717fff14b3b0d894cc5"],["21","Shashka","trotuar","300 × 300 × 30",30,"11","4,18",1,"8ee100bf3c94b4f2968753ce7aa92fc6","afb7a0aa9961de8862c36097a6024525"],["22","Dubay 40×40","trotuar","400 × 400 × 45",45,"6,25","5,75",1,"30a55fd376d5e6330c0fbb145120496f","97f4bee8f306f61c0f51dd6b6d087aa5"],["24","Travertin 40×40","trotuar","400 × 400 × 45",45,"6,25","6",1,"793f6f3ad72529b4fdc8be7151574fe5","a303280c9f8ac991cf94be3f4df59630"],["25","Taroq","trotuar","300 × 400 × 50",50,"8,8","5,2",1,"36302af35570b25af09e8b968001ca53","b192f2f56649b53c33bb726b537dcb9a"],["29","Bodom","trotuar","200 × 200 × 25",25,"25","4,25",2,"cb400e4e0784199a590fab59f54d7821","30911ae7a2bb2e815a9b6f40abbd8117"],["30","Astana","trotuar","200 × 200 × 25",25,"25","4,38",2,"e569eaa9d0d1e199f25958c5df2e9a03","419f4b2ce39608464b2f6554a22d939c"],["31","Yulduz","trotuar","200 × 200 × 25",25,"25","4,68",2,"924376259450bd7596ffc4ab0c3e5d7d","3148f6cce38828e2ef2406b4dead18e3"],["34","Aleya","trotuar","240 × 240 × 45",45,"17","4,8",2,"b045cfa9a9312d7a4beb698373e13579","833c8a38411daa2ec259df4b6ef9b179"],["38","Parket 20×20","trotuar","200 × 200 × 25",25,"25","4,8",2,"b1798edf82b79266bb271b425660e121","01bccd60c4f3353f411e9fa34fb128ee"],["42","Rombik yangi","trotuar","195 × 330 × 35",35,"30","5,85",1,"4bf512b7ef114ca1f9f184b8c7b1e64c","ab996eeceb8f599a0da1e1bc3ca4aa2b"],["46","Kerpich 10×20×5","trotuar","100 × 200 × 50",50,"50","5,9",1,"81f992f7ed5e117b31fc83b9ecba66a3","51e0a94d9c881c46db89424627950eea"],["52","Mozaika","trotuar","200 × 200 × 25",25,"25","5,3",2,"286902456802abe257bfabc7453f742e","98e1e7c46a4248cef1fb8efad284489d"],["62","Afina","trotuar","215 × 215 × 40",40,"13","5,08",2,"ffe015f0b82585bba96fcc4b3091b25f","64327e21d8ab2f8a4d7fdfb3af9ad169"],["63","Rokki","trotuar","200 × 295 × 45",45,"26","5,07",1,"8b7c5eaa0a3d2782ec99eb96279cc6a6","0458885bd542729e89dc19ccf90fcd5b"],["64","Kostochka","trotuar","160 × 225 × 50",50,"40","5,72",1,"9fd82b70c79df21d9bffab2b1eeb644a","471964ad8dd3332aae17843f1978e67f"],["65","3D","trotuar","300 × 300 × 30",30,"8,2","4,93",2,"6aa86356a75b2d2fb885f4e0e87589a0","5a88ff2c8c145a477e60a46886546089"],["68","Royal 1","trotuar","135 × 280 × 30",30,"12,5","4,63",2,"de9f7783a15e4d286fdaca6afced9b61","d944d4de9d21a80af97462946a307556"],["70","Farovon","trotuar","150 × 150 × 25",25,"15","5,55",2,"6edbad90bf41cfd6416ca718689fb5ff","cbff73875e2efe62e64b5b6e447a51f0"],["72","Safir","trotuar","140 × 140 × 25",25,"49","6",2,"41a0377232616485cb0690c51ccd4ba8","cfef5a4448b161963506ece423085a84"],["79","Nikolay gladkiy","trotuar","125 × 250 × 30",30,"26","4,9",2,"390ecc2bb9ebde182a2b9b133bda42a2","570dc1af30b2781e16eebc56e77b8ffe"],["81","Xokkey","trotuar","160 × 275 × 45",45,"40","6",1,"7877e77f06b2b6a2cb554309b0a45bfe","e09e110b557990e1ac5289a94a9be293"],["82","Palma","trotuar","240 × 300 × 38",38,"8,5 + 8,5","5,7",2,"03c3b06ab0fb4c2ce7fdd795f1081b92","8d36a25abf4f35d78d80cbcf2f0592af"],["83","Ventilyator","trotuar","240 × 260 × 38",38,"18","5,49",2,"41c2430485bca30a1eb59c5876593acf","3f3e58325c5b5d90eff2ed06dffea762"],["85","Orxideya","trotuar","220 × 360 × 40",40,"12","4,8",3,"74a0cb9f9e69c2b1938dc901e4c3b2ad","f363b947ec876acbaeee1ddd2c8e2825"],["89","Aleya 3","trotuar","240 × 240 × 45",45,"9,5","",3,"d3e21c8f24316c9917d859c2279a9c59","1f39710cebfcdb0fdd704d5750bffbf5"],["F04","Brilliant","fasad","250 × 500 × 35",35,"","",1,"f96ebd66375ba38987fcb8bc95618fbf","43f4937ca1d072005d2798a7176b43c5"],["F11","Sokol 65×120","fasad","650 × 1200 × 50",50,"","",1,"dc4680526dc0aabcadac74bb22338a3d","f4f2d6386cbad135844d0b18d2765862"],["F17","Pilyastr 3","fasad","300 × 1200 × 50",50,"","",1,"b5560e5c0b1ac0b9ef7c851b42a5f031","70f2c34509ce561f579437a717db5a35"],["F18","Kalonna 40×120","fasad","400 × 1200 × 45",45,"","",1,"f1a698b0937141c1a752345e5f25fa08","3c8b44dd76caa0ef55d41718e2c8c35f"],["F21","Karniz 1","fasad","350 × 1200 × 150",150,"","",1,"ef5eb141a9864ef9d5b44218e5eaf500","2385626c7a18007a2a32df2521ce2880"],["F24","4 tali kamen","fasad","88 × 220 × 15",15,"","",1,"033520b7580975c93e8966049337cf8a","ac60f42fc4deb554b9da133f7f17902d"],["Z01","3D romb","zabor","560 × 2000 × 50",50,"","",1,"d1e3501b2fc271265b287fc2f143d835","b7077681221197205af2c1ba224d2a5e"],["Z05","Sharqona","zabor","565 × 2000 × 50",50,"","",1,"cc505085c93449c96a834da185b2a293","14b1448132f4f49db93dc17d51461331"],["Z08","Tabiiy tosh","zabor","575 × 2000 × 50",50,"","",1,"23e95a48f496b126329d7aa31ddeafe7","ed22673ff66afec87ea7a75d813422cc"],["D01","Ramkali panel","dekor","435 × 800 × 40",40,"","",1,"a97ba7109d5c4f6b384e3145632ce853","b930882b01b858382fc907626e13c070"],["D09","3D piramida","dekor","495 × 500 × 40",40,"","",1,"81452d82e4ee55dc9a7560c2b97f8d8f","08613347e53b7cd4f504c73b4284c521"],["D12","To'lqinli panel","dekor","390 × 800 × 40",40,"","",1,"2a21bd266344cf6a7c771b974b9a092f","3344d09c2eee2ea81f46a315faa3183c"],["S02","Skameyka oyog'i 2","skameyka","760 × 800 × 60",60,"","",1,"4e9a4cc036673dbacf9df18cda099374","4768f11e84e21d08df6a3ea5aeee3942"],["S05","Skameyka oyog'i 5","skameyka","800 × 800 × 60",60,"","",1,"5ac7dda5c4c8c40861b7d24b038ddfb2","7121794974d4392bc1d64ab6d99fcb1b"]];
+const SEC = { trotuar: 'Trotuar', fasad: 'Fasad', zabor: 'Zabor', dekor: 'Dekor', skameyka: 'Skameyka' };
+const SEC_TOTAL = { trotuar: 91, fasad: 26, zabor: 10, dekor: 18, skameyka: 7 };
+const POP = ['70', '01', '85', '83', '42', '89', 'F17', 'Z05', '30', '22', '64', '05'];
+const B = (id) => '/_blob/' + id;
+const items = D.map((r) => {
+  const [code, name, sec, size, th, per, kg, molds, img, mold] = r;
+  const n = (size.match(/\d+/g) || []).map(Number);
+  const wl = n.length >= 2 ? n[0] + ' × ' + n[1] : size;
+  const sz = n[0] === 300 && n[1] === 300 ? '300' : n[0] === 400 && n[1] === 400 ? '400' : n[0] === 200 && n[1] === 200 ? '200' : 'other';
+  const use = sec !== 'trotuar' ? null : th <= 30 ? 'walk' : th <= 40 ? 'yard' : 'car';
+  const k3 = molds > 1 ? "To'plam" : per ? '1 m² ga' : 'Material';
+  const v3 = molds > 1 ? molds + ' qolip' : per ? per + ' dona' : 'ABS / PP';
+  return { code, name, sec, size, th, per, kg, molds, img: B(img), mold: B(mold), wl, sz, use, k3, v3, codeLabel: (/^\d/.test(code) ? '№ ' + code : code) + ' · ' + SEC[sec], kgText: kg ? kg + ' kg' : "menejer hisoblaydi" };
+});
+const GROUPS = [
+  { id: 'sec', title: "Bo'lim", opts: [['trotuar', 'Trotuar plitkasi'], ['fasad', 'Fasad'], ['zabor', 'Zabor panellari'], ['dekor', 'Dekor panellar'], ['skameyka', 'Skameyka oyoqlari']], test: (p, v) => p.sec === v },
+  { id: 'use', title: "Qo'llanish", opts: [['walk', 'Piyoda yo’lak · 25–30 mm'], ['yard', 'Hovli · 35–40 mm'], ['car', 'Avtoturargoh · 45–50 mm']], test: (p, v) => p.use === v },
+  { id: 'sz', title: 'Plitka o’lchami', opts: [['300', '300 × 300'], ['400', '400 × 400'], ['200', '200 × 200'], ['other', 'Figurali / boshqa']], test: (p, v) => p.sz === v },
+  { id: 'molds', title: "To'plam", opts: [['1', 'Bitta qolip'], ['2', '2 qolipli to’plam'], ['3', '3 qolipli to’plam']], test: (p, v) => String(p.molds) === v },
+];
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    this.state = { f: {}, q: '', sort: 'pop', view: 'grid', cmp: this.props.compareDemo === false ? [] : ['01', '05'], list: ['70'], lead: this.props.leadOpen ? '01' : null, qv: null, sent: false, extra: 0, sheet: !!this.props.sheetOpen };
+  }
+  renderVals() {
+    const s = this.state;
+    const set = (patch) => this.setState(patch);
+    const q = s.q.trim().toLowerCase().replace('№', '').trim();
+    const match = (p, skip) => GROUPS.every((g) => g.id === skip || !s.f[g.id] || g.test(p, s.f[g.id])) && (!q || (p.code + ' ' + p.name).toLowerCase().includes(q));
+    let list = items.filter((p) => match(p));
+    const sorters = { code: (a, b) => items.indexOf(a) - items.indexOf(b), th: (a, b) => a.th - b.th, size: (a, b) => a.wl.localeCompare(b.wl), pop: (a, b) => (POP.indexOf(a.code) + 1 || 99) - (POP.indexOf(b.code) + 1 || 99) };
+    list = list.slice().sort(sorters[s.sort] || sorters.pop);
+    const limit = (this.props.limit ?? 12) + s.extra;
+    const shown = list.slice(0, limit).map((p) => ({
+      ...p,
+      cmp: s.cmp.includes(p.code),
+      inList: s.list.includes(p.code),
+      listCls: 'ic' + (s.list.includes(p.code) ? ' ic-on' : ''),
+      toggleCmp: () => set({ cmp: s.cmp.includes(p.code) ? s.cmp.filter((c) => c !== p.code) : [...s.cmp, p.code].slice(-4) }),
+      toggleList: () => set({ list: s.list.includes(p.code) ? s.list.filter((c) => c !== p.code) : [...s.list, p.code] }),
+      openLead: () => set({ lead: p.code, sent: false, qv: null }),
+      openQv: () => set({ qv: p.code }),
+    }));
+    const groups = GROUPS.map((g) => ({
+      title: g.title,
+      opts: g.opts.map(([v, label]) => {
+        const on = s.f[g.id] === v;
+        const n = items.filter((p) => match(p, g.id) && g.test(p, v)).length;
+        return { label, n: g.id === 'sec' && !s.q && Object.keys(s.f).length === 0 ? SEC_TOTAL[v] : n, on, cls: 'fo' + (on ? ' fo-on' : ''), chip: on ? 'sps-btn sps-btn--sm sps-btn--dark' : 'sps-btn sps-btn--sm sps-btn--outline', pick: () => set({ f: { ...s.f, [g.id]: on ? undefined : v }, extra: 0 }) };
+      }),
+    }));
+    const active = GROUPS.filter((g) => s.f[g.id]).map((g) => ({ label: g.opts.find((o) => o[0] === s.f[g.id])[1], clear: () => set({ f: { ...s.f, [g.id]: undefined } }) }));
+    if (s.q) active.push({ label: '“' + s.q + '”', clear: () => set({ q: '' }) });
+    const byCode = (c) => items.find((p) => p.code === c);
+    const lead = s.lead ? byCode(s.lead) : null;
+    const qv = s.qv ? byCode(s.qv) : null;
+    const closeAll = () => set({ lead: null, qv: null });
+    return {
+      groups, active, hasActive: active.length > 0, activeN: active.length, tbCls: this.props.noSearch ? 'tb tb-nosearch' : 'tb', filterText: active.length ? 'Filtr · ' + active.length : 'Filtr',
+      q: s.q, setQ: (e) => set({ q: e.target.value, extra: 0 }),
+      sort: s.sort, setSort: (e) => set({ sort: e.target.value }),
+      layoutCls: s.view === 'list' ? 'list' : 'grid',
+      gridCls: s.view === 'grid' ? 'on' : '', listCls: s.view === 'list' ? 'on' : '',
+      setGrid: () => set({ view: 'grid' }), setList: () => set({ view: 'list' }),
+      countText: list.length + ' ta model' + (Object.keys(s.f).some((k) => s.f[k]) || s.q ? ' topildi' : ' · katalogda 152'),
+      shown, empty: list.length === 0,
+      hasMore: list.length > limit, moreText: Math.min(limit, list.length) + ' / ' + list.length + ' ko’rsatildi',
+      showMore: () => set({ extra: s.extra + 12 }),
+      reset: () => set({ f: {}, q: '', extra: 0 }),
+      hasCmp: s.cmp.length > 0, cmpItems: s.cmp.map(byCode).filter(Boolean), cmpText: s.cmp.length + ' / 4 model',
+      clearCmp: () => set({ cmp: [] }),
+      hasLead: !!lead, lead: lead || {}, sent: s.sent, notSent: !s.sent,
+      submit: (e) => { e.preventDefault(); set({ sent: true }); },
+      leadToList: () => set({ list: s.list.includes(s.lead) ? s.list : [...s.list, s.lead], lead: null }),
+      hasQv: !!qv, qv: qv || {}, qvLead: () => set({ lead: s.qv, qv: null, sent: false }),
+      closeAll, stop: (e) => e.stopPropagation(),
+      sheet: s.sheet, openSheet: () => set({ sheet: true }), closeSheet: () => set({ sheet: false }),
+      sheetCta: list.length + ' ta modelni ko’rsatish',
+    };
+  }
+}
+</script>
+</body>
+</html>

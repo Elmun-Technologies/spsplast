@@ -1,0 +1,5774 @@
+{
+ "$comment": "GENERATED — scripts/extract/build_models_2027.py. Qo'lda tahrirlanmasin!",
+ "version": "2027-0",
+ "generatedAt": "2026-10-09",
+ "source": "docs/design-handoff/data-sources/*.xlsx + src/data/catalog.json (rasmlar)",
+ "sections": [
+  "trotuar",
+  "fasad",
+  "zabor",
+  "dekor",
+  "skameyka"
+ ],
+ "models": [
+  {
+   "key": "t70",
+   "code": "70",
+   "slug": "70-kabanchik-17-5-naqshli",
+   "section": "trotuar",
+   "name": {
+    "uz": "Kabanchik 17,5 naqshli",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,2",
+   "molds": [
+    {
+     "l": "A",
+     "size": "175×175",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "175×175",
+     "per": "33 + 33",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t01",
+   "code": "01",
+   "slug": "01-monako",
+   "section": "trotuar",
+   "name": {
+    "uz": "Monako",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "3,52",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "depth": "30",
+     "g": 320
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "per": "11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-01-monako-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-01-monako-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-01-monako-mold-a.webp"
+    },
+    "tiles": {
+     "A": "/catalog/2027/trotuar-01-monako-tile-a.webp"
+    }
+   }
+  },
+  {
+   "key": "t85",
+   "code": "85",
+   "slug": "85-kabanchik-10-10",
+   "section": "trotuar",
+   "name": {
+    "uz": "Kabanchik 10×10",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,83",
+   "molds": [
+    {
+     "l": "A",
+     "size": "100×100×10",
+     "depth": "10",
+     "g": 210
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "100×100×10",
+     "per": "92",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-85-kabanchik-10-10-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t83",
+   "code": "83",
+   "slug": "83-nikolay-2",
+   "section": "trotuar",
+   "name": {
+    "uz": "Nikolay 2",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,9",
+   "molds": [
+    {
+     "l": "A",
+     "size": null,
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": "22 + 11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t42",
+   "code": "42",
+   "slug": "42-kerpich-10-20-5",
+   "section": "trotuar",
+   "name": {
+    "uz": "Kerpich 10×20×5",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,9",
+   "molds": [
+    {
+     "l": "A",
+     "size": "100×200",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "100×200",
+     "per": "50",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-42-kerpich-10-20-5-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t30",
+   "code": "30",
+   "slug": "30-aleya",
+   "section": "trotuar",
+   "name": {
+    "uz": "Aleya",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,8",
+   "molds": [
+    {
+     "l": "A",
+     "size": "240×240",
+     "depth": "45",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "240×240",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-30-aleya-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t22",
+   "code": "22",
+   "slug": "22-uzor-50-25",
+   "section": "trotuar",
+   "name": {
+    "uz": "Uzor 50×25",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "6",
+   "molds": [
+    {
+     "l": "A",
+     "size": "500×250",
+     "depth": "55",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×250",
+     "per": "8",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-22-uzor-50-25-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t64",
+   "code": "64",
+   "slug": "64-royal-2",
+   "section": "trotuar",
+   "name": {
+    "uz": "Royal 2",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,3",
+   "molds": [
+    {
+     "l": "A",
+     "size": "295×295×30",
+     "depth": "30",
+     "g": 215
+    },
+    {
+     "l": "B",
+     "size": "100×295×30",
+     "depth": "30",
+     "g": 250
+    },
+    {
+     "l": "V",
+     "size": "100×100×25",
+     "depth": "25",
+     "g": 320
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "295×295×30",
+     "per": "6",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "100×295×30",
+     "per": "22",
+     "cap": null
+    },
+    {
+     "l": "V",
+     "size": "100×100×25",
+     "per": "6",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-64-royal-2-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-64-royal-2-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-64-royal-2-mold-a.webp"
+    },
+    "tiles": {
+     "A": "/catalog/2027/trotuar-64-royal-2-tile-a.webp"
+    }
+   }
+  },
+  {
+   "key": "t05",
+   "code": "05",
+   "slug": "05-magna",
+   "section": "trotuar",
+   "name": {
+    "uz": "Magna",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "3,74",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "depth": "30",
+     "g": 340
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "per": "11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-05-magna-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-05-magna-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-05-magna-mold-a.webp"
+    },
+    "tiles": {
+     "A": "/catalog/2027/trotuar-05-magna-tile-a.webp"
+    }
+   }
+  },
+  {
+   "key": "t02",
+   "code": "02",
+   "slug": "02-ornament",
+   "section": "trotuar",
+   "name": {
+    "uz": "Ornament",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,235",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "depth": "30",
+     "g": 385
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "per": "11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-02-ornament-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t03",
+   "code": "03",
+   "slug": "03-yalta",
+   "section": "trotuar",
+   "name": {
+    "uz": "Yalta",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "3,63",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "depth": "30",
+     "g": 330
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "per": "11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-03-yalta-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-03-yalta-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-03-yalta-mold-a.webp"
+    },
+    "tiles": {
+     "A": "/catalog/2027/trotuar-03-yalta-tile-a.webp"
+    }
+   }
+  },
+  {
+   "key": "t04",
+   "code": "04",
+   "slug": "04-tsvetok",
+   "section": "trotuar",
+   "name": {
+    "uz": "Tsvetok",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,07",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "depth": "30",
+     "g": 370
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "per": "11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-04-tsvetok-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t06",
+   "code": "06",
+   "slug": "06-azara",
+   "section": "trotuar",
+   "name": {
+    "uz": "Azara",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "3,74",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "depth": "30",
+     "g": 340
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "per": "11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-06-azara-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-06-azara-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-06-azara-mold-a.webp"
+    },
+    "tiles": {
+     "A": "/catalog/2027/trotuar-06-azara-tile-a.webp"
+    }
+   }
+  },
+  {
+   "key": "t07",
+   "code": "07",
+   "slug": "07-parus",
+   "section": "trotuar",
+   "name": {
+    "uz": "Parus",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,125",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "depth": "30",
+     "g": 375
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "per": "11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-07-parus-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-07-parus-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-07-parus-mold-a.webp"
+    },
+    "tiles": {
+     "A": "/catalog/2027/trotuar-07-parus-tile-a.webp"
+    }
+   }
+  },
+  {
+   "key": "t08",
+   "code": "08",
+   "slug": "08-travertino",
+   "section": "trotuar",
+   "name": {
+    "uz": "Travertino",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,235",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "depth": "30",
+     "g": 385
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "per": "11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-08-travertino-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t09",
+   "code": "09",
+   "slug": "09-versache-1",
+   "section": "trotuar",
+   "name": {
+    "uz": "Versache 1",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "3,96",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "depth": "30",
+     "g": 360
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "per": "11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-09-versache-1-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-09-versache-1-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-09-versache-1-mold-a.webp"
+    },
+    "tiles": {
+     "A": "/catalog/2027/trotuar-09-versache-1-tile-a.webp"
+    }
+   }
+  },
+  {
+   "key": "t10",
+   "code": "10",
+   "slug": "10-zanjir",
+   "section": "trotuar",
+   "name": {
+    "uz": "Zanjir",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "3,52",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "depth": "30",
+     "g": 320
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "per": "11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-10-zanjir-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t11",
+   "code": "11",
+   "slug": "11-setka",
+   "section": "trotuar",
+   "name": {
+    "uz": "Setka",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,125",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "depth": "30",
+     "g": 375
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "per": "11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-11-setka-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t12",
+   "code": "12",
+   "slug": "12-rio",
+   "section": "trotuar",
+   "name": {
+    "uz": "Rio",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "3,52",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "depth": "30",
+     "g": 320
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "per": "11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-12-rio-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-12-rio-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-12-rio-mold-a.webp"
+    },
+    "tiles": {
+     "A": "/catalog/2027/trotuar-12-rio-tile-a.webp"
+    }
+   }
+  },
+  {
+   "key": "t13",
+   "code": "13",
+   "slug": "13-viking",
+   "section": "trotuar",
+   "name": {
+    "uz": "Viking",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "3,52",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "depth": "30",
+     "g": 320
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "per": "11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-13-viking-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t14",
+   "code": "14",
+   "slug": "14-shersha",
+   "section": "trotuar",
+   "name": {
+    "uz": "Shersha",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,125",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "depth": "30",
+     "g": 375
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "per": "11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-14-shersha-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-14-shersha-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-14-shersha-mold-a.webp"
+    },
+    "tiles": {
+     "A": "/catalog/2027/trotuar-14-shersha-tile-a.webp"
+    }
+   }
+  },
+  {
+   "key": "t15",
+   "code": "15",
+   "slug": "15-floriya",
+   "section": "trotuar",
+   "name": {
+    "uz": "Floriya",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,565",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "depth": "30",
+     "g": 415
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "per": "11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-15-floriya-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-15-floriya-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-15-floriya-mold-a.webp"
+    },
+    "tiles": {
+     "A": "/catalog/2027/trotuar-15-floriya-tile-a.webp"
+    }
+   }
+  },
+  {
+   "key": "t16",
+   "code": "16",
+   "slug": "16-strelka",
+   "section": "trotuar",
+   "name": {
+    "uz": "Strelka",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,675",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "depth": "30",
+     "g": 425
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "per": "11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-16-strelka-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t17",
+   "code": "17",
+   "slug": "17-versachi",
+   "section": "trotuar",
+   "name": {
+    "uz": "Versachi",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "3,6",
+   "molds": [
+    {
+     "l": "A",
+     "size": null,
+     "depth": null,
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": "11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t18",
+   "code": "18",
+   "slug": "18-dubay-40-40",
+   "section": "trotuar",
+   "name": {
+    "uz": "Dubay 40×40",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,75",
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×400×45",
+     "depth": "45",
+     "g": 920
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×400×45",
+     "per": "6,25",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t19",
+   "code": "19",
+   "slug": "19-eksklyuziv",
+   "section": "trotuar",
+   "name": {
+    "uz": "Eksklyuziv",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,81",
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×400×45",
+     "depth": "45",
+     "g": 930
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×400×45",
+     "per": "6,25",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-19-eksklyuziv-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-19-eksklyuziv-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-19-eksklyuziv-mold-a.webp"
+    },
+    "tiles": {
+     "A": "/catalog/2027/trotuar-19-eksklyuziv-tile-a.webp"
+    }
+   }
+  },
+  {
+   "key": "t20",
+   "code": "20",
+   "slug": "20-travertin-40-40",
+   "section": "trotuar",
+   "name": {
+    "uz": "Travertin 40×40",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "6",
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×400",
+     "depth": "45",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×400",
+     "per": "6,25",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-20-travertin-40-40-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t21",
+   "code": "21",
+   "slug": "21-taroq",
+   "section": "trotuar",
+   "name": {
+    "uz": "Taroq",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,2",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×400",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×400",
+     "per": "8,8",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t23",
+   "code": "23",
+   "slug": "23-parket-12-36",
+   "section": "trotuar",
+   "name": {
+    "uz": "Parket 12×36",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,3",
+   "molds": [
+    {
+     "l": "A",
+     "size": "120×360",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "120×360",
+     "per": "23",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-23-parket-12-36-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t24",
+   "code": "24",
+   "slug": "24-guruch",
+   "section": "trotuar",
+   "name": {
+    "uz": "Guruch",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,625",
+   "molds": [
+    {
+     "l": "A",
+     "size": "200×200×20",
+     "depth": "20",
+     "g": 160
+    },
+    {
+     "l": "B",
+     "size": "53×53×25",
+     "depth": "25",
+     "g": 150
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "200×200×20",
+     "per": "25",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "53×53×25",
+     "per": "4,16",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-24-guruch-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t25",
+   "code": "25",
+   "slug": "25-bodom",
+   "section": "trotuar",
+   "name": {
+    "uz": "Bodom",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,25",
+   "molds": [
+    {
+     "l": "A",
+     "size": "200×200×25",
+     "depth": "25",
+     "g": 145
+    },
+    {
+     "l": "B",
+     "size": "53×53×25",
+     "depth": "25",
+     "g": 150
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "200×200×25",
+     "per": "25",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "53×53×25",
+     "per": "4,16",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-25-bodom-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t26",
+   "code": "26",
+   "slug": "26-astana",
+   "section": "trotuar",
+   "name": {
+    "uz": "Astana",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,375",
+   "molds": [
+    {
+     "l": "A",
+     "size": "200×200×25",
+     "depth": "25",
+     "g": 330
+    },
+    {
+     "l": "B",
+     "size": "53×53×25",
+     "depth": "25",
+     "g": 150
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "200×200×25",
+     "per": "25",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "53×53×25",
+     "per": "4,16",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-26-astana-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-26-astana-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-26-astana-mold-a.webp"
+    },
+    "tiles": {
+     "A": "/catalog/2027/trotuar-26-astana-tile-a.webp"
+    }
+   }
+  },
+  {
+   "key": "t27",
+   "code": "27",
+   "slug": "27-yulduz",
+   "section": "trotuar",
+   "name": {
+    "uz": "Yulduz",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,675",
+   "molds": [
+    {
+     "l": "A",
+     "size": "200×200×25",
+     "depth": "25",
+     "g": 330
+    },
+    {
+     "l": "B",
+     "size": "53×53×25",
+     "depth": "25",
+     "g": 150
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "200×200×25",
+     "per": "25",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "53×53×25",
+     "per": "2,08",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-27-yulduz-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-27-yulduz-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-27-yulduz-mold-a.webp"
+    },
+    "tiles": {
+     "A": "/catalog/2027/trotuar-27-yulduz-tile-a.webp"
+    }
+   }
+  },
+  {
+   "key": "t28",
+   "code": "28",
+   "slug": "28-turkman-guli",
+   "section": "trotuar",
+   "name": {
+    "uz": "Turkman guli",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,625",
+   "molds": [
+    {
+     "l": "A",
+     "size": "298×298×38",
+     "depth": "38",
+     "g": 310
+    },
+    {
+     "l": "B",
+     "size": "72×72×30",
+     "depth": "30",
+     "g": 150
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "298×298×38",
+     "per": "25",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "72×72×30",
+     "per": "4,16",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-28-turkman-guli-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-28-turkman-guli-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-28-turkman-guli-mold-a.webp"
+    },
+    "tiles": {
+     "A": "/catalog/2027/trotuar-28-turkman-guli-tile-a.webp"
+    }
+   }
+  },
+  {
+   "key": "t29",
+   "code": "29",
+   "slug": "29-eksklyuziv-30-30-4-sakkiz-qirra",
+   "section": "trotuar",
+   "name": {
+    "uz": "Eksklyuziv 30×30 ×4 (sakkiz qirra)",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,25",
+   "molds": [
+    {
+     "l": "A",
+     "size": "200×200×25",
+     "depth": "25",
+     "g": 330
+    },
+    {
+     "l": "B",
+     "size": "53×53×25",
+     "depth": "25",
+     "g": 150
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "200×200×25",
+     "per": "25",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "53×53×25",
+     "per": "4,16",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t31",
+   "code": "31",
+   "slug": "31-aleya-shershavoe",
+   "section": "trotuar",
+   "name": {
+    "uz": "Aleya shershavoe",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,6",
+   "molds": [
+    {
+     "l": "A",
+     "size": "240×240",
+     "depth": null,
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "240×240",
+     "per": "17 + 17",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t32",
+   "code": "32",
+   "slug": "32-tomir",
+   "section": "trotuar",
+   "name": {
+    "uz": "Tomir",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,675",
+   "molds": [
+    {
+     "l": "A",
+     "size": "200×200×25",
+     "depth": "25",
+     "g": 175
+    },
+    {
+     "l": "B",
+     "size": "53×53×25",
+     "depth": "25",
+     "g": 150
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "200×200×25",
+     "per": "25",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "53×53×25",
+     "per": "2,08",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-32-tomir-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t33",
+   "code": "33",
+   "slug": "33-novvot",
+   "section": "trotuar",
+   "name": {
+    "uz": "Novvot",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,675",
+   "molds": [
+    {
+     "l": "A",
+     "size": "200×200×25",
+     "depth": "25",
+     "g": 175
+    },
+    {
+     "l": "B",
+     "size": "53×53×25",
+     "depth": "25",
+     "g": 150
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "200×200×25",
+     "per": "25",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "53×53×25",
+     "per": "2,08",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t34",
+   "code": "34",
+   "slug": "34-parket-20-20",
+   "section": "trotuar",
+   "name": {
+    "uz": "Parket 20×20",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,8",
+   "molds": [
+    {
+     "l": "A",
+     "size": "200×200×25",
+     "depth": "25",
+     "g": 180
+    },
+    {
+     "l": "B",
+     "size": "53×53×25",
+     "depth": "25",
+     "g": 150
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "200×200×25",
+     "per": "25",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "53×53×25",
+     "per": "2,08",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-34-parket-20-20-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t35",
+   "code": "35",
+   "slug": "35-uzor-20-20",
+   "section": "trotuar",
+   "name": {
+    "uz": "Uzor 20×20",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,175",
+   "molds": [
+    {
+     "l": "A",
+     "size": "200×200×25",
+     "depth": "25",
+     "g": 195
+    },
+    {
+     "l": "B",
+     "size": "53×53×25",
+     "depth": "25",
+     "g": 150
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "200×200×25",
+     "per": "25",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "53×53×25",
+     "per": "2,08",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-35-uzor-20-20-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t36",
+   "code": "36",
+   "slug": "36-bodom-20-20",
+   "section": "trotuar",
+   "name": {
+    "uz": "Bodom 20×20",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,675",
+   "molds": [
+    {
+     "l": "A",
+     "size": "200×200×25",
+     "depth": "25",
+     "g": 175
+    },
+    {
+     "l": "B",
+     "size": "53×53×25",
+     "depth": "25",
+     "g": 150
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "200×200×25",
+     "per": "25",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "53×53×25",
+     "per": "2,08",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t37",
+   "code": "37",
+   "slug": "37-rombik-eski",
+   "section": "trotuar",
+   "name": {
+    "uz": "Rombik eski",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,05",
+   "molds": [
+    {
+     "l": "A",
+     "size": "330×195×35",
+     "depth": "35",
+     "g": 135
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "330×195×35",
+     "per": "30",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-37-rombik-eski-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t38",
+   "code": "38",
+   "slug": "38-rombik-yangi",
+   "section": "trotuar",
+   "name": {
+    "uz": "Rombik yangi",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,85",
+   "molds": [
+    {
+     "l": "A",
+     "size": "330×195×35",
+     "depth": "35",
+     "g": 195
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "330×195×35",
+     "per": "30",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-38-rombik-yangi-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-38-rombik-yangi-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-38-rombik-yangi-mold-a.webp"
+    },
+    "tiles": {
+     "A": "/catalog/2027/trotuar-38-rombik-yangi-tile-a.webp"
+    }
+   }
+  },
+  {
+   "key": "t39",
+   "code": "39",
+   "slug": "39-dubay-toshli",
+   "section": "trotuar",
+   "name": {
+    "uz": "Dubay toshli",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "6,3",
+   "molds": [
+    {
+     "l": "A",
+     "size": null,
+     "depth": null,
+     "g": 300
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": "21",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t40",
+   "code": "40",
+   "slug": "40-dubay-shershaviy",
+   "section": "trotuar",
+   "name": {
+    "uz": "Dubay shershaviy",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "6,3",
+   "molds": [
+    {
+     "l": "A",
+     "size": null,
+     "depth": null,
+     "g": 300
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": "21",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t41",
+   "code": "41",
+   "slug": "41-dubay-yaltiroq",
+   "section": "trotuar",
+   "name": {
+    "uz": "Dubay yaltiroq",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "6,3",
+   "molds": [
+    {
+     "l": "A",
+     "size": null,
+     "depth": null,
+     "g": 300
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": "21",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-41-dubay-yaltiroq-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t43",
+   "code": "43",
+   "slug": "43-kerpich-10-20-7",
+   "section": "trotuar",
+   "name": {
+    "uz": "Kerpich 10×20×7",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "7,6",
+   "molds": [
+    {
+     "l": "A",
+     "size": "100×200",
+     "depth": "70",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "100×200",
+     "per": "50",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-43-kerpich-10-20-7-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t44",
+   "code": "44",
+   "slug": "44-parus-18-36",
+   "section": "trotuar",
+   "name": {
+    "uz": "Parus 18×36",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,17",
+   "molds": [
+    {
+     "l": "A",
+     "size": "180×360×38",
+     "depth": "38",
+     "g": 300
+    },
+    {
+     "l": "B",
+     "size": "180×90×38",
+     "depth": "38",
+     "g": 195
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "180×360×38",
+     "per": "14,5",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "180×90×38",
+     "per": "14,5",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t45",
+   "code": "45",
+   "slug": "45-gladkiy-18-36",
+   "section": "trotuar",
+   "name": {
+    "uz": "Gladkiy 18×36",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,71",
+   "molds": [
+    {
+     "l": "A",
+     "size": "180×360×38",
+     "depth": "38",
+     "g": 280
+    },
+    {
+     "l": "B",
+     "size": "83×83×30",
+     "depth": "30",
+     "g": 270
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "180×360×38",
+     "per": "14,5",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "83×83×30",
+     "per": "14,5",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-45-gladkiy-18-36-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t46",
+   "code": "46",
+   "slug": "46-dojdik-18-36",
+   "section": "trotuar",
+   "name": {
+    "uz": "Dojdik 18×36",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,435",
+   "molds": [
+    {
+     "l": "A",
+     "size": "180×360×38",
+     "depth": "38",
+     "g": 330
+    },
+    {
+     "l": "B",
+     "size": "83×83×30",
+     "depth": "30",
+     "g": 270
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "180×360×38",
+     "per": "14,5",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "83×83×30",
+     "per": "14,5",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-46-dojdik-18-36-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t47",
+   "code": "47",
+   "slug": "47-kabanchik-17-17",
+   "section": "trotuar",
+   "name": {
+    "uz": "Kabanchik 17×17",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,65",
+   "molds": [
+    {
+     "l": "A",
+     "size": "170×170×25",
+     "depth": "25",
+     "g": 130
+    },
+    {
+     "l": "B",
+     "size": "60×60×20",
+     "depth": "20",
+     "g": 150
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "170×170×25",
+     "per": "30",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "60×60×20",
+     "per": "30",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-47-kabanchik-17-17-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t48",
+   "code": "48",
+   "slug": "48-mozaika",
+   "section": "trotuar",
+   "name": {
+    "uz": "Mozaika",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,3",
+   "molds": [
+    {
+     "l": "A",
+     "size": "200×200×25",
+     "depth": "25",
+     "g": 200
+    },
+    {
+     "l": "B",
+     "size": "53×53×25",
+     "depth": "25",
+     "g": 150
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "200×200×25",
+     "per": "25",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "53×53×25",
+     "per": "2,08",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t50",
+   "code": "50",
+   "slug": "50-azaliya-1",
+   "section": "trotuar",
+   "name": {
+    "uz": "Azaliya 1",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,04",
+   "molds": [
+    {
+     "l": "A",
+     "size": "290×290×45",
+     "depth": "45",
+     "g": 260
+    },
+    {
+     "l": "B",
+     "size": "190×190×45",
+     "depth": "45",
+     "g": 160
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "290×290×45",
+     "per": "12",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "190×190×45",
+     "per": "12",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-50-azaliya-1-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-50-azaliya-1-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-50-azaliya-1-mold-a.webp"
+    },
+    "tiles": {
+     "A": "/catalog/2027/trotuar-50-azaliya-1-tile-a.webp"
+    }
+   }
+  },
+  {
+   "key": "t51",
+   "code": "51",
+   "slug": "51-azaliya-2",
+   "section": "trotuar",
+   "name": {
+    "uz": "Azaliya 2",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,04",
+   "molds": [
+    {
+     "l": "A",
+     "size": "290×290×45",
+     "depth": "45",
+     "g": 260
+    },
+    {
+     "l": "B",
+     "size": "190×190×45",
+     "depth": "45",
+     "g": 160
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "290×290×45",
+     "per": "12",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "190×190×45",
+     "per": "12",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-51-azaliya-2-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t52",
+   "code": "52",
+   "slug": "52-ona-bola-1",
+   "section": "trotuar",
+   "name": {
+    "uz": "Ona-bola 1",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,25",
+   "molds": [
+    {
+     "l": "A",
+     "size": "200×200×30",
+     "depth": "30",
+     "g": 140
+    },
+    {
+     "l": "B",
+     "size": "135×135×30",
+     "depth": "30",
+     "g": 70
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "200×200×30",
+     "per": "25",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "135×135×30",
+     "per": "25",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-52-ona-bola-1-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t53",
+   "code": "53",
+   "slug": "53-aziya",
+   "section": "trotuar",
+   "name": {
+    "uz": "Aziya",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,225",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×150×40",
+     "depth": "40",
+     "g": 165
+    },
+    {
+     "l": "B",
+     "size": "190×190×40",
+     "depth": "40",
+     "g": 145
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×150×40",
+     "per": "22",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "190×190×40",
+     "per": "11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-53-aziya-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t54",
+   "code": "54",
+   "slug": "54-aziya-1",
+   "section": "trotuar",
+   "name": {
+    "uz": "Aziya 1",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,485",
+   "molds": [
+    {
+     "l": "A",
+     "size": "290×290×45",
+     "depth": "45",
+     "g": 310
+    },
+    {
+     "l": "B",
+     "size": "290×290×45",
+     "depth": "45",
+     "g": 255
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "290×290×45",
+     "per": "12",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "290×290×45",
+     "per": "3",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t55",
+   "code": "55",
+   "slug": "55-aziya-3",
+   "section": "trotuar",
+   "name": {
+    "uz": "Aziya 3",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,84",
+   "molds": [
+    {
+     "l": "A",
+     "size": "420×300×42",
+     "depth": "42",
+     "g": 360
+    },
+    {
+     "l": "B",
+     "size": "170×170×42",
+     "depth": "42",
+     "g": 160
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "420×300×42",
+     "per": "11",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "170×170×42",
+     "per": "5,5",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t56",
+   "code": "56",
+   "slug": "56-buxoro",
+   "section": "trotuar",
+   "name": {
+    "uz": "Buxoro",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,04",
+   "molds": [
+    {
+     "l": "A",
+     "size": "210×210×40",
+     "depth": "40",
+     "g": 220
+    },
+    {
+     "l": "B",
+     "size": "320×175×40",
+     "depth": "40",
+     "g": 170
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "210×210×40",
+     "per": "9",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "320×175×40",
+     "per": "18",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-56-buxoro-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-56-buxoro-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-56-buxoro-mold-a.webp"
+    },
+    "tiles": {
+     "A": "/catalog/2027/trotuar-56-buxoro-tile-a.webp"
+    }
+   }
+  },
+  {
+   "key": "t57",
+   "code": "57",
+   "slug": "57-afina",
+   "section": "trotuar",
+   "name": {
+    "uz": "Afina",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,08",
+   "molds": [
+    {
+     "l": "A",
+     "size": "215×215×40",
+     "depth": "40",
+     "g": 135
+    },
+    {
+     "l": "B",
+     "size": "125×410×40",
+     "depth": "40",
+     "g": 175
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "215×215×40",
+     "per": "13",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "125×410×40",
+     "per": "19",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-57-afina-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-57-afina-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-57-afina-mold-a.webp"
+    },
+    "tiles": {
+     "A": "/catalog/2027/trotuar-57-afina-tile-a.webp"
+    }
+   }
+  },
+  {
+   "key": "t58",
+   "code": "58",
+   "slug": "58-rokki",
+   "section": "trotuar",
+   "name": {
+    "uz": "Rokki",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,07",
+   "molds": [
+    {
+     "l": "A",
+     "size": "295×200×45",
+     "depth": "45",
+     "g": 195
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "295×200×45",
+     "per": "26",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-58-rokki-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-58-rokki-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-58-rokki-mold-a.webp"
+    },
+    "tiles": {
+     "A": "/catalog/2027/trotuar-58-rokki-tile-a.webp"
+    }
+   }
+  },
+  {
+   "key": "t59",
+   "code": "59",
+   "slug": "59-kostochka",
+   "section": "trotuar",
+   "name": {
+    "uz": "Kostochka",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,72",
+   "molds": [
+    {
+     "l": "A",
+     "size": null,
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": "40",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t60",
+   "code": "60",
+   "slug": "60-3d",
+   "section": "trotuar",
+   "name": {
+    "uz": "3D",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,925",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "depth": "30",
+     "g": 375
+    },
+    {
+     "l": "B",
+     "size": "100×395×35",
+     "depth": "35",
+     "g": 365
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "per": "8,2",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "100×395×35",
+     "per": "16,4",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t61",
+   "code": "61",
+   "slug": "61-4d",
+   "section": "trotuar",
+   "name": {
+    "uz": "4D",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,33",
+   "molds": [
+    {
+     "l": "A",
+     "size": "175×175×25",
+     "depth": "25",
+     "g": 130
+    },
+    {
+     "l": "B",
+     "size": "90×345×30",
+     "depth": "30",
+     "g": 260
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "175×175×25",
+     "per": "8,2",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "90×345×30",
+     "per": "32,8",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t62",
+   "code": "62",
+   "slug": "62-vegas",
+   "section": "trotuar",
+   "name": {
+    "uz": "Vegas",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,675",
+   "molds": [
+    {
+     "l": "A",
+     "size": "350×350×38",
+     "depth": "38",
+     "g": 535
+    },
+    {
+     "l": "B",
+     "size": "83×83×30",
+     "depth": "30",
+     "g": 270
+    },
+    {
+     "l": "V",
+     "size": "53×53×25",
+     "depth": "25",
+     "g": 150
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "350×350×38",
+     "per": "8,2",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "83×83×30",
+     "per": "4,1",
+     "cap": null
+    },
+    {
+     "l": "V",
+     "size": "53×53×25",
+     "per": "4,1",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t63",
+   "code": "63",
+   "slug": "63-royal-1",
+   "section": "trotuar",
+   "name": {
+    "uz": "Royal 1",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,625",
+   "molds": [
+    {
+     "l": "A",
+     "size": "135×280×30",
+     "depth": "30",
+     "g": 120
+    },
+    {
+     "l": "B",
+     "size": "100×295×30",
+     "depth": "30",
+     "g": 250
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "135×280×30",
+     "per": "12,5",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "100×295×30",
+     "per": "25",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-63-royal-1-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t65",
+   "code": "65",
+   "slug": "65-farovon",
+   "section": "trotuar",
+   "name": {
+    "uz": "Farovon",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,55",
+   "molds": [
+    {
+     "l": "A",
+     "size": "150×150×25",
+     "depth": "25",
+     "g": 185
+    },
+    {
+     "l": "B",
+     "size": "53×53×25",
+     "depth": "25",
+     "g": 185
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "150×150×25",
+     "per": "15",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "53×53×25",
+     "per": "15",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-65-farovon-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t66",
+   "code": "66",
+   "slug": "66-aleya-2",
+   "section": "trotuar",
+   "name": {
+    "uz": "Aleya 2",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,9",
+   "molds": [
+    {
+     "l": "A",
+     "size": null,
+     "depth": "35",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": "13 + 13",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-66-aleya-2-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t67",
+   "code": "67",
+   "slug": "67-safir",
+   "section": "trotuar",
+   "name": {
+    "uz": "Safir",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "6",
+   "molds": [
+    {
+     "l": "A",
+     "size": "140×140",
+     "depth": null,
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "140×140",
+     "per": "49 + 49",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t68",
+   "code": "68",
+   "slug": "68-aleya-uzor",
+   "section": "trotuar",
+   "name": {
+    "uz": "Aleya uzor",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5",
+   "molds": [
+    {
+     "l": "A",
+     "size": "270×270",
+     "depth": null,
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "270×270",
+     "per": "12 + 12",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t69",
+   "code": "69",
+   "slug": "69-kabanchik-15-15",
+   "section": "trotuar",
+   "name": {
+    "uz": "Kabanchik 15×15",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,8",
+   "molds": [
+    {
+     "l": "A",
+     "size": "150×150",
+     "depth": null,
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "150×150",
+     "per": "40 + 40",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-69-kabanchik-15-15-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t71",
+   "code": "71",
+   "slug": "71-mumtoz",
+   "section": "trotuar",
+   "name": {
+    "uz": "Mumtoz",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5",
+   "molds": [
+    {
+     "l": "A",
+     "size": null,
+     "depth": null,
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": "11 + 11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-71-mumtoz-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t72",
+   "code": "72",
+   "slug": "72-marokesh",
+   "section": "trotuar",
+   "name": {
+    "uz": "Marokesh",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,6",
+   "molds": [
+    {
+     "l": "A",
+     "size": null,
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": "11 + 11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-72-marokesh-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t73",
+   "code": "73",
+   "slug": "73-marokesh-2",
+   "section": "trotuar",
+   "name": {
+    "uz": "Marokesh 2",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,6",
+   "molds": [
+    {
+     "l": "A",
+     "size": null,
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": "11 + 11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t74",
+   "code": "74",
+   "slug": "74-nikolay-gladkiy",
+   "section": "trotuar",
+   "name": {
+    "uz": "Nikolay gladkiy",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,9",
+   "molds": [
+    {
+     "l": "A",
+     "size": null,
+     "depth": null,
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": "26 + 26",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t75",
+   "code": "75",
+   "slug": "75-nikolay-shershavoe",
+   "section": "trotuar",
+   "name": {
+    "uz": "Nikolay shershavoe",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,9",
+   "molds": [
+    {
+     "l": "A",
+     "size": null,
+     "depth": null,
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": "26 + 26",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t76",
+   "code": "76",
+   "slug": "76-ona-bola-2",
+   "section": "trotuar",
+   "name": {
+    "uz": "Ona-bola 2",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,25",
+   "molds": [
+    {
+     "l": "A",
+     "size": "200×200×30",
+     "depth": "30",
+     "g": 140
+    },
+    {
+     "l": "B",
+     "size": "135×135×30",
+     "depth": "30",
+     "g": 70
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "200×200×30",
+     "per": "25",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "135×135×30",
+     "per": "25",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-76-ona-bola-2-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t77",
+   "code": "77",
+   "slug": "77-aziya-2",
+   "section": "trotuar",
+   "name": {
+    "uz": "Aziya 2",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,71",
+   "molds": [
+    {
+     "l": "A",
+     "size": "290×290×45",
+     "depth": "45",
+     "g": 255
+    },
+    {
+     "l": "B",
+     "size": "190×190×45",
+     "depth": "45",
+     "g": 155
+    },
+    {
+     "l": "V",
+     "size": "290×290×45",
+     "depth": "45",
+     "g": 290
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "290×290×45",
+     "per": "3",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "190×190×45",
+     "per": "3",
+     "cap": null
+    },
+    {
+     "l": "V",
+     "size": "290×290×45",
+     "per": "12",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t78",
+   "code": "78",
+   "slug": "78-xokkey",
+   "section": "trotuar",
+   "name": {
+    "uz": "Xokkey",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "6",
+   "molds": [
+    {
+     "l": "A",
+     "size": null,
+     "depth": null,
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": "40",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-78-xokkey-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t79",
+   "code": "79",
+   "slug": "79-palma",
+   "section": "trotuar",
+   "name": {
+    "uz": "Palma",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,7",
+   "molds": [
+    {
+     "l": "A",
+     "size": "240×300×38",
+     "depth": "38",
+     "g": 280
+    },
+    {
+     "l": "B",
+     "size": "175×115×38",
+     "depth": "38",
+     "g": 110
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "240×300×38",
+     "per": "17",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "175×115×38",
+     "per": "8,5",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-79-palma-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-79-palma-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-79-palma-mold-a.webp"
+    },
+    "tiles": {
+     "A": "/catalog/2027/trotuar-79-palma-tile-a.webp"
+    }
+   }
+  },
+  {
+   "key": "t80",
+   "code": "80",
+   "slug": "80-ventilyator",
+   "section": "trotuar",
+   "name": {
+    "uz": "Ventilyator",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,49",
+   "molds": [
+    {
+     "l": "A",
+     "size": "240×260×38",
+     "depth": "38",
+     "g": 180
+    },
+    {
+     "l": "B",
+     "size": "290×300×38",
+     "depth": "38",
+     "g": 250
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "240×260×38",
+     "per": "18",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "290×300×38",
+     "per": "9",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t81",
+   "code": "81",
+   "slug": "81-vindovs",
+   "section": "trotuar",
+   "name": {
+    "uz": "Vindovs",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,3",
+   "molds": [
+    {
+     "l": "A",
+     "size": "160×300×30",
+     "depth": "30",
+     "g": 215
+    },
+    {
+     "l": "B",
+     "size": "190×260×30",
+     "depth": "30",
+     "g": 150
+    },
+    {
+     "l": "V",
+     "size": "100×100×25",
+     "depth": "25",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "160×300×30",
+     "per": "15",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "190×260×30",
+     "per": "15",
+     "cap": null
+    },
+    {
+     "l": "V",
+     "size": "100×100×25",
+     "per": "4",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-81-vindovs-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-81-vindovs-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-81-vindovs-mold-a.webp"
+    },
+    "tiles": {
+     "A": "/catalog/2027/trotuar-81-vindovs-tile-a.webp"
+    }
+   }
+  },
+  {
+   "key": "t82",
+   "code": "82",
+   "slug": "82-orxideya",
+   "section": "trotuar",
+   "name": {
+    "uz": "Orxideya",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,8",
+   "molds": [
+    {
+     "l": "A",
+     "size": null,
+     "depth": null,
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": "12 + 6",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-82-orxideya-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t84",
+   "code": "84",
+   "slug": "84-vetnam",
+   "section": "trotuar",
+   "name": {
+    "uz": "Vetnam",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,3",
+   "molds": [
+    {
+     "l": "A",
+     "size": "175×175",
+     "depth": null,
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "175×175",
+     "per": "33 + 33",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-84-vetnam-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t86",
+   "code": "86",
+   "slug": "86-aleya-3",
+   "section": "trotuar",
+   "name": {
+    "uz": "Aleya 3",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [],
+   "tiles": [],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t87",
+   "code": "87",
+   "slug": "87-magna-kubik-bilan",
+   "section": "trotuar",
+   "name": {
+    "uz": "Magna kubik bilan",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300",
+     "per": "10,5 + 10,5",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t88",
+   "code": "88",
+   "slug": "88-parket-yog-och-naqshli",
+   "section": "trotuar",
+   "name": {
+    "uz": "Parket yog'och naqshli",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "120×360",
+     "depth": null,
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "120×360",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "tpolosa",
+   "code": null,
+   "slug": "polosa",
+   "section": "trotuar",
+   "name": {
+    "uz": "Polosa",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "3,63",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "depth": "30",
+     "g": 330
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "per": "11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "tkaliforniya",
+   "code": null,
+   "slug": "kaliforniya",
+   "section": "trotuar",
+   "name": {
+    "uz": "Kaliforniya",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,125",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "depth": "30",
+     "g": 375
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "per": "11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "tkaliforniya-g",
+   "code": null,
+   "slug": "kaliforniya-g",
+   "section": "trotuar",
+   "name": {
+    "uz": "Kaliforniya G",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "3,96",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "depth": "30",
+     "g": 360
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "per": "11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "tshashka",
+   "code": null,
+   "slug": "shashka",
+   "section": "trotuar",
+   "name": {
+    "uz": "Shashka",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,18",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "depth": "30",
+     "g": 380
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "per": "11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "tbumerang",
+   "code": null,
+   "slug": "bumerang",
+   "section": "trotuar",
+   "name": {
+    "uz": "Bumerang",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "6,11",
+   "molds": [
+    {
+     "l": "A",
+     "size": "150×150×25",
+     "depth": "25",
+     "g": 130
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "150×150×25",
+     "per": "47",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-bumerang-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-bumerang-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-bumerang-mold-a.webp"
+    },
+    "tiles": {
+     "A": "/catalog/2027/trotuar-bumerang-tile-a.webp"
+    }
+   }
+  },
+  {
+   "key": "tvegas-2-shershaviy",
+   "code": null,
+   "slug": "vegas-2-shershaviy",
+   "section": "trotuar",
+   "name": {
+    "uz": "Vegas 2 (shershaviy)",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,8",
+   "molds": [
+    {
+     "l": "A",
+     "size": "350×350×38",
+     "depth": "38",
+     "g": 550
+    },
+    {
+     "l": "B",
+     "size": "83×83×30",
+     "depth": "30",
+     "g": 270
+    },
+    {
+     "l": "V",
+     "size": "53×53×25",
+     "depth": "25",
+     "g": 150
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "350×350×38",
+     "per": "8,2",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "83×83×30",
+     "per": "4,1",
+     "cap": null
+    },
+    {
+     "l": "V",
+     "size": "53×53×25",
+     "per": "4,1",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "tornament-18-36",
+   "code": null,
+   "slug": "ornament-18-36",
+   "section": "trotuar",
+   "name": {
+    "uz": "Ornament 18×36",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,29",
+   "molds": [
+    {
+     "l": "A",
+     "size": "180×360×38",
+     "depth": "38",
+     "g": 320
+    },
+    {
+     "l": "B",
+     "size": "83×83×30",
+     "depth": "30",
+     "g": 270
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "180×360×38",
+     "per": "14,5",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "83×83×30",
+     "per": "14,5",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "tdubay-aylana-okrujnost",
+   "code": null,
+   "slug": "dubay-aylana-okrujnost",
+   "section": "trotuar",
+   "name": {
+    "uz": "Dubay aylana (okrujnost)",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "6",
+   "molds": [
+    {
+     "l": "A",
+     "size": "500×250×50",
+     "depth": "50",
+     "g": 140
+    },
+    {
+     "l": "B",
+     "size": "275×275×40",
+     "depth": "40",
+     "g": 130
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×250×50",
+     "per": "45",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "275×275×40",
+     "per": "45",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "s-skameyka-3-forma",
+   "code": null,
+   "slug": "skameyka-3-forma",
+   "section": "skameyka",
+   "name": {
+    "uz": "Skameyka (3 forma)",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": null,
+     "depth": null,
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": true,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "f-fasad-beeline-gladkiy",
+   "code": null,
+   "slug": "fasad-beeline-gladkiy",
+   "section": "fasad",
+   "name": {
+    "uz": "Fasad Beeline gladkiy",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,7",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×600",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×600",
+     "per": "5,5",
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "ABS, kg/m²",
+      "ru": null,
+      "en": null
+     },
+     "v": {
+      "uz": "4,7",
+      "ru": null,
+      "en": null
+     }
+    },
+    {
+     "k": {
+      "uz": "PP, kg/m²",
+      "ru": null,
+      "en": null
+     },
+     "v": {
+      "uz": "3,75",
+      "ru": null,
+      "en": null
+     }
+    }
+   ],
+   "sizeEstimated": true,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "f-kirpich-fasad",
+   "code": null,
+   "slug": "kirpich-fasad",
+   "section": "fasad",
+   "name": {
+    "uz": "Kirpich fasad",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "250×500",
+     "depth": null,
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "250×500",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": true,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "f-quba-fasad",
+   "code": null,
+   "slug": "quba-fasad",
+   "section": "fasad",
+   "name": {
+    "uz": "Quba fasad",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×600",
+     "depth": null,
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×600",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": true,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "f-rus-2-2",
+   "code": null,
+   "slug": "rus-2-2",
+   "section": "fasad",
+   "name": {
+    "uz": "Rus 2.2",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,2",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×600",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×600",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "ABS, kg/m²",
+      "ru": null,
+      "en": null
+     },
+     "v": {
+      "uz": "4,2",
+      "ru": null,
+      "en": null
+     }
+    },
+    {
+     "k": {
+      "uz": "PP, kg/m²",
+      "ru": null,
+      "en": null
+     },
+     "v": {
+      "uz": "3,3",
+      "ru": null,
+      "en": null
+     }
+    }
+   ],
+   "sizeEstimated": true,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/fasad-rus-2-2-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "f-yangi-beeline-shershaviy",
+   "code": null,
+   "slug": "yangi-beeline-shershaviy",
+   "section": "fasad",
+   "name": {
+    "uz": "Yangi Beeline shershaviy",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,5",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×600",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×600",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "ABS, kg/m²",
+      "ru": null,
+      "en": null
+     },
+     "v": {
+      "uz": "4,5",
+      "ru": null,
+      "en": null
+     }
+    },
+    {
+     "k": {
+      "uz": "PP, kg/m²",
+      "ru": null,
+      "en": null
+     },
+     "v": {
+      "uz": "3,5",
+      "ru": null,
+      "en": null
+     }
+    }
+   ],
+   "sizeEstimated": true,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "f-rus-2",
+   "code": null,
+   "slug": "rus-2",
+   "section": "fasad",
+   "name": {
+    "uz": "Rus 2",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,8",
+   "molds": [
+    {
+     "l": "A",
+     "size": "250×500",
+     "depth": "35",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "250×500",
+     "per": "8",
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "ABS, kg/m²",
+      "ru": null,
+      "en": null
+     },
+     "v": {
+      "uz": "4,8",
+      "ru": null,
+      "en": null
+     }
+    },
+    {
+     "k": {
+      "uz": "PP, kg/m²",
+      "ru": null,
+      "en": null
+     },
+     "v": {
+      "uz": "3,6",
+      "ru": null,
+      "en": null
+     }
+    }
+   ],
+   "sizeEstimated": true,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/fasad-rus-2-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "f-labirint",
+   "code": null,
+   "slug": "labirint",
+   "section": "fasad",
+   "name": {
+    "uz": "Labirint",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,95",
+   "molds": [
+    {
+     "l": "A",
+     "size": "250×500",
+     "depth": "35",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "250×500",
+     "per": "8",
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "ABS, kg/m²",
+      "ru": null,
+      "en": null
+     },
+     "v": {
+      "uz": "4,95",
+      "ru": null,
+      "en": null
+     }
+    },
+    {
+     "k": {
+      "uz": "PP, kg/m²",
+      "ru": null,
+      "en": null
+     },
+     "v": {
+      "uz": "3,7",
+      "ru": null,
+      "en": null
+     }
+    }
+   ],
+   "sizeEstimated": true,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/fasad-labirint-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "f-fasad-3d",
+   "code": null,
+   "slug": "fasad-3d",
+   "section": "fasad",
+   "name": {
+    "uz": "Fasad 3D",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,6",
+   "molds": [
+    {
+     "l": "A",
+     "size": null,
+     "depth": "35",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": "8",
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "ABS, kg/m²",
+      "ru": null,
+      "en": null
+     },
+     "v": {
+      "uz": "4,6",
+      "ru": null,
+      "en": null
+     }
+    },
+    {
+     "k": {
+      "uz": "PP, kg/m²",
+      "ru": null,
+      "en": null
+     },
+     "v": {
+      "uz": "3,4",
+      "ru": null,
+      "en": null
+     }
+    }
+   ],
+   "sizeEstimated": true,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "f-rus-3",
+   "code": null,
+   "slug": "rus-3",
+   "section": "fasad",
+   "name": {
+    "uz": "Rus 3",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5",
+   "molds": [
+    {
+     "l": "A",
+     "size": "250×500",
+     "depth": "35",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "250×500",
+     "per": "8",
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "ABS, kg/m²",
+      "ru": null,
+      "en": null
+     },
+     "v": {
+      "uz": "5",
+      "ru": null,
+      "en": null
+     }
+    },
+    {
+     "k": {
+      "uz": "PP, kg/m²",
+      "ru": null,
+      "en": null
+     },
+     "v": {
+      "uz": "3,8",
+      "ru": null,
+      "en": null
+     }
+    }
+   ],
+   "sizeEstimated": true,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/fasad-rus-3-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "f-brilliant",
+   "code": null,
+   "slug": "brilliant",
+   "section": "fasad",
+   "name": {
+    "uz": "Brilliant",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,7",
+   "molds": [
+    {
+     "l": "A",
+     "size": "250×500",
+     "depth": "35",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "250×500",
+     "per": "8",
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "ABS, kg/m²",
+      "ru": null,
+      "en": null
+     },
+     "v": {
+      "uz": "4,7",
+      "ru": null,
+      "en": null
+     }
+    },
+    {
+     "k": {
+      "uz": "PP, kg/m²",
+      "ru": null,
+      "en": null
+     },
+     "v": {
+      "uz": "3,9",
+      "ru": null,
+      "en": null
+     }
+    }
+   ],
+   "sizeEstimated": true,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "f-quba",
+   "code": null,
+   "slug": "quba",
+   "section": "fasad",
+   "name": {
+    "uz": "Quba",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "250×500",
+     "depth": null,
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "250×500",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": true,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "d-sokol-kalonna",
+   "code": null,
+   "slug": "sokol-kalonna",
+   "section": "dekor",
+   "name": {
+    "uz": "Sokol kalonna",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "200×750",
+     "depth": null,
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "200×750",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": true,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "d-sokol-friz-kubik",
+   "code": null,
+   "slug": "sokol-friz-kubik",
+   "section": "dekor",
+   "name": {
+    "uz": "Sokol friz kubik",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "150×1200",
+     "depth": null,
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "150×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": true,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "d-karniz-1",
+   "code": null,
+   "slug": "karniz-1",
+   "section": "dekor",
+   "name": {
+    "uz": "Karniz 1",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "350×1200",
+     "depth": "150",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "350×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": true,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "d-pilyastr-3",
+   "code": null,
+   "slug": "pilyastr-3",
+   "section": "dekor",
+   "name": {
+    "uz": "Pilyastr 3",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×1200",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": true,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "d-kalonna",
+   "code": null,
+   "slug": "kalonna",
+   "section": "dekor",
+   "name": {
+    "uz": "Kalonna",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "depth": null,
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": true,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "f-beeline-3",
+   "code": null,
+   "slug": "beeline-3",
+   "section": "fasad",
+   "name": {
+    "uz": "Beeline 3",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "depth": null,
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": true,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/fasad-beeline-3-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "d-rom-karniz-1",
+   "code": null,
+   "slug": "rom-karniz-1",
+   "section": "dekor",
+   "name": {
+    "uz": "Rom karniz 1",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "180×1200",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "180×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": true,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "d-zina-30-120-gladkiy",
+   "code": null,
+   "slug": "zina-30-120-gladkiy",
+   "section": "dekor",
+   "name": {
+    "uz": "Zina 30–120 gladkiy",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×1200",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": true,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/dekor-zina-30-120-gladkiy-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "d-sokol",
+   "code": null,
+   "slug": "sokol",
+   "section": "dekor",
+   "name": {
+    "uz": "Sokol",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "650×300",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "650×300",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": true,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/dekor-sokol-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "d-kapitel-20",
+   "code": null,
+   "slug": "kapitel-20",
+   "section": "dekor",
+   "name": {
+    "uz": "Kapitel 20",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": null,
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": true,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "d-kapitel-40-past",
+   "code": null,
+   "slug": "kapitel-40-past",
+   "section": "dekor",
+   "name": {
+    "uz": "Kapitel 40 — past",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": null,
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": true,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "d-kapitel-40-tepa",
+   "code": null,
+   "slug": "kapitel-40-tepa",
+   "section": "dekor",
+   "name": {
+    "uz": "Kapitel 40 — tepa",
+    "ru": null,
+    "en": null
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": null,
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": true,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/dekor-kapitel-40-tepa-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  }
+ ]
+}

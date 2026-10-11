@@ -1,140 +1,189 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import { normalizePhone, isValidUzPhone } from '@/lib/phone';
+import { normalizePhone, isValidUzPhone, isValidIntlPhone } from '@/lib/phone';
 import { escapeTelegramHtml, sendTelegramNotification } from '@/lib/telegram';
 import { checkRateLimit } from '@/lib/rateLimit';
+import { calcMolds, getModelBySlug, modelName, modelSetSize } from '@/lib/catalog2027';
 
 /**
- * Zayafka (lead) endpoint'i — saytdagi YAGONA server API.
+ * Zayafka endpoint'i — saytdagi YAGONA yozuv API (HANDOFF 5-bo'lim).
  *
- * Arxitektura qarori (2026-10-04): backend yo'q, ma'lumotlar bazasi yo'q.
- * Mijoz formani to'ldiradi, xabar to'g'ridan-to'g'ri Telegram guruhiga tushadi,
- * menejer o'zi bog'lanadi. Shu sababli bu yerda hech qanday yozuv saqlanmaydi:
- * faqat validatsiya, spam himoyasi va Telegram xabari.
- *
- * Xabar tarkibi: forma turi, ism, telefon, mahsulot (nom + SKU), miqdor, izoh,
- * manba sahifa, til va Toshkent vaqti — menejerga kontekst to'liq bo'lsin.
+ * Backend va ma'lumotlar bazasi yo'q: forma → Zod validatsiyasi → honeypot +
+ * rate limit → Telegram xabari (parse_mode HTML) → `{ ok, requestId }`.
+ * requestId formati: SPS-YYMM-NNNN.
  */
 export const dynamic = 'force-dynamic';
 
-const LEAD_TYPES = ['PRODUCT_REQUEST', 'CONSULTATION', 'B2B_WHOLESALE', 'ONE_CLICK', 'CALLBACK'] as const;
-
-const TYPE_LABELS: Record<(typeof LEAD_TYPES)[number], string> = {
-  PRODUCT_REQUEST: 'Mahsulot bo‘yicha zayafka',
-  CONSULTATION: 'Konsultatsiya so‘rovi',
-  B2B_WHOLESALE: 'Ulgurji (B2B) so‘rov',
-  ONE_CLICK: '1-klik zayafka',
-  CALLBACK: 'Qo‘ng‘iroq so‘rovi',
-};
-
 const leadSchema = z.object({
+  type: z.enum(['quick', 'list', 'partners']).default('quick'),
+  clientType: z.enum(['workshop', 'dealer', 'builder', 'private']).optional(),
   name: z
     .string({ required_error: 'Ism kiritilishi shart', invalid_type_error: 'Ism kiritilishi shart' })
     .trim()
-    .min(2, 'Ism kamida 2 ta belgidan iborat bo‘lishi kerak')
+    .min(2, 'Ism kiritilishi shart')
     .max(120, 'Ism juda uzun'),
   phone: z
-    .string({ required_error: 'Telefon raqami kiritilishi shart', invalid_type_error: 'Telefon raqami kiritilishi shart' })
+    .string({ required_error: 'Telefon raqami noto‘g‘ri', invalid_type_error: 'Telefon raqami noto‘g‘ri' })
     .trim()
-    .min(7, 'Telefon raqami noto‘g‘ri. Format: +998 XX XXX XX XX')
-    .max(32),
-  product: z.string().trim().max(240).optional(),
-  productSku: z.string().trim().max(64).optional(),
-  quantity: z.coerce.number().int().min(1).max(1_000_000).optional(),
+    .min(7, 'Telefon raqami noto‘g‘ri')
+    .max(32, 'Telefon raqami noto‘g‘ri'),
+  city: z.string().trim().max(120).optional(),
+  volumeM2: z.coerce.number().min(1).max(1_000_000).optional(),
+  company: z.string().trim().max(200).optional(),
+  country: z.string().trim().max(120).optional(),
+  material: z.enum(['pp', 'abs', 'advice']).optional(),
+  items: z
+    .array(
+      z.object({
+        slug: z.string().trim().min(1).max(120),
+        code: z.string().trim().max(16).optional(),
+        m2: z.coerce.number().min(1).max(1_000_000).optional(),
+      }),
+    )
+    .max(60)
+    .optional(),
   message: z.string().trim().max(2000).optional(),
+  lang: z.enum(['uz', 'ru', 'en']).default('uz'),
   pageUrl: z.string().trim().max(500).optional(),
-  lang: z.enum(['uz', 'ru']).optional(),
-  type: z.enum(LEAD_TYPES).optional().default('PRODUCT_REQUEST'),
-  // Honeypot: botlar to'ldiradigan yashirin maydon. To'ldirilgan bo'lsa so'rov
-  // "muvaffaqiyatli" javob oladi, lekin Telegram'ga hech narsa yuborilmaydi.
-  website: z.string().max(200).optional(),
-  utmSource: z.string().max(200).optional(),
-  utmMedium: z.string().max(200).optional(),
-  utmCampaign: z.string().max(200).optional(),
+  utm_source: z.string().max(200).optional(),
+  utm_medium: z.string().max(200).optional(),
+  utm_campaign: z.string().max(200).optional(),
   gclid: z.string().max(200).optional(),
   fbclid: z.string().max(200).optional(),
+  // Honeypot: botlar to'ldiradigan yashirin maydon — bo'sh bo'lishi shart.
+  website: z.string().max(200).optional(),
 });
 
-function clientIp(req: Request): string {
-  return (
-    req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
-    req.headers.get('x-real-ip') ||
-    'unknown'
-  );
+const CLIENT_LABELS: Record<string, string> = {
+  workshop: 'Sex',
+  dealer: 'Diler',
+  builder: 'Quruvchi',
+  private: 'Xususiy',
+};
+
+const usedRequestIds = new Set<string>();
+
+function makeRequestId(now: Date): string {
+  const ym = `${String(now.getFullYear() % 100).padStart(2, '0')}${String(now.getMonth() + 1).padStart(2, '0')}`;
+  for (let i = 0; i < 50; i += 1) {
+    const n = String(1 + Math.floor(Math.random() * 9999)).padStart(4, '0');
+    const id = `SPS-${ym}-${n}`;
+    if (!usedRequestIds.has(id)) {
+      usedRequestIds.add(id);
+      return id;
+    }
+  }
+  return `SPS-${ym}-${Date.now() % 10000}`;
 }
 
-function tashkentTime(): string {
+function tashkentTime(now: Date): string {
   try {
-    return new Date().toLocaleString('ru-RU', { timeZone: 'Asia/Tashkent' });
+    return new Intl.DateTimeFormat('ru-RU', {
+      timeZone: 'Asia/Tashkent',
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    }).format(now);
   } catch {
-    return new Date().toISOString();
+    return now.toISOString();
   }
+}
+
+function clientIp(req: Request): string {
+  return req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || req.headers.get('x-real-ip') || 'unknown';
 }
 
 export async function POST(req: Request) {
   const ip = clientIp(req);
-
-  // Ochiq forma: cheklovsiz Telegram'ni spam bilan to'ldirish mumkin.
-  const rateLimit = checkRateLimit(`lead_create_${ip}`, 10, 15 * 60 * 1000);
-  if (!rateLimit.allowed) {
-    return NextResponse.json(
-      { error: 'Juda ko‘p so‘rov yuborildingiz. Bir ozdan so‘ng qayta urinib ko‘ring.' },
-      { status: 429 }
-    );
+  const limit = checkRateLimit(`lead_create_${ip}`, 10, 15 * 60 * 1000);
+  if (!limit.allowed) {
+    return NextResponse.json({ ok: false, error: 'rate_limit' }, { status: 429 });
   }
 
   let raw: unknown;
   try {
     raw = await req.json();
   } catch {
-    return NextResponse.json({ error: 'So‘rov formati noto‘g‘ri (JSON kutilgan)' }, { status: 400 });
+    return NextResponse.json({ ok: false, error: 'bad_json' }, { status: 400 });
   }
 
   const parsed = leadSchema.safeParse(raw);
   if (!parsed.success) {
-    const first = parsed.error.issues[0];
-    return NextResponse.json({ error: first?.message || 'Ism va telefon raqami kiritilishi shart' }, { status: 400 });
+    const issues = parsed.error.issues.slice(0, 5);
+    // Telefon xatosi alohida kod bilan qaytadi (HANDOFF 5: `bad_phone`) —
+    // mijoz formasi telefon maydonini shu kod bo'yicha belgilaydi.
+    const phoneOnly = parsed.error.issues.length > 0 && parsed.error.issues.every((i) => i.path[0] === 'phone');
+    return NextResponse.json({ ok: false, error: phoneOnly ? 'bad_phone' : 'validation', issues }, { status: 400 });
   }
-
   const data = parsed.data;
 
-  // Honeypot to'ldirilgan — bot. Javob bir xil, xabar yo'q.
-  if (data.website && data.website.trim().length > 0) {
-    return NextResponse.json({ success: true });
+  // Honeypot to'ldirilgan — bot: javob bir xil, xabar yuborilmaydi.
+  if (data.website && data.website.trim()) {
+    return NextResponse.json({ ok: true, requestId: makeRequestId(new Date()) });
   }
 
-  const normalizedPhone = normalizePhone(data.phone);
-  if (!isValidUzPhone(normalizedPhone)) {
-    return NextResponse.json({ error: 'Telefon raqami noto‘g‘ri. Format: +998 XX XXX XX XX' }, { status: 400 });
+  const phone = normalizePhone(data.phone);
+  if (!isValidIntlPhone(data.phone)) {
+    return NextResponse.json({ ok: false, error: 'bad_phone' }, { status: 400 });
   }
 
-  const typeLabel = TYPE_LABELS[data.type] || TYPE_LABELS.PRODUCT_REQUEST;
+  const now = new Date();
+  const requestId = makeRequestId(now);
 
-  const lines = [
-    `📥 <b>${escapeTelegramHtml(typeLabel)}</b>`,
-    '',
-    `👤 <b>Ism:</b> ${escapeTelegramHtml(data.name)}`,
-    `📞 <b>Telefon:</b> ${escapeTelegramHtml(normalizedPhone)}`,
-  ];
+  const typeLabel =
+    data.type === 'list'
+      ? `Zayafka ro'yxati (${data.items?.length || 0} model)`
+      : data.type === 'partners'
+        ? 'Ulgurji forma'
+        : 'Tez zayafka';
 
-  if (data.product) {
-    const sku = data.productSku ? ` (${escapeTelegramHtml(data.productSku)})` : '';
-    lines.push(`🧱 <b>Mahsulot:</b> ${escapeTelegramHtml(data.product)}${sku}`);
+  const lines: string[] = [`🟥 Yangi zayafka · ${requestId}`, `Turi: ${escapeTelegramHtml(typeLabel)}`];
+
+  const client = data.clientType ? CLIENT_LABELS[data.clientType] : null;
+  lines.push(`Mijoz: ${escapeTelegramHtml([client, data.name].filter(Boolean).join(' · '))}`);
+
+  const wa = isValidUzPhone(phone) ? `  (WhatsApp: wa.me/${phone.replace(/\D/g, '')})` : '';
+  lines.push(`Telefon: <a href="tel:${phone.replace(/[^\d+]/g, '')}">${escapeTelegramHtml(phone)}</a>${wa}`);
+
+  const place = [data.city, data.country].filter(Boolean).join(', ');
+  if (place) lines.push(`Shahar: ${escapeTelegramHtml(place)}`);
+  if (data.volumeM2) lines.push(`Kunlik hajm: ${data.volumeM2} m²`);
+  if (data.company) lines.push(`Kompaniya: ${escapeTelegramHtml(data.company)}`);
+  if (data.material) lines.push(`Material: ${escapeTelegramHtml(data.material.toUpperCase())}`);
+
+  if (data.items?.length) {
+    lines.push('', 'Modellar:');
+    for (const item of data.items) {
+      const model = getModelBySlug(item.slug);
+      const label = model ? `№ ${model.code || '—'} ${modelName(model, 'uz')}` : item.slug;
+      const setNote = model && modelSetSize(model) > 1 ? " (to'plam A+B)" : '';
+      if (item.m2) {
+        const molds = model ? calcMolds(model, item.m2) : null;
+        lines.push(
+          molds
+            ? `• ${escapeTelegramHtml(label)}${setNote} — ${item.m2} m²/kun ≈ ${molds.toLocaleString('ru-RU')} qolip`
+            : `• ${escapeTelegramHtml(label)}${setNote} — ${item.m2} m²/kun, soni menejer hisoblaydi`,
+        );
+      } else {
+        lines.push(`• ${escapeTelegramHtml(label)}${setNote}`);
+      }
+    }
   }
-  if (data.quantity) lines.push(`📦 <b>Miqdor:</b> ${data.quantity} dona`);
-  if (data.message) lines.push(`💬 <b>Izoh:</b> ${escapeTelegramHtml(data.message)}`);
-  if (data.pageUrl) lines.push(`🔗 <b>Manba sahifa:</b> ${escapeTelegramHtml(data.pageUrl)}`);
-  if (data.lang) lines.push(`🌐 <b>Til:</b> ${data.lang.toUpperCase()}`);
-  if (data.utmSource || data.utmCampaign) {
+
+  if (data.message) lines.push('', `Izoh: ${escapeTelegramHtml(data.message)}`);
+  lines.push(`Til: ${data.lang} · Sahifa: ${escapeTelegramHtml(data.pageUrl || '—')}`);
+  if (data.utm_source || data.utm_medium || data.utm_campaign || data.gclid || data.fbclid) {
     lines.push(
-      `🎯 <b>UTM:</b> ${escapeTelegramHtml(data.utmSource || '—')} / ${escapeTelegramHtml(data.utmMedium || '—')} / ${escapeTelegramHtml(data.utmCampaign || '—')}`
+      `Manba: ${escapeTelegramHtml([data.utm_source, data.utm_medium, data.utm_campaign].filter(Boolean).join(' / ') || 'to‘g‘ridan-to‘g‘ri')}`,
     );
   }
-  lines.push(`🕒 <b>Vaqt:</b> ${escapeTelegramHtml(tashkentTime())}`);
+  lines.push(`Vaqt: ${tashkentTime(now)} (Toshkent)`);
 
   const sent = await sendTelegramNotification(lines.join('\n'));
 
-  // Telegram sozlanmagan bo'lsa (mahalliy ishlab chiqish) — xabar konsolga
-  // chiqadi va foydalanuvchi baribir muvaffaqiyat holatini ko'radi.
-  return NextResponse.json({ success: true, delivered: sent });
+  // Telegram sozlanmagan bo'lsa (mahalliy dev) — javob baribir ok, /api/health
+  // "degraded" holatini ko'rsatadi.
+  return NextResponse.json({ ok: true, requestId, delivered: sent });
 }

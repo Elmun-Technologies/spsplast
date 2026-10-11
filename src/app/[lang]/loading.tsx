@@ -1,17 +1,27 @@
 import React from 'react';
-import { Container } from '@/components/ui/Container';
-import { ProductGridSkeleton } from '@/components/ui/Skeleton';
 
+/**
+ * Yuklanish karkasi (skeleton).
+ *
+ * `loading.tsx` ga ham Next `params` uzatmaydi, shuning uchun bu yerda
+ * lokalizatsiya qilinmaydi: faqat shakl (blok karkaslari). Skrinriyder uchun
+ * `role="status"` + `aria-busy` qo'yildi, matn esa `sr-only` emas — chunki
+ * til noma'lum. Karkas to'plamdagi eng og'ir sahifa (katalog setkasi)
+ * siluetini takrorlaydi: sarlavha, promo qator, 2×4 (mobil) / 4×2 (desktop)
+ * kartalar.
+ */
 export default function Loading() {
   return (
-    <div className="bg-surface-page min-h-screen py-8">
-      <Container>
-        <div className="space-y-6">
-          <div className="h-12 bg-surface border border-line rounded-[20px] animate-pulse" />
-          <div className="h-24 bg-surface border border-line rounded-[20px] animate-pulse" />
-          <ProductGridSkeleton count={12} />
+    <section className="skel-sec">
+      <div className="wrap skel" role="status" aria-live="polite" aria-busy="true">
+        <div className="skel-b skel-title" />
+        <div className="skel-b skel-hero" />
+        <div className="skel-row">
+          {Array.from({ length: 8 }, (_, i) => (
+            <div className="skel-b skel-card" key={i} />
+          ))}
         </div>
-      </Container>
-    </div>
+      </div>
+    </section>
   );
 }

@@ -16,15 +16,16 @@ import { NextResponse, type NextRequest } from 'next/server';
  */
 const LOCALE_COOKIE = 'sps_lang';
 
-function preferredLocale(req: NextRequest): 'uz' | 'ru' {
+function preferredLocale(req: NextRequest): 'uz' | 'ru' | 'en' {
   const cookieLocale = req.cookies.get(LOCALE_COOKIE)?.value;
-  if (cookieLocale === 'uz' || cookieLocale === 'ru') return cookieLocale;
+  if (cookieLocale === 'uz' || cookieLocale === 'ru' || cookieLocale === 'en') return cookieLocale;
 
   const header = req.headers.get('accept-language') || '';
   for (const part of header.split(',')) {
     const tag = part.split(';')[0]?.trim().toLowerCase() || '';
     if (tag.startsWith('ru')) return 'ru';
     if (tag.startsWith('uz')) return 'uz';
+    if (tag.startsWith('en')) return 'en';
   }
 
   return 'uz';

@@ -1,79 +1,56 @@
-import React from 'react';
-import { Locale } from '@/lib/i18n';
-import { hreflang } from '@/lib/seo';
-import { getProductsServer, getCategoryOptions } from '@/lib/catalog';
-import { CatalogClient } from '@/components/catalog/CatalogClient';
+import { getModels, getTotalCount } from '@/lib/catalog2027';
+import { isValidLocale, type Locale } from '@/lib/i18n';
+import { getUi, pluralModels } from '@/lib/ui';
+import { CatalogClient } from '@/components/catalog2027/CatalogClient';
+import { JsonLd } from '@/components/site/JsonLd';
+import { jsonLdBreadcrumb, pageMetadata } from '@/lib/seo';
+import { notFound } from 'next/navigation';
 
-export const revalidate = 30;
-
-/**
- * Filtrlangan URL'lar (`?category=...&sort=...`) alohida sahifa emas: canonical
- * har doim toza katalog manziliga ishora qiladi.
- */
-export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }) {
-  const { lang } = await params;
-  return {
-    title: lang === 'ru' ? 'Каталог форм и фасадного декора | SPS' : 'Qoliplar va fasad dekor katalogi | SPS',
-    alternates: {
-      canonical: `/${lang}/catalog`,
-      languages: hreflang('/catalog'),
-    },
-  };
+export function generateStaticParams() {
+  return ['uz', 'ru', 'en'].map((lang) => ({ lang }));
 }
 
-interface CatalogPageProps {
-  params: Promise<{ lang: Locale }>;
-  searchParams: Promise<{
-    category?: string;
-    search?: string;
-    isNew?: string;
-    isBestseller?: string;
-    sort?: string;
-    page?: string;
-    minPrice?: string;
-    maxPrice?: string;
-    material?: string;
-  }>;
-}
-
-export default async function CatalogPage({
-  params,
-  searchParams: searchParamsPromise,
-}: CatalogPageProps) {
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
-  const searchParams = await searchParamsPromise;
-  const page = parseInt(searchParams.page || '1', 10) || 1;
-  const minPrice = searchParams.minPrice ? parseInt(searchParams.minPrice, 10) : undefined;
-  const maxPrice = searchParams.maxPrice ? parseInt(searchParams.maxPrice, 10) : undefined;
-
-  const { products, total, totalPages } = getProductsServer({
-    locale: lang,
-    categorySlug: searchParams.category,
-    search: searchParams.search,
-    isNew: searchParams.isNew === 'true',
-    isBestseller: searchParams.isBestseller === 'true',
-    sort: searchParams.sort,
-    page,
-    pageSize: 24,
-    minPrice,
-    maxPrice,
-    material: searchParams.material,
+  const locale = isValidLocale(lang) ? (lang as Locale) : 'uz';
+  const t = getUi(locale);
+  const total = getTotalCount();
+  return pageMetadata({
+    lang: locale,
+    path: '/catalog',
+    title: `${t.header.catalog} · ${total} ${pluralModels(locale, total)}`,
+    description: `${t.sections.trotuar}, ${t.sections.fasad}, ${t.sections.zabor}, ${t.sections.dekor}, ${t.sections.skameyka} — ${total} ${pluralModels(locale, total)}.`,
   });
+}
 
-  const categories = getCategoryOptions(lang);
-
-  const selectedCategory = categories.find((c) => c.slug === searchParams.category);
+// `searchParams` server tomonda O'QILMAYDI: u sahifani stream qilib, metadata
+// (title/description/canonical) `<head>` o'rniga `<body>` ga tushib qolardi —
+// Lighthouse buni "meta description yo'q" deb baholagan (SEO 92). Filtrlar
+// mijoz tomonida `window.location.search` dan o'qiladi (bo'lim sahifalari kabi).
+export default async function CatalogPage({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang: langParam } = await params;
+  if (!isValidLocale(langParam)) notFound();
+  const lang = langParam as Locale;
 
   return (
-    <CatalogClient
-      lang={lang}
-      products={products}
-      categories={categories}
-      selectedCategory={selectedCategory}
-      total={total}
-      totalPages={totalPages}
-      currentPage={page}
-      searchParams={searchParams as any}
-    />
+    <div className="wrap sec">
+      <JsonLd
+        data={jsonLdBreadcrumb(lang, [
+          { name: 'SPS', path: '' },
+          { name: getUi(lang).header.catalog, path: '/catalog' },
+        ])}
+      />
+      <div className="sps-section-head" style={{ marginBottom: 'var(--space-5)' }}>
+        <div>
+          <p className="sps-eyebrow">
+            <b>SPS</b> · {getUi(lang).header.catalog}
+          </p>
+          <h1 className="h1" style={{ marginTop: 'var(--space-3)' }}>
+            {getUi(lang).header.catalog}
+          </h1>
+        </div>
+      </div>
+      <CatalogClient lang={lang} models={getModels()} variant="catalog" />
+    </div>
   );
 }
