@@ -201,10 +201,10 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
             <div style={{ aspectRatio: '1', overflow: 'hidden', borderRadius: 'var(--radius-card)', position: 'relative' }}>
-              <Image src="/images/site/factory.webp" alt={p.home.wholesaleImg1} fill sizes="(max-width: 760px) 45vw, 300px" loading="lazy" />
+              <Image src="/images/site/factory-1x1.webp" alt={p.home.wholesaleImg1} fill sizes="(max-width: 760px) 45vw, 300px" loading="lazy" />
             </div>
             <div style={{ aspectRatio: '1', overflow: 'hidden', borderRadius: 'var(--radius-card)', position: 'relative' }}>
-              <Image src="/images/site/containers.webp" alt={p.home.wholesaleImg2} fill sizes="(max-width: 760px) 45vw, 300px" loading="lazy" />
+              <Image src="/images/site/containers-1x1.webp" alt={p.home.wholesaleImg2} fill sizes="(max-width: 760px) 45vw, 300px" loading="lazy" />
             </div>
           </div>
         </div>

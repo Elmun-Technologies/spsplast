@@ -53,11 +53,48 @@ async function act(page, selector, options = {}) {
  * bo'lgani uchun xato ham bermaydi). Qayta urinish shu poygani yopadi va haqiqiy
  * xatoni (element umuman ochilmasa) aniq xabar bilan ko'rsatadi.
  */
+/**
+ * Nima uchun element ko'rinmayotganini tushuntiruvchi ma'lumot (diagnostika).
+ * Xato xabariga qo'shiladi — CI loglarida sababni darhol ko'rish uchun.
+ */
+async function diagnose(page, selector) {
+  try {
+    const info = await page.evaluate((sel) => {
+      const el = document.querySelector(sel);
+      const base = {
+        innerWidth: window.innerWidth,
+        clientWidth: document.documentElement.clientWidth,
+        viewportMetaInHead: Boolean(document.head.querySelector('meta[name="viewport"]')),
+        matches: document.querySelectorAll(sel).length,
+      };
+      if (!el) return { ...base, found: false };
+      const style = window.getComputedStyle(el);
+      const rect = el.getBoundingClientRect();
+      const parent = el.parentElement;
+      return {
+        ...base,
+        found: true,
+        display: style.display,
+        visibility: style.visibility,
+        box: `${Math.round(rect.width)}x${Math.round(rect.height)}`,
+        parentDisplay: parent ? window.getComputedStyle(parent).display : null,
+      };
+    }, selector);
+    return Object.entries(info).map(([k, v]) => `${k}=${v}`).join(' ');
+  } catch (error) {
+    return `diagnostika xatosi: ${String(error.message).slice(0, 80)}`;
+  }
+}
+
 async function toggle(page, trigger, target, attempts = 4) {
   const button = page.locator(trigger).first();
-  await button.waitFor({ state: 'visible', timeout: 10000 });
-  const panel = page.locator(target).first();
+  try {
+    await button.waitFor({ state: 'visible', timeout: 10000 });
+  } catch {
+    throw new Error(`trigger ko'rinmaydi: ${trigger} — ${await diagnose(page, trigger)}`);
+  }
 
+  const panel = page.locator(target).first();
   for (let attempt = 1; attempt <= attempts; attempt += 1) {
     await button.click({ timeout: 10000 });
     try {
@@ -67,7 +104,7 @@ async function toggle(page, trigger, target, attempts = 4) {
       await page.waitForTimeout(600 * attempt); // gidratatsiyani kutamiz
     }
   }
-  throw new Error(`${target} ochilmadi (${attempts} urinish, trigger: ${trigger})`);
+  throw new Error(`${target} ochilmadi (${attempts} urinish) — ${await diagnose(page, target)}`);
 }
 
 const ACTIONS = {
@@ -356,7 +393,7 @@ export async function main() {
           } catch (error) {
             // Holat ochilmadi (selector o'zgargan bo'lishi mumkin): surat asosiy
             // holatda baribir olinadi, xato esa hisobotga va exit code'ga tushadi.
-            actionErrors.push({ id: shot.id, kind, action: shot.action, message: String(error.message).split('\n')[0] });
+            actionErrors.push({ id: shot.id, kind, action: shot.action, message: String(error.message).split('\n')[0].slice(0, 300) });
             console.log(`HOLAT  ${shot.id} (${kind}): "${shot.action}" ochilmadi — ${String(error.message).split('\n')[0]}`);
           }
         }

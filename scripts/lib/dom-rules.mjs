@@ -94,6 +94,35 @@ export function checkTitleAndDescription(doc, { path, lang, expect = {} }, out) 
 
 /* --- 2. Canonical / hreflang / robots / OG ------------------------------- */
 
+/**
+ * Metadata joylashuvi: `<title>`, description, canonical, viewport va hreflang
+ * havolalari **<head> ichida** bo'lishi shart.
+ *
+ * Nega alohida qoida: sahifa server tomonda `searchParams` o'qisa (yoki Suspense
+ * bilan stream qilinsa), Next metadata'ni `<body>` ga tushirib yuborishi mumkin.
+ * jsdom `querySelector` uchun farqi yo'q, lekin Lighthouse va ba'zi qidiruvchilar
+ * buni "meta description yo'q" deb baholaydi (2026-10-11: /uz/catalog SEO 92).
+ */
+export function checkHeadPlacement(doc, { path }, out) {
+  const checks = [
+    ['<title>', 'title'],
+    ['meta description', 'meta[name="description"]'],
+    ['canonical', 'link[rel="canonical"]'],
+    ['meta viewport', 'meta[name="viewport"]'],
+    ['hreflang alternate', 'link[rel="alternate"][hreflang]'],
+    ['og:* meta', 'meta[property^="og:"]'],
+  ];
+
+  for (const [label, selector] of checks) {
+    const nodes = [...doc.querySelectorAll(selector)];
+    if (!nodes.length) continue; // yo'qligi boshqa qoidalarda tekshiriladi
+    const outside = nodes.filter((node) => !doc.head.contains(node));
+    if (outside.length) {
+      out.errors.push(`${path}: ${label} <head> ichida emas (${outside.length} ta <body>'da) — Lighthouse/qidiruvchi uni ko'rmaydi`);
+    }
+  }
+}
+
 export function checkAlternates(doc, { path, lang, siteUrl, expect = {} }, out) {
   const canonicals = [...doc.querySelectorAll('link[rel="canonical"]')].map((l) => l.getAttribute('href'));
 
@@ -490,6 +519,7 @@ export function auditDocument(options) {
   const { doc } = options;
 
   checkDocumentShell(doc, options, out);
+  checkHeadPlacement(doc, options, out);
   checkTitleAndDescription(doc, options, out);
   checkAlternates(doc, options, out);
   checkRobotsMeta(doc, options, out);

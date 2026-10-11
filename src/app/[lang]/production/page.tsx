@@ -100,7 +100,7 @@ export default async function ProductionPage({ params }: { params: Promise<{ lan
               <tbody>
                 {p.production.materialRows.map((r) => (
                   <tr key={r.k}>
-                    <td>{r.k}</td>
+                    <th scope="row">{r.k}</th>
                     {r.abs ? (
                       <>
                         <td className="mono">{r.pp}</td>
@@ -179,14 +179,14 @@ export default async function ProductionPage({ params }: { params: Promise<{ lan
             </a>
           </div>
           <div style={{ background: 'var(--surface-alt)', borderRadius: 'var(--radius-card)', overflow: 'hidden' }}>
-            <Image src="/images/site/map-uz.webp" alt={p.production.mapAlt} width={1280} height={640} style={{ width: '100%', height: 'auto' }} loading="lazy" />
+            <Image src="/images/site/map-uz.webp" alt={p.production.mapAlt} width={1280} height={832} style={{ width: '100%', height: 'auto' }} loading="lazy" />
           </div>
           <div className="g2" style={{ gap: 'var(--space-5)' }}>
             <div style={{ aspectRatio: '16 / 9', overflow: 'hidden', position: 'relative', borderRadius: 'var(--radius-card)' }}>
-              <Image src="/images/site/port.webp" alt={p.production.portImg} fill sizes="(max-width: 760px) 100vw, 620px" loading="lazy" />
+              <Image src="/images/site/port-16x9.webp" alt={p.production.portImg} fill sizes="(max-width: 760px) 100vw, 620px" loading="lazy" />
             </div>
             <div style={{ aspectRatio: '16 / 9', overflow: 'hidden', position: 'relative', borderRadius: 'var(--radius-card)' }}>
-              <Image src="/images/site/containers.webp" alt={p.production.containerImg} fill sizes="(max-width: 760px) 100vw, 620px" loading="lazy" />
+              <Image src="/images/site/containers-16x9.webp" alt={p.production.containerImg} fill sizes="(max-width: 760px) 100vw, 620px" loading="lazy" />
             </div>
           </div>
         </div>

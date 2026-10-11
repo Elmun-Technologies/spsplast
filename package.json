@@ -14,6 +14,7 @@
     "models:check": "node scripts/validate-models-2027.mjs",
     "redirects:build": "python3 scripts/extract/build_redirects_2027.py",
     "fonts:sync": "node scripts/sync-fonts.js",
+    "images:variants": "node scripts/extract/build_site_variants.mjs",
     "audit:a11y": "node scripts/audit-a11y.mjs",
     "audit:seo": "node scripts/audit-seo-dom.mjs",
     "audit": "node scripts/audit-seo-dom.mjs && node scripts/audit-a11y.mjs",

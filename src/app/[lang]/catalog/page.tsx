@@ -23,20 +23,14 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   });
 }
 
-export default async function CatalogPage({
-  params,
-  searchParams,
-}: {
-  params: Promise<{ lang: string }>;
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-}) {
+// `searchParams` server tomonda O'QILMAYDI: u sahifani stream qilib, metadata
+// (title/description/canonical) `<head>` o'rniga `<body>` ga tushib qolardi —
+// Lighthouse buni "meta description yo'q" deb baholagan (SEO 92). Filtrlar
+// mijoz tomonida `window.location.search` dan o'qiladi (bo'lim sahifalari kabi).
+export default async function CatalogPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang: langParam } = await params;
   if (!isValidLocale(langParam)) notFound();
   const lang = langParam as Locale;
-  const sp = new URLSearchParams();
-  for (const [k, v] of Object.entries(await searchParams)) {
-    if (typeof v === 'string') sp.set(k, v);
-  }
 
   return (
     <div className="wrap sec">
@@ -56,7 +50,7 @@ export default async function CatalogPage({
           </h1>
         </div>
       </div>
-      <CatalogClient lang={lang} models={getModels()} initialQuery={sp.toString()} variant="catalog" />
+      <CatalogClient lang={lang} models={getModels()} variant="catalog" />
     </div>
   );
 }

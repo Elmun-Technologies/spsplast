@@ -350,3 +350,30 @@ test('10. Piksel solishtirish yordamchisi ishlaydi (sharp + pngjs + pixelmatch)'
     fs.rmSync(same, { force: true });
   }
 });
+
+test('12. Metadata <head> ichida bo\'lishi shart (stream qilinishi BODY\'ga tushiradi)', async () => {
+  // Next.js sahifa server tomonda `searchParams` o'qisa, metadata `<body>` ga
+  // tushib qolishi mumkin — Lighthouse buni "meta description yo'q" deb baholaydi
+  // (2026-10-11: /uz/catalog SEO 92). Shuning uchun joyi ham tekshiriladi.
+  const inBody = `<!doctype html>
+<html lang="uz">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /></head>
+<body>
+  <title>Kechikkan sarlavha — SPS Plast</title>
+  <meta name="description" content="Bu tavsif body ichida qolgan, qidiruvchi uni ko'rmaydi." />
+  <link rel="canonical" href="${SITE}/uz/catalog" />
+  <main><h1>Katalog</h1></main>
+</body>
+</html>`;
+
+  const out = await audit(inBody, { path: '/uz/catalog', lang: 'uz', expect: {} });
+  const joined = out.errors.join('\n');
+
+  assert.ok(/<title> <head> ichida emas/.test(joined), 'body ichidagi title aniqlanmadi');
+  assert.ok(/meta description <head> ichida emas/.test(joined), 'body ichidagi description aniqlanmadi');
+  assert.ok(/canonical <head> ichida emas/.test(joined), 'body ichidagi canonical aniqlanmadi');
+
+  // To'g'ri joylashgan sahifada bu qoida jim turadi.
+  const clean = await audit(GOOD, { path: '/uz/catalog/paving', lang: 'uz', expect: { jsonLd: ['Organization', 'WebSite', 'Product'] } });
+  assert.ok(!clean.errors.some((e) => /<head> ichida emas/.test(e)), `to'g'ri sahifada xato chiqdi: ${clean.errors.join(' | ')}`);
+});

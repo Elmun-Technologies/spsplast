@@ -32,7 +32,12 @@ export default async function PartnersPage({ params }: { params: Promise<{ lang:
   const lang = langParam as Locale;
   const t = getUi(lang);
   const p = getPages(lang);
-  const whoImages = ['/images/site/master-pouring.webp', '/images/site/distribyutor-ombor.webp', '/images/site/qurilish-obyekti.webp'];
+  // .who-img konteyneri 16/9 — fayllar ham shu nisbatda (npm run images:variants).
+  const whoImages = [
+    '/images/site/master-pouring-16x9.webp',
+    '/images/site/distribyutor-ombor-16x9.webp',
+    '/images/site/qurilish-obyekti-16x9.webp',
+  ];
 
   return (
     <>
@@ -63,7 +68,20 @@ export default async function PartnersPage({ params }: { params: Promise<{ lang:
             </a>
           </div>
         </div>
-        <div>
+        {/* `fill` rasm uchun konteyner position:relative va aniq balandlikka ega
+            bo'lishi shart (aks holda rasm eng yaqin joylashgan ota-elementga nisbatan
+            mutlaq joylashadi). Nisbat dizayndagi .ph-hero katakchasidan olingan:
+            520px min balandlik, mobil 240px — rasm 2:3 (portret)formatida. */}
+        <div
+          style={{
+            position: 'relative',
+            overflow: 'hidden',
+            borderRadius: 'var(--radius-card)',
+            minHeight: 240,
+            aspectRatio: '2 / 3',
+          }}
+          className="pt-hero-media"
+        >
           <Image src="/images/site/master-laying.webp" alt={p.partners.heroImg} fill sizes="(max-width: 1100px) 100vw, 44vw" priority />
         </div>
       </section>
@@ -82,7 +100,7 @@ export default async function PartnersPage({ params }: { params: Promise<{ lang:
           <div className="g3">
             {p.partners.who.map((w, i) => (
               <div className={`who${i === 1 ? ' who-on' : ''}`} key={w.n}>
-                <Image className="who-img" src={whoImages[i]} alt={w.img} width={640} height={360} loading="lazy" />
+                <Image className="who-img" src={whoImages[i]} alt={w.img} width={1280} height={720} loading="lazy" />
                 <span className="step-n">{w.n}</span>
                 <h3 className="h2">{w.title}</h3>
                 <p className="body muted">{w.text}</p>
@@ -130,7 +148,7 @@ export default async function PartnersPage({ params }: { params: Promise<{ lang:
       <section className="sec">
         <div className="wrap g2" style={{ gap: 'var(--space-8)', alignItems: 'center' }}>
           <div style={{ aspectRatio: '4 / 3', overflow: 'hidden', position: 'relative', borderRadius: 'var(--radius-card)' }}>
-            <Image src="/images/site/containers.webp" alt={p.partners.exportImg} fill sizes="(max-width: 1100px) 100vw, 520px" loading="lazy" />
+            <Image src="/images/site/containers-4x3.webp" alt={p.partners.exportImg} fill sizes="(max-width: 1100px) 100vw, 520px" loading="lazy" />
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>
             <p className="sps-eyebrow">

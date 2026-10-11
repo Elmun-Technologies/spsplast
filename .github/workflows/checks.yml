@@ -121,7 +121,7 @@ jobs:
               # Lighthouse hisoboti to'liq chiqadi: "ballni tushirgan auditlar"
               # bo'limi faylning oxirida — kesilsa, sabab ko'rinmay qoladi.
               case "$f" in
-                *lighthouse-*) sed -n '1,170p' "$f" ;;
+                *lighthouse-*) sed -n '1,300p' "$f" ;;
                 *a11y-*) sed -n '1,20p' "$f" ;;
                 *) sed -n '1,45p' "$f" ;;
               esac

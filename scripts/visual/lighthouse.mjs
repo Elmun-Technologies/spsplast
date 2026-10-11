@@ -124,8 +124,12 @@ function describeItems(audit) {
     const savings = item.overallSavingsMs || item.wastedMs || item.totalBytes;
     const text = item.url || item.source || item.label || item.description || item.text || '';
     const parts = [String(text).slice(0, 90)];
-    if (node) parts.push(String(node).slice(0, 90));
+    if (node) parts.push(String(node).slice(0, 70));
     if (savings) parts.push(typeof savings === 'number' && savings > 10000 ? `${Math.round(savings / 1024)} KB` : `${Math.round(savings)} ms`);
+    // image-aspect-ratio kabi auditlarda sababni ko'rsatadigan qo'shimcha maydonlar
+    for (const key of ['displayedAspectRatio', 'actualAspectRatio', 'explanation', 'label']) {
+      if (item[key] && String(item[key]) !== String(text)) parts.push(`${key}: ${String(item[key]).replace(/\s+/g, ' ').slice(0, 70)}`);
+    }
     rows.push(parts.filter(Boolean).join(' · '));
   }
   if (!rows.length && audit.details && audit.details.type === 'table' && audit.details.headings) {
@@ -193,6 +197,20 @@ function markdown(results, failures) {
     lines.push("Yo'q — barcha ballar byudjet ichida.");
   }
 
+  // Performance tafsilotlari (LCP elementi + imkoniyatlar) — hisobot boshiga
+  // yaqin joyda: CI izohida kesilmasligi kerak.
+  const perfRows = results.filter((r) => r.formFactor === 'mobile' && r.perf && (r.perf.lcpElement || r.perf.opportunities.length || r.perf.diagnostics.length));
+  if (perfRows.length) {
+    lines.push('', '## Mobil performance tafsilotlari', '');
+    for (const row of perfRows) {
+      lines.push(`### \`${row.path}\` — perf ${row.performance} (LCP ${row.lcp}, TBT ${row.tbt})`, '');
+      if (row.perf.lcpElement) lines.push(`- LCP elementi: \`${row.perf.lcpElement}\``);
+      for (const item of row.perf.opportunities) lines.push(`- Imkoniyat: ${item}`);
+      for (const item of row.perf.diagnostics) lines.push(`- Diagnostika: ${item}`);
+      lines.push('');
+    }
+  }
+
   // Ballni tushirgan aniq auditlar — sababini ko'rsatish uchun.
   lines.push('', '## Ballni tushirgan auditlar (score < 1)', '');
   const detailed = results.filter((r) => r.failed.length);
@@ -206,19 +224,6 @@ function markdown(results, failures) {
       for (const detail of item.items) lines.push(`  - ${detail}`);
     }
     lines.push('');
-  }
-
-  // Performance tafsilotlari (LCP elementi + imkoniyatlar).
-  const perfRows = results.filter((r) => r.formFactor === 'mobile' && r.perf && (r.perf.lcpElement || r.perf.opportunities.length));
-  if (perfRows.length) {
-    lines.push('## Mobil performance tafsilotlari', '');
-    for (const row of perfRows) {
-      lines.push(`### \`${row.path}\` — perf ${row.performance}`, '');
-      if (row.perf.lcpElement) lines.push(`- LCP elementi: \`${row.perf.lcpElement}\``);
-      for (const item of row.perf.opportunities) lines.push(`- Imkoniyat: ${item}`);
-      for (const item of row.perf.diagnostics) lines.push(`- Diagnostika: ${item}`);
-      lines.push('');
-    }
   }
 
   lines.push(
