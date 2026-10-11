@@ -19,9 +19,15 @@ import { getUi, formatNumber } from '@/lib/ui';
 import { getPages } from '@/lib/pages';
 import { CONTACTS_2027 } from '@/lib/contacts2027';
 import { useCompareList, useRequestList } from '@/lib/store/spsLists';
-import { QuickRequestModal } from '@/components/catalog2027/QuickRequestModal';
+import dynamic from 'next/dynamic';
 import { Icon } from '@/components/site/icons';
 import { trackEvent } from '@/lib/analytics';
+
+/** Tez zayafka oynasi faqat ochilganda yuklanadi (yopiqda `null` qaytaradi). */
+const QuickRequestModal = dynamic(
+  () => import('@/components/catalog2027/QuickRequestModal').then((m) => m.QuickRequestModal),
+  { ssr: false },
+);
 
 type GalleryItem = { src: string; label: string; cover: boolean };
 
@@ -479,7 +485,7 @@ export function ModelClient({
         </button>
       </div>
 
-      <QuickRequestModal key={model.slug} model={leadOpen ? model : null} lang={lang} onClose={() => setLeadOpen(false)} />
+      {leadOpen ? <QuickRequestModal key={model.slug} model={model} lang={lang} onClose={() => setLeadOpen(false)} /> : null}
     </>
   );
 }

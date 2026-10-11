@@ -412,7 +412,14 @@ button { font: inherit; color: inherit; }
 @media (min-width: 521px) { .ft-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 901px) { .ft-grid { grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); gap: 48px; } }
 .ft-about { display: flex; flex-direction: column; gap: 20px; }
-.ft-about img { height: 44px; width: auto; }
+/*
+ * `align-self: flex-start` HANDOFF'da bor (source/Footer.dc.html:
+ * `height: 44px; width: auto; align-self: flex-start`). U tushirib qoldirilsa,
+ * ustun flex konteyneri (`align-items: stretch`) logoni butun ustun kengligiga
+ * cho'zadi: 72x44 o'rniga 380x44 ko'rinadi — rasm buziladi va Lighthouse
+ * `image-aspect-ratio` auditini yiqitadi (2026-10-11 CI: BP 96).
+ */
+.ft-about img { height: 44px; width: auto; align-self: flex-start; }
 .ft-about p { margin: 0; font: 400 15px/24px var(--font-sans); color: var(--on-ink-muted); max-width: 34ch; }
 .ft .sps-lang { align-self: flex-start; border-color: rgba(255, 255, 255, .2); }
 .ft .sps-lang a { color: var(--on-ink-muted); font-size: 12px; line-height: 16px; padding: 6px 10px; }

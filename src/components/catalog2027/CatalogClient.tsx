@@ -17,12 +17,29 @@ import {
 } from '@/lib/catalogFilters';
 import { type Locale } from '@/lib/i18n';
 import { getUi, pluralModels } from '@/lib/ui';
+import dynamic from 'next/dynamic';
 import { ProductCard } from '@/components/catalog2027/ProductCard';
-import { QuickRequestModal } from '@/components/catalog2027/QuickRequestModal';
-import { QuickViewModal } from '@/components/catalog2027/QuickViewModal';
 import { trackEvent } from '@/lib/analytics';
 import { useModalShell } from '@/components/site/useModalShell';
 import { Icon } from '@/components/site/icons';
+
+/**
+ * Modal oynalar faqat ochilganda yuklanadi (`ssr: false`).
+ *
+ * Nega: ikkala oyna ham yopiq holatda `null` qaytaradi, shuning uchun boshlang'ich
+ * HTML va piksel solishtirish o'zgarmaydi; lekin ularning JS'i (forma, validatsiya,
+ * localStorage do'koni obunasi) avval har sahifaning gidratatsiya yo'lida edi —
+ * bosh sahifada TBT 370 ms gacha chiqqan (CI Lighthouse, 2026-10-11). Bo'linib
+ * chiqilgach ochilishda bir marta kichik chunk yuklanadi.
+ */
+const QuickRequestModal = dynamic(
+  () => import('@/components/catalog2027/QuickRequestModal').then((m) => m.QuickRequestModal),
+  { ssr: false },
+);
+const QuickViewModal = dynamic(
+  () => import('@/components/catalog2027/QuickViewModal').then((m) => m.QuickViewModal),
+  { ssr: false },
+);
 
 function FilterGroups({
   filters,
@@ -298,17 +315,21 @@ export function CatalogClient({
         </div>
       </div>
 
-      <QuickRequestModal key={requestModel?.slug || 'none'} model={requestModel} lang={lang} onClose={() => setRequestModel(null)} />
-      <QuickViewModal
-        key={`q-${quickModel?.slug || 'none'}`}
-        model={quickModel}
-        lang={lang}
-        onClose={() => setQuickModel(null)}
-        onRequest={(m) => {
-          setQuickModel(null);
-          setRequestModel(m);
-        }}
-      />
+      {requestModel ? (
+        <QuickRequestModal key={requestModel.slug} model={requestModel} lang={lang} onClose={() => setRequestModel(null)} />
+      ) : null}
+      {quickModel ? (
+        <QuickViewModal
+          key={`q-${quickModel.slug}`}
+          model={quickModel}
+          lang={lang}
+          onClose={() => setQuickModel(null)}
+          onRequest={(m) => {
+            setQuickModel(null);
+            setRequestModel(m);
+          }}
+        />
+      ) : null}
     </>
   );
 }

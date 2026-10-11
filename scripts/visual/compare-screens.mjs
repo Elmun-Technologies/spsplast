@@ -438,16 +438,19 @@ export async function main() {
       const page = await context.newPage();
       page.setDefaultTimeout(15000);
 
-      // Kontekst kengligi haqiqatan qo'llanilganini tekshiramiz: aks holda
-      // "mobil" suratlari 1280px da olinib, hisobot yolg'on aytadi.
-      const actualWidth = await page.evaluate(() => window.innerWidth);
-      if (actualWidth !== options.viewport.width) {
-        throw new Error(`viewport qo'llanilmadi: kutilgan ${options.viewport.width}, haqiqiy ${actualWidth}`);
-      }
-
       try {
         await withDeadline((async () => {
         await page.goto(`${SITE_ORIGIN}${shot.path}`, { waitUntil: 'load' });
+
+        // Kontekst kengligi haqiqatan qo'llanilganini tekshiramiz: aks holda
+        // "mobil" suratlari 1280px da olinib, hisobot yolg'on aytadi.
+        // Tekshiruv faqat yuklangan sahifada ma'noli — `about:blank` da mobil
+        // emulyatsiya `<meta viewport>` yo'qligi sababli 980px qaytaradi
+        // (2026-10-11: shots qadami shu sababli birinchi ekranoqda yiqildi).
+        const actualWidth = await page.evaluate(() => window.innerWidth);
+        if (actualWidth !== options.viewport.width) {
+          throw new Error(`viewport qo'llanilmadi: ${shot.path} da kutilgan ${options.viewport.width}, haqiqiy ${actualWidth}`);
+        }
         if (shot.action && ACTIONS[shot.action]) {
           try {
             await ACTIONS[shot.action](page);
