@@ -397,7 +397,10 @@ export async function main() {
 
   let browser;
   try {
-    browser = await chromium.launch();
+    // PW_CHROMIUM_PATH: Playwright versiyasiga mos kelmaydigan, oldindan o'rnatilgan
+    // Chromium (masalan /opt/pw-browsers/chromium-1194/chrome-linux/chrome).
+    const executablePath = process.env.PW_CHROMIUM_PATH || undefined;
+    browser = await chromium.launch(executablePath ? { executablePath } : {});
   } catch (error) {
     // Paket bor, lekin brauzer fayllari yuklanmagan (CI'da `playwright install`
     // qadami kerak; lokalda ham xuddi shunday). Xato bilan yiqilmasdan,
