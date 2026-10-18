@@ -24,13 +24,6 @@ export const ru: UiDictionary = {
     cta: 'Оставить заявку',
     pdf: 'PDF-каталог ↓',
   },
-  sections: {
-    trotuar: 'Тротуарная плитка',
-    fasad: 'Фасад',
-    zabor: 'Заборные панели',
-    dekor: 'Декоративные панели',
-    skameyka: 'Ножки скамеек',
-  },
   nav: {
     partners: 'Опт и партнёрство',
     production: 'Производство',

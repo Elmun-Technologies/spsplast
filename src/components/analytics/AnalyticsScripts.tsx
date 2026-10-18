@@ -15,12 +15,16 @@ import { usePathname } from 'next/navigation';
  * `dataLayer` / `gtag` / `ym` / `fbq` global obyektlariga yozadi.
  */
 
-const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || '';
-const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || '';
-const METRICA_ID = process.env.NEXT_PUBLIC_YANDEX_METRICA_ID || '';
-const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || '';
+/**
+ * ID'lar root layout'da (server) `analyticsConfig()` dan keladi: admin →
+ * "Integratsiyalar" (bazadan, nashr paytida) yoki env (NEXT_PUBLIC_GTM_ID,
+ * NEXT_PUBLIC_GA_MEASUREMENT_ID, NEXT_PUBLIC_YANDEX_METRICA_ID,
+ * NEXT_PUBLIC_META_PIXEL_ID). Formatlar `src/lib/integrations.ts` da tekshirilgan.
+ */
+export type AnalyticsConfig = { gtm: string; ga4: string; metrica: string; pixel: string; tiktok: string };
 
-export function AnalyticsScripts() {
+export function AnalyticsScripts({ config }: { config: AnalyticsConfig }) {
+  const { gtm: GTM_ID, ga4: GA_ID, metrica: METRICA_ID, pixel: PIXEL_ID, tiktok: TIKTOK_ID } = config;
   // Admin panel trafigi sayt statistikasini buzmasin.
   const pathname = usePathname();
   if (pathname?.startsWith('/admin')) return null;
@@ -54,7 +58,7 @@ gtag('js',new Date());gtag('config','${GA_ID}',{send_page_view:true});`}
           {`(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
 m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
 (window,document,'script','https://mc.yandex.ru/metrika/tag.js','ym');
-ym(${Number(METRICA_ID)},'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true});`}
+ym(${Number(METRICA_ID)},'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true});window.__spsYm=${Number(METRICA_ID)};`}
         </Script>
       )}
 
@@ -65,6 +69,12 @@ n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.p
 n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
 fbq('init','${PIXEL_ID}');fbq('track','PageView');`}
+        </Script>
+      )}
+
+      {TIKTOK_ID && (
+        <Script id="tiktok-pixel-init" strategy="afterInteractive">
+          {`!function(w,d,t){w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"];ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{};ttq._i[e]=[];ttq._i[e]._u=i;ttq._t=ttq._t||{};ttq._t[e]=+new Date;ttq._o=ttq._o||{};ttq._o[e]=n||{};var o=d.createElement("script");o.type="text/javascript";o.async=!0;o.src=i+"?sdkid="+e+"&lib="+t;var a=d.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};ttq.load('${TIKTOK_ID}');ttq.page();}(window,document,'ttq');`}
         </Script>
       )}
     </>

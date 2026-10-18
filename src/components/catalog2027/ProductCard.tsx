@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { SECTION_SLUGS, type Model, modelSetSize, modelName } from '@/lib/catalog2027';
+import { SECTION_SLUGS, type Model, modelSetSize, modelName, sectionLabel } from '@/lib/catalog2027';
 import { type Locale } from '@/lib/i18n';
 import { formatNumber, getUi } from '@/lib/ui';
 import { useCompareList, useRequestList } from '@/lib/store/spsLists';
@@ -71,7 +71,7 @@ export function ProductCard({
       <div className="sps-card__body">
         <span className="sps-card__code">
           {model.code ? `№ ${model.code} · ` : ''}
-          {getUi(lang).sections[model.section]}
+          {sectionLabel(model.section, lang)}
         </span>
         <h2 className="sps-card__name">
           <a href={href}>{modelName(model, lang)}</a>

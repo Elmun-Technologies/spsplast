@@ -73,7 +73,7 @@ test('kontaktlar HANDOFF 1-bo\'lim bilan mos', async () => {
   assert.equal(c.telegramHandle, '@spsplastuz');
 });
 
-test('faqat /api/leads va /api/health mavjud', () => {
+test('faqat /api/leads, /api/health va /api/track mavjud', () => {
   const api = fs.readdirSync(path.join(ROOT, 'src/app/api')).filter((d) => !d.startsWith('.'));
-  assert.deepEqual(api.sort(), ['health', 'leads']);
+  assert.deepEqual(api.sort(), ['health', 'leads', 'track']);
 });

@@ -1,6 +1,9 @@
 import {
+  bigserial,
   boolean,
+  customType,
   index,
+  jsonb,
   integer,
   pgTable,
   real,
@@ -28,6 +31,10 @@ export type LeadStatus = (typeof LEAD_STATUSES)[number];
 
 export const LEAD_TYPES = ['quick', 'list', 'partners'] as const;
 export const CLIENT_TYPES = ['workshop', 'dealer', 'builder', 'private'] as const;
+
+const bytea = customType<{ data: Buffer; driverData: Buffer }>({
+  dataType: () => 'bytea',
+});
 
 const createdAt = () => timestamp('created_at', { withTimezone: true }).notNull().defaultNow();
 
@@ -90,6 +97,9 @@ export const leads = pgTable(
     lostReason: text('lost_reason'),
     assigneeId: integer('assignee_id').references(() => adminUsers.id, { onDelete: 'set null' }),
     telegramDelivered: boolean('telegram_delivered').notNull().default(false),
+    /** Sayt tashrifi bilan bog'lash (visits jadvali): mijoz zayafkadan oldin nimalarni ko'rgan. */
+    visitorId: text('visitor_id'),
+    sessionId: text('session_id'),
     createdAt: createdAt(),
     updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
   },
@@ -145,3 +155,124 @@ export const rateHits = pgTable(
   },
   (t) => [index('rate_hits_key_at_idx').on(t.key, t.at)],
 );
+
+/**
+ * O'z tashrif statistikamiz (Bosqich 10): sahifa ko'rish va voqealar.
+ * IP saqlanmaydi; tashrifchi — localStorage'dagi tasodifiy ID, sessiya — 30 daqiqa.
+ */
+export const visits = pgTable(
+  'visits',
+  {
+    id: bigserial('id', { mode: 'number' }).primaryKey(),
+    visitorId: text('visitor_id').notNull(),
+    sessionId: text('session_id').notNull(),
+    /** 'pageview' yoki voqea nomi: add_to_request, add_to_compare, generate_lead, search, contact_click … */
+    type: text('type').notNull(),
+    path: text('path').notNull(),
+    /** Model sahifasi yoki voqea obyekti (slug). */
+    item: text('item'),
+    detail: text('detail'),
+    referrerHost: text('referrer_host'),
+    utmSource: text('utm_source'),
+    utmMedium: text('utm_medium'),
+    utmCampaign: text('utm_campaign'),
+    country: text('country'),
+    city: text('city'),
+    device: text('device'),
+    browser: text('browser'),
+    os: text('os'),
+    lang: text('lang'),
+    createdAt: createdAt(),
+  },
+  (t) => [
+    index('visits_created_idx').on(t.createdAt),
+    index('visits_session_idx').on(t.sessionId),
+    index('visits_visitor_idx').on(t.visitorId),
+  ],
+);
+
+/** Admin'dan boshqariladigan sozlamalar (integratsiyalar, verifikatsiya kodlari). */
+export const siteSettings = pgTable('site_settings', {
+  key: text('key').primaryKey(),
+  value: text('value').notNull(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+  updatedBy: integer('updated_by').references(() => adminUsers.id, { onDelete: 'set null' }),
+});
+
+// --- Katalog (Bosqich 9): admin'dan boshqariladi, sayt "Nashr qilish" bilan yig'iladi ---
+
+export type LocalizedText = { uz: string | null; ru: string | null; en: string | null };
+
+export const PRODUCT_STATUSES = ['published', 'draft', 'archived'] as const;
+export type ProductStatus = (typeof PRODUCT_STATUSES)[number];
+
+export const catalogSections = pgTable('catalog_sections', {
+  /** Ichki kalit (trotuar, fasad, termopanel …) — mahsulot shu bilan bog'lanadi. */
+  key: text('key').primaryKey(),
+  /** URL: /{lang}/catalog/{slug} */
+  slug: text('slug').notNull().unique(),
+  name: jsonb('name').$type<LocalizedText>().notNull(),
+  sort: integer('sort').notNull().default(0),
+  visible: boolean('visible').notNull().default(true),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+});
+
+export type ProductMold = { l: string; size: string | null; depth: string | null; g: number | null };
+export type ProductTile = { l: string; size: string | null; per: string | null };
+export type ProductSpec = { k: LocalizedText; v: LocalizedText };
+export type ProductImages = {
+  scene: string | null;
+  sceneSm: string | null;
+  molds: Record<string, string>;
+  tiles: Record<string, string>;
+};
+
+export const products = pgTable(
+  'products',
+  {
+    id: serial('id').primaryKey(),
+    slug: text('slug').notNull().unique(),
+    key: text('key').notNull(),
+    code: text('code'),
+    section: text('section')
+      .notNull()
+      .references(() => catalogSections.key, { onUpdate: 'cascade' }),
+    status: text('status', { enum: PRODUCT_STATUSES }).notNull().default('draft'),
+    /** "Ko'p so'raladigan" tartibi: kichik — oldinda. */
+    sort: integer('sort').notNull().default(1000),
+    name: jsonb('name').$type<LocalizedText>().notNull(),
+    subtitle: jsonb('subtitle').$type<LocalizedText>().notNull(),
+    note: jsonb('note').$type<LocalizedText | null>(),
+    kg: text('kg'),
+    molds: jsonb('molds').$type<ProductMold[]>().notNull().default([]),
+    tiles: jsonb('tiles').$type<ProductTile[]>().notNull().default([]),
+    specs: jsonb('specs').$type<ProductSpec[]>().notNull().default([]),
+    sizeEstimated: boolean('size_estimated').notNull().default(false),
+    images: jsonb('images').$type<ProductImages>().notNull(),
+    createdAt: createdAt(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index('products_section_idx').on(t.section), index('products_status_idx').on(t.status)],
+);
+
+/** Admin'dan yuklangan rasmlar (WebP). `/media/{id}.webp` orqali uzoq kesh bilan beriladi. */
+export const media = pgTable('media', {
+  id: text('id').primaryKey(),
+  mime: text('mime').notNull(),
+  width: integer('width').notNull(),
+  height: integer('height').notNull(),
+  bytes: integer('bytes').notNull(),
+  data: bytea('data').notNull(),
+  originalName: text('original_name'),
+  createdAt: createdAt(),
+  createdBy: integer('created_by').references(() => adminUsers.id, { onDelete: 'set null' }),
+});
+
+/** Nashrlar tarixi: kim, qachon saytni qayta yig'dirdi. */
+export const publishes = pgTable('publishes', {
+  id: serial('id').primaryKey(),
+  userId: integer('user_id').references(() => adminUsers.id, { onDelete: 'set null' }),
+  status: text('status').notNull(),
+  message: text('message'),
+  createdAt: createdAt(),
+});

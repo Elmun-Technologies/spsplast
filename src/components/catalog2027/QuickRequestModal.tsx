@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { type Model, modelName, modelSetSize } from '@/lib/catalog2027';
+import { type Model, modelName, modelSetSize, sectionLabel } from '@/lib/catalog2027';
 import { type Locale } from '@/lib/i18n';
 import { getUi } from '@/lib/ui';
 import { submitLead } from '@/lib/leadSubmit';
@@ -61,7 +61,7 @@ export function QuickRequestModal({
               <Image src={(model.images.sceneSm || model.images.scene) as string} alt={`${modelName(model, lang)} — ${getUi(lang).alt.scene}`} width={88} height={88} style={{ objectFit: 'cover', borderRadius: 'var(--radius-mini)' }} />
             ) : null}
             <div>
-              <span className="sps-card__code">{model.code ? `№ ${model.code}` : getUi(lang).sections[model.section]}</span>
+              <span className="sps-card__code">{model.code ? `№ ${model.code}` : sectionLabel(model.section, lang)}</span>
               <h2 className="h3">{modelName(model, lang)}</h2>
               <span className="sps-help">{size || '—'}</span>
             </div>

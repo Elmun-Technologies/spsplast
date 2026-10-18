@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { type Model, modelName, modelSetSize } from '@/lib/catalog2027';
+import { type Model, modelName, modelSetSize, sectionLabel } from '@/lib/catalog2027';
 import { type Locale } from '@/lib/i18n';
 import { formatNumber, getUi } from '@/lib/ui';
 import { useModalShell } from '@/components/site/useModalShell';
@@ -61,7 +61,7 @@ export function QuickViewModal({
           <div style={{ display: 'grid', gap: 'var(--space-4)', alignContent: 'start' }}>
             <span className="sps-card__code">
               {model.code ? `№ ${model.code} · ` : ''}
-              {getUi(lang).sections[model.section]}
+              {sectionLabel(model.section, lang)}
             </span>
             <table className="sps-spec">
               <tbody>

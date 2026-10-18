@@ -56,6 +56,8 @@ const leadSchema = z.object({
   utm_campaign: z.string().max(200).optional(),
   gclid: z.string().max(200).optional(),
   fbclid: z.string().max(200).optional(),
+  visitorId: z.string().regex(/^[A-Za-z0-9_-]{8,64}$/).optional(),
+  sessionId: z.string().regex(/^[A-Za-z0-9_-]{8,64}$/).optional(),
   // Honeypot: botlar to'ldiradigan yashirin maydon — bo'sh bo'lishi shart.
   website: z.string().max(200).optional(),
 });

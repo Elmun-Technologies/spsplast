@@ -1,6 +1,7 @@
 'use client';
 
 import { trackLeadFailed, trackLeadSent } from '@/lib/analytics';
+import { attribution, sessionId, visitorId } from '@/lib/visitTracker';
 
 /** /api/leads mijoz wrapper'i (HANDOFF 5 payload) + `generate_lead` analitikasi. */
 export type LeadPayload = {
@@ -20,14 +21,18 @@ export type LeadPayload = {
 
 export type LeadResult = { ok: boolean; requestId?: string; error?: string };
 
+/**
+ * UTM/gclid — sessiyaning birinchi sahifasidan (mijoz reklamadan kirib, keyin
+ * boshqa sahifada forma to'ldirsa ham manba yo'qolmaydi) + tashrif ID'lari
+ * (admin'da zayafka kartochkasida "mijoz yo'li").
+ */
 function utm(): Record<string, string> {
   if (typeof window === 'undefined') return {};
-  const sp = new URLSearchParams(window.location.search);
+  const { referrer: _referrer, ...attr } = attribution();
   const out: Record<string, string> = {};
-  for (const key of ['utm_source', 'utm_medium', 'utm_campaign', 'gclid', 'fbclid']) {
-    const v = sp.get(key);
-    if (v) out[key] = v;
-  }
+  for (const [k, v] of Object.entries(attr)) if (v) out[k] = v;
+  out.visitorId = visitorId();
+  out.sessionId = sessionId();
   return out;
 }
 

@@ -13,6 +13,7 @@ import {
   modelPerM2,
   modelThickness,
   localizedText,
+  sectionLabel,
 } from '@/lib/catalog2027';
 import type { Locale } from '@/lib/i18n';
 import { getUi, formatNumber } from '@/lib/ui';
@@ -155,7 +156,7 @@ export function ModelClient({
             <span>/</span>
             <a href={`/${lang}/catalog`}>{t.header.catalog}</a>
             <span>/</span>
-            <a href={`/${lang}/catalog/${SECTION_SLUGS[model.section]}`}>{t.sections[model.section]}</a>
+            <a href={`/${lang}/catalog/${SECTION_SLUGS[model.section]}`}>{sectionLabel(model.section, lang)}</a>
             <span>/</span>
             <span>
               {model.code ? `№ ${model.code} ` : ''}
@@ -202,7 +203,7 @@ export function ModelClient({
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
                   <span className="mono" style={{ fontSize: 14, color: 'var(--ink-muted)' }}>
                     {model.code ? `№ ${model.code} · ` : ''}
-                    {t.sections[model.section]}
+                    {sectionLabel(model.section, lang)}
                   </span>
                   <span className="sps-tag">{p.model.materialTag}</span>
                 </div>
@@ -435,7 +436,7 @@ export function ModelClient({
           <div className="wrap" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: 12 }}>
               <h2 className="h1">
-                {model.tiles[0]?.size || t.sections[model.section]} — {p.model.related}
+                {model.tiles[0]?.size || sectionLabel(model.section, lang)} — {p.model.related}
               </h2>
               <a className="sps-btn sps-btn--link" href={`/${lang}/catalog/${SECTION_SLUGS[model.section]}`}>
                 {p.model.relatedAll}
@@ -452,7 +453,7 @@ export function ModelClient({
                     </div>
                   )}
                   <div>
-                    <span className="mono">{r.code ? `№ ${r.code}` : t.sections[r.section]}</span>
+                    <span className="mono">{r.code ? `№ ${r.code}` : sectionLabel(r.section, lang)}</span>
                     <b>{modelName(r, lang)}</b>
                     <span className="mono">
                       {[r.tiles[0]?.size, modelThickness(r) ? `${modelThickness(r)} mm` : null, modelPerM2(r) ? `${formatNumber(lang, modelPerM2(r))} ${p.model.keyPerUnit}/m²` : null]

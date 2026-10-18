@@ -24,13 +24,6 @@ export const en: UiDictionary = {
     cta: 'Request a quote',
     pdf: 'PDF catalog ↓',
   },
-  sections: {
-    trotuar: 'Paving slabs',
-    fasad: 'Facade',
-    zabor: 'Fence panels',
-    dekor: 'Decor panels',
-    skameyka: 'Bench legs',
-  },
   nav: {
     partners: 'Wholesale & partners',
     production: 'Production',

@@ -1,12 +1,17 @@
 import { models2027 } from '../data/models2027.ts';
+import { siteSnapshot } from '../data/site.generated.ts';
 import type { Locale } from '@/lib/i18n';
 
 /**
- * Katalog 2027 — yagona statik manba (`data/models-2027.json`, generator:
- * scripts/extract/build_models_2027.py). Ma'lumotlar bazasi yo'q.
+ * Katalog 2027. Manba:
+ *  1) admin panel (baza) — build paytida `src/data/site.generated.ts` ga yoziladi
+ *     (scripts/export-snapshot.mjs, "Nashr qilish");
+ *  2) bo'lmasa statik `data/models-2027.json` (generator: scripts/extract/build_models_2027.py).
+ * API sinxron qoladi — sahifalar statik prerender bo'ladi.
  * Sxema: docs/design-handoff/HANDOFF.md 5-bo'lim.
  */
-export type Section = 'trotuar' | 'fasad' | 'zabor' | 'dekor' | 'skameyka';
+/** Bo'lim kaliti: trotuar, fasad, zabor, dekor, skameyka (+ admin qo'shgan, masalan termopanel). */
+export type Section = string;
 
 export type Localized = { uz: string | null; ru: string | null; en: string | null };
 
@@ -34,22 +39,38 @@ export type Model = {
   };
 };
 
-export const SECTIONS: Section[] = ['trotuar', 'fasad', 'zabor', 'dekor', 'skameyka'];
+type SectionMeta = { key: Section; slug: string; name: Localized };
+
+/** Standart bo'limlar (admin snapshot bo'lmaganda). Nomlar — HANDOFF atamalari. */
+const DEFAULT_SECTIONS: SectionMeta[] = [
+  { key: 'trotuar', slug: 'paving', name: { uz: 'Trotuar plitkasi', ru: 'Тротуарная плитка', en: 'Paving tiles' } },
+  { key: 'fasad', slug: 'facade', name: { uz: 'Fasad', ru: 'Фасад', en: 'Facade' } },
+  { key: 'zabor', slug: 'fence', name: { uz: 'Zabor panellari', ru: 'Заборные панели', en: 'Fence panels' } },
+  { key: 'dekor', slug: 'decor', name: { uz: 'Dekor panellar', ru: 'Декор-панели', en: 'Decor panels' } },
+  { key: 'skameyka', slug: 'bench', name: { uz: 'Skameyka oyoqlari', ru: 'Ножки скамеек', en: 'Bench legs' } },
+];
+
+const SECTION_META: SectionMeta[] = siteSnapshot?.sections?.length
+  ? siteSnapshot.sections.map((x) => ({ key: x.key, slug: x.slug, name: x.name }))
+  : DEFAULT_SECTIONS;
+
+/** Barcha bo'limlar (marshrutlar shular uchun yaratiladi, 0 modelli ham). */
+export const SECTIONS: Section[] = SECTION_META.map((x) => x.key);
 
 /** Marshrut slug'lari (HANDOFF 4): /{lang}/catalog/{slug}. */
-export const SECTION_SLUGS: Record<Section, string> = {
-  trotuar: 'paving',
-  fasad: 'facade',
-  zabor: 'fence',
-  dekor: 'decor',
-  skameyka: 'bench',
-};
+export const SECTION_SLUGS: Record<Section, string> = Object.fromEntries(SECTION_META.map((x) => [x.key, x.slug]));
+
+/** Bo'lim nomi: admin'dagi nom → uz → kalit. */
+export function sectionLabel(section: Section, lang: Locale): string {
+  const meta = SECTION_META.find((x) => x.key === section) ?? DEFAULT_SECTIONS.find((x) => x.key === section);
+  return meta?.name[lang] || meta?.name.uz || section;
+}
 
 export function sectionFromSlug(slug: string): Section | undefined {
   return SECTIONS.find((s) => SECTION_SLUGS[s] === slug);
 }
 
-const models = models2027 as unknown as Model[];
+const models = (siteSnapshot?.models ?? models2027) as unknown as Model[];
 
 export function getModels(): Model[] {
   return models;
@@ -60,9 +81,18 @@ export function getTotalCount(): number {
 }
 
 export function getSectionCounts(): Record<Section, number> {
-  const counts = { trotuar: 0, fasad: 0, zabor: 0, dekor: 0, skameyka: 0 } as Record<Section, number>;
-  for (const m of models) counts[m.section] += 1;
+  const counts: Record<Section, number> = Object.fromEntries(SECTIONS.map((x) => [x, 0]));
+  for (const m of models) counts[m.section] = (counts[m.section] ?? 0) + 1;
   return counts;
+}
+
+/**
+ * Navigatsiyada ko'rinadigan bo'limlar: faqat modeli borlari ("0 model" bo'limi
+ * foydalanuvchiga ko'rsatilmaydi — sahifasi esa ishlaydi, ma'lumot kelsa o'zi qo'shiladi).
+ */
+export function getActiveSections(): Section[] {
+  const counts = getSectionCounts();
+  return SECTIONS.filter((x) => counts[x] > 0);
 }
 
 export function getModelsBySection(section: Section): Model[] {
@@ -154,7 +184,7 @@ export function modelImage(m: Model): string | null {
  * Bo'lim muqova rasmi. Model rasmi bo'lmasa sayt rasmi ishlatiladi
  * (fasad/zabor/dekor/skameyka bo'yicha 2027 rasmlar yo'q — data-questions).
  */
-const SECTION_FALLBACK: Record<Section, string> = {
+const SECTION_FALLBACK: Record<string, string> = {
   trotuar: '/images/site/master-laying.webp',
   fasad: '/images/site/qurilish-obyekti.webp',
   zabor: '/images/site/factory.webp',
@@ -168,7 +198,7 @@ export function sectionCover(section: Section): string {
     const img = m.images.scene || m.images.sceneSm || m.images.tiles.A || m.images.molds.A;
     if (img) return img;
   }
-  return SECTION_FALLBACK[section];
+  return SECTION_FALLBACK[section] ?? '/images/site/factory.webp';
 }
 
 /** "300 × 300 mm — boshqa modellar": avval o'lcham+bo'lim, keyin bo'lim. */

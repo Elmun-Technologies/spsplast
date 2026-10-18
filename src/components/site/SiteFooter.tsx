@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { getSectionCounts, SECTIONS, SECTION_SLUGS } from '@/lib/catalog2027';
+import { getSectionCounts, SECTION_SLUGS, sectionLabel, getActiveSections } from '@/lib/catalog2027';
 import { CONTACTS_2027 } from '@/lib/contacts2027';
 import { type Locale } from '@/lib/i18n';
 import { getUi } from '@/lib/ui';
@@ -21,9 +21,9 @@ export function SiteFooter({ lang }: { lang: Locale }) {
           </div>
           <div className="ft-col">
             <span className="sps-eyebrow">{t.footer.catalog}</span>
-            {SECTIONS.map((s) => (
+            {getActiveSections().map((s) => (
               <a key={s} href={`/${lang}/catalog/${SECTION_SLUGS[s]}`}>
-                {t.sections[s]} · {counts[s]}
+                {sectionLabel(s, lang)} · {counts[s]}
               </a>
             ))}
           </div>

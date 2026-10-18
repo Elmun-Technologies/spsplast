@@ -3,6 +3,7 @@ import { AnalyticsScripts } from '@/components/analytics/AnalyticsScripts';
 import { JsonLd } from '@/components/site/JsonLd';
 import { getTotalCount } from '@/lib/catalog2027';
 import { SITE_NAME, SITE_URL, jsonLdOrganization, jsonLdWebSite } from '@/lib/seo';
+import { analyticsConfig, verificationMeta } from '@/lib/integrations';
 
 /**
  * Onest self-host (`/public/fonts`, @fontsource-variable/onest 5.3.1, OFL 1.1).
@@ -53,6 +54,8 @@ export const metadata = {
   icons: {
     icon: [{ url: '/favicon.ico', sizes: 'any' }],
   },
+  // Search Console / Yandex Webmaster / Bing / Meta — admin → Integratsiyalar.
+  verification: verificationMeta(),
 };
 
 export const viewport = {
@@ -67,7 +70,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <link rel="preload" href={FONT_PRELOAD} as="font" type="font/woff2" crossOrigin="anonymous" />
         {/* Analitika: faqat env ID bo'lsa yuklanadi */}
-        <AnalyticsScripts />
+        <AnalyticsScripts config={analyticsConfig()} />
         {/* Sayt darajasidagi strukturaviy ma'lumot (HANDOFF 7) */}
         <JsonLd data={[jsonLdOrganization(), jsonLdWebSite()]} />
         {children}

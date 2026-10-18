@@ -4,12 +4,13 @@ import { getUi, pluralModels } from '@/lib/ui';
 import { getPages } from '@/lib/pages';
 import { CONTACTS_2027 } from '@/lib/contacts2027';
 import {
-  SECTIONS,
   SECTION_SLUGS,
   getPopular,
   getSectionCounts,
   getTotalCount,
   sectionCover,
+  sectionLabel,
+  getActiveSections,
 } from '@/lib/catalog2027';
 import { CatalogClient } from '@/components/catalog2027/CatalogClient';
 import { pageMetadata } from '@/lib/seo';
@@ -91,11 +92,11 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
             </div>
           </div>
           <div className="secs" aria-label={p.home.sectionTiles}>
-            {SECTIONS.map((s) => (
+            {getActiveSections().map((s) => (
               <a key={s} className="st" href={`/${lang}/catalog/${SECTION_SLUGS[s]}`}>
                 <Image src={sectionCover(s)} alt="" fill sizes="(max-width: 760px) 50vw, 260px" priority={s === 'trotuar'} />
                 <div>
-                  <b>{t.sections[s]}</b>
+                  <b>{sectionLabel(s, lang)}</b>
                   <span>
                     {counts[s]} {pluralModels(lang, counts[s])}
                   </span>

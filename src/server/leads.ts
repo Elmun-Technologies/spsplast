@@ -34,6 +34,8 @@ export type NewLeadInput = {
   utm_campaign?: string;
   gclid?: string;
   fbclid?: string;
+  visitorId?: string;
+  sessionId?: string;
   items?: { slug: string; code?: string | null; name?: string | null; m2?: number; molds?: number | null }[];
 };
 
@@ -83,6 +85,8 @@ export async function createLead(db: Db, input: NewLeadInput, now = new Date()):
         utmCampaign: input.utm_campaign || null,
         gclid: input.gclid || null,
         fbclid: input.fbclid || null,
+        visitorId: input.visitorId || null,
+        sessionId: input.sessionId || null,
         createdAt: now,
         updatedAt: now,
       })

@@ -1,4 +1,4 @@
-import { getModels, getTotalCount } from '@/lib/catalog2027';
+import { getModels, getTotalCount, getActiveSections, sectionLabel } from '@/lib/catalog2027';
 import { isValidLocale, type Locale } from '@/lib/i18n';
 import { getUi, pluralModels } from '@/lib/ui';
 import { CatalogClient } from '@/components/catalog2027/CatalogClient';
@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     lang: locale,
     path: '/catalog',
     title: `${t.header.catalog} · ${total} ${pluralModels(locale, total)}`,
-    description: `${t.sections.trotuar}, ${t.sections.fasad}, ${t.sections.zabor}, ${t.sections.dekor}, ${t.sections.skameyka} — ${total} ${pluralModels(locale, total)}.`,
+    description: `${getActiveSections().map((x) => sectionLabel(x, locale)).join(', ')} — ${total} ${pluralModels(locale, total)}.`,
   });
 }
 

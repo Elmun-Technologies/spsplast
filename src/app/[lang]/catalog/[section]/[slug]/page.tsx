@@ -10,6 +10,7 @@ import {
   sectionFromSlug,
   localizedText,
   modelName,
+  sectionLabel,
 } from '@/lib/catalog2027';
 import { isValidLocale, locales, type Locale } from '@/lib/i18n';
 import { getUi } from '@/lib/ui';
@@ -41,10 +42,10 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   return pageMetadata({
     lang: locale,
     path: `/catalog/${section}/${model.slug}`,
-    title: `${model.code ? `№ ${model.code} ` : ''}${name} — ${getUi(locale).sections[model.section]}`,
+    title: `${model.code ? `№ ${model.code} ` : ''}${name} — ${sectionLabel(model.section, locale)}`,
     description:
       subtitle ||
-      `${getUi(locale).sections[model.section]}${size ? ` · ${size} mm` : ''}. ${getUi(locale).seo.leadCta}`,
+      `${sectionLabel(model.section, locale)}${size ? ` · ${size} mm` : ''}. ${getUi(locale).seo.leadCta}`,
     image: modelImage(model) ?? undefined,
     imageAlt: name,
   });
@@ -72,7 +73,7 @@ export default async function ModelPage({ params }: { params: Promise<Params> })
           jsonLdBreadcrumb(lang, [
             { name: 'SPS', path: '' },
             { name: t.header.catalog, path: '/catalog' },
-            { name: t.sections[model.section], path: `/catalog/${SECTION_SLUGS[model.section]}` },
+            { name: sectionLabel(model.section, lang), path: `/catalog/${SECTION_SLUGS[model.section]}` },
             { name: `${model.code ? `№ ${model.code} ` : ''}${name}`, path },
           ]),
           jsonLdProduct({
@@ -82,7 +83,7 @@ export default async function ModelPage({ params }: { params: Promise<Params> })
             description: localizedText(model.subtitle, lang) || localizedText(model.note, lang),
             image: modelImage(model),
             sku: model.code,
-            category: t.sections[model.section],
+            category: sectionLabel(model.section, lang),
             extra: {
               additionalProperty: [
                 ...(model.tiles[0]?.size

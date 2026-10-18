@@ -222,10 +222,15 @@ test('12. Admin sahifalari sessiyani tekshiradi (login sahifasidan tashqari)', (
   };
   walk(dir);
   assert.deepStrictEqual(offenders, []);
-  const actions = read('src/app/admin/actions.ts');
-  const exported = actions.match(/export async function \w+/g) || [];
-  const guarded = actions.match(/export async function \w+[\s\S]*?\n}/g).filter((fn) => /requireUser\(|loginAction|logoutAction/.test(fn));
-  assert.strictEqual(guarded.length, exported.length, 'har bir server action requireUser() chaqirishi kerak');
+  for (const file of ['src/app/admin/actions.ts', 'src/app/admin/products/actions.ts']) {
+    const actions = read(file);
+    const exported = actions.match(/export async function \w+/g) || [];
+    const guarded = actions.match(/export async function \w+[\s\S]*?\n}/g).filter((fn) => /requireUser\(|loginAction|logoutAction/.test(fn));
+    assert.strictEqual(guarded.length, exported.length, `${file}: har bir server action requireUser() chaqirishi kerak`);
+  }
+  // Bo'lim, o'chirish va integratsiyalar — faqat administrator.
+  assert.match(read('src/app/admin/products/actions.ts'), /deleteProductAction[\s\S]*?requireUser\('admin'\)/);
+  assert.match(read('src/app/admin/actions.ts'), /saveIntegrationsAction[\s\S]*?requireUser\('admin'\)/);
 });
 
 test('13. Login limiti faqat xato urinishlarni sanaydi', async () => {

@@ -4,6 +4,8 @@ import { asc, eq } from 'drizzle-orm';
 import { requireUser } from '@/server/session';
 import { LEAD_STATUSES, adminUsers } from '@/server/db/schema';
 import { getLead } from '@/server/leads';
+import { visitorJourney } from '@/server/visits';
+import { JourneyList } from '../../journey';
 import { AdminShell, StatusBadge } from '../../AdminShell';
 import { assignAction, noteAction, setStatusAction } from '../../actions';
 import { CLIENT_LABEL, STATUS_LABEL, TYPE_LABEL, countryName, formatDate, telLink, waLink } from '../../labels';
@@ -39,6 +41,12 @@ export default async function LeadPage({ params }: { params: Promise<{ id: strin
     .from(adminUsers)
     .where(eq(adminUsers.active, true))
     .orderBy(asc(adminUsers.name));
+  const journey = await visitorJourney(db, {
+    visitorId: lead.visitorId,
+    sessionId: lead.sessionId,
+    before: lead.createdAt,
+    limit: 60,
+  });
   const place = [lead.city, lead.country].filter(Boolean).join(', ');
   const source = [lead.utmSource, lead.utmMedium, lead.utmCampaign].filter(Boolean).join(' / ');
   const totalMolds = items.reduce((s, i) => s + (i.molds ?? 0), 0);
@@ -176,6 +184,22 @@ export default async function LeadPage({ params }: { params: Promise<{ id: strin
                 <p style={{ margin: 0, whiteSpace: 'pre-wrap' }}>{lead.message}</p>
               </>
             ) : null}
+          </section>
+
+          <section className="adm-card">
+            <h2>Mijoz yo'li — zayafkadan oldin saytda nimalarni ko'rgan</h2>
+            {journey.length ? (
+              <>
+                {lead.sessionId ? (
+                  <p className="adm-empty" style={{ marginBottom: 12 }}>
+                    <a href={`/admin/visits?s=${encodeURIComponent(lead.sessionId)}`}>Sessiyani to'liq ochish →</a>
+                  </p>
+                ) : null}
+                <JourneyList hits={journey} />
+              </>
+            ) : (
+              <p className="adm-empty">Tashrif ma'lumoti yo'q (eski zayafka yoki brauzer statistikani bloklagan).</p>
+            )}
           </section>
         </div>
 

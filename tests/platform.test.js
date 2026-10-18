@@ -69,7 +69,7 @@ test('4. Zayafka API’si Telegram’ga yuboradi va bazani ishlatmaydi', () => {
   assert.ok(route.includes('pageUrl') && route.includes('lang'), 'manba sahifa va til xabarga qo‘shiladi');
 });
 
-test('5. Faqat bitta API marshruti qolgan (leads + health)', () => {
+test('5. API marshrutlari: leads + health + track (tashrif beacon)', () => {
   const apiDir = path.join(__dirname, '..', 'src', 'app', 'api');
   const routes = [];
 
@@ -82,7 +82,7 @@ test('5. Faqat bitta API marshruti qolgan (leads + health)', () => {
   };
   walk(apiDir);
 
-  assert.deepStrictEqual(routes.sort(), ['health/route.ts', 'leads/route.ts']);
+  assert.deepStrictEqual(routes.sort(), ['health/route.ts', 'leads/route.ts', 'track/route.ts']);
 });
 
 test('6. Ommaviy sayt bazani import qilmaydi (u statik qoladi)', () => {
@@ -117,12 +117,14 @@ test('7. Fly.io/Docker konfiguratsiyasi olib tashlangan', () => {
   }
 });
 
-test('8. Bo‘lim nomlari uch tilda lug‘atdan — metadata duplikat emas', async (t) => {
+test('8. Bo‘lim nomlari uch tilda (admin / standart) — metadata duplikat emas', async (t) => {
   if (!supportsTypeStripping) return t.skip("Node type-stripping yo'q");
   const { loadAliased } = await import(path.join(__dirname, 'helpers', 'load-alias.mjs'));
-  const { getUi } = await loadAliased('src/lib/ui.ts');
+  // Bosqich 9: bo'lim nomlari katalog manbasidan (admin snapshot yoki standart ro'yxat).
+  const catalog = await loadAliased('src/lib/catalog2027.ts');
+  const getUi = (lang) => ({ sections: Object.fromEntries(catalog.SECTIONS.map((x) => [x, catalog.sectionLabel(x, lang)])) });
 
-  const sections = ['trotuar', 'fasad', 'zabor', 'dekor', 'skameyka'];
+  const sections = catalog.SECTIONS;
   const seen = { uz: new Set(), ru: new Set(), en: new Set() };
 
   for (const lang of ['uz', 'ru', 'en']) {
@@ -145,7 +147,7 @@ test('8. Bo‘lim nomlari uch tilda lug‘atdan — metadata duplikat emas', asy
   const source = fs.readFileSync(
     path.join(__dirname, '..', 'src', 'app', '[lang]', 'catalog', '[section]', 'page.tsx'), 'utf8');
   assert.ok(source.includes('pageMetadata('), "bo'lim sahifasida pageMetadata yo'q");
-  assert.ok(source.includes('getUi(locale).sections'), "bo'lim nomi lug'atdan olinmayapti");
+  assert.ok(source.includes('sectionLabel(sec, locale)'), "bo'lim nomi katalog manbasidan olinmayapti");
   assert.ok(source.includes('getModelsBySection'), "sarlavhadagi son ma'lumotdan olinmayapti");
 });
 
@@ -206,9 +208,9 @@ test('10. Eski (2026) kontent qatlami o‘chirilgan — manba bitta', () => {
 
   // Ma'lumot: faqat 2027 to'plami + migratsiya uchun arxiv (docs/legacy).
   const dataFiles = fs.readdirSync(path.join(root, 'data')).sort();
-  assert.deepStrictEqual(dataFiles, ['image-jobs-2027.json', 'models-2027.json'],
+  assert.deepStrictEqual(dataFiles, ['image-jobs-2027.json', 'models-2027.json', 'termopanel-2027.json'],
     `data/ da eski fayllar qolgan: ${dataFiles.join(', ')}`);
-  assert.deepStrictEqual(fs.readdirSync(path.join(root, 'src', 'data')).sort(), ['models2027.ts']);
+  assert.deepStrictEqual(fs.readdirSync(path.join(root, 'src', 'data')).sort(), ['models2027.ts', 'site.generated.ts']);
   assert.ok(fs.existsSync(path.join(root, 'docs', 'legacy', 'catalog-2026.json')),
     'migratsiya manbasi (docs/legacy/catalog-2026.json) saqlanmagan');
 
@@ -262,6 +264,8 @@ test('11. Ichki havolalar faqat haqiqiy bo‘lim slug‘laridan foydalanadi', ()
   const walk = (dir) => {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
       const full = path.join(dir, entry.name);
+      // Admin bo'lim slug'ini bazadan oladi (u nashrdan keyin SECTION_SLUGS ga aylanadi).
+      if (entry.isDirectory() && full.endsWith(path.join('app', 'admin'))) continue;
       if (entry.isDirectory()) walk(full);
       else if (/\.(ts|tsx)$/.test(entry.name)) {
         const source = fs.readFileSync(full, 'utf8');
@@ -289,6 +293,7 @@ test('11. Ichki havolalar faqat haqiqiy bo‘lim slug‘laridan foydalanadi', ()
   const walkDynamic = (dir) => {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
       const full = path.join(dir, entry.name);
+      if (entry.isDirectory() && full.endsWith(path.join('app', 'admin'))) continue; // admin: slug bazadan
       if (entry.isDirectory()) walkDynamic(full);
       else if (/\.(ts|tsx)$/.test(entry.name)) {
         const source = fs.readFileSync(full, 'utf8');

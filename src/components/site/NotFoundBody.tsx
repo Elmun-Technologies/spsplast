@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { SECTIONS, SECTION_SLUGS, getSectionCounts, sectionCover } from '@/lib/catalog2027';
+import { SECTION_SLUGS, getSectionCounts, sectionCover, sectionLabel, getActiveSections } from '@/lib/catalog2027';
 import type { Locale } from '@/lib/i18n';
 import { getUi } from '@/lib/ui';
 import { getPages } from '@/lib/pages';
@@ -43,9 +43,9 @@ export function NotFoundBody({ lang }: { lang: Locale }) {
             </form>
 
             <div className="chips">
-              {SECTIONS.map((s) => (
+              {getActiveSections().map((s) => (
                 <a className="chip-a" key={s} href={`/${lang}/catalog/${SECTION_SLUGS[s]}`}>
-                  {t.sections[s]} <i>{counts[s]}</i>
+                  {sectionLabel(s, lang)} <i>{counts[s]}</i>
                 </a>
               ))}
             </div>

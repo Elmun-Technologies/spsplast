@@ -25,13 +25,6 @@ export const uz = {
     cta: 'Zayafka qoldirish',
     pdf: 'PDF katalog ↓',
   },
-  sections: {
-    trotuar: 'Trotuar plitkasi',
-    fasad: 'Fasad',
-    zabor: 'Zabor panellari',
-    dekor: 'Dekor panellar',
-    skameyka: 'Skameyka oyoqlari',
-  },
   nav: {
     partners: 'Ulgurji va hamkorlik',
     production: 'Ishlab chiqarish',

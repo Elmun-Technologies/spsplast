@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { getModelsBySection, SECTIONS, SECTION_SLUGS, sectionFromSlug, getTotalCount } from '@/lib/catalog2027';
+import { getModelsBySection, SECTIONS, SECTION_SLUGS, sectionFromSlug, getTotalCount, sectionLabel } from '@/lib/catalog2027';
 import { isValidLocale, locales, type Locale } from '@/lib/i18n';
 import { getUi, pluralModels } from '@/lib/ui';
 import { CatalogClient } from '@/components/catalog2027/CatalogClient';
@@ -30,8 +30,8 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   return pageMetadata({
     lang: locale,
     path: `/catalog/${section}`,
-    title: `${getUi(locale).sections[sec]} · ${count} ${pluralModels(locale, count)}`,
-    description: `${getUi(locale).sections[sec]} — ${count} ${pluralModels(locale, count)}. ${getUi(locale).seo.leadCta}`,
+    title: `${sectionLabel(sec, locale)} · ${count} ${pluralModels(locale, count)}`,
+    description: `${sectionLabel(sec, locale)} — ${count} ${pluralModels(locale, count)}. ${getUi(locale).seo.leadCta}`,
     image: cover,
   });
 }
@@ -52,7 +52,7 @@ export default async function SectionPage({ params }: { params: Promise<{ lang: 
         data={jsonLdBreadcrumb(lang, [
           { name: 'SPS', path: '' },
           { name: t.header.catalog, path: '/catalog' },
-          { name: t.sections[sec], path: `/catalog/${SECTION_SLUGS[sec]}` },
+          { name: sectionLabel(sec, lang), path: `/catalog/${SECTION_SLUGS[sec]}` },
         ])}
       />
       <nav aria-label="breadcrumb">
@@ -60,12 +60,12 @@ export default async function SectionPage({ params }: { params: Promise<{ lang: 
           <li>
             <a href={`/${lang}/catalog`}>{t.header.catalog}</a>
           </li>
-          <li aria-current="page">{t.sections[sec]}</li>
+          <li aria-current="page">{sectionLabel(sec, lang)}</li>
         </ol>
       </nav>
       <div className="sps-section-head" style={{ marginBlock: 'var(--space-4) var(--space-5)' }}>
         <div>
-          <h1 className="h1">{t.sections[sec]}</h1>
+          <h1 className="h1">{sectionLabel(sec, lang)}</h1>
           <p className="lead muted">
             {models.length} {pluralModels(lang, models.length)} · {t.header.catalog} {getTotalCount()}
           </p>

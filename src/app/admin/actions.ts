@@ -17,6 +17,8 @@ import { getDb } from '@/server/db/client';
 import { ADMIN_ROLES, LEAD_STATUSES, type AdminRole, type LeadStatus } from '@/server/db/schema';
 import { addLeadNote, assignLead, recentHits, recordHit, setLeadStatus } from '@/server/leads';
 import { clearSessionCookie, requireUser, setSessionCookie } from '@/server/session';
+import { saveIntegrations, triggerPublish } from '@/server/settings';
+import { INTEGRATION_FIELDS } from '@/lib/integrations';
 
 /**
  * Admin server action'lari. Next server action'larni Origin tekshiruvi bilan
@@ -132,4 +134,23 @@ export async function resetPasswordAction(_prev: FormState, fd: FormData): Promi
   await setUserPassword(db, id, password);
   if (id === user.id) redirect('/admin/login');
   return { ok: 'Parol yangilandi.' };
+}
+
+export async function saveIntegrationsAction(_prev: FormState, fd: FormData): Promise<FormState> {
+  const { user, db } = await requireUser('admin');
+  const input = Object.fromEntries(INTEGRATION_FIELDS.map((f) => [f.key, str(fd, f.key)]));
+  const bad = await saveIntegrations(db, user.id, input);
+  if (bad.length) {
+    const labels = INTEGRATION_FIELDS.filter((f) => bad.includes(f.key)).map((f) => f.label);
+    return { error: `Format noto'g'ri: ${labels.join(', ')}.`, values: input };
+  }
+  revalidatePath('/admin/settings');
+  return { ok: "Saqlandi. Saytga chiqishi uchun \"Nashr qilish\" tugmasini bosing.", values: input };
+}
+
+export async function publishAction(_prev: FormState, _fd: FormData): Promise<FormState> {
+  const { user, db } = await requireUser();
+  const res = await triggerPublish(db, user.id);
+  revalidatePath('/admin', 'layout');
+  return res.ok ? { ok: res.message } : { error: res.message };
 }

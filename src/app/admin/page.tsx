@@ -3,27 +3,10 @@ import { requireUser } from '@/server/session';
 import { LEAD_STATUSES } from '@/server/db/schema';
 import { leadStats, listLeads } from '@/server/leads';
 import { AdminShell, StatusBadge } from './AdminShell';
+import { Bars } from './charts';
 import { STATUS_LABEL, TYPE_LABEL, countryName, formatDate } from './labels';
 
 export const metadata = { title: 'Bosh sahifa' };
-
-function Bars({ rows }: { rows: { label: string; n: number; href?: string }[] }) {
-  if (!rows.length) return <p className="adm-empty">Hali ma'lumot yo'q.</p>;
-  const max = Math.max(...rows.map((r) => r.n), 1);
-  return (
-    <ul className="adm-bars">
-      {rows.map((r) => (
-        <li key={r.label}>
-          <span>{r.href ? <Link href={r.href}>{r.label}</Link> : r.label}</span>
-          <b>{r.n}</b>
-          <i aria-hidden="true">
-            <s style={{ width: `${(r.n / max) * 100}%` }} />
-          </i>
-        </li>
-      ))}
-    </ul>
-  );
-}
 
 export default async function AdminHome() {
   const { user, db } = await requireUser();

@@ -7,6 +7,9 @@ import { ROLE_LABEL } from './labels';
 const NAV = [
   { href: '/admin', label: 'Bosh sahifa', key: 'home' },
   { href: '/admin/leads', label: 'Zayafkalar', key: 'leads' },
+  { href: '/admin/visits', label: 'Tashriflar', key: 'visits' },
+  { href: '/admin/products', label: 'Mahsulotlar', key: 'products' },
+  { href: '/admin/settings', label: 'Integratsiyalar', key: 'settings', admin: true },
   { href: '/admin/users', label: 'Xodimlar', key: 'users', admin: true },
   { href: '/admin/account', label: 'Profil', key: 'account' },
 ] as const;
