@@ -1,21 +1,21 @@
 import { requireUser } from '@/server/session';
 import { getSettings } from '@/server/settings';
-import { INTEGRATION_FIELDS, integrationValue } from '@/lib/integrations';
+import { INTEGRATION_FIELDS, settingValue } from '@/lib/integrations';
 import { SITE_URL } from '@/lib/seo';
 import { AdminShell } from '../AdminShell';
 import { PublishBar } from '../PublishBar';
 import { IntegrationsForm } from './IntegrationsForm';
 
-export const metadata = { title: 'Integratsiyalar' };
+export const metadata = { title: 'Sozlamalar' };
 
 export default async function SettingsPage() {
   const { user, db } = await requireUser('admin');
   const saved = await getSettings(db);
   // Hozir saytda ishlayotgan qiymat (oxirgi nashr yoki env).
-  const live = Object.fromEntries(INTEGRATION_FIELDS.map((f) => [f.key, integrationValue(f.key)]));
+  const live = Object.fromEntries(INTEGRATION_FIELDS.map((f) => [f.key, settingValue(f.key)]));
 
   return (
-    <AdminShell user={user} active="settings" title="Integratsiyalar va SEO">
+    <AdminShell user={user} active="settings" title="Sozlamalar: kontaktlar, raqamlar, integratsiyalar va SEO">
       <PublishBar db={db} />
       <IntegrationsForm saved={saved} live={live} />
       <section className="adm-card" style={{ marginTop: 16 }}>

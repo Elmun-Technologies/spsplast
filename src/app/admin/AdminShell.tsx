@@ -1,6 +1,10 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { count, eq } from 'drizzle-orm';
 import type { SessionUser } from '@/server/auth';
+import { getDb } from '@/server/db/client';
+import { leads } from '@/server/db/schema';
+import { AutoRefresh } from './AutoRefresh';
 import { logoutAction } from './actions';
 import { ROLE_LABEL } from './labels';
 
@@ -9,12 +13,24 @@ const NAV = [
   { href: '/admin/leads', label: 'Zayafkalar', key: 'leads' },
   { href: '/admin/visits', label: 'Tashriflar', key: 'visits' },
   { href: '/admin/products', label: 'Mahsulotlar', key: 'products' },
-  { href: '/admin/settings', label: 'Integratsiyalar', key: 'settings', admin: true },
+  { href: '/admin/settings', label: 'Sozlamalar', key: 'settings', admin: true },
   { href: '/admin/users', label: 'Xodimlar', key: 'users', admin: true },
   { href: '/admin/account', label: 'Profil', key: 'account' },
 ] as const;
 
-export function AdminShell({
+/** Menyudagi "Zayafkalar" yonida yangi (hali ishlanmagan) zayafkalar soni. */
+async function newLeadsCount(): Promise<number> {
+  const db = getDb();
+  if (!db) return 0;
+  try {
+    const [{ n }] = await db.select({ n: count() }).from(leads).where(eq(leads.status, 'new'));
+    return n;
+  } catch {
+    return 0;
+  }
+}
+
+export async function AdminShell({
   user,
   active,
   title,
@@ -27,6 +43,7 @@ export function AdminShell({
   actions?: React.ReactNode;
   children: React.ReactNode;
 }) {
+  const fresh = await newLeadsCount();
   return (
     <>
       <header className="adm-top">
@@ -39,6 +56,11 @@ export function AdminShell({
             {NAV.filter((n) => !('admin' in n) || user.role === 'admin').map((n) => (
               <Link key={n.key} href={n.href} aria-current={n.key === active ? 'page' : undefined}>
                 {n.label}
+                {n.key === 'leads' && fresh ? (
+                  <span className="adm-navbadge" aria-label={`${fresh} ta yangi`}>
+                    {fresh}
+                  </span>
+                ) : null}
               </Link>
             ))}
           </nav>
@@ -55,6 +77,8 @@ export function AdminShell({
           </div>
         </div>
       </header>
+      {/* Yangi zayafka kelsa sahifa o'zi yangilanadi (forma to'ldirilayotgan bo'lsa — yo'q). */}
+      <AutoRefresh seconds={60} />
       <main className="adm-wrap adm-main" id="main-content">
         <div className="adm-head">
           <h1>{title}</h1>

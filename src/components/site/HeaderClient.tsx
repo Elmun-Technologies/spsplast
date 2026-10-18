@@ -81,7 +81,7 @@ export function HeaderClient({
               aria-label={`${t.header.compare}: ${compare.count}`}
             >
               <Icon.compare width={20} height={20} strokeWidth={1.5} aria-hidden="true" />
-              <b className="hd-badge" data-zero={compare.count === 0}>
+              <b className="hd-badge" data-zero={compare.count === 0} key={`c${compare.count}`}>
                 {compare.count}
               </b>
             </a>
@@ -91,7 +91,7 @@ export function HeaderClient({
               aria-label={`${t.header.requestList}: ${request.items.length}`}
             >
               <Icon.list width={20} height={20} strokeWidth={1.5} aria-hidden="true" />
-              <b className="hd-badge" data-zero={request.items.length === 0}>
+              <b className="hd-badge" data-zero={request.items.length === 0} key={`r${request.items.length}`}>
                 {request.items.length}
               </b>
             </a>

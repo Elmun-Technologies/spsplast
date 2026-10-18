@@ -5,6 +5,8 @@ import { INTEGRATION_FIELDS } from '@/lib/integrations';
 import { saveIntegrationsAction, type FormState } from '../actions';
 
 const GROUPS = [
+  { key: 'contacts', title: "Kontaktlar (header, footer, kontakt sahifasi, JSON-LD)" },
+  { key: 'stats', title: "Saytdagi raqamlar (3 tilda avtomatik)" },
   { key: 'analytics', title: 'Analitika' },
   { key: 'ads', title: 'Reklama piksellari' },
   { key: 'verification', title: 'Qidiruv tizimlari va domen tasdig\'i (SEO)' },
@@ -23,7 +25,13 @@ export function IntegrationsForm({ saved, live }: { saved: Record<string, string
               <div key={f.key} className="sps-field">
                 <label htmlFor={`int-${f.key}`}>
                   <b>{f.label}</b>
-                  {live[f.key] ? <span className="adm-st adm-st--won">saytda faol</span> : <span className="adm-st">ulanmagan</span>}
+                  {f.fallback !== undefined ? (
+                    <span className="adm-st">saytda: {live[f.key] || '—'}</span>
+                  ) : live[f.key] ? (
+                    <span className="adm-st adm-st--won">saytda faol</span>
+                  ) : (
+                    <span className="adm-st">ulanmagan</span>
+                  )}
                 </label>
                 <input
                   className="sps-input"
@@ -36,7 +44,9 @@ export function IntegrationsForm({ saved, live }: { saved: Record<string, string
                   spellCheck={false}
                 />
                 <small>
-                  {f.help} <i>Qayerdan: {f.where}.</i>
+                  {f.help}
+                  {f.where ? <i> Qayerdan: {f.where}.</i> : null}
+                  {f.fallback ? <i> Bo&apos;sh qolsa: {f.fallback}.</i> : null}
                 </small>
               </div>
             ))}

@@ -197,6 +197,8 @@ export function ModelClient({
             <div className="stage">
               {hero ? (
                 <Image
+                  key={hero.src}
+                  className="fade-in"
                   src={hero.src}
                   alt={`${modelName(model, lang)} — ${hero.label}`}
                   fill

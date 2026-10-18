@@ -15,10 +15,25 @@ import postgres from 'postgres';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = path.join(ROOT, 'src/data/site.generated.ts');
+/**
+ * Nashrdagi mahsulotlar to'g'ridan-to'g'ri statik katalog moduli o'rniga yoziladi —
+ * brauzer bundle'ida katalog ikki marta (statik + snapshot) bo'lmasin. Git'dagi nusxa
+ * `data/models-2027.json` bilan bir xil bo'lishi shart (tests/catalogAdmin2027.test.js).
+ */
+const OUT_MODELS = path.join(ROOT, 'src/data/models2027.ts');
 /** Validator (validate-models-2027.mjs) shu nusxani tekshiradi; snapshot bo'lmasa o'chiriladi. */
 const OUT_JSON = path.join(ROOT, '.snapshot.json');
 const url = process.env.DATABASE_URL;
 const required = process.env.SNAPSHOT_REQUIRED === '1';
+
+function writeModels(models) {
+  fs.writeFileSync(
+    OUT_MODELS,
+    `// SNAPSHOT — admin paneldan (baza) build paytida yozildi: scripts/export-snapshot.mjs.\n` +
+      `// Git'dagi nusxa scripts/extract/build_models_2027.py natijasi — commit qilishdan oldin \`git checkout src/data\`.\n` +
+      `export const models2027 = ${JSON.stringify(models)};\n`,
+  );
+}
 
 function write(snapshot) {
   const body = `// GENERATED at build time by scripts/export-snapshot.mjs from the database (admin panel).
@@ -29,8 +44,7 @@ import type { SiteSnapshot } from '../lib/snapshotTypes.ts';
 export const siteSnapshot: SiteSnapshot | null = ${snapshot ? JSON.stringify(snapshot) : 'null'};
 `;
   fs.writeFileSync(OUT, body);
-  if (snapshot?.models) fs.writeFileSync(OUT_JSON, JSON.stringify(snapshot));
-  else fs.rmSync(OUT_JSON, { force: true });
+  fs.rmSync(OUT_JSON, { force: true });
 }
 
 if (!url) {
@@ -69,12 +83,15 @@ try {
         images: p.images,
       }))
     : null;
+  if (models) writeModels(models);
   write({
     generatedAt: new Date().toISOString(),
     settings,
     sections: hasCatalog ? sectionRows.map((s) => ({ key: s.key, slug: s.slug, name: s.name, sort: s.sort })) : null,
-    models,
+    // Modellar src/data/models2027.ts da; bu yerda faqat validator nusxasi (.snapshot.json) uchun.
+    models: null,
   });
+  if (models) fs.writeFileSync(OUT_JSON, JSON.stringify({ sections: sectionRows, models }));
   console.log(
     `[snapshot] ${hasCatalog ? `${models.length} ta nashr qilingan mahsulot, ${sectionRows.length} bo'lim` : 'katalog bazada yo\'q (statik)'}; ${Object.keys(settings).length} sozlama.`,
   );

@@ -182,3 +182,15 @@ test('11. Maxfiylik sahifasi 6 bo\'limdan iborat', async () => {
     assert.ok(pv.sections.every((s) => s.id && s.h2), `${lang}: bo'lim identifikatori yo'q`);
   }
 });
+
+test('13. Admin raqam/kontakt tokenlari almashtirilgan (`{countries}` saytda chiqmaydi)', async () => {
+  const { getPages } = await load('lib/pages.ts');
+  for (const lang of ['uz', 'ru', 'en']) {
+    const p = getPages(lang);
+    const json = JSON.stringify(p);
+    assert.ok(!/\{(years|capacity|objects|countries|countryList|contactLine|addressLine|address)\}/.test(json), `${lang}: almashtirilmagan token`);
+    assert.ok(json.includes('18 000') && json.includes('740+'), `${lang}: standart raqamlar yo'q`);
+    assert.strictEqual(p.home.stats[2].value, '8');
+  }
+  assert.ok(JSON.stringify(getPages('uz')).includes('+998 98 300 77 72'), 'kontakt qatori');
+});

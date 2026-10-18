@@ -12,7 +12,7 @@ Admin panel saytning o'zida: **`https://sps.uz/admin`** (indekslanmaydi, robots.
 | Tashriflar | onlayn (5 daq.), tashrifchi/sessiya/ko'rishlar, kunlik grafik, voronka (kirdi → model → ro'yxat → aloqa → zayafka), manbalar (UTM/referrer), davlat/shahar, modellar, sahifalar, qurilma/til/brauzer, so'nggi sessiyalar va har birining yo'li |
 | Mahsulotlar | qidiruv, bo'lim/holat filtri, "Rasmsiz / ruscha nomsiz / inglizcha nomsiz", to'liqlik ko'rsatkichi, ommaviy Nashr/Qoralama/Arxiv; tahrirlash: kod, bo'lim, tartib, nom/tavsif uz·ru·en, qoliplar, plitkalar, texnik jadval, rasmlar (yuklash → WebP, chet fonni kesish, fon ogohlantirishi) |
 | Bo'limlar (administrator) | yangi bo'lim (masalan termopanel, stul oyoqlari), nom 3 tilda, URL, tartib, ko'rinish |
-| Integratsiyalar (administrator) | GTM, GA4, Yandex Metrica, Meta Pixel, TikTok Pixel, Google Search Console, Yandex Webmaster, Bing, Meta domen tasdig'i |
+| Sozlamalar (administrator) | **Kontaktlar** (telefonlar, Telegram, Instagram, e-pochta, manzil 3 tilda) · **Raqamlar** (tajriba yili, quvvat, obyektlar, eksport davlatlari soni va ro'yxati — barcha sahifalarda 3 tilda avtomatik) · **Integratsiyalar**: GTM, GA4, Yandex Metrica, Meta Pixel, TikTok Pixel, Google Search Console, Yandex Webmaster, Bing, Meta domen tasdig'i |
 | Xodimlar (faqat administrator) | xodim qo'shish, rol (administrator / menejer), faolsizlantirish, parol almashtirish |
 | Profil | o'z parolini almashtirish |
 
@@ -57,9 +57,15 @@ Sozlash (bir marta):
    Hozirgi 119 model (nashrda, tartib saqlanadi) + Excel'dagi 76 ta termopanel/fasad dekor
    (qoralama — rasm va tarjima qo'shilgach nashr qilinadi). Takror ishga tushirish xavfsiz.
 
-Rasmlar: admin'dan yuklangan rasm bazada saqlanadi va `/media/{xesh}.webp` orqali bir yillik
+Rasmlar: qolip va mahsulot suratini yuklashda **fon brauzerning o'zida AI bilan olib tashlanadi**
+(U²-Net, `public/admin-ai/`, rasm hech qayerga yuborilmaydi) — natija oldindan ko'rsatiladi,
+"Fonsizini saqlash" yoki "Asl rasmni saqlash" tanlanadi. Sahna (terilgan plitka) suratlarida
+fon olib tashlanmaydi. Admin'dan yuklangan rasm bazada saqlanadi va `/media/{xesh}.webp` orqali bir yillik
 kesh bilan beriladi. Qolip suratlari uchun eng yaxshisi — fonni olib tashlangan PNG
 (repodagi rasmlar uchun: `npm run images:bg`).
+
+Qulayliklar: menyuda yangi zayafkalar soni; admin sahifalari har 60 soniyada o'zi yangilanadi
+(forma ochiq bo'lsa — yo'q); mahsulot sahifasida "Nusxa olish" — o'xshash mahsulotni tez qo'shish.
 
 ## Xavfsizlik
 

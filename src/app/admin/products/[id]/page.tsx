@@ -5,7 +5,7 @@ import { EMPTY_IMAGES, completeness, getProduct, listSections } from '@/server/c
 import { SITE_URL } from '@/lib/seo';
 import { AdminShell } from '../../AdminShell';
 import { PublishBar } from '../../PublishBar';
-import { deleteProductAction } from '../actions';
+import { deleteProductAction, duplicateProductAction } from '../actions';
 import { ProductForm, type ProductDraft } from './ProductForm';
 
 export const metadata = { title: 'Mahsulot' };
@@ -17,7 +17,7 @@ export default async function ProductEditPage({
   searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ saved?: string }>;
+  searchParams: Promise<{ saved?: string; copied?: string }>;
 }) {
   const { user, db } = await requireUser();
   const { id } = await params;
@@ -73,11 +73,26 @@ export default async function ProductEditPage({
       active="products"
       title={row ? `${row.code ? `№ ${row.code} · ` : ''}${row.name.uz}` : 'Yangi mahsulot'}
       actions={
-        <Link className="sps-btn sps-btn--link sps-btn--sm" href="/admin/products">
-          ← Mahsulotlar
-        </Link>
+        <>
+          {row ? (
+            <form action={duplicateProductAction}>
+              <input type="hidden" name="productId" value={row.id} />
+              <button className="sps-btn sps-btn--outline sps-btn--sm" type="submit">
+                Nusxa olish (o&apos;xshash mahsulot)
+              </button>
+            </form>
+          ) : null}
+          <Link className="sps-btn sps-btn--link sps-btn--sm" href="/admin/products">
+            ← Mahsulotlar
+          </Link>
+        </>
       }
     >
+      {sp.copied ? (
+        <p className="adm-msg adm-msg--ok" style={{ marginBottom: 16 }}>
+          Nusxa qoralama sifatida yaratildi — kod, nom va rasmlarni o&apos;zgartirib saqlang.
+        </p>
+      ) : null}
       {sp.saved ? (
         <p className="adm-msg adm-msg--ok" style={{ marginBottom: 16 }}>
           Mahsulot yaratildi. Saytga chiqishi uchun holatni "Nashrda" qilib, "Nashr qilish" ni bosing.

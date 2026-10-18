@@ -211,6 +211,25 @@ export async function setProductsStatus(db: Db, ids: number[], status: ProductSt
   return { changed: ok.length, skipped: rows.length - ok.length };
 }
 
+/** O'xshash mahsulot qo'shish uchun nusxa: qoralama, slug `-nusxa`, rasmlar va jadvallar bilan. */
+export async function duplicateProduct(db: Db, id: number): Promise<number | null> {
+  const src = await getProduct(db, id);
+  if (!src) return null;
+  const { id: _id, createdAt: _c, updatedAt: _u, ...rest } = src;
+  for (let n = 1; n < 50; n += 1) {
+    const slug = `${src.slug}-nusxa${n > 1 ? `-${n}` : ''}`.slice(0, 90);
+    const res = await saveProduct(db, null, {
+      ...rest,
+      slug,
+      status: 'draft',
+      name: { ...src.name, uz: `${src.name.uz ?? ''} (nusxa)` },
+    });
+    if (res.id) return res.id;
+    if (!/slug/.test(res.error ?? '')) return null;
+  }
+  return null;
+}
+
 export async function deleteProduct(db: Db, id: number): Promise<void> {
   await db.delete(products).where(eq(products.id, id));
 }

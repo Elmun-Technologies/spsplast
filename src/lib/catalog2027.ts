@@ -3,10 +3,10 @@ import { siteSnapshot } from '../data/site.generated.ts';
 import type { Locale } from '@/lib/i18n';
 
 /**
- * Katalog 2027. Manba:
- *  1) admin panel (baza) — build paytida `src/data/site.generated.ts` ga yoziladi
- *     (scripts/export-snapshot.mjs, "Nashr qilish");
- *  2) bo'lmasa statik `data/models-2027.json` (generator: scripts/extract/build_models_2027.py).
+ * Katalog 2027. Manba — `src/data/models2027.ts`:
+ *  1) admin panel (baza) bilan build — scripts/export-snapshot.mjs nashrdagi mahsulotlarni
+ *     shu faylga yozadi ("Nashr qilish"); bo'limlar `src/data/site.generated.ts` da;
+ *  2) bazasiz — git'dagi statik nusxa (`data/models-2027.json`, scripts/extract/build_models_2027.py).
  * API sinxron qoladi — sahifalar statik prerender bo'ladi.
  * Sxema: docs/design-handoff/HANDOFF.md 5-bo'lim.
  */
@@ -78,7 +78,7 @@ function hasAnyImage(m: Model): boolean {
  * Tartib: "ko'p so'raladigan" (manba tartibi), lekin rasmli modellar oldinda —
  * katalog va bosh sahifa rasmsiz kartochka bilan boshlanmasin (UI audit P0-1/P0-2).
  */
-const models = ((siteSnapshot?.models ?? models2027) as unknown as Model[])
+const models = (models2027 as unknown as Model[])
   .map((m, i) => ({ m, i, img: hasAnyImage(m) ? 0 : 1 }))
   .sort((a, b) => a.img - b.img || a.i - b.i)
   .map((x) => x.m);

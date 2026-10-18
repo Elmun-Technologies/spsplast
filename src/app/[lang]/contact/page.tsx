@@ -109,7 +109,17 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
                 </a>
               </div>
             </div>
-            {/* E-pochta biznes tasdiqlagach CONTACTS_2027 ga qo'shiladi; hozircha qator ko'rsatilmaydi. */}
+            {/* E-pochta admin → Sozlamalar → Kontaktlar'da kiritilsa ko'rinadi. */}
+            {CONTACTS_2027.email ? (
+              <div className="ct-row">
+                <span className="sps-label" style={{ paddingTop: 6 }}>
+                  {p.contact.rows.email}
+                </span>
+                <a className="ct-big" href={`mailto:${CONTACTS_2027.email}`}>
+                  {CONTACTS_2027.email}
+                </a>
+              </div>
+            ) : null}
             <div className="ct-row">
               <span className="sps-label" style={{ paddingTop: 6 }}>
                 {p.contact.rows.address}

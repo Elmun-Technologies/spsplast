@@ -44,6 +44,7 @@ export function SiteFooter({ lang }: { lang: Locale }) {
             ))}
             <a href={CONTACTS_2027.telegramUrl}>Telegram · {CONTACTS_2027.telegramHandle}</a>
             <a href={CONTACTS_2027.instagramUrl}>Instagram · {CONTACTS_2027.instagramHandle}</a>
+            {CONTACTS_2027.email ? <a href={`mailto:${CONTACTS_2027.email}`}>{CONTACTS_2027.email}</a> : null}
             <a href={`/${lang}/contact`}>{t.footer.hours}</a>
           </div>
         </div>

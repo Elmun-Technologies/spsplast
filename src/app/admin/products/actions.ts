@@ -5,7 +5,7 @@ import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { requireUser } from '@/server/session';
 import { PRODUCT_STATUSES, type ProductStatus } from '@/server/db/schema';
-import { deleteProduct, deleteSection, saveProduct, saveSection, setProductsStatus, slugify } from '@/server/catalog';
+import { deleteProduct, deleteSection, duplicateProduct, saveProduct, saveSection, setProductsStatus, slugify } from '@/server/catalog';
 import { MAX_UPLOAD_BYTES, uploadImage, type ImageRole } from '@/server/media';
 
 /**
@@ -103,6 +103,15 @@ export async function bulkStatusAction(fd: FormData): Promise<void> {
   if (!PRODUCT_STATUSES.includes(status) || !ids.length) return;
   await setProductsStatus(db, ids, status);
   revalidatePath('/admin/products');
+}
+
+export async function duplicateProductAction(fd: FormData): Promise<void> {
+  const { db } = await requireUser();
+  const productId = Number(fd.get('productId'));
+  if (!Number.isInteger(productId) || productId < 1) return;
+  const copy = await duplicateProduct(db, productId);
+  revalidatePath('/admin/products');
+  if (copy) redirect(`/admin/products/${copy}?copied=1`);
 }
 
 export async function deleteProductAction(fd: FormData): Promise<void> {

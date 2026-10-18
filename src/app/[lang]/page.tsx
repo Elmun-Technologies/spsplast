@@ -84,7 +84,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               {p.home.stats.map((s) => (
                 <div key={s.label}>
                   <b>
-                    {s.value}
+                    <span data-countup>{s.value}</span>
                     {s.unit ? <small>{s.unit}</small> : null}
                   </b>
                   <span>{s.label}</span>

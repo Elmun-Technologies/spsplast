@@ -8,13 +8,19 @@ import { siteSnapshot } from '../data/site.generated.ts';
 export type IntegrationField = {
   key: string;
   label: string;
-  group: 'analytics' | 'ads' | 'verification';
+  group: 'analytics' | 'ads' | 'verification' | 'contacts' | 'stats';
   env?: string;
   pattern: RegExp;
   placeholder: string;
   help: string;
   where: string;
+  /** Bo'sh qolsa saytda ishlatiladigan standart qiymat (kontaktlar, raqamlar). */
+  fallback?: string;
 };
+
+const PHONE = /^\+\d[\d ()-]{6,22}$/;
+/** Matn maydonlari (manzil, davlatlar ro'yxati): HTML/shablon belgilarisiz. */
+const SAFE_TEXT = /^[^<>{}`]{2,300}$/;
 
 export const INTEGRATION_FIELDS: IntegrationField[] = [
   {
@@ -102,7 +108,33 @@ export const INTEGRATION_FIELDS: IntegrationField[] = [
     help: '<meta name="facebook-domain-verification" content="…"> — reklama uchun domen tasdig\'i.',
     where: 'business.facebook.com → Brand safety → Domains',
   },
+  // --- Kontaktlar (sayt sarlavhasi, footer, kontakt sahifasi, JSON-LD) ---
+  { key: 'phone_main', label: 'Asosiy savdo telefoni (WhatsApp)', group: 'contacts', pattern: PHONE, placeholder: '+998 98 300 77 72', fallback: '+998 98 300 77 72', help: "Header, mobil 'qo'ng'iroq' tugmasi, WhatsApp havolasi.", where: 'xalqaro formatda, + bilan' },
+  { key: 'phone_sales2', label: 'Savdo telefoni 2', group: 'contacts', pattern: PHONE, placeholder: '+998 33 338 77 72', fallback: '+998 33 338 77 72', help: 'Kontakt sahifasi va footer.', where: 'ixtiyoriy' },
+  { key: 'phone_sales3', label: 'Savdo telefoni 3', group: 'contacts', pattern: PHONE, placeholder: '+998 33 888 77 72', fallback: '+998 33 888 77 72', help: 'Kontakt sahifasi.', where: 'ixtiyoriy' },
+  { key: 'phone_office', label: 'Ofis telefoni', group: 'contacts', pattern: PHONE, placeholder: '+998 78 777 00 07', fallback: '+998 78 777 00 07', help: 'Kontakt sahifasi.', where: 'ixtiyoriy' },
+  { key: 'telegram_handle', label: 'Telegram', group: 'contacts', pattern: /^@?[A-Za-z0-9_]{5,32}$/, placeholder: '@spsplastuz', fallback: '@spsplastuz', help: 'Kanal yoki menejer akkaunti.', where: '@username' },
+  { key: 'instagram_handle', label: 'Instagram', group: 'contacts', pattern: /^@?[A-Za-z0-9_.]{2,30}$/, placeholder: '@spsplast.uz', fallback: '@spsplast.uz', help: 'Footer va kontakt sahifasi.', where: '@username' },
+  { key: 'email', label: 'E-pochta', group: 'contacts', pattern: /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]{2,}$/, placeholder: 'sales@sps.uz', help: "Kiritilsa kontakt sahifasi, footer va maxfiylik siyosatida ko'rinadi.", where: 'ixtiyoriy' },
+  { key: 'address_uz', label: 'Manzil (UZ)', group: 'contacts', pattern: SAFE_TEXT, placeholder: "Toshkent, Uchtepa tumani, Xalqa yo'li ko'chasi, 7A", fallback: "Toshkent, Uchtepa tumani, Xalqa yo'li ko'chasi, 7A", help: '', where: '' },
+  { key: 'address_ru', label: 'Manzil (RU)', group: 'contacts', pattern: SAFE_TEXT, placeholder: 'Ташкент, Учтепинский район, ул. Халка йули, 7A', fallback: 'Ташкент, Учтепинский район, ул. Халка йули, 7A', help: '', where: '' },
+  { key: 'address_en', label: 'Manzil (EN)', group: 'contacts', pattern: SAFE_TEXT, placeholder: '7A Khalqa yoli street, Uchtepa district, Tashkent', fallback: '7A Khalqa yoli street, Uchtepa district, Tashkent', help: '', where: '' },
+  // --- Saytdagi raqamlar (bosh sahifa, ishlab chiqarish, ulgurji, FAQ — 3 tilda) ---
+  { key: 'stat_years', label: 'Tajriba, yil', group: 'stats', pattern: /^\d{1,3}$/, placeholder: '20', fallback: '20', help: '"20 yil tajriba" — barcha sahifalarda.', where: '' },
+  { key: 'stat_capacity', label: "Oylik quvvat, m²", group: 'stats', pattern: /^\d{1,3}( \d{3}){0,3}$/, placeholder: '18 000', fallback: '18 000', help: "Minglar bo'shliq bilan: 18 000.", where: '' },
+  { key: 'stat_objects', label: 'Obyektlar soni', group: 'stats', pattern: /^\d{1,6}\+?$/, placeholder: '740+', fallback: '740+', help: '', where: '' },
+  { key: 'stat_countries', label: 'Eksport davlatlari soni', group: 'stats', pattern: /^\d{1,3}\+?$/, placeholder: '8', fallback: '8', help: "Masalan 12 yoki 10+. Ro'yxatni ham yangilang.", where: '' },
+  { key: 'export_countries_uz', label: "Davlatlar ro'yxati (UZ)", group: 'stats', pattern: SAFE_TEXT, placeholder: "Rossiya, Qozog'iston, …", fallback: "Rossiya, Qozog'iston, Qirg'iziston, Tojikiston, Ozarbayjon, Gruziya, Armaniston, Belarus", help: 'Ulgurji sahifasidagi eksport jadvali.', where: '' },
+  { key: 'export_countries_ru', label: "Davlatlar ro'yxati (RU)", group: 'stats', pattern: SAFE_TEXT, placeholder: 'Россия, Казахстан, …', fallback: 'Россия, Казахстан, Кыргызстан, Таджикистан, Азербайджан, Грузия, Армения, Беларусь', help: '', where: '' },
+  { key: 'export_countries_en', label: "Davlatlar ro'yxati (EN)", group: 'stats', pattern: SAFE_TEXT, placeholder: 'Russia, Kazakhstan, …', fallback: 'Russia, Kazakhstan, Kyrgyzstan, Tajikistan, Azerbaijan, Georgia, Armenia, Belarus', help: '', where: '' },
 ];
+
+/** Sayt sozlamasi: admin (snapshot) → env → standart qiymat. Noto'g'ri format e'tiborga olinmaydi. */
+export function settingValue(key: string): string {
+  const f = INTEGRATION_FIELDS.find((x) => x.key === key);
+  if (!f) return '';
+  return integrationValue(key) || f.fallback || '';
+}
 
 export function isValidIntegration(key: string, value: string): boolean {
   const f = INTEGRATION_FIELDS.find((x) => x.key === key);

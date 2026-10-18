@@ -161,6 +161,11 @@ test('8. Snapshot: git\'dagi nusxa null, build skripti bazasiz statik katalogni 
   const script = fs.readFileSync(path.join(ROOT, 'scripts/export-snapshot.mjs'), 'utf8');
   assert.match(script, /status = 'published'/);
   assert.match(script, /hasCatalog/, 'bo\'sh baza statik katalogni o\'chirib yubormasin');
+  // Git'dagi src/data/models2027.ts — statik katalog (DB build'dan keyin tasodifan commit qilinmasin).
+  const ts = fs.readFileSync(path.join(ROOT, 'src/data/models2027.ts'), 'utf8');
+  assert.ok(!ts.startsWith('// SNAPSHOT'), 'src/data/models2027.ts da DB snapshot qolgan — git checkout src/data');
+  const fromTs = JSON.parse(ts.slice(ts.indexOf('= ') + 2, ts.lastIndexOf(';')));
+  assert.deepStrictEqual(fromTs.map((m) => m.slug), models.map((m) => m.slug));
 });
 
 test('9. Integratsiya qiymatlari skriptga faqat qat\'iy formatda tushadi', async () => {
@@ -170,4 +175,18 @@ test('9. Integratsiya qiymatlari skriptga faqat qat\'iy formatda tushadi', async
   assert.strictEqual(integ.isValidIntegration('yandex_metrica_id', '123;alert(1)'), false);
   assert.strictEqual(integ.isValidIntegration('meta_pixel_id', '123456789012345'), true);
   assert.strictEqual(integ.isValidIntegration('google_site_verification', ''), true, 'bo\'sh qiymat — o\'chirish');
+});
+
+test('10. Nusxa: qoralama, yangi slug, ma\'lumot saqlanadi; ikkinchi nusxa -2', async () => {
+  const { db, catalog } = await setup();
+  const [src] = await catalog.listProducts(db, { q: 'monako' });
+  const id1 = await catalog.duplicateProduct(db, src.id);
+  const id2 = await catalog.duplicateProduct(db, src.id);
+  const c1 = await catalog.getProduct(db, id1);
+  const c2 = await catalog.getProduct(db, id2);
+  assert.strictEqual(c1.status, 'draft');
+  assert.strictEqual(c1.slug, `${src.slug}-nusxa`);
+  assert.strictEqual(c2.slug, `${src.slug}-nusxa-2`);
+  assert.deepStrictEqual(c1.molds, src.molds);
+  assert.match(c1.name.uz, /\(nusxa\)$/);
 });

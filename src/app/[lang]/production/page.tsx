@@ -66,7 +66,7 @@ export default async function ProductionPage({ params }: { params: Promise<{ lan
             {stats.map((s) => (
               <div className="sps-stat" key={s.label}>
                 <b>
-                  {s.value}
+                  <span data-countup>{s.value}</span>
                   {s.unit ? <small>{s.unit}</small> : null}
                 </b>
                 <span>{s.label}</span>

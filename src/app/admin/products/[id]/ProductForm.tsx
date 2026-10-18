@@ -85,9 +85,12 @@ function ImageSlot({
   const [pending, start] = useTransition();
   const [msg, setMsg] = useState<{ error?: string; warnings?: string[] } | null>(null);
   const [trim, setTrim] = useState(true);
+  // Qolip/mahsulot suratlarida fon standart holatda AI bilan olib tashlanadi (sahnada emas).
+  const [ai, setAi] = useState(role !== 'scene');
+  const [aiBusy, setAiBusy] = useState(false);
+  const [candidate, setCandidate] = useState<{ original: File; cut: File; preview: string } | null>(null);
 
-  const onFile = (file: File | undefined) => {
-    if (!file) return;
+  const upload = (file: File) => {
     const fd = new FormData();
     fd.set('file', file);
     fd.set('role', role);
@@ -102,28 +105,89 @@ function ImageSlot({
     });
   };
 
+  const onFile = async (file: File | undefined) => {
+    if (!file) return;
+    setMsg(null);
+    if (!ai) return upload(file);
+    setAiBusy(true);
+    try {
+      const { removeBackground } = await import('./removeBackground');
+      const { blob, preview } = await removeBackground(file);
+      const name = file.name.replace(/\.[^.]+$/, '') + '-fonsiz.png';
+      setCandidate({ original: file, cut: new File([blob], name, { type: 'image/png' }), preview });
+    } catch (error) {
+      setMsg({ error: `Fonni olib tashlab bo'lmadi (${error instanceof Error ? error.message : 'xato'}). Asl rasm yuklanmoqda.` });
+      upload(file);
+    } finally {
+      setAiBusy(false);
+    }
+  };
+
+  const choose = (which: 'cut' | 'original') => {
+    if (!candidate) return;
+    URL.revokeObjectURL(candidate.preview);
+    upload(which === 'cut' ? candidate.cut : candidate.original);
+    setCandidate(null);
+  };
+
   return (
     <div className={`adm-slot${url ? ' adm-slot--filled' : ''}`}>
-      {/* eslint-disable-next-line @next/next/no-img-element -- admin oldindan ko'rish: xom WebP */}
-      <div className="adm-slot__img">{url ? <img src={url} alt="" /> : <span>{pending ? 'Yuklanmoqda…' : "Rasm yo'q"}</span>}</div>
+      <div className="adm-slot__img">
+        {candidate ? (
+          // eslint-disable-next-line @next/next/no-img-element -- admin oldindan ko'rish: AI natijasi
+          <img src={candidate.preview} alt="" />
+        ) : url ? (
+          // eslint-disable-next-line @next/next/no-img-element -- admin oldindan ko'rish: xom WebP
+          <img src={url} alt="" />
+        ) : (
+          <span>{aiBusy ? 'AI fonni olib tashlamoqda…' : pending ? 'Yuklanmoqda…' : "Rasm yo'q"}</span>
+        )}
+      </div>
       <div className="adm-slot__body">
         <b>{title}</b>
         <small>{hint}</small>
-        <div className="adm-slot__act">
-          <label className="sps-btn sps-btn--outline sps-btn--sm">
-            {url ? 'Almashtirish' : 'Yuklash'}
-            <input type="file" accept="image/*" aria-label={`${title}: rasm yuklash`} hidden disabled={pending} onChange={(e) => onFile(e.target.files?.[0])} />
-          </label>
-          {url ? (
-            <button type="button" className="sps-btn sps-btn--link sps-btn--sm" onClick={() => onChange(null, null)}>
-              Olib tashlash
+        {candidate ? (
+          <div className="adm-slot__act">
+            <small>Fon olib tashlandi — natija to'g'rimi?</small>
+            <button type="button" className="sps-btn sps-btn--dark sps-btn--sm" onClick={() => choose('cut')}>
+              Fonsizini saqlash
             </button>
-          ) : null}
-        </div>
+            <button type="button" className="sps-btn sps-btn--outline sps-btn--sm" onClick={() => choose('original')}>
+              Asl rasmni saqlash
+            </button>
+          </div>
+        ) : (
+          <div className="adm-slot__act">
+            <label className="sps-btn sps-btn--outline sps-btn--sm" aria-disabled={pending || aiBusy}>
+              {aiBusy ? 'AI ishlamoqda…' : url ? 'Almashtirish' : 'Yuklash'}
+              <input
+                type="file"
+                accept="image/*"
+                aria-label={`${title}: rasm yuklash`}
+                hidden
+                disabled={pending || aiBusy}
+                onChange={(e) => {
+                  void onFile(e.target.files?.[0]);
+                  e.target.value = '';
+                }}
+              />
+            </label>
+            {url ? (
+              <button type="button" className="sps-btn sps-btn--link sps-btn--sm" onClick={() => onChange(null, null)}>
+                Olib tashlash
+              </button>
+            ) : null}
+          </div>
+        )}
         {role !== 'scene' ? (
-          <label className="adm-check">
-            <input type="checkbox" aria-label="Chetdagi bo'sh fonni kesish" checked={trim} onChange={(e) => setTrim(e.target.checked)} /> Chetdagi bo'sh fonni kesish
-          </label>
+          <>
+            <label className="adm-check">
+              <input type="checkbox" aria-label="Fonni AI bilan olib tashlash" checked={ai} onChange={(e) => setAi(e.target.checked)} /> Fonni AI bilan olib tashlash
+            </label>
+            <label className="adm-check">
+              <input type="checkbox" aria-label="Chetdagi bo'sh fonni kesish" checked={trim} onChange={(e) => setTrim(e.target.checked)} /> Chetdagi bo&apos;sh fonni kesish
+            </label>
+          </>
         ) : null}
         {msg?.error ? <small className="adm-warn">{msg.error}</small> : null}
         {msg?.warnings?.map((w) => (
