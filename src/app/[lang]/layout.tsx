@@ -5,6 +5,8 @@ import { SiteFooter } from '@/components/site/SiteFooter';
 import { CompareBar } from '@/components/catalog2027/CompareBar';
 import { SWCleanup } from '@/components/layout/SWCleanup';
 import { HtmlLangSync } from '@/components/layout/HtmlLangSync';
+import { VisitTracker } from '@/components/analytics/VisitTracker';
+import { MotionLayer } from '@/components/site/MotionLayer';
 import { isValidLocale, locales, type Locale } from '@/lib/i18n';
 import { getUi } from '@/lib/ui';
 
@@ -39,6 +41,8 @@ export default async function LangLayout({
       </a>
       {/* Eski PWA service worker'larni o'chirish (qaytgan foydalanuvchilar uchun) */}
       <SWCleanup />
+      <VisitTracker />
+      <MotionLayer />
       <SiteHeader lang={lang} />
       <main id="main-content">{children}</main>
       <CompareBar lang={lang} />

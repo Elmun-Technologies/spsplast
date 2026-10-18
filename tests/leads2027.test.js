@@ -63,9 +63,9 @@ test('7. Maxfiy qiymatlar faqat env orqali (kodda token yo\'q)', () => {
   assert.match(telegram, /process\.env\.TELEGRAM_CHAT_ID/, 'chat ID env dan olinmaydi');
 });
 
-test('8. Faqat ruxsat etilgan API marshrutlari mavjud', () => {
+test('8. Faqat ruxsat etilgan API marshrutlari mavjud (leads, health, track)', () => {
   const api = fs.readdirSync(path.join(ROOT, 'src/app/api'));
-  assert.deepStrictEqual(api.filter((n) => !n.startsWith('.')).sort(), ['health', 'leads']);
+  assert.deepStrictEqual(api.filter((n) => !n.startsWith('.')).sort(), ['health', 'leads', 'track']);
 });
 
 test('9. Analitika voqealari zayafka wrapper\'ida', () => {

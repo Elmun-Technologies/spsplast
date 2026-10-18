@@ -43,7 +43,11 @@ export default async function PrivacyPage({ params }: { params: Promise<{ lang: 
           </nav>
           <h1 className="disp-l">{p.privacy.title}</h1>
           <p className="body muted">
-            {p.privacy.updated} <span className="ph-in">{p.privacy.updatedMeta}</span>
+            {p.privacy.updatedMeta ? (
+              <>
+                {p.privacy.updated} <span>{p.privacy.updatedMeta}</span>
+              </>
+            ) : null}
           </p>
         </div>
       </section>
@@ -78,7 +82,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ lang: 
                 ))}
               </section>
             ))}
-            <p className="note muted">{renderPlaceholders(p.privacy.legalNote)}</p>
+            {/* Yurist tasdig'i eslatmasi — ichki (docs/unresolved-questions.md 1.11), saytda ko'rsatilmaydi. */}
           </div>
         </div>
       </section>

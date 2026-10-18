@@ -12,6 +12,7 @@ import {
   modelThickness,
   moldLetters,
   modelSetSize,
+  sectionLabel,
 } from '@/lib/catalog2027';
 import type { Locale } from '@/lib/i18n';
 import { getUi, formatNumber } from '@/lib/ui';
@@ -54,7 +55,7 @@ export function CompareClient({ lang }: { lang: Locale }) {
         return m.kg ? `${formatNumber(lang, m.kg)} ${p.model.keyKg}` : p.compare.dash;
       case 'use': {
         const use = m.section === 'trotuar' ? (modelThickness(m) ?? 0) : null;
-        if (m.section !== 'trotuar') return t.sections[m.section];
+        if (m.section !== 'trotuar') return sectionLabel(m.section, lang);
         if (use === null) return p.compare.dash;
         if (use <= 30) return p.compare.useWalk;
         if (use <= 40) return p.compare.useYard;
@@ -136,7 +137,7 @@ export function CompareClient({ lang }: { lang: Locale }) {
                       )}
                       <span className="mono" style={{ fontSize: 12, color: 'var(--ink-muted)', fontWeight: 500 }}>
                         {m.code ? `№ ${m.code} · ` : ''}
-                        {t.sections[m.section]}
+                        {sectionLabel(m.section, lang)}
                       </span>
                       <a href={`/${lang}/catalog/${SECTION_SLUGS[m.section]}/${m.slug}`}>{modelName(m, lang)}</a>
                       <div style={{ display: 'flex', gap: 8 }}>

@@ -1,4 +1,4 @@
-import { getSectionCounts, SECTIONS, SECTION_SLUGS } from '@/lib/catalog2027';
+import { getSectionCounts, getTotalCount, SECTION_SLUGS, sectionLabel, getActiveSections } from '@/lib/catalog2027';
 import { type Locale } from '@/lib/i18n';
 import { getUi } from '@/lib/ui';
 import { HeaderClient } from '@/components/site/HeaderClient';
@@ -10,9 +10,9 @@ export function SiteHeader({ lang, current }: { lang: Locale; current?: string }
   const t = getUi(lang);
   const counts = getSectionCounts();
 
-  const sections = SECTIONS.map((s) => ({
+  const sections = getActiveSections().map((s) => ({
     href: `/${lang}/catalog/${SECTION_SLUGS[s]}`,
-    label: t.sections[s],
+    label: sectionLabel(s, lang),
     count: counts[s],
     current: current === s,
   }));
@@ -25,5 +25,5 @@ export function SiteHeader({ lang, current }: { lang: Locale; current?: string }
     { href: `/${lang}/contact`, label: t.nav.contact, current: current === 'contact' },
   ];
 
-  return <HeaderClient lang={lang} sections={sections} nav={nav} pdfHref={PDF_CATALOG_HREF} />;
+  return <HeaderClient lang={lang} sections={sections} total={getTotalCount()} nav={nav} pdfHref={PDF_CATALOG_HREF} />;
 }

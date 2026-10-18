@@ -22,7 +22,10 @@ visual reference `screens/`, exact CSS/sizes `source/*.dc.html` + `source/site.c
   in `public/fonts/` (from `@fontsource-variable/onest`, OFL 1.1). `next/font/google` is banned.
 - **State**: client-only localStorage lists `sps_request` / `sps_compare`
   (`src/lib/store/spsLists.ts`, memory fallback when storage is blocked).
-- **Validation**: Zod (leads API) · **Data**: static JSON only, **no database**.
+- **Validation**: Zod (leads API) · **Catalog data**: static JSON (public site stays static).
+- **Database (Stage 7+, user decision 2026-10-18)**: PostgreSQL (Neon/Supabase) via Drizzle ORM
+  (`postgres` driver), only for leads + admin panel + rate limit. `DATABASE_URL` optional in dev
+  (site falls back to Telegram-only leads). Tests use PGlite (`@electric-sql/pglite`).
 - **Deploy target**: Vercel.
 
 ## Folder Structure
@@ -35,8 +38,21 @@ docs/design-handoff/         # HANDOFF.md, PROMPT.md, screens/, source/, images/
 scripts/extract/             # build_models_2027.py, build_images_2027.py (python3 + ImageMagick)
 scripts/validate-models-2027.mjs   # XATO (exit 1) / OGOH (business-pending) split
 src/app/[lang]/              # public site, locale-prefixed (uz, ru, en)
-src/app/api/leads|health     # the ONLY two route handlers (test-enforced)
-src/components/site/         # new layer: SiteHeader, HeaderClient, SiteFooter, LangSwitch, icons
+src/app/api/leads|health|track  # the ONLY /api route handlers (test-enforced); track = visit beacon
+src/app/media/[file]         # admin-uploaded images from DB (/media/{sha}.webp, immutable cache)
+src/data/site.generated.ts   # build-time snapshot from DB (scripts/export-snapshot.mjs); MUST be `null` in git
+scripts/export-snapshot.mjs  # runs first in `npm run build`: DB → published products/sections/settings
+scripts/catalog-import.ts    # one-off: data/models-2027.json + data/termopanel-2027.json → DB
+data/termopanel-2027.json    # GENERATED from xlsx sheet 6 (scripts/extract/build_termopanel_2027.py)
+src/app/admin/               # admin panel (login, dashboard, leads CRM, CSV export, users) — noindex
+src/server/                  # DB layer: db/schema.ts, db/client.ts, leads.ts, auth.ts, session.ts (Next glue)
+drizzle/                     # GENERATED SQL migrations (`npm run db:generate`), applied by `npm run db:migrate`
+docs/ADMIN.md                # admin setup (Neon/Supabase, migrate, first admin) + security notes
+docs/ROADMAP-2027.md         # gap analysis + stages 7–12
+src/components/site/         # new layer: SiteHeader, HeaderClient, SiteFooter, LangSwitch, icons, MotionLayer
+src/lib/siteContent.ts       # admin numbers/contacts → `{years}` `{countries}` `{contactLine}`… tokens in getPages()
+src/lib/integrations.ts      # admin settings fields (integrations, contacts, stats) + validation regexes
+public/admin-ai/             # onnxruntime-web + u2netp.onnx (16 MB) — admin-only browser background removal
 src/dictionaries/ui/{uz,ru,en}.ts   # UI copy for the new layer (uz = type source)
 src/lib/catalog2027.ts       # synchronous catalog access + derived filter fields + calculator
 src/lib/contacts2027.ts      # contacts per HANDOFF §1 (single source for new layer)
@@ -62,6 +78,8 @@ docs/legacy/                 # archive of the deleted 2026 data (catalog-2026.js
 tests/helpers/load-alias.mjs # runs `@/`-aliased TS in Node (writes .tmp-tests/, gitignored)
 screens-actual/              # GENERATED screenshots from `npm run shots` (gitignored)
 media-src/                   # SOURCE photos the image pipeline reads (factory/, studio/, pdf/ — 86 MB)
+media-src/studio-2026/       # 44 archived 2026 studio JPGs (mold + quyma) for jobs that say public/catalog/2026/
+media-src/clean/             # bg-removal masks (PNG) + manifest.json — committed, see images:bg
 public/catalog/2027/         # generated WebP (scene 1400/720w, mold/tile 800w)
 public/catalog/pdf/          # PDF catalog (2026, uz) — header download link
 public/fonts/                # onest-latin/cyrillic-wght-normal.woff2
@@ -109,8 +127,11 @@ route but is left out of the sitemap — thin content should not be indexed.
    Enforced by `tests/models2027.test.js` and `tests/foundation2027.test.js`.
 3. Approved numbers only: 20 yil tajriba, 18 000 m²/oy, 740+ obyekt, 8 eksport davlati,
    catalog counts from `data/models-2027.json` (never hardcode 152 in UI).
-4. Business-pending values stay `[...]` placeholders or `null` + a question in
-   `docs/data-questions.md` (generated; manual items live in `MANUAL_QUESTIONS`).
+4. Business-pending values are **never shown as `[...]` on the site** (decision 2026-10-18,
+   UI audit: they made the site look fake). Use honest neutral copy ("Menejer bilan
+   kelishiladi" / "По договорённости" / "By agreement") or omit the row; keep the open
+   question in `docs/data-questions.md` / `docs/unresolved-questions.md`.
+   `tests/pages2027.test.js` test 5 fails on any visible `[PLACEHOLDER]`.
 5. Languages uz (default) / ru / en; RU model names Cyrillic, codes identical everywhere.
 6. Mobile-first: 390 px matches `screens/mobile` first, then desktop 1440 px.
 7. Secrets only via env: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`.
@@ -126,7 +147,22 @@ npm run models:images  # ImageMagick -> public/catalog/2027/*.webp, prunes faile
 npm run models:check   # validator: XATO exit 1, OGOH = business-pending
 npm run redirects:build # regenerate scripts/redirects-2027.json from docs/legacy/catalog-2026.json
 npm run images:variants # sharp: container-ratio crops (1:1/4:3/16:9) -> public/images/site/*-<ratio>.webp
+npm run images:bg      # LOCAL rembg (isnet-general-use) -> media-src/clean/*.png masks + transparent mold/tile WebP
 ```
+
+**Background removal (mold/tile cutouts).** Every `*-mold-*.webp` / `*-tile-*.webp` is a
+transparent square WebP (object trimmed, centred, 7% padding, 800px, q82, alpha eroded 1px +
+feathered). The masks live in `media-src/clean/<dst-name>.png` (+ `manifest.json`: method,
+status, notes) and are **committed**, so `npm run models:images` rebuilds the cutouts with
+ImageMagick only — rembg is needed only to regenerate a mask
+(`pip install --user rembg onnxruntime`; models download from GitHub releases, nothing is
+uploaded anywhere). Shared code: `scripts/extract/cutout_2027.py`. Per-file tweaks go in
+`OVERRIDES` in `remove_bg_2027.py`; the 22 yellow-board 2026 studio molds use a colour key
+(isnet keeps the yellow board). `*-scene*.webp` and `public/images/site` keep their
+backgrounds. Image jobs whose `src` still says `public/catalog/2026/...` resolve to the
+archived copies in `media-src/studio-2026/` (`resolve_src()`); a job with no source but an
+existing WebP (the 2026 `-env` scenes) is kept, not nulled. Report:
+`docs/audits/bg-removal-2026-10-18.md` (contact sheets: `npm run images:bg -- --compose --sheets` -> `docs/audits/bg-removal/*.jpg`, gitignored).
 
 ## Visuals & measurement (Stage 6)
 
@@ -169,13 +205,42 @@ counts come from the Excel sources, images from the 2026 studio set + sheet-5 DS
 Required for lead delivery: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`.
 Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
 `NEXT_PUBLIC_GA_MEASUREMENT_ID`, `NEXT_PUBLIC_YANDEX_METRICA_ID`, `NEXT_PUBLIC_META_PIXEL_ID`.
-There is **no `DATABASE_URL`** — see `.env.example`.
+`DATABASE_URL` (Postgres) is required in production for lead storage and `/admin`; see `docs/ADMIN.md`.
 
 ## Known Pitfalls
 
-- **Never reintroduce a database or Tailwind.** Both were removed deliberately.
-- **Only `/api/leads` and `/api/health` may exist** under `src/app/api`
-  (`tests/foundation2027.test.js` enforces it).
+- **Never reintroduce Tailwind.** The database is back (Stage 7, user decision) **only** behind
+  `src/server/` — public pages (`[lang]`, `components`, `lib`) must never import it
+  (`tests/platform.test.js` test 6), otherwise the storefront stops being static.
+- **Admin forms: never name a hidden input `id`** — `form.id` then returns that input (DOM named
+  property) and React drops the submit button's `name/value` (status buttons silently did nothing).
+  Use `leadId` / `userId`.
+- **Catalog source**: `catalog2027.ts` reads `siteSnapshot` (DB, via build) and falls back to the
+  static JSON. Sections are dynamic (`Section = string`, `SECTIONS`/`SECTION_SLUGS`/`sectionLabel`
+  from the snapshot or built-in defaults) — never `getUi().sections` (removed). Navigation uses
+  `getActiveSections()` (sections with ≥1 model that has an image). Models with images sort first.
+- **Never commit a DB snapshot**: a local `npm run build` with `DATABASE_URL` overwrites
+  `src/data/site.generated.ts` (settings/sections) **and** `src/data/models2027.ts` (published
+  products). Run `git checkout src/data` before committing (`tests/catalogAdmin2027.test.js` test 8).
+- **Motion**: only below-the-fold elements get `data-rv` (never hide the first screen — LCP/flicker);
+  animate transform/opacity only; `prefers-reduced-motion` disables everything (global CSS rule + early
+  return in `MotionLayer`). Admin pages auto-refresh every 60 s unless a form is on the page (`AutoRefresh`).
+- **Site numbers/contacts are tokens**: dictionaries use `{years}`, `{capacity}`, `{objects}`,
+  `{countries}`, `{countryList}`, `{contactLine}`, `{addressLine}`, `{address}` — never write the
+  literal 8/20/18 000/740+ or a phone into copy (`tests/pages2027.test.js` test 13).
+- **React 19 forms reset after a server action**: controlled `<select>`s then show the first
+  option in the DOM. Big client forms (ProductForm) submit via `onSubmit` + `startTransition`.
+- Analytics IDs/verification come from admin settings (`src/lib/integrations.ts`,
+  `analyticsConfig()`/`verificationMeta()` in the root layout) with env fallback; values are
+  validated with strict regexes because they are interpolated into inline scripts.
+- Our own visit tracking (`src/lib/visitTracker.ts` → `/api/track`) filters bots (incl.
+  HeadlessChrome — set a real UA in Playwright when testing it), stores no IP and no cookies.
+- Every admin `page.tsx`/`route.ts` and server action calls `requireUser()` (test 12 in
+  `tests/admin2027.test.js`); middleware only redirects cookie-less requests to `/admin/login?next=`.
+- `tests/admin2027.test.js` imports `src/server/*` directly (relative `.ts` imports), not through
+  `load-alias` — the shared `.tmp-tests` dir is wiped by parallel test files.
+- **Only `/api/leads`, `/api/health` and `/api/track` may exist** under `src/app/api` (admin uses
+  server actions and `/admin/leads/export`) (`tests/foundation2027.test.js` enforces it).
 - **`data/models-2027.json` is generated** — edit the extractor, not the JSON.
 - **Fonts are self-hosted**; builds must work without outbound internet.
 - Next 15: `params`/`searchParams` are promises (`await params` in server components).
@@ -222,8 +287,11 @@ npm run dev            # local dev server
 npm run build          # models:check + next build (402 static pages)
 npm run typecheck      # tsc --noEmit
 npm run lint           # next lint
-npm test               # node --test --experimental-strip-types tests/*.test.js (93 tests)
+npm test               # node --test --experimental-strip-types tests/*.test.js (122 tests)
 npm run models:build && npm run models:images && npm run models:check
+npm run db:generate    # after editing src/server/db/schema.ts → new SQL in drizzle/
+DATABASE_URL=... npm run db:migrate
+DATABASE_URL=... ADMIN_PASSWORD=... npm run admin:create -- --email E --name "Ism" --role admin
 
 # Stage 6 checks — server must be running (`npm run start` or `npm run dev`)
 npm run audit          # audit:seo + audit:a11y → docs/audits/*.md
@@ -251,19 +319,33 @@ Audit-only devDependencies: `axe-core`, `jsdom` (no browser needed); browser che
 - `src/data/models2027.ts` — GENERATED (extractor yozadi). `catalog2027.ts` JSON emas shu modulni import qiladi: node testlari JSON importni qila olmaydi.
 - Testlar orqali yuklanadigan TS fayllarda: import yo'llari nisbiy va `.ts` kengaytmasi bilan (`allowImportingTsExtensions` yoqilgan), tip-only importlar `import type {...}` ko'rinishida bo'lsin (aks holda node `@/` aliasni hal qilolmaydi).
 - Dinamik parametrlar bilan statik sahifalar (`catalog/[section]`) `searchParams` o'qimaydi va `dynamicParams = false` bo'ladi — aks holda noma'lum slug uchun soft-404 (200) qaytadi. Filtrlar mijoz tomonida `window.location.search` dan o'qiladi.
-- `/api` da faqat `leads` va `health` bo'lishi kerak (test nazorat qiladi).
+- `/api` da faqat `leads`, `health` va `track` bo'lishi kerak (test nazorat qiladi).
 - `not-found.tsx` chegarasiga Next `params` uzatmaydi: til `useParams()` orqali olinadi, shuning uchun `[lang]/not-found.tsx` va `NotFoundBody` — client komponentlar.
 - Sahifa matnlari `src/dictionaries/pages/{uz,ru,en}.ts` (`getPages(lang)`); tuzilma bir xil bo'lishi shart (test 4 tekshiradi).
 - Kontaktlar faqat `CONTACTS_2027` dan; sahifalarda telefon raqamini qattiq yozish mumkin emas (test 7).
 - Ichki havolalar statik string bo'lsa `next/link` ishlatilsin (eslint `no-html-link-for-pages`); dinamik `${lang}` havolalarda `<a>` qolishi mumkin.
 - Node testlari yuklaydigan modullar (`lib/pages.ts`, `lib/catalog2027.ts`, `lib/catalogFilters.ts`) nisbiy yo'l + `.ts` kengaytmasidan foydalanadi.
-- Analitika: ro'yxat/solishtirish voqealari `store/spsLists.ts` ichida, `generate_lead` esa `lib/leadSubmit.ts` da — chaqiruv joylarida takror kod yozilmaydi. Analitika ID'lari faqat env, kodda qattiq yozish taqiqlangan (test).
+- Analitika: ro'yxat/solishtirish voqealari `store/spsLists.ts` ichida, `generate_lead` esa `lib/leadSubmit.ts` da — chaqiruv joylarida takror kod yozilmaydi. Analitika ID'lari admin → Sozlamalar (yoki env), kodda qattiq yozish taqiqlangan (test).
 - `/api/leads` xato kodlari: `bad_json`, `validation`, `bad_phone` (faqat telefon xato bo'lsa), `rate_limit` (429). Honeypot `website` to'la bo'lsa — soxta `ok`, Telegram yuborilmaydi.
 
 ## Stage Status (redesign)
 
 Next stages (7–12: database + lead storage, admin CRM, admin catalog/images, analytics
 dashboard, content/global, launch) and the full gap analysis: **`docs/ROADMAP-2027.md`**.
+
+- [x] 11 — animatsiyalar (`MotionLayer.tsx` + CSS: modal/sheet/menyu/panel ochilishi, pastdagi bloklar
+  aylantirganda chiqadi — birinchi ekran hech qachon yashirilmaydi, header soyasi, tugma/ikon/badge,
+  galereya o'tishi; reduced-motion hurmat qilinadi); admin: kontaktlar va raqamlar (3 tilda tokenlar),
+  brauzerda AI fon olib tashlash (u2netp), yangi zayafkalar badge + 60 s avto-yangilanish, mahsulot
+  nusxasi; snapshot modellari `src/data/models2027.ts` ga (bundle'da ikki marta emas). Testlar 122.
+  Ishga tushirish rejasi: `docs/LAUNCH-CHECKLIST.md`.
+- [x] 9+10 — admin: Tashriflar (o'z statistikamiz, mijoz yo'li), Integratsiyalar (GTM/GA4/Metrica/
+  Pixel/TikTok/Search Console/Webmaster/Bing), Mahsulotlar + Bo'limlar + rasm yuklash, "Nashr qilish"
+  (deploy hook + build snapshot); 89 qolip/plitka rasmi fonsiz (`npm run images:bg`); UI audit
+  tuzatishlari (rasmsiz kartochkalar, `[...]`, bo'lim rasmlari, RU kirill nomlar, hamkorlar). Testlar 120.
+- [x] 7+8 — Postgres (Drizzle) + zayafkalarni saqlash (ketma-ket SPS-YYMM-NNNN, avval baza → keyin
+  Telegram, bazadagi rate limit) + admin panel `/admin` (login/sessiya, rollar admin/menejer,
+  dashboard, zayafkalar CRM: holat/mas'ul/izoh/tarix, CSV, xodimlar). `docs/ADMIN.md`. Testlar 108.
 
 - [x] 0 — data: models-2027.json, WebP set, validator, data-questions.md
 - [x] 1 — foundation: tokens/style B, Onest, layout, header, mobile menu, footer, i18n uz/ru/en

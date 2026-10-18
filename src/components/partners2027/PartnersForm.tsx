@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { getModelBySlug, calcMolds, modelName } from '@/lib/catalog2027';
+import { getModelBySlug, calcMolds, modelName, sectionLabel } from '@/lib/catalog2027';
 import type { Locale } from '@/lib/i18n';
 import { getUi } from '@/lib/ui';
 import { getPages } from '@/lib/pages';
@@ -243,7 +243,7 @@ export function PartnersForm({ lang }: { lang: Locale }) {
                 {modelName(model, lang)}
               </span>
               <span className="mono muted" style={{ fontSize: 13 }}>
-                {item.m2 ? `${item.m2} ${p.model.leadPerDay}` : t.sections[model.section]}
+                {item.m2 ? `${item.m2} ${p.model.leadPerDay}` : sectionLabel(model.section, lang)}
               </span>
             </div>
           ))}

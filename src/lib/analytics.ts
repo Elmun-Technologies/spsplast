@@ -13,12 +13,22 @@ declare global {
     ym?: (id: number, action: string, eventName: string, data?: any) => void;
     fbq?: (action: string, eventName: string, data?: any) => void;
     gtag?: (...args: any[]) => void;
+    ttq?: { track: (event: string, data?: any) => void; page: () => void };
+    __spsYm?: number;
   }
 }
 
+import { sendVisit } from '@/lib/visitTracker';
+
 type EventParams = Record<string, any>;
 
-const METRICA_ID = Number(process.env.NEXT_PUBLIC_YANDEX_METRICA_ID || 0);
+/** O'z statistikamizga ham ketadigan voqealar (admin → Tashriflar). */
+const OWN_EVENTS: Record<string, (p: EventParams) => { item?: string; detail?: string }> = {
+  add_to_request: (p) => ({ item: p.item_id }),
+  add_to_compare: (p) => ({ item: p.item_id }),
+  generate_lead: (p) => ({ detail: [p.lead_type, p.request_id].filter(Boolean).join(' ') }),
+  search: (p) => ({ detail: p.search_term }),
+};
 
 export function trackEvent(eventName: string, params: EventParams = {}) {
   if (typeof window === 'undefined') return;
@@ -29,6 +39,9 @@ export function trackEvent(eventName: string, params: EventParams = {}) {
     page_path: window.location.pathname,
     page_title: document.title,
   };
+
+  const own = OWN_EVENTS[eventName];
+  if (own) sendVisit(eventName, own(params));
 
   // 1. GTM / GA4 dataLayer
   window.dataLayer = window.dataLayer || [];
@@ -64,12 +77,19 @@ export function trackEvent(eventName: string, params: EventParams = {}) {
 
   // 4. Yandex Metrica — O'zbekiston bozorida asosiy kanal.
   // Metrica maqsadlarida to'g'ri ko'rinishi uchun hodisa nomini o'zini yuboramiz.
-  if (window.ym && METRICA_ID) {
+  const metricaId = window.__spsYm;
+  if (window.ym && metricaId) {
     try {
-      window.ym(METRICA_ID, 'reachGoal', eventName, enriched);
+      window.ym(metricaId, 'reachGoal', eventName, enriched);
     } catch {
       // Metrica skripti bloklangan bo'lsa sayt ishlashda davom etadi.
     }
+  }
+
+  // 5. TikTok Pixel
+  if (window.ttq) {
+    const ttMap: Record<string, string> = { view_item: 'ViewContent', generate_lead: 'SubmitForm', search: 'Search' };
+    if (ttMap[eventName]) window.ttq.track(ttMap[eventName], { content_id: params.item_id });
   }
 
   if (process.env.NODE_ENV === 'development') {
@@ -127,3 +147,15 @@ export const analytics = {
   search: (term: string) => trackEvent('search', { search_term: term }),
   lead: (type: string, product?: string) => trackEvent('generate_lead', { lead_type: type, item_name: product }),
 };
+
+/** SPA o'tishlarida sahifa ko'rish: Metrica / Pixel / TikTok faqat birinchi yuklanishni o'zi sanaydi. */
+export function trackPageviewNav(path: string) {
+  if (typeof window === 'undefined') return;
+  try {
+    if (window.ym && window.__spsYm) window.ym(window.__spsYm, 'hit', path);
+    if (window.fbq) window.fbq('track', 'PageView');
+    if (window.ttq) window.ttq.page();
+  } catch {
+    // tashqi skript xatosi saytni to'xtatmasin
+  }
+}

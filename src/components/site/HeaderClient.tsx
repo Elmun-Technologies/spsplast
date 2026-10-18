@@ -14,11 +14,14 @@ type NavItem = { href: string; label: string; count?: number; current?: boolean 
 export function HeaderClient({
   lang,
   sections,
+  total,
   nav,
   pdfHref,
 }: {
   lang: Locale;
   sections: NavItem[];
+  /** Katalogdagi barcha modellar (yashirin bo'limlar ham) — sarlavhadagi "119 model" bilan bir xil. */
+  total: number;
   nav: NavItem[];
   pdfHref: string;
 }) {
@@ -57,7 +60,7 @@ export function HeaderClient({
             <a className="hd-cat" href={`/${lang}/catalog`}>
               <Icon.grid width={18} height={18} strokeWidth={1.5} aria-hidden="true" />
               <span>
-                {t.header.catalog} · {sections.reduce((s, i) => s + (i.count || 0), 0)}
+                {t.header.catalog} · {total}
               </span>
             </a>
             <form className="hd-search" role="search" action={`/${lang}/catalog`} method="GET">
@@ -78,7 +81,7 @@ export function HeaderClient({
               aria-label={`${t.header.compare}: ${compare.count}`}
             >
               <Icon.compare width={20} height={20} strokeWidth={1.5} aria-hidden="true" />
-              <b className="hd-badge" data-zero={compare.count === 0}>
+              <b className="hd-badge" data-zero={compare.count === 0} key={`c${compare.count}`}>
                 {compare.count}
               </b>
             </a>
@@ -88,7 +91,7 @@ export function HeaderClient({
               aria-label={`${t.header.requestList}: ${request.items.length}`}
             >
               <Icon.list width={20} height={20} strokeWidth={1.5} aria-hidden="true" />
-              <b className="hd-badge" data-zero={request.items.length === 0}>
+              <b className="hd-badge" data-zero={request.items.length === 0} key={`r${request.items.length}`}>
                 {request.items.length}
               </b>
             </a>

@@ -42,7 +42,7 @@ test('3. Model sahifasi va katalog ro\'yxati voqealari', () => {
 
 test('4. Analitika skriptlari faqat env ID bilan yuklanadi', () => {
   const layout = read('src/app/layout.tsx');
-  assert.match(layout, /<AnalyticsScripts \/>/, 'root layout analitikani ulamaydi');
+  assert.match(layout, /<AnalyticsScripts config=\{analyticsConfig\(\)\} \/>/, "root layout analitikani ulamaydi");
 
   const scripts = read('src/components/analytics/AnalyticsScripts.tsx');
   for (const env of [

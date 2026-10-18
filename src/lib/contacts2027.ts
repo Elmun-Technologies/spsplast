@@ -1,26 +1,40 @@
+import { settingValue } from './integrations.ts';
+
 /**
- * Kontaktlar — redesign 2027 (yagona manba: docs/design-handoff/HANDOFF.md 1-bo'lim).
- * Eski `contacts.ts` dagi @sps_stone / sps.stone handledari HANDOFF bilan zid —
- * savol docs/data-questions.md da (MANUAL ro'yxat).
+ * Kontaktlar — redesign 2027 (standart qiymatlar: docs/design-handoff/HANDOFF.md 1-bo'lim).
+ * Admin → "Sozlamalar" → Kontaktlar orqali o'zgartiriladi (nashr paytida
+ * `src/data/site.generated.ts` ga tushadi); bo'sh maydon — HANDOFF qiymati.
+ * Sahifalarda telefon qattiq yozilmaydi — faqat shu obyekt (test 7).
  */
+const raw = (phone: string) => `+${phone.replace(/\D/g, '')}`;
+const handle = (h: string) => (h.startsWith('@') ? h : `@${h}`);
+
+const main = settingValue('phone_main');
+const tg = handle(settingValue('telegram_handle'));
+const ig = handle(settingValue('instagram_handle'));
+const email = settingValue('email') || null;
+
 export const CONTACTS_2027 = {
   sales: [
-    { display: '+998 98 300 77 72', raw: '+998983007772', main: true, whatsapp: true },
-    { display: '+998 33 338 77 72', raw: '+998333387772', main: false, whatsapp: false },
-    { display: '+998 33 888 77 72', raw: '+998338887772', main: false, whatsapp: false },
+    { display: main, raw: raw(main), main: true, whatsapp: true },
+    ...[settingValue('phone_sales2'), settingValue('phone_sales3')]
+      .filter(Boolean)
+      .map((p) => ({ display: p, raw: raw(p), main: false, whatsapp: false })),
   ],
-  office: { display: '+998 78 777 00 07', raw: '+998787770007' },
-  mainPhone: '+998 98 300 77 72',
-  mainPhoneRaw: '+998983007772',
-  telegramHandle: '@spsplastuz',
-  telegramUrl: 'https://t.me/spsplastuz',
-  instagramHandle: '@spsplast.uz',
-  instagramUrl: 'https://instagram.com/spsplast.uz',
-  whatsappUrl: 'https://wa.me/998983007772',
+  office: { display: settingValue('phone_office'), raw: raw(settingValue('phone_office')) },
+  mainPhone: main,
+  mainPhoneRaw: raw(main),
+  telegramHandle: tg,
+  telegramUrl: `https://t.me/${tg.slice(1)}`,
+  instagramHandle: ig,
+  instagramUrl: `https://instagram.com/${ig.slice(1)}`,
+  whatsappUrl: `https://wa.me/${raw(main).slice(1)}`,
+  /** `null` — biznes hali bermagan: e-pochta qatori saytda ko'rsatilmaydi. */
+  email,
   address: {
-    uz: "Toshkent, Uchtepa tumani, Xalqa yo'li ko'chasi, 7A",
-    ru: 'Ташкент, Учтепинский район, ул. Халка йули, 7A',
-    en: '7A Khalqa yoli street, Uchtepa district, Tashkent',
+    uz: settingValue('address_uz'),
+    ru: settingValue('address_ru'),
+    en: settingValue('address_en'),
   },
   coords: { lat: 41.299833, lng: 69.150472 },
   workHours: 'Du–Sha · 09:00–18:00',

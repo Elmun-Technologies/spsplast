@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/validate-models-2027.mjs && next build",
+    "build": "node scripts/export-snapshot.mjs && node scripts/validate-models-2027.mjs && next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
@@ -15,24 +15,35 @@
     "redirects:build": "python3 scripts/extract/build_redirects_2027.py",
     "fonts:sync": "node scripts/sync-fonts.js",
     "images:variants": "node scripts/extract/build_site_variants.mjs",
+    "images:bg": "python3 scripts/extract/remove_bg_2027.py",
     "audit:a11y": "node scripts/audit-a11y.mjs",
     "audit:seo": "node scripts/audit-seo-dom.mjs",
     "audit": "node scripts/audit-seo-dom.mjs && node scripts/audit-a11y.mjs",
     "shots": "node scripts/visual/compare-screens.mjs",
-    "lighthouse": "node scripts/visual/lighthouse.mjs"
+    "lighthouse": "node scripts/visual/lighthouse.mjs",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "node scripts/db-migrate.mjs",
+    "admin:create": "node --experimental-strip-types scripts/admin-create.ts",
+    "snapshot": "node scripts/export-snapshot.mjs",
+    "catalog:import": "node --experimental-strip-types scripts/catalog-import.ts"
   },
   "dependencies": {
+    "drizzle-orm": "^0.44.7",
     "lucide-react": "^0.428.0",
     "next": "^15.5.26",
+    "postgres": "^3.4.9",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "sharp": "^0.35.5",
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "^0.3.16",
     "@types/node": "^20.14.12",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "axe-core": "^4.10.2",
+    "drizzle-kit": "^0.31.11",
     "eslint": "^8.57.0",
     "eslint-config-next": "^15.5.26",
     "jsdom": "^25.0.1",
@@ -40,7 +51,6 @@
     "pixelmatch": "^8.0.0",
     "playwright": "^1.64.0",
     "pngjs": "^7.0.0",
-    "sharp": "^0.35.5",
     "typescript": "^5.5.4"
   }
 }

@@ -3,16 +3,16 @@ import { z } from 'zod';
 /**
  * Muhit o'zgaruvchilari validatsiyasi.
  *
- * Backendsiz arxitekturada majburiy o'zgaruvchilar juda kam: sayt statik
- * katalogdan o'qiydi, yagona tashqi bog'liqlik — Telegram (zayafkalar) va
- * ixtiyoriy analitika ID'lari. Shuning uchun `DATABASE_URL` kabi talablar
- * olib tashlandi.
+ * Ommaviy sayt statik katalogdan o'qiydi. Server tomonda: Telegram
+ * (zayafka xabari), `DATABASE_URL` (zayafkalarni saqlash + admin panel,
+ * Bosqich 7–8) va ixtiyoriy analitika ID'lari.
  */
 const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
   NEXT_PUBLIC_SITE_URL: z.string().optional(),
   TELEGRAM_BOT_TOKEN: z.string().optional(),
   TELEGRAM_CHAT_ID: z.string().optional(),
+  DATABASE_URL: z.string().optional(),
   NEXT_PUBLIC_GTM_ID: z.string().optional(),
   NEXT_PUBLIC_GA_MEASUREMENT_ID: z.string().optional(),
   NEXT_PUBLIC_YANDEX_METRICA_ID: z.string().optional(),
@@ -43,6 +43,11 @@ export function validateEnvironment(): EnvValidationResult {
       errors.push(
         'TELEGRAM_BOT_TOKEN va TELEGRAM_CHAT_ID productionda majburiy: aks holda zayafkalar hech qayerga yuborilmaydi.'
       );
+    }
+
+    // Baza bo'lmasa zayafka faqat Telegram'ga ketadi (saqlanmaydi), admin panel ishlamaydi.
+    if (!process.env.DATABASE_URL) {
+      errors.push('DATABASE_URL productionda majburiy: zayafkalar saqlanmaydi va admin panel ishlamaydi.');
     }
 
     if (!process.env.NEXT_PUBLIC_SITE_URL) {

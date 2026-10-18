@@ -11,6 +11,7 @@ import {
   modelSetSize,
   moldLetters,
   modelTileSize,
+  sectionLabel,
 } from '@/lib/catalog2027';
 import type { Locale } from '@/lib/i18n';
 import { getUi, formatNumber } from '@/lib/ui';
@@ -129,7 +130,7 @@ export function RequestClient({ lang }: { lang: Locale }) {
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 4, minWidth: 0 }}>
                     <span className="mono" style={{ fontSize: 12, color: 'var(--ink-muted)' }}>
                       {model.code ? `№ ${model.code} · ` : ''}
-                      {t.sections[model.section]}
+                      {sectionLabel(model.section, lang)}
                     </span>
                     <a
                       href={`/${lang}/catalog/${SECTION_SLUGS[model.section]}/${model.slug}`}

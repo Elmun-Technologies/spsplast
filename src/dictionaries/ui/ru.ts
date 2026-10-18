@@ -24,13 +24,6 @@ export const ru: UiDictionary = {
     cta: 'Оставить заявку',
     pdf: 'PDF-каталог ↓',
   },
-  sections: {
-    trotuar: 'Тротуарная плитка',
-    fasad: 'Фасад',
-    zabor: 'Заборные панели',
-    dekor: 'Декоративные панели',
-    skameyka: 'Ножки скамеек',
-  },
   nav: {
     partners: 'Опт и партнёрство',
     production: 'Производство',
@@ -41,7 +34,7 @@ export const ru: UiDictionary = {
     sales: 'Отдел продаж',
     telegram: 'Telegram',
     whatsapp: 'WhatsApp',
-    pdf: 'PDF-каталог · 3 языка',
+    pdf: 'PDF-каталог',
     productionExport: 'Производство и экспорт',
   },
   footer: {
@@ -107,6 +100,7 @@ export const ru: UiDictionary = {
     more: 'Показать ещё',
     allCatalog: 'Весь каталог',
     cardCompare: 'Сравнить',
+    photoSoon: 'Фото готовится',
     cardQuick: 'Быстрый просмотр',
     cardRequest: 'Заявка',
     cardAdd: 'Добавить в список заявки',

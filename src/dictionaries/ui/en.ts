@@ -24,13 +24,6 @@ export const en: UiDictionary = {
     cta: 'Request a quote',
     pdf: 'PDF catalog ↓',
   },
-  sections: {
-    trotuar: 'Paving slabs',
-    fasad: 'Facade',
-    zabor: 'Fence panels',
-    dekor: 'Decor panels',
-    skameyka: 'Bench legs',
-  },
   nav: {
     partners: 'Wholesale & partners',
     production: 'Production',
@@ -41,7 +34,7 @@ export const en: UiDictionary = {
     sales: 'Sales department',
     telegram: 'Telegram',
     whatsapp: 'WhatsApp',
-    pdf: 'PDF catalog · 3 languages',
+    pdf: 'PDF catalog',
     productionExport: 'Production & export',
   },
   footer: {
@@ -107,6 +100,7 @@ export const en: UiDictionary = {
     more: 'Show more',
     allCatalog: 'Full catalog',
     cardCompare: 'Compare',
+    photoSoon: 'Photo coming soon',
     cardQuick: 'Quick view',
     cardRequest: 'Request',
     cardAdd: 'Add to request list',

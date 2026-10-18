@@ -14,6 +14,8 @@ const nextConfig = {
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
   },
   experimental: {
+    // Admin: mahsulot rasmlari server action orqali yuklanadi (15 MB gacha, src/server/media.ts).
+    serverActions: { bodySizeLimit: '16mb' },
     optimizePackageImports: ['lucide-react'],
   },
   async headers() {

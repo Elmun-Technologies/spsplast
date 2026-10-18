@@ -45,7 +45,7 @@ Kod sifati yaxshi: qatlamlar toza, biznes qoidalari testlar bilan himoyalangan, 
 Manba fayllar (yakuniy 2027 PDF katalog uz/ru/en, render zip'lar) repoda yo'q —
 `docs/data-questions.md` da 82 ta savol turibdi.
 
-### 2.2 Zayafka va backend (pul yo'qotadigan joylar)
+### 2.2 Zayafka va backend (pul yo'qotadigan joylar)  — ✅ Bosqich 7–8 da hal qilindi
 
 1. **Zayafka saqlanmaydi.** Telegram ishlamasa (token xato, Telegram bloklangan, tarmoq) —
    mijoz "qabul qilindi" ko'radi, lekin zayafka **hech qayerda qolmaydi**.
@@ -55,7 +55,7 @@ Manba fayllar (yakuniy 2027 PDF katalog uz/ru/en, render zip'lar) repoda yo'q �
 4. Zayafka holati (yangi → aloqada → taklif → yutildi/yutqazildi), mas'ul menejer, izohlar —
    yo'q. Menejer ishini Telegram chatidan kuzatib bo'lmaydi.
 
-### 2.3 Admin panel — umuman yo'q
+### 2.3 Admin panel — umuman yo'q — ✅ zayafkalar qismi tayyor (Bosqich 8), mahsulotlar — Bosqich 9
 
 Hozir mahsulot qo'shish = Excel → Python skript → JSON → dasturchi → deploy.
 Mijoz o'zi hech narsani o'zgartira olmaydi: mahsulot, rasm, tarjima, matn, kontakt,
@@ -112,26 +112,35 @@ Nima uchun shunday:
 
 ---
 
+### Qabul qilingan qarorlar (2026-10-18)
+
+| Savol | Qaror |
+|---|---|
+| Baza / admin | **Postgres + o'z admin** (shu Next.js loyihada `/admin`, Drizzle ORM, Neon yoki Supabase) |
+| Narx | **Faqat zayafka** — saytda narx yo'q (diler kabineti keyinroq ko'rib chiqiladi) |
+| Tillar | Hozircha **uz/ru/en** (avval ru/en model nomlari); keyin qozoq, qirg'iz, tojik, turkman, turk, ozarbayjon |
+| Birinchi ish | **Bosqich 7+8** — ✅ bajarildi (`docs/ADMIN.md`) |
+
 ## 4. Bosqichlar
 
 Har bosqich = alohida PR, testlar yashil, preview'da ko'rib tasdiqlanadi.
 
-### Bosqich 7 — Baza va zayafkalarni saqlash (1-hafta)
+### Bosqich 7 — Baza va zayafkalarni saqlash ✅
 - PostgreSQL + Drizzle ORM, migratsiyalar; `leads`, `lead_items`, `lead_events` jadvallari.
 - `/api/leads`: bazaga yozish → Telegram → `delivered` belgisi; ketma-ket zayafka raqami
   `SPS-YYMM-NNNN` (bazadagi sequence).
-- Rate limit — bazada yoki Upstash Redis'da (serverless'da ishlaydigan).
+- Rate limit — bazada (serverless'da ishlaydi).
 - Testlar: Telegram o'chiq bo'lsa ham zayafka saqlanadi; raqam takrorlanmaydi.
 
-### Bosqich 8 — Admin panel: kirish va zayafkalar (CRM) (1–2 hafta)
-- `/admin` login (e-pochta + parol, 2FA ixtiyoriy), rollar: **admin**, **menejer**.
+### Bosqich 8 — Admin panel: kirish va zayafkalar (CRM) ✅
+- `/admin` login (e-pochta + parol; 2FA — keyinroq), rollar: **admin**, **menejer**.
 - Zayafkalar ro'yxati: filtr (holat, davlat, mijoz turi, sana, manba/UTM), qidiruv,
   kartochka: modellar, kunlik m², qolip soni hisobi, WhatsApp/Telegram/tel havolalari.
 - Holatlar: Yangi → Aloqaga chiqildi → Taklif yuborildi → Yutildi / Yutqazildi (sabab bilan).
 - Mas'ul menejer, izohlar, tarix (kim, qachon, nima o'zgartirdi), CSV/Excel eksport.
 - Telegram xabarida "Admin'da ochish" havolasi.
 
-### Bosqich 9 — Admin: mahsulotlar va rasmlar (2 hafta)
+### Bosqich 9 — Admin: mahsulotlar va rasmlar ✅
 - Bo'limlar: trotuar, fasad, **termopanel**, zabor, dekor, **skameyka/stul oyoqlari** — admin
   o'zi bo'lim qo'sha oladi (hozir 5 ta qattiq yozilgan).
 - Mahsulot formasi: kod, slug, nom/tavsif uz·ru·en, qoliplar (o'lcham, chuqurlik, vazn),
@@ -143,7 +152,7 @@ Har bosqich = alohida PR, testlar yashil, preview'da ko'rib tasdiqlanadi.
 - Excel import (mavjud 2 ta xlsx formati) — termopanel 76 ta mahsulotni bir bosishda yuklash.
 - Saqlanganda sayt sahifasi avtomatik yangilanadi; sitemap ham.
 
-### Bosqich 10 — Analitika paneli (1 hafta)
+### Bosqich 10 — Analitika paneli ✅ (o'z statistikamiz + integratsiyalar; haftalik Telegram hisobot — keyin)
 - Admin bosh sahifasi: bugun/hafta/oy zayafkalar, konversiya (ko'rish → ro'yxat → zayafka),
   **davlatlar bo'yicha** zayafkalar (xarita), top modellar (ko'rilgan / so'ralgan),
   manbalar (Google, Instagram, Telegram, to'g'ridan-to'g'ri, UTM kampaniyalar), menejer javob tezligi.
@@ -154,8 +163,8 @@ Har bosqich = alohida PR, testlar yashil, preview'da ko'rib tasdiqlanadi.
 - 152+ model va 76 termopanel: rasmlar, ru/en nomlar, sahna renderlari (admin orqali yoki import).
 - Sayt sozlamalari admin'da: kontaktlar, raqamlar (yil, quvvat, davlatlar soni), FAQ, ulgurji shartlar.
 - Distribyutorlar xaritasi va "Distribyutor bo'lish" oqimi; davlat bo'yicha mas'ul kontakt.
-- Qo'shimcha tillar (kerak bo'lsa): masalan qozoq, tojik, turk, ozarbayjon — i18n tizimi tayyor,
-  faqat lug'at va tarjima kerak.
+- Qo'shimcha tillar (qaror: qozoq, qirg'iz, tojik, turkman, turk, ozarbayjon) — i18n tizimini
+  3 tildan N tilga kengaytirish + lug'at va tarjimalar.
 - Yetkazish shartlari (EXW/DAP, valyuta, minimal partiya) — biznes tasdig'idan keyin.
 
 ### Bosqich 12 — Ishga tushirish (3–5 kun)

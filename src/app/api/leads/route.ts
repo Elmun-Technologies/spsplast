@@ -4,13 +4,19 @@ import { normalizePhone, isValidUzPhone, isValidIntlPhone } from '@/lib/phone';
 import { escapeTelegramHtml, sendTelegramNotification } from '@/lib/telegram';
 import { checkRateLimit } from '@/lib/rateLimit';
 import { calcMolds, getModelBySlug, modelName, modelSetSize } from '@/lib/catalog2027';
+import { SITE_URL } from '@/lib/seo';
+import { getDb } from '@/server/db/client';
+import { createLead, hitRateLimit, markTelegram } from '@/server/leads';
 
 /**
  * Zayafka endpoint'i — saytdagi YAGONA yozuv API (HANDOFF 5-bo'lim).
  *
- * Backend va ma'lumotlar bazasi yo'q: forma → Zod validatsiyasi → honeypot +
- * rate limit → Telegram xabari (parse_mode HTML) → `{ ok, requestId }`.
- * requestId formati: SPS-YYMM-NNNN.
+ * Forma → Zod validatsiyasi → honeypot + rate limit → **bazaga yozish** →
+ * Telegram xabari (parse_mode HTML) → `{ ok, requestId }`.
+ * requestId formati: SPS-YYMM-NNNN — baza bo'lsa oy bo'yicha ketma-ket.
+ *
+ * Baza (`DATABASE_URL`) bo'lmasa yoki yozish yiqilsa, eski yo'l ishlaydi:
+ * tasodifiy raqam + faqat Telegram — mijoz baribir zayafka qoldira oladi.
  */
 export const dynamic = 'force-dynamic';
 
@@ -50,6 +56,8 @@ const leadSchema = z.object({
   utm_campaign: z.string().max(200).optional(),
   gclid: z.string().max(200).optional(),
   fbclid: z.string().max(200).optional(),
+  visitorId: z.string().regex(/^[A-Za-z0-9_-]{8,64}$/).optional(),
+  sessionId: z.string().regex(/^[A-Za-z0-9_-]{8,64}$/).optional(),
   // Honeypot: botlar to'ldiradigan yashirin maydon — bo'sh bo'lishi shart.
   website: z.string().max(200).optional(),
 });
@@ -95,10 +103,24 @@ function clientIp(req: Request): string {
   return req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || req.headers.get('x-real-ip') || 'unknown';
 }
 
+const RATE_MAX = 10;
+const RATE_WINDOW_MS = 15 * 60 * 1000;
+
+async function rateAllowed(ip: string): Promise<boolean> {
+  const db = getDb();
+  if (db) {
+    try {
+      return await hitRateLimit(db, `lead_create_${ip}`, RATE_MAX, RATE_WINDOW_MS);
+    } catch (error) {
+      console.error('[leads] rate limit (baza) xatosi', error);
+    }
+  }
+  return checkRateLimit(`lead_create_${ip}`, RATE_MAX, RATE_WINDOW_MS).allowed;
+}
+
 export async function POST(req: Request) {
   const ip = clientIp(req);
-  const limit = checkRateLimit(`lead_create_${ip}`, 10, 15 * 60 * 1000);
-  if (!limit.allowed) {
+  if (!(await rateAllowed(ip))) {
     return NextResponse.json({ ok: false, error: 'rate_limit' }, { status: 429 });
   }
 
@@ -130,7 +152,40 @@ export async function POST(req: Request) {
   }
 
   const now = new Date();
-  const requestId = makeRequestId(now);
+
+  // Modellar: nom va qolip soni zayafka paytidagidek saqlanadi (katalog keyin o'zgarsa ham).
+  const items = (data.items || []).map((item) => {
+    const model = getModelBySlug(item.slug);
+    return {
+      slug: item.slug,
+      model,
+      code: model?.code || item.code || null,
+      name: model ? modelName(model, 'uz') : null,
+      m2: item.m2,
+      molds: model && item.m2 ? calcMolds(model, item.m2) : null,
+    };
+  });
+
+  const db = getDb();
+  let saved: { id: number; number: string } | null = null;
+  if (db) {
+    try {
+      saved = await createLead(
+        db,
+        {
+          ...data,
+          phone,
+          geoCountry: req.headers.get('x-vercel-ip-country'),
+          items: items.map(({ model: _model, ...rest }) => rest),
+        },
+        now,
+      );
+    } catch (error) {
+      // Zayafka yo'qolmasin: Telegram baribir yuboriladi, xato loglarda qoladi.
+      console.error('[leads] bazaga yozilmadi', error);
+    }
+  }
+  const requestId = saved?.number ?? makeRequestId(now);
 
   const typeLabel =
     data.type === 'list'
@@ -153,14 +208,13 @@ export async function POST(req: Request) {
   if (data.company) lines.push(`Kompaniya: ${escapeTelegramHtml(data.company)}`);
   if (data.material) lines.push(`Material: ${escapeTelegramHtml(data.material.toUpperCase())}`);
 
-  if (data.items?.length) {
+  if (items.length) {
     lines.push('', 'Modellar:');
-    for (const item of data.items) {
-      const model = getModelBySlug(item.slug);
+    for (const item of items) {
+      const { model, molds } = item;
       const label = model ? `№ ${model.code || '—'} ${modelName(model, 'uz')}` : item.slug;
       const setNote = model && modelSetSize(model) > 1 ? " (to'plam A+B)" : '';
       if (item.m2) {
-        const molds = model ? calcMolds(model, item.m2) : null;
         lines.push(
           molds
             ? `• ${escapeTelegramHtml(label)}${setNote} — ${item.m2} m²/kun ≈ ${molds.toLocaleString('ru-RU')} qolip`
@@ -180,8 +234,16 @@ export async function POST(req: Request) {
     );
   }
   lines.push(`Vaqt: ${tashkentTime(now)} (Toshkent)`);
+  if (saved) lines.push(`<a href="${SITE_URL}/admin/leads/${saved.id}">Admin'da ochish →</a>`);
 
   const sent = await sendTelegramNotification(lines.join('\n'));
+  if (db && saved) {
+    try {
+      await markTelegram(db, saved.id, sent);
+    } catch (error) {
+      console.error('[leads] Telegram holati yozilmadi', error);
+    }
+  }
 
   // Telegram sozlanmagan bo'lsa (mahalliy dev) — javob baribir ok, /api/health
   // "degraded" holatini ko'rsatadi.

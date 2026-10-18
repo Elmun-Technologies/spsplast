@@ -87,19 +87,23 @@ test('4. Uch til lug\'atlari bir xil tuzilishga ega', async () => {
   assert.deepStrictEqual(shape(getPages('en')), uz, 'en lug\'ati tuzilishi uz dan farq qiladi');
 });
 
-test('5. Biznesdan kutilayotgan placeholderlar joyida qoldi', async () => {
+test('5. Saytda `[...]` placeholder ko\'rinmaydi (UI audit: "soxta" ko\'rinish)', async () => {
+  // Qaror (2026-10-18): biznesdan kutilayotgan qiymatlar saytda qizil `[...]` bo'lib
+  // chiqmaydi — o'rniga halol neytral matn ("Menejer bilan kelishiladi"). Ochiq
+  // savollar docs/unresolved-questions.md / data-questions.md da qoladi.
+  // Ichki kalitlar (saytda chiqarilmaydi): privacy.legalNote, contact.emailPlaceholder.
   const { getPages } = await load('lib/pages.ts');
   const flat = (node, out = []) => {
     if (typeof node === 'string') out.push(node);
     else if (Array.isArray(node)) node.forEach((v) => flat(v, out));
     else if (node && typeof node === 'object' && typeof node !== 'function') {
-      Object.values(node).forEach((v) => flat(v, out));
+      for (const [k, v] of Object.entries(node)) if (k !== 'legalNote' && k !== 'emailPlaceholder') flat(v, out);
     }
     return out;
   };
-  const uz = flat(getPages('uz')).join('\n');
-  for (const ph of ['[MIN. HAJM]', '[% DAN]', '[SHARTLAR]', '[ISH KUNI]', '[EXW TOSHKENT / DAP]', '[USD · RUB · UZS]', '[KELIB CHIQISH SERTIFIKATI]', '[TEXNOLOG TAVSIYASI]', '[E-POCHTA]', '[SANA]', '[YURIDIK NOMI]', '[SAQLASH MUDDATI]', "[RO'YXAT]", '[YURIST TASDIG\'I]']) {
-    assert.ok(uz.includes(ph), `uz lug'atida placeholder yo'q: ${ph}`);
+  for (const lang of ['uz', 'ru', 'en']) {
+    const offenders = flat(getPages(lang)).filter((x) => /\[[^\]\s][^\]]{1,40}\]/.test(x) && !/\[\.\.\.\]/.test(x));
+    assert.deepStrictEqual(offenders, [], `${lang}: saytda placeholder: ${offenders.join(' | ')}`);
   }
 });
 
@@ -177,4 +181,16 @@ test('11. Maxfiylik sahifasi 6 bo\'limdan iborat', async () => {
     assert.equal(pv.toc.length, 6, `${lang}: mundarija`);
     assert.ok(pv.sections.every((s) => s.id && s.h2), `${lang}: bo'lim identifikatori yo'q`);
   }
+});
+
+test('13. Admin raqam/kontakt tokenlari almashtirilgan (`{countries}` saytda chiqmaydi)', async () => {
+  const { getPages } = await load('lib/pages.ts');
+  for (const lang of ['uz', 'ru', 'en']) {
+    const p = getPages(lang);
+    const json = JSON.stringify(p);
+    assert.ok(!/\{(years|capacity|objects|countries|countryList|contactLine|addressLine|address)\}/.test(json), `${lang}: almashtirilmagan token`);
+    assert.ok(json.includes('18 000') && json.includes('740+'), `${lang}: standart raqamlar yo'q`);
+    assert.strictEqual(p.home.stats[2].value, '8');
+  }
+  assert.ok(JSON.stringify(getPages('uz')).includes('+998 98 300 77 72'), 'kontakt qatori');
 });

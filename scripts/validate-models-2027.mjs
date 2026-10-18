@@ -11,9 +11,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const ROOT = process.cwd();
+// Admin (baza) snapshot'i bo'lsa — saytga aynan shu chiqadi, shuni tekshiramiz.
+const SNAPSHOT = path.join(ROOT, '.snapshot.json');
+const snapshot = fs.existsSync(SNAPSHOT) ? JSON.parse(fs.readFileSync(SNAPSHOT, 'utf8')) : null;
 const FILE = path.join(ROOT, 'data/models-2027.json');
 const APPROVED = { total: 152, trotuar: 91, fasad: 26, zabor: 10, dekor: 18, skameyka: 7 };
-const SECTIONS = ['trotuar', 'fasad', 'zabor', 'dekor', 'skameyka'];
+const SECTIONS = snapshot?.sections?.map((s) => s.key) ?? ['trotuar', 'fasad', 'zabor', 'dekor', 'skameyka'];
 const LANGS = ['uz', 'ru', 'en'];
 
 const errors = [];
@@ -26,8 +29,9 @@ function walkStrings(node, cb, trail = '') {
     for (const [k, v] of Object.entries(node)) walkStrings(v, cb, `${trail}.${k}`);
 }
 
-const data = JSON.parse(fs.readFileSync(FILE, 'utf8'));
+const data = snapshot ?? JSON.parse(fs.readFileSync(FILE, 'utf8'));
 const models = data.models;
+if (snapshot) console.log(`Manba: admin snapshot (${models.length} ta mahsulot)`);
 
 // 1. slug / key unikal
 const slugs = new Map();
@@ -53,6 +57,7 @@ for (const m of models) {
   const imgs = [m.images.scene, m.images.sceneSm, ...Object.values(m.images.molds), ...Object.values(m.images.tiles)];
   for (const src of imgs) {
     if (!src) continue;
+    if (src.startsWith('/media/')) continue; // admin'dan yuklangan (bazada)
     if (!fs.existsSync(path.join(ROOT, 'public', src.replace(/^\//, ''))))
       errors.push(`${m.slug}: rasm fayli yo'q ${src}`);
   }

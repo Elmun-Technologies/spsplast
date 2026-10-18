@@ -89,9 +89,13 @@ function FilterGroups({
     })),
   });
 
+  // Tanlov bo'lmagan guruh (0–1 variant) ko'rsatilmaydi: masalan fasad yoki bo'sh bo'limda
+  // "Plitka o'lchami" sarlavhasi variantlarsiz osilib qolmasin (UI audit P0-6, P1-13).
+  const visible = groups.filter((g) => g.items.some((i) => i.on) || g.items.filter((i) => i.count > 0).length >= 2);
+
   return (
     <>
-      {groups.map((g) => (
+      {visible.map((g) => (
         <div className="fgroup" key={g.title}>
           <h2>{g.title}</h2>
           {g.items

@@ -147,6 +147,8 @@ button { font: inherit; color: inherit; }
   color: var(--ink-muted); display: flex; gap: var(--space-2); flex-wrap: wrap; margin: 0; padding: 0; list-style: none;
 }
 .crumbs a { color: var(--ink-muted); text-decoration: none; }
+/* <ol class="crumbs"> ro'yxatida ajratuvchi CSS bilan (model sahifasida <span>/</span> qo'lda). */
+ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color: var(--line-strong); }
 .crumbs a:hover { color: var(--red-ink); }
 
 /* --- Tugmalar -------------------------------------------------------------- */
@@ -581,7 +583,7 @@ button { font: inherit; color: inherit; }
 }
 @media (min-width: 1101px) {
   .band { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: var(--space-8); }
-  .secs { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .secs { grid-template-columns: repeat(var(--secs, 5), minmax(0, 1fr)); }
   .usp { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .usp > div:nth-child(2n) { border-right: 1px solid var(--line); }
   .usp > div:last-child { border-right: 0; }
@@ -810,3 +812,94 @@ button { font: inherit; color: inherit; }
 @keyframes skel-slide { 100% { transform: translateX(100%); } }
 @media (min-width: 701px) { .skel-row { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; } }
 @media (prefers-reduced-motion: reduce) { .skel-b::after { animation: none; } }
+
+/* Kartochka: sahna rasmi bo'lmasa — fonsiz qolip surati yoki "foto tayyorlanmoqda" (UI audit P0-1). */
+.sps-card__cutout { position: absolute; inset: 0; background: linear-gradient(180deg, #f7f5f1 0%, #efece6 100%); }
+.sps-card__cutout img { padding: 10%; }
+.sps-card__nophoto {
+  position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  background: linear-gradient(180deg, #f7f5f1 0%, #efece6 100%); color: var(--ink-muted); text-decoration: none;
+  font: 500 12px/16px var(--font-sans); letter-spacing: .04em;
+}
+.sps-card__nophoto svg { opacity: .45; }
+
+/* Bo'lim plitkasi sahnasiz: fonsiz qolip surati butun ko'rinadi (kesilmaydi). */
+.st--cutout { background: #2a2826; }
+.st--cutout img { object-fit: contain; padding: 12px 12px 40px; opacity: .95; }
+/* Hamkorlar kartochkalari: rasm 16:9 (Image height atributi aspect-ratio'ni bosmasin), mobil — 1 ustun (UI audit P0-5). */
+.who-img { height: auto; max-width: none; }
+@media (max-width: 760px) { .g3:has(> .who) { grid-template-columns: minmax(0, 1fr); } }
+
+/* Katalog/bo'lim sahifasi tepasidagi ortiqcha bo'shliq (UI audit P1-12). */
+.wrap.sec:has(> nav > ol.crumbs) { padding-top: var(--space-5); }
+@media (min-width: 761px) { .wrap.sec:has(> nav > ol.crumbs) { padding-top: var(--space-6); } }
+
+/* ===========================================================================
+   Harakat (motion) — MotionLayer.tsx + quyidagi CSS. Hammasi transform/opacity
+   (kompozitor, layout'ni qayta hisoblamaydi). prefers-reduced-motion: yuqoridagi
+   global qoida barcha animatsiya va transition'larni o'chiradi.
+   =========================================================================== */
+:root { --ease-out: cubic-bezier(.2, .8, .2, 1); --ease-spring: cubic-bezier(.34, 1.4, .64, 1); }
+html { scroll-behavior: smooth; }
+
+/* Aylantirganda paydo bo'lish (faqat ekrandan pastdagi bloklar). */
+[data-rv] { transition: opacity .55s var(--ease-out), transform .55s var(--ease-out); }
+[data-rv=''] { opacity: 0; transform: translateY(18px); }
+[data-rv='in'] { opacity: 1; transform: none; }
+
+/* Header: aylantirganda yengil soya. */
+.hd { transition: box-shadow .2s ease-out, border-color .2s ease-out; }
+html[data-scrolled] .hd { box-shadow: 0 6px 24px rgba(20, 20, 20, .07); border-bottom-color: transparent; }
+
+/* Tugmalar: bosilganda "cho'kish", hover'da silliq rang. */
+.sps-btn { transition: background-color .16s ease-out, border-color .16s ease-out, color .16s ease-out, transform .12s ease-out, box-shadow .16s ease-out; }
+.sps-btn:active:not(:disabled) { transform: scale(.97); }
+.sps-btn--primary:hover:not(:disabled) { box-shadow: 0 6px 18px rgba(227, 32, 42, .28); }
+.sps-iconbtn { transition: background-color .16s ease-out, border-color .16s ease-out, color .16s ease-out, transform .12s ease-out; }
+.sps-iconbtn:active { transform: scale(.92); }
+.sps-iconbtn--on { animation: pop .32s var(--ease-spring); }
+@keyframes pop { 0% { transform: scale(.8); } 100% { transform: scale(1); } }
+
+/* Kartochka: rasm hover'da sekin kattalashadi. */
+.sps-card__media img { transition: transform .5s var(--ease-out); }
+.sps-card:hover .sps-card__media > a img { transform: scale(1.045); }
+.sps-card__cutout img { transition: transform .5s var(--ease-out); }
+
+/* Header badge: son o'zgarganda "sakraydi" (key bilan qayta mount). */
+.hd-badge { animation: bump .36s var(--ease-spring); }
+@keyframes bump { 0% { transform: scale(.4); } 70% { transform: scale(1.15); } 100% { transform: scale(1); } }
+
+/* Modal / sheet / menyu / filtr / solishtirish paneli — ochilish animatsiyasi. */
+.sps-overlay:not([hidden]) { animation: fade-in .2s ease-out; }
+.sps-modal { animation: modal-in .28s var(--ease-out); }
+@media (max-width: 760px) { .sps-sheet { animation: sheet-up .32s var(--ease-out); } }
+.mm:not([hidden]) { animation: slide-in-r .3s var(--ease-out); }
+.mm:not([hidden]) .mm-link { animation: rise .4s var(--ease-out) both; }
+.mm:not([hidden]) .mm-link:nth-child(2) { animation-delay: .03s; }
+.mm:not([hidden]) .mm-link:nth-child(3) { animation-delay: .06s; }
+.mm:not([hidden]) .mm-link:nth-child(4) { animation-delay: .09s; }
+.mm:not([hidden]) .mm-link:nth-child(n+5) { animation-delay: .12s; }
+.fsheet:not([hidden]) { animation: sheet-up .32s var(--ease-out); }
+.cmp-bar:not([hidden]) { animation: bar-up .35s var(--ease-spring); }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes modal-in { from { opacity: 0; transform: translateY(10px) scale(.98); } to { opacity: 1; transform: none; } }
+@keyframes sheet-up { from { transform: translateY(100%); } to { transform: none; } }
+@keyframes slide-in-r { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: none; } }
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes bar-up { from { opacity: 0; transform: translate(-50%, 24px); } to { opacity: 1; transform: translate(-50%, 0); } }
+
+/* Model galereyasi: rasm almashganda yumshoq o'tish. */
+.fade-in { animation: fade-in .35s ease-out; }
+
+/* Bo'lim plitkalari, hamkor kartochkalari — hover. */
+.who { transition: transform .2s var(--ease-out), box-shadow .2s var(--ease-out); }
+.who:hover { transform: translateY(-3px); box-shadow: var(--shadow-raise); }
+
+/* Zayafka yuborildi — yashil belgi "chiziladi". */
+.sps-form__ok, .state-mark { animation: modal-in .4s var(--ease-out); }
+
+/* Havolalar: tagchiziq silliq. */
+.hd-nav a { transition: color .15s ease-out, border-color .2s ease-out; }
+@media print { [data-rv] { opacity: 1 !important; transform: none !important; } }
+/* Modal sarlavhasidagi yopish tugmasi doim o'ng chetda. */
+.sps-sheet__head > .sps-iconbtn:last-child, .sps-modal__head > .sps-iconbtn:last-child { margin-left: auto; flex: none; }

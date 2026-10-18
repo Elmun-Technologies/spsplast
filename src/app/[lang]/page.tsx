@@ -1,15 +1,17 @@
+import type React from 'react';
 import Image from 'next/image';
 import { isValidLocale, locales, type Locale } from '@/lib/i18n';
 import { getUi, pluralModels } from '@/lib/ui';
 import { getPages } from '@/lib/pages';
 import { CONTACTS_2027 } from '@/lib/contacts2027';
 import {
-  SECTIONS,
   SECTION_SLUGS,
   getPopular,
   getSectionCounts,
   getTotalCount,
-  sectionCover,
+  sectionCoverImage,
+  sectionLabel,
+  getActiveSections,
 } from '@/lib/catalog2027';
 import { CatalogClient } from '@/components/catalog2027/CatalogClient';
 import { pageMetadata } from '@/lib/seo';
@@ -82,7 +84,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               {p.home.stats.map((s) => (
                 <div key={s.label}>
                   <b>
-                    {s.value}
+                    <span data-countup>{s.value}</span>
                     {s.unit ? <small>{s.unit}</small> : null}
                   </b>
                   <span>{s.label}</span>
@@ -90,12 +92,20 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               ))}
             </div>
           </div>
-          <div className="secs" aria-label={p.home.sectionTiles}>
-            {SECTIONS.map((s) => (
-              <a key={s} className="st" href={`/${lang}/catalog/${SECTION_SLUGS[s]}`}>
-                <Image src={sectionCover(s)} alt="" fill sizes="(max-width: 760px) 50vw, 260px" priority={s === 'trotuar'} />
+          <div
+            className="secs"
+            aria-label={p.home.sectionTiles}
+            style={{ '--secs': getActiveSections().length } as React.CSSProperties}
+          >
+            {getActiveSections().map((s) => (
+              <a
+                key={s}
+                className={`st${sectionCoverImage(s).fit === 'contain' ? ' st--cutout' : ''}`}
+                href={`/${lang}/catalog/${SECTION_SLUGS[s]}`}
+              >
+                <Image src={sectionCoverImage(s).src} alt="" fill sizes="(max-width: 760px) 50vw, 260px" priority={s === 'trotuar'} />
                 <div>
-                  <b>{t.sections[s]}</b>
+                  <b>{sectionLabel(s, lang)}</b>
                   <span>
                     {counts[s]} {pluralModels(lang, counts[s])}
                   </span>
