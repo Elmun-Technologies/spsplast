@@ -63,9 +63,7 @@ export function ModelClient({
     if (mold) out.push({ src: mold, label: p.model.gallery.mold, cover: false });
     const tile = model.images.tiles.A;
     if (tile) out.push({ src: tile, label: p.model.gallery.tile, cover: false });
-    if (model.images.sceneSm && model.images.sceneSm !== model.images.scene) {
-      out.push({ src: model.images.sceneSm, label: p.model.gallery.zoom, cover: true });
-    }
+    // `sceneSm` — o'sha sahnaning kichik nusxasi (ko'pincha bayt-ma-bayt bir xil), galereyada takrorlanmaydi.
     return out;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [model.slug]);
@@ -94,6 +92,21 @@ export function ModelClient({
   const inList = request.has(model.slug);
   const inCompare = compare.has(model.slug);
 
+  // Qolip bo'lmagan mahsulot (termopanel, fasad dekor): kalkulyator va qolip raqamlari ko'rsatilmaydi.
+  const isMold = model.molds.length > 0;
+  const showCalc = isMold && !!(per || model.kg);
+  const keyItems: { label: string; value: string }[] = isMold
+    ? [
+        model.tiles[0]?.size ? { label: p.model.keyTile, value: `${model.tiles[0].size}${model.sizeEstimated ? ' *' : ''}` } : null,
+        per ? { label: p.model.keyPer, value: `${formatNumber(lang, per)} ${p.model.keyPerUnit}` } : null,
+        model.molds[0]?.g ? { label: p.model.keyMoldWeight, value: `${model.molds[0].g} ${p.model.keyGram}` } : null,
+        model.kg ? { label: p.model.keyKgM2, value: `${formatNumber(lang, model.kg)} ${p.model.keyKg}` } : null,
+      ].filter((x): x is { label: string; value: string } => !!x)
+    : model.specs
+        .slice(0, 4)
+        .map((sp) => ({ label: localizedText(sp.k, lang) ?? '', value: localizedText(sp.v, lang) ?? '' }))
+        .filter((x) => x.label && x.value);
+
   const specRows: { k: string; v: string }[] = model.specs.length
     ? model.specs.map((s) => ({
         k: localizedText(s.k, lang) ?? '—',
@@ -103,7 +116,8 @@ export function ModelClient({
         { k: p.model.spec.code, v: model.code ? `№ ${model.code}` : '—' },
         ...model.molds.map((m, i) => ({
           k: model.molds.length > 1 ? `${p.model.spec.mold} ${m.l}` : p.model.spec.moldSize,
-          v: `${m.size || '—'}${m.depth ? ` × ${m.depth} mm` : ''}${model.molds.length > 1 && i >= 0 ? '' : ''}`,
+          // O'lcham allaqachon 3 o'lchamli bo'lsa (300×300×30) qalinlik qayta qo'shilmaydi.
+          v: m.size ? `${m.size}${m.depth && m.size.split('×').length < 3 ? ` × ${m.depth}` : ''} mm` : m.depth ? `${m.depth} mm` : '—',
         })),
         { k: p.model.spec.tile, v: model.tiles.map((x) => x.size).filter(Boolean).join(', ') || '—' },
         { k: p.model.spec.per, v: per ? `${formatNumber(lang, per)} ${p.model.keyPerUnit}` : '—' },
@@ -188,11 +202,12 @@ export function ModelClient({
                   fill
                   sizes="(max-width: 1100px) 100vw, 640px"
                   priority
-                  style={{ objectFit: hero.cover ? 'cover' : 'contain', maxWidth: hero.cover ? undefined : '70%', maxHeight: hero.cover ? undefined : '80%', width: hero.cover ? undefined : 'auto', height: hero.cover ? undefined : 'auto' }}
+                  // Fonsiz qolip/mahsulot surati markazda, chetlardan joy bilan (avval chap-yuqoriga siqilib qolardi).
+                  style={{ objectFit: hero.cover ? 'cover' : 'contain', padding: hero.cover ? undefined : '8%' }}
                 />
               ) : (
-                <div className="ph" style={{ position: 'absolute', inset: 0 }}>
-                  {model.code || modelName(model, lang)}
+                <div className="sps-card__nophoto">
+                  <span>{getUi(lang).catalog.photoSoon}</span>
                 </div>
               )}
               {hero?.label ? <span className="sps-tag">{hero.label}</span> : null}
@@ -205,39 +220,29 @@ export function ModelClient({
                     {model.code ? `№ ${model.code} · ` : ''}
                     {sectionLabel(model.section, lang)}
                   </span>
-                  <span className="sps-tag">{p.model.materialTag}</span>
+                  {isMold ? <span className="sps-tag">{p.model.materialTag}</span> : null}
                 </div>
                 <h1 className="disp-l">{modelName(model, lang)}</h1>
                 {subtitle ? <p className="body muted">{subtitle}</p> : null}
               </div>
 
-              <div className="key">
-                <div>
-                  <span>{p.model.keyTile}</span>
-                  <b>
-                    {model.tiles[0]?.size || '—'}
-                    {model.sizeEstimated ? ' *' : ''}
-                  </b>
+              {keyItems.length ? (
+                <div className="key">
+                  {keyItems.map((k) => (
+                    <div key={k.label}>
+                      <span>{k.label}</span>
+                      <b>{k.value}</b>
+                    </div>
+                  ))}
                 </div>
-                <div>
-                  <span>{p.model.keyPer}</span>
-                  <b>{per ? `${formatNumber(lang, per)} ${p.model.keyPerUnit}` : '—'}</b>
-                </div>
-                <div>
-                  <span>{p.model.keyMoldWeight}</span>
-                  <b>{model.molds[0]?.g ? `${model.molds[0].g} ${p.model.keyGram}` : '—'}</b>
-                </div>
-                <div>
-                  <span>{p.model.keyKgM2}</span>
-                  <b>{model.kg ? `${formatNumber(lang, model.kg)} ${p.model.keyKg}` : '—'}</b>
-                </div>
-              </div>
+              ) : null}
               {model.sizeEstimated ? (
                 <p className="small muted" style={{ marginTop: -12 }}>
                   {p.model.spec.estimated}
                 </p>
               ) : null}
 
+              {showCalc ? (
               <div className="calc">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
                   <b style={{ font: '600 16px/22px var(--font-sans)' }}>{p.model.calcTitle}</b>
@@ -268,6 +273,7 @@ export function ModelClient({
                 </div>
                 {molds === null ? <p className="small muted" style={{ margin: 0 }}>{p.model.calcSetNote}</p> : null}
               </div>
+              ) : null}
 
               <div className="desk-cta">
                 <button type="button" className="sps-btn sps-btn--primary sps-btn--lg" onClick={() => setLeadOpen(true)}>
@@ -334,7 +340,7 @@ export function ModelClient({
             <div className="spec-split" id="panel-spec" role="tabpanel" aria-labelledby="tab-spec">
               <table className="sps-spec">
                 <tbody>
-                  {specRows.map((r) => (
+                  {specRows.filter((r) => r.v !== '—').map((r) => (
                     <tr key={r.k + r.v}>
                       <th>{r.k}</th>
                       <td>{r.v}</td>
@@ -411,7 +417,7 @@ export function ModelClient({
                 </tr>
                 <tr>
                   <th>{p.model.delivery.minVolume}</th>
-                  <td className="ph-in">[MIN. HAJM]</td>
+                  <td>{p.partners.who[0].rows[0].v}</td>
                 </tr>
               </tbody>
             </table>
@@ -436,7 +442,10 @@ export function ModelClient({
           <div className="wrap" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: 12 }}>
               <h2 className="h1">
-                {model.tiles[0]?.size || sectionLabel(model.section, lang)} — {p.model.related}
+                {related.every((r) => r.tiles[0]?.size && r.tiles[0]?.size === model.tiles[0]?.size)
+                  ? model.tiles[0]?.size
+                  : sectionLabel(model.section, lang)}{' '}
+                — {p.model.related}
               </h2>
               <a className="sps-btn sps-btn--link" href={`/${lang}/catalog/${SECTION_SLUGS[model.section]}`}>
                 {p.model.relatedAll}

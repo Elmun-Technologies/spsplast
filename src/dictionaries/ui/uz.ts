@@ -35,7 +35,7 @@ export const uz = {
     sales: "Savdo bo'limi",
     telegram: 'Telegram',
     whatsapp: 'WhatsApp',
-    pdf: 'PDF katalog · 3 tilda',
+    pdf: 'PDF katalog',
     productionExport: 'Ishlab chiqarish va eksport',
   },
   footer: {
@@ -101,6 +101,7 @@ export const uz = {
     more: 'Yana ko’rsatish',
     allCatalog: 'Butun katalog',
     cardCompare: 'Solishtirish',
+    photoSoon: 'Foto tayyorlanmoqda',
     cardQuick: 'Tez ko’rish',
     cardRequest: 'Zayafka',
     cardAdd: "Zayafka ro’yxatiga qo’shish",

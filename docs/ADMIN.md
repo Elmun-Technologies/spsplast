@@ -9,6 +9,10 @@ Admin panel saytning o'zida: **`https://sps.uz/admin`** (indekslanmaydi, robots.
 | Bosh sahifa | 24 soat / 7 / 30 kun zayafkalar, holatlar, davlatlar, ko'p so'ralgan modellar, manbalar (UTM), Telegram'ga yetmaganlar |
 | Zayafkalar | holat bo'yicha chiplar, qidiruv (ism, telefon, SPS-raqam, shahar, kompaniya), tur / mas'ul / sana filtri, CSV (Excel) eksport |
 | Zayafka kartochkasi | qo'ng'iroq / WhatsApp / Telegram tugmalari, modellar va qolip soni, holat (Yangi → Bog'lanildi → Taklif → Kelishildi / Rad etildi + sabab), mas'ul menejer, izohlar, to'liq tarix |
+| Tashriflar | onlayn (5 daq.), tashrifchi/sessiya/ko'rishlar, kunlik grafik, voronka (kirdi → model → ro'yxat → aloqa → zayafka), manbalar (UTM/referrer), davlat/shahar, modellar, sahifalar, qurilma/til/brauzer, so'nggi sessiyalar va har birining yo'li |
+| Mahsulotlar | qidiruv, bo'lim/holat filtri, "Rasmsiz / ruscha nomsiz / inglizcha nomsiz", to'liqlik ko'rsatkichi, ommaviy Nashr/Qoralama/Arxiv; tahrirlash: kod, bo'lim, tartib, nom/tavsif uz·ru·en, qoliplar, plitkalar, texnik jadval, rasmlar (yuklash → WebP, chet fonni kesish, fon ogohlantirishi) |
+| Bo'limlar (administrator) | yangi bo'lim (masalan termopanel, stul oyoqlari), nom 3 tilda, URL, tartib, ko'rinish |
+| Integratsiyalar (administrator) | GTM, GA4, Yandex Metrica, Meta Pixel, TikTok Pixel, Google Search Console, Yandex Webmaster, Bing, Meta domen tasdig'i |
 | Xodimlar (faqat administrator) | xodim qo'shish, rol (administrator / menejer), faolsizlantirish, parol almashtirish |
 | Profil | o'z parolini almashtirish |
 
@@ -34,6 +38,28 @@ Zayafka oqimi: sayt formasi → **avval bazaga** (ketma-ket raqam `SPS-YYMM-NNNN
    ```
    `ADMIN_PASSWORD` berilmasa vaqtinchalik parol chiqariladi. Qolgan xodimlar — admin'dagi "Xodimlar" sahifasidan.
 5. Tekshirish: `https://sps.uz/api/health` → `"database": "connected"`.
+
+## Nashr qilish (mahsulotlar va integratsiyalar saytga qanday chiqadi)
+
+Sayt tezligi uchun sahifalar statik yig'iladi. Admin'dagi o'zgarishlar bazaga yoziladi va
+**"Nashr qilish"** tugmasi bosilganda Vercel saytni qayta yig'adi (3–5 daqiqa):
+build boshida `scripts/export-snapshot.mjs` bazadan nashrdagi mahsulotlar, bo'limlar va
+integratsiyalarni oladi. Zayafkalar va tashriflar esa darhol (nashrsiz) ko'rinadi.
+
+Sozlash (bir marta):
+1. Vercel → Project → Settings → Git → **Deploy Hooks** → nom: `admin-publish`, branch: `main` → URL'ni nusxalang.
+2. Environment Variables: `VERCEL_DEPLOY_HOOK_URL=<o'sha URL>`; tavsiya: `SNAPSHOT_REQUIRED=1`
+   (baza javob bermasa build to'xtaydi — eski katalog bilan chiqib ketmaydi).
+3. Katalogni bazaga bir marta import qiling:
+   ```bash
+   DATABASE_URL=postgres://... npm run catalog:import
+   ```
+   Hozirgi 119 model (nashrda, tartib saqlanadi) + Excel'dagi 76 ta termopanel/fasad dekor
+   (qoralama — rasm va tarjima qo'shilgach nashr qilinadi). Takror ishga tushirish xavfsiz.
+
+Rasmlar: admin'dan yuklangan rasm bazada saqlanadi va `/media/{xesh}.webp` orqali bir yillik
+kesh bilan beriladi. Qolip suratlari uchun eng yaxshisi — fonni olib tashlangan PNG
+(repodagi rasmlar uchun: `npm run images:bg`).
 
 ## Xavfsizlik
 

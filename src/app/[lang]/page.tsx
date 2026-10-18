@@ -1,3 +1,4 @@
+import type React from 'react';
 import Image from 'next/image';
 import { isValidLocale, locales, type Locale } from '@/lib/i18n';
 import { getUi, pluralModels } from '@/lib/ui';
@@ -8,7 +9,7 @@ import {
   getPopular,
   getSectionCounts,
   getTotalCount,
-  sectionCover,
+  sectionCoverImage,
   sectionLabel,
   getActiveSections,
 } from '@/lib/catalog2027';
@@ -91,10 +92,18 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               ))}
             </div>
           </div>
-          <div className="secs" aria-label={p.home.sectionTiles}>
+          <div
+            className="secs"
+            aria-label={p.home.sectionTiles}
+            style={{ '--secs': getActiveSections().length } as React.CSSProperties}
+          >
             {getActiveSections().map((s) => (
-              <a key={s} className="st" href={`/${lang}/catalog/${SECTION_SLUGS[s]}`}>
-                <Image src={sectionCover(s)} alt="" fill sizes="(max-width: 760px) 50vw, 260px" priority={s === 'trotuar'} />
+              <a
+                key={s}
+                className={`st${sectionCoverImage(s).fit === 'contain' ? ' st--cutout' : ''}`}
+                href={`/${lang}/catalog/${SECTION_SLUGS[s]}`}
+              >
+                <Image src={sectionCoverImage(s).src} alt="" fill sizes="(max-width: 760px) 50vw, 260px" priority={s === 'trotuar'} />
                 <div>
                   <b>{sectionLabel(s, lang)}</b>
                   <span>

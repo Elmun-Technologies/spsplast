@@ -34,7 +34,7 @@ export const en: UiDictionary = {
     sales: 'Sales department',
     telegram: 'Telegram',
     whatsapp: 'WhatsApp',
-    pdf: 'PDF catalog · 3 languages',
+    pdf: 'PDF catalog',
     productionExport: 'Production & export',
   },
   footer: {
@@ -100,6 +100,7 @@ export const en: UiDictionary = {
     more: 'Show more',
     allCatalog: 'Full catalog',
     cardCompare: 'Compare',
+    photoSoon: 'Photo coming soon',
     cardQuick: 'Quick view',
     cardRequest: 'Request',
     cardAdd: 'Add to request list',

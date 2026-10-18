@@ -38,7 +38,12 @@ docs/design-handoff/         # HANDOFF.md, PROMPT.md, screens/, source/, images/
 scripts/extract/             # build_models_2027.py, build_images_2027.py (python3 + ImageMagick)
 scripts/validate-models-2027.mjs   # XATO (exit 1) / OGOH (business-pending) split
 src/app/[lang]/              # public site, locale-prefixed (uz, ru, en)
-src/app/api/leads|health     # the ONLY two /api route handlers (test-enforced)
+src/app/api/leads|health|track  # the ONLY /api route handlers (test-enforced); track = visit beacon
+src/app/media/[file]         # admin-uploaded images from DB (/media/{sha}.webp, immutable cache)
+src/data/site.generated.ts   # build-time snapshot from DB (scripts/export-snapshot.mjs); MUST be `null` in git
+scripts/export-snapshot.mjs  # runs first in `npm run build`: DB → published products/sections/settings
+scripts/catalog-import.ts    # one-off: data/models-2027.json + data/termopanel-2027.json → DB
+data/termopanel-2027.json    # GENERATED from xlsx sheet 6 (scripts/extract/build_termopanel_2027.py)
 src/app/admin/               # admin panel (login, dashboard, leads CRM, CSV export, users) — noindex
 src/server/                  # DB layer: db/schema.ts, db/client.ts, leads.ts, auth.ts, session.ts (Next glue)
 drizzle/                     # GENERATED SQL migrations (`npm run db:generate`), applied by `npm run db:migrate`
@@ -119,8 +124,11 @@ route but is left out of the sitemap — thin content should not be indexed.
    Enforced by `tests/models2027.test.js` and `tests/foundation2027.test.js`.
 3. Approved numbers only: 20 yil tajriba, 18 000 m²/oy, 740+ obyekt, 8 eksport davlati,
    catalog counts from `data/models-2027.json` (never hardcode 152 in UI).
-4. Business-pending values stay `[...]` placeholders or `null` + a question in
-   `docs/data-questions.md` (generated; manual items live in `MANUAL_QUESTIONS`).
+4. Business-pending values are **never shown as `[...]` on the site** (decision 2026-10-18,
+   UI audit: they made the site look fake). Use honest neutral copy ("Menejer bilan
+   kelishiladi" / "По договорённости" / "By agreement") or omit the row; keep the open
+   question in `docs/data-questions.md` / `docs/unresolved-questions.md`.
+   `tests/pages2027.test.js` test 5 fails on any visible `[PLACEHOLDER]`.
 5. Languages uz (default) / ru / en; RU model names Cyrillic, codes identical everywhere.
 6. Mobile-first: 390 px matches `screens/mobile` first, then desktop 1440 px.
 7. Secrets only via env: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`.
@@ -204,6 +212,20 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
 - **Admin forms: never name a hidden input `id`** — `form.id` then returns that input (DOM named
   property) and React drops the submit button's `name/value` (status buttons silently did nothing).
   Use `leadId` / `userId`.
+- **Catalog source**: `catalog2027.ts` reads `siteSnapshot` (DB, via build) and falls back to the
+  static JSON. Sections are dynamic (`Section = string`, `SECTIONS`/`SECTION_SLUGS`/`sectionLabel`
+  from the snapshot or built-in defaults) — never `getUi().sections` (removed). Navigation uses
+  `getActiveSections()` (sections with ≥1 model that has an image). Models with images sort first.
+- **Never commit a filled `src/data/site.generated.ts`** — a local `npm run build` with
+  `DATABASE_URL` writes the snapshot into it; reset it to `null` before committing
+  (`tests/catalogAdmin2027.test.js` test 8).
+- **React 19 forms reset after a server action**: controlled `<select>`s then show the first
+  option in the DOM. Big client forms (ProductForm) submit via `onSubmit` + `startTransition`.
+- Analytics IDs/verification come from admin settings (`src/lib/integrations.ts`,
+  `analyticsConfig()`/`verificationMeta()` in the root layout) with env fallback; values are
+  validated with strict regexes because they are interpolated into inline scripts.
+- Our own visit tracking (`src/lib/visitTracker.ts` → `/api/track`) filters bots (incl.
+  HeadlessChrome — set a real UA in Playwright when testing it), stores no IP and no cookies.
 - Every admin `page.tsx`/`route.ts` and server action calls `requireUser()` (test 12 in
   `tests/admin2027.test.js`); middleware only redirects cookie-less requests to `/admin/login?next=`.
 - `tests/admin2027.test.js` imports `src/server/*` directly (relative `.ts` imports), not through
@@ -303,6 +325,10 @@ Audit-only devDependencies: `axe-core`, `jsdom` (no browser needed); browser che
 Next stages (7–12: database + lead storage, admin CRM, admin catalog/images, analytics
 dashboard, content/global, launch) and the full gap analysis: **`docs/ROADMAP-2027.md`**.
 
+- [x] 9+10 — admin: Tashriflar (o'z statistikamiz, mijoz yo'li), Integratsiyalar (GTM/GA4/Metrica/
+  Pixel/TikTok/Search Console/Webmaster/Bing), Mahsulotlar + Bo'limlar + rasm yuklash, "Nashr qilish"
+  (deploy hook + build snapshot); 89 qolip/plitka rasmi fonsiz (`npm run images:bg`); UI audit
+  tuzatishlari (rasmsiz kartochkalar, `[...]`, bo'lim rasmlari, RU kirill nomlar, hamkorlar). Testlar 120.
 - [x] 7+8 — Postgres (Drizzle) + zayafkalarni saqlash (ketma-ket SPS-YYMM-NNNN, avval baza → keyin
   Telegram, bazadagi rate limit) + admin panel `/admin` (login/sessiya, rollar admin/menejer,
   dashboard, zayafkalar CRM: holat/mas'ul/izoh/tarix, CSV, xodimlar). `docs/ADMIN.md`. Testlar 108.

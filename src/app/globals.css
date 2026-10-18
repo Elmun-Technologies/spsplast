@@ -147,6 +147,8 @@ button { font: inherit; color: inherit; }
   color: var(--ink-muted); display: flex; gap: var(--space-2); flex-wrap: wrap; margin: 0; padding: 0; list-style: none;
 }
 .crumbs a { color: var(--ink-muted); text-decoration: none; }
+/* <ol class="crumbs"> ro'yxatida ajratuvchi CSS bilan (model sahifasida <span>/</span> qo'lda). */
+ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color: var(--line-strong); }
 .crumbs a:hover { color: var(--red-ink); }
 
 /* --- Tugmalar -------------------------------------------------------------- */
@@ -581,7 +583,7 @@ button { font: inherit; color: inherit; }
 }
 @media (min-width: 1101px) {
   .band { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: var(--space-8); }
-  .secs { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .secs { grid-template-columns: repeat(var(--secs, 5), minmax(0, 1fr)); }
   .usp { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .usp > div:nth-child(2n) { border-right: 1px solid var(--line); }
   .usp > div:last-child { border-right: 0; }
@@ -810,3 +812,24 @@ button { font: inherit; color: inherit; }
 @keyframes skel-slide { 100% { transform: translateX(100%); } }
 @media (min-width: 701px) { .skel-row { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; } }
 @media (prefers-reduced-motion: reduce) { .skel-b::after { animation: none; } }
+
+/* Kartochka: sahna rasmi bo'lmasa — fonsiz qolip surati yoki "foto tayyorlanmoqda" (UI audit P0-1). */
+.sps-card__cutout { position: absolute; inset: 0; background: linear-gradient(180deg, #f7f5f1 0%, #efece6 100%); }
+.sps-card__cutout img { padding: 10%; }
+.sps-card__nophoto {
+  position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  background: linear-gradient(180deg, #f7f5f1 0%, #efece6 100%); color: var(--ink-muted); text-decoration: none;
+  font: 500 12px/16px var(--font-sans); letter-spacing: .04em;
+}
+.sps-card__nophoto svg { opacity: .45; }
+
+/* Bo'lim plitkasi sahnasiz: fonsiz qolip surati butun ko'rinadi (kesilmaydi). */
+.st--cutout { background: #2a2826; }
+.st--cutout img { object-fit: contain; padding: 12px 12px 40px; opacity: .95; }
+/* Hamkorlar kartochkalari: rasm 16:9 (Image height atributi aspect-ratio'ni bosmasin), mobil — 1 ustun (UI audit P0-5). */
+.who-img { height: auto; max-width: none; }
+@media (max-width: 760px) { .g3:has(> .who) { grid-template-columns: minmax(0, 1fr); } }
+
+/* Katalog/bo'lim sahifasi tepasidagi ortiqcha bo'shliq (UI audit P1-12). */
+.wrap.sec:has(> nav > ol.crumbs) { padding-top: var(--space-5); }
+@media (min-width: 761px) { .wrap.sec:has(> nav > ol.crumbs) { padding-top: var(--space-6); } }

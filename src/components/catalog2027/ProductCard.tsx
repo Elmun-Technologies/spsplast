@@ -32,6 +32,7 @@ export function ProductCard({
   const depth = model.molds[0]?.depth;
   const per = model.tiles[0]?.per;
   const set = modelSetSize(model);
+  const cutout = model.images.molds.A || Object.values(model.images.molds)[0] || model.images.tiles.A || Object.values(model.images.tiles)[0] || null;
   const third = set > 1 ? `${set} ${t.molds}` : per ? `${formatNumber(lang, per)} ${t.dona}` : 'PP / ABS';
   const href = productHref(lang, model);
 
@@ -42,12 +43,18 @@ export function ProductCard({
           <a href={href} tabIndex={-1} aria-hidden="true">
             <Image src={(model.images.sceneSm || model.images.scene) as string} alt="" fill sizes="(max-width: 640px) 50vw, (max-width: 1100px) 33vw, 25vw" style={{ objectFit: 'cover' }} loading="lazy" />
           </a>
+        ) : cutout ? (
+          // Sahna rasmi yo'q — qolip/mahsulot suratining o'zi (fonsiz) asosiy rasm bo'ladi.
+          <a href={href} tabIndex={-1} aria-hidden="true" className="sps-card__cutout">
+            <Image src={cutout} alt="" fill sizes="(max-width: 640px) 50vw, (max-width: 1100px) 33vw, 25vw" style={{ objectFit: 'contain' }} loading="lazy" />
+          </a>
         ) : (
-          <div className="ph" style={{ position: 'absolute', inset: 0 }}>
-            {model.code || modelName(model, lang)}
-          </div>
+          <a href={href} tabIndex={-1} aria-hidden="true" className="sps-card__nophoto">
+            <Icon.grid width={28} height={28} strokeWidth={1.25} aria-hidden="true" />
+            <span>{t.photoSoon}</span>
+          </a>
         )}
-        {model.images.molds.A ? (
+        {model.images.scene && model.images.molds.A ? (
           <span className="sps-card__mold">
             <Image src={model.images.molds.A} alt={`${modelName(model, lang)} — ${getUi(lang).alt.mold}`} fill sizes="(max-width: 640px) 19vw, 9vw" style={{ objectFit: 'contain' }} loading="lazy" />
           </span>
@@ -77,12 +84,17 @@ export function ProductCard({
           <a href={href}>{modelName(model, lang)}</a>
         </h2>
         <div className="sps-card__meta">
-          <span>
-            {t.mSize}: <b>{size || '—'}</b>
-          </span>
-          <span className="hide-m">
-            {t.mThickness}: <b>{depth ? `${depth} ${t.mm}` : '—'}</b>
-          </span>
+          {/* Noma'lum qiymat "—" bo'lib chiqmaydi — qator umuman ko'rsatilmaydi. */}
+          {size ? (
+            <span>
+              {t.mSize}: <b>{size}</b>
+            </span>
+          ) : null}
+          {depth && !(size && size.split('×').length >= 3) ? (
+            <span className="hide-m">
+              {t.mThickness}: <b>{`${depth} ${t.mm}`}</b>
+            </span>
+          ) : null}
           <span>
             {set > 1 ? t.mSet : per ? t.mPer : t.mMaterial}: <b>{third}</b>
           </span>

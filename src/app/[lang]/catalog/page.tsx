@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     lang: locale,
     path: '/catalog',
     title: `${t.header.catalog} · ${total} ${pluralModels(locale, total)}`,
-    description: `${getActiveSections().map((x) => sectionLabel(x, locale)).join(', ')} — ${total} ${pluralModels(locale, total)}.`,
+    description: `${getActiveSections().map((x) => sectionLabel(x, locale)).join(', ')} — ${total} ${pluralModels(locale, total)}. ${t.seo.leadCta}`,
   });
 }
 

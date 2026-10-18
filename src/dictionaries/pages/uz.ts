@@ -40,9 +40,9 @@ export const pagesUz = {
     wholesaleEyebrowLabel: 'ULGURJI',
     wholesaleEyebrow: 'Sexlar va distribyutorlar',
     wholesaleTitle: "Plitka sexi yoki distribyutormisiz?",
-    wholesaleLead: "Butun sex uchun qolip to'plamini hisoblaymiz, distribyutorlarga ulgurji shart va 3 tilda katalog beramiz.",
+    wholesaleLead: "Butun sex uchun qolip to'plamini hisoblaymiz, distribyutorlarga ulgurji shart va katalog beramiz.",
     wholesaleCta: 'Ulgurji shartlar',
-    wholesalePdf: 'PDF katalog · 3 tilda',
+    wholesalePdf: 'PDF katalog',
     wholesaleImg1: 'Quyish sexi',
     wholesaleImg2: 'Eksport yuki',
   },
@@ -207,7 +207,7 @@ export const pagesUz = {
     title: "Zavoddan to'g'ridan-to'g'ri. Sexlar va distribyutorlar uchun.",
     lead: "Qolipni zavoddan, vositachisiz olasiz. Hisob-kitob, namuna, qadoqlash va eksport hujjatlari bizning zimmamizda. Siz faqat model va hajmni tanlaysiz.",
     cta: 'Zayafka qoldirish',
-    pdf: 'PDF katalog · 3 tilda',
+    pdf: 'PDF katalog',
     heroImg: 'Usta plitka teryapti',
     whoEyebrow: 'KIM BILAN ISHLAYMIZ',
     whoTitle: 'Uch xil hamkor, uch xil shart',
@@ -217,7 +217,7 @@ export const pagesUz = {
         title: 'Plitka sexlari',
         text: "Yangi sex ochyapsizmi yoki assortimentni kengaytiryapsizmi? Kunlik hajmingiz bo'yicha qolip to'plamini hisoblaymiz.",
         rows: [
-          { k: 'Minimal buyurtma', v: '[MIN. HAJM]' },
+          { k: 'Minimal buyurtma', v: "Menejer bilan kelishiladi" },
           { k: 'Namuna', v: '1 dona, sinov quyish uchun' },
         ],
         img: 'Plitka sexida quyish',
@@ -225,9 +225,9 @@ export const pagesUz = {
       {
         n: '02',
         title: 'Distribyutorlar',
-        text: "O'z davlatingizda SPS qoliplarini soting. Ulgurji narx, 3 tildagi katalog va reklama materiallari beriladi.",
+        text: "O'z davlatingizda SPS qoliplarini soting. Ulgurji narx, katalog va reklama materiallari beriladi.",
         rows: [
-          { k: 'Ulgurji chegirma', v: '[% DAN]' },
+          { k: 'Ulgurji chegirma', v: 'Hajmga qarab' },
           { k: 'Hudud', v: "Kelishuv bo'yicha" },
         ],
         img: 'Distribyutor ombori',
@@ -237,8 +237,8 @@ export const pagesUz = {
         title: 'Qurilish kompaniyalari',
         text: "Fasad, pilyastr, karniz va yo'lak plitkasi qoliplarini loyiha uchun bitta yetkazib beruvchidan olasiz.",
         rows: [
-          { k: "To'lov", v: '[SHARTLAR]' },
-          { k: 'Muddat', v: '[ISH KUNI]' },
+          { k: "To'lov", v: "Kelishuv bo'yicha" },
+          { k: 'Muddat', v: 'Hajmga qarab, zayafkada aytiladi' },
         ],
         img: 'Qurilish obyekti',
       },
@@ -258,9 +258,9 @@ export const pagesUz = {
     exportImg: 'Eksport yuki',
     exportRows: [
       { k: 'Yetkazish davlatlari', v: "Rossiya, Qozog'iston, Qirg'iziston, Tojikiston, Ozarbayjon, Gruziya, Armaniston, Belarus" },
-      { k: 'Hujjatlar', v: "Invoys, qadoqlash ro'yxati, [KELIB CHIQISH SERTIFIKATI]" },
-      { k: 'Yetkazish sharti', v: '[EXW TOSHKENT / DAP]' },
-      { k: "To'lov", v: '[USD · RUB · UZS]' },
+      { k: 'Hujjatlar', v: "Invoys, qadoqlash ro'yxati" },
+      { k: 'Yetkazish sharti', v: "Kelishuv bo'yicha (Toshkentdan olib ketish yoki manzilgacha)" },
+      { k: "To'lov", v: "Kelishuv bo'yicha" },
     ],
     formEyebrow: 'Ulgurji hisob-kitob',
     formTitle: 'Zayafka qoldiring — tijorat taklifini tayyorlaymiz.',
@@ -326,7 +326,6 @@ export const pagesUz = {
     materialRows: [
       { k: 'Rangi', pp: 'Qora', abs: 'Oq' },
       { k: '1 m² qolip vazni (fasad)', pp: '3,3–4,3 kg', abs: '4,2–5,1 kg' },
-      { k: 'Qachon tanlanadi', pp: '[TEXNOLOG TAVSIYASI]', abs: '' },
     ],
     stepsEyebrow: 'Mijoz sexida',
     stepsTitle: 'Qolip bilan ishlash — 4 qadam',
@@ -373,7 +372,7 @@ export const pagesUz = {
   privacy: {
     title: 'Maxfiylik siyosati',
     updated: 'Oxirgi yangilanish:',
-    updatedMeta: '[SANA] · [YURIDIK NOMI]',
+    updatedMeta: '',
     tocLabel: 'Mundarija',
     summary: "Qisqasi: biz faqat zayafkangizga javob berish uchun kerakli ma'lumotni olamiz, uni sotmaymiz va uchinchi shaxslarga reklama uchun bermaymiz.",
     toc: [
@@ -412,7 +411,7 @@ export const pagesUz = {
         id: 'p3',
         h2: '3. Qayerda saqlanadi',
         p: [
-          "Zayafka savdo bo'limining yopiq Telegram chatiga yuboriladi. Saytning o'zida ma'lumotlar bazasi yo'q. Ma'lumotlar [SAQLASH MUDDATI] davomida saqlanadi, so'ng o'chiriladi.",
+          "Zayafka himoyalangan serverdagi ma'lumotlar bazasida saqlanadi va savdo bo'limining yopiq Telegram chatiga yuboriladi. Unga faqat SPS menejerlari kiradi. Ma'lumotlar hamkorlik davomida va qonunda belgilangan muddatlarda saqlanadi; so'rovingiz bo'yicha o'chiriladi.",
         ],
         ul: [],
         p2: [],
@@ -421,7 +420,7 @@ export const pagesUz = {
         id: 'p4',
         h2: '4. Cookie va analitika',
         p: [
-          "Sayt tashriflarni hisoblash uchun analitika vositalaridan foydalanadi: [RO'YXAT]. Ular shaxsingizni aniqlamaydi. Brauzer sozlamalarida cookie'larni o'chirib qo'yishingiz mumkin.",
+          "Sayt tashriflarni hisoblash uchun o'z statistikasidan (cookie'siz, IP manzil saqlanmaydi) va yoqilgan bo'lsa Google Analytics, Yandex Metrica hamda Meta Pixel'dan foydalanadi. Ular shaxsingizni aniqlamaydi. Brauzer sozlamalarida cookie'larni o'chirib qo'yishingiz mumkin.",
         ],
         ul: [],
         p2: [],
@@ -439,7 +438,7 @@ export const pagesUz = {
         id: 'p6',
         h2: "6. Bog'lanish",
         p: [
-          "Telefon: +998 98 300 77 72 · Telegram: @spsplastuz · E-pochta: [E-POCHTA]",
+          "Telefon: +998 98 300 77 72 · Telegram: @spsplastuz",
           "Manzil: Toshkent, Uchtepa tumani, Xalqa yo'li ko'chasi, 7A",
         ],
         ul: [],

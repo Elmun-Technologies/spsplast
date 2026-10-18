@@ -38,9 +38,9 @@ export const pagesEn: PagesDictionary = {
     wholesaleEyebrowLabel: 'WHOLESALE',
     wholesaleEyebrow: 'Workshops and distributors',
     wholesaleTitle: 'Run a tile workshop or a distribution business?',
-    wholesaleLead: 'We calculate a full mold set for your workshop and give distributors wholesale terms plus a catalog in 3 languages.',
+    wholesaleLead: 'We calculate a full mold set for your workshop and give distributors wholesale terms plus a catalog.',
     wholesaleCta: 'Wholesale terms',
-    wholesalePdf: 'PDF catalog · 3 languages',
+    wholesalePdf: 'PDF catalog',
     wholesaleImg1: 'Casting workshop',
     wholesaleImg2: 'Export cargo',
   },
@@ -69,7 +69,7 @@ export const pagesEn: PagesDictionary = {
     ctaCompareOn: 'In comparison ✓',
     callA11y: 'Call us',
     gallery: {
-      scene: 'Laid pattern · 3D',
+      scene: 'Laid view',
       mold: 'Mold · real photo',
       tile: 'Finished tile',
       zoom: 'Close-up',
@@ -201,7 +201,7 @@ export const pagesEn: PagesDictionary = {
     title: 'Direct from the plant. For workshops and distributors.',
     lead: 'You get molds straight from the plant, no middlemen. Calculation, sample, packing and export documents are on us — you only choose models and volume.',
     cta: 'Request a quote',
-    pdf: 'PDF catalog · 3 languages',
+    pdf: 'PDF catalog',
     heroImg: 'Craftsman laying tiles',
     whoEyebrow: 'WHO WE WORK WITH',
     whoTitle: 'Three partner types, three sets of terms',
@@ -211,7 +211,7 @@ export const pagesEn: PagesDictionary = {
         title: 'Tile workshops',
         text: 'Opening a new workshop or expanding your range? We calculate a mold set for your daily volume.',
         rows: [
-          { k: 'Minimum order', v: '[MIN. VOLUME]' },
+          { k: 'Minimum order', v: 'Agreed with the manager' },
           { k: 'Sample', v: '1 piece, for a test cast' },
         ],
         img: 'Casting in a tile workshop',
@@ -219,9 +219,9 @@ export const pagesEn: PagesDictionary = {
       {
         n: '02',
         title: 'Distributors',
-        text: 'Sell SPS molds in your country. Wholesale price, catalog in 3 languages and marketing materials.',
+        text: 'Sell SPS molds in your country. Wholesale price, catalog and marketing materials.',
         rows: [
-          { k: 'Wholesale discount', v: '[FROM %]' },
+          { k: 'Wholesale discount', v: 'Depends on volume' },
           { k: 'Territory', v: 'By agreement' },
         ],
         img: 'Distributor warehouse',
@@ -231,8 +231,8 @@ export const pagesEn: PagesDictionary = {
         title: 'Construction companies',
         text: 'Facade, pilaster, cornice and paving molds for your project from a single supplier.',
         rows: [
-          { k: 'Payment', v: '[TERMS]' },
-          { k: 'Lead time', v: '[WORKING DAYS]' },
+          { k: 'Payment', v: 'By agreement' },
+          { k: 'Lead time', v: 'Depends on volume, confirmed in our quote' },
         ],
         img: 'Construction site',
       },
@@ -252,9 +252,9 @@ export const pagesEn: PagesDictionary = {
     exportImg: 'Export cargo',
     exportRows: [
       { k: 'Delivery countries', v: 'Russia, Kazakhstan, Kyrgyzstan, Tajikistan, Azerbaijan, Georgia, Armenia, Belarus' },
-      { k: 'Documents', v: 'Invoice, packing list, [CERTIFICATE OF ORIGIN]' },
-      { k: 'Delivery terms', v: '[EXW TASHKENT / DAP]' },
-      { k: 'Payment', v: '[USD · RUB · UZS]' },
+      { k: 'Documents', v: 'Invoice, packing list' },
+      { k: 'Delivery terms', v: 'By agreement (pickup in Tashkent or delivered)' },
+      { k: 'Payment', v: 'By agreement' },
     ],
     formEyebrow: 'Wholesale calculation',
     formTitle: 'Request a quote — we will prepare a commercial offer.',
@@ -317,7 +317,6 @@ export const pagesEn: PagesDictionary = {
     materialRows: [
       { k: 'Colour', pp: 'Black', abs: 'White' },
       { k: 'Mold weight per 1 m² (facade)', pp: '3.3–4.3 kg', abs: '4.2–5.1 kg' },
-      { k: 'When it is chosen', pp: '[TECHNOLOGIST ADVICE]', abs: '' },
     ],
     stepsEyebrow: 'At the customer workshop',
     stepsTitle: 'Working with a mold — 4 steps',
@@ -358,7 +357,7 @@ export const pagesEn: PagesDictionary = {
   privacy: {
     title: 'Privacy policy',
     updated: 'Last updated:',
-    updatedMeta: '[DATE] · [LEGAL NAME]',
+    updatedMeta: '',
     tocLabel: 'Contents',
     summary: 'In short: we collect only the data needed to answer your request, we do not sell it and we do not share it with third parties for advertising.',
     toc: [
@@ -396,14 +395,14 @@ export const pagesEn: PagesDictionary = {
       {
         id: 'p3',
         h2: '3. Where it is stored',
-        p: ['The request is sent to the closed Telegram chat of the sales department. The site itself has no database. Data is kept for [RETENTION PERIOD], then deleted.'],
+        p: ['Your request is stored in a protected database on our server and sent to the sales team\'s private Telegram chat. Only SPS managers have access. Data is kept for the duration of our cooperation and the periods required by law, and deleted on request.'],
         ul: [],
         p2: [],
       },
       {
         id: 'p4',
         h2: '4. Cookies and analytics',
-        p: ['The site uses analytics tools to count visits: [LIST]. They do not identify you. You can disable cookies in your browser settings.'],
+        p: ['To count visits the site uses its own statistics (no cookies, IP addresses are not stored) and, when enabled, Google Analytics, Yandex Metrica and Meta Pixel. They do not identify you. You can disable cookies in your browser settings.'],
         ul: [],
         p2: [],
       },
@@ -417,7 +416,7 @@ export const pagesEn: PagesDictionary = {
       {
         id: 'p6',
         h2: '6. Contact us',
-        p: ['Phone: +998 98 300 77 72 · Telegram: @spsplastuz · E-mail: [E-MAIL]', "Address: Tashkent, Uchtepa district, Xalqa yo'li street, 7A"],
+        p: ['Phone: +998 98 300 77 72 · Telegram: @spsplastuz', "Address: Tashkent, Uchtepa district, Xalqa yo'li street, 7A"],
         ul: [],
         p2: [],
       },

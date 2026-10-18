@@ -109,12 +109,7 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
                 </a>
               </div>
             </div>
-            <div className="ct-row">
-              <span className="sps-label" style={{ paddingTop: 6 }}>
-                {p.contact.rows.email}
-              </span>
-              <span className="ct-big ph-in">{p.contact.emailPlaceholder}</span>
-            </div>
+            {/* E-pochta biznes tasdiqlagach CONTACTS_2027 ga qo'shiladi; hozircha qator ko'rsatilmaydi. */}
             <div className="ct-row">
               <span className="sps-label" style={{ paddingTop: 6 }}>
                 {p.contact.rows.address}

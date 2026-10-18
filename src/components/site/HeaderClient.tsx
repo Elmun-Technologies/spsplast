@@ -14,11 +14,14 @@ type NavItem = { href: string; label: string; count?: number; current?: boolean 
 export function HeaderClient({
   lang,
   sections,
+  total,
   nav,
   pdfHref,
 }: {
   lang: Locale;
   sections: NavItem[];
+  /** Katalogdagi barcha modellar (yashirin bo'limlar ham) — sarlavhadagi "119 model" bilan bir xil. */
+  total: number;
   nav: NavItem[];
   pdfHref: string;
 }) {
@@ -57,7 +60,7 @@ export function HeaderClient({
             <a className="hd-cat" href={`/${lang}/catalog`}>
               <Icon.grid width={18} height={18} strokeWidth={1.5} aria-hidden="true" />
               <span>
-                {t.header.catalog} · {sections.reduce((s, i) => s + (i.count || 0), 0)}
+                {t.header.catalog} · {total}
               </span>
             </a>
             <form className="hd-search" role="search" action={`/${lang}/catalog`} method="GET">

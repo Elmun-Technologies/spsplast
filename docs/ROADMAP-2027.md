@@ -140,7 +140,7 @@ Har bosqich = alohida PR, testlar yashil, preview'da ko'rib tasdiqlanadi.
 - Mas'ul menejer, izohlar, tarix (kim, qachon, nima o'zgartirdi), CSV/Excel eksport.
 - Telegram xabarida "Admin'da ochish" havolasi.
 
-### Bosqich 9 — Admin: mahsulotlar va rasmlar (2 hafta)
+### Bosqich 9 — Admin: mahsulotlar va rasmlar ✅
 - Bo'limlar: trotuar, fasad, **termopanel**, zabor, dekor, **skameyka/stul oyoqlari** — admin
   o'zi bo'lim qo'sha oladi (hozir 5 ta qattiq yozilgan).
 - Mahsulot formasi: kod, slug, nom/tavsif uz·ru·en, qoliplar (o'lcham, chuqurlik, vazn),
@@ -152,7 +152,7 @@ Har bosqich = alohida PR, testlar yashil, preview'da ko'rib tasdiqlanadi.
 - Excel import (mavjud 2 ta xlsx formati) — termopanel 76 ta mahsulotni bir bosishda yuklash.
 - Saqlanganda sayt sahifasi avtomatik yangilanadi; sitemap ham.
 
-### Bosqich 10 — Analitika paneli (1 hafta)
+### Bosqich 10 — Analitika paneli ✅ (o'z statistikamiz + integratsiyalar; haftalik Telegram hisobot — keyin)
 - Admin bosh sahifasi: bugun/hafta/oy zayafkalar, konversiya (ko'rish → ro'yxat → zayafka),
   **davlatlar bo'yicha** zayafkalar (xarita), top modellar (ko'rilgan / so'ralgan),
   manbalar (Google, Instagram, Telegram, to'g'ridan-to'g'ri, UTM kampaniyalar), menejer javob tezligi.

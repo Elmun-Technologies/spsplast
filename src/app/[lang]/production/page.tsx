@@ -107,7 +107,7 @@ export default async function ProductionPage({ params }: { params: Promise<{ lan
                         <td className="mono">{r.abs}</td>
                       </>
                     ) : (
-                      <td colSpan={2} className="ph-in">
+                      <td colSpan={2}>
                         {r.pp}
                       </td>
                     )}
