@@ -62,3 +62,9 @@ backups/
 # Stage 6 tekshiruv artefaktlari (skrinshotlar va Lighthouse JSON)
 screens-actual/
 docs/audits/lighthouse/*.json
+
+# Python bytecode (scripts/extract)
+__pycache__/
+
+# Fon olib tashlash kontakt varaqlari (scripts/extract/remove_bg_2027.py) — qayta yasaladi
+docs/audits/bg-removal/*.jpg

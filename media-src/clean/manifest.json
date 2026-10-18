@@ -1,0 +1,714 @@
+{
+ "dekor-kapitel-40-tepa-mold-a": {
+  "src": "media-src/factory/DSC03273.JPG_20260927202736.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2173,
+  "edge": 0.0,
+  "note": ""
+ },
+ "dekor-sokol-mold-a": {
+  "src": "media-src/factory/DSC03257.JPG_20260927203208.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4985,
+  "edge": 0.0,
+  "note": ""
+ },
+ "dekor-zina-30-120-gladkiy-mold-a": {
+  "src": "media-src/factory/DSC03253.JPG_20260927203235.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.5201,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad-beeline-3-mold-a": {
+  "src": "media-src/factory/DSC03250.JPG_20260927203222.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4234,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad-labirint-mold-a": {
+  "src": "media-src/factory/DSC03174.JPG_20260927203010.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.5884,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad-rus-2-2-mold-a": {
+  "src": "media-src/factory/DSC03167.JPG_20260927203018.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4522,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad-rus-2-mold-a": {
+  "src": "media-src/factory/DSC03163.JPG_20260927202820.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3272,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad-rus-3-mold-a": {
+  "src": "media-src/factory/DSC03177.JPG_20260927203012.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4041,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-01-monako-mold-a": {
+  "src": "media-src/studio-2026/G006-mold.jpg",
+  "status": "fallback",
+  "method": "rang kaliti max(RGB)<110, B>=R",
+  "cover": 0.0775,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-01-monako-tile-a": {
+  "src": "media-src/studio-2026/G006-quyma.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.0292,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-02-ornament-mold-a": {
+  "src": "media-src/factory/DSC03304.JPG_20260927202624.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4774,
+  "edge": 0.0,
+  "note": "ichki teshiklar to'ldirildi (14.8%)"
+ },
+ "trotuar-03-yalta-mold-a": {
+  "src": "media-src/studio-2026/G005-mold.jpg",
+  "status": "fallback",
+  "method": "rang kaliti max(RGB)<110, B>=R",
+  "cover": 0.0772,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-03-yalta-tile-a": {
+  "src": "media-src/studio-2026/G005-quyma.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.0551,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-04-tsvetok-mold-a": {
+  "src": "media-src/factory/DSC03323.JPG_20260927202546.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3419,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-05-magna-mold-a": {
+  "src": "media-src/studio-2026/G002-mold.jpg",
+  "status": "fallback",
+  "method": "rang kaliti max(RGB)<110, B>=R",
+  "cover": 0.0768,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-05-magna-tile-a": {
+  "src": "media-src/studio-2026/G002-quyma.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.0578,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-06-azara-mold-a": {
+  "src": "media-src/studio-2026/G004-mold.jpg",
+  "status": "fallback",
+  "method": "rang kaliti max(RGB)<110, B>=R",
+  "cover": 0.0873,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-06-azara-tile-a": {
+  "src": "media-src/studio-2026/G004-quyma.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.0557,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-07-parus-mold-a": {
+  "src": "media-src/studio-2026/G024-mold.jpg",
+  "status": "fallback",
+  "method": "rang kaliti max(RGB)<110, B>=R",
+  "cover": 0.0753,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-07-parus-tile-a": {
+  "src": "media-src/studio-2026/G024-quyma.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.0304,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-08-travertino-mold-a": {
+  "src": "media-src/factory/DSC03290.JPG_20260927202711.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.5837,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-09-versache-1-mold-a": {
+  "src": "media-src/studio-2026/G003-mold.jpg",
+  "status": "fallback",
+  "method": "rang kaliti max(RGB)<110, B>=R",
+  "cover": 0.0917,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-09-versache-1-tile-a": {
+  "src": "media-src/studio-2026/G003-quyma.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.0579,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-10-zanjir-mold-a": {
+  "src": "media-src/factory/DSC03291.JPG_20260927202708.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.5533,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-11-setka-mold-a": {
+  "src": "media-src/factory/DSC03335.JPG_20260927202500.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.536,
+  "edge": 0.0,
+  "note": "ichki teshiklar to'ldirildi (42.1%)"
+ },
+ "trotuar-12-rio-mold-a": {
+  "src": "media-src/studio-2026/G025-mold.jpg",
+  "status": "fallback",
+  "method": "rang kaliti max(RGB)<110, B>=R",
+  "cover": 0.0811,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-12-rio-tile-a": {
+  "src": "media-src/studio-2026/G025-quyma.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.0305,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-13-viking-mold-a": {
+  "src": "media-src/factory/DSC03354.JPG_20260927202307.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4488,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-14-shersha-mold-a": {
+  "src": "media-src/studio-2026/G007-mold.jpg",
+  "status": "fallback",
+  "method": "rang kaliti max(RGB)<110, B>=R",
+  "cover": 0.0611,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-14-shersha-tile-a": {
+  "src": "media-src/studio-2026/G007-quyma.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.0524,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-15-floriya-mold-a": {
+  "src": "media-src/studio-2026/G001-mold.jpg",
+  "status": "fallback",
+  "method": "rang kaliti max(RGB)<110, B>=R",
+  "cover": 0.0833,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-15-floriya-tile-a": {
+  "src": "media-src/studio-2026/G001-quyma.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.0598,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-16-strelka-mold-a": {
+  "src": "media-src/factory/DSC03289.JPG_20260927202713.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.5664,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-19-eksklyuziv-mold-a": {
+  "src": "media-src/studio-2026/G014-mold.jpg",
+  "status": "fallback",
+  "method": "rang kaliti max(RGB)<110, B>=R",
+  "cover": 0.0816,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-19-eksklyuziv-tile-a": {
+  "src": "media-src/studio-2026/G014-quyma.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.0266,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-20-travertin-40-40-mold-a": {
+  "src": "media-src/factory/DSC03309.JPG_20260927202609.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.5444,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-22-uzor-50-25-mold-a": {
+  "src": "media-src/factory/DSC03165.JPG_20260927202833.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.5635,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-23-parket-12-36-mold-a": {
+  "src": "media-src/factory/DSC03287.JPG_20260927202658.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3434,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-24-guruch-mold-a": {
+  "src": "media-src/factory/DSC03301.JPG_20260927202604.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3862,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-25-bodom-mold-a": {
+  "src": "media-src/factory/DSC03288.JPG_20260927202652.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3728,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-26-astana-mold-a": {
+  "src": "media-src/studio-2026/G011-mold.jpg",
+  "status": "fallback",
+  "method": "rang kaliti max(RGB)<110, B>=R",
+  "cover": 0.0718,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-26-astana-tile-a": {
+  "src": "media-src/studio-2026/G011-quyma.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.026,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-27-yulduz-mold-a": {
+  "src": "media-src/studio-2026/G012-mold.jpg",
+  "status": "fallback",
+  "method": "rang kaliti max(RGB)<110, B>=R",
+  "cover": 0.0848,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-27-yulduz-tile-a": {
+  "src": "media-src/studio-2026/G012-quyma.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.0263,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-28-turkman-guli-mold-a": {
+  "src": "media-src/studio-2026/G013-mold.jpg",
+  "status": "fallback",
+  "method": "rang kaliti max(RGB)<110, B>=R",
+  "cover": 0.0686,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-28-turkman-guli-tile-a": {
+  "src": "media-src/studio-2026/G013-quyma.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.0276,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-30-aleya-mold-a": {
+  "src": "media-src/factory/DSC03283.JPG_20260927202647.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4421,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-32-tomir-mold-a": {
+  "src": "media-src/factory/DSC03293.JPG_20260927202634.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3684,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-34-parket-20-20-mold-a": {
+  "src": "media-src/factory/DSC03295.JPG_20260927202606.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4002,
+  "edge": 0.0,
+  "note": "ichki teshiklar to'ldirildi (25.9%)"
+ },
+ "trotuar-35-uzor-20-20-mold-a": {
+  "src": "media-src/factory/DSC03286.JPG_20260927202703.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3819,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-37-rombik-eski-mold-a": {
+  "src": "media-src/factory/DSC03307.JPG_20260927202549.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.18,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-38-rombik-yangi-mold-a": {
+  "src": "media-src/studio-2026/G009-mold.jpg",
+  "status": "fallback",
+  "method": "rang kaliti max(RGB)<110, B>=R",
+  "cover": 0.0325,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-38-rombik-yangi-tile-a": {
+  "src": "media-src/studio-2026/G009-quyma.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.0227,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-41-dubay-yaltiroq-mold-a": {
+  "src": "media-src/factory/DSC03296.JPG_20260927202618.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2175,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-42-kerpich-10-20-5-mold-a": {
+  "src": "media-src/factory/DSC03294.JPG_20260927202655.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3831,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-43-kerpich-10-20-7-mold-a": {
+  "src": "media-src/factory/DSC03282.JPG_20260927202642.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3785,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-45-gladkiy-18-36-mold-a": {
+  "src": "media-src/factory/DSC03314.JPG_20260927202510.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2325,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-46-dojdik-18-36-mold-a": {
+  "src": "media-src/factory/DSC03317.JPG_20260927202522.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2847,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-47-kabanchik-17-17-mold-a": {
+  "src": "media-src/factory/DSC03332.JPG_20260927202438.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4498,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-50-azaliya-1-mold-a": {
+  "src": "media-src/studio-2026/G010-mold.jpg",
+  "status": "fallback",
+  "method": "rang kaliti max(RGB)<110, B>=R",
+  "cover": 0.0201,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-50-azaliya-1-tile-a": {
+  "src": "media-src/studio-2026/G010-quyma.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.0202,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-51-azaliya-2-mold-a": {
+  "src": "media-src/factory/DSC03330.JPG_20260927202503.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4663,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-52-ona-bola-1-mold-a": {
+  "src": "media-src/factory/DSC03311.JPG_20260927202535.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4041,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-53-aziya-mold-a": {
+  "src": "media-src/factory/DSC03306.JPG_20260927202556.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.5451,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-56-buxoro-mold-a": {
+  "src": "media-src/studio-2026/G016-mold.jpg",
+  "status": "fallback",
+  "method": "rang kaliti max(RGB)<110, B>=R",
+  "cover": 0.0269,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-56-buxoro-tile-a": {
+  "src": "media-src/studio-2026/G016-quyma.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.0169,
+  "edge": 0.0,
+  "note": "obyekt juda kichik (1.7%)"
+ },
+ "trotuar-57-afina-mold-a": {
+  "src": "media-src/studio-2026/G017-mold.jpg",
+  "status": "fallback",
+  "method": "rang kaliti max(RGB)<110, B>=R",
+  "cover": 0.0215,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-57-afina-tile-a": {
+  "src": "media-src/studio-2026/G017-quyma.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.019,
+  "edge": 0.0,
+  "note": "obyekt juda kichik (1.9%)"
+ },
+ "trotuar-58-rokki-mold-a": {
+  "src": "media-src/studio-2026/G008-mold.jpg",
+  "status": "fallback",
+  "method": "rang kaliti max(RGB)<110, B>=R",
+  "cover": 0.0558,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-58-rokki-tile-a": {
+  "src": "media-src/studio-2026/G008-quyma.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.0246,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-63-royal-1-mold-a": {
+  "src": "media-src/factory/DSC03303.JPG_20260927202554.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1693,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-64-royal-2-mold-a": {
+  "src": "media-src/studio-2026/G018-mold.jpg",
+  "status": "fallback",
+  "method": "rang kaliti max(RGB)<110, B>=R",
+  "cover": 0.0242,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-64-royal-2-tile-a": {
+  "src": "media-src/studio-2026/G018-quyma.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.0248,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-65-farovon-mold-a": {
+  "src": "media-src/factory/DSC03300.JPG_20260927202615.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2348,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-66-aleya-2-mold-a": {
+  "src": "media-src/factory/DSC03285.JPG_20260927202640.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4261,
+  "edge": 0.0,
+  "note": "ichki teshiklar to'ldirildi (28.9%)"
+ },
+ "trotuar-69-kabanchik-15-15-mold-a": {
+  "src": "media-src/factory/DSC03292.JPG_20260927202649.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3163,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-71-mumtoz-mold-a": {
+  "src": "media-src/factory/DSC03334.JPG_20260927202445.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.505,
+  "edge": 0.0,
+  "note": "ichki teshiklar to'ldirildi (35.7%)"
+ },
+ "trotuar-72-marokesh-mold-a": {
+  "src": "media-src/factory/DSC03361.JPG_20260927202815.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2607,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-76-ona-bola-2-mold-a": {
+  "src": "media-src/factory/DSC03326.JPG_20260927202453.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2604,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-78-xokkey-mold-a": {
+  "src": "media-src/factory/DSC03328.JPG_20260927202440.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2803,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-79-palma-mold-a": {
+  "src": "media-src/studio-2026/G019-mold.jpg",
+  "status": "fallback",
+  "method": "rang kaliti max(RGB)<110, B>=R",
+  "cover": 0.0248,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-79-palma-tile-a": {
+  "src": "media-src/studio-2026/G019-quyma.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.02,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-81-vindovs-mold-a": {
+  "src": "media-src/studio-2026/G028-mold.jpg",
+  "status": "fallback",
+  "method": "rang kaliti max(RGB)<110, B>=R",
+  "cover": 0.0721,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-81-vindovs-tile-a": {
+  "src": "media-src/studio-2026/G028-quyma.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.0253,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-82-orxideya-mold-a": {
+  "src": "media-src/factory/DSC03338.JPG_20260927202443.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4647,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-84-vetnam-mold-a": {
+  "src": "media-src/factory/DSC03299.JPG_20260927202613.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3444,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-85-kabanchik-10-10-mold-a": {
+  "src": "media-src/factory/DSC03340.JPG_20260927202451.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.5184,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-bumerang-mold-a": {
+  "src": "media-src/studio-2026/G020-mold.jpg",
+  "status": "fallback",
+  "method": "rang kaliti max(RGB)<110, B>=R",
+  "cover": 0.0787,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-bumerang-tile-a": {
+  "src": "media-src/studio-2026/G020-quyma.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.0238,
+  "edge": 0.0,
+  "note": ""
+ }
+}
