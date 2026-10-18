@@ -143,6 +143,8 @@ npm run lighthouse     # 8 targets x {mobile,desktop}, 3 runs each, MEDIAN -> do
   (`VIEWPORTS` in `scripts/lib/routes.mjs`); flat options are silently ignored
   and every "mobile" shot becomes 1280×720. Width assertions run only after
   `goto` — on `about:blank` mobile emulation reports 980px (no meta viewport).
+- **Pre-installed Chromium** (cloud sandbox: `/opt/pw-browsers/chromium-*/chrome-linux/chrome`)
+  that does not match the Playwright version: `PW_CHROMIUM_PATH=<path> npm run shots`.
 - **Restart the server after every `npm run build`**: a running `next start`
   keeps serving the previous build and probes/audits then measure stale HTML.
 - Pixel diffs vs `screens/` are directional (mock content, JPG refs, DPR);
@@ -259,6 +261,9 @@ Audit-only devDependencies: `axe-core`, `jsdom` (no browser needed); browser che
 - `/api/leads` xato kodlari: `bad_json`, `validation`, `bad_phone` (faqat telefon xato bo'lsa), `rate_limit` (429). Honeypot `website` to'la bo'lsa — soxta `ok`, Telegram yuborilmaydi.
 
 ## Stage Status (redesign)
+
+Next stages (7–12: database + lead storage, admin CRM, admin catalog/images, analytics
+dashboard, content/global, launch) and the full gap analysis: **`docs/ROADMAP-2027.md`**.
 
 - [x] 0 — data: models-2027.json, WebP set, validator, data-questions.md
 - [x] 1 — foundation: tokens/style B, Onest, layout, header, mobile menu, footer, i18n uz/ru/en
