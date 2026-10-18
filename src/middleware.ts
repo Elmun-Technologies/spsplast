@@ -3,9 +3,11 @@ import { NextResponse, type NextRequest } from 'next/server';
 /**
  * Til aniqlash middleware'i.
  *
- * Sayt backendsiz arxitekturaga o'tgach, bu yerdan admin API uchun CSRF
- * darvozasi olib tashlandi (admin panel ham, cookie-sessiya ham yo'q).
- * Qolgan yagona vazifa: `/` manzilini foydalanuvchi tiliga yo'naltirish.
+ * Vazifalar: (1) `/` manzilini foydalanuvchi tiliga yo'naltirish;
+ * (2) `/admin/*` da sessiya cookie'si bo'lmasa login'ga `?next=` bilan
+ * yo'naltirish — Telegram'dagi "Admin'da ochish" havolasi kirishdan keyin
+ * aynan o'sha zayafkaga olib boradi. Haqiqiy tekshiruv baribir sahifadagi
+ * `requireUser()` da (bu yerda faqat cookie borligi qaraladi).
  *
  * Til afzalligi: avval foydalanuvchi tanlagan til (cookie), keyin brauzer
  * `Accept-Language` sarlavhasi, aks holda saytning standart tili (`uz`).
@@ -31,8 +33,17 @@ function preferredLocale(req: NextRequest): 'uz' | 'ru' | 'en' {
   return 'uz';
 }
 
+const ADMIN_COOKIE = 'sps_admin'; // src/server/auth.ts SESSION_COOKIE
+
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
+
+  if (pathname.startsWith('/admin')) {
+    if (pathname === '/admin/login' || req.cookies.get(ADMIN_COOKIE)) return NextResponse.next();
+    const url = new URL('/admin/login', req.url);
+    url.searchParams.set('next', pathname + req.nextUrl.search);
+    return NextResponse.redirect(url);
+  }
 
   /**
    * `/` — yagona til neytral manzil. Uni to'g'ridan-to'g'ri `/uz` ga
@@ -48,5 +59,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/'],
+  matcher: ['/', '/admin/:path*'],
 };

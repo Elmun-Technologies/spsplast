@@ -22,7 +22,10 @@ visual reference `screens/`, exact CSS/sizes `source/*.dc.html` + `source/site.c
   in `public/fonts/` (from `@fontsource-variable/onest`, OFL 1.1). `next/font/google` is banned.
 - **State**: client-only localStorage lists `sps_request` / `sps_compare`
   (`src/lib/store/spsLists.ts`, memory fallback when storage is blocked).
-- **Validation**: Zod (leads API) · **Data**: static JSON only, **no database**.
+- **Validation**: Zod (leads API) · **Catalog data**: static JSON (public site stays static).
+- **Database (Stage 7+, user decision 2026-10-18)**: PostgreSQL (Neon/Supabase) via Drizzle ORM
+  (`postgres` driver), only for leads + admin panel + rate limit. `DATABASE_URL` optional in dev
+  (site falls back to Telegram-only leads). Tests use PGlite (`@electric-sql/pglite`).
 - **Deploy target**: Vercel.
 
 ## Folder Structure
@@ -35,7 +38,12 @@ docs/design-handoff/         # HANDOFF.md, PROMPT.md, screens/, source/, images/
 scripts/extract/             # build_models_2027.py, build_images_2027.py (python3 + ImageMagick)
 scripts/validate-models-2027.mjs   # XATO (exit 1) / OGOH (business-pending) split
 src/app/[lang]/              # public site, locale-prefixed (uz, ru, en)
-src/app/api/leads|health     # the ONLY two route handlers (test-enforced)
+src/app/api/leads|health     # the ONLY two /api route handlers (test-enforced)
+src/app/admin/               # admin panel (login, dashboard, leads CRM, CSV export, users) — noindex
+src/server/                  # DB layer: db/schema.ts, db/client.ts, leads.ts, auth.ts, session.ts (Next glue)
+drizzle/                     # GENERATED SQL migrations (`npm run db:generate`), applied by `npm run db:migrate`
+docs/ADMIN.md                # admin setup (Neon/Supabase, migrate, first admin) + security notes
+docs/ROADMAP-2027.md         # gap analysis + stages 7–12
 src/components/site/         # new layer: SiteHeader, HeaderClient, SiteFooter, LangSwitch, icons
 src/dictionaries/ui/{uz,ru,en}.ts   # UI copy for the new layer (uz = type source)
 src/lib/catalog2027.ts       # synchronous catalog access + derived filter fields + calculator
@@ -169,12 +177,22 @@ counts come from the Excel sources, images from the 2026 studio set + sheet-5 DS
 Required for lead delivery: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`.
 Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
 `NEXT_PUBLIC_GA_MEASUREMENT_ID`, `NEXT_PUBLIC_YANDEX_METRICA_ID`, `NEXT_PUBLIC_META_PIXEL_ID`.
-There is **no `DATABASE_URL`** — see `.env.example`.
+`DATABASE_URL` (Postgres) is required in production for lead storage and `/admin`; see `docs/ADMIN.md`.
 
 ## Known Pitfalls
 
-- **Never reintroduce a database or Tailwind.** Both were removed deliberately.
-- **Only `/api/leads` and `/api/health` may exist** under `src/app/api`
+- **Never reintroduce Tailwind.** The database is back (Stage 7, user decision) **only** behind
+  `src/server/` — public pages (`[lang]`, `components`, `lib`) must never import it
+  (`tests/platform.test.js` test 6), otherwise the storefront stops being static.
+- **Admin forms: never name a hidden input `id`** — `form.id` then returns that input (DOM named
+  property) and React drops the submit button's `name/value` (status buttons silently did nothing).
+  Use `leadId` / `userId`.
+- Every admin `page.tsx`/`route.ts` and server action calls `requireUser()` (test 12 in
+  `tests/admin2027.test.js`); middleware only redirects cookie-less requests to `/admin/login?next=`.
+- `tests/admin2027.test.js` imports `src/server/*` directly (relative `.ts` imports), not through
+  `load-alias` — the shared `.tmp-tests` dir is wiped by parallel test files.
+- **Only `/api/leads` and `/api/health` may exist** under `src/app/api` (admin uses server actions
+  and `/admin/leads/export`)
   (`tests/foundation2027.test.js` enforces it).
 - **`data/models-2027.json` is generated** — edit the extractor, not the JSON.
 - **Fonts are self-hosted**; builds must work without outbound internet.
@@ -224,6 +242,9 @@ npm run typecheck      # tsc --noEmit
 npm run lint           # next lint
 npm test               # node --test --experimental-strip-types tests/*.test.js (93 tests)
 npm run models:build && npm run models:images && npm run models:check
+npm run db:generate    # after editing src/server/db/schema.ts → new SQL in drizzle/
+DATABASE_URL=... npm run db:migrate
+DATABASE_URL=... ADMIN_PASSWORD=... npm run admin:create -- --email E --name "Ism" --role admin
 
 # Stage 6 checks — server must be running (`npm run start` or `npm run dev`)
 npm run audit          # audit:seo + audit:a11y → docs/audits/*.md
@@ -264,6 +285,10 @@ Audit-only devDependencies: `axe-core`, `jsdom` (no browser needed); browser che
 
 Next stages (7–12: database + lead storage, admin CRM, admin catalog/images, analytics
 dashboard, content/global, launch) and the full gap analysis: **`docs/ROADMAP-2027.md`**.
+
+- [x] 7+8 — Postgres (Drizzle) + zayafkalarni saqlash (ketma-ket SPS-YYMM-NNNN, avval baza → keyin
+  Telegram, bazadagi rate limit) + admin panel `/admin` (login/sessiya, rollar admin/menejer,
+  dashboard, zayafkalar CRM: holat/mas'ul/izoh/tarix, CSV, xodimlar). `docs/ADMIN.md`. Testlar 108.
 
 - [x] 0 — data: models-2027.json, WebP set, validator, data-questions.md
 - [x] 1 — foundation: tokens/style B, Onest, layout, header, mobile menu, footer, i18n uz/ru/en

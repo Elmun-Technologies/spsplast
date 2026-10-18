@@ -19,20 +19,27 @@
     "audit:seo": "node scripts/audit-seo-dom.mjs",
     "audit": "node scripts/audit-seo-dom.mjs && node scripts/audit-a11y.mjs",
     "shots": "node scripts/visual/compare-screens.mjs",
-    "lighthouse": "node scripts/visual/lighthouse.mjs"
+    "lighthouse": "node scripts/visual/lighthouse.mjs",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "node scripts/db-migrate.mjs",
+    "admin:create": "node --experimental-strip-types scripts/admin-create.ts"
   },
   "dependencies": {
+    "drizzle-orm": "^0.44.7",
     "lucide-react": "^0.428.0",
     "next": "^15.5.26",
+    "postgres": "^3.4.9",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "^0.3.16",
     "@types/node": "^20.14.12",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "axe-core": "^4.10.2",
+    "drizzle-kit": "^0.31.11",
     "eslint": "^8.57.0",
     "eslint-config-next": "^15.5.26",
     "jsdom": "^25.0.1",

@@ -85,8 +85,12 @@ test('5. Faqat bitta API marshruti qolgan (leads + health)', () => {
   assert.deepStrictEqual(routes.sort(), ['health/route.ts', 'leads/route.ts']);
 });
 
-test('6. Ommaviy sahifalarda baza importi qolmagan', () => {
+test('6. Ommaviy sayt bazani import qilmaydi (u statik qoladi)', () => {
+  // Bosqich 7–8: baza faqat `src/server` + `src/app/admin` + `/api/leads|health` da.
+  // Ommaviy sahifalar, komponentlar va `src/lib` uni import qilsa, sahifalar
+  // dinamik bo'lib qoladi (Lighthouse, CDN kesh) — shuning uchun taqiqlangan.
   const srcDir = path.join(__dirname, '..', 'src');
+  const scanned = ['app/[lang]', 'components', 'lib', 'dictionaries', 'data'].map((d) => path.join(srcDir, d));
   const offenders = [];
 
   const walk = (dir) => {
@@ -95,15 +99,15 @@ test('6. Ommaviy sahifalarda baza importi qolmagan', () => {
       if (entry.isDirectory()) walk(full);
       else if (/\.(ts|tsx)$/.test(entry.name)) {
         const source = fs.readFileSync(full, 'utf8');
-        if (source.includes("@/lib/db") || source.includes('@prisma/client')) {
+        if (/from ['"](@\/server|[./]+server)\//.test(source) || source.includes('@prisma/client') || source.includes('drizzle-orm')) {
           offenders.push(path.relative(srcDir, full));
         }
       }
     }
   };
-  walk(srcDir);
+  scanned.filter((d) => fs.existsSync(d)).forEach(walk);
 
-  assert.deepStrictEqual(offenders, [], `Prisma/baza importi qolgan: ${offenders.join(', ')}`);
+  assert.deepStrictEqual(offenders, [], `Ommaviy qatlamda baza importi: ${offenders.join(', ')}`);
 });
 
 test('7. Fly.io/Docker konfiguratsiyasi olib tashlangan', () => {

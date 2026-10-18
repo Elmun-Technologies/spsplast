@@ -1,4 +1,7 @@
+'use client';
+
 import Script from 'next/script';
+import { usePathname } from 'next/navigation';
 
 /**
  * Analitika skriptlari (P0-12).
@@ -18,6 +21,10 @@ const METRICA_ID = process.env.NEXT_PUBLIC_YANDEX_METRICA_ID || '';
 const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || '';
 
 export function AnalyticsScripts() {
+  // Admin panel trafigi sayt statistikasini buzmasin.
+  const pathname = usePathname();
+  if (pathname?.startsWith('/admin')) return null;
+
   return (
     <>
       {GTM_ID && (
