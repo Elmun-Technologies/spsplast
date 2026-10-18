@@ -70,6 +70,8 @@ docs/legacy/                 # archive of the deleted 2026 data (catalog-2026.js
 tests/helpers/load-alias.mjs # runs `@/`-aliased TS in Node (writes .tmp-tests/, gitignored)
 screens-actual/              # GENERATED screenshots from `npm run shots` (gitignored)
 media-src/                   # SOURCE photos the image pipeline reads (factory/, studio/, pdf/ — 86 MB)
+media-src/studio-2026/       # 44 archived 2026 studio JPGs (mold + quyma) for jobs that say public/catalog/2026/
+media-src/clean/             # bg-removal masks (PNG) + manifest.json — committed, see images:bg
 public/catalog/2027/         # generated WebP (scene 1400/720w, mold/tile 800w)
 public/catalog/pdf/          # PDF catalog (2026, uz) — header download link
 public/fonts/                # onest-latin/cyrillic-wght-normal.woff2
@@ -134,7 +136,22 @@ npm run models:images  # ImageMagick -> public/catalog/2027/*.webp, prunes faile
 npm run models:check   # validator: XATO exit 1, OGOH = business-pending
 npm run redirects:build # regenerate scripts/redirects-2027.json from docs/legacy/catalog-2026.json
 npm run images:variants # sharp: container-ratio crops (1:1/4:3/16:9) -> public/images/site/*-<ratio>.webp
+npm run images:bg      # LOCAL rembg (isnet-general-use) -> media-src/clean/*.png masks + transparent mold/tile WebP
 ```
+
+**Background removal (mold/tile cutouts).** Every `*-mold-*.webp` / `*-tile-*.webp` is a
+transparent square WebP (object trimmed, centred, 7% padding, 800px, q82, alpha eroded 1px +
+feathered). The masks live in `media-src/clean/<dst-name>.png` (+ `manifest.json`: method,
+status, notes) and are **committed**, so `npm run models:images` rebuilds the cutouts with
+ImageMagick only — rembg is needed only to regenerate a mask
+(`pip install --user rembg onnxruntime`; models download from GitHub releases, nothing is
+uploaded anywhere). Shared code: `scripts/extract/cutout_2027.py`. Per-file tweaks go in
+`OVERRIDES` in `remove_bg_2027.py`; the 22 yellow-board 2026 studio molds use a colour key
+(isnet keeps the yellow board). `*-scene*.webp` and `public/images/site` keep their
+backgrounds. Image jobs whose `src` still says `public/catalog/2026/...` resolve to the
+archived copies in `media-src/studio-2026/` (`resolve_src()`); a job with no source but an
+existing WebP (the 2026 `-env` scenes) is kept, not nulled. Report:
+`docs/audits/bg-removal-2026-10-18.md` (contact sheets: `npm run images:bg -- --compose --sheets` -> `docs/audits/bg-removal/*.jpg`, gitignored).
 
 ## Visuals & measurement (Stage 6)
 

@@ -6,11 +6,21 @@
 Konvertatsiya qilinmagan (manba fayl yo'q / xato) ishlardan keyin
 `models-2027.json` dagi mos rasm maydoni `null` ga qaytariladi — sayt
 hech qachon mavjud bo'lmagan faylga havola bermaydi.
+
+Qolip/plitka (`-mold-`, `-tile-`) rasmlari uchun `media-src/clean/<nom>.png`
+niqobi bo'lsa, fonsiz shaffof kvadrat WebP yoziladi (`cutout_2027.py`;
+niqoblar `npm run images:bg` bilan yangilanadi, bu yerda rembg kerak emas).
+Eski `public/catalog/2026/...` manbalari `media-src/studio-2026/` dan olinadi.
+Manba topilmasa-yu, tayyor WebP repoda bo'lsa (masalan sahna rasmlari — 2026
+`-env` manbalari repoda yo'q), fayl saqlanadi va havola `null` qilinmaydi.
 """
 import json
 import os
 import subprocess
 import sys
+
+sys.path.insert(0, os.path.dirname(__file__))
+from cutout_2027 import compose_cutout, is_cutout_job, mask_path, resolve_src  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 JOBS = os.path.join(ROOT, "data/image-jobs-2027.json")
@@ -31,11 +41,20 @@ def convert(src: str, dst: str, width: int) -> bool:
 
 def main():
     jobs = json.load(open(JOBS))
-    ok = fail = 0
+    ok = fail = cut = kept = 0
     failed_dst = set()
     for j in jobs:
-        if convert(j["src"], j["dst"], j["w"]):
+        src = resolve_src(j["src"])
+        mask = mask_path(j["dst"])
+        if is_cutout_job(j["dst"]) and os.path.exists(mask) and \
+                compose_cutout(src, mask, os.path.join(ROOT, j["dst"]), j["w"]):
             ok += 1
+            cut += 1
+        elif convert(src, j["dst"], j["w"]):
+            ok += 1
+        elif not os.path.exists(os.path.join(ROOT, src)) and \
+                os.path.exists(os.path.join(ROOT, j["dst"])):
+            kept += 1
         else:
             fail += 1
             failed_dst.add("/" + j["dst"].replace("public/", ""))
@@ -58,7 +77,8 @@ def main():
     total = 0
     for _r, _d, _f in os.walk(os.path.join(ROOT, "public/catalog/2027")):
         total += len(_f)
-    print(f"webp ok={ok} fail={fail} files_in_2027={total}")
+    print(f"webp ok={ok} (fonsiz={cut}) manbasiz-saqlandi={kept} fail={fail} "
+          f"files_in_2027={total}")
 
 
 if __name__ == "__main__":
