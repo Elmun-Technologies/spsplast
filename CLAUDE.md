@@ -251,8 +251,21 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
 - Next 15: `params`/`searchParams` are promises (`await params` in server components).
 - `[lang]/layout.tsx` exports `generateStaticParams()` + `dynamicParams = false`,
   so the whole storefront prerenders; keep pages free of request-time APIs.
-- RU header second row: gap 16px and **no "Экспорт" link** (it lives inside
-  "Производство") — see `SiteHeader.tsx` and `.hd-nav--ru`.
+- RU header: **no "Экспорт" link** (it lives inside "Производство") and tighter section tabs —
+  see `SiteHeader.tsx` and `.hd-tabs--ru`. The active tab is set client-side from `usePathname()`
+  (`[lang]/layout.tsx` renders the header once, so the server does not know the current page).
+- **Redesign 2028 UI** ("Beton laboratoriyasi", canvas `docs/REDESIGN-2028-PLAN.md`): tokens in
+  `:root` (concrete `#f2f0eb`, graphite `#15171a`, red `#d7262e`/text `#b51e25`, `--red-on-ink` on dark);
+  buttons/inputs 8px, cards 12px, pill only for chips and the language switch. Card CTA is graphite —
+  red is for the page's main CTA. **Images: only real SPS material** (studio mold photos in
+  `public/images/site/molds/` with `mix-blend-mode: multiply`, laid-tile scenes, factory, export map) —
+  no stock people/warehouses. Home hero = variant A (light, scene + spec card).
+- **Never put `data-rv` in markup**: `MotionLayer` adds it itself and skips elements that already have
+  it, so a static `data-rv` stays `opacity: 0` forever. Register new blocks in `REVEAL` instead.
+- **`.x span` selectors hit nested spans**: e.g. `.sps-stat span` also matched `<span data-countup>`
+  inside the number and shrank it to 14px — use `> span` for labels.
+- Tap targets ≥ 44px on mobile (`npm run shots` report): text links get the hit area via
+  `padding-block` + negative `margin-block` so the layout does not move (see "Tegish maydonlari" in CSS).
 - **Sitemap alternates must be absolute**: metadata `alternates.languages` accepts
   relative paths (Next resolves them against `metadataBase`), the sitemap XML does not —
   use `hreflangAbsolute()` there, never `hreflang()`.
@@ -335,6 +348,15 @@ Audit-only devDependencies: `axe-core`, `jsdom` (no browser needed); browser che
 - `/api/leads` xato kodlari: `bad_json`, `validation`, `bad_phone` (faqat telefon xato bo'lsa), `rate_limit` (429). Honeypot `website` to'la bo'lsa — soxta `ok`, Telegram yuborilmaydi.
 
 ## Stage Status (redesign)
+
+- [x] UI 2028 (Claude Design canvas → code, 2026-11-01): tokens, header (dark utility row + section
+  tabs), mobile menu, footer CTA band; catalog block (card with code tag, inset mold, spec dl, graphite
+  CTA; filters; compare bar); home (hero A + spec card, stats, sections + help card, steps + calculator
+  example, factory, wholesale with real mold photos); model (drawing-board mold view with dimension line,
+  ±10 calculator); partners/production stock photos replaced; canonical domain `spsplast.com`.
+  Fixed on the way: React #185 site crash with a non-empty compare/request list, footer red button
+  contrast, production stats font bug, tap targets. Checks: 124 tests, audit:seo 35/0/0, audit:a11y 0,
+  browser axe color-contrast 0 (14 pages × 1440/390), `npm run shots` 28 screens without horizontal scroll.
 
 Next stages (7–12: database + lead storage, admin CRM, admin catalog/images, analytics
 dashboard, content/global, launch) and the full gap analysis: **`docs/ROADMAP-2027.md`**.

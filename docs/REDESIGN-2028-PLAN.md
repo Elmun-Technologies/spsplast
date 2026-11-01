@@ -59,7 +59,10 @@ Biz ko'chirmaymiz, g'oyani o'z tilimizda qilamiz — **"01B · Bosh sahifa V2"**
 - Header'da **"Kalkulyator"** havolasi, sahifa burchagida **suzuvchi Telegram** tugmasi.
 - Korun pigment/plastifikator ham sotadi — SPS'da bu yo'q, qo'shilmaydi.
 
-## 3. Kodga o'tkazish bosqichlari
+## 3. Kodga o'tkazish bosqichlari — **bajarildi (2026-11-01)**
+
+1–8 bosqichlar kodda: tokenlar, header/footer/menyu, katalog bloki, bosh sahifa (hero A), model, qolgan sahifalar, rasmlar (faqat SPS materiallari), tekshiruv (124 test, audit:seo 35/0/0, a11y 0, brauzerda kontrast 0, `npm run shots` 28 ekran, tegish maydonlari ≥ 44px).
+
 
 1. **Tokenlar** — `src/app/globals.css` `:root` ni 1-bo'limdagi qiymatlarga almashtirish; radius/tugma
    o'lchamlarini yangilash. Test: `npm test`, `npm run audit:a11y` (kontrast).

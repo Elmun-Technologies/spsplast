@@ -571,6 +571,29 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
 @media (min-width: 761px) { .only-m { display: none !important; } }
 @media (min-width: 1101px) { .hide-1100 { display: none !important; } }
 
+/* --- Tegish maydonlari ≥ 44px (HANDOFF 7) — `npm run shots` hisobotidagi ro'yxat bo'yicha ---
+   Ko'rinish o'zgarmasligi uchun matnli havolalarda bosiladigan maydon padding + manfiy margin
+   bilan kengaytiriladi (layout siljimaydi). */
+.skip-link { min-height: 44px; display: inline-flex; align-items: center; padding: 12px 20px; }
+.hd-search input, .cat-search input { align-self: stretch; }
+.sps-btn--link { min-height: 44px; }
+.crumbs a { display: inline-block; padding-block: 14px; margin-block: -14px; }
+.sps-card__name a { display: block; padding-block: 13px; margin-block: -13px; }
+.pd-contact a { display: inline-flex; align-items: center; min-height: 44px; }
+.ct-big { display: inline-flex; align-items: center; min-height: 44px; }
+.map .sps-btn { height: 44px; }
+.chips .chip-a { height: 44px; }
+.srch input { align-self: stretch; }
+.mc a { display: block; padding-block: 12px; margin-block: -12px; }
+/* "Faqat farqlarni ko'rsatish": butun label qatori bosiladi (checkbox 18px). */
+.check { min-height: 44px; }
+@media (max-width: 760px) {
+  .hd-tabs a { height: 44px; }
+  .sps-btn--sm { height: 44px; }
+  .sps-lang a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; min-width: 44px; }
+  .ft-col a, .ft-bottom a { display: flex; align-items: center; min-height: 44px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
   .sps-card:hover { transform: none; }
@@ -945,7 +968,7 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
   .ct tbody th, .ct thead th:first-child { width: 96px; min-width: 96px; padding: 12px 8px; font-size: 10px; letter-spacing: .04em; }
   .ct td, .ct thead th { width: 150px; min-width: 150px; padding: 12px 10px; font-size: 13px; line-height: 19px; }
   .mc a { font-size: 16px; line-height: 20px; }
-  .mc .sps-btn { height: 36px; font-size: 13px; }
+  .mc .sps-btn { height: 44px; font-size: 13px; }
   .cmp-act > .sps-btn { flex: 1 1 100%; }
   .cmp-scroll { margin-inline: calc(-1 * var(--gutter)); padding-left: var(--gutter); }
 }

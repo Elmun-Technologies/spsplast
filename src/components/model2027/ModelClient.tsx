@@ -320,7 +320,7 @@ export function ModelClient({
                 </div>
               </div>
 
-              <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'center', paddingTop: 4, fontSize: 14 }}>
+              <div className="pd-contact" style={{ display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'center', paddingTop: 4, fontSize: 14 }}>
                 <a className="mono" style={{ fontSize: 15, fontWeight: 500, color: 'var(--ink)', textDecoration: 'none' }} href={`tel:${CONTACTS_2027.mainPhoneRaw}`}>
                   {CONTACTS_2027.mainPhone}
                 </a>
