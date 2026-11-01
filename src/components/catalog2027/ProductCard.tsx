@@ -16,11 +16,18 @@ export function ProductCard({
   lang,
   onRequest,
   onQuick,
+  load = 'lazy',
 }: {
   model: Model;
   lang: Locale;
   onRequest: (m: Model) => void;
   onQuick: (m: Model) => void;
+  /**
+   * Rasm yuklanishi (Lighthouse LCP): birinchi ekrandagi kartochka `lazy` bo'lsa, brauzer
+   * uni layout'dan keyin so'raydi (~0.5 s kechikish). `priority` — HTML'da preload +
+   * fetchpriority=high (LCP rasmi, 1–2 ta); `eager` — darhol, lekin oddiy ustuvorlik.
+   */
+  load?: 'priority' | 'eager' | 'lazy';
 }) {
   const t = getUi(lang).catalog;
   const compare = useCompareList();
@@ -35,18 +42,20 @@ export function ProductCard({
   const cutout = model.images.molds.A || Object.values(model.images.molds)[0] || model.images.tiles.A || Object.values(model.images.tiles)[0] || null;
   const third = set > 1 ? `${set} ${t.molds}` : per ? `${formatNumber(lang, per)} ${t.dona}` : 'PP / ABS';
   const href = productHref(lang, model);
+  const main = load === 'priority' ? ({ priority: true, fetchPriority: 'high' } as const) : ({ loading: load } as const);
+  const inset = { loading: load === 'lazy' ? 'lazy' : 'eager' } as const;
 
   return (
     <article className={`sps-card${model.images.scene && model.images.molds.A ? ' sps-card--inset' : ''}`}>
       <div className="sps-card__media">
         {model.images.scene ? (
           <a href={href} tabIndex={-1} aria-hidden="true">
-            <Image src={(model.images.sceneSm || model.images.scene) as string} alt="" fill sizes="(max-width: 640px) 50vw, (max-width: 1100px) 33vw, 25vw" style={{ objectFit: 'cover' }} loading="lazy" />
+            <Image src={(model.images.sceneSm || model.images.scene) as string} alt="" fill sizes="(max-width: 640px) 50vw, (max-width: 1100px) 33vw, 25vw" style={{ objectFit: 'cover' }} {...main} />
           </a>
         ) : cutout ? (
           // Sahna rasmi yo'q — qolip/mahsulot suratining o'zi (fonsiz) asosiy rasm bo'ladi.
           <a href={href} tabIndex={-1} aria-hidden="true" className="sps-card__cutout">
-            <Image src={cutout} alt="" fill sizes="(max-width: 640px) 50vw, (max-width: 1100px) 33vw, 25vw" style={{ objectFit: 'contain' }} loading="lazy" />
+            <Image src={cutout} alt="" fill sizes="(max-width: 640px) 50vw, (max-width: 1100px) 33vw, 25vw" style={{ objectFit: 'contain' }} {...main} />
           </a>
         ) : (
           <a href={href} tabIndex={-1} aria-hidden="true" className="sps-card__nophoto">
@@ -56,7 +65,7 @@ export function ProductCard({
         )}
         {model.images.scene && model.images.molds.A ? (
           <span className="sps-card__mold">
-            <Image src={model.images.molds.A} alt={`${modelName(model, lang)} — ${getUi(lang).alt.mold}`} fill sizes="(max-width: 640px) 19vw, 9vw" style={{ objectFit: 'contain' }} loading="lazy" />
+            <Image src={model.images.molds.A} alt={`${modelName(model, lang)} — ${getUi(lang).alt.mold}`} fill sizes="(max-width: 640px) 19vw, 9vw" style={{ objectFit: 'contain' }} {...inset} />
           </span>
         ) : null}
         {model.code ? (

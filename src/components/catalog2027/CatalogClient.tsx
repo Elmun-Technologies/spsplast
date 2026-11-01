@@ -278,8 +278,16 @@ export function CatalogClient({
             </div>
           ) : (
             <div className={`cat-grid${filters.view === 'list' ? ' cat-grid--list' : ''}`}>
-              {visible.map((m) => (
-                <ProductCard key={m.slug} model={m} lang={lang} onRequest={setRequestModel} onQuick={setQuickModel} />
+              {visible.map((m, i) => (
+                <ProductCard
+                  key={m.slug}
+                  model={m}
+                  lang={lang}
+                  onRequest={setRequestModel}
+                  onQuick={setQuickModel}
+                  // Birinchi qator (mobil 2, desktop 3–4 ustun): LCP rasmi kechikmasin.
+                  load={i < 2 ? 'priority' : i < 4 ? 'eager' : 'lazy'}
+                />
               ))}
             </div>
           )}
