@@ -44,7 +44,11 @@ src/data/site.generated.ts   # build-time snapshot from DB (scripts/export-snaps
 scripts/export-snapshot.mjs  # runs first in `npm run build`: DB → published products/sections/settings
 scripts/catalog-import.ts    # one-off: data/models-2027.json + data/termopanel-2027.json → DB
 data/termopanel-2027.json    # GENERATED from xlsx sheet 6 (scripts/extract/build_termopanel_2027.py)
-src/app/admin/               # admin panel (login, dashboard, leads CRM, CSV export, users) — noindex
+src/app/admin/               # admin panel (login, dashboard, leads CRM, CSV, users, analytics, SEO, content CMS) — noindex
+src/app/admin/seo|content|analytics/  # SEO center (meta/H1/noindex, 301, IndexNow, health), text CMS, API reports
+src/server/reports/          # Google (JWT RS256: Search Console, GA4), Yandex (Metrica, Webmaster), IndexNow clients
+src/data/redirects.generated.json  # admin 301s, written by export-snapshot; MUST be `[]` in git
+src/app/indexnow-key.txt/    # IndexNow key file (static, from admin setting `indexnow_key`)
 src/server/                  # DB layer: db/schema.ts, db/client.ts, leads.ts, auth.ts, session.ts (Next glue)
 drizzle/                     # GENERATED SQL migrations (`npm run db:generate`), applied by `npm run db:migrate`
 docs/ADMIN.md                # admin setup (Neon/Supabase, migrate, first admin) + security notes
@@ -226,8 +230,17 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   from the snapshot or built-in defaults) — never `getUi().sections` (removed). Navigation uses
   `getActiveSections()` (sections with ≥1 model that has an image). Models with images sort first.
 - **Never commit a DB snapshot**: a local `npm run build` with `DATABASE_URL` overwrites
-  `src/data/site.generated.ts` (settings/sections) **and** `src/data/models2027.ts` (published
-  products). Run `git checkout src/data` before committing (`tests/catalogAdmin2027.test.js` test 8).
+  `src/data/site.generated.ts` (settings/sections/seo/texts), `src/data/models2027.ts` (published
+  products) **and** `src/data/redirects.generated.json` (admin 301s). Run `git checkout src/data`
+  (and reset the redirects file to `[]`) before committing (`tests/catalogAdmin2027.test.js` test 8).
+- **API secrets never go to `site_settings`**: that table is exported into the public JS bundle by the
+  snapshot. Report keys (Yandex OAuth, Google service account) live in `integration_secrets`, which
+  `export-snapshot.mjs` must never read (`tests/adminSeo2028.test.js` test 6).
+- **Admin SEO/text overrides apply centrally**: `pageMetadata()` reads `seoOverride(lang, path)` (title,
+  description, noindex) and `getPages()`/`getUi()` apply `texts` via `applyTextOverrides` before tokens — do not
+  re-implement per page. H1/intro overrides exist only on section, tag and export pages (`H1_KINDS`).
+  New indexable page types go into `src/lib/sitePaths.ts` (sitemap + admin list share it).
+- Every `actions.ts` under `src/app/admin` is scanned by `tests/admin2027.test.js` test 12 (each export calls `requireUser`).
 - **Motion**: only below-the-fold elements get `data-rv` (never hide the first screen — LCP/flicker);
   animate transform/opacity only; `prefers-reduced-motion` disables everything (global CSS rule + early
   return in `MotionLayer`). Admin pages auto-refresh every 60 s unless a form is on the page (`AutoRefresh`).
@@ -307,10 +320,10 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
 
 ```bash
 npm run dev            # local dev server
-npm run build          # models:check + next build (447 static pages)
+npm run build          # models:check + next build (448 static pages)
 npm run typecheck      # tsc --noEmit
 npm run lint           # next lint
-npm test               # node --test --experimental-strip-types tests/*.test.js (130 tests)
+npm test               # node --test --experimental-strip-types tests/*.test.js (142 tests)
 npm run models:build && npm run models:images && npm run models:check
 npm run db:generate    # after editing src/server/db/schema.ts → new SQL in drizzle/
 DATABASE_URL=... npm run db:migrate
@@ -361,6 +374,12 @@ Audit-only devDependencies: `axe-core`, `jsdom` (no browser needed); browser che
   Fixed on the way: React #185 site crash with a non-empty compare/request list, footer red button
   contrast, production stats font bug, tap targets. Checks: 124 tests, audit:seo 35/0/0, audit:a11y 0,
   browser axe color-contrast 0 (14 pages × 1440/390), `npm run shots` 28 screens without horizontal scroll.
+
+- [x] Admin A–Z (2026-11-01): SEO center (per-page title/description/H1/intro ×3 langs with SERP preview, noindex,
+  301 manager → `redirects.generated.json`, sitemap submit to Search Console/Yandex Webmaster via API, IndexNow,
+  health checks), Analytics (Yandex Metrica, Search Console, Yandex Webmaster, GA4 reports; secrets table),
+  Matnlar CMS (620 strings incl. `{1}` templates). Migration `0002_seo_content_reports`. 142 tests; publish flow
+  verified end-to-end on a local PGlite socket DB (override → build → title/H1/301/menu text live).
 
 - [x] SEO landing (2026-11-01, `docs/SEO-2028-RU.md` §2a): 7 tag pages + 8 export country pages × 3 langs
   (static, own H1/title/canonical, Breadcrumb/ItemList/FAQPage JSON-LD), footer "Eksport" column, tag chips +

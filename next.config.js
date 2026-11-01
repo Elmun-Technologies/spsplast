@@ -72,6 +72,17 @@ const nextConfig = {
    */
   async redirects() {
     const migration = require('./scripts/redirects-2027.json').redirects;
+    /**
+     * Admin → SEO → "Yo'naltirishlar" (`redirects` jadvali). Build boshida
+     * `scripts/export-snapshot.mjs` yozadi; git'da `[]`. Migratsiya xaritasidan
+     * oldin turadi — admin eski qoidani ustidan yozishi mumkin.
+     */
+    let fromAdmin = [];
+    try {
+      fromAdmin = require('./src/data/redirects.generated.json');
+    } catch {
+      fromAdmin = [];
+    }
 
     /**
      * Kanonik host — `spsplast.com` (docs/SEO-2028-RU.md 0-bo'lim). Bir xil
@@ -93,7 +104,7 @@ const nextConfig = {
       statusCode: 301,
     };
 
-    return [canonicalHost, ...migration];
+    return [canonicalHost, ...fromAdmin, ...migration];
   },
   async rewrites() {
     return [

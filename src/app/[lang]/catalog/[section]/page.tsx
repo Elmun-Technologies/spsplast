@@ -12,6 +12,7 @@ import { getUi, pluralModels } from "@/lib/ui";
 import { CatalogClient } from "@/components/catalog2027/CatalogClient";
 import { JsonLd } from "@/components/site/JsonLd";
 import { jsonLdBreadcrumb, pageMetadata } from "@/lib/seo";
+import { seoOverride } from "@/lib/seoOverrides";
 import { modelImage } from "@/lib/catalog2027";
 import {
   CountriesStrip,
@@ -64,6 +65,8 @@ export default async function SectionPage({
 
   const models = getModelsBySection(sec);
   const t = getUi(lang);
+  // Admin → SEO → Sahifalar: H1 va kirish matni (bo'sh bo'lsa — bo'lim nomi).
+  const o = seoOverride(lang, `/catalog/${SECTION_SLUGS[sec]}`);
 
   return (
     <>
@@ -91,7 +94,8 @@ export default async function SectionPage({
           style={{ marginBlock: "var(--space-4) var(--space-5)" }}
         >
           <div>
-            <h1 className="h1">{sectionLabel(sec, lang)}</h1>
+            <h1 className="h1">{o?.h1 || sectionLabel(sec, lang)}</h1>
+            {o?.intro ? <p className="lead muted">{o.intro}</p> : null}
             <p className="lead muted">
               {models.length} {pluralModels(lang, models.length)} ·{" "}
               {t.header.catalog} {getTotalCount()}

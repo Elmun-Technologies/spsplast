@@ -23,6 +23,8 @@ const OUT = path.join(ROOT, 'src/data/site.generated.ts');
 const OUT_MODELS = path.join(ROOT, 'src/data/models2027.ts');
 /** Validator (validate-models-2027.mjs) shu nusxani tekshiradi; snapshot bo'lmasa o'chiriladi. */
 const OUT_JSON = path.join(ROOT, '.snapshot.json');
+/** Admin → SEO → Yo'naltirishlar: next.config.js `redirects()` o'qiydi. Git'da `[]`. */
+const OUT_REDIRECTS = path.join(ROOT, 'src/data/redirects.generated.json');
 const url = process.env.DATABASE_URL;
 const required = process.env.SNAPSHOT_REQUIRED === '1';
 
@@ -63,6 +65,30 @@ try {
     where p.status = 'published' and s.visible
     order by p.sort, p.id`;
   const allProducts = await sql`select count(*)::int as n from products`;
+  // SEO, matnlar va yo'naltirishlar (0002 migratsiyasi). Jadval hali bo'lmasa — bo'sh.
+  // MUHIM: `integration_secrets` (API kalitlari) bu yerda HECH QACHON o'qilmaydi —
+  // snapshot ommaviy JS bundle'ga tushadi.
+  const optional = async (query) => {
+    try {
+      return await query();
+    } catch (error) {
+      console.warn('[snapshot] ixtiyoriy jadval o\'qilmadi:', error.message);
+      return [];
+    }
+  };
+  const seoRows = await optional(() => sql`select path, lang, title, description, h1, intro, noindex from seo_pages order by path, lang`);
+  const textRows = await optional(() => sql`select key, lang, value from content_overrides order by key, lang`);
+  const redirectRows = await optional(() => sql`select source, destination from redirects order by source`);
+  const texts = {};
+  for (const r of textRows) (texts[r.lang] ??= {})[r.key] = r.value;
+  fs.writeFileSync(
+    OUT_REDIRECTS,
+    `${JSON.stringify(
+      redirectRows.map((r) => ({ source: r.source, destination: r.destination, statusCode: 301 })),
+      null,
+      2,
+    )}\n`,
+  );
 
   // Katalog bazaga hali import qilinmagan bo'lsa — statik katalogni buzmaymiz.
   const hasCatalog = allProducts[0].n > 0 && sectionRows.length > 0;
@@ -90,10 +116,12 @@ try {
     sections: hasCatalog ? sectionRows.map((s) => ({ key: s.key, slug: s.slug, name: s.name, sort: s.sort })) : null,
     // Modellar src/data/models2027.ts da; bu yerda faqat validator nusxasi (.snapshot.json) uchun.
     models: null,
+    seo: seoRows.map((r) => ({ path: r.path, lang: r.lang, title: r.title, description: r.description, h1: r.h1, intro: r.intro, noindex: r.noindex })),
+    texts,
   });
   if (models) fs.writeFileSync(OUT_JSON, JSON.stringify({ sections: sectionRows, models }));
   console.log(
-    `[snapshot] ${hasCatalog ? `${models.length} ta nashr qilingan mahsulot, ${sectionRows.length} bo'lim` : 'katalog bazada yo\'q (statik)'}; ${Object.keys(settings).length} sozlama.`,
+    `[snapshot] ${hasCatalog ? `${models.length} ta nashr qilingan mahsulot, ${sectionRows.length} bo'lim` : 'katalog bazada yo\'q (statik)'}; ${Object.keys(settings).length} sozlama; SEO ${seoRows.length}, matn ${textRows.length}, 301 ${redirectRows.length}.`,
   );
 } catch (error) {
   console.error('[snapshot] bazadan o\'qib bo\'lmadi:', error.message);

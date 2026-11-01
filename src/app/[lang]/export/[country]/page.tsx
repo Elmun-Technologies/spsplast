@@ -11,6 +11,7 @@ import { PartnersForm } from '@/components/partners2027/PartnersForm';
 import { Icon } from '@/components/site/icons';
 import { JsonLd } from '@/components/site/JsonLd';
 import { jsonLdBreadcrumb, jsonLdFaq, jsonLdItemList, pageMetadata } from '@/lib/seo';
+import { seoOverride } from '@/lib/seoOverrides';
 
 /**
  * Eksport (geo) sahifasi: `/{lang}/export/{country}` — SPS eksport xaritasidagi 8 davlat
@@ -56,6 +57,8 @@ export default async function ExportCountryPage({ params }: { params: Promise<Pa
     .filter((m) => m.images.scene)
     .slice(0, 8);
   const path = `/export/${country}`;
+  // Admin → SEO → Sahifalar: H1 va kirish matni (davlatga noyob matn shu yerdan).
+  const o = seoOverride(lang, path);
 
   return (
     <>
@@ -93,8 +96,8 @@ export default async function ExportCountryPage({ params }: { params: Promise<Pa
                 <li aria-current="page">{c.name}</li>
               </ol>
             </nav>
-            <h1 className="geo-hero__h">{g.h1(c.to)}</h1>
-            <p className="geo-hero__lead">{g.lead(c.to, total)}</p>
+            <h1 className="geo-hero__h">{o?.h1 || g.h1(c.to)}</h1>
+            <p className="geo-hero__lead">{o?.intro || g.lead(c.to, total)}</p>
             <div className="cta-row row">
               <a className="sps-btn sps-btn--primary sps-btn--lg" href="#sorov">
                 {g.ctaLead}

@@ -8,6 +8,7 @@ import { CatalogClient } from '@/components/catalog2027/CatalogClient';
 import { CountriesStrip, PavingGuide, TagChips } from '@/components/seo2028/SeoBlocks';
 import { JsonLd } from '@/components/site/JsonLd';
 import { jsonLdBreadcrumb, jsonLdItemList, pageMetadata } from '@/lib/seo';
+import { seoOverride } from '@/lib/seoOverrides';
 
 /**
  * Teg (SEO landing) sahifasi: `/{lang}/catalog/{section}/tag/{tag}` — bo'lim ichidagi
@@ -50,6 +51,8 @@ export default async function TagPage({ params }: { params: Promise<Params> }) {
   const copy = s.tags[tag];
   const models = tagModels(sec, tag);
   const path = `/catalog/${section}/tag/${tag}`;
+  // Admin → SEO → Sahifalar: H1 va kirish matni.
+  const o = seoOverride(lang, path);
 
   return (
     <>
@@ -85,8 +88,8 @@ export default async function TagPage({ params }: { params: Promise<Params> }) {
         </nav>
         <div className="sps-section-head seo-head">
           <div>
-            <h1 className="h1">{copy.h1}</h1>
-            <p className="lead muted">{copy.text}</p>
+            <h1 className="h1">{o?.h1 || copy.h1}</h1>
+            <p className="lead muted">{o?.intro || copy.text}</p>
             <p className="seo-head__meta">
               <b>
                 {models.length} {pluralModels(lang, models.length)}

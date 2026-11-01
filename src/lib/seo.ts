@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import type { Locale } from '@/lib/i18n';
 import { locales } from '@/lib/i18n';
 import { CONTACTS_2027 } from '@/lib/contacts2027';
+import { seoOverride } from '@/lib/seoOverrides';
 
 /**
  * SEO qatlami — redesign 2027 (HANDOFF 7): uz/ru/en, hreflang + x-default,
@@ -71,6 +72,11 @@ export function pageMetadata({
   noindex = false,
   alternatePaths,
 }: PageMetadataOptions): Metadata {
+  // Admin → SEO → Sahifalar: title/description almashtirilgan bo'lsa shu ishlatiladi.
+  const o = seoOverride(lang, path);
+  if (o?.title) title = o.title;
+  if (o?.description) description = o.description;
+  if (o?.noindex) noindex = true;
   const canonical = `/${lang}${path}`;
   const ogImage = image || DEFAULT_OG_IMAGE;
   const ogLocale = lang === 'uz' ? 'uz_UZ' : lang === 'ru' ? 'ru_RU' : 'en_US';

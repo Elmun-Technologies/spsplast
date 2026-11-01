@@ -50,6 +50,10 @@ Har bir qadam oxirida "tekshiruv" bandi bajarilmaguncha keyingisiga o'tilmaydi.
       Yandex Webmaster, Bing tasdiqlash kodlari → **Nashr qilish**.
 - [ ] Search Console va Yandex Webmaster'da sayt tasdiqlandi, `https://spsplast.com/sitemap.xml` yuborildi; Yandex Webmaster'da `sps.uz` → `spsplast.com` "Переезд сайта" belgilandi, Search Console'da "Change of Address".
 - [ ] Metrica'da maqsadlar: `generate_lead`, `add_to_request`, `contact_click` (sayt avtomatik yuboradi).
+- [ ] Admin → Analitika → Ulanishlar: Yandex OAuth token, Google service account, Search Console mulki, GA4 property ID
+      (qadamlar: `docs/ADMIN.md` → "Analitika va SEO'ni ulash"). Hisobotlar admin'da ko'rinadi.
+- [ ] Admin → SEO → Indekslash: IndexNow kaliti → Nashr qilish → sitemap va IndexNow yuborildi.
+- [ ] Admin → SEO → Salomatlik: qizil bandlar yo'q.
 - [ ] Admin → Tashriflar: o'z tashrifingiz ko'rinadi (davlat, qurilma, manba).
 - [ ] **Tekshiruv:** CI (GitHub Actions) yashil — testlar, SEO/a11y audit, skrinshotlar, Lighthouse hisoboti.
 
