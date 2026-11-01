@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { getModelBySlug, modelName } from '@/lib/catalog2027';
 import { type Locale } from '@/lib/i18n';
 import { getUi } from '@/lib/ui';
@@ -13,11 +14,13 @@ import { useCompareList } from '@/lib/store/spsLists';
 export function CompareBar({ lang }: { lang: Locale }) {
   const t = getUi(lang).catalog;
   const compare = useCompareList();
+  // Solishtirish sahifasining o'zida panel ortiqcha (u yerda jadval va "Tozalash" bor).
+  const onComparePage = /\/compare\/?$/.test(usePathname() || '');
   const models = compare.slugs.flatMap((s) => {
     const m = getModelBySlug(s);
     return m ? [m] : [];
   });
-  if (models.length === 0) return null;
+  if (models.length === 0 || onComparePage) return null;
 
   return (
     <div className="cmp-bar" role="region" aria-label={t.cardCompare}>

@@ -219,7 +219,7 @@ export const pagesUz = {
     lead: "Qolipni zavoddan, vositachisiz olasiz. Hisob-kitob, namuna, qadoqlash va eksport hujjatlari bizning zimmamizda. Siz faqat model va hajmni tanlaysiz.",
     cta: 'Zayafka qoldirish',
     pdf: 'PDF katalog',
-    heroImg: 'Usta plitka teryapti',
+    heroImg: 'SPS qoliplari: trotuar plitkasi va fasad uchun',
     whoEyebrow: 'KIM BILAN ISHLAYMIZ',
     whoTitle: 'Uch xil hamkor, uch xil shart',
     who: [
@@ -231,7 +231,7 @@ export const pagesUz = {
           { k: 'Minimal buyurtma', v: "Menejer bilan kelishiladi" },
           { k: 'Namuna', v: '1 dona, sinov quyish uchun' },
         ],
-        img: 'Plitka sexida quyish',
+        img: 'Trotuar plitkasi qoliplari',
       },
       {
         n: '02',
@@ -241,7 +241,7 @@ export const pagesUz = {
           { k: 'Ulgurji chegirma', v: 'Hajmga qarab' },
           { k: 'Hudud', v: "Kelishuv bo'yicha" },
         ],
-        img: 'Distribyutor ombori',
+        img: "SPS qoliplari to'plami",
       },
       {
         n: '03',
@@ -251,7 +251,7 @@ export const pagesUz = {
           { k: "To'lov", v: "Kelishuv bo'yicha" },
           { k: 'Muddat', v: 'Hajmga qarab, zayafkada aytiladi' },
         ],
-        img: 'Qurilish obyekti',
+        img: 'Terilgan plitka: Buxoro',
       },
     ],
     stepsEyebrow: 'Zayafkadan yetkazishgacha',
@@ -343,7 +343,7 @@ export const pagesUz = {
     stepsLead: "Umumiy tavsiya. Aralashma va quyish texnologiyasi bo'yicha menejer alohida maslahat beradi.",
     steps: [
       { n: '01 / TAYYORLASH', text: 'Qolip toza va quruq bo\'lishi kerak. Ichiga yupqa qatlam moylovchi surtiladi.', img: 'Qolip' },
-      { n: '02 / QUYISH', text: 'Beton qorishmasi qolipga quyiladi va vibrostolda zichlanadi. Shunda naqsh aniq chiqadi.', img: 'Quyish' },
+      { n: '02 / QUYISH', text: 'Beton qorishmasi qolipga quyiladi va vibrostolda zichlanadi. Shunda naqsh aniq chiqadi.', img: 'Ko‘p uyali qolip' },
       { n: '03 / QOTIRISH', text: 'Qolip tekis joyda 24–48 soat turadi. Muddat sement va haroratga bog\'liq.', img: 'Tayyor plitka' },
       { n: '04 / CHIQARISH', text: 'Plitka qolipdan chiqariladi. Qolip yuviladi va keyingi quyishga tayyor bo\'ladi.', img: 'Terilgan plitka' },
     ],

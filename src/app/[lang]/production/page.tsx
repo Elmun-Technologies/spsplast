@@ -31,11 +31,13 @@ export default async function ProductionPage({ params }: { params: Promise<{ lan
   const lang = langParam as Locale;
   const t = getUi(lang);
   const p = getPages(lang);
-  const stepImages = [
-    '/catalog/2027/trotuar-01-monako-mold-a.webp',
-    '/images/site/master-pouring.webp',
-    '/catalog/2027/trotuar-01-monako-tile-a.webp',
-    '/catalog/2027/trotuar-01-monako-scene.webp',
+  // Faqat SPS'ning haqiqiy materiallari (Redesign 2028 rasm qoidasi): qolip → quyish uchun
+  // ko'p uyali qolip (studiya surati) → tayyor plitka → terilgan sahna. Stok surat yo'q.
+  const stepImages: { src: string; fit: 'contain' | 'cover' }[] = [
+    { src: '/catalog/2027/trotuar-01-monako-mold-a.webp', fit: 'contain' },
+    { src: '/images/site/molds/mold-5.webp', fit: 'contain' },
+    { src: '/catalog/2027/trotuar-01-monako-tile-a.webp', fit: 'contain' },
+    { src: '/catalog/2027/trotuar-01-monako-scene.webp', fit: 'cover' },
   ];
   // 2-statistika: katalogdagi haqiqiy model soni (152 emas — data-questions)
   const stats = p.production.stats.map((s, i) => (i === 1 ? { ...s, value: String(getTotalCount()) } : s));
@@ -137,7 +139,7 @@ export default async function ProductionPage({ params }: { params: Promise<{ lan
                 <div
                   style={{
                     aspectRatio: '1',
-                    background: i % 2 === 0 ? 'var(--surface)' : 'transparent',
+                    background: stepImages[i].fit === 'contain' ? 'var(--surface)' : 'transparent',
                     overflow: 'hidden',
                     display: 'flex',
                     alignItems: 'center',
@@ -147,11 +149,16 @@ export default async function ProductionPage({ params }: { params: Promise<{ lan
                   }}
                 >
                   <Image
-                    src={stepImages[i]}
+                    src={stepImages[i].src}
                     alt={s.img}
                     fill
                     sizes="(max-width: 760px) 45vw, 240px"
-                    style={{ objectFit: i % 2 === 0 ? 'contain' : 'cover', padding: i % 2 === 0 ? 20 : 0 }}
+                    style={{
+                      objectFit: stepImages[i].fit,
+                      padding: stepImages[i].fit === 'contain' ? 20 : 0,
+                      // Studiya suratining oq foni kartochka foniga singib ketadi.
+                      mixBlendMode: stepImages[i].fit === 'contain' ? 'multiply' : undefined,
+                    }}
                     loading="lazy"
                   />
                 </div>

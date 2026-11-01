@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     path: '/partners',
     title: getUi(locale).nav.partners,
     description: p.partners.lead,
-    image: '/images/site/master-laying.webp',
+    image: '/images/site/factory.webp',
   });
 }
 
@@ -32,11 +32,13 @@ export default async function PartnersPage({ params }: { params: Promise<{ lang:
   const lang = langParam as Locale;
   const t = getUi(lang);
   const p = getPages(lang);
-  // .who-img konteyneri 16/9 — fayllar ham shu nisbatda (npm run images:variants).
-  const whoImages = [
-    '/images/site/master-pouring-16x9.webp',
-    '/images/site/distribyutor-ombor-16x9.webp',
-    '/images/site/qurilish-obyekti-16x9.webp',
+  // Rasm qoidasi (Redesign 2028): faqat SPS'ning haqiqiy materiallari — studiyadagi qolip
+  // suratlari (oq fon → multiply) va terilgan plitka sahnasi. Stok odam/ombor suratlari yo'q.
+  const moldWall = [1, 9, 4, 10, 5, 3, 8, 7, 2].map((n) => `/images/site/molds/mold-${n}.webp`);
+  const whoMedia: ({ molds: string[] } | { scene: string })[] = [
+    { molds: ['/images/site/molds/mold-1.webp', '/images/site/molds/mold-2.webp', '/images/site/molds/mold-3.webp'] },
+    { molds: ['/images/site/molds/mold-4.webp', '/images/site/molds/mold-5.webp', '/images/site/molds/mold-6.webp'] },
+    { scene: '/catalog/2027/trotuar-56-buxoro-scene-sm.webp' },
   ];
 
   return (
@@ -72,17 +74,12 @@ export default async function PartnersPage({ params }: { params: Promise<{ lang:
             bo'lishi shart (aks holda rasm eng yaqin joylashgan ota-elementga nisbatan
             mutlaq joylashadi). Nisbat dizayndagi .ph-hero katakchasidan olingan:
             520px min balandlik, mobil 240px — rasm 2:3 (portret)formatida. */}
-        <div
-          style={{
-            position: 'relative',
-            overflow: 'hidden',
-            borderRadius: 'var(--radius-card)',
-            minHeight: 240,
-            aspectRatio: '2 / 3',
-          }}
-          className="pt-hero-media"
-        >
-          <Image src="/images/site/master-laying.webp" alt={p.partners.heroImg} fill sizes="(max-width: 1100px) 100vw, 44vw" priority />
+        <div className="pt-wall" role="img" aria-label={p.partners.heroImg}>
+          {moldWall.map((src, i) => (
+            <span key={src}>
+              <Image src={src} alt="" width={200} height={200} priority={i < 3} />
+            </span>
+          ))}
         </div>
       </section>
 
@@ -100,7 +97,19 @@ export default async function PartnersPage({ params }: { params: Promise<{ lang:
           <div className="g3">
             {p.partners.who.map((w, i) => (
               <div className={`who${i === 1 ? ' who-on' : ''}`} key={w.n}>
-                <Image className="who-img" src={whoImages[i]} alt={w.img} width={1280} height={720} loading="lazy" />
+                {'molds' in whoMedia[i] ? (
+                  <span className="who-media hm-who__molds" role="img" aria-label={w.img}>
+                    {(whoMedia[i] as { molds: string[] }).molds.map((src) => (
+                      <span key={src}>
+                        <Image src={src} alt="" width={160} height={160} loading="lazy" />
+                      </span>
+                    ))}
+                  </span>
+                ) : (
+                  <span className="who-media hm-who__scene">
+                    <Image src={(whoMedia[i] as { scene: string }).scene} alt={w.img} fill sizes="(max-width: 760px) 100vw, 420px" loading="lazy" className="cover" />
+                  </span>
+                )}
                 <span className="step-n">{w.n}</span>
                 <h3 className="h2">{w.title}</h3>
                 <p className="body muted">{w.text}</p>

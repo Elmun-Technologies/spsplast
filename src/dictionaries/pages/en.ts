@@ -213,7 +213,7 @@ export const pagesEn: PagesDictionary = {
     lead: 'You get molds straight from the plant, no middlemen. Calculation, sample, packing and export documents are on us — you only choose models and volume.',
     cta: 'Request a quote',
     pdf: 'PDF catalog',
-    heroImg: 'Craftsman laying tiles',
+    heroImg: 'SPS molds for paving slabs and facade',
     whoEyebrow: 'WHO WE WORK WITH',
     whoTitle: 'Three partner types, three sets of terms',
     who: [
@@ -225,7 +225,7 @@ export const pagesEn: PagesDictionary = {
           { k: 'Minimum order', v: 'Agreed with the manager' },
           { k: 'Sample', v: '1 piece, for a test cast' },
         ],
-        img: 'Casting in a tile workshop',
+        img: 'Paving slab molds',
       },
       {
         n: '02',
@@ -235,7 +235,7 @@ export const pagesEn: PagesDictionary = {
           { k: 'Wholesale discount', v: 'Depends on volume' },
           { k: 'Territory', v: 'By agreement' },
         ],
-        img: 'Distributor warehouse',
+        img: 'A set of SPS molds',
       },
       {
         n: '03',
@@ -245,7 +245,7 @@ export const pagesEn: PagesDictionary = {
           { k: 'Payment', v: 'By agreement' },
           { k: 'Lead time', v: 'Depends on volume, confirmed in our quote' },
         ],
-        img: 'Construction site',
+        img: 'Laid paving: Bukhara',
       },
     ],
     stepsEyebrow: 'From request to delivery',
@@ -334,7 +334,7 @@ export const pagesEn: PagesDictionary = {
     stepsLead: 'General guidance. Your manager gives separate advice on mix and casting technology.',
     steps: [
       { n: '01 / PREPARATION', text: 'The mold must be clean and dry. A thin layer of release agent is applied inside.', img: 'Mold' },
-      { n: '02 / CASTING', text: 'The concrete mix is poured into the mold and compacted on a vibration table so the pattern comes out crisp.', img: 'Casting' },
+      { n: '02 / CASTING', text: 'The concrete mix is poured into the mold and compacted on a vibration table so the pattern comes out crisp.', img: 'Multi-cavity mold' },
       { n: '03 / CURING', text: 'The mold stays on a flat surface for 24–48 hours. The time depends on cement and temperature.', img: 'Finished tile' },
       { n: '04 / DEMOLDING', text: 'The tile is taken out of the mold. The mold is washed and ready for the next cast.', img: 'Laid tiles' },
     ],
