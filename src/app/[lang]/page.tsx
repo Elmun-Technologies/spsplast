@@ -117,6 +117,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
                   alt={`${featuredName} — ${t.alt.scene}`}
                   fill
                   priority
+                  fetchPriority="high"
                   sizes="(max-width: 760px) 100vw, 640px"
                   className="hm-hero__img"
                 />
