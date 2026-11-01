@@ -5,17 +5,32 @@ import { type Locale } from '@/lib/i18n';
 import { getUi } from '@/lib/ui';
 import { LangSwitch } from '@/components/site/LangSwitch';
 import { PDF_CATALOG_HREF } from '@/components/site/SiteHeader';
+import { Icon } from '@/components/site/icons';
 
+/** Footer (Redesign 2028): CTA band (zayafka + Telegram) → 4 ustun → pastki qator. */
 export function SiteFooter({ lang }: { lang: Locale }) {
   const t = getUi(lang);
   const counts = getSectionCounts();
+  const [mainPhone, ...otherPhones] = CONTACTS_2027.sales;
 
   return (
     <footer className="ft">
       <div className="wrap" style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+        <div className="ft-cta">
+          <p className="ft-cta__title">{t.footer.ctaTitle}</p>
+          <div className="ft-cta__btns">
+            <a className="sps-btn sps-btn--primary" href={`/${lang}/request`}>
+              {t.header.cta}
+            </a>
+            <a className="sps-btn sps-btn--on-ink" href={CONTACTS_2027.telegramUrl}>
+              <Icon.telegram width={18} height={18} strokeWidth={1.75} aria-hidden="true" />
+              {t.menu.telegram}
+            </a>
+          </div>
+        </div>
         <div className="ft-grid">
           <div className="ft-about">
-            <Image src="/images/brand/logo-white.webp" alt="SPS Stone Profy Servise" width={72} height={44} />
+            <Image src="/images/brand/logo-white.webp" alt="SPS Stone Profy Servise" width={66} height={40} />
             <p>{t.footer.about}</p>
             <LangSwitch lang={lang} dark label={t.a11y.langNavFooter} />
           </div>
@@ -37,7 +52,12 @@ export function SiteFooter({ lang }: { lang: Locale }) {
           </div>
           <div className="ft-col">
             <span className="sps-eyebrow">{t.footer.contact}</span>
-            {CONTACTS_2027.sales.slice(0, 2).map((p) => (
+            {mainPhone ? (
+              <a href={`tel:${mainPhone.raw}`} className="mono ft-phone">
+                {mainPhone.display}
+              </a>
+            ) : null}
+            {otherPhones.slice(0, 1).map((p) => (
               <a key={p.raw} href={`tel:${p.raw}`} className="mono">
                 {p.display}
               </a>

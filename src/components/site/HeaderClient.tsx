@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { useCompareList, useRequestList } from '@/lib/store/spsLists';
 import { getUi } from '@/lib/ui';
 import { type Locale } from '@/lib/i18n';
@@ -9,7 +10,11 @@ import { CONTACTS_2027 } from '@/lib/contacts2027';
 import { LangSwitch } from '@/components/site/LangSwitch';
 import { Icon } from '@/components/site/icons';
 
-type NavItem = { href: string; label: string; count?: number; current?: boolean };
+/** `match` — faol holat uchun yo'l prefiksi ('' — hech qachon faol emas, masalan #eksport). */
+type NavItem = { href: string; match: string; label: string; count?: number };
+
+const isActive = (pathname: string, match: string) =>
+  Boolean(match) && (pathname === match || pathname.startsWith(`${match}/`));
 
 export function HeaderClient({
   lang,
@@ -26,6 +31,7 @@ export function HeaderClient({
   pdfHref: string;
 }) {
   const t = getUi(lang);
+  const pathname = usePathname() || `/${lang}`;
   const request = useRequestList();
   const compare = useCompareList();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -49,61 +55,82 @@ export function HeaderClient({
     };
   }, [menuOpen]);
 
+  const catalogHref = `/${lang}/catalog`;
+  // "Katalog" tabi faqat umumiy katalogda faol; bo'lim sahifasida bo'lim tabi faol.
+  const catalogActive = pathname === catalogHref;
+  const tabs = [
+    { href: catalogHref, label: t.header.catalog, count: total, active: catalogActive },
+    ...sections.map((s) => ({ href: s.href, label: s.label, count: s.count, active: isActive(pathname, s.match) })),
+  ];
+
   return (
     <>
       <header className="hd">
-        <div className="wrap">
-          <div className="hd-top">
-            <a className="hd-logo" href={`/${lang}`} aria-label="SPS Stone Profy Servise">
-              <Image src="/images/brand/logo-ink.webp" alt="" width={62} height={38} priority />
-            </a>
-            <a className="hd-cat" href={`/${lang}/catalog`}>
-              <Icon.grid width={18} height={18} strokeWidth={1.5} aria-hidden="true" />
-              <span>
-                {t.header.catalog} · {total}
-              </span>
-            </a>
-            <form className="hd-search" role="search" action={`/${lang}/catalog`} method="GET">
-              <Icon.search width={18} height={18} strokeWidth={1.5} aria-hidden="true" />
-              <input type="search" name="q" placeholder={t.header.searchPlaceholder} aria-label={t.header.searchLabel} />
-              <button className="sps-btn sps-btn--dark sps-btn--sm" type="submit" style={{ height: 34 }}>
-                {t.header.search}
-              </button>
-            </form>
-            <div className="hd-phone">
-              <span className="mono">{CONTACTS_2027.mainPhone}</span>
-              <span>{t.header.hours}</span>
+        {/* Utilita qatori (≥761px): kompaniya havolalari, telefon, ish vaqti, PDF, til */}
+        <div className="hd-util">
+          <div className="wrap hd-util__in">
+            <nav className="hd-util__nav" aria-label={t.a11y.companyNav}>
+              {nav.map((n) => (
+                <a key={n.href} href={n.href} aria-current={isActive(pathname, n.match) ? 'page' : undefined}>
+                  {n.label}
+                </a>
+              ))}
+            </nav>
+            <div className="hd-util__aside">
+              <a className="hd-util__phone" href={`tel:${CONTACTS_2027.mainPhoneRaw}`}>
+                {CONTACTS_2027.mainPhone}
+              </a>
+              <span className="hd-util__hours">{t.header.hours}</span>
+              <a className="hd-util__pdf" href={pdfHref}>
+                <Icon.download width={14} height={14} strokeWidth={2} aria-hidden="true" />
+                {t.menu.pdf}
+              </a>
+              <LangSwitch lang={lang} className="hd-lang" label={t.a11y.langNavHeader} />
             </div>
-            <LangSwitch lang={lang} className="hd-lang" />
-            <a
-              className="hd-ic sps-iconbtn"
-              href={`/${lang}/compare`}
-              aria-label={`${t.header.compare}: ${compare.count}`}
-            >
-              <Icon.compare width={20} height={20} strokeWidth={1.5} aria-hidden="true" />
+          </div>
+        </div>
+
+        <div className="wrap hd-main">
+          <a className="hd-logo" href={`/${lang}`} aria-label="SPS Stone Profy Servise">
+            <Image src="/images/brand/logo-ink.webp" alt="" width={62} height={38} priority />
+          </a>
+
+          <nav className={`hd-tabs${lang === 'ru' ? ' hd-tabs--ru' : ''}`} aria-label={t.a11y.sectionsNav}>
+            {tabs.map((tab) => (
+              <a key={tab.href} href={tab.href} aria-current={tab.active ? 'page' : undefined}>
+                {tab.label}
+                <span className="num">{tab.count}</span>
+              </a>
+            ))}
+          </nav>
+
+          <form className="hd-search" role="search" action={catalogHref} method="GET">
+            <Icon.search width={18} height={18} strokeWidth={1.75} aria-hidden="true" />
+            <input type="search" name="q" placeholder={t.header.searchPlaceholder} aria-label={t.header.searchLabel} />
+          </form>
+
+          <div className="hd-actions">
+            <a className="hd-ic" href={`/${lang}/compare`} aria-label={`${t.header.compare}: ${compare.count}`}>
+              <Icon.compare width={22} height={22} strokeWidth={1.75} aria-hidden="true" />
               <b className="hd-badge" data-zero={compare.count === 0} key={`c${compare.count}`}>
                 {compare.count}
               </b>
             </a>
-            <a
-              className="hd-ic sps-iconbtn"
-              href={`/${lang}/request`}
-              aria-label={`${t.header.requestList}: ${request.items.length}`}
-            >
-              <Icon.list width={20} height={20} strokeWidth={1.5} aria-hidden="true" />
+            <a className="hd-ic" href={`/${lang}/request`} aria-label={`${t.header.requestList}: ${request.items.length}`}>
+              <Icon.list width={22} height={22} strokeWidth={1.75} aria-hidden="true" />
               <b className="hd-badge" data-zero={request.items.length === 0} key={`r${request.items.length}`}>
                 {request.items.length}
               </b>
             </a>
-            <a className="hd-ic sps-iconbtn hd-tel" href={`tel:${CONTACTS_2027.mainPhoneRaw}`} aria-label={t.header.call}>
-              <Icon.phone width={20} height={20} strokeWidth={1.5} aria-hidden="true" />
+            <a className="hd-ic hd-tel" href={`tel:${CONTACTS_2027.mainPhoneRaw}`} aria-label={t.header.call}>
+              <Icon.phone width={21} height={21} strokeWidth={1.75} aria-hidden="true" />
             </a>
             <a className="sps-btn sps-btn--primary hd-cta" href={`/${lang}/request`}>
               {t.header.cta}
             </a>
             <a
               ref={burgerRef}
-              className="hd-ic sps-iconbtn hd-burger"
+              className="hd-ic hd-burger"
               href="#menyu"
               aria-label={t.header.menu}
               aria-expanded={menuOpen}
@@ -113,28 +140,9 @@ export function HeaderClient({
                 setMenuOpen(true);
               }}
             >
-              <Icon.menu width={20} height={20} strokeWidth={1.5} aria-hidden="true" />
+              <Icon.menu width={20} height={20} strokeWidth={2} aria-hidden="true" />
             </a>
           </div>
-          <nav className={`hd-nav${lang === 'ru' ? ' hd-nav--ru' : ''}`} aria-label={t.a11y.sectionsNav}>
-            {sections.map((s) => (
-              <a key={s.href} href={s.href} aria-current={s.current ? 'page' : undefined}>
-                {s.label}
-                <span className="num">{s.count}</span>
-              </a>
-            ))}
-            <i className="sep" aria-hidden="true" />
-            {nav.map((n) =>
-              n.href ? (
-                <a key={n.label} href={n.href} aria-current={n.current ? 'page' : undefined}>
-                  {n.label}
-                </a>
-              ) : null,
-            )}
-            <a className="pdf" href={pdfHref} style={{ marginLeft: 'auto', color: 'var(--red-ink)' }}>
-              {t.header.pdf}
-            </a>
-          </nav>
         </div>
       </header>
 
@@ -148,62 +156,66 @@ export function HeaderClient({
       <div className="mm" id="sps-mobile-menu" hidden={!menuOpen} role="dialog" aria-modal="true" aria-label={t.header.menu}>
         {menuOpen ? (
           <>
-        <div className="mm-head">
-          <Image src="/images/brand/logo-ink.webp" alt="SPS" width={52} height={32} />
-          <LangSwitch lang={lang} label={t.a11y.langNavMenu} />
-          <button
-            ref={closeRef}
-            className="mm-close"
-            type="button"
-            aria-label={t.a11y.close}
-            onClick={() => {
-              setMenuOpen(false);
-              burgerRef.current?.focus();
-            }}
-          >
-            <Icon.close width={20} height={20} strokeWidth={1.5} aria-hidden="true" />
-          </button>
-        </div>
-        <nav className="mm-nav" aria-label={t.a11y.mobileNav}>
-          {sections.map((s) => (
-            <a key={s.href} className="mm-link" href={s.href}>
-              {s.label} <span className="mono">{s.count}</span>
-            </a>
-          ))}
-          <div className="mm-sub">
-            <a href={`/${lang}/request`}>
-              <span>{t.header.requestList}</span>
-              <b className="mm-bdg" data-zero={request.items.length === 0}>
-                {request.items.length}
-              </b>
-            </a>
-            <a href={`/${lang}/compare`}>
-              <span>{t.header.compare}</span>
-              <b className="mm-bdg mm-bdg--ink" data-zero={compare.count === 0}>
-                {compare.count}
-              </b>
-            </a>
-            <a href={`/${lang}/partners`}>{t.nav.partners}</a>
-            <a href={`/${lang}/production`}>{t.menu.productionExport}</a>
-            <a href={`/${lang}/contact`}>{t.nav.contact}</a>
-            <a href={pdfHref}>{t.menu.pdf}</a>
-          </div>
-        </nav>
-        <div className="mm-foot">
-          <span className="sps-label">{t.menu.sales}</span>
-          <span className="mono">{CONTACTS_2027.mainPhone}</span>
-          <div style={{ display: 'flex', gap: 8 }}>
-            <a className="sps-btn sps-btn--outline" href={CONTACTS_2027.telegramUrl} style={{ flex: 1 }}>
-              {t.menu.telegram}
-            </a>
-            <a className="sps-btn sps-btn--outline" href={CONTACTS_2027.whatsappUrl} style={{ flex: 1 }}>
-              {t.menu.whatsapp}
-            </a>
-          </div>
-          <a className="sps-btn sps-btn--primary sps-btn--lg" href={`/${lang}/request`}>
-            {t.header.cta}
-          </a>
-        </div>
+            <div className="mm-head">
+              <Image src="/images/brand/logo-ink.webp" alt="SPS" width={52} height={32} />
+              <LangSwitch lang={lang} label={t.a11y.langNavMenu} />
+              <button
+                ref={closeRef}
+                className="mm-close"
+                type="button"
+                aria-label={t.a11y.close}
+                onClick={() => {
+                  setMenuOpen(false);
+                  burgerRef.current?.focus();
+                }}
+              >
+                <Icon.close width={20} height={20} strokeWidth={2} aria-hidden="true" />
+              </button>
+            </div>
+            <nav className="mm-nav" aria-label={t.a11y.mobileNav}>
+              {tabs.map((tab) => (
+                <a key={tab.href} className="mm-link" href={tab.href} aria-current={tab.active ? 'page' : undefined}>
+                  {tab.label} <span className="mono">{tab.count}</span>
+                </a>
+              ))}
+              <div className="mm-sub">
+                <a href={`/${lang}/request`}>
+                  <span>{t.header.requestList}</span>
+                  <b className="mm-bdg" data-zero={request.items.length === 0}>
+                    {request.items.length}
+                  </b>
+                </a>
+                <a href={`/${lang}/compare`}>
+                  <span>{t.header.compare}</span>
+                  <b className="mm-bdg mm-bdg--ink" data-zero={compare.count === 0}>
+                    {compare.count}
+                  </b>
+                </a>
+                <a href={`/${lang}/partners`}>{t.nav.partners}</a>
+                <a href={`/${lang}/production`}>{t.menu.productionExport}</a>
+                <a href={`/${lang}/contact`}>{t.nav.contact}</a>
+                <a href={pdfHref}>{t.menu.pdf}</a>
+              </div>
+            </nav>
+            <div className="mm-foot">
+              <div className="mm-foot__phone">
+                <a className="mono" href={`tel:${CONTACTS_2027.mainPhoneRaw}`}>
+                  {CONTACTS_2027.mainPhone}
+                </a>
+                <span className="sps-help">{t.header.hours}</span>
+              </div>
+              <div className="mm-foot__row">
+                <a className="sps-btn sps-btn--outline" href={CONTACTS_2027.telegramUrl}>
+                  {t.menu.telegram}
+                </a>
+                <a className="sps-btn sps-btn--outline" href={CONTACTS_2027.whatsappUrl}>
+                  {t.menu.whatsapp}
+                </a>
+              </div>
+              <a className="sps-btn sps-btn--primary sps-btn--lg" href={`/${lang}/request`}>
+                {t.header.cta}
+              </a>
+            </div>
           </>
         ) : null}
       </div>
