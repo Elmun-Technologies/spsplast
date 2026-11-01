@@ -230,6 +230,9 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
 - **Site numbers/contacts are tokens**: dictionaries use `{years}`, `{capacity}`, `{objects}`,
   `{countries}`, `{countryList}`, `{contactLine}`, `{addressLine}`, `{address}` — never write the
   literal 8/20/18 000/740+ or a phone into copy (`tests/pages2027.test.js` test 13).
+- **`useSyncExternalStore` snapshots must be stable**: `spsLists.ts` `get()` caches the parsed array
+  until the raw localStorage string changes. Returning a fresh `JSON.parse` result each call crashed the whole
+  site with React #185 as soon as one model was in the compare/request list (`tests/stores2027.test.js`).
 - **React 19 forms reset after a server action**: controlled `<select>`s then show the first
   option in the DOM. Big client forms (ProductForm) submit via `onSubmit` + `startTransition`.
 - Analytics IDs/verification come from admin settings (`src/lib/integrations.ts`,
@@ -290,7 +293,7 @@ npm run dev            # local dev server
 npm run build          # models:check + next build (402 static pages)
 npm run typecheck      # tsc --noEmit
 npm run lint           # next lint
-npm test               # node --test --experimental-strip-types tests/*.test.js (122 tests)
+npm test               # node --test --experimental-strip-types tests/*.test.js (124 tests)
 npm run models:build && npm run models:images && npm run models:check
 npm run db:generate    # after editing src/server/db/schema.ts → new SQL in drizzle/
 DATABASE_URL=... npm run db:migrate

@@ -16,16 +16,33 @@ export type RequestItem = { slug: string; code: string | null; name: string; m2?
 
 type Listeners = Set<() => void>;
 
-function createListStore<T>(key: string, fallback: T[]) {
+/**
+ * `get()` — `useSyncExternalStore` ning getSnapshot'i: ma'lumot o'zgarmaguncha
+ * **aynan bir xil massiv** qaytarishi shart. Har chaqiruvda `JSON.parse` yangi
+ * massiv bersa, React har renderda "o'zgardi" deb qayta chizadi va #185
+ * (Maximum update depth exceeded) bilan yiqiladi — ro'yxatda bitta model
+ * bo'lishi bilan header orqali butun sayt ochilmay qolardi. Shuning uchun
+ * parse natijasi xom qator o'zgarmaguncha keshlanadi.
+ */
+export function createListStore<T>(key: string, fallback: T[]) {
   let memory: T[] | null = null;
   const listeners: Listeners = new Set();
+  // `undefined` — hali o'qilmagan; `null` — localStorage'da qiymat yo'q.
+  let cachedRaw: string | null | undefined;
+  let cached: T[] = fallback;
 
   const read = (): T[] => {
     try {
       const raw = window.localStorage.getItem(key);
-      if (!raw) return memory ?? fallback;
-      const parsed = JSON.parse(raw);
-      return Array.isArray(parsed) ? (parsed as T[]) : fallback;
+      if (raw === cachedRaw) return cached;
+      cachedRaw = raw;
+      if (!raw) {
+        cached = memory ?? fallback;
+      } else {
+        const parsed = JSON.parse(raw);
+        cached = Array.isArray(parsed) ? (parsed as T[]) : fallback;
+      }
+      return cached;
     } catch {
       return memory ?? fallback;
     }
@@ -33,6 +50,9 @@ function createListStore<T>(key: string, fallback: T[]) {
 
   const write = (next: T[]) => {
     memory = next;
+    // localStorage yozuvi muvaffaqiyatsiz bo'lsa (kvota), xom qator o'zgarmaydi —
+    // kesh tozalanmasa eski ro'yxat qaytib qolardi.
+    cachedRaw = undefined;
     try {
       window.localStorage.setItem(key, JSON.stringify(next));
     } catch {
