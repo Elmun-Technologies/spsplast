@@ -23,6 +23,13 @@ const REVEAL = [
   'main .ct-row',
   'main .pt-form',
   'main .sps-stat',
+  // Bosh sahifa (Redesign 2028)
+  'main .hm-sec',
+  'main .hm-help',
+  'main .hm-steps__list > li',
+  'main .hm-calc',
+  'main .hm-checks > li',
+  'main .hm-who__card',
 ].join(',');
 
 function countUp(el: HTMLElement) {
