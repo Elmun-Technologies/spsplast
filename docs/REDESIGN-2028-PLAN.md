@@ -73,9 +73,15 @@ Biz ko'chirmaymiz, g'oyani o'z tilimizda qilamiz — **"01B · Bosh sahifa V2"**
 7. **Rasmlar** — studiya qolip suratlarini WebP qilib `public/images/site/molds/` ga (pipeline orqali), stok rasmlarni olib tashlash.
 8. **Tekshiruv** — `npm run audit`, `npm run shots` (390/1440/360, gorizontal scroll yo'q), Lighthouse budjetlari.
 
-## 4. Hali chizilmagan / ochiq savollar
+## 4. Qo'shimcha (2-to'lqin)
 
-- Maxfiylik siyosati va Solishtirish sahifalari (eski maket tuzilmasi saqlanadi, yangi tokenlar bilan).
-- RU/EN uzunlik tekshiruvi (header tab'lari RU'da sig'ishi).
-- Raqobatchi tahlili (korun.uz) — sessiya tarmog'ida domen bloklangan; ruxsat berilgach qo'shiladi.
-- PP va ABS farqi bo'yicha texnolog matni (`docs/data-questions.md`).
+- Desktop: Solishtirish (interaktiv "faqat farqlar"), Maxfiylik siyosati.
+- Mobil: zayafka ro'yxati, solishtirish, ulgurji, ishlab chiqarish, kontakt, maxfiylik, 404 — jami 13 mobil ekran.
+- **SEO · RU bozorlar** sahifasi: `Формы для тротуарной плитки` (desktop + mobil), geo-sahifa
+  `Казахстан` (8 davlat uchun shablon), Header/Footer RU (footer'da 8 davlatga ichki havolalar).
+  Strategiya: `docs/SEO-2028-RU.md` (domen masalasi — 0-bo'lim).
+
+## 5. Ochiq savollar
+
+- **Domen**: `sps.uz` Google'da O'zbekistonga geo-bog'langan — RU/KZ top-3 uchun `.com` (yoki `.ru`/`.kz`) kerak.
+- Rus tilidagi model nomlari (`name.ru`), PP va ABS farqi bo'yicha texnolog matni (`docs/data-questions.md`).
