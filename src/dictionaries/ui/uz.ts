@@ -101,6 +101,7 @@ export const uz = {
     empty: 'Bu filtrlar bo’yicha model topilmadi',
     emptyReset: 'Filtrni tozalash',
     more: 'Yana ko’rsatish',
+    shown: 'ko’rsatildi',
     allCatalog: 'Butun katalog',
     cardCompare: 'Solishtirish',
     photoSoon: 'Foto tayyorlanmoqda',

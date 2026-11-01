@@ -285,6 +285,16 @@ export function CatalogClient({
           )}
 
           <div className="cat-more">
+            {filtered.length > 0 && limit < filtered.length ? (
+              <div className="cat-progress">
+                <span>
+                  {visible.length} / {filtered.length} {t.shown}
+                </span>
+                <span className="cat-progress__bar" aria-hidden="true">
+                  <span style={{ width: `${Math.round((visible.length / filtered.length) * 100)}%` }} />
+                </span>
+              </div>
+            ) : null}
             {limit < filtered.length ? (
               <button type="button" className="sps-btn sps-btn--outline" onClick={() => setLimit(limit + 12)}>
                 {t.more} (+12)

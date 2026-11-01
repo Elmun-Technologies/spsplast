@@ -136,7 +136,7 @@ const ACTIONS = {
     await toggle(page, 'button.hide-1100', '.fsheet');
   },
   async quickLead(page) {
-    await toggle(page, '.sps-card__foot .sps-btn--primary', '.sps-modal[role="dialog"]');
+    await toggle(page, '.sps-card__foot .sps-card__cta', '.sps-modal[role="dialog"]');
   },
   // Ro'yxat/solishtirish sahifalari bo'sh holatda emas, to'ldirilgan holatda
   // suratga olinadi (maketda shunday). Slug'lar qattiq yozilmaydi — haqiqiy

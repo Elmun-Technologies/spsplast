@@ -100,6 +100,7 @@ export const ru: UiDictionary = {
     empty: 'По этим фильтрам моделей не найдено',
     emptyReset: 'Сбросить фильтр',
     more: 'Показать ещё',
+    shown: 'показано',
     allCatalog: 'Весь каталог',
     cardCompare: 'Сравнить',
     photoSoon: 'Фото готовится',

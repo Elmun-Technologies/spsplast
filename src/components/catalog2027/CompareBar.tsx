@@ -24,9 +24,13 @@ export function CompareBar({ lang }: { lang: Locale }) {
       <span className="cmp-bar__thumbs">
         {models.slice(0, 4).map((m) =>
           m.images.molds.A || m.images.sceneSm ? (
-            <Image key={m.slug} src={m.images.molds.A || m.images.sceneSm || ''} alt={modelName(m, lang)} width={40} height={40} style={{ objectFit: 'cover', borderRadius: 6 }} />
+            <Image key={m.slug} src={m.images.molds.A || m.images.sceneSm || ''} alt={modelName(m, lang)} width={40} height={40} />
           ) : null,
         )}
+        {/* Bo'sh joylar: 4 tagacha model qo'shish mumkinligini ko'rsatadi (desktop). */}
+        {Array.from({ length: Math.max(0, 4 - models.length) }, (_, i) => (
+          <span key={`slot-${i}`} className="cmp-bar__slot" aria-hidden="true" />
+        ))}
       </span>
       <span className="cmp-bar__txt">
         {models.length} {t.compareOf}
@@ -34,7 +38,7 @@ export function CompareBar({ lang }: { lang: Locale }) {
       <button type="button" className="sps-btn sps-btn--link" onClick={() => compare.clear()}>
         {t.compareClear}
       </button>
-      <a className="sps-btn sps-btn--primary sps-btn--sm" href={`/${lang}/compare`}>
+      <a className="sps-btn cmp-bar__go" href={`/${lang}/compare`}>
         {t.compareGo}
       </a>
     </div>

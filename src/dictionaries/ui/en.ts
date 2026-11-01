@@ -100,6 +100,7 @@ export const en: UiDictionary = {
     empty: 'No models match these filters',
     emptyReset: 'Clear filters',
     more: 'Show more',
+    shown: 'shown',
     allCatalog: 'Full catalog',
     cardCompare: 'Compare',
     photoSoon: 'Photo coming soon',
