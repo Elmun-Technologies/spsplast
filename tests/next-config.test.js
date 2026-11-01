@@ -54,12 +54,13 @@ test('1. 301 migratsiya xaritasi bitta faylda va Next’ga ulangan', async () =>
   assert.strictEqual(bySource['/produkciya'], '/ru/catalog');
 });
 
-test('2. www → apex yo‘naltirish saqlanadi', async () => {
+test('2. www va eski sps.uz → spsplast.com yo‘naltirish saqlanadi', async () => {
   const redirects = await config.redirects();
-  const canonical = redirects.find((entry) => Array.isArray(entry.has) && entry.has.some((h) => h.value === 'www.sps.uz'));
+  const canonical = redirects.find((entry) => Array.isArray(entry.has)
+    && entry.has.some((h) => h.type === 'host' && new RegExp('^' + h.value + '$').test('www.sps.uz')));
 
   assert.ok(canonical, 'www.sps.uz uchun redirect yo‘q');
-  assert.strictEqual(canonical.destination, 'https://sps.uz/:path*');
+  assert.strictEqual(canonical.destination, 'https://spsplast.com/:path*');
   assert.strictEqual(canonical.statusCode, 301);
 });
 

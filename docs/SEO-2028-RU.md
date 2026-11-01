@@ -22,9 +22,24 @@ Variantlar:
 | B. Xalqaro gTLD: `spsplast.com/ru/` + hreflang | O'rta–yuqori, bitta sayt | Domen + 301 strategiyasi |
 | C. Mahalliy domenlar: `.ru`, `.kz` (+ mahalliy kontakt) | Eng yuqori | Har biri alohida sayt/kontent, ko'proq ish |
 
-**Tavsiya: B** — `.com` ostida `/ru/` (umumiy rus bozori) + davlat geo-sahifalari, `sps.uz` esa
-O'zbekiston uchun qoladi (uz kontent) va o'zaro hreflang bilan bog'lanadi. Qozog'iston/Rossiya
-eng katta bozor bo'lsa, keyinroq C (`.kz`, `.ru`) qo'shiladi.
+**Qaror (2026-11-01): B — `spsplast.com`, bitta domen, barcha tillar** (`/uz`, `/ru`, `/en`).
+`sps.uz` ni alohida O'zbekiston sayti qilib qoldirish o'rniga butunlay `spsplast.com` ga 301 qilamiz:
+kichik kompaniya uchun havolalar va domen obro'si bitta joyda yig'ilgani ikkiga bo'linganidan kuchliroq;
+O'zbekiston auditoriyasini `/uz` + `hreflang="uz"` qamraydi.
+
+Kodda bajarilgan:
+- `SITE_URL` standarti `https://spsplast.com` (`src/lib/seo.ts`) — canonical, hreflang, sitemap, robots, JSON-LD.
+- `next.config.js`: `www.spsplast.com`, `sps.uz`, `www.sps.uz` → `https://spsplast.com/:path*` (301, yo'l saqlanadi;
+  eski CMS manzillari keyin migratsiya xaritasidan o'tadi). Test: `tests/seo2027.test.js` 15.
+
+Ko'chishda qilinadigan (biznes/administrator):
+1. `spsplast.com` ni sotib olish, Vercel → Domains'ga 4 ta hostni ulash, `NEXT_PUBLIC_SITE_URL=https://spsplast.com`.
+2. Google Search Console: ikkala domenni tasdiqlash → `sps.uz` uchun **Change of Address** → `spsplast.com`.
+3. Yandex Webmaster: ikkala sayt → `sps.uz` uchun **«Переезд сайта»** → `spsplast.com`; sayt regioni bo'sh/xalqaro.
+4. `sps.uz` domenini kamida 1–2 yil yangilab turish (301 ishlashi va havolalar vazni o'tishi uchun).
+5. Yandex Бизнес / Google Business kartochkalari, ijtimoiy tarmoqlar, katalog PDF va vizitkalardagi saytni yangilash.
+
+Qozog'iston/Rossiya eng katta bozor bo'lib chiqsa, keyinroq C (`.kz`, `.ru`) qo'shilishi mumkin.
 
 ## 1. So'rovlar klasterlari (RU)
 

@@ -83,5 +83,6 @@ Biz ko'chirmaymiz, g'oyani o'z tilimizda qilamiz — **"01B · Bosh sahifa V2"**
 
 ## 5. Ochiq savollar
 
-- **Domen**: `sps.uz` Google'da O'zbekistonga geo-bog'langan — RU/KZ top-3 uchun `.com` (yoki `.ru`/`.kz`) kerak.
+- **Domen — hal qilindi (2026-11-01):** kanonik `spsplast.com`, eski `sps.uz` 301. Kodda bajarildi;
+  ko'chish qadamlari `docs/SEO-2028-RU.md` 0-bo'limda (Search Console Change of Address, Yandex «Переезд сайта»).
 - Rus tilidagi model nomlari (`name.ru`), PP va ABS farqi bo'yicha texnolog matni (`docs/data-questions.md`).

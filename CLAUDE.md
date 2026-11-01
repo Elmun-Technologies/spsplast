@@ -203,6 +203,8 @@ counts come from the Excel sources, images from the 2026 studio set + sheet-5 DS
 ## Environment Variables
 
 Required for lead delivery: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`.
+Canonical domain: **`https://spsplast.com`** (decision 2026-11-01, `docs/SEO-2028-RU.md` §0 — `.uz`
+ccTLD geo-targets Uzbekistan and hurts RU/KZ rankings); it is the `SITE_URL` default and old `sps.uz` 301s to it.
 Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
 `NEXT_PUBLIC_GA_MEASUREMENT_ID`, `NEXT_PUBLIC_YANDEX_METRICA_ID`, `NEXT_PUBLIC_META_PIXEL_ID`.
 `DATABASE_URL` (Postgres) is required in production for lead storage and `/admin`; see `docs/ADMIN.md`.
@@ -252,7 +254,8 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   relative paths (Next resolves them against `metadataBase`), the sitemap XML does not —
   use `hreflangAbsolute()` there, never `hreflang()`.
 - **301s live in `scripts/redirects-2027.json`**, not in `next.config.js`. Add/regenerate
-  entries there (`npm run redirects:build`); the config only prepends the www→apex rule.
+  entries there (`npm run redirects:build`); the config only prepends the canonical-host rule
+  (`www.spsplast.com`, `sps.uz`, `www.sps.uz` → `https://spsplast.com/:path*`, one regex host rule).
 - After deleting routes, run `rm -rf .next` before `npm run typecheck` — stale
   `.next/types` produces bogus TS2307 errors for files that no longer exist.
 - `<html lang>` is `uz` in the SSR markup for every locale (single root layout) and is

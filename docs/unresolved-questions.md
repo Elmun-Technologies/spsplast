@@ -39,7 +39,7 @@ qarorlar va og'ishlar (sababi bilan). Ma'lumot darajasidagi batafsil savollar:
 |---|---|---|
 | 3.1 | Vercel loyihasi ulanganmi? PR'da preview link avtomatik chiqadimi? | PR ochilgan; preview link Vercel integratsiyasidan keladi. |
 | 3.2 | Production env o'zgaruvchilari: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `NEXT_PUBLIC_SITE_URL`, analitika ID'lari (GTM/GA/Metrica/Pixel) kiritilganmi? | Kodsiz sayt: ID yo'q bo'lsa analitika skriptlari umuman yuklanmaydi, Telegram yuborilmaydi (`/api/health` `degraded` qaytaradi). |
-| 3.3 | Domen: `sps.uz` apex + `www` 301 — DNS'da `www` CNAME sozlanganmi? | `next.config.js` da `www.sps.uz → https://sps.uz` 301 qoidasi bor. |
+| 3.3 | Domen: kanonik `spsplast.com` (qaror 2026-11-01). Domen sotib olinganmi, DNS Vercel'ga ulanganmi? | `next.config.js`: `www.spsplast.com`, `sps.uz`, `www.sps.uz` → `https://spsplast.com/:path*` 301. Sabab: `docs/SEO-2028-RU.md` 0-bo'lim. |
 | 3.4 | Lighthouse va Playwright tekshiruvlarini kim ishga tushiradi? (Sandbox'da brauzer yo'q: `cdn.playwright.dev` bloklangan.) | Skriptlar tayyor: `npm run shots`, `npm run lighthouse` (`docs/checks.md`). |
 
 ### 4. Dizayn bilan zid mezon — qaror kerak

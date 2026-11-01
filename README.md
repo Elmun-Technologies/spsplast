@@ -116,7 +116,7 @@ outbound network calls and removes a third-party request from the critical path.
 1. Import the repository into Vercel (framework preset: Next.js).
 2. Set the environment variables — see `.env.example`. Required for lead
    delivery: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`. Recommended:
-   `NEXT_PUBLIC_SITE_URL=https://sps.uz` plus the analytics IDs.
+   `NEXT_PUBLIC_SITE_URL=https://spsplast.com` plus the analytics IDs.
 3. Deploy. No build step needs a database; `npm run build` regenerates nothing.
 
 Full runbook: [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) ·

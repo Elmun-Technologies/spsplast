@@ -15,7 +15,7 @@
  */
 
 export const SITE_ORIGIN = process.env.AUDIT_ORIGIN || 'http://127.0.0.1:3000';
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://sps.uz').replace(/\/$/, '');
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://spsplast.com').replace(/\/$/, '');
 
 export const AUDIT_ROUTES = [
   { path: '/', lang: null, expect: { status: 307 } },

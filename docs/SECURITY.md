@@ -44,7 +44,7 @@ oldingi Kafka navbatdagi variant — honeypot + telefon validatsiyasi.
   rasm, SKU). `robots.ts` bu faylni indeksatsiyadan yopadi; unda maxfiy
   maydon yo'q.
 - Sitemap, JSON-LD va `metadataBase` `NEXT_PUBLIC_SITE_URL` dan olinadi
-  (`https://sps.uz`); noto'g'ri qiymat faqat kanonik havolalarga ta'sir qiladi.
+  (`https://spsplast.com`); noto'g'ri qiymat faqat kanonik havolalarga ta'sir qiladi.
 - Sharhlar, buyurtmalar, narxlar va qoldiq serverda saqlanmaydi — saytda
   shunga mos maxfiy ma'lumot ham yo'q.
 

@@ -11,7 +11,7 @@ Har bir qadam oxirida "tekshiruv" bandi bajarilmaguncha keyingisiga o'tilmaydi.
 - [ ] Postgres baza: Vercel → Storage → **Neon** (yoki Supabase). Production va Preview uchun **alohida** baza.
 - [ ] Environment Variables (Production + Preview):
   - `DATABASE_URL` — baza ulanishi
-  - `NEXT_PUBLIC_SITE_URL=https://sps.uz` (preview'da preview manzili)
+  - `NEXT_PUBLIC_SITE_URL=https://spsplast.com` (preview'da preview manzili)
   - `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` — savdo guruhi (`@BotFather`, `@userinfobot`)
   - `VERCEL_DEPLOY_HOOK_URL` — Settings → Git → Deploy Hooks (`main`)
   - `SNAPSHOT_REQUIRED=1` — faqat Production
@@ -48,17 +48,19 @@ Har bir qadam oxirida "tekshiruv" bandi bajarilmaguncha keyingisiga o'tilmaydi.
 
 - [ ] Admin → Sozlamalar → Integratsiyalar: Yandex Metrica, GA4 (yoki GTM), Meta Pixel ID'lari; Search Console,
       Yandex Webmaster, Bing tasdiqlash kodlari → **Nashr qilish**.
-- [ ] Search Console va Yandex Webmaster'da sayt tasdiqlandi, `https://sps.uz/sitemap.xml` yuborildi.
+- [ ] Search Console va Yandex Webmaster'da sayt tasdiqlandi, `https://spsplast.com/sitemap.xml` yuborildi; Yandex Webmaster'da `sps.uz` → `spsplast.com` "Переезд сайта" belgilandi, Search Console'da "Change of Address".
 - [ ] Metrica'da maqsadlar: `generate_lead`, `add_to_request`, `contact_click` (sayt avtomatik yuboradi).
 - [ ] Admin → Tashriflar: o'z tashrifingiz ko'rinadi (davlat, qurilma, manba).
 - [ ] **Tekshiruv:** CI (GitHub Actions) yashil — testlar, SEO/a11y audit, skrinshotlar, Lighthouse hisoboti.
 
 ## 5-qadam. Domen (yarim kun, kam tashrif vaqtida)
 
-- [ ] Vercel → Domains: `sps.uz` (apex) + `www.sps.uz`; DNS yozuvlari Vercel ko'rsatmasi bo'yicha.
-- [ ] HTTPS faol; `www` → apex 301; eski manzillar (blog, eski mahsulotlar) 301 bilan yangi sahifalarga.
-- [ ] `NEXT_PUBLIC_SITE_URL=https://sps.uz` → qayta deploy.
-- [ ] **Tekshiruv:** `curl -I https://www.sps.uz` → 301; 5 ta eski URL → 301 → 200; `/robots.txt`, `/sitemap.xml`.
+- [ ] `spsplast.com` domeni sotib olingan (registrator), DNS boshqaruvi bor.
+- [ ] Vercel → Domains: `spsplast.com` (apex, asosiy) + `www.spsplast.com` + eski `sps.uz` + `www.sps.uz`; DNS yozuvlari Vercel ko'rsatmasi bo'yicha.
+- [ ] HTTPS faol; `www.spsplast.com`, `sps.uz`, `www.sps.uz` → `https://spsplast.com/...` 301 (yo'l saqlanadi); eski manzillar (blog, eski mahsulotlar) 301 bilan yangi sahifalarga.
+- [ ] `NEXT_PUBLIC_SITE_URL=https://spsplast.com` → qayta deploy.
+- [ ] **Tekshiruv:** `curl -I https://sps.uz/produkciya` → 301 `https://spsplast.com/produkciya` → 301 `/ru/catalog` → 200; `curl -I https://www.spsplast.com` → 301; `/robots.txt`, `/sitemap.xml`.
+- [ ] `sps.uz` domenini **yangilashda davom eting** (kamida 1–2 yil): 301 ishlashi va eski havolalar vazni o'tishi uchun.
 
 ## 6-qadam. Birinchi 2 hafta (kuzatuv)
 

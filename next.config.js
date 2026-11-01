@@ -74,13 +74,22 @@ const nextConfig = {
     const migration = require('./scripts/redirects-2027.json').redirects;
 
     /**
-     * `www` ni apex domenga: bir xil kontent ikki hostda ochilsa duplikat
-     * hisoblanadi va canonical signal kuchsizlanadi.
+     * Kanonik host — `spsplast.com` (docs/SEO-2028-RU.md 0-bo'lim). Bir xil
+     * kontent bir nechta hostda ochilsa duplikat hisoblanadi va canonical
+     * signal kuchsizlanadi, shuning uchun `www` va eski `sps.uz` domeni yo'lni
+     * saqlagan holda 301 bilan shu yerga keladi: eski havolalar (va ularning
+     * vazni) yo'qolmaydi, eski CMS manzillari esa keyingi qadamda migratsiya
+     * xaritasidan o'tadi.
      */
+    const CANONICAL_ORIGIN = 'https://spsplast.com';
+    const LEGACY_HOSTS = ['www.spsplast.com', 'sps.uz', 'www.sps.uz'];
+    // Next `has.value` ni `^value$` qilib RegExp ga aylantiradi: alternativalar
+    // guruhda bo'lmasa `^a|b|c$` bo'lib, `^`/`$` faqat chetdagilarga tegadi.
+    const legacyHostPattern = `(?:${LEGACY_HOSTS.map((h) => h.replace(/\./g, '\\.')).join('|')})`;
     const canonicalHost = {
       source: '/:path*',
-      has: [{ type: 'host', value: 'www.sps.uz' }],
-      destination: 'https://sps.uz/:path*',
+      has: [{ type: 'host', value: legacyHostPattern }],
+      destination: `${CANONICAL_ORIGIN}/:path*`,
       statusCode: 301,
     };
 
