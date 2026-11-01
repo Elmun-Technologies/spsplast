@@ -108,6 +108,15 @@ export const INTEGRATION_FIELDS: IntegrationField[] = [
     help: '<meta name="facebook-domain-verification" content="…"> — reklama uchun domen tasdig\'i.',
     where: 'business.facebook.com → Brand safety → Domains',
   },
+  {
+    key: 'indexnow_key',
+    label: 'IndexNow kaliti (Yandex, Bing)',
+    group: 'verification',
+    pattern: /^[A-Za-z0-9-]{8,128}$/,
+    placeholder: '32 belgili tasodifiy kalit',
+    help: "Yangi sahifalarni Yandex va Bing'ga darhol yuborish uchun. Kalit saytda /indexnow-key.txt da chiqadi (nashrdan keyin). Admin → SEO → Indekslash.",
+    where: 'Admin → SEO → Indekslash → "Kalit yaratish"',
+  },
   // --- Kontaktlar (sayt sarlavhasi, footer, kontakt sahifasi, JSON-LD) ---
   { key: 'phone_main', label: 'Asosiy savdo telefoni (WhatsApp)', group: 'contacts', pattern: PHONE, placeholder: '+998 98 300 77 72', fallback: '+998 98 300 77 72', help: "Header, mobil 'qo'ng'iroq' tugmasi, WhatsApp havolasi.", where: 'xalqaro formatda, + bilan' },
   { key: 'phone_sales2', label: 'Savdo telefoni 2', group: 'contacts', pattern: PHONE, placeholder: '+998 33 338 77 72', fallback: '+998 33 338 77 72', help: 'Kontakt sahifasi va footer.', where: 'ixtiyoriy' },

@@ -29,10 +29,8 @@ const JOBS = [
   // Ishlab chiqarish sahifasi "eksport" juftligi: aspectRatio '16 / 9'
   ['site/port.webp', 'site/port-16x9.webp', 16 / 9],
   ['site/containers.webp', 'site/containers-16x9.webp', 16 / 9],
-  // Ulgurji sahifasi "kim uchun" kartochkalari: .who-img aspect-ratio 16 / 9
-  ['site/master-pouring.webp', 'site/master-pouring-16x9.webp', 16 / 9],
-  ['site/distribyutor-ombor.webp', 'site/distribyutor-ombor-16x9.webp', 16 / 9],
-  ['site/qurilish-obyekti.webp', 'site/qurilish-obyekti-16x9.webp', 16 / 9],
+  // Ulgurji "kim uchun" kartochkalari stok suratlardan (usta, ombor, qurilish) haqiqiy SPS qolip
+  // suratlariga o'tdi (public/images/site/molds, Redesign 2028) — variantlar endi kerak emas.
 ];
 
 /** Logotiplar: 72×44 ko'rsatiladi (18/11). next/image kichik kengliklarda

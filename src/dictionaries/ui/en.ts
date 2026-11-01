@@ -10,6 +10,7 @@ export const en: UiDictionary = {
     skip: 'Skip to main content',
     sectionsNav: 'Sections',
     close: 'Close',
+    companyNav: 'Company',
   },
   header: {
     catalog: 'Catalog',
@@ -38,6 +39,7 @@ export const en: UiDictionary = {
     productionExport: 'Production & export',
   },
   footer: {
+    ctaTitle: 'A manager will calculate the mold count and price',
     about: 'Plastic molds for paving slabs, facade, fence and decor elements. Tashkent, Uzbekistan.',
     catalog: 'Catalog',
     company: 'Company',
@@ -98,6 +100,7 @@ export const en: UiDictionary = {
     empty: 'No models match these filters',
     emptyReset: 'Clear filters',
     more: 'Show more',
+    shown: 'shown',
     allCatalog: 'Full catalog',
     cardCompare: 'Compare',
     photoSoon: 'Photo coming soon',

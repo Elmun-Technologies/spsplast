@@ -6,23 +6,29 @@ import { HeaderClient } from '@/components/site/HeaderClient';
 /** Katalog PDF (2026, uz) — 2027 uch tilli PDF biznesdan kutilmoqda (savol). */
 export const PDF_CATALOG_HREF = '/catalog/pdf/sps-qoliplar-katalogi-2026.pdf';
 
-export function SiteHeader({ lang, current }: { lang: Locale; current?: string }) {
+/**
+ * Header (Redesign 2028): qora utilita qatori (kompaniya havolalari, telefon,
+ * PDF, til) + asosiy qator (logo, bo'lim tab'lari, qidiruv, ro'yxatlar, CTA).
+ *
+ * `[lang]/layout.tsx` header'ni bitta marta, sahifadan mustaqil chizadi —
+ * shuning uchun joriy bo'lim server'da ma'lum emas: faol tab `HeaderClient`
+ * ichida `usePathname()` bo'yicha belgilanadi (`match` — yo'l prefiksi).
+ */
+export function SiteHeader({ lang }: { lang: Locale }) {
   const t = getUi(lang);
   const counts = getSectionCounts();
 
-  const sections = getActiveSections().map((s) => ({
-    href: `/${lang}/catalog/${SECTION_SLUGS[s]}`,
-    label: sectionLabel(s, lang),
-    count: counts[s],
-    current: current === s,
-  }));
+  const sections = getActiveSections().map((s) => {
+    const href = `/${lang}/catalog/${SECTION_SLUGS[s]}`;
+    return { href, match: href, label: sectionLabel(s, lang), count: counts[s] };
+  });
 
   const nav = [
-    { href: `/${lang}/partners`, label: t.nav.partners, current: current === 'partners' },
-    { href: `/${lang}/production`, label: t.nav.production, current: current === 'production' },
-    // RU'da 2-qator sig'maydi: "Eksport" havolasi olib tashlanadi (HANDOFF 4.10)
-    ...(lang === 'ru' ? [] : [{ href: `/${lang}/production#eksport`, label: t.nav.export, current: false }]),
-    { href: `/${lang}/contact`, label: t.nav.contact, current: current === 'contact' },
+    { href: `/${lang}/partners`, match: `/${lang}/partners`, label: t.nav.partners },
+    { href: `/${lang}/production`, match: `/${lang}/production`, label: t.nav.production },
+    // RU'da qator sig'maydi: "Экспорт" alohida havola emas — u "Производство" ichida (HANDOFF 4.10)
+    ...(lang === 'ru' ? [] : [{ href: `/${lang}/production#eksport`, match: '', label: t.nav.export }]),
+    { href: `/${lang}/contact`, match: `/${lang}/contact`, label: t.nav.contact },
   ];
 
   return <HeaderClient lang={lang} sections={sections} total={getTotalCount()} nav={nav} pdfHref={PDF_CATALOG_HREF} />;

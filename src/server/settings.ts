@@ -1,6 +1,6 @@
 import { desc, eq, gt, max, sql } from 'drizzle-orm';
 import type { Db } from './db/client.ts';
-import { catalogSections, products, publishes, siteSettings } from './db/schema.ts';
+import { catalogSections, contentOverrides, products, publishes, redirects, seoPages, siteSettings } from './db/schema.ts';
 import { INTEGRATION_FIELDS, isValidIntegration } from '../lib/integrations.ts';
 
 /** Admin sozlamalari va "Nashr qilish" (sayt qayta yig'iladi). */
@@ -37,20 +37,38 @@ export async function lastPublish(db: Db) {
 }
 
 /** Oxirgi muvaffaqiyatli nashrdan keyin o'zgargan narsalar soni. */
-export async function pendingChanges(db: Db): Promise<{ products: number; sections: number; settings: number; since: Date | null }> {
+export async function pendingChanges(db: Db): Promise<{
+  products: number;
+  sections: number;
+  settings: number;
+  seo: number;
+  redirects: number;
+  texts: number;
+  since: Date | null;
+}> {
   const [ok] = await db
     .select({ at: max(publishes.createdAt) })
     .from(publishes)
     .where(eq(publishes.status, 'ok'));
   const since = ok?.at ? new Date(ok.at) : null;
-  const after = (col: typeof products.updatedAt | typeof catalogSections.updatedAt | typeof siteSettings.updatedAt) =>
-    since ? gt(col, since) : sql`true`;
-  const [[p], [s], [st]] = await Promise.all([
-    db.select({ n: sql<number>`count(*)::int` }).from(products).where(after(products.updatedAt)),
-    db.select({ n: sql<number>`count(*)::int` }).from(catalogSections).where(after(catalogSections.updatedAt)),
-    db.select({ n: sql<number>`count(*)::int` }).from(siteSettings).where(after(siteSettings.updatedAt)),
+  type Col =
+    | typeof products.updatedAt
+    | typeof catalogSections.updatedAt
+    | typeof siteSettings.updatedAt
+    | typeof seoPages.updatedAt
+    | typeof redirects.updatedAt
+    | typeof contentOverrides.updatedAt;
+  const after = (col: Col) => (since ? gt(col, since) : sql`true`);
+  const n = sql<number>`count(*)::int`;
+  const [[p], [s], [st], [seo], [rd], [tx]] = await Promise.all([
+    db.select({ n }).from(products).where(after(products.updatedAt)),
+    db.select({ n }).from(catalogSections).where(after(catalogSections.updatedAt)),
+    db.select({ n }).from(siteSettings).where(after(siteSettings.updatedAt)),
+    db.select({ n }).from(seoPages).where(after(seoPages.updatedAt)),
+    db.select({ n }).from(redirects).where(after(redirects.updatedAt)),
+    db.select({ n }).from(contentOverrides).where(after(contentOverrides.updatedAt)),
   ]);
-  return { products: p.n, sections: s.n, settings: st.n, since };
+  return { products: p.n, sections: s.n, settings: st.n, seo: seo.n, redirects: rd.n, texts: tx.n, since };
 }
 
 /**

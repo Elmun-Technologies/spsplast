@@ -222,7 +222,18 @@ test('12. Admin sahifalari sessiyani tekshiradi (login sahifasidan tashqari)', (
   };
   walk(dir);
   assert.deepStrictEqual(offenders, []);
-  for (const file of ['src/app/admin/actions.ts', 'src/app/admin/products/actions.ts']) {
+  // Har bir `actions.ts` (admin ichidagi barcha bo'limlar) — yangi bo'lim qo'shilsa ham qamraladi.
+  const actionFiles = [];
+  const findActions = (d) => {
+    for (const e of fs.readdirSync(d, { withFileTypes: true })) {
+      const full = path.join(d, e.name);
+      if (e.isDirectory()) findActions(full);
+      else if (e.name === 'actions.ts') actionFiles.push(path.relative(ROOT, full));
+    }
+  };
+  findActions(dir);
+  assert.ok(actionFiles.length >= 5, `actions.ts topilmadi: ${actionFiles.join(', ')}`);
+  for (const file of actionFiles) {
     const actions = read(file);
     const exported = actions.match(/export async function \w+/g) || [];
     const guarded = actions.match(/export async function \w+[\s\S]*?\n}/g).filter((fn) => /requireUser\(|loginAction|logoutAction/.test(fn));
@@ -231,6 +242,12 @@ test('12. Admin sahifalari sessiyani tekshiradi (login sahifasidan tashqari)', (
   // Bo'lim, o'chirish va integratsiyalar — faqat administrator.
   assert.match(read('src/app/admin/products/actions.ts'), /deleteProductAction[\s\S]*?requireUser\('admin'\)/);
   assert.match(read('src/app/admin/actions.ts'), /saveIntegrationsAction[\s\S]*?requireUser\('admin'\)/);
+  // SEO, matnlar va API kalitlari — faqat administrator.
+  for (const file of ['src/app/admin/seo/actions.ts', 'src/app/admin/content/actions.ts']) {
+    const fns = read(file).match(/export async function \w+[\s\S]*?\n}/g);
+    for (const fn of fns) assert.match(fn, /requireUser\('admin'\)/, `${file}: ${fn.slice(0, 60)} — faqat admin`);
+  }
+  assert.match(read('src/app/admin/analytics/actions.ts'), /saveReportSecretsAction[\s\S]*?requireUser\('admin'\)/);
 });
 
 test('13. Login limiti faqat xato urinishlarni sanaydi', async () => {

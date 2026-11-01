@@ -21,6 +21,8 @@ const PAGES = [
   'app/[lang]/production/page.tsx',
   'app/[lang]/contact/page.tsx',
   'app/[lang]/privacy/page.tsx',
+  'app/[lang]/catalog/[section]/tag/[tag]/page.tsx',
+  'app/[lang]/export/[country]/page.tsx',
   'app/not-found.tsx',
   'app/[lang]/not-found.tsx',
 ];

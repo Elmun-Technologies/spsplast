@@ -11,6 +11,7 @@ export const uz = {
     skip: "Asosiy kontentga o'tish",
     sectionsNav: "Bo'limlar",
     close: 'Yopish',
+    companyNav: 'Kompaniya',
   },
   header: {
     catalog: 'Katalog',
@@ -39,6 +40,7 @@ export const uz = {
     productionExport: 'Ishlab chiqarish va eksport',
   },
   footer: {
+    ctaTitle: 'Qolip soni va narxini menejer hisoblab beradi',
     about: "Trotuar plitkasi, fasad, zabor va dekor elementlari uchun plastik qoliplar. Toshkent, O'zbekiston.",
     catalog: 'Katalog',
     company: 'Kompaniya',
@@ -99,6 +101,7 @@ export const uz = {
     empty: 'Bu filtrlar bo’yicha model topilmadi',
     emptyReset: 'Filtrni tozalash',
     more: 'Yana ko’rsatish',
+    shown: 'ko’rsatildi',
     allCatalog: 'Butun katalog',
     cardCompare: 'Solishtirish',
     photoSoon: 'Foto tayyorlanmoqda',

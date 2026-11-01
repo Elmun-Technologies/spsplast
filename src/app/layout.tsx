@@ -18,7 +18,7 @@ const FONT_PRELOAD = '/fonts/onest-latin-wght-normal.woff2';
 // SITE_URL / SITE_NAME — src/lib/seo.ts (bitta manba).
 
 function toMetadataBase(value: string): URL | undefined {
-  for (const candidate of [value, `https://${value}`, 'https://sps.uz']) {
+  for (const candidate of [value, `https://${value}`, 'https://spsplast.com']) {
     try {
       return new URL(candidate);
     } catch {
@@ -60,7 +60,7 @@ export const metadata = {
 };
 
 export const viewport = {
-  themeColor: '#e3202a',
+  themeColor: '#15171a',
   width: 'device-width',
   initialScale: 1,
 };

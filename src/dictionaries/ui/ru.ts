@@ -10,6 +10,7 @@ export const ru: UiDictionary = {
     skip: 'Перейти к содержимому',
     sectionsNav: 'Разделы',
     close: 'Закрыть',
+    companyNav: 'Компания',
   },
   header: {
     catalog: 'Каталог',
@@ -38,6 +39,7 @@ export const ru: UiDictionary = {
     productionExport: 'Производство и экспорт',
   },
   footer: {
+    ctaTitle: 'Количество форм и цену рассчитает менеджер',
     about: 'Пластиковые формы для тротуарной плитки, фасада, забора и декора. Ташкент, Узбекистан.',
     catalog: 'Каталог',
     company: 'Компания',
@@ -98,6 +100,7 @@ export const ru: UiDictionary = {
     empty: 'По этим фильтрам моделей не найдено',
     emptyReset: 'Сбросить фильтр',
     more: 'Показать ещё',
+    shown: 'показано',
     allCatalog: 'Весь каталог',
     cardCompare: 'Сравнить',
     photoSoon: 'Фото готовится',

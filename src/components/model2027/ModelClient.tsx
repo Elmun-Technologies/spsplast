@@ -85,6 +85,9 @@ export function ModelClient({
   const hero = current ?? (modelImage(model) ? { src: modelImage(model) as string, label: '', cover: true } : null);
 
   const volume = Math.max(0, Number(String(m2).replace(',', '.')) || 0);
+  /** Qolip/plitka surati (fonsiz) ko'rinishida o'lcham chizig'i: plitka/qolip eni, mm. */
+  const dimWidth = (model.tiles[0]?.size || model.molds[0]?.size || '').split('×')[0]?.trim() || null;
+  const stepM2 = (delta: number) => setM2(String(Math.max(0, (Number(String(m2).replace(',', '.')) || 0) + delta)));
   const molds = calcMolds(model, volume);
   const weight = calcWeight(model, volume);
   const per = modelPerM2(model);
@@ -194,7 +197,7 @@ export function ModelClient({
               ))}
             </div>
 
-            <div className="stage">
+            <div className={`stage${hero && !hero.cover ? ' stage--drawing' : ''}`}>
               {hero ? (
                 <Image
                   key={hero.src}
@@ -213,6 +216,15 @@ export function ModelClient({
                 </div>
               )}
               {hero?.label ? <span className="sps-tag">{hero.label}</span> : null}
+              {hero && !hero.cover && dimWidth && model.sizeEstimated !== true ? (
+                <span className="dimline" aria-hidden="true">
+                  <s />
+                  <i />
+                  {dimWidth} mm
+                  <i />
+                  <s />
+                </span>
+              ) : null}
             </div>
 
             <div className="side-sticky">
@@ -255,16 +267,23 @@ export function ModelClient({
                     <label className="sps-label" htmlFor="calc-m2">
                       {p.model.calcVolume}
                     </label>
-                    <input
-                      className="sps-input mono"
-                      id="calc-m2"
-                      inputMode="decimal"
-                      value={m2}
-                      onChange={(e) => setM2(e.target.value.replace(/[^\d.,]/g, ''))}
-                      style={{ fontSize: 18 }}
-                    />
+                    <div className="calc-step">
+                      <button type="button" aria-label="−10 m²" onClick={() => stepM2(-10)}>
+                        −
+                      </button>
+                      <input
+                        className="mono"
+                        id="calc-m2"
+                        inputMode="decimal"
+                        value={m2}
+                        onChange={(e) => setM2(e.target.value.replace(/[^\d.,]/g, ''))}
+                      />
+                      <button type="button" aria-label="+10 m²" onClick={() => stepM2(10)}>
+                        +
+                      </button>
+                    </div>
                   </div>
-                  <div className="calc-out">
+                  <div className="calc-out calc-out--dark">
                     <span className="sps-label">{p.model.calcMolds}</span>
                     <b className="mono">{molds === null ? '—' : num(lang, molds)}</b>
                   </div>
@@ -301,7 +320,7 @@ export function ModelClient({
                 </div>
               </div>
 
-              <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'center', paddingTop: 4, fontSize: 14 }}>
+              <div className="pd-contact" style={{ display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'center', paddingTop: 4, fontSize: 14 }}>
                 <a className="mono" style={{ fontSize: 15, fontWeight: 500, color: 'var(--ink)', textDecoration: 'none' }} href={`tel:${CONTACTS_2027.mainPhoneRaw}`}>
                   {CONTACTS_2027.mainPhone}
                 </a>

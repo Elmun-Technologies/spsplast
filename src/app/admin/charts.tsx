@@ -39,9 +39,10 @@ export function Bars({ rows }: { rows: { label: string; n: number; href?: string
 }
 
 /** Kunlik ustunli grafik: bo'sh kunlar ham 0 bilan ko'rsatiladi (Toshkent sanasi). */
-export function DailyChart({ rows, days }: { rows: { day: string; value: number }[]; days: number }) {
+export function DailyChart({ rows, days, end }: { rows: { day: string; value: number }[]; days: number; end?: string }) {
   const map = new Map(rows.map((r) => [r.day, r.value]));
-  const today = new Date(Date.now() + 5 * 3_600_000);
+  // `end` — oxirgi kun (Search Console ~2 kun kechikadi); bo'lmasa bugun (Toshkent).
+  const today = end ? new Date(`${end}T12:00:00Z`) : new Date(Date.now() + 5 * 3_600_000);
   const series = Array.from({ length: days }, (_, i) => {
     const d = new Date(today.getTime() - (days - 1 - i) * 86_400_000).toISOString().slice(0, 10);
     return { day: d, value: map.get(d) ?? 0 };
@@ -66,7 +67,7 @@ export function DailyChart({ rows, days }: { rows: { day: string; value: number 
         <span>
           eng ko'p: <b>{max}</b> · jami: <b>{total}</b>
         </span>
-        <span>bugun</span>
+        <span>{end ? end.slice(5).split('-').reverse().join('.') : 'bugun'}</span>
       </figcaption>
     </figure>
   );

@@ -1,11 +1,24 @@
-import { notFound } from 'next/navigation';
-import { getModelsBySection, SECTIONS, SECTION_SLUGS, sectionFromSlug, getTotalCount, sectionLabel } from '@/lib/catalog2027';
-import { isValidLocale, locales, type Locale } from '@/lib/i18n';
-import { getUi, pluralModels } from '@/lib/ui';
-import { CatalogClient } from '@/components/catalog2027/CatalogClient';
-import { JsonLd } from '@/components/site/JsonLd';
-import { jsonLdBreadcrumb, pageMetadata } from '@/lib/seo';
-import { modelImage } from '@/lib/catalog2027';
+import { notFound } from "next/navigation";
+import {
+  getModelsBySection,
+  SECTIONS,
+  SECTION_SLUGS,
+  sectionFromSlug,
+  getTotalCount,
+  sectionLabel,
+} from "@/lib/catalog2027";
+import { isValidLocale, locales, type Locale } from "@/lib/i18n";
+import { getUi, pluralModels } from "@/lib/ui";
+import { CatalogClient } from "@/components/catalog2027/CatalogClient";
+import { JsonLd } from "@/components/site/JsonLd";
+import { jsonLdBreadcrumb, pageMetadata } from "@/lib/seo";
+import { seoOverride } from "@/lib/seoOverrides";
+import { modelImage } from "@/lib/catalog2027";
+import {
+  CountriesStrip,
+  PavingGuide,
+  TagChips,
+} from "@/components/seo2028/SeoBlocks";
 
 // `dynamicParams = false` + searchParams o'qimaslik: noma'lum bo'lim uchun
 // Next qattiq 404 qaytarishi kerak (soft-404 emas). Filtrlar mijoz tomonida
@@ -18,12 +31,15 @@ export function generateStaticParams() {
   );
 }
 
-
-export async function generateMetadata({ params }: { params: Promise<{ lang: string; section: string }> }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string; section: string }>;
+}) {
   const { lang, section } = await params;
   const sec = sectionFromSlug(section);
-  const locale = isValidLocale(lang) ? (lang as Locale) : 'uz';
-  if (!sec) return { title: 'SPS' };
+  const locale = isValidLocale(lang) ? (lang as Locale) : "uz";
+  if (!sec) return { title: "SPS" };
   const models = getModelsBySection(sec);
   const count = models.length;
   const cover = models.map((m) => modelImage(m)).find(Boolean) ?? undefined;
@@ -36,7 +52,11 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   });
 }
 
-export default async function SectionPage({ params }: { params: Promise<{ lang: string; section: string }> }) {
+export default async function SectionPage({
+  params,
+}: {
+  params: Promise<{ lang: string; section: string }>;
+}) {
   const { lang: langParam, section } = await params;
   if (!isValidLocale(langParam)) notFound();
   const lang = langParam as Locale;
@@ -45,33 +65,49 @@ export default async function SectionPage({ params }: { params: Promise<{ lang: 
 
   const models = getModelsBySection(sec);
   const t = getUi(lang);
+  // Admin → SEO → Sahifalar: H1 va kirish matni (bo'sh bo'lsa — bo'lim nomi).
+  const o = seoOverride(lang, `/catalog/${SECTION_SLUGS[sec]}`);
 
   return (
-    <div className="wrap sec">
-      <JsonLd
-        data={jsonLdBreadcrumb(lang, [
-          { name: 'SPS', path: '' },
-          { name: t.header.catalog, path: '/catalog' },
-          { name: sectionLabel(sec, lang), path: `/catalog/${SECTION_SLUGS[sec]}` },
-        ])}
-      />
-      <nav aria-label="breadcrumb">
-        <ol className="crumbs">
-          <li>
-            <a href={`/${lang}/catalog`}>{t.header.catalog}</a>
-          </li>
-          <li aria-current="page">{sectionLabel(sec, lang)}</li>
-        </ol>
-      </nav>
-      <div className="sps-section-head" style={{ marginBlock: 'var(--space-4) var(--space-5)' }}>
-        <div>
-          <h1 className="h1">{sectionLabel(sec, lang)}</h1>
-          <p className="lead muted">
-            {models.length} {pluralModels(lang, models.length)} · {t.header.catalog} {getTotalCount()}
-          </p>
+    <>
+      <div className="wrap sec">
+        <JsonLd
+          data={jsonLdBreadcrumb(lang, [
+            { name: "SPS", path: "" },
+            { name: t.header.catalog, path: "/catalog" },
+            {
+              name: sectionLabel(sec, lang),
+              path: `/catalog/${SECTION_SLUGS[sec]}`,
+            },
+          ])}
+        />
+        <nav aria-label="breadcrumb">
+          <ol className="crumbs">
+            <li>
+              <a href={`/${lang}/catalog`}>{t.header.catalog}</a>
+            </li>
+            <li aria-current="page">{sectionLabel(sec, lang)}</li>
+          </ol>
+        </nav>
+        <div
+          className="sps-section-head"
+          style={{ marginBlock: "var(--space-4) var(--space-5)" }}
+        >
+          <div>
+            <h1 className="h1">{o?.h1 || sectionLabel(sec, lang)}</h1>
+            {o?.intro ? <p className="lead muted">{o.intro}</p> : null}
+            <p className="lead muted">
+              {models.length} {pluralModels(lang, models.length)} ·{" "}
+              {t.header.catalog} {getTotalCount()}
+            </p>
+          </div>
         </div>
+        <TagChips lang={lang} section={sec} />
+        <CatalogClient lang={lang} models={models} variant="catalog" />
       </div>
-      <CatalogClient lang={lang} models={models} variant="catalog" />
-    </div>
+      {/* SEO: tanlash qo'llanmasi (asosiy so'rov — trotuar plitkasi) va eksport sahifalariga havolalar */}
+      {sec === "trotuar" ? <PavingGuide lang={lang} /> : null}
+      <CountriesStrip lang={lang} />
+    </>
   );
 }

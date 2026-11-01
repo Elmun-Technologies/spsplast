@@ -9,11 +9,14 @@ import { PublishButton } from './PublishButton';
  */
 export async function PublishBar({ db }: { db: Db }) {
   const [pending, last] = await Promise.all([pendingChanges(db), lastPublish(db)]);
-  const total = pending.products + pending.sections + pending.settings;
+  const total = pending.products + pending.sections + pending.settings + pending.seo + pending.redirects + pending.texts;
   const parts = [
     pending.products ? `${pending.products} mahsulot` : null,
     pending.sections ? `${pending.sections} bo'lim` : null,
     pending.settings ? `${pending.settings} sozlama` : null,
+    pending.seo ? `${pending.seo} SEO yozuvi` : null,
+    pending.redirects ? `${pending.redirects} yo'naltirish` : null,
+    pending.texts ? `${pending.texts} matn` : null,
   ].filter(Boolean);
   return (
     <div className={`adm-publish${total ? ' adm-publish--pending' : ''}`}>

@@ -13,6 +13,9 @@ Admin panel saytning o'zida: **`https://sps.uz/admin`** (indekslanmaydi, robots.
 | Mahsulotlar | qidiruv, bo'lim/holat filtri, "Rasmsiz / ruscha nomsiz / inglizcha nomsiz", to'liqlik ko'rsatkichi, ommaviy Nashr/Qoralama/Arxiv; tahrirlash: kod, bo'lim, tartib, nom/tavsif uz·ru·en, qoliplar, plitkalar, texnik jadval, rasmlar (yuklash → WebP, chet fonni kesish, fon ogohlantirishi) |
 | Bo'limlar (administrator) | yangi bo'lim (masalan termopanel, stul oyoqlari), nom 3 tilda, URL, tartib, ko'rinish |
 | Sozlamalar (administrator) | **Kontaktlar** (telefonlar, Telegram, Instagram, e-pochta, manzil 3 tilda) · **Raqamlar** (tajriba yili, quvvat, obyektlar, eksport davlatlari soni va ro'yxati — barcha sahifalarda 3 tilda avtomatik) · **Integratsiyalar**: GTM, GA4, Yandex Metrica, Meta Pixel, TikTok Pixel, Google Search Console, Yandex Webmaster, Bing, Meta domen tasdig'i |
+| Analitika | **Yandex Metrica** (tashrif, foydalanuvchi, rad etish, manbalar, qidiruv tizimlari, davlatlar, sahifalar, maqsadlar/konversiya) · **Google Search Console** (bosish, ko'rsatish, CTR, o'rtacha pozitsiya, so'rovlar, sahifalar, davlatlar) · **Yandex Webmaster** (qidiruvdagi/chiqarilgan sahifalar, ИКС, muammolar, Yandex so'rovlari) · **GA4** (sessiya, foydalanuvchi, asosiy voqealar, kanallar, davlatlar); 7/28/90 kun; **Ulanishlar** (administrator): API kalitlari |
+| SEO (administrator) | **Sahifalar**: har bir sahifa (asosiy, bo'lim, teg, eksport, 119 model) uchun title/description 3 tilda, Google ko'rinishi (SERP) va belgi hisoblagich; bo'lim/teg/eksport sahifalarida H1 va kirish matni; noindex · **Yo'naltirishlar (301)**: eski manzil → yangi (zanjir va aylanish tekshiriladi) · **Indekslash**: sitemap'ni Search Console va Yandex Webmaster'ga API orqali yuborish, IndexNow (Yandex, Bing — kalit yaratish va hamma sahifalarni yuborish), tashqi vositalar havolalari · **Salomatlik**: tasdiq teglari, analitika, hisobotlar, RU/EN nomlar, rasmlar, title/description uzunligi, noindex, nashr qilinmagan o'zgarishlar |
+| Matnlar (administrator) | saytdagi **barcha matnlar** (620 ta: sahifalar, menyu, footer, formalar, FAQ, SEO landinglar) 3 tilda; guruh va qidiruv; shablon matnlarda `{1}`, `{2}` (model soni, davlat nomi); bo'sh — standartga qaytadi |
 | Xodimlar (faqat administrator) | xodim qo'shish, rol (administrator / menejer), faolsizlantirish, parol almashtirish |
 | Profil | o'z parolini almashtirish |
 
@@ -67,6 +70,26 @@ kesh bilan beriladi. Qolip suratlari uchun eng yaxshisi — fonni olib tashlanga
 Qulayliklar: menyuda yangi zayafkalar soni; admin sahifalari har 60 soniyada o'zi yangilanadi
 (forma ochiq bo'lsa — yo'q); mahsulot sahifasida "Nusxa olish" — o'xshash mahsulotni tez qo'shish.
 
+## Analitika va SEO'ni ulash (bir marta, ~1 soat)
+
+1. **Sozlamalar** → Yandex Metrica raqami, GA4 (yoki GTM), Google/Yandex/Bing tasdiqlash kodlari → **Nashr qilish**.
+   Search Console va Yandex Webmaster'da "Tasdiqlash"ni bosing.
+2. **Yandex OAuth token** (Metrica + Webmaster hisobotlari): oauth.yandex.ru → "Создать приложение" →
+   huquqlar `metrika:read`, `webmaster:hostinfo`, `webmaster:verify` → token → Admin → Analitika → Ulanishlar.
+3. **Google service account** (Search Console + GA4): console.cloud.google.com → loyiha → "Google Search Console API"
+   va "Google Analytics Data API"ni yoqing → IAM → Service accounts → Keys → JSON. `client_email`ni Search Console
+   (Sozlamalar → Foydalanuvchilar, **Full**) va GA4 (Admin → Property access, **Viewer**) ga qo'shing →
+   Admin → Analitika → Ulanishlar: JSON, mulk (`sc-domain:spsplast.com`), GA4 property ID.
+4. **SEO → Indekslash**: "Kalit yaratish" (IndexNow) → Nashr qilish → "Sitemap'ni Google va Yandex'ga yuborish" va
+   "Hamma sahifalarni yuborish".
+
+API kalitlari `integration_secrets` jadvalida — snapshot (saytning ommaviy JS'i) bu jadvalni o'qimaydi; forma
+qiymatni qayta ko'rsatmaydi. Xavfsizroq yo'l — Vercel env: `YANDEX_OAUTH_TOKEN`, `GOOGLE_SERVICE_ACCOUNT_JSON`,
+`GSC_PROPERTY`, `GA4_PROPERTY_ID` (env bo'lsa — u ustun). Hisobotlar 15 daqiqa keshlanadi ("Yangilash" tugmasi).
+
+SEO, matnlar va 301'lar ham **Nashr qilish** bilan saytga chiqadi (build: `scripts/export-snapshot.mjs` →
+`src/data/site.generated.ts` (`seo`, `texts`) va `src/data/redirects.generated.json` → `next.config.js`).
+
 ## Xavfsizlik
 
 - Parollar scrypt bilan xeshlanadi; sessiya cookie'si `httpOnly`, `secure`, `/admin` yo'liga bog'langan, 14 kun.
@@ -74,6 +97,9 @@ Qulayliklar: menyuda yangi zayafkalar soni; admin sahifalari har 60 soniyada o'z
 - Login: bir IP'dan 15 daqiqada 10 ta **xato** urinishdan keyin blok.
 - Faolsizlantirilgan xodim yoki parol almashganda barcha sessiyalar yopiladi.
 - Menejer "Xodimlar" sahifasiga kira olmaydi; har bir sahifa va amal serverda sessiyani tekshiradi.
+- Admin kiritgan matnlar (SEO, Matnlar) serverda tekshiriladi: HTML (`<` `>`), narx/valyuta, o'zbekchada "yaratish",
+  `[...]` placeholder va noma'lum `{token}` qabul qilinmaydi (`src/server/copyRules.ts`).
+- SEO, Matnlar, Sozlamalar, API kalitlari — faqat administrator; Analitika hisobotlarini menejer ham ko'radi.
 - CSV eksportda formula-injection'dan himoya (`=`, `+`, `-`, `@` bilan boshlangan qiymatlar `'` bilan).
 
 ## Dasturchi uchun
@@ -82,4 +108,7 @@ Qulayliklar: menyuda yangi zayafkalar soni; admin sahifalari har 60 soniyada o'z
 - Mantiq: `src/server/leads.ts`, `src/server/auth.ts` (testlar: `tests/admin2027.test.js`, PGlite ustida, tashqi baza kerak emas).
 - Next yelimi: `src/server/session.ts` (`requireUser()`), sahifalar `src/app/admin/*`, amallar `src/app/admin/actions.ts`.
 - Ommaviy sayt bazani import qilmaydi (`tests/platform.test.js` 6-test) — sahifalar statik qoladi.
+- SEO/CMS/hisobotlar: `src/server/{seoAdmin,content,secrets,seoHealth,copyRules,liveMeta}.ts`, `src/server/reports/{google,yandex,indexnow}.ts`
+  (testlar: `tests/adminSeo2028.test.js` — PGlite + soxta `fetch`); saytda `src/lib/{seoOverrides,textOverrides,sitePaths}.ts`.
+- `DATABASE_POOL_MAX` (standart 5) — serverless pooler yoki bitta ulanishli lokal baza uchun kichraytiring.
 - Lokal sinov: `DATABASE_URL` bo'lmasa sayt ishlaydi (zayafka faqat Telegram'ga), admin "Baza ulanmagan" deydi.

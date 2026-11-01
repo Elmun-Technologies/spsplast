@@ -10,6 +10,7 @@ import {
   serial,
   text,
   timestamp,
+  primaryKey,
 } from 'drizzle-orm/pg-core';
 
 /**
@@ -275,4 +276,68 @@ export const publishes = pgTable('publishes', {
   status: text('status').notNull(),
   message: text('message'),
   createdAt: createdAt(),
+});
+
+// --- SEO, matnlar (CMS) va hisobot ulanishlari (2028): admin → "Nashr qilish" bilan saytga ---
+
+export const CONTENT_LANGS = ['uz', 'ru', 'en'] as const;
+export type ContentLang = (typeof CONTENT_LANGS)[number];
+
+/**
+ * Sahifa SEO'si (`path` til prefiksisiz: `''`, `/catalog/paving`, `/export/kazakhstan`).
+ * Bo'sh maydon — lug'atdagi standart matn ishlatiladi. `noindex` — sahifa indeksga
+ * berilmaydi va sitemap'dan chiqariladi.
+ */
+export const seoPages = pgTable(
+  'seo_pages',
+  {
+    path: text('path').notNull(),
+    lang: text('lang', { enum: CONTENT_LANGS }).notNull(),
+    title: text('title'),
+    description: text('description'),
+    h1: text('h1'),
+    intro: text('intro'),
+    noindex: boolean('noindex').notNull().default(false),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+    updatedBy: integer('updated_by').references(() => adminUsers.id, { onDelete: 'set null' }),
+  },
+  (t) => [primaryKey({ columns: [t.path, t.lang] })],
+);
+
+/** Admin'dan qo'shilgan 301 yo'naltirishlar (build paytida next.config redirects'ga). */
+export const redirects = pgTable('redirects', {
+  id: serial('id').primaryKey(),
+  source: text('source').notNull().unique(),
+  destination: text('destination').notNull(),
+  note: text('note'),
+  createdAt: createdAt(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+  createdBy: integer('created_by').references(() => adminUsers.id, { onDelete: 'set null' }),
+});
+
+/**
+ * Sayt matnlari (CMS): lug'atdagi satrni almashtirish. `key` — `pages.home.h1`,
+ * `ui.header.cta`, `pages.partners.faq.0.a` kabi yo'l (faqat satr, funksiya emas).
+ */
+export const contentOverrides = pgTable(
+  'content_overrides',
+  {
+    key: text('key').notNull(),
+    lang: text('lang', { enum: CONTENT_LANGS }).notNull(),
+    value: text('value').notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+    updatedBy: integer('updated_by').references(() => adminUsers.id, { onDelete: 'set null' }),
+  },
+  (t) => [primaryKey({ columns: [t.key, t.lang] })],
+);
+
+/**
+ * Hisobot API kalitlari (Yandex OAuth token, Google service account). `site_settings`
+ * dan ALOHIDA: snapshot (ommaviy bundle) bu jadvalni hech qachon o'qimaydi.
+ */
+export const integrationSecrets = pgTable('integration_secrets', {
+  key: text('key').primaryKey(),
+  value: text('value').notNull(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+  updatedBy: integer('updated_by').references(() => adminUsers.id, { onDelete: 'set null' }),
 });

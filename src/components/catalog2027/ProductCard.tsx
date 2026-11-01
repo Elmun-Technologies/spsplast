@@ -37,7 +37,7 @@ export function ProductCard({
   const href = productHref(lang, model);
 
   return (
-    <article className="sps-card">
+    <article className={`sps-card${model.images.scene && model.images.molds.A ? ' sps-card--inset' : ''}`}>
       <div className="sps-card__media">
         {model.images.scene ? (
           <a href={href} tabIndex={-1} aria-hidden="true">
@@ -59,6 +59,11 @@ export function ProductCard({
             <Image src={model.images.molds.A} alt={`${modelName(model, lang)} — ${getUi(lang).alt.mold}`} fill sizes="(max-width: 640px) 19vw, 9vw" style={{ objectFit: 'contain' }} loading="lazy" />
           </span>
         ) : null}
+        {model.code ? (
+          <span className="sps-card__no" aria-hidden="true">
+            № {model.code}
+          </span>
+        ) : null}
         <button
           type="button"
           className={`sps-card__cmp sps-iconbtn${inCompare ? ' sps-iconbtn--on' : ''}`}
@@ -77,31 +82,35 @@ export function ProductCard({
       </div>
       <div className="sps-card__body">
         <span className="sps-card__code">
-          {model.code ? `№ ${model.code} · ` : ''}
+          {model.code ? <span className="sr-only">{`№ ${model.code} · `}</span> : null}
           {sectionLabel(model.section, lang)}
         </span>
         <h2 className="sps-card__name">
           <a href={href}>{modelName(model, lang)}</a>
         </h2>
-        <div className="sps-card__meta">
-          {/* Noma'lum qiymat "—" bo'lib chiqmaydi — qator umuman ko'rsatilmaydi. */}
+        {/* Noma'lum qiymat "—" bo'lib chiqmaydi — ustun umuman ko'rsatilmaydi. */}
+        <dl className="sps-card__spec">
           {size ? (
-            <span>
-              {t.mSize}: <b>{size}</b>
-            </span>
+            <div>
+              <dt>{t.mSize}</dt>
+              <dd>{size}</dd>
+            </div>
           ) : null}
           {depth && !(size && size.split('×').length >= 3) ? (
-            <span className="hide-m">
-              {t.mThickness}: <b>{`${depth} ${t.mm}`}</b>
-            </span>
+            <div className="hide-m">
+              <dt>{t.mThickness}</dt>
+              <dd>{`${depth} ${t.mm}`}</dd>
+            </div>
           ) : null}
-          <span>
-            {set > 1 ? t.mSet : per ? t.mPer : t.mMaterial}: <b>{third}</b>
-          </span>
-        </div>
+          <div>
+            <dt>{set > 1 ? t.mSet : per ? t.mPer : t.mMaterial}</dt>
+            <dd>{third}</dd>
+          </div>
+        </dl>
       </div>
       <div className="sps-card__foot">
-        <button type="button" className="sps-btn sps-btn--primary sps-btn--sm" onClick={() => onRequest(model)}>
+        {/* Kartochka CTA'si grafit: qizil — sahifadagi bitta asosiy CTA uchun (Redesign 2028). */}
+        <button type="button" className="sps-btn sps-btn--dark sps-card__cta" onClick={() => onRequest(model)}>
           {t.cardRequest}
         </button>
         <button

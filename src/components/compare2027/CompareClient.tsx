@@ -141,7 +141,7 @@ export function CompareClient({ lang }: { lang: Locale }) {
                       </span>
                       <a href={`/${lang}/catalog/${SECTION_SLUGS[m.section]}/${m.slug}`}>{modelName(m, lang)}</a>
                       <div style={{ display: 'flex', gap: 8 }}>
-                        <a className="sps-btn sps-btn--primary sps-btn--sm" href={`/${lang}/request`} style={{ flex: 1 }}>
+                        <a className="sps-btn sps-btn--dark sps-btn--sm" href={`/${lang}/request`} style={{ flex: 1 }}>
                           {t.catalog.cardRequest}
                         </a>
                         <button

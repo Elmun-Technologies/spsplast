@@ -44,7 +44,11 @@ src/data/site.generated.ts   # build-time snapshot from DB (scripts/export-snaps
 scripts/export-snapshot.mjs  # runs first in `npm run build`: DB → published products/sections/settings
 scripts/catalog-import.ts    # one-off: data/models-2027.json + data/termopanel-2027.json → DB
 data/termopanel-2027.json    # GENERATED from xlsx sheet 6 (scripts/extract/build_termopanel_2027.py)
-src/app/admin/               # admin panel (login, dashboard, leads CRM, CSV export, users) — noindex
+src/app/admin/               # admin panel (login, dashboard, leads CRM, CSV, users, analytics, SEO, content CMS) — noindex
+src/app/admin/seo|content|analytics/  # SEO center (meta/H1/noindex, 301, IndexNow, health), text CMS, API reports
+src/server/reports/          # Google (JWT RS256: Search Console, GA4), Yandex (Metrica, Webmaster), IndexNow clients
+src/data/redirects.generated.json  # admin 301s, written by export-snapshot; MUST be `[]` in git
+src/app/indexnow-key.txt/    # IndexNow key file (static, from admin setting `indexnow_key`)
 src/server/                  # DB layer: db/schema.ts, db/client.ts, leads.ts, auth.ts, session.ts (Next glue)
 drizzle/                     # GENERATED SQL migrations (`npm run db:generate`), applied by `npm run db:migrate`
 docs/ADMIN.md                # admin setup (Neon/Supabase, migrate, first admin) + security notes
@@ -59,7 +63,9 @@ src/lib/contacts2027.ts      # contacts per HANDOFF §1 (single source for new l
 src/lib/store/spsLists.ts    # request list + compare list (localStorage)
 src/lib/ui.ts                # getUi(lang), pluralModels(), formatNumber()
 src/lib/seo.ts               # metadata + hreflang + JSON-LD builders (uz/ru/en, no price)
-src/app/sitemap.ts           # 387 URLs: (6 fixed + 4 non-empty sections + 119 models) × 3 langs
+src/app/sitemap.ts           # 432 URLs: (6 fixed + 4 non-empty sections + 7 tags + 8 export countries + 119 models) × 3 langs
+src/lib/seoPages.ts          # SEO landing logic: TAG_DEFS (MIN_TAG_MODELS=6), EXPORT_COUNTRIES (8)
+src/components/seo2028/SeoBlocks.tsx  # TagChips, CountriesStrip, PavingGuide (server components)
 src/app/robots.ts            # allow all; disallow /api/, /*/compare, /*/request
 src/components/site/JsonLd.tsx     # server-only <script type="application/ld+json"> renderer
 scripts/redirects-2027.json  # GENERATED 301 map (436 entries) — read by next.config.js
@@ -107,6 +113,8 @@ Everything a visitor could still hit is answered by a 301 (`scripts/redirects-20
 | Production & export | `/{lang}/production` (`#eksport`) |
 | Contact | `/{lang}/contact` |
 | Privacy | `/{lang}/privacy` |
+| Tag landing (SEO) | `/{lang}/catalog/{section}/tag/{tag}` (only tags with ≥ 6 models) |
+| Export country (SEO) | `/{lang}/export/{country}` (8 countries, `EXPORT_COUNTRIES`) |
 | 404 | `not-found` (root + `[lang]`) |
 | Sitemap / robots | `/sitemap.xml` (rewrite → `/sitemap`), `/robots.txt` |
 
@@ -203,6 +211,8 @@ counts come from the Excel sources, images from the 2026 studio set + sheet-5 DS
 ## Environment Variables
 
 Required for lead delivery: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`.
+Canonical domain: **`https://spsplast.com`** (decision 2026-11-01, `docs/SEO-2028-RU.md` §0 — `.uz`
+ccTLD geo-targets Uzbekistan and hurts RU/KZ rankings); it is the `SITE_URL` default and old `sps.uz` 301s to it.
 Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
 `NEXT_PUBLIC_GA_MEASUREMENT_ID`, `NEXT_PUBLIC_YANDEX_METRICA_ID`, `NEXT_PUBLIC_META_PIXEL_ID`.
 `DATABASE_URL` (Postgres) is required in production for lead storage and `/admin`; see `docs/ADMIN.md`.
@@ -220,14 +230,26 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   from the snapshot or built-in defaults) — never `getUi().sections` (removed). Navigation uses
   `getActiveSections()` (sections with ≥1 model that has an image). Models with images sort first.
 - **Never commit a DB snapshot**: a local `npm run build` with `DATABASE_URL` overwrites
-  `src/data/site.generated.ts` (settings/sections) **and** `src/data/models2027.ts` (published
-  products). Run `git checkout src/data` before committing (`tests/catalogAdmin2027.test.js` test 8).
+  `src/data/site.generated.ts` (settings/sections/seo/texts), `src/data/models2027.ts` (published
+  products) **and** `src/data/redirects.generated.json` (admin 301s). Run `git checkout src/data`
+  (and reset the redirects file to `[]`) before committing (`tests/catalogAdmin2027.test.js` test 8).
+- **API secrets never go to `site_settings`**: that table is exported into the public JS bundle by the
+  snapshot. Report keys (Yandex OAuth, Google service account) live in `integration_secrets`, which
+  `export-snapshot.mjs` must never read (`tests/adminSeo2028.test.js` test 6).
+- **Admin SEO/text overrides apply centrally**: `pageMetadata()` reads `seoOverride(lang, path)` (title,
+  description, noindex) and `getPages()`/`getUi()` apply `texts` via `applyTextOverrides` before tokens — do not
+  re-implement per page. H1/intro overrides exist only on section, tag and export pages (`H1_KINDS`).
+  New indexable page types go into `src/lib/sitePaths.ts` (sitemap + admin list share it).
+- Every `actions.ts` under `src/app/admin` is scanned by `tests/admin2027.test.js` test 12 (each export calls `requireUser`).
 - **Motion**: only below-the-fold elements get `data-rv` (never hide the first screen — LCP/flicker);
   animate transform/opacity only; `prefers-reduced-motion` disables everything (global CSS rule + early
   return in `MotionLayer`). Admin pages auto-refresh every 60 s unless a form is on the page (`AutoRefresh`).
 - **Site numbers/contacts are tokens**: dictionaries use `{years}`, `{capacity}`, `{objects}`,
   `{countries}`, `{countryList}`, `{contactLine}`, `{addressLine}`, `{address}` — never write the
   literal 8/20/18 000/740+ or a phone into copy (`tests/pages2027.test.js` test 13).
+- **`useSyncExternalStore` snapshots must be stable**: `spsLists.ts` `get()` caches the parsed array
+  until the raw localStorage string changes. Returning a fresh `JSON.parse` result each call crashed the whole
+  site with React #185 as soon as one model was in the compare/request list (`tests/stores2027.test.js`).
 - **React 19 forms reset after a server action**: controlled `<select>`s then show the first
   option in the DOM. Big client forms (ProductForm) submit via `onSubmit` + `startTransition`.
 - Analytics IDs/verification come from admin settings (`src/lib/integrations.ts`,
@@ -246,13 +268,27 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
 - Next 15: `params`/`searchParams` are promises (`await params` in server components).
 - `[lang]/layout.tsx` exports `generateStaticParams()` + `dynamicParams = false`,
   so the whole storefront prerenders; keep pages free of request-time APIs.
-- RU header second row: gap 16px and **no "Экспорт" link** (it lives inside
-  "Производство") — see `SiteHeader.tsx` and `.hd-nav--ru`.
+- RU header: **no "Экспорт" link** (it lives inside "Производство") and tighter section tabs —
+  see `SiteHeader.tsx` and `.hd-tabs--ru`. The active tab is set client-side from `usePathname()`
+  (`[lang]/layout.tsx` renders the header once, so the server does not know the current page).
+- **Redesign 2028 UI** ("Beton laboratoriyasi", canvas `docs/REDESIGN-2028-PLAN.md`): tokens in
+  `:root` (concrete `#f2f0eb`, graphite `#15171a`, red `#d7262e`/text `#b51e25`, `--red-on-ink` on dark);
+  buttons/inputs 8px, cards 12px, pill only for chips and the language switch. Card CTA is graphite —
+  red is for the page's main CTA. **Images: only real SPS material** (studio mold photos in
+  `public/images/site/molds/` with `mix-blend-mode: multiply`, laid-tile scenes, factory, export map) —
+  no stock people/warehouses. Home hero = variant A (light, scene + spec card).
+- **Never put `data-rv` in markup**: `MotionLayer` adds it itself and skips elements that already have
+  it, so a static `data-rv` stays `opacity: 0` forever. Register new blocks in `REVEAL` instead.
+- **`.x span` selectors hit nested spans**: e.g. `.sps-stat span` also matched `<span data-countup>`
+  inside the number and shrank it to 14px — use `> span` for labels.
+- Tap targets ≥ 44px on mobile (`npm run shots` report): text links get the hit area via
+  `padding-block` + negative `margin-block` so the layout does not move (see "Tegish maydonlari" in CSS).
 - **Sitemap alternates must be absolute**: metadata `alternates.languages` accepts
   relative paths (Next resolves them against `metadataBase`), the sitemap XML does not —
   use `hreflangAbsolute()` there, never `hreflang()`.
 - **301s live in `scripts/redirects-2027.json`**, not in `next.config.js`. Add/regenerate
-  entries there (`npm run redirects:build`); the config only prepends the www→apex rule.
+  entries there (`npm run redirects:build`); the config only prepends the canonical-host rule
+  (`www.spsplast.com`, `sps.uz`, `www.sps.uz` → `https://spsplast.com/:path*`, one regex host rule).
 - After deleting routes, run `rm -rf .next` before `npm run typecheck` — stale
   `.next/types` produces bogus TS2307 errors for files that no longer exist.
 - `<html lang>` is `uz` in the SSR markup for every locale (single root layout) and is
@@ -284,10 +320,10 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
 
 ```bash
 npm run dev            # local dev server
-npm run build          # models:check + next build (402 static pages)
+npm run build          # models:check + next build (448 static pages)
 npm run typecheck      # tsc --noEmit
 npm run lint           # next lint
-npm test               # node --test --experimental-strip-types tests/*.test.js (122 tests)
+npm test               # node --test --experimental-strip-types tests/*.test.js (142 tests)
 npm run models:build && npm run models:images && npm run models:check
 npm run db:generate    # after editing src/server/db/schema.ts → new SQL in drizzle/
 DATABASE_URL=... npm run db:migrate
@@ -329,6 +365,26 @@ Audit-only devDependencies: `axe-core`, `jsdom` (no browser needed); browser che
 - `/api/leads` xato kodlari: `bad_json`, `validation`, `bad_phone` (faqat telefon xato bo'lsa), `rate_limit` (429). Honeypot `website` to'la bo'lsa — soxta `ok`, Telegram yuborilmaydi.
 
 ## Stage Status (redesign)
+
+- [x] UI 2028 (Claude Design canvas → code, 2026-11-01): tokens, header (dark utility row + section
+  tabs), mobile menu, footer CTA band; catalog block (card with code tag, inset mold, spec dl, graphite
+  CTA; filters; compare bar); home (hero A + spec card, stats, sections + help card, steps + calculator
+  example, factory, wholesale with real mold photos); model (drawing-board mold view with dimension line,
+  ±10 calculator); partners/production stock photos replaced; canonical domain `spsplast.com`.
+  Fixed on the way: React #185 site crash with a non-empty compare/request list, footer red button
+  contrast, production stats font bug, tap targets. Checks: 124 tests, audit:seo 35/0/0, audit:a11y 0,
+  browser axe color-contrast 0 (14 pages × 1440/390), `npm run shots` 28 screens without horizontal scroll.
+
+- [x] Admin A–Z (2026-11-01): SEO center (per-page title/description/H1/intro ×3 langs with SERP preview, noindex,
+  301 manager → `redirects.generated.json`, sitemap submit to Search Console/Yandex Webmaster via API, IndexNow,
+  health checks), Analytics (Yandex Metrica, Search Console, Yandex Webmaster, GA4 reports; secrets table),
+  Matnlar CMS (620 strings incl. `{1}` templates). Migration `0002_seo_content_reports`. 142 tests; publish flow
+  verified end-to-end on a local PGlite socket DB (override → build → title/H1/301/menu text live).
+
+- [x] SEO landing (2026-11-01, `docs/SEO-2028-RU.md` §2a): 7 tag pages + 8 export country pages × 3 langs
+  (static, own H1/title/canonical, Breadcrumb/ItemList/FAQPage JSON-LD), footer "Eksport" column, tag chips +
+  paving guide + countries strip on the section page, sitemap 432. Checks: 130 tests, audit:seo 41/0/0,
+  audit:a11y 37 pages 0, browser contrast 0, `npm run shots` 32 screens without horizontal scroll.
 
 Next stages (7–12: database + lead storage, admin CRM, admin catalog/images, analytics
 dashboard, content/global, launch) and the full gap analysis: **`docs/ROADMAP-2027.md`**.

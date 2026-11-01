@@ -17,7 +17,7 @@ const path = require('node:path');
  */
 
 const ROOT = path.join(__dirname, '..');
-const SITE = 'https://sps.uz';
+const SITE = 'https://spsplast.com';
 
 async function loadRules() {
   return import(path.join(__dirname, '..', 'scripts', 'lib', 'dom-rules.mjs'));
@@ -258,6 +258,9 @@ test('7. Screenshot rejasi haqiqiy etalon fayllarga bog\'langan', async () => {
   // shuning uchun `id` bo'yicha qidiruv desktop'da ko'pincha mos kelmaydi.
   const missing = [];
   for (const shot of SHOT_PLAN) {
+    // `noRef: true` — maketi handoff'da yo'q sahifa (SEO landing): faqat scroll/tegish
+    // tekshiruvi. Bayroq ataylab aniq yoziladi, tasodifan unutilgan etalonni yashirmaydi.
+    if (shot.noRef) continue;
     for (const kind of ['mobile', 'desktop']) {
       if (!shot[kind]) continue;
       const name = (kind === 'mobile' ? shot.refMobile : shot.refDesktop) || shot.id;

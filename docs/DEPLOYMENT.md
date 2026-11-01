@@ -14,7 +14,7 @@ Vercel → Project → Settings → Environment Variables:
 
 | Kalit | Majburiymi | Izoh |
 |---|---|---|
-| `NEXT_PUBLIC_SITE_URL` | Tavsiya | `https://sps.uz` — canonical, sitemap, hreflang shunga tayanadi |
+| `NEXT_PUBLIC_SITE_URL` | Tavsiya | `https://spsplast.com` — canonical, sitemap, hreflang shunga tayanadi |
 | `TELEGRAM_BOT_TOKEN` | **Ha** (zayafka uchun) | `@BotFather` dan |
 | `TELEGRAM_CHAT_ID` | **Ha** (zayafka uchun) | Kompaniya guruhi ID'si (`-100…`) |
 | `NEXT_PUBLIC_GTM_ID` | Yo'q | GTM konteyner |
@@ -31,13 +31,14 @@ zayafkalar yetib bormaydi — `/api/health` buni `degraded` deb ko'rsatadi.
 2. Env o'zgaruvchilarni kiriting.
 3. Deploy qiling. Build `catalog:check` bilan boshlanadi — `src/data/catalog.json`
    manbalarga mos bo'lmasa build to'xtaydi.
-4. Domenni ulang: `sps.uz` (apex) + `www.sps.uz` → apex 301 (redirect
-   `next.config.js` da allaqachon bor).
+4. Domenni ulang: `spsplast.com` (apex, kanonik) + `www.spsplast.com`, eski `sps.uz` va
+   `www.sps.uz` — hammasi bitta Vercel loyihasiga. Apex'dan boshqa hostlar yo'lni saqlab
+   `https://spsplast.com/...` ga 301 bo'ladi (qoida `next.config.js` da bor).
 
 ## 4. Deploydan keyin tekshirish
 
 ```bash
-curl -s https://sps.uz/api/health | jq
+curl -s https://spsplast.com/api/health | jq
 # { "status": "ok", "checks": { "telegram": true, "siteUrl": true } }
 
 curl -sI https://sps.uz/uz | head -1          # 200
