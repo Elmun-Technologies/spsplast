@@ -74,8 +74,12 @@ jobs:
       - name: Lighthouse (mobil + desktop)
         # Screenshot qadami yiqilsa ham yuradi; CI ballari shovqinli bo'lgani uchun
         # byudjet buzilishi job'ni qizartirmaydi — sonlar hisobot va izohda ko'rinadi.
+        # PR'da har sahifa 1 marta (tez, ~4 daqiqa), `main` ga push'da 3 marta + mediana
+        # (aniq, ~10 daqiqa): 48 ta o'lchov har PR'ni 13 daqiqa ushlab turardi.
         if: ${{ !cancelled() }}
         continue-on-error: true
+        env:
+          LH_RUNS: ${{ github.event_name == 'pull_request' && '1' || '3' }}
         run: npm run lighthouse 2>&1 | tee /tmp/lighthouse.log
 
       - name: Hisobotlarni yig'ish (run summary)

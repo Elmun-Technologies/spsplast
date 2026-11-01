@@ -182,7 +182,7 @@ npm run lighthouse     # 8 targets x {mobile,desktop}, 3 runs each, MEDIAN -> do
 
 - `SHOTS_MAX_TOTAL_MS` / `SHOTS_MAX_SHOT_MS` cap the shots step (a hung page must
   not stall CI); `LH_RUNS` changes repeats (median-of-3 because single CI runs
-  swing ±10 points). Both scripts exit 0 with a hint when no Chromium exists
+  swing ±10 points). CI uses `LH_RUNS=1` on pull requests (fast) and 3 on pushes to `main`. Both scripts exit 0 with a hint when no Chromium exists
   (agent sandbox) — real numbers come from CI or a machine with Chrome.
 - **Playwright viewports**: `width/height` must live inside a `viewport` object
   (`VIEWPORTS` in `scripts/lib/routes.mjs`); flat options are silently ignored

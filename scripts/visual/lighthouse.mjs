@@ -179,7 +179,11 @@ function markdown(results, failures) {
     `> Sana: ${today} · manba: \`${ORIGIN}\` · rejimlar: mobil (throttled) + desktop`,
     '> Byudjet (HANDOFF 7): mobil perf \u2265 90, desktop perf \u2265 95, a11y \u2265 95, best-practices \u2265 95, SEO = 100',
     `> Yurishlar: ${results.length} · byudjet buzilishi: **${failures.length}**
-> Har maqsad ${RUNS} martadan o'lchanadi va **mediana** hisobotga yoziladi (CI shovqiniga qarshi); xom JSON'larda har yurish alohida (\`-r1/-r2/-r3\`).`,
+${
+      RUNS > 1
+        ? `> Har maqsad ${RUNS} martadan o'lchanadi va **mediana** hisobotga yoziladi (CI shovqiniga qarshi); xom JSON'larda har yurish alohida (\`-r1/-r2/-r3\`).`
+        : "> Har maqsad **1 marta** o'lchandi (PR rejimi, tez): ball ±10 ga sakrashi mumkin — byudjetga yaqin son shovqin bo'lishi ham mumkin. To'liq 3 martalik mediana `main` ga push'da yuradi."
+    }`,
     '',
     '## Ballar',
     '',
