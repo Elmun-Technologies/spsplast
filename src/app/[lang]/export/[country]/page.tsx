@@ -146,7 +146,7 @@ export default async function ExportCountryPage({ params }: { params: Promise<Pa
               const per = modelPerM2(m);
               return (
                 <a className="rc" key={m.slug} href={`/${lang}/catalog/${SECTION_SLUGS[m.section]}/${m.slug}`}>
-                  {img ? <Image src={m.images.sceneSm || img} alt={`${modelName(m, lang)} — ${t.alt.scene}`} width={400} height={300} loading="lazy" /> : null}
+                  {img ? <Image src={m.images.sceneSm || img} alt={`${modelName(m, lang)} — ${t.alt.scene}`} width={400} height={300} sizes="(max-width: 640px) 50vw, (max-width: 1100px) 25vw, 300px" loading="lazy" /> : null}
                   <div>
                     <span className="mono">{m.code ? `№ ${m.code}` : ''}</span>
                     <b>{modelName(m, lang)}</b>

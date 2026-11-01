@@ -81,6 +81,9 @@ export function ModelClient({
   }, [model.slug]);
 
   const [shot, setShot] = useState(0);
+  // Galereya almashganda yumshoq o'tish — faqat foydalanuvchi bosgandan keyin. Birinchi
+  // rasm (LCP) animatsiyasiz chiqadi: opacity 0 dan boshlansa Chrome LCP'ni kechiktiradi.
+  const [picked, setPicked] = useState(false);
   const current = gallery[shot] ?? gallery[0];
   const hero = current ?? (modelImage(model) ? { src: modelImage(model) as string, label: '', cover: true } : null);
 
@@ -188,7 +191,10 @@ export function ModelClient({
                   key={g.src}
                   type="button"
                   className={`${i === shot ? 'on' : ''} ${g.cover ? '' : 'contain'}`}
-                  onClick={() => setShot(i)}
+                  onClick={() => {
+                    setShot(i);
+                    setPicked(true);
+                  }}
                   aria-label={`${p.model.gallery.thumbA11y}: ${g.label}`}
                   aria-pressed={i === shot}
                 >
@@ -201,12 +207,13 @@ export function ModelClient({
               {hero ? (
                 <Image
                   key={hero.src}
-                  className="fade-in"
+                  className={picked ? 'fade-in' : undefined}
                   src={hero.src}
                   alt={`${modelName(model, lang)} — ${hero.label}`}
                   fill
                   sizes="(max-width: 1100px) 100vw, 640px"
                   priority
+                  fetchPriority="high"
                   // Fonsiz qolip/mahsulot surati markazda, chetlardan joy bilan (avval chap-yuqoriga siqilib qolardi).
                   style={{ objectFit: hero.cover ? 'cover' : 'contain', padding: hero.cover ? undefined : '8%' }}
                 />
@@ -476,7 +483,7 @@ export function ModelClient({
               {related.map((r) => (
                 <a className="rc" key={r.slug} href={`/${lang}/catalog/${SECTION_SLUGS[r.section]}/${r.slug}`}>
                   {modelImage(r) ? (
-                    <Image src={modelImage(r) as string} alt={modelName(r, lang)} width={400} height={300} loading="lazy" />
+                    <Image src={(r.images.sceneSm || modelImage(r)) as string} alt={modelName(r, lang)} width={400} height={300} sizes="(max-width: 640px) 50vw, (max-width: 1100px) 25vw, 300px" loading="lazy" />
                   ) : (
                     <div className="ph" style={{ aspectRatio: '4 / 3' }}>
                       {r.code || modelName(r, lang)}
