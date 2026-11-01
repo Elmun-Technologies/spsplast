@@ -82,7 +82,7 @@ docs/audits/                 # GENERATED reports (seo-dom-*, a11y-*, visual-*, l
 docs/checks.md               # how to verify HANDOFF §7 acceptance criteria (what runs where)
 docs/unresolved-questions.md # open business questions + accepted deviations with reasons
 docs/legacy/                 # archive of the deleted 2026 data (catalog-2026.json, molds-2026.json)
-tests/helpers/load-alias.mjs # runs `@/`-aliased TS in Node (writes .tmp-tests/, gitignored)
+tests/helpers/load-alias.mjs # runs `@/`-aliased TS in Node (writes .tmp-tests/<pid>/, gitignored)
 screens-actual/              # GENERATED screenshots from `npm run shots` (gitignored)
 media-src/                   # SOURCE photos the image pipeline reads (factory/, studio/, pdf/ — 86 MB)
 media-src/studio-2026/       # 44 archived 2026 studio JPGs (mold + quyma) for jobs that say public/catalog/2026/
@@ -265,7 +265,9 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
 - Every admin `page.tsx`/`route.ts` and server action calls `requireUser()` (test 12 in
   `tests/admin2027.test.js`); middleware only redirects cookie-less requests to `/admin/login?next=`.
 - `tests/admin2027.test.js` imports `src/server/*` directly (relative `.ts` imports), not through
-  `load-alias` — the shared `.tmp-tests` dir is wiped by parallel test files.
+  `load-alias`. `load-alias` materializes into a **per-process** dir `.tmp-tests/<pid>` (removed on exit):
+  a shared dir let one file's `cleanupTmp()` delete modules another parallel file was importing
+  (random `ERR_MODULE_NOT_FOUND` in `stores2027`, CI run 41318919818).
 - **Only `/api/leads`, `/api/health` and `/api/track` may exist** under `src/app/api` (admin uses
   server actions and `/admin/leads/export`) (`tests/foundation2027.test.js` enforces it).
 - **`data/models-2027.json` is generated** — edit the extractor, not the JSON.

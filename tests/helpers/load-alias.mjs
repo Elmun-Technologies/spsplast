@@ -17,7 +17,23 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 export const ROOT = path.resolve(HERE, '..', '..');
-const TMP_ROOT = path.join(ROOT, '.tmp-tests');
+/**
+ * Har bir test jarayoni o'z papkasida (`.tmp-tests/<pid>`): `node --test` fayllarni
+ * parallel yuritadi, va umumiy papkada bir fayl oxiridagi `cleanupTmp()` boshqa
+ * fayl hali import qilayotgan nusxalarni o'chirib yuborardi (ERR_MODULE_NOT_FOUND,
+ * CI'da tasodifiy yiqilish). Papka ROOT ichida qoladi — `node_modules` topiladi.
+ */
+const TMP_BASE = path.join(ROOT, '.tmp-tests');
+const TMP_ROOT = path.join(TMP_BASE, String(process.pid));
+// cleanupTmp() chaqirmagan test fayllari ham o'z papkasini qoldirmasin.
+process.once('exit', () => {
+  try {
+    fs.rmSync(TMP_ROOT, { recursive: true, force: true });
+    fs.rmdirSync(TMP_BASE);
+  } catch {
+    /* boshqa jarayon papkasi hali bor yoki allaqachon o'chirilgan */
+  }
+});
 
 /** `@/lib/x`, `./y`, `../z` specini haqiqiy faylga aylantiradi. */
 function resolveSpec(spec, fromFile) {
@@ -72,7 +88,14 @@ export async function loadAliased(relativePath) {
   return import(`${pathToFileURL(tmpFile).href}?run=${process.pid}-${Date.now()}`);
 }
 
-/** `.tmp-tests` ni tozalash (test fayli oxirida chaqiriladi). */
+/** Shu jarayonning vaqtinchalik papkasini tozalash (test fayli oxirida chaqiriladi). */
 export function cleanupTmp() {
   fs.rmSync(TMP_ROOT, { recursive: true, force: true });
+  materialized.clear();
+  // Boshqa jarayonlar papkalari qolmagan bo'lsa — umumiy papkani ham olib tashlaymiz.
+  try {
+    fs.rmdirSync(TMP_BASE);
+  } catch {
+    /* bo'sh emas yoki yo'q — parallel fayllar hali ishlayapti */
+  }
 }
