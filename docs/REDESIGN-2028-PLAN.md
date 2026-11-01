@@ -45,6 +45,20 @@ Yangi bloklar (eski saytda yo'q edi):
 - **"Qaysi qolip kerakligini bilmaysizmi?"** maslahat kartochkasi (Telegram + telefon).
 - Bosh sahifa oxirida FAQ + zayafka formasi yonma-yon.
 
+## 2a. Raqobatchi (korun.uz) — olingan g'oyalar
+
+Manba: foydalanuvchi yuborgan hero skrinshoti (sandbox tarmog'ida domen bloklangan).
+Korun: qorong'i fon + sariq diagonal, UPPERCASE yirik sarlavha, hero'da 3D qolip,
+menyuda "Jarayon / 3D studiya / Kalkulyator", "Aylantiring — qolip qanday ishlashini ko'ring", suzuvchi Telegram tugmasi.
+
+Biz ko'chirmaymiz, g'oyani o'z tilimizda qilamiz — **"01B · Bosh sahifa V2"** artboard:
+- Qorong'i hero + **chizma taxtasi**: qolip mm-to'r ustida, 300 mm o'lcham chiziqlari va izohlar (30 mm, 11 dona/m², PP/ABS).
+  Sarlavha: "119 xil plitka. Bitta zavod." (raqam katalogdan).
+- **Jarayon hikoyasi** (scroll-driven, bosib ham bo'ladi): Qolip → Quyish → Plitka → Yo'lak, progress chizig'i bilan.
+- **Plitka studiyasi**: 8 model qolipidan birini tanlaysiz → terilgan sahna / qolip ko'rinishi, xususiyatlar, "Shu model uchun zayafka".
+- Header'da **"Kalkulyator"** havolasi, sahifa burchagida **suzuvchi Telegram** tugmasi.
+- Korun pigment/plastifikator ham sotadi — SPS'da bu yo'q, qo'shilmaydi.
+
 ## 3. Kodga o'tkazish bosqichlari
 
 1. **Tokenlar** — `src/app/globals.css` `:root` ni 1-bo'limdagi qiymatlarga almashtirish; radius/tugma
