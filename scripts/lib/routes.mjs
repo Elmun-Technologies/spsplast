@@ -41,6 +41,14 @@ export const AUDIT_ROUTES = [
   // Rasmsiz model: fallback (placeholder) va alt matnlari tekshiriladi.
   { path: '/uz/catalog/paving/70-kabanchik-17-5-naqshli', lang: 'uz', expect: { jsonLd: ['Product'], noImage: true } },
 
+  // SEO landing (docs/SEO-2028-RU.md): teg va eksport (geo) sahifalari
+  { path: '/ru/catalog/paving/tag/300x300', lang: 'ru', expect: { jsonLd: ['BreadcrumbList', 'ItemList'] } },
+  { path: '/uz/catalog/paving/tag/walk-25-30', lang: 'uz', expect: { jsonLd: ['BreadcrumbList', 'ItemList'] } },
+  { path: '/en/catalog/paving/tag/sets', lang: 'en', expect: { jsonLd: ['BreadcrumbList', 'ItemList'] } },
+  { path: '/ru/export/kazakhstan', lang: 'ru', expect: { jsonLd: ['BreadcrumbList', 'ItemList', 'FAQPage'] } },
+  { path: '/uz/export/russia', lang: 'uz', expect: { jsonLd: ['BreadcrumbList', 'ItemList', 'FAQPage'] } },
+  { path: '/en/export/georgia', lang: 'en', expect: { jsonLd: ['BreadcrumbList', 'ItemList', 'FAQPage'] } },
+
   { path: '/uz/partners', lang: 'uz', expect: { jsonLd: ['BreadcrumbList', 'FAQPage'] } },
   { path: '/ru/partners', lang: 'ru', expect: { jsonLd: ['BreadcrumbList', 'FAQPage'] } },
   { path: '/en/partners', lang: 'en', expect: { jsonLd: ['BreadcrumbList', 'FAQPage'] } },
@@ -100,6 +108,9 @@ export const SHOT_PLAN = [
   { id: '13-404', refDesktop: '11-404', path: '/uz/catalog/paving/yoq-model', mobile: true, desktop: true, ref: '404' },
   // desktop/09-holatlar.jpg — holatlar varaqasi (bo'sh ro'yxat, yuklanish, xato).
   { id: '09-holatlar', path: '/uz/request', desktop: true, ref: 'holatlar' },
+  // SEO landing sahifalari (etalon yo'q — faqat scroll/tegish tekshiruvi).
+  { id: 'seo-teg', path: '/ru/catalog/paving/tag/300x300', mobile: true, desktop: true, noRef: true },
+  { id: 'seo-eksport', path: '/ru/export/kazakhstan', mobile: true, desktop: true, noRef: true },
   // i18n ekranlari: ru/en bosh sahifa, mobil va desktop.
   { id: 'ru-mobil-bosh-sahifa', path: '/ru', mobile: true, ref: 'ru-bosh-sahifa' },
   { id: 'ru-desktop-bosh-sahifa', path: '/ru', desktop: true, ref: 'ru-bosh-sahifa' },

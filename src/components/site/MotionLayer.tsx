@@ -30,6 +30,9 @@ const REVEAL = [
   'main .hm-calc',
   'main .hm-checks > li',
   'main .hm-who__card',
+  // SEO sahifalari
+  'main .geo-steps > li',
+  'main .seo-guide__block',
 ].join(',');
 
 function countUp(el: HTMLElement) {

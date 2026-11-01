@@ -16,14 +16,26 @@ const MATERIALS: ('pp' | 'abs' | 'advice')[] = ['pp', 'abs', 'advice'];
  * Ulgurji formasi (Partners.dc.html, `#sorov`): mijoz turi, kompaniya, davlat,
  * kunlik hajm, material. Zayafka ro'yxatidagi modellar shu yerda ko'rinadi.
  */
-export function PartnersForm({ lang }: { lang: Locale }) {
+/**
+ * `phonePrefix` — eksport sahifasida telefon placeholder'i davlat kodi bilan (+7, +375…).
+ * `defaultCountry` — eksport (geo) sahifasida davlat oldindan tanlanadi; ro'yxatda bo'lmasa
+ * (masalan Belarus) oxirgi variant ("Boshqa") tanlanadi.
+ */
+export function PartnersForm({ lang, defaultCountry, phonePrefix }: { lang: Locale; defaultCountry?: string; phonePrefix?: string }) {
   const t = getUi(lang);
   const p = getPages(lang);
   const list = useRequestList();
   const [clientType, setClientType] = useState<ClientType>('workshop');
   const [name, setName] = useState('');
   const [company, setCompany] = useState('');
-  const [country, setCountry] = useState(p.partners.countries[0]);
+  const countryList = p.partners.countries;
+  const [country, setCountry] = useState(
+    !defaultCountry
+      ? countryList[0]
+      : countryList.includes(defaultCountry)
+        ? defaultCountry
+        : countryList[countryList.length - 1],
+  );
   const [phone, setPhone] = useState('');
   const [volume, setVolume] = useState('');
   const [material, setMaterial] = useState(0);
@@ -156,7 +168,7 @@ export function PartnersForm({ lang }: { lang: Locale }) {
             autoComplete="tel"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            placeholder={p.request.phonePlaceholder}
+            placeholder={phonePrefix ?? p.request.phonePlaceholder}
             required
             minLength={7}
           />

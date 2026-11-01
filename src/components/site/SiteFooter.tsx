@@ -6,12 +6,15 @@ import { getUi } from '@/lib/ui';
 import { LangSwitch } from '@/components/site/LangSwitch';
 import { PDF_CATALOG_HREF } from '@/components/site/SiteHeader';
 import { Icon } from '@/components/site/icons';
+import { getPages } from '@/lib/pages';
+import { EXPORT_COUNTRIES } from '@/lib/seoPages';
 
 /** Footer (Redesign 2028): CTA band (zayafka + Telegram) → 4 ustun → pastki qator. */
 export function SiteFooter({ lang }: { lang: Locale }) {
   const t = getUi(lang);
   const counts = getSectionCounts();
   const [mainPhone, ...otherPhones] = CONTACTS_2027.sales;
+  const geo = getPages(lang).seo.geo;
 
   return (
     <footer className="ft">
@@ -49,6 +52,15 @@ export function SiteFooter({ lang }: { lang: Locale }) {
             <a href={`/${lang}/partners`}>{t.footer.partners}</a>
             <a href={`/${lang}/partners#faq`}>{t.footer.faq}</a>
             <a href={PDF_CATALOG_HREF}>{t.footer.pdf}</a>
+          </div>
+          <div className="ft-col">
+            <span className="sps-eyebrow">{t.footer.export}</span>
+            {/* Eksport (geo) sahifalariga ichki havolalar — har sahifadan (docs/SEO-2028-RU.md) */}
+            {EXPORT_COUNTRIES.map((c) => (
+              <a key={c.key} href={`/${lang}/export/${c.key}`}>
+                {geo.countries[c.key].name}
+              </a>
+            ))}
           </div>
           <div className="ft-col">
             <span className="sps-eyebrow">{t.footer.contact}</span>

@@ -59,7 +59,9 @@ src/lib/contacts2027.ts      # contacts per HANDOFF §1 (single source for new l
 src/lib/store/spsLists.ts    # request list + compare list (localStorage)
 src/lib/ui.ts                # getUi(lang), pluralModels(), formatNumber()
 src/lib/seo.ts               # metadata + hreflang + JSON-LD builders (uz/ru/en, no price)
-src/app/sitemap.ts           # 387 URLs: (6 fixed + 4 non-empty sections + 119 models) × 3 langs
+src/app/sitemap.ts           # 432 URLs: (6 fixed + 4 non-empty sections + 7 tags + 8 export countries + 119 models) × 3 langs
+src/lib/seoPages.ts          # SEO landing logic: TAG_DEFS (MIN_TAG_MODELS=6), EXPORT_COUNTRIES (8)
+src/components/seo2028/SeoBlocks.tsx  # TagChips, CountriesStrip, PavingGuide (server components)
 src/app/robots.ts            # allow all; disallow /api/, /*/compare, /*/request
 src/components/site/JsonLd.tsx     # server-only <script type="application/ld+json"> renderer
 scripts/redirects-2027.json  # GENERATED 301 map (436 entries) — read by next.config.js
@@ -107,6 +109,8 @@ Everything a visitor could still hit is answered by a 301 (`scripts/redirects-20
 | Production & export | `/{lang}/production` (`#eksport`) |
 | Contact | `/{lang}/contact` |
 | Privacy | `/{lang}/privacy` |
+| Tag landing (SEO) | `/{lang}/catalog/{section}/tag/{tag}` (only tags with ≥ 6 models) |
+| Export country (SEO) | `/{lang}/export/{country}` (8 countries, `EXPORT_COUNTRIES`) |
 | 404 | `not-found` (root + `[lang]`) |
 | Sitemap / robots | `/sitemap.xml` (rewrite → `/sitemap`), `/robots.txt` |
 
@@ -303,10 +307,10 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
 
 ```bash
 npm run dev            # local dev server
-npm run build          # models:check + next build (402 static pages)
+npm run build          # models:check + next build (447 static pages)
 npm run typecheck      # tsc --noEmit
 npm run lint           # next lint
-npm test               # node --test --experimental-strip-types tests/*.test.js (124 tests)
+npm test               # node --test --experimental-strip-types tests/*.test.js (130 tests)
 npm run models:build && npm run models:images && npm run models:check
 npm run db:generate    # after editing src/server/db/schema.ts → new SQL in drizzle/
 DATABASE_URL=... npm run db:migrate
@@ -357,6 +361,11 @@ Audit-only devDependencies: `axe-core`, `jsdom` (no browser needed); browser che
   Fixed on the way: React #185 site crash with a non-empty compare/request list, footer red button
   contrast, production stats font bug, tap targets. Checks: 124 tests, audit:seo 35/0/0, audit:a11y 0,
   browser axe color-contrast 0 (14 pages × 1440/390), `npm run shots` 28 screens without horizontal scroll.
+
+- [x] SEO landing (2026-11-01, `docs/SEO-2028-RU.md` §2a): 7 tag pages + 8 export country pages × 3 langs
+  (static, own H1/title/canonical, Breadcrumb/ItemList/FAQPage JSON-LD), footer "Eksport" column, tag chips +
+  paving guide + countries strip on the section page, sitemap 432. Checks: 130 tests, audit:seo 41/0/0,
+  audit:a11y 37 pages 0, browser contrast 0, `npm run shots` 32 screens without horizontal scroll.
 
 Next stages (7–12: database + lead storage, admin CRM, admin catalog/images, analytics
 dashboard, content/global, launch) and the full gap analysis: **`docs/ROADMAP-2027.md`**.

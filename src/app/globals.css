@@ -507,7 +507,8 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
 @media (max-width: 760px) { .ft-cta__btns { width: 100%; } .ft-cta__btns .sps-btn { flex: 1 1 100%; } }
 .ft-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; }
 @media (min-width: 521px) { .ft-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (min-width: 901px) { .ft-grid { grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); gap: 48px; } }
+@media (min-width: 901px) { .ft-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; } }
+@media (min-width: 1181px) { .ft-grid { grid-template-columns: minmax(0, 1.3fr) repeat(4, minmax(0, 1fr)); gap: 40px; } }
 .ft-about { display: flex; flex-direction: column; gap: 20px; }
 /*
  * `align-self: flex-start`: ustun flex konteyneri (`align-items: stretch`) logoni
@@ -1212,3 +1213,67 @@ html[data-scrolled] .hd { box-shadow: 0 6px 24px rgba(21, 23, 26, .08); border-b
 @media print { [data-rv] { opacity: 1 !important; transform: none !important; } }
 /* Modal sarlavhasidagi yopish tugmasi doim o'ng chetda. */
 .sps-sheet__head > .sps-iconbtn:last-child, .sps-modal__head > .sps-iconbtn:last-child { margin-left: auto; flex: none; }
+
+/* --- SEO landing bloklari (docs/SEO-2028-RU.md 2-bo'lim): teg chip'lari, qo'llanma, davlatlar, eksport sahifasi --- */
+.seo-tags { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding: var(--space-4) 0 2px; margin-bottom: var(--space-2); }
+.seo-tags::-webkit-scrollbar { display: none; }
+.seo-tags a { flex: none; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border: 1px solid var(--line); border-radius: var(--radius-pill); background: var(--surface); color: var(--ink); text-decoration: none; font: 500 14px/20px var(--font-sans); white-space: nowrap; transition: border-color .15s ease-out; }
+.seo-tags a:hover { border-color: var(--line-strong); }
+.seo-tags a > span { color: var(--ink-muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+.seo-tags a[aria-current='page'] { background: var(--ink); border-color: var(--ink); color: var(--on-ink); }
+.seo-tags a[aria-current='page'] > span { color: var(--on-ink-muted); }
+@media (min-width: 901px) { .seo-tags { flex-wrap: wrap; overflow: visible; } }
+.seo-head > div { display: flex; flex-direction: column; gap: 12px; }
+.seo-head__meta { margin: 0; font: 400 14px/20px var(--font-sans); color: var(--ink-muted); }
+.seo-head__meta b { color: var(--ink); font-weight: 600; }
+.seo-head__meta a { color: var(--ink); text-underline-offset: 3px; display: inline-block; padding-block: 12px; margin-block: -12px; }
+.seo-head__meta a:hover { color: var(--red-ink); }
+
+.seo-guide { background: var(--surface); border-top: 1px solid var(--line); }
+.seo-guide__in { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-5); }
+.seo-guide__block { display: flex; flex-direction: column; gap: 12px; }
+.seo-guide__block .body { margin: 0; max-width: 68ch; }
+@media (min-width: 901px) {
+  .seo-guide__in { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); column-gap: 48px; }
+  .seo-guide__in > .h1 { grid-column: 1 / -1; }
+  .seo-guide__in > .seo-guide__block:first-of-type { grid-row: span 2; }
+}
+.seo-table { width: 100%; border-collapse: collapse; font: 400 15px/22px var(--font-sans); font-variant-numeric: tabular-nums; }
+.seo-table th { text-align: left; font: 600 12px/16px var(--font-sans); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-muted); padding: 0 12px 10px 0; border-bottom: 1px solid var(--line-strong); }
+.seo-table td { padding: 12px 12px 12px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+.seo-table td:last-child, .seo-table th:last-child { text-align: right; padding-right: 0; }
+.seo-table a { color: var(--ink); font-weight: 600; text-underline-offset: 3px; display: inline-block; padding-block: 12px; margin-block: -12px; }
+.seo-table a:hover { color: var(--red-ink); }
+
+.seo-countries { background: var(--surface-alt); border-top: 1px solid var(--line); }
+.seo-countries__in { display: flex; flex-direction: column; gap: 16px; padding-block: var(--space-6); }
+.seo-countries__title { margin: 0; font: 600 20px/28px var(--font-sans); letter-spacing: -0.01em; }
+.seo-countries nav { display: flex; flex-wrap: wrap; gap: 8px; }
+.seo-countries nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border: 1px solid var(--line); border-radius: var(--radius-btn); background: var(--surface); color: var(--ink); text-decoration: none; font: 500 15px/20px var(--font-sans); transition: border-color .15s ease-out; }
+.seo-countries nav a:hover { border-color: var(--line-strong); color: var(--red-ink); }
+
+.geo-hero { padding-block: var(--space-6) var(--space-7, 56px); }
+.geo-hero__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-6); align-items: center; }
+.geo-hero__text { display: flex; flex-direction: column; gap: 20px; }
+.geo-hero .crumbs a { color: var(--on-ink-muted); }
+.geo-hero .crumbs a:hover { color: var(--on-ink); }
+.geo-hero .crumbs li[aria-current] { color: var(--on-ink); }
+.geo-hero ol.crumbs > li + li::before { color: var(--on-ink-muted); }
+.geo-hero__h { margin: 0; font: 600 32px/36px var(--font-sans); letter-spacing: -0.025em; text-wrap: balance; }
+.geo-hero__lead { margin: 0; font: 400 16px/26px var(--font-sans); color: var(--on-ink-muted); max-width: 60ch; }
+.geo-hero__map { margin: 0; border-radius: var(--radius-card); overflow: hidden; background: var(--surface-2); }
+.geo-hero__map img { display: block; width: 100%; height: auto; }
+@media (min-width: 901px) {
+  .geo-hero { padding-block: 56px 72px; }
+  .geo-hero__grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 56px; }
+  .geo-hero__h { font-size: 48px; line-height: 52px; }
+  .geo-hero__lead { font-size: 18px; line-height: 28px; }
+}
+.geo-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
+.geo-steps li { display: flex; flex-direction: column; gap: 8px; padding: 20px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-card); }
+.geo-steps li b { font: 600 17px/23px var(--font-sans); }
+.geo-steps li .muted { font: 400 15px/22px var(--font-sans); }
+@media (min-width: 641px) { .geo-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1101px) { .geo-steps { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+.geo-form { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-6); align-items: start; }
+@media (min-width: 1001px) { .geo-form { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; } }

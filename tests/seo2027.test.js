@@ -121,9 +121,12 @@ test('3. sitemap: 390 URL, har biri 3 tilda, duplikat yo\'q', async (t) => {
   const counts = {};
   for (const m of models.models) counts[m.section] = (counts[m.section] || 0) + 1;
   const nonEmptySections = Object.keys(SECTION_SLUGS).filter((s) => counts[s] > 0).length;
-  const staticCount = 6 + nonEmptySections;
+  // SEO landing: teg sahifalari (≥ MIN_TAG_MODELS model) + 8 eksport davlati.
+  const { getSeoTags, EXPORT_COUNTRIES } = await loadAliased('src/lib/seoPages.ts');
+  const seoCount = getSeoTags().length + EXPORT_COUNTRIES.length;
+  const staticCount = 6 + nonEmptySections + seoCount;
   assert.strictEqual(entries.length, (staticCount + models.models.length) * 3,
-    `kutilgan: (${staticCount} statik + ${models.models.length} model) × 3 til, bor: ${entries.length}`);
+    `kutilgan: (${staticCount} statik/SEO + ${models.models.length} model) × 3 til, bor: ${entries.length}`);
 
   for (const url of urls) {
     assert.ok(url.startsWith(`${SITE_URL}/`), `URL sayt domeni bilan boshlanmadi: ${url}`);

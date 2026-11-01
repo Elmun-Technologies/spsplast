@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next';
 import { locales } from '@/lib/i18n';
 import { getModels, getSectionCounts, SECTIONS, SECTION_SLUGS } from '@/lib/catalog2027';
 import { hreflangAbsolute, SITE_URL } from '@/lib/seo';
+import { EXPORT_COUNTRIES, getSeoTags } from '@/lib/seoPages';
 
 /**
  * Sitemap (HANDOFF 7): har bir sahifa uch uchun til + x-default.
@@ -24,6 +25,17 @@ const FIXED_PATHS: { path: string; priority: number; changeFrequency: 'daily' | 
   { path: '/contact', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/privacy', priority: 0.3, changeFrequency: 'yearly' },
 ];
+
+/**
+ * SEO landing sahifalari (docs/SEO-2028-RU.md 2-bo'lim): teglar (faqat ≥ MIN_TAG_MODELS
+ * modelli — `getSeoTags()` o'zi filtrlaydi) va 8 ta eksport davlati.
+ */
+function seoPaths() {
+  return [
+    ...getSeoTags().map((t) => ({ path: `/catalog/${SECTION_SLUGS[t.section]}/tag/${t.tag}`, priority: 0.7, changeFrequency: 'weekly' as const })),
+    ...EXPORT_COUNTRIES.map((c) => ({ path: `/export/${c.key}`, priority: 0.7, changeFrequency: 'monthly' as const })),
+  ];
+}
 
 /** Modeli bor bo'limlar (yupqa kontentni indeksga bermaymiz). */
 function sectionPaths() {
@@ -54,7 +66,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const models = getModels();
   const out: MetadataRoute.Sitemap = [];
 
-  for (const { path, priority, changeFrequency } of [...FIXED_PATHS, ...sectionPaths()]) {
+  for (const { path, priority, changeFrequency } of [...FIXED_PATHS, ...sectionPaths(), ...seoPaths()]) {
     for (const lang of locales) out.push(entry(path, lang, { priority, changeFrequency, lastModified: now }));
   }
 

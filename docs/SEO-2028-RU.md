@@ -75,6 +75,26 @@ bu yerda raqam o'ylab topilmaydi.
   title: `Форма для плитки «Монако» 300×300×30 — SPS`.
 - **Ichki havolalar**: footer'da 8 davlat + asosiy teglar; kategoriya ↔ geo ↔ model.
 
+### 2a. Kodda bajarildi (2026-11-01)
+
+- **Teg-landinglar** `/{lang}/catalog/paving/tag/{tag}` — 7 ta: `walk-25-30`, `yard-35-40`,
+  `parking-45-50`, `300x300`, `200x200`, `figured`, `sets`. Mantiq `src/lib/seoPages.ts`
+  (`TAG_DEFS`, `MIN_TAG_MODELS = 6` — modeli kam teg sahifa olmaydi, ma'lumot ko'paysa o'zi paydo bo'ladi),
+  matnlar `getPages(lang).seo.tags` (uz/ru/en). Har birida o'z H1/title/description, canonical,
+  BreadcrumbList + ItemList, teg chip'lari, katalog bloki, "Как выбрать форму" qo'llanmasi, davlatlar bloki.
+- **Geo-sahifalar** `/{lang}/export/{country}` — 8 ta (`russia`, `kazakhstan`, `belarus`, `kyrgyzstan`,
+  `tajikistan`, `azerbaijan`, `armenia`, `georgia`). URL rejadagi `/ru/dostavka/...` o'rniga uch tilda bir xil
+  inglizcha slug (hreflang to'plami bitta sahifaga bog'lanadi). Har birida davlatga oid H1/lead/FAQ (shaharlar),
+  BreadcrumbList + ItemList + FAQPage, forma: davlat oldindan tanlangan, telefon placeholder'i davlat kodi bilan.
+  Narx/muddat/valyuta — "по договорённости" (faqat tasdiqlangan faktlar).
+- **Ichki havolalar**: footer'da "Eksport" ustuni (8 davlat, har sahifadan), bo'lim sahifasida teg chip'lari +
+  qo'llanma + davlatlar bloki, geo-sahifada "Доставляем также".
+- **Sitemap**: 432 URL = (6 doimiy + 4 bo'lim + 7 teg + 8 davlat + 119 model) × 3 til.
+- Tekshiruv: `tests/seoPages2028.test.js` (6 test: teg ≥ 6 model, 3 tilda matn, title ≤ 53 belgi + suffiks,
+  description 50–170, narx/"yaratish"/token yo'q, statik marshrut, ichki havolalar, audit qamrovi).
+- Qolgan: noyob uzun matnlar (300–600 so'z) har teg va davlat uchun — biznes faktlari bilan (shaharlar bo'yicha
+  dilerlar, real yetkazish misollari); `name.ru` kirillcha model nomlari.
+
 ## 3. Texnik SEO
 
 - `hreflang`: `uz`, `ru`, `en`, `x-default` (hozir bor). Mintaqaviy `ru-KZ`/`ru-RU` faqat **alohida
@@ -102,8 +122,8 @@ bu yerda raqam o'ylab topilmaydi.
 | Bosqich | Ish | Natija |
 |---|---|---|
 | 1 | Domen qarori (0-bo'lim), `name.ru` kirillcha nomlar | Geo-signal to'g'ri |
-| 2 | Kategoriya + teg-landinglar (RU) kodga | Asosiy klasterlar indeksda |
-| 3 | 8 geo-sahifa, noyob matnlar | Davlat so'rovlari |
+| 2 | ✅ Kategoriya + teg-landinglar (RU) kodga | Asosiy klasterlar indeksda |
+| 3 | ✅ 8 geo-sahifa (kod); uzunroq noyob matnlar — biznes faktlari bilan | Davlat so'rovlari |
 | 4 | Yandex Бизнес / Google Business, sharhlar | Mahalliy ishonch |
 | 5 | Havolalar + maqolalar, oylik pozitsiya monitoringi (Topvisor / Serpstat) | Top-10 → top-3 |
 
