@@ -34,6 +34,12 @@ Zayafka oqimi: sayt formasi → **avval bazaga** (ketma-ket raqam `SPS-YYMM-NNNN
    DATABASE_URL=postgres://... npm run db:migrate
    ```
    Qayta ishga tushirish xavfsiz (faqat yangi migratsiyalar qo'llanadi).
+   **Keyingi migratsiyalar avtomatik:** `vercel.json` → Build Command
+   `npm run db:migrate:deploy && npm run build` — har bir **Production** deploy'da yangi migratsiyalar
+   o'zi qo'llanadi (migratsiya xato bersa deploy to'xtaydi, sayt eski versiyada qoladi). Preview
+   deploy'larda migratsiya o'tkazib yuboriladi — Preview alohida bazaga ulangan bo'lsa,
+   Vercel'da Preview uchun `MIGRATE_PREVIEW=1` qo'shing. `vercel.json` dagi buyruq dashboard'dagi
+   Build Command'dan ustun turadi.
 4. Birinchi administrator:
    ```bash
    DATABASE_URL=postgres://... ADMIN_PASSWORD='kamida-10-belgi' \

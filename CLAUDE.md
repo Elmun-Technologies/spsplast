@@ -51,6 +51,7 @@ src/data/redirects.generated.json  # admin 301s, written by export-snapshot; MUS
 src/app/indexnow-key.txt/    # IndexNow key file (static, from admin setting `indexnow_key`)
 src/server/                  # DB layer: db/schema.ts, db/client.ts, leads.ts, auth.ts, session.ts (Next glue)
 drizzle/                     # GENERATED SQL migrations (`npm run db:generate`), applied by `npm run db:migrate`
+vercel.json                  # buildCommand: `npm run db:migrate:deploy && npm run build` (overrides the dashboard)
 docs/ADMIN.md                # admin setup (Neon/Supabase, migrate, first admin) + security notes
 docs/ROADMAP-2027.md         # gap analysis + stages 7–12
 src/components/site/         # new layer: SiteHeader, HeaderClient, SiteFooter, LangSwitch, icons, MotionLayer
@@ -240,6 +241,10 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   description, noindex) and `getPages()`/`getUi()` apply `texts` via `applyTextOverrides` before tokens — do not
   re-implement per page. H1/intro overrides exist only on section, tag and export pages (`H1_KINDS`).
   New indexable page types go into `src/lib/sitePaths.ts` (sitemap + admin list share it).
+- **Migrations run on Vercel Production builds** (`vercel.json` → `db:migrate:deploy`): skipped without
+  `DATABASE_URL` and on Preview unless `MIGRATE_PREVIEW=1` (Preview often shares the production DB); a failing
+  migration fails the deploy. Keep migrations additive/backward-compatible — the old deployment keeps serving
+  until the new one is live. Manual `npm run db:migrate` still exits 1 without `DATABASE_URL`.
 - Every `actions.ts` under `src/app/admin` is scanned by `tests/admin2027.test.js` test 12 (each export calls `requireUser`).
 - **Motion**: only below-the-fold elements get `data-rv` (never hide the first screen — LCP/flicker);
   animate transform/opacity only; `prefers-reduced-motion` disables everything (global CSS rule + early
@@ -323,7 +328,7 @@ npm run dev            # local dev server
 npm run build          # models:check + next build (448 static pages)
 npm run typecheck      # tsc --noEmit
 npm run lint           # next lint
-npm test               # node --test --experimental-strip-types tests/*.test.js (142 tests)
+npm test               # node --test --experimental-strip-types tests/*.test.js (143 tests)
 npm run models:build && npm run models:images && npm run models:check
 npm run db:generate    # after editing src/server/db/schema.ts → new SQL in drizzle/
 DATABASE_URL=... npm run db:migrate

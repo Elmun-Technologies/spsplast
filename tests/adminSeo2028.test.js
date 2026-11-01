@@ -332,3 +332,27 @@ test('12. Admin menyusi va sahifalar: SEO, Matnlar, Analitika', () => {
   // Mijoz komponentiga funksiya (validate) uzatilmaydi.
   assert.match(read('src/app/admin/analytics/page.tsx'), /SECRET_FIELDS\.map\(\(\{ key, label, env, secret, multiline, placeholder, help \}\)/);
 });
+
+test('13. Vercel build: migratsiya build oldidan, Preview va bazasiz holatda o\'tkazib yuboriladi', async () => {
+  const { spawnSync } = require('node:child_process');
+  const vercel = JSON.parse(read('vercel.json'));
+  assert.strictEqual(vercel.buildCommand, 'npm run db:migrate:deploy && npm run build', 'migratsiya buildʼdan oldin');
+  const pkg = JSON.parse(read('package.json'));
+  assert.strictEqual(pkg.scripts['db:migrate:deploy'], 'node scripts/db-migrate.mjs --deploy');
+  const run = (env) => {
+    const clean = { ...process.env };
+    delete clean.DATABASE_URL;
+    delete clean.VERCEL_ENV;
+    delete clean.MIGRATE_PREVIEW;
+    return spawnSync(process.execPath, [path.join(ROOT, 'scripts/db-migrate.mjs'), '--deploy'], { env: { ...clean, ...env }, encoding: 'utf8', timeout: 20000 });
+  };
+  const noUrl = run({ VERCEL_ENV: 'production' });
+  assert.strictEqual(noUrl.status, 0, noUrl.stderr);
+  assert.match(noUrl.stdout, /o'tkazib yuborildi/);
+  const preview = run({ VERCEL_ENV: 'preview', DATABASE_URL: 'postgres://x@127.0.0.1:1/x' });
+  assert.strictEqual(preview.status, 0, preview.stderr);
+  assert.match(preview.stdout, /MIGRATE_PREVIEW=1/);
+  // Oddiy `db:migrate` (qo'lda) — manzilsiz xato beradi, jim o'tib ketmaydi.
+  const manual = spawnSync(process.execPath, [path.join(ROOT, 'scripts/db-migrate.mjs')], { env: { PATH: process.env.PATH }, encoding: 'utf8' });
+  assert.strictEqual(manual.status, 1);
+});
