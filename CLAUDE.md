@@ -51,6 +51,7 @@ src/data/redirects.generated.json  # admin 301s, written by export-snapshot; MUS
 src/app/indexnow-key.txt/    # IndexNow key file (static, from admin setting `indexnow_key`)
 src/server/                  # DB layer: db/schema.ts, db/client.ts, leads.ts, auth.ts, session.ts (Next glue)
 drizzle/                     # GENERATED SQL migrations (`npm run db:generate`), applied by `npm run db:migrate`
+vercel.json                  # buildCommand: `npm run db:migrate:deploy && npm run build` (overrides the dashboard)
 docs/ADMIN.md                # admin setup (Neon/Supabase, migrate, first admin) + security notes
 docs/ROADMAP-2027.md         # gap analysis + stages 7–12
 src/components/site/         # new layer: SiteHeader, HeaderClient, SiteFooter, LangSwitch, icons, MotionLayer
@@ -81,7 +82,7 @@ docs/audits/                 # GENERATED reports (seo-dom-*, a11y-*, visual-*, l
 docs/checks.md               # how to verify HANDOFF §7 acceptance criteria (what runs where)
 docs/unresolved-questions.md # open business questions + accepted deviations with reasons
 docs/legacy/                 # archive of the deleted 2026 data (catalog-2026.json, molds-2026.json)
-tests/helpers/load-alias.mjs # runs `@/`-aliased TS in Node (writes .tmp-tests/, gitignored)
+tests/helpers/load-alias.mjs # runs `@/`-aliased TS in Node (writes .tmp-tests/<pid>/, gitignored)
 screens-actual/              # GENERATED screenshots from `npm run shots` (gitignored)
 media-src/                   # SOURCE photos the image pipeline reads (factory/, studio/, pdf/ — 86 MB)
 media-src/studio-2026/       # 44 archived 2026 studio JPGs (mold + quyma) for jobs that say public/catalog/2026/
@@ -181,7 +182,7 @@ npm run lighthouse     # 8 targets x {mobile,desktop}, 3 runs each, MEDIAN -> do
 
 - `SHOTS_MAX_TOTAL_MS` / `SHOTS_MAX_SHOT_MS` cap the shots step (a hung page must
   not stall CI); `LH_RUNS` changes repeats (median-of-3 because single CI runs
-  swing ±10 points). Both scripts exit 0 with a hint when no Chromium exists
+  swing ±10 points). CI uses `LH_RUNS=1` on pull requests (fast) and 3 on pushes to `main`. Both scripts exit 0 with a hint when no Chromium exists
   (agent sandbox) — real numbers come from CI or a machine with Chrome.
 - **Playwright viewports**: `width/height` must live inside a `viewport` object
   (`VIEWPORTS` in `scripts/lib/routes.mjs`); flat options are silently ignored
@@ -240,6 +241,10 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   description, noindex) and `getPages()`/`getUi()` apply `texts` via `applyTextOverrides` before tokens — do not
   re-implement per page. H1/intro overrides exist only on section, tag and export pages (`H1_KINDS`).
   New indexable page types go into `src/lib/sitePaths.ts` (sitemap + admin list share it).
+- **Migrations run on Vercel Production builds** (`vercel.json` → `db:migrate:deploy`): skipped without
+  `DATABASE_URL` and on Preview unless `MIGRATE_PREVIEW=1` (Preview often shares the production DB); a failing
+  migration fails the deploy. Keep migrations additive/backward-compatible — the old deployment keeps serving
+  until the new one is live. Manual `npm run db:migrate` still exits 1 without `DATABASE_URL`.
 - Every `actions.ts` under `src/app/admin` is scanned by `tests/admin2027.test.js` test 12 (each export calls `requireUser`).
 - **Motion**: only below-the-fold elements get `data-rv` (never hide the first screen — LCP/flicker);
   animate transform/opacity only; `prefers-reduced-motion` disables everything (global CSS rule + early
@@ -260,7 +265,9 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
 - Every admin `page.tsx`/`route.ts` and server action calls `requireUser()` (test 12 in
   `tests/admin2027.test.js`); middleware only redirects cookie-less requests to `/admin/login?next=`.
 - `tests/admin2027.test.js` imports `src/server/*` directly (relative `.ts` imports), not through
-  `load-alias` — the shared `.tmp-tests` dir is wiped by parallel test files.
+  `load-alias`. `load-alias` materializes into a **per-process** dir `.tmp-tests/<pid>` (removed on exit):
+  a shared dir let one file's `cleanupTmp()` delete modules another parallel file was importing
+  (random `ERR_MODULE_NOT_FOUND` in `stores2027`, CI run 41318919818).
 - **Only `/api/leads`, `/api/health` and `/api/track` may exist** under `src/app/api` (admin uses
   server actions and `/admin/leads/export`) (`tests/foundation2027.test.js` enforces it).
 - **`data/models-2027.json` is generated** — edit the extractor, not the JSON.
@@ -323,7 +330,7 @@ npm run dev            # local dev server
 npm run build          # models:check + next build (448 static pages)
 npm run typecheck      # tsc --noEmit
 npm run lint           # next lint
-npm test               # node --test --experimental-strip-types tests/*.test.js (142 tests)
+npm test               # node --test --experimental-strip-types tests/*.test.js (143 tests)
 npm run models:build && npm run models:images && npm run models:check
 npm run db:generate    # after editing src/server/db/schema.ts → new SQL in drizzle/
 DATABASE_URL=... npm run db:migrate
