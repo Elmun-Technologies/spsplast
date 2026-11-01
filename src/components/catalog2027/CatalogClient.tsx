@@ -285,8 +285,9 @@ export function CatalogClient({
                   lang={lang}
                   onRequest={setRequestModel}
                   onQuick={setQuickModel}
-                  // Birinchi qator (mobil 2, desktop 3–4 ustun): LCP rasmi kechikmasin.
-                  load={i < 2 ? 'priority' : i < 4 ? 'eager' : 'lazy'}
+                  // Katalog sahifasida birinchi qator (mobil 2, desktop 3–4 ustun) — LCP rasmi, kechikmasin.
+                  // Bosh sahifada blok ekrandan pastda: ustuvor yuklansa hero rasmi (LCP) bilan raqobatlashadi.
+                  load={variant !== 'catalog' ? 'lazy' : i < 2 ? 'priority' : i < 4 ? 'eager' : 'lazy'}
                 />
               ))}
             </div>
