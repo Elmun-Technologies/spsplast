@@ -15,10 +15,11 @@ import {
 } from '@/server/auth';
 import { getDb } from '@/server/db/client';
 import { ADMIN_ROLES, LEAD_STATUSES, type AdminRole, type LeadStatus } from '@/server/db/schema';
-import { addLeadNote, assignLead, recentHits, recordHit, resendLeadTelegram, setLeadStatus } from '@/server/leads';
+import { addLeadNote, anonymizeLead, assignLead, recentHits, recordHit, resendLeadTelegram, setLeadStatus } from '@/server/leads';
 import { sendTelegramNotification } from '@/lib/telegram';
 import { SITE_URL } from '@/lib/seo';
 import { clearSessionCookie, requireUser, setSessionCookie } from '@/server/session';
+import { ipKey } from '@/server/privacy';
 import { saveIntegrations, triggerPublish } from '@/server/settings';
 import { INTEGRATION_FIELDS } from '@/lib/integrations';
 
@@ -47,7 +48,7 @@ export async function loginAction(_prev: FormState, fd: FormData): Promise<FormS
   if (!db) return { error: 'Baza ulanmagan (DATABASE_URL).', values };
   const ip = (await headers()).get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
   // Faqat xato urinishlar sanaladi: ofisdagi bir IP ortidagi menejerlar bir-birini bloklamaydi.
-  const key = `login_${ip}`;
+  const key = ipKey('login', ip); // bazada IP emas, HMAC xeshi
   if ((await recentHits(db, key, 15 * 60 * 1000)) >= 10) {
     return { error: "Juda ko'p urinish. 15 daqiqadan keyin qayta urinib ko'ring.", values };
   }
@@ -91,6 +92,15 @@ export async function noteAction(fd: FormData): Promise<void> {
   const id = int(fd, 'leadId');
   if (!id) return;
   await addLeadNote(db, id, user.id, str(fd, 'body'));
+  revalidatePath(`/admin/leads/${id}`);
+}
+
+/** Mijoz so'rovi bo'yicha shaxsiy ma'lumotlarni o'chirish — faqat admin, tasdiq belgisi bilan. */
+export async function anonymizeLeadAction(fd: FormData): Promise<void> {
+  const { user, db } = await requireUser('admin');
+  const id = int(fd, 'leadId');
+  if (!id || fd.get('confirm') !== '1') return;
+  await anonymizeLead(db, id, user.id);
   revalidatePath(`/admin/leads/${id}`);
 }
 

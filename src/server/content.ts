@@ -7,6 +7,9 @@ import { flattenStrings } from '../lib/textOverrides.ts';
 import { pagesUz } from '../dictionaries/pages/uz.ts';
 import { pagesRu } from '../dictionaries/pages/ru.ts';
 import { pagesEn } from '../dictionaries/pages/en.ts';
+import { pagesServerUz } from '../dictionaries/pagesServer/uz.ts';
+import { pagesServerRu } from '../dictionaries/pagesServer/ru.ts';
+import { pagesServerEn } from '../dictionaries/pagesServer/en.ts';
 import { uz as uiUz } from '../dictionaries/ui/uz.ts';
 import { ru as uiRu } from '../dictionaries/ui/ru.ts';
 import { en as uiEn } from '../dictionaries/ui/en.ts';
@@ -27,9 +30,10 @@ let entriesCache: ContentEntry[] | null = null;
 export function contentEntries(): ContentEntry[] {
   if (entriesCache) return entriesCache;
   const dicts: Record<ContentLang, { pages: unknown; ui: unknown }> = {
-    uz: { pages: pagesUz, ui: uiUz },
-    ru: { pages: pagesRu, ui: uiRu },
-    en: { pages: pagesEn, ui: uiEn },
+    // `pages.seo.*` va `pages.privacy.*` — alohida server lug'atida (mijoz bundle'iga tushmaydi), kalitlar o'sha.
+    uz: { pages: { ...pagesUz, ...pagesServerUz }, ui: uiUz },
+    ru: { pages: { ...pagesRu, ...pagesServerRu }, ui: uiRu },
+    en: { pages: { ...pagesEn, ...pagesServerEn }, ui: uiEn },
   };
   const byKey = new Map<string, ContentEntry>();
   for (const lang of CONTENT_LANGS) {

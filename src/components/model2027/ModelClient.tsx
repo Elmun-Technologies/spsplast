@@ -420,6 +420,8 @@ export function ModelClient({
             </div>
 
             <div className="g2" id="panel-use" hidden={tab !== 'use'} role="tabpanel" aria-labelledby="tab-use" style={{ gap: 'var(--space-6)' }}>
+              {/* Ierarxiya h1 → h2 → h3: panel sarlavhasi tab tugmasida ko'rinadi, bu yerda ekran o'quvchi uchun. */}
+              <h2 className="sr-only">{p.model.tabs.use}</h2>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 <h3 className="h3">{p.model.use.title}</h3>
                 <p className="body muted">{useText}</p>
@@ -463,6 +465,7 @@ export function ModelClient({
             </table>
 
             <div id="panel-faq" hidden={tab !== 'faq'} role="tabpanel" aria-labelledby="tab-faq" style={{ maxWidth: 860 }}>
+              <h2 className="sr-only">{p.model.tabs.faq}</h2>
               {p.model.faq.map((f, i) => (
                 <div className="faq" key={f.q} style={i === p.model.faq.length - 1 ? { borderBottom: '1px solid var(--line)' } : undefined}>
                   <h3 className="h3">{f.q}</h3>

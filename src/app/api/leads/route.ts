@@ -8,6 +8,7 @@ import { SITE_URL } from '@/lib/seo';
 import { getDb } from '@/server/db/client';
 import { createLead, hitRateLimit, markTelegram } from '@/server/leads';
 import { formatLeadMessage } from '@/server/leadMessage';
+import { ipKey } from '@/server/privacy';
 
 /**
  * Zayafka endpoint'i — saytdagi YAGONA yozuv API (HANDOFF 5-bo'lim).
@@ -92,7 +93,8 @@ async function rateAllowed(ip: string): Promise<boolean> {
   const db = getDb();
   if (db) {
     try {
-      return await hitRateLimit(db, `lead_create_${ip}`, RATE_MAX, RATE_WINDOW_MS);
+      // Bazada IP emas, uning HMAC xeshi (src/server/privacy.ts).
+      return await hitRateLimit(db, ipKey('lead_create', ip), RATE_MAX, RATE_WINDOW_MS);
     } catch (error) {
       console.error('[leads] rate limit (baza) xatosi', error);
     }

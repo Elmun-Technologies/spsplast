@@ -7,7 +7,7 @@ import { getLead } from '@/server/leads';
 import { visitorJourney } from '@/server/visits';
 import { JourneyList } from '../../journey';
 import { AdminShell, StatusBadge } from '../../AdminShell';
-import { assignAction, noteAction, resendTelegramAction, setStatusAction } from '../../actions';
+import { anonymizeLeadAction, assignAction, noteAction, resendTelegramAction, setStatusAction } from '../../actions';
 import { CLIENT_LABEL, STATUS_LABEL, TYPE_LABEL, countryName, formatDate, telLink, waLink } from '../../labels';
 
 export const metadata = { title: 'Zayafka' };
@@ -282,6 +282,25 @@ export default async function LeadPage({ params }: { params: Promise<{ id: strin
               ))}
             </ol>
           </section>
+
+          {user.role === 'admin' && lead.phone !== '—' ? (
+            <section className="adm-card">
+              <h2>Shaxsiy ma'lumotlar</h2>
+              <p className="adm-muted">
+                Mijoz o'z ma'lumotlarini o'chirishni so'rasa: ism, telefon, kompaniya, shahar va izoh o'chiriladi; raqam,
+                sana, holat va modellar statistika uchun qoladi. Qaytarib bo'lmaydi.
+              </p>
+              <form action={anonymizeLeadAction} className="adm-form">
+                <input type="hidden" name="leadId" value={lead.id} />
+                <label className="adm-check">
+                  <input type="checkbox" name="confirm" value="1" required /> Tasdiqlayman
+                </label>
+                <button className="sps-btn sps-btn--outline sps-btn--sm" type="submit">
+                  Anonimlashtirish
+                </button>
+              </form>
+            </section>
+          ) : null}
         </div>
       </div>
     </AdminShell>

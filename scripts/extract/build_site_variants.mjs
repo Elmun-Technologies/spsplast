@@ -23,12 +23,8 @@ const BRAND = path.join(ROOT, 'public', 'images', 'brand');
 const JOBS = [
   // Bosh sahifa "ulgurji" bloki: ikkita kvadrat katak (aspectRatio: '1')
   ['site/factory.webp', 'site/factory-1x1.webp', 1],
-  ['site/containers.webp', 'site/containers-1x1.webp', 1],
-  // Ulgurji sahifasi "eksport" bloki: aspectRatio '4 / 3'
-  ['site/containers.webp', 'site/containers-4x3.webp', 4 / 3],
-  // Ishlab chiqarish sahifasi "eksport" juftligi: aspectRatio '16 / 9'
-  ['site/port.webp', 'site/port-16x9.webp', 16 / 9],
-  ['site/containers.webp', 'site/containers-16x9.webp', 16 / 9],
+  // Port va konteyner (stok) suratlari olib tashlandi — o'rnida eksport xaritasi va qolip surati
+  // (audit 2026-11-02, "faqat SPS materiali" qoidasi).
   // Ulgurji "kim uchun" kartochkalari stok suratlardan (usta, ombor, qurilish) haqiqiy SPS qolip
   // suratlariga o'tdi (public/images/site/molds, Redesign 2028) — variantlar endi kerak emas.
 ];

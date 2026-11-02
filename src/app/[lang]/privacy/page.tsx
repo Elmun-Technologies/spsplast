@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, locales, type Locale } from '@/lib/i18n';
-import { getPages } from '@/lib/pages';
+import { getSitePages } from '@/lib/pagesServer';
 import { JsonLd } from '@/components/site/JsonLd';
 import { jsonLdBreadcrumb, pageMetadata } from '@/lib/seo';
 
@@ -14,8 +14,8 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   return pageMetadata({
     lang: locale,
     path: '/privacy',
-    title: getPages(locale).privacy.title,
-    description: getPages(locale).privacy.summary,
+    title: getSitePages(locale).privacy.title,
+    description: getSitePages(locale).privacy.summary,
   });
 }
 
@@ -24,7 +24,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ lang: 
   const { lang: langParam } = await params;
   if (!isValidLocale(langParam)) notFound();
   const lang = langParam as Locale;
-  const p = getPages(lang);
+  const p = getSitePages(lang);
 
   return (
     <>

@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation';
 import { SiteHeader } from '@/components/site/SiteHeader';
 import { SiteFooter } from '@/components/site/SiteFooter';
 import { CompareBar } from '@/components/catalog2027/CompareBar';
-import { MessengerFab } from '@/components/site/MessengerFab';
 import { SWCleanup } from '@/components/layout/SWCleanup';
 import { HtmlLangSync } from '@/components/layout/HtmlLangSync';
 import { VisitTracker } from '@/components/analytics/VisitTracker';
@@ -51,7 +50,6 @@ export default async function LangLayout({
       <SiteHeader lang={lang} />
       <main id="main-content">{children}</main>
       <CompareBar lang={lang} />
-      <MessengerFab lang={lang} />
       <SiteFooter lang={lang} />
     </>
   );

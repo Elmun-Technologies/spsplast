@@ -115,25 +115,25 @@ export function QuickRequestModal({
             {state === 'error' && error ? <LeadFormError lang={lang} error={error} /> : null}
             <label className="sps-field">
               <span className="sps-label">{t.formName} *</span>
-              <input className="sps-input" value={name} aria-label={t.formName} onChange={(e) => setName(e.target.value)} required minLength={2} maxLength={120} autoComplete="name" aria-invalid={error === 'name' || undefined} />
+              <input className="sps-input ym-disable-keys" value={name} aria-label={t.formName} onChange={(e) => setName(e.target.value)} required minLength={2} maxLength={120} autoComplete="name" aria-invalid={error === 'name' || undefined} />
             </label>
             <label className="sps-field">
               <span className="sps-label">{t.formPhone} *</span>
-              <input className="sps-input" value={phone} aria-label={t.formPhone} onChange={(e) => setPhone(e.target.value)} required minLength={7} maxLength={32} type="tel" inputMode="tel" autoComplete="tel" placeholder="+998" aria-invalid={error === 'bad_phone' || undefined} />
+              <input className="sps-input ym-disable-keys" value={phone} aria-label={t.formPhone} onChange={(e) => setPhone(e.target.value)} required minLength={7} maxLength={32} type="tel" inputMode="tel" autoComplete="tel" placeholder="+998" aria-invalid={error === 'bad_phone' || undefined} />
             </label>
             <div className="sps-form__row">
               <label className="sps-field">
                 <span className="sps-label">{t.formVolume}</span>
-                <input className="sps-input" type="number" min={1} max={100000} value={volume} aria-label={t.formVolume} onChange={(e) => setVolume(e.target.value)} />
+                <input className="sps-input ym-disable-keys" type="number" min={1} max={100000} value={volume} aria-label={t.formVolume} onChange={(e) => setVolume(e.target.value)} />
               </label>
               <label className="sps-field">
                 <span className="sps-label">{t.formCity}</span>
-                <input className="sps-input" value={city} aria-label={t.formCity} onChange={(e) => setCity(e.target.value)} maxLength={120} autoComplete="address-level2" />
+                <input className="sps-input ym-disable-keys" value={city} aria-label={t.formCity} onChange={(e) => setCity(e.target.value)} maxLength={120} autoComplete="address-level2" />
               </label>
             </div>
             <label className="sps-field">
               <span className="sps-label">{t.formNote}</span>
-              <textarea className="sps-textarea" value={message} aria-label={t.formNote} onChange={(e) => setMessage(e.target.value)} maxLength={2000} />
+              <textarea className="sps-textarea ym-disable-keys" value={message} aria-label={t.formNote} onChange={(e) => setMessage(e.target.value)} maxLength={2000} />
             </label>
             <p className="sps-help">{t.formHelp}</p>
             <div className="row cta-row">

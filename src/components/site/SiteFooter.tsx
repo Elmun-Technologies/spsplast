@@ -3,10 +3,11 @@ import { getSectionCounts, SECTION_SLUGS, sectionLabel, getActiveSections } from
 import { CONTACTS_2027 } from '@/lib/contacts2027';
 import { type Locale } from '@/lib/i18n';
 import { getUi } from '@/lib/ui';
+import { MessengerFab } from './MessengerFab';
 import { LangSwitch } from '@/components/site/LangSwitch';
 import { PDF_CATALOG_HREF } from '@/components/site/SiteHeader';
 import { Icon } from '@/components/site/icons';
-import { getPages } from '@/lib/pages';
+import { getSitePages } from '@/lib/pagesServer';
 import { EXPORT_COUNTRIES } from '@/lib/seoPages';
 
 /** Footer (Redesign 2028): CTA band (zayafka + Telegram) → 4 ustun → pastki qator. */
@@ -14,7 +15,7 @@ export function SiteFooter({ lang }: { lang: Locale }) {
   const t = getUi(lang);
   const counts = getSectionCounts();
   const [mainPhone, ...otherPhones] = CONTACTS_2027.sales;
-  const geo = getPages(lang).seo.geo;
+  const geo = getSitePages(lang).seo.geo;
 
   return (
     <footer className="ft">
@@ -92,6 +93,8 @@ export function SiteFooter({ lang }: { lang: Locale }) {
           </span>
         </div>
       </div>
+      {/* Suzuvchi WhatsApp tugmasi footer landmark'i ichida (axe `region`), ko'rinishi `position: fixed`. */}
+      <MessengerFab lang={lang} />
     </footer>
   );
 }

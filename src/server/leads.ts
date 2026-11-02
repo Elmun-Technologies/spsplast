@@ -151,6 +151,30 @@ export async function resendLeadTelegram(
 }
 
 /**
+ * Zayafkani anonimlashtirish (mijoz so'rovi bo'yicha, faqat admin): ism, telefon, kompaniya, shahar,
+ * izoh va tashrif bog'lanishi o'chiriladi; raqam, sana, holat, modellar va manba statistika uchun qoladi.
+ */
+export async function anonymizeLead(db: Db, leadId: number, userId: number): Promise<boolean> {
+  const [row] = await db
+    .update(leads)
+    .set({
+      name: 'Anonimlashtirilgan',
+      phone: '—',
+      company: null,
+      city: null,
+      message: null,
+      visitorId: null,
+      sessionId: null,
+      updatedAt: new Date(),
+    })
+    .where(eq(leads.id, leadId))
+    .returning({ id: leads.id });
+  if (!row) return false;
+  await db.insert(leadActivity).values({ leadId, userId, kind: 'note', body: "Shaxsiy ma'lumotlar o'chirildi (anonimlashtirildi)" });
+  return true;
+}
+
+/**
  * Serverless'da ishlaydigan rate limit: hisob bazada. `true` — ruxsat.
  * Eski yozuvlar har chaqiruvda shu kalit uchun tozalanadi (jadval o'smaydi).
  */
@@ -171,6 +195,8 @@ export async function recordHit(db: Db, key: string, now = new Date()): Promise<
 export async function hitRateLimit(db: Db, key: string, max: number, windowMs: number, now = new Date()): Promise<boolean> {
   const since = new Date(now.getTime() - windowMs);
   await db.delete(rateHits).where(and(eq(rateHits.key, key), lt(rateHits.at, since)));
+  // Boshqa kalitlarning (shu jumladan login) 1 sutkadan eski yozuvlari ham — jadvalda IP izi qolmasin.
+  await db.delete(rateHits).where(lt(rateHits.at, new Date(now.getTime() - 24 * 60 * 60 * 1000)));
   const [{ n }] = await db
     .select({ n: count() })
     .from(rateHits)

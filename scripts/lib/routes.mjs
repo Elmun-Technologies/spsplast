@@ -39,7 +39,8 @@ export const AUDIT_ROUTES = [
   { path: '/ru/catalog/paving/15-floriya', lang: 'ru', expect: { jsonLd: ['BreadcrumbList', 'Product', 'FAQPage'] } },
   { path: '/en/catalog/decor/kapitel-40-tepa', lang: 'en', expect: { jsonLd: ['BreadcrumbList', 'Product', 'FAQPage'] } },
   // Rasmsiz model: fallback (placeholder) va alt matnlari tekshiriladi.
-  { path: '/uz/catalog/paving/70-kabanchik-17-5-naqshli', lang: 'uz', expect: { jsonLd: ['Product'], noImage: true } },
+  // Rasmsiz model: rasm kelguncha `noindex, follow` (audit 2026-11-02) — sahifa ishlaydi, sitemap'da yo'q.
+  { path: '/uz/catalog/paving/70-kabanchik-17-5-naqshli', lang: 'uz', expect: { jsonLd: ['Product'], noImage: true, noindex: true } },
 
   // SEO landing (docs/SEO-2028-RU.md): teg va eksport (geo) sahifalari
   { path: '/ru/catalog/paving/tag/300x300', lang: 'ru', expect: { jsonLd: ['BreadcrumbList', 'ItemList'] } },

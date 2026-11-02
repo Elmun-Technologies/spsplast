@@ -1,5 +1,5 @@
 import { getModels, getSectionCounts, hasAnyImage, modelName, SECTIONS, SECTION_SLUGS, sectionLabel } from './catalog2027.ts';
-import { getPages } from './pages.ts';
+import { getSitePages } from './pagesServer.ts';
 import { EXPORT_COUNTRIES, getSeoTags } from './seoPages.ts';
 
 /**
@@ -26,7 +26,7 @@ const FIXED: { path: string; label: string; priority: number; changeFrequency: C
 
 export function indexablePaths(): SitePath[] {
   const counts = getSectionCounts();
-  const seo = getPages('uz').seo;
+  const seo = getSitePages('uz').seo;
   return [
     ...FIXED.map((f) => ({ ...f, kind: 'page' as const })),
     ...SECTIONS.filter((s) => counts[s] > 0).map((s) => ({

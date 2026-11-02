@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { SECTION_SLUGS, modelImage, modelName, sectionFromSlug, sectionLabel } from '@/lib/catalog2027';
 import { isValidLocale, locales, type Locale } from '@/lib/i18n';
 import { getUi, pluralModels } from '@/lib/ui';
-import { getPages } from '@/lib/pages';
+import { getSitePages } from '@/lib/pagesServer';
 import { getSeoTags, isSeoTag, tagModels } from '@/lib/seoPages';
 import { CatalogClient } from '@/components/catalog2027/CatalogClient';
 import { CountriesStrip, PavingGuide, TagChips } from '@/components/seo2028/SeoBlocks';
@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   const locale = isValidLocale(lang) ? (lang as Locale) : 'uz';
   const sec = sectionFromSlug(section);
   if (!sec || !isSeoTag(sec, tag)) return { title: 'SPS' };
-  const copy = getPages(locale).seo.tags[tag];
+  const copy = getSitePages(locale).seo.tags[tag];
   const cover = tagModels(sec, tag).map((m) => modelImage(m)).find(Boolean) ?? undefined;
   return pageMetadata({
     lang: locale,
@@ -47,7 +47,7 @@ export default async function TagPage({ params }: { params: Promise<Params> }) {
   if (!sec || !isSeoTag(sec, tag)) notFound();
 
   const t = getUi(lang);
-  const s = getPages(lang).seo;
+  const s = getSitePages(lang).seo;
   const copy = s.tags[tag];
   const models = tagModels(sec, tag);
   const path = `/catalog/${section}/tag/${tag}`;

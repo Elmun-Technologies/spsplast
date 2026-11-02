@@ -59,12 +59,13 @@ src/lib/siteContent.ts       # admin numbers/contacts → `{years}` `{countries}
 src/lib/integrations.ts      # admin settings fields (integrations, contacts, stats) + validation regexes
 public/admin-ai/             # onnxruntime-web + u2netp.onnx (16 MB) — admin-only browser background removal
 src/dictionaries/ui/{uz,ru,en}.ts   # UI copy for the new layer (uz = type source)
+src/dictionaries/pagesServer/      # server-only page copy: `seo` (tag/export landings) + `privacy` → getSitePages()
 src/lib/catalog2027.ts       # synchronous catalog access + derived filter fields + calculator
 src/lib/contacts2027.ts      # contacts per HANDOFF §1 (single source for new layer)
 src/lib/store/spsLists.ts    # request list + compare list (localStorage)
 src/lib/ui.ts                # getUi(lang), pluralModels(), formatNumber()
 src/lib/seo.ts               # metadata + hreflang + JSON-LD builders (uz/ru/en, no price)
-src/app/sitemap.ts           # 432 URLs: (6 fixed + 4 non-empty sections + 7 tags + 8 export countries + 119 models) × 3 langs
+src/app/sitemap.ts           # 276 URLs: (6 fixed + 4 non-empty sections + 7 tags + 8 export countries + 67 models WITH an image) × 3 langs
 src/lib/seoPages.ts          # SEO landing logic: TAG_DEFS (MIN_TAG_MODELS=6), EXPORT_COUNTRIES (8)
 src/components/seo2028/SeoBlocks.tsx  # TagChips, CountriesStrip, PavingGuide (server components)
 src/app/robots.ts            # allow all; disallow /api/, /*/compare, /*/request
@@ -236,6 +237,27 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     `export-snapshot.mjs` drops unsafe rows again at build time (`safeRedirect`).
   - Deps: next 15.5.28+, zod 4, drizzle-orm 0.45+, `overrides.postcss`; CI runs
     `npm audit --omit=dev --audit-level=high`, Dependabot is weekly.
+- **Audit 2026-11-02, stage 2 (`tests/auditStage2.test.js`, `tests/leadsE2E.test.js`)** — keep them:
+  - **`getPages()` vs `getSitePages()`**: `pages/{lang}.ts` is shipped to the browser by client components
+    (ModelClient, RequestClient, CompareClient, PartnersForm). SEO-landing copy (`seo`) and `privacy` live in
+    `src/dictionaries/pagesServer/` and are read only via `getSitePages()` (server). Never import `pagesServer` in
+    a `'use client'` file. CMS keys stay `pages.seo.*` / `pages.privacy.*`. This split saved ~7 KB gzip per page.
+  - Models **without any image** are `noindex, follow` and absent from the sitemap (`autoNoindex` in `sitePaths.ts`);
+    they come back automatically once an image is published. The model page then shows a "WhatsApp'da so'rash" CTA.
+  - Model tab panels are always rendered (`hidden` when inactive) so tab/FAQ copy is in the SSR HTML;
+    `[role='tabpanel'][hidden]` has `display:none !important`. Section pages end with `ModelIndex` (all models).
+  - Search matches the **displayed** names too (`modelName(m,'ru'|'en')`, ё→е): `/ru/catalog?q=монако`.
+  - WhatsApp: hero + footer links, mobile floating `.wa-fab` (inside `<footer>` for the `region` landmark rule,
+    hidden on model pages where `.mbar` has its own WA button with the model name).
+  - Telegram message is built in `src/server/leadMessage.ts` (route + admin "qayta yuborish"). Rate-limit keys store an
+    HMAC of the IP (`src/server/privacy.ts`, `IP_HASH_SECRET`), rows older than 24 h are purged; admins can anonymize a lead.
+  - Admin uploads are shrunk in the browser to ≤ 3.5 MB WebP (`shrinkImage.ts`, Vercel 4.5 MB body limit).
+  - Publishing: on Vercel Production with `DATABASE_URL` the snapshot is required (`SNAPSHOT_REQUIRED=0` to opt out);
+    optional `VERCEL_API_TOKEN` + `VERCEL_PROJECT_ID` show the last deploy state; a published product's slug/section
+    change auto-creates 3 × 301 (`redirectMovedProduct`).
+  - JSON-LD Organization/WebSite are in `[lang]/layout.tsx` (localized description/address from `CONTACTS_2027`).
+  - CI: `defaults.run.shell: bash` (pipefail); audit/shots steps continue for the report, the last step fails the job.
+  - Only real SPS images: the port/container stock photos were deleted (export map + mold photo instead).
 
 - **Never reintroduce Tailwind.** The database is back (Stage 7, user decision) **only** behind
   `src/server/` — public pages (`[lang]`, `components`, `lib`) must never import it
@@ -347,7 +369,7 @@ npm run dev            # local dev server
 npm run build          # models:check + next build (448 static pages)
 npm run typecheck      # tsc --noEmit
 npm run lint           # next lint
-npm test               # node --test --experimental-strip-types tests/*.test.js (151 tests)
+npm test               # node --test --experimental-strip-types tests/*.test.js (165 tests)
 npm run models:build && npm run models:images && npm run models:check
 npm run db:generate    # after editing src/server/db/schema.ts → new SQL in drizzle/
 DATABASE_URL=... npm run db:migrate

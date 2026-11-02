@@ -48,7 +48,7 @@ test('2. Qidiruv saytda ko\'rsatilgan (kirill) nom bo\'yicha ham topadi', async 
 });
 
 test('3. WhatsApp: hero, footer, telefonda suzuvchi tugma, model panelida model nomi bilan', () => {
-  assert.match(read('src/app/[lang]/layout.tsx'), /<MessengerFab lang=\{lang\} \/>/);
+  assert.match(read('src/components/site/SiteFooter.tsx'), /<MessengerFab lang=\{lang\} \/>/);
   assert.match(read('src/components/site/MessengerFab.tsx'), /whatsappUrl\}\?text=/);
   assert.match(read('src/app/[lang]/page.tsx'), /whatsappUrl\}\?text=/);
   assert.match(read('src/components/site/SiteFooter.tsx'), /whatsappUrl/);
@@ -108,4 +108,69 @@ test('6. Nashr: Production\'da snapshot majburiy; Vercel deploy holati; slug o\'
   const draft = await catalog.saveProduct(db, null, { ...base, slug: 'qoralama-1', code: '99', status: 'draft' });
   await catalog.saveProduct(db, draft.id, { ...base, slug: 'qoralama-2', code: '99', status: 'draft' });
   assert.ok(!(await db.select().from(schema.redirects)).some((r) => r.source.includes('qoralama')));
+});
+
+test('7. Stok port/konteyner rasmlari saytda yo\'q (faqat SPS materiali)', () => {
+  for (const f of ['src/app/[lang]/page.tsx', 'src/app/[lang]/production/page.tsx', 'src/app/[lang]/partners/page.tsx']) {
+    assert.ok(!/containers-|port-16x9|port\.webp/.test(read(f)), `${f}: stok rasm`);
+  }
+  for (const f of ['port.webp', 'port-16x9.webp', 'containers.webp', 'containers-1x1.webp', 'containers-4x3.webp', 'containers-16x9.webp']) {
+    assert.ok(!fs.existsSync(path.join(ROOT, 'public/images/site', f)), `${f} hali bor`);
+  }
+});
+
+test('8. Maxfiylik: IP xeshlanadi, eski yozuvlar o\'chadi, zayafka anonimlashtiriladi, Vebvizor formani yozmaydi', async () => {
+  const { pathToFileURL } = await import('node:url');
+  const privacy = await import(pathToFileURL(path.join(ROOT, 'src/server/privacy.ts')).href);
+  const k1 = privacy.ipKey('lead_create', '203.0.113.7', { IP_HASH_SECRET: 's1' });
+  assert.strictEqual(k1, privacy.ipKey('lead_create', '203.0.113.7', { IP_HASH_SECRET: 's1' }), 'barqaror emas');
+  assert.ok(!k1.includes('203.0.113.7'), 'kalitda IP ochiq');
+  assert.notStrictEqual(k1, privacy.ipKey('lead_create', '203.0.113.7', { IP_HASH_SECRET: 's2' }), 'sirsiz xesh');
+  assert.match(read('src/app/api/leads/route.ts'), /ipKey\('lead_create', ip\)/);
+  assert.match(read('src/app/admin/actions.ts'), /ipKey\('login', ip\)/);
+
+  const { db, schema } = await setup();
+  const leads = await import(pathToFileURL(path.join(ROOT, 'src/server/leads.ts')).href);
+  const now = new Date('2026-11-02T10:00:00Z');
+  await db.insert(schema.rateHits).values({ key: 'login_198.51.100.1', at: new Date('2026-10-30T10:00:00Z') });
+  await leads.hitRateLimit(db, 'lead_create_x', 10, 15 * 60 * 1000, now);
+  const keys = (await db.select().from(schema.rateHits)).map((r) => r.key);
+  assert.ok(!keys.includes('login_198.51.100.1'), '1 sutkadan eski IP yozuvi qoldi');
+
+  const lead = await leads.createLead(db, { type: 'quick', name: 'Shaxsiy Ism', phone: '+998901234567', city: 'Toshkent', message: 'izoh', lang: 'uz' }, now);
+  assert.strictEqual(await leads.anonymizeLead(db, lead.id, null), true);
+  const { eq } = await import('drizzle-orm');
+  const [row] = await db.select().from(schema.leads).where(eq(schema.leads.id, lead.id));
+  assert.strictEqual(row.phone, '—');
+  assert.strictEqual(row.city, null);
+  assert.strictEqual(row.message, null);
+  assert.notStrictEqual(row.name, 'Shaxsiy Ism');
+  assert.strictEqual(row.number, lead.number, 'raqam statistika uchun qolishi kerak');
+
+  for (const f of ['src/components/catalog2027/QuickRequestModal.tsx', 'src/components/request2027/RequestClient.tsx', 'src/components/partners2027/PartnersForm.tsx']) {
+    assert.ok(!/className="sps-input"/.test(read(f)), `${f}: Vebvizor yozadigan maydon`);
+  }
+  for (const lang of ['uz', 'ru', 'en']) {
+    assert.match(read(`src/dictionaries/pagesServer/${lang}.ts`), /(xesh|хеш|hash)/, `${lang}: maxfiylik matni IP xeshi haqida emas`);
+  }
+});
+
+test('9. SEO landing va maxfiylik matni mijoz bundle\'iga tushmaydi (server lug\'ati)', () => {
+  for (const lang of ['uz', 'ru', 'en']) {
+    const pages = read(`src/dictionaries/pages/${lang}.ts`);
+    assert.ok(!/\n  seo: \{/.test(pages) && !/\n  privacy: \{/.test(pages), `${lang}: seo/privacy yana pages lug'atida`);
+  }
+  const walk = (dir, out = []) => {
+    for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, e.name);
+      if (e.isDirectory()) walk(full, out);
+      else if (/\.tsx?$/.test(e.name)) out.push(full);
+    }
+    return out;
+  };
+  const offenders = walk(path.join(ROOT, 'src'))
+    .filter((f) => /^['"]use client['"]/m.test(fs.readFileSync(f, 'utf8')))
+    .filter((f) => /pagesServer/.test(fs.readFileSync(f, 'utf8')))
+    .map((f) => path.relative(ROOT, f));
+  assert.deepStrictEqual(offenders, [], 'mijoz komponenti server lug\'atini import qiladi');
 });

@@ -315,7 +315,8 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           <div className="hm-factory__media">
             <Image src="/images/site/factory.webp" alt={p.home.wholesaleImg1} fill sizes="(max-width: 760px) 100vw, 720px" loading="lazy" className="cover" />
             <span className="hm-factory__inset">
-              <Image src="/images/site/containers-1x1.webp" alt={p.home.wholesaleImg2} fill sizes="240px" loading="lazy" className="cover" />
+              {/* Faqat haqiqiy SPS materiali (stok konteyner surati olib tashlandi, audit 2026-11-02). */}
+              <Image src="/images/site/molds/mold-1.webp" alt={p.home.wholesaleImg2} fill sizes="240px" loading="lazy" style={{ objectFit: 'contain', padding: '10%' }} />
             </span>
           </div>
           <div className="hm-stack">
