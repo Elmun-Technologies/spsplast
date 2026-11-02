@@ -87,7 +87,7 @@ export async function seoHealth(db: Db): Promise<HealthCheck[]> {
   add(hidden.size ? 'warn' : 'ok', 'Indeksdan yopilgan sahifalar', hidden.size ? `${hidden.size} ta sahifa noindex: ${[...hidden].slice(0, 5).join(', ')}` : "Yo'q", '/admin/seo?k=noindex');
 
   // 7. Sitemap va nashr
-  const urls = indexablePaths().filter((p) => !hidden.has(p.path)).length * 3;
+  const urls = indexablePaths().filter((p) => !hidden.has(p.path) && !p.autoNoindex).length * 3;
   add('ok', 'Sitemap', `${urls} ta URL (3 tilda) — ${SITE_URL}/sitemap.xml`);
   const pending = await pendingChanges(db);
   const total = pending.products + pending.sections + pending.settings + pending.seo + pending.redirects + pending.texts;

@@ -535,6 +535,19 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
 }
 .ft-bottom a { font-size: 13px; line-height: 20px; color: var(--on-ink-muted); }
 
+/* --- Suzuvchi WhatsApp tugmasi (faqat telefonda) --------------------------------------- */
+.wa-fab { display: none; }
+@media (max-width: 760px) {
+  .wa-fab {
+    position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom)); z-index: 35;
+    width: 56px; height: 56px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+    background: #1f8f4e; color: #fff; box-shadow: 0 10px 28px rgba(21, 23, 26, .28);
+  }
+  .wa-fab:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+  body:has(.mbar) .wa-fab { display: none; }
+  body:has(.cmp-bar:not([hidden])) .wa-fab { bottom: calc(84px + env(safe-area-inset-bottom)); }
+}
+
 /* --- Solishtirish paneli (pastda qora, Redesign 2028) ------------------------------------- */
 .cmp-bar {
   position: fixed; left: 50%; transform: translateX(-50%); bottom: 12px; z-index: 40;
@@ -842,7 +855,7 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
   .hm-factory__media > img { border-radius: var(--radius-card); }
   .hm-factory__inset {
     display: block; position: absolute; right: -24px; bottom: -32px; width: 38%; aspect-ratio: 1 / 1;
-    border-radius: var(--radius-card); overflow: hidden; border: 6px solid var(--surface-ink);
+    border-radius: var(--radius-card); overflow: hidden; border: 6px solid var(--surface-ink); background: #fff;
   }
 }
 
@@ -917,6 +930,8 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
 .calc-out--dark { background: var(--surface-ink); color: var(--on-ink); }
 .calc-out--dark .sps-label { color: var(--on-ink-muted); }
 .desk-cta { display: flex; flex-direction: column; gap: 10px; }
+/* Model tab panellari HTML'da doim bor; tanlanmagani `hidden` (author `display` qoidasi uni bosmasin). */
+[role='tabpanel'][hidden] { display: none !important; }
 .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); overflow-x: auto; }
 .tabs button { height: 56px; padding: 0 12px; border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; background: none; font: 500 15px/20px var(--font-sans); color: var(--ink-muted); cursor: pointer; white-space: nowrap; }
 .tabs button:hover { color: var(--ink); }
@@ -1133,6 +1148,16 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
   font: 500 12px/16px var(--font-sans); letter-spacing: .04em;
 }
 .sps-card__nophoto svg { opacity: .45; }
+/* `.sps-card__media > a` (display:block) bu bloki ustidan yozib, yozuvni chap-yuqori burchakka
+   qisib qo'yardi (audit 2026-11-02) — spetsifiklik bir xil darajaga ko'tarildi. */
+.sps-card__media > a.sps-card__nophoto { display: flex; padding: 12px; text-align: center; }
+/* Model sahifasi: rasm yo'q — bo'sh kulrang quti o'rniga izoh va "suratini so'rash" tugmalari. */
+.stage-nophoto {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+  padding: 24px; max-width: 420px; text-align: center; color: var(--ink);
+}
+.stage-nophoto svg { opacity: .45; }
+.stage-nophoto b { font: 600 18px/24px var(--font-sans); }
 
 /* Hamkorlar kartochkalari: rasm 16:9 (Image height atributi aspect-ratio'ni bosmasin), mobil — 1 ustun (UI audit P0-5). */
 .who-img { height: auto; max-width: none; }
@@ -1243,6 +1268,16 @@ html[data-scrolled] .hd { box-shadow: 0 6px 24px rgba(21, 23, 26, .08); border-b
 .seo-table a { color: var(--ink); font-weight: 600; text-underline-offset: 3px; display: inline-block; padding-block: 12px; margin-block: -12px; }
 .seo-table a:hover { color: var(--red-ink); }
 
+/* Bo'limdagi barcha modellar ro'yxati (ixcham, 1→2→3→4 ustun). */
+.seo-index { padding-block: var(--space-7); border-top: 1px solid var(--line); }
+.seo-index ul { list-style: none; margin: 16px 0 0; padding: 0; columns: 1; column-gap: 32px; }
+@media (min-width: 560px) { .seo-index ul { columns: 2; } }
+@media (min-width: 900px) { .seo-index ul { columns: 3; } }
+@media (min-width: 1200px) { .seo-index ul { columns: 4; } }
+.seo-index li { break-inside: avoid; }
+.seo-index a { display: flex; align-items: baseline; gap: 8px; min-height: 44px; padding-block: 12px; color: var(--ink); text-decoration: none; font: 400 15px/20px var(--font-sans); border-bottom: 1px solid var(--line); }
+.seo-index a:hover { color: var(--red-ink); }
+.seo-index .mono { color: var(--ink-muted); font-size: 13px; min-width: 44px; }
 .seo-countries { background: var(--surface-alt); border-top: 1px solid var(--line); }
 .seo-countries__in { display: flex; flex-direction: column; gap: 16px; padding-block: var(--space-6); }
 .seo-countries__title { margin: 0; font: 600 20px/28px var(--font-sans); letter-spacing: -0.01em; }

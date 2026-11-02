@@ -17,6 +17,7 @@ import { seoOverride } from "@/lib/seoOverrides";
 import { modelImage } from "@/lib/catalog2027";
 import {
   CountriesStrip,
+  ModelIndex,
   PavingGuide,
   TagChips,
 } from "@/components/seo2028/SeoBlocks";
@@ -108,6 +109,7 @@ export default async function SectionPage({
       </div>
       {/* SEO: tanlash qo'llanmasi (asosiy so'rov — trotuar plitkasi) va eksport sahifalariga havolalar */}
       {sec === "trotuar" ? <PavingGuide lang={lang} /> : null}
+      <ModelIndex lang={lang} section={sec} />
       <CountriesStrip lang={lang} />
     </>
   );

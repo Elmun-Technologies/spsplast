@@ -36,6 +36,9 @@ export const uz = {
     sales: "Savdo bo'limi",
     telegram: 'Telegram',
     whatsapp: 'WhatsApp',
+    waWrite: 'WhatsApp’da yozish',
+    /** Suzuvchi WhatsApp tugmasidagi tayyor matn. */
+    waText: 'Salom! SPS qoliplari bo‘yicha savolim bor.',
     pdf: 'PDF katalog',
     productionExport: 'Ishlab chiqarish va eksport',
   },
@@ -61,6 +64,9 @@ export const uz = {
     logo: 'SPS Stone Profy Servise logotipi',
   },
   seo: {
+    /** JSON-LD: Offer.itemOffered nomi va LocalBusiness.priceRange (narx yo'q). */
+    offerService: 'Qolip hisob-kitobi va yetkazib berish',
+    priceRange: 'Zayafka bo‘yicha',
     leadCta: "Zayafka qoldiring — menejer qolip soni va narxini hisoblab beradi.",
     /** Sarlavhalardagi asosiy so'rov (audit 2026-11-02): bo'lim → "… qoliplari", model → "… qolipi". */
     sectionMolds: {

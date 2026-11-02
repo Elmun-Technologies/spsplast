@@ -1,5 +1,6 @@
 import { and, count, desc, eq, gte, ilike, inArray, lt, or, sql } from 'drizzle-orm';
 import type { Db } from './db/client.ts';
+import { formatLeadMessage } from './leadMessage.ts';
 import {
   adminUsers,
   leadActivity,
@@ -117,6 +118,63 @@ export async function markTelegram(db: Db, leadId: number, delivered: boolean): 
 }
 
 /**
+ * Telegram'ga yetmagan zayafkani admin'dan qayta yuborish (audit 2026-11-02). Xabar bazadagi
+ * ma'lumotdan qayta yig'iladi (sarlavhada "Qayta yuborildi"), natija tarixga yoziladi.
+ * `send` — `sendTelegramNotification` (testlarda soxta funksiya).
+ */
+export async function resendLeadTelegram(
+  db: Db,
+  leadId: number,
+  userId: number,
+  siteUrl: string,
+  send: (message: string) => Promise<boolean>,
+): Promise<boolean> {
+  const [lead] = await db.select().from(leads).where(eq(leads.id, leadId)).limit(1);
+  if (!lead) return false;
+  const items = await db.select().from(leadItems).where(eq(leadItems.leadId, leadId)).orderBy(leadItems.id);
+  const ok = await send(
+    formatLeadMessage({
+      ...lead,
+      items,
+      siteUrl,
+      resent: true,
+    }),
+  );
+  await db.update(leads).set({ telegramDelivered: ok || lead.telegramDelivered, updatedAt: new Date() }).where(eq(leads.id, leadId));
+  await db.insert(leadActivity).values({
+    leadId,
+    userId,
+    kind: 'telegram',
+    body: ok ? "Telegram'ga qayta yuborildi" : "Qayta yuborish ham Telegram'ga yetmadi",
+  });
+  return ok;
+}
+
+/**
+ * Zayafkani anonimlashtirish (mijoz so'rovi bo'yicha, faqat admin): ism, telefon, kompaniya, shahar,
+ * izoh va tashrif bog'lanishi o'chiriladi; raqam, sana, holat, modellar va manba statistika uchun qoladi.
+ */
+export async function anonymizeLead(db: Db, leadId: number, userId: number): Promise<boolean> {
+  const [row] = await db
+    .update(leads)
+    .set({
+      name: 'Anonimlashtirilgan',
+      phone: '—',
+      company: null,
+      city: null,
+      message: null,
+      visitorId: null,
+      sessionId: null,
+      updatedAt: new Date(),
+    })
+    .where(eq(leads.id, leadId))
+    .returning({ id: leads.id });
+  if (!row) return false;
+  await db.insert(leadActivity).values({ leadId, userId, kind: 'note', body: "Shaxsiy ma'lumotlar o'chirildi (anonimlashtirildi)" });
+  return true;
+}
+
+/**
  * Serverless'da ishlaydigan rate limit: hisob bazada. `true` — ruxsat.
  * Eski yozuvlar har chaqiruvda shu kalit uchun tozalanadi (jadval o'smaydi).
  */
@@ -137,6 +195,8 @@ export async function recordHit(db: Db, key: string, now = new Date()): Promise<
 export async function hitRateLimit(db: Db, key: string, max: number, windowMs: number, now = new Date()): Promise<boolean> {
   const since = new Date(now.getTime() - windowMs);
   await db.delete(rateHits).where(and(eq(rateHits.key, key), lt(rateHits.at, since)));
+  // Boshqa kalitlarning (shu jumladan login) 1 sutkadan eski yozuvlari ham — jadvalda IP izi qolmasin.
+  await db.delete(rateHits).where(lt(rateHits.at, new Date(now.getTime() - 24 * 60 * 60 * 1000)));
   const [{ n }] = await db
     .select({ n: count() })
     .from(rateHits)

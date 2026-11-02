@@ -1,12 +1,14 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { normalizePhone, isValidIntlPhone } from '@/lib/phone';
-import { escapeTelegramHtml, sendTelegramNotification } from '@/lib/telegram';
+import { sendTelegramNotification } from '@/lib/telegram';
 import { checkRateLimit } from '@/lib/rateLimit';
-import { calcMolds, getModelBySlug, modelName, modelSetSize } from '@/lib/catalog2027';
+import { calcMolds, getModelBySlug, modelName } from '@/lib/catalog2027';
 import { SITE_URL } from '@/lib/seo';
 import { getDb } from '@/server/db/client';
 import { createLead, hitRateLimit, markTelegram } from '@/server/leads';
+import { formatLeadMessage } from '@/server/leadMessage';
+import { ipKey } from '@/server/privacy';
 
 /**
  * Zayafka endpoint'i — saytdagi YAGONA yozuv API (HANDOFF 5-bo'lim).
@@ -65,13 +67,6 @@ const leadSchema = z.object({
   website: z.string().max(200).optional(),
 });
 
-const CLIENT_LABELS: Record<string, string> = {
-  workshop: 'Sex',
-  dealer: 'Diler',
-  builder: 'Quruvchi',
-  private: 'Xususiy',
-};
-
 const usedRequestIds = new Set<string>();
 
 function makeRequestId(now: Date): string {
@@ -87,21 +82,6 @@ function makeRequestId(now: Date): string {
   return `SPS-${ym}-${Date.now() % 10000}`;
 }
 
-function tashkentTime(now: Date): string {
-  try {
-    return new Intl.DateTimeFormat('ru-RU', {
-      timeZone: 'Asia/Tashkent',
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    }).format(now);
-  } catch {
-    return now.toISOString();
-  }
-}
-
 function clientIp(req: Request): string {
   return req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || req.headers.get('x-real-ip') || 'unknown';
 }
@@ -113,7 +93,8 @@ async function rateAllowed(ip: string): Promise<boolean> {
   const db = getDb();
   if (db) {
     try {
-      return await hitRateLimit(db, `lead_create_${ip}`, RATE_MAX, RATE_WINDOW_MS);
+      // Bazada IP emas, uning HMAC xeshi (src/server/privacy.ts).
+      return await hitRateLimit(db, ipKey('lead_create', ip), RATE_MAX, RATE_WINDOW_MS);
     } catch (error) {
       console.error('[leads] rate limit (baza) xatosi', error);
     }
@@ -190,58 +171,34 @@ export async function POST(req: Request) {
   }
   const requestId = saved?.number ?? makeRequestId(now);
 
-  const typeLabel =
-    data.type === 'list'
-      ? `Zayafka ro'yxati (${data.items?.length || 0} model)`
-      : data.type === 'partners'
-        ? 'Ulgurji forma'
-        : 'Tez zayafka';
+  const message = formatLeadMessage({
+    number: requestId,
+    id: saved?.id ?? null,
+    type: data.type,
+    clientType: data.clientType,
+    name: data.name,
+    phone,
+    phoneTyped: data.phone,
+    city: data.city,
+    country: data.country,
+    volumeM2: data.volumeM2,
+    company: data.company,
+    material: data.material,
+    message: data.message,
+    lang: data.lang,
+    pageUrl: data.pageUrl,
+    utmSource: data.utm_source,
+    utmMedium: data.utm_medium,
+    utmCampaign: data.utm_campaign,
+    gclid: data.gclid,
+    fbclid: data.fbclid,
+    items: items.map(({ model: _model, ...rest }) => rest),
+    createdAt: now,
+    siteUrl: SITE_URL,
+  });
 
-  const lines: string[] = [`🟥 Yangi zayafka · ${requestId}`, `Turi: ${escapeTelegramHtml(typeLabel)}`];
-
-  const client = data.clientType ? CLIENT_LABELS[data.clientType] : null;
-  lines.push(`Mijoz: ${escapeTelegramHtml([client, data.name].filter(Boolean).join(' · '))}`);
-
-  const wa = `  (WhatsApp: wa.me/${phone.replace(/\D/g, '')})`;
-  lines.push(`Telefon: <a href="tel:${phone.replace(/[^\d+]/g, '')}">${escapeTelegramHtml(phone)}</a>${wa}`);
-  // Raqam davlat kodi bo'yicha to'ldirilgan bo'lsa — menejer mijoz nima yozganini ham ko'rsin.
-  if (data.phone.replace(/\D/g, '') !== phone.replace(/\D/g, '')) lines.push(`Mijoz yozgani: ${escapeTelegramHtml(data.phone)}`);
-
-  const place = [data.city, data.country].filter(Boolean).join(', ');
-  if (place) lines.push(`Shahar: ${escapeTelegramHtml(place)}`);
-  if (data.volumeM2) lines.push(`Kunlik hajm: ${data.volumeM2} m²`);
-  if (data.company) lines.push(`Kompaniya: ${escapeTelegramHtml(data.company)}`);
-  if (data.material) lines.push(`Material: ${escapeTelegramHtml(data.material.toUpperCase())}`);
-
-  if (items.length) {
-    lines.push('', 'Modellar:');
-    for (const item of items) {
-      const { model, molds } = item;
-      const label = model ? `№ ${model.code || '—'} ${modelName(model, 'uz')}` : item.slug;
-      const setNote = model && modelSetSize(model) > 1 ? " (to'plam A+B)" : '';
-      if (item.m2) {
-        lines.push(
-          molds
-            ? `• ${escapeTelegramHtml(label)}${setNote} — ${item.m2} m²/kun ≈ ${molds.toLocaleString('ru-RU')} qolip`
-            : `• ${escapeTelegramHtml(label)}${setNote} — ${item.m2} m²/kun, soni menejer hisoblaydi`,
-        );
-      } else {
-        lines.push(`• ${escapeTelegramHtml(label)}${setNote}`);
-      }
-    }
-  }
-
-  if (data.message) lines.push('', `Izoh: ${escapeTelegramHtml(data.message)}`);
-  lines.push(`Til: ${data.lang} · Sahifa: ${escapeTelegramHtml(data.pageUrl || '—')}`);
-  if (data.utm_source || data.utm_medium || data.utm_campaign || data.gclid || data.fbclid) {
-    lines.push(
-      `Manba: ${escapeTelegramHtml([data.utm_source, data.utm_medium, data.utm_campaign].filter(Boolean).join(' / ') || 'to‘g‘ridan-to‘g‘ri')}`,
-    );
-  }
-  lines.push(`Vaqt: ${tashkentTime(now)} (Toshkent)`);
-  if (saved) lines.push(`<a href="${SITE_URL}/admin/leads/${saved.id}">Admin'da ochish →</a>`);
-
-  const sent = await sendTelegramNotification(lines.join('\n'));
+  // Xabar matni (tel:, wa.me havolalari, escape) — src/server/leadMessage.ts.
+  const sent = await sendTelegramNotification(message);
   if (db && saved) {
     try {
       await markTelegram(db, saved.id, sent);

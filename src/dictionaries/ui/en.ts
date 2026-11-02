@@ -35,6 +35,8 @@ export const en: UiDictionary = {
     sales: 'Sales department',
     telegram: 'Telegram',
     whatsapp: 'WhatsApp',
+    waWrite: 'Message us on WhatsApp',
+    waText: 'Hello! I have a question about SPS molds.',
     pdf: 'PDF catalog',
     productionExport: 'Production & export',
   },
@@ -60,6 +62,9 @@ export const en: UiDictionary = {
     logo: 'SPS Stone Profy Servise logo',
   },
   seo: {
+    /** JSON-LD: Offer.itemOffered nomi va LocalBusiness.priceRange (narx yo'q). */
+    offerService: 'Mold calculation and delivery',
+    priceRange: 'On request',
     leadCta: 'Submit a request — the manager will calculate the mold count and the price.',
     sectionMolds: {
       trotuar: 'Paving tile molds',

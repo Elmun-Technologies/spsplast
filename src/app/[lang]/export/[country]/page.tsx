@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { SECTION_SLUGS, getPopular, getTotalCount, modelImage, modelName, modelPerM2, modelThickness } from '@/lib/catalog2027';
 import { isValidLocale, locales, type Locale } from '@/lib/i18n';
 import { getUi } from '@/lib/ui';
-import { getPages } from '@/lib/pages';
+import { getSitePages } from '@/lib/pagesServer';
 import { CONTACTS_2027 } from '@/lib/contacts2027';
 import { EXPORT_COUNTRIES, isExportCountry } from '@/lib/seoPages';
 import { CountriesStrip } from '@/components/seo2028/SeoBlocks';
@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   const { lang, country } = await params;
   const locale = isValidLocale(lang) ? (lang as Locale) : 'uz';
   if (!isExportCountry(country)) return { title: 'SPS' };
-  const g = getPages(locale).seo.geo;
+  const g = getSitePages(locale).seo.geo;
   const c = g.countries[country];
   return pageMetadata({
     lang: locale,
@@ -48,7 +48,7 @@ export default async function ExportCountryPage({ params }: { params: Promise<Pa
   if (!isExportCountry(country)) notFound();
 
   const t = getUi(lang);
-  const p = getPages(lang);
+  const p = getSitePages(lang);
   const g = p.seo.geo;
   const c = g.countries[country];
   const total = getTotalCount();

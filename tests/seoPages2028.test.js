@@ -28,7 +28,7 @@ test('1. Teg sahifalari: har biri ≥ MIN_TAG_MODELS model, bo\'sh teg sahifa ol
 });
 
 test('2. Lug\'at: har bir teg va davlat uchun 3 tilda matn, sarlavha/description uzunligi', async () => {
-  const { getPages } = await load('lib/pages.ts');
+  const { getSitePages: getPages } = await load('lib/pagesServer.ts'); // + seo/privacy (server lug'ati)
   const { getSeoTags, EXPORT_COUNTRIES } = await load('lib/seoPages.ts');
   const { getTotalCount } = await load('lib/catalog2027.ts');
   const total = getTotalCount();
@@ -57,7 +57,7 @@ test('2. Lug\'at: har bir teg va davlat uchun 3 tilda matn, sarlavha/description
 });
 
 test('3. Matnlar biznes qoidalariga mos: narx yo\'q, "yaratish" yo\'q, token qolmagan', async () => {
-  const { getPages } = await load('lib/pages.ts');
+  const { getSitePages: getPages } = await load('lib/pagesServer.ts'); // + seo/privacy (server lug'ati)
   const { EXPORT_COUNTRIES } = await load('lib/seoPages.ts');
   for (const lang of LANGS) {
     const s = getPages(lang).seo;

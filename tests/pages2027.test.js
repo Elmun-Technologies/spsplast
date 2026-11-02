@@ -48,7 +48,7 @@ test('2. Model sahifasi noma\'lum slug uchun qattiq 404 beradi', () => {
 });
 
 test('3. Sahifa lug\'atlarida taqiqlangan so\'zlar yo\'q', async () => {
-  const { getPages } = await load('lib/pages.ts');
+  const { getSitePages: getPages } = await load('lib/pagesServer.ts'); // + seo/privacy (server lug'ati)
   const offenders = [];
   const walk = (node, trail) => {
     if (typeof node === 'string') {
@@ -73,7 +73,7 @@ test('3. Sahifa lug\'atlarida taqiqlangan so\'zlar yo\'q', async () => {
 });
 
 test('4. Uch til lug\'atlari bir xil tuzilishga ega', async () => {
-  const { getPages } = await load('lib/pages.ts');
+  const { getSitePages: getPages } = await load('lib/pagesServer.ts'); // + seo/privacy (server lug'ati)
   const shape = (node) => {
     if (typeof node === 'function') return 'fn';
     if (Array.isArray(node)) return node.map(shape);
@@ -94,7 +94,7 @@ test('5. Saytda `[...]` placeholder ko\'rinmaydi (UI audit: "soxta" ko\'rinish)'
   // chiqmaydi — o'rniga halol neytral matn ("Menejer bilan kelishiladi"). Ochiq
   // savollar docs/unresolved-questions.md / data-questions.md da qoladi.
   // Ichki kalitlar (saytda chiqarilmaydi): privacy.legalNote, contact.emailPlaceholder.
-  const { getPages } = await load('lib/pages.ts');
+  const { getSitePages: getPages } = await load('lib/pagesServer.ts'); // + seo/privacy (server lug'ati)
   const flat = (node, out = []) => {
     if (typeof node === 'string') out.push(node);
     else if (Array.isArray(node)) node.forEach((v) => flat(v, out));
@@ -110,7 +110,7 @@ test('5. Saytda `[...]` placeholder ko\'rinmaydi (UI audit: "soxta" ko\'rinish)'
 });
 
 test('6. Faqat tasdiqlangan raqamlar ishlatilgan (HANDOFF 1.5)', async () => {
-  const { getPages } = await load('lib/pages.ts');
+  const { getSitePages: getPages } = await load('lib/pagesServer.ts'); // + seo/privacy (server lug'ati)
   const uz = JSON.stringify(getPages('uz'));
   // Tasdiqlangan: 20 yil, 18 000 m²/oy, 740+ obyekt, 8 davlat
   for (const claim of ['20', '18 000', '740+', '8']) {
@@ -176,7 +176,7 @@ test('10. Bo\'lim muqova rasmlari diskda mavjud', async () => {
 });
 
 test('11. Maxfiylik sahifasi 6 bo\'limdan iborat', async () => {
-  const { getPages } = await load('lib/pages.ts');
+  const { getSitePages: getPages } = await load('lib/pagesServer.ts'); // + seo/privacy (server lug'ati)
   for (const lang of ['uz', 'ru', 'en']) {
     const pv = getPages(lang).privacy;
     assert.equal(pv.sections.length, 6, `${lang}: bo'limlar soni`);
@@ -186,7 +186,7 @@ test('11. Maxfiylik sahifasi 6 bo\'limdan iborat', async () => {
 });
 
 test('13. Admin raqam/kontakt tokenlari almashtirilgan (`{countries}` saytda chiqmaydi)', async () => {
-  const { getPages } = await load('lib/pages.ts');
+  const { getSitePages: getPages } = await load('lib/pagesServer.ts'); // + seo/privacy (server lug'ati)
   for (const lang of ['uz', 'ru', 'en']) {
     const p = getPages(lang);
     const json = JSON.stringify(p);

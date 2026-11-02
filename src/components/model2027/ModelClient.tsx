@@ -218,8 +218,23 @@ export function ModelClient({
                   style={{ objectFit: hero.cover ? 'cover' : 'contain', padding: hero.cover ? undefined : '8%' }}
                 />
               ) : (
-                <div className="sps-card__nophoto">
-                  <span>{getUi(lang).catalog.photoSoon}</span>
+                <div className="stage-nophoto">
+                  <Icon.grid width={32} height={32} strokeWidth={1.25} aria-hidden="true" />
+                  <b>{p.model.photoAskTitle}</b>
+                  <span className="small muted">{p.model.photoAskText}</span>
+                  <span className="row" style={{ justifyContent: 'center' }}>
+                    <a
+                      className="sps-btn sps-btn--dark sps-btn--sm"
+                      href={`${CONTACTS_2027.whatsappUrl}?text=${encodeURIComponent(p.model.photoAskMessage(`${model.code ? `№ ${model.code} ` : ''}${modelName(model, lang)}`))}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {p.model.photoAskWa}
+                    </a>
+                    <a className="sps-btn sps-btn--outline sps-btn--sm" href={CONTACTS_2027.telegramUrl} target="_blank" rel="noopener noreferrer">
+                      Telegram
+                    </a>
+                  </span>
                 </div>
               )}
               {hero?.label ? <span className="sps-tag">{hero.label}</span> : null}
@@ -347,6 +362,8 @@ export function ModelClient({
       {/* Tablar */}
       <section style={{ paddingBottom: 'var(--space-9)' }}>
         <div className="wrap" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>
+          {/* Barcha panellar HTML'da (yashirini `hidden`): tab matni va FAQ qidiruvchiga ko'rinadi,
+              FAQPage JSON-LD sahifadagi matnga mos (audit 2026-11-02, SEO). */}
           <div className="tabs" role="tablist">
             {(['spec', 'use', 'delivery', 'faq'] as const).map((k) => (
               <button
@@ -364,8 +381,7 @@ export function ModelClient({
             ))}
           </div>
 
-          {tab === 'spec' ? (
-            <div className="spec-split" id="panel-spec" role="tabpanel" aria-labelledby="tab-spec">
+            <div className="spec-split" id="panel-spec" hidden={tab !== 'spec'} role="tabpanel" aria-labelledby="tab-spec">
               <table className="sps-spec">
                 <tbody>
                   {specRows.filter((r) => r.v !== '—').map((r) => (
@@ -402,10 +418,10 @@ export function ModelClient({
                 </div>
               ) : null}
             </div>
-          ) : null}
 
-          {tab === 'use' ? (
-            <div className="g2" id="panel-use" role="tabpanel" aria-labelledby="tab-use" style={{ gap: 'var(--space-6)' }}>
+            <div className="g2" id="panel-use" hidden={tab !== 'use'} role="tabpanel" aria-labelledby="tab-use" style={{ gap: 'var(--space-6)' }}>
+              {/* Ierarxiya h1 → h2 → h3: panel sarlavhasi tab tugmasida ko'rinadi, bu yerda ekran o'quvchi uchun. */}
+              <h2 className="sr-only">{p.model.tabs.use}</h2>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 <h3 className="h3">{p.model.use.title}</h3>
                 <p className="body muted">{useText}</p>
@@ -422,10 +438,8 @@ export function ModelClient({
                 </div>
               )}
             </div>
-          ) : null}
 
-          {tab === 'delivery' ? (
-            <table className="sps-spec" id="panel-delivery" role="tabpanel" aria-labelledby="tab-delivery" style={{ maxWidth: 760 }}>
+            <table className="sps-spec" id="panel-delivery" hidden={tab !== 'delivery'} role="tabpanel" aria-labelledby="tab-delivery" style={{ maxWidth: 760 }}>
               <tbody>
                 <tr>
                   <th>{p.model.delivery.price}</th>
@@ -449,10 +463,9 @@ export function ModelClient({
                 </tr>
               </tbody>
             </table>
-          ) : null}
 
-          {tab === 'faq' ? (
-            <div id="panel-faq" role="tabpanel" aria-labelledby="tab-faq" style={{ maxWidth: 860 }}>
+            <div id="panel-faq" hidden={tab !== 'faq'} role="tabpanel" aria-labelledby="tab-faq" style={{ maxWidth: 860 }}>
+              <h2 className="sr-only">{p.model.tabs.faq}</h2>
               {p.model.faq.map((f, i) => (
                 <div className="faq" key={f.q} style={i === p.model.faq.length - 1 ? { borderBottom: '1px solid var(--line)' } : undefined}>
                   <h3 className="h3">{f.q}</h3>
@@ -460,7 +473,6 @@ export function ModelClient({
                 </div>
               ))}
             </div>
-          ) : null}
         </div>
       </section>
 
@@ -514,6 +526,16 @@ export function ModelClient({
           style={{ width: 52, padding: 0, justifyContent: 'center' }}
         >
           <Icon.phone size={20} aria-hidden="true" />
+        </a>
+        <a
+          className="sps-btn sps-btn--outline"
+          href={`${CONTACTS_2027.whatsappUrl}?text=${encodeURIComponent(p.model.waAbout(`${model.code ? `№ ${model.code} ` : ''}${modelName(model, lang)}`))}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={t.menu.waWrite}
+          style={{ width: 52, padding: 0, justifyContent: 'center' }}
+        >
+          <Icon.whatsapp size={20} aria-hidden="true" />
         </a>
         <button type="button" className={`sps-btn ${inList ? 'sps-btn--dark' : 'sps-btn--outline'}`} onClick={toggleList} style={{ flex: 1 }}>
           {inList ? p.model.ctaListOn : p.model.ctaListShort}

@@ -48,9 +48,13 @@ test('5. requestId formati SPS-YYMM-NNNN', () => {
 test('6. Telegram xabari HTML-escape qilinadi va havolalar bosiladigan', () => {
   assert.match(telegram, /escapeTelegramHtml/, 'escape funksiyasi yo\'q');
   assert.match(telegram, /parse_mode/, 'parse_mode yuborilmaydi');
-  // Telefon va WhatsApp havolalari xabar matnida (route quradi)
-  assert.match(route, /tel:/, 'tel: havolasi yo\'q');
-  assert.match(route, /wa\.me/, 'WhatsApp havolasi yo\'q');
+  // Telefon va WhatsApp havolalari xabar matnida (src/server/leadMessage.ts quradi — route va
+  // admin'dagi "qayta yuborish" uchun bitta manba).
+  const message = read('src/server/leadMessage.ts');
+  assert.match(route, /formatLeadMessage\(/, 'route xabarni umumiy funksiya bilan yig\'maydi');
+  assert.match(message, /escapeTelegramHtml/, 'xabarda escape yo\'q');
+  assert.match(message, /tel:/, 'tel: havolasi yo\'q');
+  assert.match(message, /wa\.me/, 'WhatsApp havolasi yo\'q');
 });
 
 test('7. Maxfiy qiymatlar faqat env orqali (kodda token yo\'q)', () => {

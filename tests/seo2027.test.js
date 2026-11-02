@@ -43,6 +43,11 @@ const models = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'models-2027.j
 const MODEL_PATHS = new Set(
   models.models.map((m) => `/catalog/${SECTION_SLUGS[m.section]}/${m.slug}`),
 );
+/** Rasmi bor modellar — faqat shular sitemap'da (rasmsizlari `noindex`, audit 2026-11-02). */
+const hasImage = (m) => !!(m.images.scene || m.images.sceneSm || Object.keys(m.images.molds).length || Object.keys(m.images.tiles).length);
+const MODEL_PATHS_WITH_IMAGE = new Set(
+  models.models.filter(hasImage).map((m) => `/catalog/${SECTION_SLUGS[m.section]}/${m.slug}`),
+);
 
 /** Eski (o'chirilgan) marshrutlar — sitemap yoki redirect manzilida bo'lmasligi kerak. */
 const DEAD_SEGMENTS = [
@@ -125,8 +130,10 @@ test('3. sitemap: 390 URL, har biri 3 tilda, duplikat yo\'q', async (t) => {
   const { getSeoTags, EXPORT_COUNTRIES } = await loadAliased('src/lib/seoPages.ts');
   const seoCount = getSeoTags().length + EXPORT_COUNTRIES.length;
   const staticCount = 6 + nonEmptySections + seoCount;
-  assert.strictEqual(entries.length, (staticCount + models.models.length) * 3,
-    `kutilgan: (${staticCount} statik/SEO + ${models.models.length} model) × 3 til, bor: ${entries.length}`);
+  // Rasmi yo'q modellar sitemap'da yo'q (autoNoindex, audit 2026-11-02).
+  const withImage = models.models.filter(hasImage).length;
+  assert.strictEqual(entries.length, (staticCount + withImage) * 3,
+    `kutilgan: (${staticCount} statik/SEO + ${withImage} rasmli model) × 3 til, bor: ${entries.length}`);
 
   for (const url of urls) {
     assert.ok(url.startsWith(`${SITE_URL}/`), `URL sayt domeni bilan boshlanmadi: ${url}`);
@@ -148,7 +155,8 @@ test('3. sitemap: 390 URL, har biri 3 tilda, duplikat yo\'q', async (t) => {
 
   // Modellar: har bir model slugi sitemap da.
   for (const modelPath of MODEL_PATHS) {
-    assert.ok(byPath.has(modelPath), `model sitemap da yo'q: ${modelPath}`);
+    if (MODEL_PATHS_WITH_IMAGE.has(modelPath)) assert.ok(byPath.has(modelPath), `model sitemap da yo'q: ${modelPath}`);
+    else assert.ok(!byPath.has(modelPath), `rasmsiz model sitemap da: ${modelPath}`);
   }
 
   // Statik sahifalar: doimiylar + modeli bor bo'limlar.
@@ -260,7 +268,7 @@ test('8. JSON-LD: LocalBusiness (geo, ish vaqti, narx diapazoni)', async (t) => 
   const seo = await loadAliased('src/lib/seo.ts');
   const { CONTACTS_2027 } = await loadAliased('src/lib/contacts2027.ts');
 
-  const lb = seo.jsonLdLocalBusiness();
+  const lb = seo.jsonLdLocalBusiness('uz', 'Zayafka bo‘yicha');
   assert.strictEqual(lb['@type'], 'LocalBusiness');
   assert.strictEqual(lb.geo.latitude, CONTACTS_2027.coords.lat);
   assert.strictEqual(lb.geo.longitude, CONTACTS_2027.coords.lng);
@@ -274,8 +282,18 @@ test('8. JSON-LD: LocalBusiness (geo, ish vaqti, narx diapazoni)', async (t) => 
     'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday',
   ]);
 
-  // Narx son bilan emas, "zayafka bo'yicha" deb beriladi (HANDOFF 1.1).
+  // Narx son bilan emas, "zayafka bo'yicha" deb beriladi (HANDOFF 1.1) — lug'atdan, sahifa tilida.
   assert.ok(!/[0-9]/.test(lb.priceRange), `priceRange da son bor: ${lb.priceRange}`);
+  // Manzil bitta manbadan (CONTACTS_2027) va tilga mos (audit 2026-11-02).
+  const ru = seo.jsonLdLocalBusiness('ru', 'По запросу');
+  assert.strictEqual(ru.address.streetAddress, CONTACTS_2027.address.ru);
+  assert.strictEqual(ru.url, `${seo.SITE_URL}/ru/contact`);
+  assert.deepStrictEqual(seo.jsonLdOrganization('ru').address, ru.address, 'Organization va LocalBusiness manzili bir xil');
+  for (const [lang, key] of [['uz', 'uz'], ['ru', 'ru'], ['en', 'en']]) {
+    const ui = (await loadAliased('src/lib/ui.ts')).getUi(lang);
+    assert.ok(ui.seo.priceRange && ui.seo.offerService, `${key}: JSON-LD matnlari lug'atda yo'q`);
+    assert.ok(!/[0-9]/.test(ui.seo.priceRange));
+  }
 });
 
 test('9. JSON-LD: Product — narx yo\'q, sku/rasm/qo\'shimcha xossalar bor', async (t) => {
@@ -291,6 +309,7 @@ test('9. JSON-LD: Product — narx yo\'q, sku/rasm/qo\'shimcha xossalar bor', as
     image: '/catalog/2027/01-monako.webp',
     sku: 'G001',
     category: 'Trotuar qoliplari',
+    service: 'Qolip hisob-kitobi',
     extra: {
       additionalProperty: [
         { '@type': 'PropertyValue', name: 'O\'lcham', value: '300×300×30 mm' },
@@ -315,9 +334,10 @@ test('9. JSON-LD: Product — narx yo\'q, sku/rasm/qo\'shimcha xossalar bor', as
   assert.strictEqual(product.offers.priceCurrency, 'UZS');
   assert.strictEqual(product.offers.availability, 'https://schema.org/InStock');
   assert.strictEqual(product.offers.itemOffered['@type'], 'Service');
+  assert.strictEqual(product.offers.itemOffered.name, 'Qolip hisob-kitobi', 'xizmat nomi sahifa tilida (parametr)');
 
   // Bo'sh maydonlar undefined bo'lib qoladi (JSON ga tushmaydi).
-  const bare = seo.jsonLdProduct({ lang: 'ru', path: '/catalog/decor/x', name: 'X', category: 'Dekor' });
+  const bare = seo.jsonLdProduct({ lang: 'ru', path: '/catalog/decor/x', name: 'X', category: 'Dekor', service: 'Расчёт' });
   assert.ok(!JSON.stringify(bare).includes('"sku"'), 'sku null bo\'lsa JSON-LD ga tushmasligi kerak');
   assert.ok(!JSON.stringify(bare).includes('"image"'), "rasm yo'q bo'lsa image maydoni bo'lmasligi kerak");
 });
@@ -531,8 +551,10 @@ test('16. Metadata sahifa fayllarida: JSON-LD va title/description manbalari', (
 
   const rootLayout = fs.readFileSync(path.join(ROOT, 'src', 'app', 'layout.tsx'), 'utf8');
   assert.ok(rootLayout.includes('metadataBase'), 'metadataBase o\'rnatilmagan (nisbiy canonical/OG ishlamaydi)');
-  assert.ok(rootLayout.includes('jsonLdOrganization') && rootLayout.includes('jsonLdWebSite'),
-    'root layout da Organization/WebSite JSON-LD yo\'q');
+  // Organization/WebSite — til layout'ida (tavsif va manzil sahifa tilida, audit 2026-11-02).
+  const langLayout = fs.readFileSync(path.join(ROOT, 'src', 'app', '[lang]', 'layout.tsx'), 'utf8');
+  assert.ok(langLayout.includes('jsonLdOrganization(lang') && langLayout.includes('jsonLdWebSite'),
+    '[lang]/layout da Organization/WebSite JSON-LD yo\'q');
 
   const expectations = {
     'contact/page.tsx': ['jsonLdLocalBusiness'],

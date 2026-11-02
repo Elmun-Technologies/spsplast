@@ -69,6 +69,14 @@ Har bir qadam oxirida "tekshiruv" bandi bajarilmaguncha keyingisiga o'tilmaydi.
 ## 6-qadam. Birinchi 2 hafta (kuzatuv)
 
 - [ ] Har kuni: admin → Zayafkalar (yangi zayafkalar 24 soat ichida "Bog'lanildi").
+- [ ] Har kuni: admin dashboard'dagi **"Telegram'ga yetmagan"** raqami 0 bo'lsin. 0 bo'lmasa — zayafkani
+      ochib "Telegram guruhiga qayta yuborish" tugmasini bosing va bot tokeni/guruhni tekshiring.
+- [ ] **Monitoring (bir marta sozlanadi, kod talab qilmaydi):**
+  - Uptime: UptimeRobot / Better Stack (bepul) → `https://spsplast.com/api/health` har 5 daqiqada,
+    `status != "ok"` yoki 5xx bo'lsa Telegram/e-pochtaga xabar.
+  - Vercel → Project → Observability / Log Drains: `[leads] ZAYAFKA YETKAZILMADI` va `[leads] bazaga yozilmadi`
+    qatorlari uchun ogohlantirish (yoki log drain → Better Stack alert).
+  - Xatolarni yig'ish kerak bo'lsa — Sentry (`@sentry/nextjs`, DSN env orqali) alohida qaror.
 - [ ] Har hafta: Tashriflar → manbalar va davlatlar; Search Console → indeks xatolari.
 - [ ] Biznesdan kutilayotganlar: yakuniy 2027 PDF katalog (uz/ru/en), zavod/ombor/obyekt suratlari,
       ulgurji shartlar, yuridik nom — `docs/unresolved-questions.md`.

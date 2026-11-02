@@ -6,7 +6,8 @@
  *
  * DATABASE_URL bo'lmasa yoki baza javob bermasa — fayl tegilmaydi (git'dagi `null`),
  * sayt statik katalog + env bilan yig'iladi. Build hech qachon shu sababli yiqilmaydi,
- * faqat `SNAPSHOT_REQUIRED=1` bo'lsa (productionda tavsiya) xato beradi.
+ * faqat `SNAPSHOT_REQUIRED=1` bo'lsa yoki Vercel Production'da baza ulangan bo'lsa xato beradi
+ * (`SNAPSHOT_REQUIRED=0` bilan o'chiriladi).
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -52,7 +53,12 @@ function safeRedirect(r) {
   return ok;
 }
 const url = process.env.DATABASE_URL;
-const required = process.env.SNAPSHOT_REQUIRED === '1';
+// Vercel Production'da baza ulangan bo'lsa snapshot majburiy (audit 2026-11-02): baza xatosida build
+// yiqiladi va eski deploy ishlashda davom etadi — sayt jimgina eski/statik katalog bilan chiqmaydi.
+// Majburan o'chirish: SNAPSHOT_REQUIRED=0.
+const required =
+  process.env.SNAPSHOT_REQUIRED === '1' ||
+  (process.env.SNAPSHOT_REQUIRED !== '0' && process.env.VERCEL_ENV === 'production' && Boolean(process.env.DATABASE_URL));
 
 function writeModels(models) {
   fs.writeFileSync(

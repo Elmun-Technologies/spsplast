@@ -3,6 +3,7 @@ import type { Db } from './db/client.ts';
 import {
   catalogSections,
   products,
+  redirects,
   PRODUCT_STATUSES,
   type LocalizedText,
   type ProductImages,
@@ -184,7 +185,11 @@ export async function saveProduct(db: Db, id: number | null, input: ProductInput
   const values = { ...input, key: input.code ? `${input.section.slice(0, 1)}${input.code}`.toLowerCase() : input.slug, updatedAt: new Date() };
   try {
     if (id) {
+      const [old] = await db.select({ slug: products.slug, section: products.section, status: products.status }).from(products).where(eq(products.id, id)).limit(1);
       await db.update(products).set(values).where(eq(products.id, id));
+      if (old && old.status === 'published' && (old.slug !== input.slug || old.section !== input.section)) {
+        await redirectMovedProduct(db, old, { slug: input.slug, section: input.section });
+      }
       return { id };
     }
     const [row] = await db.insert(products).values(values).returning({ id: products.id });
@@ -193,6 +198,39 @@ export async function saveProduct(db: Db, id: number | null, input: ProductInput
     if (isUnique(error)) return { error: 'Bu URL slug boshqa mahsulotda bor.' };
     throw error;
   }
+}
+
+/**
+ * Nashr qilingan mahsulotning slug'i yoki bo'limi o'zgarsa — eski URL 404 bermasin
+ * (audit 2026-11-02): uch tilda avtomatik 301. Eski manzilga olib boruvchi oldingi
+ * yo'naltirishlar yangi manzilga qayta yo'naltiriladi (zanjir bo'lmasin), yangi manzil
+ * bilan bir xil manbali yo'naltirish o'chiriladi (aylanish bo'lmasin).
+ */
+export async function redirectMovedProduct(
+  db: Db,
+  from: { slug: string; section: string },
+  to: { slug: string; section: string },
+): Promise<number> {
+  const secs = await db.select({ key: catalogSections.key, slug: catalogSections.slug }).from(catalogSections);
+  const secSlug = (key: string) => secs.find((s) => s.key === key)?.slug;
+  const fromSec = secSlug(from.section);
+  const toSec = secSlug(to.section);
+  if (!fromSec || !toSec) return 0;
+  const now = new Date();
+  let n = 0;
+  for (const lang of ['uz', 'ru', 'en']) {
+    const source = `/${lang}/catalog/${fromSec}/${from.slug}`;
+    const destination = `/${lang}/catalog/${toSec}/${to.slug}`;
+    if (source === destination) continue;
+    await db.delete(redirects).where(eq(redirects.source, destination));
+    await db.update(redirects).set({ destination, updatedAt: now }).where(eq(redirects.destination, source));
+    await db
+      .insert(redirects)
+      .values({ source, destination, note: 'Avtomatik: mahsulot URL o‘zgardi', updatedAt: now })
+      .onConflictDoUpdate({ target: redirects.source, set: { destination, updatedAt: now } });
+    n += 1;
+  }
+  return n;
 }
 
 export async function setProductsStatus(db: Db, ids: number[], status: ProductStatus): Promise<{ changed: number; skipped: number }> {

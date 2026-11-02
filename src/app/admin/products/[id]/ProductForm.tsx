@@ -3,6 +3,7 @@
 import { startTransition, useActionState, useMemo, useState, useTransition } from 'react';
 import type { ProductImages, ProductMold, ProductSpec, ProductStatus, ProductTile, LocalizedText } from '@/server/db/schema';
 import { saveProductAction, uploadImageAction, type ProductFormState } from '../actions';
+import { shrinkForUpload } from './shrinkImage';
 import { PRODUCT_STATUS_LABEL } from '../labels';
 
 type Section = { key: string; name: LocalizedText };
@@ -91,11 +92,19 @@ function ImageSlot({
   const [candidate, setCandidate] = useState<{ original: File; cut: File; preview: string } | null>(null);
 
   const upload = (file: File) => {
-    const fd = new FormData();
-    fd.set('file', file);
-    fd.set('role', role);
-    fd.set('trim', trim ? '1' : '0');
     start(async () => {
+      // Vercel 4,5 MB dan katta so'rovni rad etadi — katta suratni avval brauzerda kichraytiramiz.
+      let ready: File;
+      try {
+        ready = await shrinkForUpload(file);
+      } catch (error) {
+        setMsg({ error: `Rasm juda katta va kichraytirib bo'lmadi (${error instanceof Error ? error.message : 'xato'}). 3,5 MB dan kichik rasm tanlang.` });
+        return;
+      }
+      const fd = new FormData();
+      fd.set('file', ready);
+      fd.set('role', role);
+      fd.set('trim', trim ? '1' : '0');
       const res = await uploadImageAction(fd);
       if (res.error) setMsg({ error: res.error });
       else {

@@ -135,7 +135,7 @@ export function PartnersForm({ lang, defaultCountry, phonePrefix }: { lang: Loca
             {p.partners.name}
           </label>
           <input
-            className="sps-input"
+            className="sps-input ym-disable-keys"
             id="p-name"
             autoComplete="name"
             value={name}
@@ -152,7 +152,7 @@ export function PartnersForm({ lang, defaultCountry, phonePrefix }: { lang: Loca
             {p.partners.company}
           </label>
           <input
-            className="sps-input"
+            className="sps-input ym-disable-keys"
             id="p-company"
             autoComplete="organization"
             value={company}
@@ -168,7 +168,7 @@ export function PartnersForm({ lang, defaultCountry, phonePrefix }: { lang: Loca
           <label className="sps-label" htmlFor="p-country">
             {p.partners.country}
           </label>
-          <select className="sps-input" id="p-country" value={country} onChange={(e) => setCountry(e.target.value)}>
+          <select className="sps-input ym-disable-keys" id="p-country" value={country} onChange={(e) => setCountry(e.target.value)}>
             {p.partners.countries.map((c) => (
               <option key={c} value={c}>
                 {c}
@@ -181,7 +181,7 @@ export function PartnersForm({ lang, defaultCountry, phonePrefix }: { lang: Loca
             {p.partners.phone}
           </label>
           <input
-            className="sps-input"
+            className="sps-input ym-disable-keys"
             id="p-phone"
             type="tel"
             autoComplete="tel"
@@ -201,7 +201,7 @@ export function PartnersForm({ lang, defaultCountry, phonePrefix }: { lang: Loca
             {p.partners.volume}
           </label>
           <input
-            className="sps-input mono"
+            className="sps-input mono ym-disable-keys"
             id="p-vol"
             inputMode="decimal"
             value={volume}
@@ -213,7 +213,7 @@ export function PartnersForm({ lang, defaultCountry, phonePrefix }: { lang: Loca
           <label className="sps-label" htmlFor="p-mat">
             {p.partners.material}
           </label>
-          <select className="sps-input" id="p-mat" value={material} onChange={(e) => setMaterial(Number(e.target.value))}>
+          <select className="sps-input ym-disable-keys" id="p-mat" value={material} onChange={(e) => setMaterial(Number(e.target.value))}>
             {p.partners.materials.map((m, i) => (
               <option key={m} value={i}>
                 {m}
@@ -228,7 +228,7 @@ export function PartnersForm({ lang, defaultCountry, phonePrefix }: { lang: Loca
           {p.partners.message}
         </label>
         <textarea
-          className="sps-textarea"
+          className="sps-textarea ym-disable-keys"
           id="p-msg"
           value={message}
           onChange={(e) => setMessage(e.target.value)}

@@ -156,8 +156,9 @@ export default async function PartnersPage({ params }: { params: Promise<{ lang:
       {/* Eksport */}
       <section className="sec">
         <div className="wrap g2" style={{ gap: 'var(--space-8)', alignItems: 'center' }}>
-          <div style={{ aspectRatio: '4 / 3', overflow: 'hidden', position: 'relative', borderRadius: 'var(--radius-card)' }}>
-            <Image src="/images/site/containers-4x3.webp" alt={p.partners.exportImg} fill sizes="(max-width: 1100px) 100vw, 520px" loading="lazy" />
+          {/* SPS eksport xaritasi (stok konteyner surati o'rniga, audit 2026-11-02). */}
+          <div style={{ background: 'var(--surface-alt)', borderRadius: 'var(--radius-card)', overflow: 'hidden' }}>
+            <Image src="/images/site/map-uz.webp" alt={p.production.mapAlt} width={1280} height={832} sizes="(max-width: 1100px) 100vw, 520px" style={{ width: '100%', height: 'auto' }} loading="lazy" />
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>
             <p className="sps-eyebrow">

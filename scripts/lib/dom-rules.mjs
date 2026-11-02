@@ -386,6 +386,8 @@ function collectTypes(node, acc = new Set()) {
 export function checkJsonLd(doc, { path, lang, siteUrl, expect = {} }, out) {
   const blocks = parseJsonLd(doc);
   if (!blocks.length) {
+    // 404 sahifasiga strukturaviy ma'lumot kerak emas (Organization/WebSite til layout'ida).
+    if (expect.status === 404) return [];
     out.errors.push(`${path}: JSON-LD bloki yo'q`);
     return [];
   }

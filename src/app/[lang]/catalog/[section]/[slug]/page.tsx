@@ -12,6 +12,7 @@ import {
   localizedText,
   modelName,
   sectionLabel,
+  hasAnyImage,
 } from '@/lib/catalog2027';
 import { isValidLocale, locales, type Locale } from '@/lib/i18n';
 import { getUi } from '@/lib/ui';
@@ -49,6 +50,8 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
       `${sectionLabel(model.section, locale)}${size ? ` · ${size} mm` : ''}. ${getUi(locale).seo.leadCta}`,
     image: modelImage(model) ?? undefined,
     imageAlt: name,
+    // Rasmsiz model — yupqa sahifa: rasm kelguncha indekslanmaydi (havolalar kuchi saqlanadi).
+    noindex: !hasAnyImage(model),
   });
 }
 
@@ -81,10 +84,15 @@ export default async function ModelPage({ params }: { params: Promise<Params> })
             lang,
             path,
             name,
-            description: localizedText(model.subtitle, lang) || localizedText(model.note, lang),
+            // Tavsif bo'sh bo'lmasin (Search Console tavsiyasi): bo'lim + o'lcham + zayafka matni.
+            description:
+              localizedText(model.subtitle, lang) ||
+              localizedText(model.note, lang) ||
+              `${modelSeoTitle(model, lang)}. ${t.seo.leadCta}`,
             image: modelImage(model),
             sku: model.code,
             category: sectionLabel(model.section, lang),
+            service: t.seo.offerService,
             extra: {
               additionalProperty: [
                 ...(model.tiles[0]?.size

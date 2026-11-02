@@ -1,4 +1,4 @@
-import { LayoutGrid, Search, ChartNoAxesColumn, ClipboardList, Phone, Menu, X, TriangleAlert, RotateCw, Download, Send, ArrowRight } from 'lucide-react';
+import { LayoutGrid, Search, ChartNoAxesColumn, ClipboardList, Phone, Menu, X, TriangleAlert, RotateCw, Download, Send, ArrowRight, MessageCircle } from 'lucide-react';
 
 /**
  * Lucide ikonlari (ds/README: 1.5px chiziq, currentColor).
@@ -8,6 +8,7 @@ export const Icon = {
   grid: LayoutGrid,
   download: Download,
   telegram: Send,
+  whatsapp: MessageCircle,
   arrowRight: ArrowRight,
   search: Search,
   compare: ChartNoAxesColumn,

@@ -6,6 +6,7 @@ import {
   modelThickness,
   modelUse,
   modelSetSize,
+  modelName,
 } from './catalog2027.ts';
 
 /** Katalog holati (URL searchParams bilan sinxron, HANDOFF 3-bo'lim). */
@@ -55,13 +56,40 @@ export function activeFilterCount(f: Filters): number {
   return [f.use, f.size, f.set].filter(Boolean).length;
 }
 
-/** "№" va bo'sh joylar e'tiborsiz: kod yoki nom (uch tilda) bo'yicha qidiruv. */
+/** Qidiruv uchun normallashtirish: kichik harf, ё→е, apostrof turlari bitta, "№" va ortiqcha bo'sh joy yo'q. */
+function norm(v: string): string {
+  return v
+    .toLowerCase()
+    .replace(/ё/g, 'е')
+    .replace(/[‘’ʻʼ`´]/g, "'")
+    .replace(/№/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+const searchCache = new WeakMap<Model, string[]>();
+
+/**
+ * Model qidiriladigan nomlar: bazadagi uz/ru/en va saytda **ko'rsatiladigan** nomlar
+ * (ru/en bo'sh bo'lsa `modelName` transliteratsiyasi — "Монако"). Aks holda `/ru/catalog?q=монако`
+ * hech narsa topmasdi, holbuki kartochkada aynan shu yozuv turibdi (audit 2026-11-02).
+ */
+function searchNames(m: Model): string[] {
+  let names = searchCache.get(m);
+  if (!names) {
+    names = [...new Set([m.name.uz, m.name.ru, m.name.en, modelName(m, 'ru'), modelName(m, 'en')].filter(Boolean).map((n) => norm(n as string)))];
+    searchCache.set(m, names);
+  }
+  return names;
+}
+
+/** "№" va bo'sh joylar e'tiborsiz: kod yoki nom (uch tilda + ko'rsatilgan nom) bo'yicha qidiruv. */
 function matchesQuery(m: Model, q: string): boolean {
-  const query = q.toLowerCase().replace(/№/g, '').trim();
+  const query = norm(q);
   if (!query) return true;
   const code = (m.code || '').toLowerCase();
   if (code && code.includes(query)) return true;
-  return [m.name.uz, m.name.ru, m.name.en].some((n) => n && n.toLowerCase().includes(query));
+  return searchNames(m).some((n) => n.includes(query));
 }
 
 function matchesExcept(m: Model, f: Filters, skip: 'use' | 'size' | 'set' | null): boolean {

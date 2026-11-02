@@ -152,7 +152,7 @@ export function RequestClient({ lang }: { lang: Locale }) {
                   </div>
                   <div className="qty">
                     <input
-                      className="sps-input mono"
+                      className="sps-input mono ym-disable-keys"
                       inputMode="decimal"
                       aria-label={`${p.request.volumeA11y}: ${modelName(model, lang)}`}
                       value={volumes[item.slug] ?? (item.m2 ? String(item.m2) : '100')}
@@ -270,7 +270,7 @@ export function RequestClient({ lang }: { lang: Locale }) {
                     {p.request.name}
                   </label>
                   <input
-                    className="sps-input"
+                    className="sps-input ym-disable-keys"
                     id="r-name"
                     autoComplete="name"
                     placeholder={p.request.namePlaceholder}
@@ -287,7 +287,7 @@ export function RequestClient({ lang }: { lang: Locale }) {
                     {p.request.phone}
                   </label>
                   <input
-                    className="sps-input"
+                    className="sps-input ym-disable-keys"
                     id="r-phone"
                     type="tel"
                     autoComplete="tel"
@@ -304,7 +304,7 @@ export function RequestClient({ lang }: { lang: Locale }) {
                     {p.request.city}
                   </label>
                   <input
-                    className="sps-input"
+                    className="sps-input ym-disable-keys"
                     id="r-city"
                     autoComplete="address-level2"
                     placeholder={p.request.cityPlaceholder}
@@ -318,7 +318,7 @@ export function RequestClient({ lang }: { lang: Locale }) {
                     {p.request.message}
                   </label>
                   <textarea
-                    className="sps-textarea"
+                    className="sps-textarea ym-disable-keys"
                     id="r-msg"
                     placeholder={p.request.messagePlaceholder}
                     value={message}

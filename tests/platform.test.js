@@ -62,7 +62,9 @@ test('4. Zayafka API’si Telegram’ga yuboradi va bazani ishlatmaydi', () => {
   const route = fs.readFileSync(path.join(__dirname, '..', 'src', 'app', 'api', 'leads', 'route.ts'), 'utf8');
 
   assert.ok(route.includes('sendTelegramNotification'), 'Telegram yuborilishi kerak');
-  assert.ok(route.includes('escapeTelegramHtml'), 'HTML escape ishlatilishi kerak');
+  // Xabar matni (escape bilan) src/server/leadMessage.ts da — route va admin "qayta yuborish" uchun bitta manba.
+  const message = fs.readFileSync(path.join(__dirname, '..', 'src', 'server', 'leadMessage.ts'), 'utf8');
+  assert.ok(route.includes('formatLeadMessage') && message.includes('escapeTelegramHtml'), 'HTML escape ishlatilishi kerak');
   assert.ok(route.includes('checkRateLimit'), 'rate limit bo‘lishi kerak');
   assert.ok(route.includes('website'), 'honeypot maydoni bo‘lishi kerak');
   assert.ok(!route.includes('@/lib/db'), 'baza importi bo‘lmasligi kerak');
@@ -294,6 +296,9 @@ test('11. Ichki havolalar faqat haqiqiy bo‘lim slug‘laridan foydalanadi', ()
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
       const full = path.join(dir, entry.name);
       if (entry.isDirectory() && full.endsWith(path.join('app', 'admin'))) continue; // admin: slug bazadan
+      // src/server: bo'lim slug'i catalog_sections jadvalidan (masalan slug o'zgarganda avtomatik 301) —
+      // nashrdan keyin aynan shu qiymat SECTION_SLUGS ga aylanadi.
+      if (entry.isDirectory() && full === path.join(srcDir, 'server')) continue;
       if (entry.isDirectory()) walkDynamic(full);
       else if (/\.(ts|tsx)$/.test(entry.name)) {
         const source = fs.readFileSync(full, 'utf8');
@@ -386,7 +391,8 @@ test('14. Sitemap/robots/hreflang yangi marshrutlar uchun (3 til + x-default)', 
   const { default: robots } = await loadAliased('src/app/robots.ts');
 
   const entries = sitemap();
-  assert.ok(entries.length > 300, `sitemap juda kichik: ${entries.length}`);
+  // Rasmsiz modellar sitemap'da yo'q (audit 2026-11-02) — hozir ~276 URL.
+  assert.ok(entries.length > 250, `sitemap juda kichik: ${entries.length}`);
 
   // Har bir URL uch tilda va har birida hreflang to'plami bor.
   const perPath = new Map();
