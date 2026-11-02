@@ -57,8 +57,14 @@ integratsiyalarni oladi. Zayafkalar va tashriflar esa darhol (nashrsiz) ko'rinad
 
 Sozlash (bir marta):
 1. Vercel → Project → Settings → Git → **Deploy Hooks** → nom: `admin-publish`, branch: `main` → URL'ni nusxalang.
-2. Environment Variables: `VERCEL_DEPLOY_HOOK_URL=<o'sha URL>`; tavsiya: `SNAPSHOT_REQUIRED=1`
-   (baza javob bermasa build to'xtaydi — eski katalog bilan chiqib ketmaydi).
+2. Environment Variables: `VERCEL_DEPLOY_HOOK_URL=<o'sha URL>`. Vercel **Production**'da baza ulangan
+   bo'lsa snapshot o'z-o'zidan majburiy: baza javob bermasa build to'xtaydi va eski deploy ishlashda
+   qoladi (eski katalog bilan jimgina chiqib ketmaydi). O'chirish kerak bo'lsa: `SNAPSHOT_REQUIRED=0`.
+   Ixtiyoriy — admin'da "Saytdagi oxirgi yig'ish: tayyor / yig'ilmoqda / XATO" ko'rinishi uchun:
+   `VERCEL_API_TOKEN` (Account → Tokens), `VERCEL_PROJECT_ID` (Project → Settings → General),
+   jamoa loyihasida `VERCEL_TEAM_ID`. Bu kalitlar faqat env'da (bazaga yozilmaydi).
+   Nashr qilingan mahsulotning URL slug'i yoki bo'limi o'zgartirilsa, eski manzildan yangisiga
+   uch tilda 301 avtomatik qo'shiladi (SEO → Yo'naltirishlar'da "Avtomatik" izohi bilan).
 3. Katalogni bazaga bir marta import qiling:
    ```bash
    DATABASE_URL=postgres://... npm run catalog:import

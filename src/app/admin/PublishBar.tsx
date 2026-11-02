@@ -1,5 +1,6 @@
 import type { Db } from '@/server/db/client';
 import { lastPublish, pendingChanges } from '@/server/settings';
+import { latestProductionDeploy } from '@/server/vercelStatus';
 import { formatDate } from './labels';
 import { PublishButton } from './PublishButton';
 
@@ -8,7 +9,7 @@ import { PublishButton } from './PublishButton';
  * integratsiyalar) saytga faqat qayta yig'ishdan keyin chiqadi.
  */
 export async function PublishBar({ db }: { db: Db }) {
-  const [pending, last] = await Promise.all([pendingChanges(db), lastPublish(db)]);
+  const [pending, last, deploy] = await Promise.all([pendingChanges(db), lastPublish(db), latestProductionDeploy()]);
   const total = pending.products + pending.sections + pending.settings + pending.seo + pending.redirects + pending.texts;
   const parts = [
     pending.products ? `${pending.products} mahsulot` : null,
@@ -27,6 +28,16 @@ export async function PublishBar({ db }: { db: Db }) {
             ? `Oxirgi nashr: ${formatDate(last.createdAt)} — ${last.status === 'ok' ? 'yuborildi' : 'xato'}${last.message ? ` (${last.message})` : ''}`
             : 'Hali nashr qilinmagan'}
         </small>
+        {deploy ? (
+          <small className={deploy.state === 'error' ? 'adm-warn' : undefined}>
+            Saytdagi oxirgi yig'ish ({formatDate(deploy.createdAt)}):{' '}
+            {deploy.state === 'ready'
+              ? 'tayyor — saytda'
+              : deploy.state === 'building'
+                ? "yig'ilmoqda… (odatda 3–5 daqiqa)"
+                : "XATO — sayt avvalgi holatida qoldi; Vercel → Deployments'da logni ko'ring"}
+          </small>
+        ) : null}
       </div>
       <PublishButton disabled={!total} />
     </div>

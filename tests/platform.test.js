@@ -296,6 +296,9 @@ test('11. Ichki havolalar faqat haqiqiy bo‘lim slug‘laridan foydalanadi', ()
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
       const full = path.join(dir, entry.name);
       if (entry.isDirectory() && full.endsWith(path.join('app', 'admin'))) continue; // admin: slug bazadan
+      // src/server: bo'lim slug'i catalog_sections jadvalidan (masalan slug o'zgarganda avtomatik 301) —
+      // nashrdan keyin aynan shu qiymat SECTION_SLUGS ga aylanadi.
+      if (entry.isDirectory() && full === path.join(srcDir, 'server')) continue;
       if (entry.isDirectory()) walkDynamic(full);
       else if (/\.(ts|tsx)$/.test(entry.name)) {
         const source = fs.readFileSync(full, 'utf8');
