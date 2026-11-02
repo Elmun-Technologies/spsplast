@@ -520,6 +520,11 @@ export async function main() {
   const narrow = await browser.newContext({ viewport: { width: 360, height: 800 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 });
   const narrowPage = await narrow.newPage();
   narrowPage.setDefaultTimeout(15000);
+  // Diagnostika: `load` kechiksa qaysi so'rovlar osilib qolganini ko'rsatish uchun.
+  const pendingReq = new Set();
+  narrowPage.on('request', (r) => pendingReq.add(r));
+  narrowPage.on('requestfinished', (r) => pendingReq.delete(r));
+  narrowPage.on('requestfailed', (r) => pendingReq.delete(r));
   let narrowWidthWarned = false;
   const narrowOverflows = [];
   for (const shot of SHOT_PLAN) {
@@ -528,7 +533,16 @@ export async function main() {
       continue;
     }
     try {
-      await withDeadline(narrowPage.goto(`${SITE_ORIGIN}${shot.path}`, { waitUntil: 'load' }), MAX_SHOT_MS, `${shot.id} (360px)`);
+      // Bu bosqich faqat gorizontal scroll'ni o'lchaydi: DOM + shriftlar yetadi (rasmlar width/height bilan
+      // joy egallaydi). `load` (hamma rasm baytlari) 5 s gacha kutiladi; kelmasa — ogohlantirish va osilgan
+      // so'rovlar ro'yxati, lekin o'lchov baribir qilinadi (CI run 41403512779: `load` 15 s kelmagan).
+      pendingReq.clear();
+      await withDeadline(narrowPage.goto(`${SITE_ORIGIN}${shot.path}`, { waitUntil: 'domcontentloaded' }), MAX_SHOT_MS, `${shot.id} (360px)`);
+      await narrowPage.waitForLoadState('load', { timeout: 5000 }).catch(() => {
+        const urls = [...pendingReq].map((r) => r.url().replace(SITE_ORIGIN, '')).slice(0, 5);
+        console.log(`OGOHLANTIRISH: ${shot.id} (360px) — 'load' 5 s ichida kelmadi; kutilayotgan so'rovlar: ${urls.join(', ') || "yo'q"}`);
+      });
+      await narrowPage.evaluate(() => document.fonts && document.fonts.ready);
       // Kenglik nazorati faqat yuklangan sahifada ma'noli: `about:blank` da
       // mobil emulyatsiya 980px qaytaradi (meta viewport yo'q).
       if (!narrowWidthWarned) {
