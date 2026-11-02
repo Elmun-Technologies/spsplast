@@ -94,7 +94,8 @@ export default async function ProductionPage({ params }: { params: Promise<{ lan
                 <tr>
                   {p.production.materialHead.map((h, i) => (
                     <th key={i} scope="col">
-                      {h}
+                      {/* 1-ustun sarlavhasi maketda ko'rinmaydi, lekin ekran o'quvchi uchun bor (axe empty-table-header). */}
+                      {i === 0 ? <span className="sr-only">{h}</span> : h}
                     </th>
                   ))}
                 </tr>

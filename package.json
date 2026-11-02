@@ -29,14 +29,14 @@
     "catalog:import": "node --experimental-strip-types scripts/catalog-import.ts"
   },
   "dependencies": {
-    "drizzle-orm": "^0.44.7",
+    "drizzle-orm": "^0.45.4",
     "lucide-react": "^0.428.0",
-    "next": "^15.5.26",
+    "next": "^15.5.28",
     "postgres": "^3.4.9",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "sharp": "^0.35.5",
-    "zod": "^3.23.8"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@electric-sql/pglite": "^0.3.16",
@@ -46,12 +46,15 @@
     "axe-core": "^4.10.2",
     "drizzle-kit": "^0.31.11",
     "eslint": "^8.57.0",
-    "eslint-config-next": "^15.5.26",
+    "eslint-config-next": "^15.5.28",
     "jsdom": "^25.0.1",
     "lighthouse": "^13.5.0",
     "pixelmatch": "^8.0.0",
     "playwright": "^1.64.0",
     "pngjs": "^7.0.0",
     "typescript": "^5.5.4"
+  },
+  "overrides": {
+    "postcss": "^8.5.23"
   }
 }

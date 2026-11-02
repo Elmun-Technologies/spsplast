@@ -91,7 +91,23 @@ export async function saveSeoPage(
 
 /** Saytning o'z yo'llari: bularni yo'naltirib bo'lmaydi (admin, API, statik fayllar). */
 const RESERVED = /^\/(admin|api|_next|media|fonts|images|icons|catalog\/2027|catalog\/pdf|sitemap|robots|indexnow-key)(\/|\.|$)/;
-const PATH_CHARS = /^\/[A-Za-z0-9\-._~/%+!$&'()*,;=:@]*$/;
+/**
+ * Yo'lda ruxsat etilgan belgilar. Next `redirects()` manba va manzilni path-to-regexp bilan o'qiydi:
+ * `( ) * + ? :` u yerda maxsus ma'noga ega — `/(.*)` butun saytni (admin bilan birga) yo'naltirib
+ * yuborardi, `/a(` esa build'ni yiqitardi (audit 2026-11-02, xavfsizlik). Shuning uchun ular taqiqlangan;
+ * "ichidagi hammasi" faqat oxiridagi `/*` orqali (biz o'zimiz `/:path*` ga aylantiramiz).
+ */
+const PATH_CHARS = /^\/[A-Za-z0-9\-._~/%!$&',;=@]*$/;
+/** Butun til bo'limini yoki butun saytni yo'naltiradigan wildcard (`/*`, `/ru/*`) — taqiqlangan. */
+const ROOT_WILDCARD = /^\/?(uz|ru|en)?$/;
+
+function decodedPath(p: string): string {
+  try {
+    return decodeURIComponent(p);
+  } catch {
+    return p;
+  }
+}
 
 export function normalizeRedirectPath(input: string): string {
   let p = input.trim();
@@ -121,9 +137,16 @@ export function validateRedirect(
   const destination = /^https:\/\//i.test(destinationRaw.trim()) ? destinationRaw.trim() : normalizeRedirectPath(destinationRaw);
   if (!base.startsWith('/') || base.startsWith('//')) return { ok: false, error: "Manba / bilan boshlanishi kerak (masalan /ru/eski-sahifa)" };
   if (base === '/' && !wildcard) return { ok: false, error: "Bosh sahifani (/) yo'naltirib bo'lmaydi" };
-  if (!PATH_CHARS.test(base) || base.length > 300) return { ok: false, error: "Manbada ruxsat etilmagan belgi bor" };
+  if (wildcard && ROOT_WILDCARD.test(base)) {
+    return { ok: false, error: "Butun saytni yoki butun til bo'limini (/*, /ru/*) yo'naltirib bo'lmaydi — aniqroq yo'l yozing" };
+  }
   if (/:/.test(base)) return { ok: false, error: "Manbada ':' bo'lmasin (hamma ichki sahifalar uchun oxiriga /* qo'ying)" };
-  if (RESERVED.test(base)) return { ok: false, error: "Saytning tizim yo'lini (admin, api, rasmlar) yo'naltirib bo'lmaydi" };
+  if (!PATH_CHARS.test(base) || base.length > 300) {
+    return { ok: false, error: "Manbada ruxsat etilmagan belgi bor: ( ) * + ? : bo'lmasin (hamma ichki sahifalar uchun oxiriga /* qo'ying)" };
+  }
+  if (RESERVED.test(base) || RESERVED.test(decodedPath(base))) {
+    return { ok: false, error: "Saytning tizim yo'lini (admin, api, rasmlar) yo'naltirib bo'lmaydi" };
+  }
   if (destination.startsWith('https://')) {
     try {
       new URL(destination);

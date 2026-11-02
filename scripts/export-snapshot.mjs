@@ -25,6 +25,32 @@ const OUT_MODELS = path.join(ROOT, 'src/data/models2027.ts');
 const OUT_JSON = path.join(ROOT, '.snapshot.json');
 /** Admin → SEO → Yo'naltirishlar: next.config.js `redirects()` o'qiydi. Git'da `[]`. */
 const OUT_REDIRECTS = path.join(ROOT, 'src/data/redirects.generated.json');
+
+/**
+ * Ikkinchi himoya qatlami (audit 2026-11-02): admin formasi tekshiradi, lekin bazada eski/qo'lda
+ * yozilgan qator bo'lishi mumkin. path-to-regexp belgilari (`( ) * + ?`), butun sayt/til
+ * wildcard'i yoki tizim yo'li bo'lsa — qator build'ga tushmaydi (aks holda butun sayt yoki
+ * admin boshqa joyga ketadi, `/a(` esa build'ni yiqitadi).
+ */
+const SAFE_SOURCE = /^\/[A-Za-z0-9\-._~/%!$&',;=@]*(\/:path\*)?$/;
+const SAFE_DEST = /^(https:\/\/[^\s<>"]+|\/(?!\/)[A-Za-z0-9\-._~/%!$&',;=@]*)$/;
+const SYSTEM = /^\/(admin|api|_next|media|fonts|images|icons|catalog\/2027|catalog\/pdf|sitemap|robots|indexnow-key)(\/|\.|$)/;
+function safeRedirect(r) {
+  let decoded = r.source;
+  try {
+    decoded = decodeURIComponent(r.source);
+  } catch {
+    /* asl qiymat */
+  }
+  const ok =
+    SAFE_SOURCE.test(r.source) &&
+    SAFE_DEST.test(r.destination) &&
+    !/^\/((uz|ru|en)\/)?:path\*$/.test(r.source) &&
+    !SYSTEM.test(r.source) &&
+    !SYSTEM.test(decoded);
+  if (!ok) console.warn(`[snapshot] xavfli 301 tashlab yuborildi: ${r.source} → ${r.destination}`);
+  return ok;
+}
 const url = process.env.DATABASE_URL;
 const required = process.env.SNAPSHOT_REQUIRED === '1';
 
@@ -84,7 +110,7 @@ try {
   fs.writeFileSync(
     OUT_REDIRECTS,
     `${JSON.stringify(
-      redirectRows.map((r) => ({ source: r.source, destination: r.destination, statusCode: 301 })),
+      redirectRows.filter(safeRedirect).map((r) => ({ source: r.source, destination: r.destination, statusCode: 301 })),
       null,
       2,
     )}\n`,

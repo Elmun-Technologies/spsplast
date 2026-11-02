@@ -1,0 +1,19 @@
+# Haftalik xavfsizlik va versiya yangilanishlari (audit 2026-11-02, xavfsizlik 2-band).
+# Kichik/patch yangilanishlar bitta PR'ga yig'iladi; katta (major) versiyalar alohida.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: '06:00'
+      timezone: Asia/Tashkent
+    open-pull-requests-limit: 5
+    groups:
+      minor-and-patch:
+        update-types: [minor, patch]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

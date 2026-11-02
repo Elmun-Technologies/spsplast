@@ -244,6 +244,11 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
   padding: var(--space-4); display: grid; gap: var(--space-2); font: 400 15px/22px var(--font-sans); margin: 0;
 }
 .sps-form__ok b { font: 600 18px/24px var(--font-sans); }
+.lead-err { display: grid; gap: var(--space-3); }
+.lead-err__links { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.lead-err__links .sps-btn { background: var(--surface); }
+.sps-form__ok:focus, .lead-ok:focus { outline: none; }
+.lead-ok:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
 
 /* --- Kartochka (Redesign 2028) ------------------------------------------------------
    Rasm 4:3 (mobil 1:1), chap tepada "№ kod" teg, o'ng tepada solishtirish.
@@ -585,7 +590,7 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
 .map .sps-btn { height: 44px; }
 .chips .chip-a { height: 44px; }
 .srch input { align-self: stretch; }
-.mc a { display: block; padding-block: 12px; margin-block: -12px; }
+.mc > a { display: block; padding-block: 12px; margin-block: -12px; }
 /* "Faqat farqlarni ko'rsatish": butun label qatori bosiladi (checkbox 18px). */
 .check { min-height: 44px; }
 @media (max-width: 760px) {
@@ -961,14 +966,16 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
 .ct thead th:first-child { background: var(--surface); width: 200px; }
 .mc { display: flex; flex-direction: column; gap: 10px; }
 .mc img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-mini); }
-.mc a { font: 600 20px/24px var(--font-sans); color: var(--ink); text-decoration: none; }
-.mc a:hover { color: var(--red-ink); }
+/* `> a` — faqat model nomi havolasi; `.mc a` ichidagi grafit "Zayafka" tugmasiga ham grafit
+   matn berib, uni ko'rinmas qilgan edi (audit 2026-11-02). */
+.mc > a { font: 600 20px/24px var(--font-sans); color: var(--ink); text-decoration: none; }
+.mc > a:hover { color: var(--red-ink); }
 .cmp-act { display: flex; gap: 12px; flex-wrap: wrap; justify-content: flex-end; padding-top: 8px; }
 @media (max-width: 760px) {
   .ct { min-width: 0; width: auto; }
   .ct tbody th, .ct thead th:first-child { width: 96px; min-width: 96px; padding: 12px 8px; font-size: 10px; letter-spacing: .04em; }
   .ct td, .ct thead th { width: 150px; min-width: 150px; padding: 12px 10px; font-size: 13px; line-height: 19px; }
-  .mc a { font-size: 16px; line-height: 20px; }
+  .mc > a { font-size: 16px; line-height: 20px; }
   .mc .sps-btn { height: 44px; font-size: 13px; }
   .cmp-act > .sps-btn { flex: 1 1 100%; }
   .cmp-scroll { margin-inline: calc(-1 * var(--gutter)); padding-left: var(--gutter); }
@@ -983,6 +990,9 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
 .ri-x { width: 44px; height: 44px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; color: var(--ink-muted); border-radius: var(--radius-mini); }
 .rl-sum { background: var(--surface-alt); padding: 28px; display: flex; flex-direction: column; gap: 16px; border-radius: var(--radius-card); }
 @media (min-width: 641px) { .ri { grid-template-columns: 120px minmax(0, 1fr) 150px 44px; } .ri img { width: 120px; height: 90px; } .ri .qty { grid-column: auto; } }
+/* Ro'yxat bo'sh: "Zayafka qoldirish" bosgan mijoz mobilda formani birinchi ekranda ko'rsin
+   (bo'sh ro'yxat xabari formadan keyin) — audit 2026-11-02, mijoz yo'li. */
+@media (max-width: 1100px) { .rl--empty .rl-sum { order: -1; } }
 @media (min-width: 1101px) { .rl { grid-template-columns: minmax(0, 1fr) 440px; gap: 40px; } .rl-sum { position: sticky; top: 140px; } }
 
 /* --- Ulgurji va hamkorlik --- */
@@ -1113,18 +1123,6 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
 .state-tel { display: inline-flex; align-items: center; gap: 8px; color: var(--red-ink); font: 600 16px/24px var(--font-sans); text-decoration: none; }
 .state-tel:hover { text-decoration: underline; }
 
-/* Karkas (skeleton): faqat shakl, matn yo'q — loading.tsx tilni bilmaydi. */
-.skel-sec { padding-block: var(--space-8) var(--space-9); }
-.skel { display: flex; flex-direction: column; gap: var(--space-5); }
-.skel-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-.skel-b { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-card); position: relative; overflow: hidden; }
-.skel-b::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,.75), transparent); transform: translateX(-100%); animation: skel-slide 1.4s infinite; }
-.skel-title { height: 48px; }
-.skel-hero { height: 96px; }
-.skel-card { aspect-ratio: 3 / 4; }
-@keyframes skel-slide { 100% { transform: translateX(100%); } }
-@media (min-width: 701px) { .skel-row { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; } }
-@media (prefers-reduced-motion: reduce) { .skel-b::after { animation: none; } }
 
 /* Kartochka: sahna rasmi bo'lmasa — fonsiz qolip surati yoki "foto tayyorlanmoqda" (UI audit P0-1). */
 .sps-card__cutout { position: absolute; inset: 0; background: linear-gradient(180deg, #f7f5f1 0%, #f2f0eb 100%); }

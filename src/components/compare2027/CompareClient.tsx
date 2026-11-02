@@ -74,6 +74,11 @@ export function CompareClient({ lang }: { lang: Locale }) {
     })
     .filter((r) => (onlyDiff ? r.diff : true));
 
+  const addOne = (m: (typeof models)[number]) => {
+    if (!request.has(m.slug)) request.add({ slug: m.slug, code: m.code, name: modelName(m, lang) });
+    window.location.href = `/${lang}/request`;
+  };
+
   const addAll = () => {
     for (const m of models) {
       if (!request.has(m.slug)) request.add({ slug: m.slug, code: m.code, name: modelName(m, lang) });
@@ -141,7 +146,16 @@ export function CompareClient({ lang }: { lang: Locale }) {
                       </span>
                       <a href={`/${lang}/catalog/${SECTION_SLUGS[m.section]}/${m.slug}`}>{modelName(m, lang)}</a>
                       <div style={{ display: 'flex', gap: 8 }}>
-                        <a className="sps-btn sps-btn--dark sps-btn--sm" href={`/${lang}/request`} style={{ flex: 1 }}>
+                        <a
+                          className="sps-btn sps-btn--dark sps-btn--sm"
+                          href={`/${lang}/request`}
+                          style={{ flex: 1 }}
+                          onClick={(e) => {
+                            // Model ro'yxatga qo'shiladi, keyin forma — bo'sh ro'yxatga olib bormaydi.
+                            e.preventDefault();
+                            addOne(m);
+                          }}
+                        >
                           {t.catalog.cardRequest}
                         </a>
                         <button

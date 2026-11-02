@@ -82,7 +82,7 @@ export async function triggerPublish(db: Db, userId: number, hookUrl = process.e
     return { ok: false, message };
   }
   try {
-    const res = await fetch(hookUrl, { method: 'POST' });
+    const res = await fetch(hookUrl, { method: 'POST', signal: AbortSignal.timeout(10_000) });
     const ok = res.ok;
     const message = ok ? 'Sayt qayta yig\'ilmoqda (odatda 3–5 daqiqa).' : `Deploy hook javobi: HTTP ${res.status}`;
     await db.insert(publishes).values({ userId, status: ok ? 'ok' : 'error', message });

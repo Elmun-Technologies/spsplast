@@ -8,9 +8,12 @@ import { getPages } from '@/lib/pages';
 import { CONTACTS_2027 } from '@/lib/contacts2027';
 import { submitLead } from '@/lib/leadSubmit';
 import { useRequestList } from '@/lib/store/spsLists';
+import { LeadFormError, checkLead, useRevealOnShow, type LeadError } from '@/components/site/LeadFeedback';
 
 type ClientType = 'workshop' | 'dealer' | 'builder';
 const MATERIALS: ('pp' | 'abs' | 'advice')[] = ['pp', 'abs', 'advice'];
+/** `p.partners.countries` tartibida (uz/ru/en bir xil): telefon raqamini davlat kodi bilan o'qish uchun. */
+const COUNTRY_DIALS: (string | undefined)[] = ['+998', '+7', '+7', '+996', '+992', undefined];
 
 /**
  * Ulgurji formasi (Partners.dc.html, `#sorov`): mijoz turi, kompaniya, davlat,
@@ -42,20 +45,34 @@ export function PartnersForm({ lang, defaultCountry, phonePrefix }: { lang: Loca
   const [message, setMessage] = useState('');
   const [state, setState] = useState<'idle' | 'sending' | 'ok' | 'error'>('idle');
   const [requestId, setRequestId] = useState('');
+  const [error, setError] = useState<LeadError>('');
+  const okRef = useRevealOnShow<HTMLDivElement>(state === 'ok');
 
   const items = list.items.flatMap((i) => {
     const m = getModelBySlug(i.slug);
     return m ? [{ item: i, model: m }] : [];
   });
 
+  // Eksport sahifasida ro'yxatda yo'q davlat ("Boshqa") tanlangan bo'lsa — sahifa davlatining kodi.
+  const countryIdx = countryList.indexOf(country);
+  const dial = COUNTRY_DIALS[countryIdx] ?? (country === countryList[countryList.length - 1] ? phonePrefix : undefined);
+
   const send = async (e: React.FormEvent) => {
     e.preventDefault();
+    const invalid = checkLead(name, phone, dial);
+    if (invalid) {
+      setError(invalid);
+      setState('error');
+      return;
+    }
+    setError('');
     setState('sending');
     const res = await submitLead({
       type: 'partners',
       clientType,
       name,
       phone,
+      dial,
       company: company || undefined,
       country: country || undefined,
       volumeM2: Number(String(volume).replace(',', '.')) || undefined,
@@ -72,13 +89,14 @@ export function PartnersForm({ lang, defaultCountry, phonePrefix }: { lang: Loca
       setRequestId(res.requestId ?? '');
       setState('ok');
     } else {
+      setError(res.error || 'network');
       setState('error');
     }
   };
 
   if (state === 'ok') {
     return (
-      <div className="pt-form" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <div className="pt-form lead-ok" style={{ display: 'flex', flexDirection: 'column', gap: 12 }} role="status" tabIndex={-1} ref={okRef}>
         <b style={{ font: '600 24px/30px var(--font-sans)' }}>{p.partners.sentTitle}</b>
         <p className="body muted" style={{ margin: 0 }}>
           {p.partners.sentText}
@@ -122,6 +140,7 @@ export function PartnersForm({ lang, defaultCountry, phonePrefix }: { lang: Loca
             autoComplete="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            aria-invalid={error === 'name' || undefined}
             placeholder={p.request.namePlaceholder}
             required
             minLength={2}
@@ -168,7 +187,8 @@ export function PartnersForm({ lang, defaultCountry, phonePrefix }: { lang: Loca
             autoComplete="tel"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            placeholder={phonePrefix ?? p.request.phonePlaceholder}
+            aria-invalid={error === 'bad_phone' || undefined}
+            placeholder={dial ?? phonePrefix ?? p.request.phonePlaceholder}
             required
             minLength={7}
           />
@@ -234,11 +254,7 @@ export function PartnersForm({ lang, defaultCountry, phonePrefix }: { lang: Loca
           {state === 'sending' ? t.catalog.formSending : p.partners.submit}
         </button>
       </div>
-      {state === 'error' ? (
-        <p className="sps-form__error" role="alert" style={{ margin: 0 }}>
-          {t.catalog.formError}
-        </p>
-      ) : null}
+      {state === 'error' && error ? <LeadFormError lang={lang} error={error} /> : null}
       <p className="small muted" style={{ margin: 0 }}>
         {p.request.direct} <span className="mono">{CONTACTS_2027.mainPhone}</span> · Telegram {CONTACTS_2027.telegramHandle}
       </p>

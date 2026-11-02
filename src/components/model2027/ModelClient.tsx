@@ -523,7 +523,7 @@ export function ModelClient({
         </button>
       </div>
 
-      {leadOpen ? <QuickRequestModal key={model.slug} model={model} lang={lang} onClose={() => setLeadOpen(false)} /> : null}
+      {leadOpen ? <QuickRequestModal key={model.slug} model={model} lang={lang} initialVolume={volume || undefined} onClose={() => setLeadOpen(false)} /> : null}
     </>
   );
 }

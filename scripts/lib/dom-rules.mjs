@@ -199,6 +199,13 @@ export function checkHeadings(doc, { path }, out) {
   if (h1s.length !== 1) out.errors.push(`${path}: h1 soni ${h1s.length} (1 kerak)`);
   if (h1s.length === 1 && !h1s[0].textContent.trim()) out.errors.push(`${path}: h1 matni bo'sh`);
 
+  // Asosiy kontent SSR HTML'da `<main>` ichida bo'lishi shart (audit 2026-11-02: `loading.tsx`
+  // tufayli 431 sahifada `<main>` da faqat karkas, H1 esa yashirin `<div hidden>` da edi).
+  const main = doc.querySelector('main');
+  if (!main) out.errors.push(`${path}: <main> yo'q`);
+  else if (h1s.length && !main.contains(h1s[0])) out.errors.push(`${path}: h1 <main> ichida emas (streaming/loading karkasi?)`);
+  if (h1s.length && h1s[0].closest('[hidden]')) out.errors.push(`${path}: h1 yashirin blok ichida ([hidden])`);
+
   let previous = 0;
   for (const h of doc.querySelectorAll('h1, h2, h3, h4, h5, h6')) {
     const level = Number(h.tagName.slice(1));

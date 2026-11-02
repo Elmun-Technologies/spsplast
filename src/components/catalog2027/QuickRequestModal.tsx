@@ -9,6 +9,7 @@ import { submitLead } from '@/lib/leadSubmit';
 import { useRequestList } from '@/lib/store/spsLists';
 import { useModalShell } from '@/components/site/useModalShell';
 import { Icon } from '@/components/site/icons';
+import { LeadFormError, checkLead, useRevealOnShow, type LeadError } from '@/components/site/LeadFeedback';
 
 /**
  * Tez zayafka oynasi: desktop — markazda modal, mobil — pastdan sheet (92vh).
@@ -18,33 +19,29 @@ export function QuickRequestModal({
   model,
   lang,
   onClose,
+  initialVolume,
 }: {
   model: Model | null;
   lang: Locale;
   onClose: () => void;
+  /** Model sahifasidagi kalkulyatorda kiritilgan hajm (m²/kun) — formaga o'tadi. */
+  initialVolume?: number;
 }) {
   const t = getUi(lang).catalog;
   const request = useRequestList();
   const ref = useModalShell(Boolean(model), onClose);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [volume, setVolume] = useState('100');
+  const [volume, setVolume] = useState(initialVolume ? String(initialVolume) : '100');
   const [city, setCity] = useState('');
   const [message, setMessage] = useState('');
   const [state, setState] = useState<'idle' | 'sending' | 'ok' | 'error'>('idle');
   const [requestId, setRequestId] = useState('');
+  const [error, setError] = useState<LeadError>('');
+  const okRef = useRevealOnShow<HTMLParagraphElement>(state === 'ok');
 
   if (!model) return null;
   const size = model.tiles[0]?.size || model.molds[0]?.size;
-
-  const reset = () => {
-    setState('idle');
-    setName('');
-    setPhone('');
-    setVolume('100');
-    setCity('');
-    setMessage('');
-  };
 
   return (
     <div
@@ -73,7 +70,7 @@ export function QuickRequestModal({
 
         {state === 'ok' ? (
           <div className="sps-form">
-            <p className="sps-form__ok">
+            <p className="sps-form__ok" role="status" tabIndex={-1} ref={okRef}>
               <b>✓ {t.formOk}</b>
               {requestId ? <span className="mono">{requestId}</span> : null}
               <span>{t.formOkText}</span>
@@ -85,8 +82,16 @@ export function QuickRequestModal({
         ) : (
           <form
             className="sps-form"
+            noValidate
             onSubmit={async (e) => {
               e.preventDefault();
+              const invalid = checkLead(name, phone);
+              if (invalid) {
+                setError(invalid);
+                setState('error');
+                return;
+              }
+              setError('');
               setState('sending');
               const res = await submitLead({
                 type: 'quick',
@@ -102,18 +107,19 @@ export function QuickRequestModal({
                 setRequestId(res.requestId || '');
                 setState('ok');
               } else {
+                setError(res.error || 'network');
                 setState('error');
               }
             }}
           >
-            {state === 'error' ? <p className="sps-form__error">{t.formError}</p> : null}
+            {state === 'error' && error ? <LeadFormError lang={lang} error={error} /> : null}
             <label className="sps-field">
               <span className="sps-label">{t.formName} *</span>
-              <input className="sps-input" value={name} aria-label={t.formName} onChange={(e) => setName(e.target.value)} required minLength={2} maxLength={120} autoComplete="name" />
+              <input className="sps-input" value={name} aria-label={t.formName} onChange={(e) => setName(e.target.value)} required minLength={2} maxLength={120} autoComplete="name" aria-invalid={error === 'name' || undefined} />
             </label>
             <label className="sps-field">
               <span className="sps-label">{t.formPhone} *</span>
-              <input className="sps-input" value={phone} aria-label={t.formPhone} onChange={(e) => setPhone(e.target.value)} required minLength={7} maxLength={32} inputMode="tel" autoComplete="tel" placeholder="+998" />
+              <input className="sps-input" value={phone} aria-label={t.formPhone} onChange={(e) => setPhone(e.target.value)} required minLength={7} maxLength={32} type="tel" inputMode="tel" autoComplete="tel" placeholder="+998" aria-invalid={error === 'bad_phone' || undefined} />
             </label>
             <div className="sps-form__row">
               <label className="sps-field">

@@ -33,6 +33,11 @@ jobs:
       - name: Bog'liqliklar
         run: npm ci --no-audit --no-fund
 
+      - name: Xavfsizlik — production paketlari (npm audit)
+        # Faqat saytga chiqadigan paketlar: high/critical bo'lsa job yiqiladi.
+        # Dev vositalari (eslint, drizzle-kit) build vaqtida ishlaydi, saytga chiqmaydi.
+        run: npm audit --omit=dev --audit-level=high
+
       - name: TypeScript
         run: npm run typecheck
 
