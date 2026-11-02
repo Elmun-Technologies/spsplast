@@ -362,6 +362,8 @@ export function ModelClient({
       {/* Tablar */}
       <section style={{ paddingBottom: 'var(--space-9)' }}>
         <div className="wrap" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>
+          {/* Barcha panellar HTML'da (yashirini `hidden`): tab matni va FAQ qidiruvchiga ko'rinadi,
+              FAQPage JSON-LD sahifadagi matnga mos (audit 2026-11-02, SEO). */}
           <div className="tabs" role="tablist">
             {(['spec', 'use', 'delivery', 'faq'] as const).map((k) => (
               <button
@@ -379,8 +381,7 @@ export function ModelClient({
             ))}
           </div>
 
-          {tab === 'spec' ? (
-            <div className="spec-split" id="panel-spec" role="tabpanel" aria-labelledby="tab-spec">
+            <div className="spec-split" id="panel-spec" hidden={tab !== 'spec'} role="tabpanel" aria-labelledby="tab-spec">
               <table className="sps-spec">
                 <tbody>
                   {specRows.filter((r) => r.v !== '—').map((r) => (
@@ -417,10 +418,8 @@ export function ModelClient({
                 </div>
               ) : null}
             </div>
-          ) : null}
 
-          {tab === 'use' ? (
-            <div className="g2" id="panel-use" role="tabpanel" aria-labelledby="tab-use" style={{ gap: 'var(--space-6)' }}>
+            <div className="g2" id="panel-use" hidden={tab !== 'use'} role="tabpanel" aria-labelledby="tab-use" style={{ gap: 'var(--space-6)' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 <h3 className="h3">{p.model.use.title}</h3>
                 <p className="body muted">{useText}</p>
@@ -437,10 +436,8 @@ export function ModelClient({
                 </div>
               )}
             </div>
-          ) : null}
 
-          {tab === 'delivery' ? (
-            <table className="sps-spec" id="panel-delivery" role="tabpanel" aria-labelledby="tab-delivery" style={{ maxWidth: 760 }}>
+            <table className="sps-spec" id="panel-delivery" hidden={tab !== 'delivery'} role="tabpanel" aria-labelledby="tab-delivery" style={{ maxWidth: 760 }}>
               <tbody>
                 <tr>
                   <th>{p.model.delivery.price}</th>
@@ -464,10 +461,8 @@ export function ModelClient({
                 </tr>
               </tbody>
             </table>
-          ) : null}
 
-          {tab === 'faq' ? (
-            <div id="panel-faq" role="tabpanel" aria-labelledby="tab-faq" style={{ maxWidth: 860 }}>
+            <div id="panel-faq" hidden={tab !== 'faq'} role="tabpanel" aria-labelledby="tab-faq" style={{ maxWidth: 860 }}>
               {p.model.faq.map((f, i) => (
                 <div className="faq" key={f.q} style={i === p.model.faq.length - 1 ? { borderBottom: '1px solid var(--line)' } : undefined}>
                   <h3 className="h3">{f.q}</h3>
@@ -475,7 +470,6 @@ export function ModelClient({
                 </div>
               ))}
             </div>
-          ) : null}
         </div>
       </section>
 

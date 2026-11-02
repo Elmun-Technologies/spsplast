@@ -268,7 +268,7 @@ test('8. JSON-LD: LocalBusiness (geo, ish vaqti, narx diapazoni)', async (t) => 
   const seo = await loadAliased('src/lib/seo.ts');
   const { CONTACTS_2027 } = await loadAliased('src/lib/contacts2027.ts');
 
-  const lb = seo.jsonLdLocalBusiness();
+  const lb = seo.jsonLdLocalBusiness('uz', 'Zayafka bo‘yicha');
   assert.strictEqual(lb['@type'], 'LocalBusiness');
   assert.strictEqual(lb.geo.latitude, CONTACTS_2027.coords.lat);
   assert.strictEqual(lb.geo.longitude, CONTACTS_2027.coords.lng);
@@ -282,8 +282,18 @@ test('8. JSON-LD: LocalBusiness (geo, ish vaqti, narx diapazoni)', async (t) => 
     'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday',
   ]);
 
-  // Narx son bilan emas, "zayafka bo'yicha" deb beriladi (HANDOFF 1.1).
+  // Narx son bilan emas, "zayafka bo'yicha" deb beriladi (HANDOFF 1.1) — lug'atdan, sahifa tilida.
   assert.ok(!/[0-9]/.test(lb.priceRange), `priceRange da son bor: ${lb.priceRange}`);
+  // Manzil bitta manbadan (CONTACTS_2027) va tilga mos (audit 2026-11-02).
+  const ru = seo.jsonLdLocalBusiness('ru', 'По запросу');
+  assert.strictEqual(ru.address.streetAddress, CONTACTS_2027.address.ru);
+  assert.strictEqual(ru.url, `${seo.SITE_URL}/ru/contact`);
+  assert.deepStrictEqual(seo.jsonLdOrganization('ru').address, ru.address, 'Organization va LocalBusiness manzili bir xil');
+  for (const [lang, key] of [['uz', 'uz'], ['ru', 'ru'], ['en', 'en']]) {
+    const ui = (await loadAliased('src/lib/ui.ts')).getUi(lang);
+    assert.ok(ui.seo.priceRange && ui.seo.offerService, `${key}: JSON-LD matnlari lug'atda yo'q`);
+    assert.ok(!/[0-9]/.test(ui.seo.priceRange));
+  }
 });
 
 test('9. JSON-LD: Product — narx yo\'q, sku/rasm/qo\'shimcha xossalar bor', async (t) => {
@@ -299,6 +309,7 @@ test('9. JSON-LD: Product — narx yo\'q, sku/rasm/qo\'shimcha xossalar bor', as
     image: '/catalog/2027/01-monako.webp',
     sku: 'G001',
     category: 'Trotuar qoliplari',
+    service: 'Qolip hisob-kitobi',
     extra: {
       additionalProperty: [
         { '@type': 'PropertyValue', name: 'O\'lcham', value: '300×300×30 mm' },
@@ -323,9 +334,10 @@ test('9. JSON-LD: Product — narx yo\'q, sku/rasm/qo\'shimcha xossalar bor', as
   assert.strictEqual(product.offers.priceCurrency, 'UZS');
   assert.strictEqual(product.offers.availability, 'https://schema.org/InStock');
   assert.strictEqual(product.offers.itemOffered['@type'], 'Service');
+  assert.strictEqual(product.offers.itemOffered.name, 'Qolip hisob-kitobi', 'xizmat nomi sahifa tilida (parametr)');
 
   // Bo'sh maydonlar undefined bo'lib qoladi (JSON ga tushmaydi).
-  const bare = seo.jsonLdProduct({ lang: 'ru', path: '/catalog/decor/x', name: 'X', category: 'Dekor' });
+  const bare = seo.jsonLdProduct({ lang: 'ru', path: '/catalog/decor/x', name: 'X', category: 'Dekor', service: 'Расчёт' });
   assert.ok(!JSON.stringify(bare).includes('"sku"'), 'sku null bo\'lsa JSON-LD ga tushmasligi kerak');
   assert.ok(!JSON.stringify(bare).includes('"image"'), "rasm yo'q bo'lsa image maydoni bo'lmasligi kerak");
 });
@@ -539,8 +551,10 @@ test('16. Metadata sahifa fayllarida: JSON-LD va title/description manbalari', (
 
   const rootLayout = fs.readFileSync(path.join(ROOT, 'src', 'app', 'layout.tsx'), 'utf8');
   assert.ok(rootLayout.includes('metadataBase'), 'metadataBase o\'rnatilmagan (nisbiy canonical/OG ishlamaydi)');
-  assert.ok(rootLayout.includes('jsonLdOrganization') && rootLayout.includes('jsonLdWebSite'),
-    'root layout da Organization/WebSite JSON-LD yo\'q');
+  // Organization/WebSite — til layout'ida (tavsif va manzil sahifa tilida, audit 2026-11-02).
+  const langLayout = fs.readFileSync(path.join(ROOT, 'src', 'app', '[lang]', 'layout.tsx'), 'utf8');
+  assert.ok(langLayout.includes('jsonLdOrganization(lang') && langLayout.includes('jsonLdWebSite'),
+    '[lang]/layout da Organization/WebSite JSON-LD yo\'q');
 
   const expectations = {
     'contact/page.tsx': ['jsonLdLocalBusiness'],

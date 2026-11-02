@@ -461,6 +461,7 @@ export const pagesEn: PagesDictionary = {
     loading: 'Loading',
   },
   seo: {
+    modelIndexTitle: (section: string) => `${section}: all models`,
     tagNavLabel: 'Popular selections',
     tagCrumb: 'Selection',
     tagCountLabel: 'models',

@@ -461,6 +461,7 @@ export const pagesRu: PagesDictionary = {
     loading: 'Загрузка',
   },
   seo: {
+    modelIndexTitle: (section: string) => `${section}: все модели`,
     tagNavLabel: 'Популярные подборки',
     tagCrumb: 'Подборка',
     tagCountLabel: 'моделей',

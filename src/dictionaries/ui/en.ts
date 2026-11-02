@@ -62,6 +62,9 @@ export const en: UiDictionary = {
     logo: 'SPS Stone Profy Servise logo',
   },
   seo: {
+    /** JSON-LD: Offer.itemOffered nomi va LocalBusiness.priceRange (narx yo'q). */
+    offerService: 'Mold calculation and delivery',
+    priceRange: 'On request',
     leadCta: 'Submit a request — the manager will calculate the mold count and the price.',
     sectionMolds: {
       trotuar: 'Paving tile molds',

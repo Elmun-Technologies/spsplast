@@ -123,22 +123,28 @@ export type JsonLdValue = Record<string, unknown>;
 const CONTACT_PHONE = CONTACTS_2027.mainPhoneRaw;
 const SOCIAL_PROFILES = [CONTACTS_2027.telegramUrl, CONTACTS_2027.instagramUrl];
 
-export function jsonLdOrganization(): JsonLdValue {
+/** Manzil — bitta manba (`CONTACTS_2027`, admin → Kontaktlar), sahifa tilida (audit 2026-11-02:
+ *  Organization va LocalBusiness'da ikki xil o'zbekcha manzil turardi). */
+function postalAddress(lang: Locale): JsonLdValue {
+  return {
+    '@type': 'PostalAddress',
+    addressLocality: lang === 'ru' ? 'Ташкент' : lang === 'en' ? 'Tashkent' : 'Toshkent',
+    streetAddress: CONTACTS_2027.address[lang] || CONTACTS_2027.address.uz,
+    addressCountry: 'UZ',
+  };
+}
+
+/** `description` — sahifa tilidagi matn (`getUi(lang).footer.about`), kod ichida yozilmaydi. */
+export function jsonLdOrganization(lang: Locale = 'uz', description?: string): JsonLdValue {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: SITE_NAME,
     url: SITE_URL,
     logo: `${SITE_URL}/images/brand/logo-ink.webp`,
-    description:
-      "Toshkentdagi plastik qoliplar zavodi: beton plitka, fasad, zabor va dekor elementlari uchun qoliplar. Zayafka qoldiring — menejer qolip soni va narxini hisoblab beradi.",
+    description: description || undefined,
     telephone: CONTACT_PHONE,
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: 'Toshkent',
-      streetAddress: "Xalqa yo'li ko'chasi, 7A",
-      addressCountry: 'UZ',
-    },
+    address: postalAddress(lang),
     sameAs: [...SOCIAL_PROFILES],
   };
 }
@@ -158,21 +164,16 @@ export function jsonLdWebSite(): JsonLdValue {
   };
 }
 
-export function jsonLdLocalBusiness(): JsonLdValue {
+export function jsonLdLocalBusiness(lang: Locale = 'uz', priceRange?: string): JsonLdValue {
   return {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     name: SITE_NAME,
     image: `${SITE_URL}/images/site/factory.webp`,
-    url: `${SITE_URL}/uz/contact`,
+    url: `${SITE_URL}/${lang}/contact`,
     telephone: CONTACT_PHONE,
-    priceRange: 'Zayafka bo‘yicha',
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: 'Toshkent',
-      streetAddress: "Uchtepa tumani, Xalqa yo'li ko'chasi, 7A",
-      addressCountry: 'UZ',
-    },
+    priceRange: priceRange || undefined,
+    address: postalAddress(lang),
     geo: { '@type': 'GeoCoordinates', latitude: CONTACTS_2027.coords.lat, longitude: CONTACTS_2027.coords.lng },
     openingHoursSpecification: [
       {
@@ -211,6 +212,8 @@ export function jsonLdProduct(opts: {
   image?: string | null;
   sku?: string | null;
   category: string;
+  /** Offer.itemOffered nomi sahifa tilida (`getUi(lang).seo.offerService`). */
+  service: string;
   extra?: JsonLdValue;
 }): JsonLdValue {
   return {
@@ -230,7 +233,7 @@ export function jsonLdProduct(opts: {
       priceCurrency: 'UZS',
       url: `${SITE_URL}/${opts.lang}${opts.path}`,
       // Narx oshkor etilmaydi: hisob-kitob zayafka bo'yicha.
-      itemOffered: { '@type': 'Service', name: 'Qolip hisob-kitobi va yetkazib berish' },
+      itemOffered: { '@type': 'Service', name: opts.service },
     },
     ...(opts.extra ?? {}),
   };

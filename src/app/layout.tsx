@@ -1,8 +1,7 @@
 import './globals.css';
 import { AnalyticsScripts } from '@/components/analytics/AnalyticsScripts';
-import { JsonLd } from '@/components/site/JsonLd';
 import { getTotalCount } from '@/lib/catalog2027';
-import { SITE_NAME, SITE_URL, jsonLdOrganization, jsonLdWebSite } from '@/lib/seo';
+import { SITE_NAME, SITE_URL } from '@/lib/seo';
 import { analyticsConfig, verificationMeta } from '@/lib/integrations';
 import { applyStats } from '@/lib/siteContent';
 
@@ -72,8 +71,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preload" href={FONT_PRELOAD} as="font" type="font/woff2" crossOrigin="anonymous" />
         {/* Analitika: faqat env ID bo'lsa yuklanadi */}
         <AnalyticsScripts config={analyticsConfig()} />
-        {/* Sayt darajasidagi strukturaviy ma'lumot (HANDOFF 7) */}
-        <JsonLd data={[jsonLdOrganization(), jsonLdWebSite()]} />
         {children}
       </body>
     </html>

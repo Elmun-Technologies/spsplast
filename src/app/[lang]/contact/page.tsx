@@ -39,7 +39,7 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
             { name: 'SPS', path: '' },
             { name: p.contact.title, path: '/contact' },
           ]),
-          jsonLdLocalBusiness(),
+          jsonLdLocalBusiness(lang, getUi(lang).seo.priceRange),
         ]}
       />
       <div className="wrap" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>

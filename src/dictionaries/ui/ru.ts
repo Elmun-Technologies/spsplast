@@ -62,6 +62,9 @@ export const ru: UiDictionary = {
     logo: 'Логотип SPS Stone Profy Servise',
   },
   seo: {
+    /** JSON-LD: Offer.itemOffered nomi va LocalBusiness.priceRange (narx yo'q). */
+    offerService: 'Расчёт количества форм и доставка',
+    priceRange: 'По запросу',
     leadCta: 'Оставьте заявку — менеджер рассчитает количество форм и цену.',
     sectionMolds: {
       trotuar: 'Формы для тротуарной плитки',

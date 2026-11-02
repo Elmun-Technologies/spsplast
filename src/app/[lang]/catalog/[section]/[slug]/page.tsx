@@ -84,10 +84,15 @@ export default async function ModelPage({ params }: { params: Promise<Params> })
             lang,
             path,
             name,
-            description: localizedText(model.subtitle, lang) || localizedText(model.note, lang),
+            // Tavsif bo'sh bo'lmasin (Search Console tavsiyasi): bo'lim + o'lcham + zayafka matni.
+            description:
+              localizedText(model.subtitle, lang) ||
+              localizedText(model.note, lang) ||
+              `${modelSeoTitle(model, lang)}. ${t.seo.leadCta}`,
             image: modelImage(model),
             sku: model.code,
             category: sectionLabel(model.section, lang),
+            service: t.seo.offerService,
             extra: {
               additionalProperty: [
                 ...(model.tiles[0]?.size

@@ -486,6 +486,8 @@ export const pagesUz = {
     loading: 'Yuklanmoqda',
   },
   seo: {
+    /** Bo'lim sahifasi pastidagi barcha modellar ro'yxati (sarlavha). */
+    modelIndexTitle: (section: string) => `${section}: barcha modellar`,
     tagNavLabel: "Ommabop tanlovlar",
     tagCrumb: 'Tanlov',
     tagCountLabel: 'model',

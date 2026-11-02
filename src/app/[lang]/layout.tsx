@@ -10,6 +10,8 @@ import { VisitTracker } from '@/components/analytics/VisitTracker';
 import { MotionLayer } from '@/components/site/MotionLayer';
 import { isValidLocale, locales, type Locale } from '@/lib/i18n';
 import { getUi } from '@/lib/ui';
+import { JsonLd } from '@/components/site/JsonLd';
+import { jsonLdOrganization, jsonLdWebSite } from '@/lib/seo';
 
 /**
  * Til to'plami yopiq (uz/ru/en) — router build paytida bilishi uchun
@@ -44,6 +46,8 @@ export default async function LangLayout({
       <SWCleanup />
       <VisitTracker />
       <MotionLayer />
+      {/* Sayt darajasidagi strukturaviy ma'lumot (HANDOFF 7) — sahifa tilida (audit 2026-11-02). */}
+      <JsonLd data={[jsonLdOrganization(lang, t.footer.about), jsonLdWebSite()]} />
       <SiteHeader lang={lang} />
       <main id="main-content">{children}</main>
       <CompareBar lang={lang} />
