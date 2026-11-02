@@ -1,4 +1,4 @@
-import { getModels, getSectionCounts, modelName, SECTIONS, SECTION_SLUGS, sectionLabel } from './catalog2027.ts';
+import { getModels, getSectionCounts, hasAnyImage, modelName, SECTIONS, SECTION_SLUGS, sectionLabel } from './catalog2027.ts';
 import { getPages } from './pages.ts';
 import { EXPORT_COUNTRIES, getSeoTags } from './seoPages.ts';
 
@@ -8,10 +8,12 @@ import { EXPORT_COUNTRIES, getSeoTags } from './seoPages.ts';
  * `path` til prefiksisiz; har bir sahifa uch tilda mavjud.
  *
  * Kiritilmaydi: `/compare`, `/request` (noindex), modelsiz bo'limlar (yupqa kontent).
+ * `autoNoindex` — rasmi yo'q model: sahifa ishlaydi, lekin rasm kelguncha `noindex, follow` va
+ * sitemap'da yo'q (audit 2026-11-02: 52 model × 3 til = 156 yupqa URL). Rasm nashr qilinsa — o'zi qaytadi.
  */
 export type PathKind = 'page' | 'section' | 'tag' | 'export' | 'model';
 export type ChangeFrequency = 'daily' | 'weekly' | 'monthly' | 'yearly';
-export type SitePath = { path: string; kind: PathKind; label: string; priority: number; changeFrequency: ChangeFrequency };
+export type SitePath = { path: string; kind: PathKind; label: string; priority: number; changeFrequency: ChangeFrequency; autoNoindex?: boolean };
 
 const FIXED: { path: string; label: string; priority: number; changeFrequency: ChangeFrequency }[] = [
   { path: '', label: 'Bosh sahifa', priority: 1, changeFrequency: 'weekly' },
@@ -54,6 +56,7 @@ export function indexablePaths(): SitePath[] {
       label: `${m.code ? `№ ${m.code} ` : ''}${modelName(m, 'uz')}`,
       priority: 0.6,
       changeFrequency: 'monthly' as const,
+      ...(hasAnyImage(m) ? {} : { autoNoindex: true }),
     })),
   ];
 }

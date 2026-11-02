@@ -25,7 +25,11 @@ export function SiteFooter({ lang }: { lang: Locale }) {
             <a className="sps-btn sps-btn--primary" href={`/${lang}/request`}>
               {t.header.cta}
             </a>
-            <a className="sps-btn sps-btn--on-ink" href={CONTACTS_2027.telegramUrl}>
+            <a className="sps-btn sps-btn--on-ink" href={`${CONTACTS_2027.whatsappUrl}?text=${encodeURIComponent(t.menu.waText)}`} target="_blank" rel="noopener noreferrer">
+              <Icon.whatsapp width={18} height={18} strokeWidth={1.75} aria-hidden="true" />
+              {t.menu.whatsapp}
+            </a>
+            <a className="sps-btn sps-btn--on-ink" href={CONTACTS_2027.telegramUrl} target="_blank" rel="noopener noreferrer">
               <Icon.telegram width={18} height={18} strokeWidth={1.75} aria-hidden="true" />
               {t.menu.telegram}
             </a>
@@ -74,6 +78,7 @@ export function SiteFooter({ lang }: { lang: Locale }) {
                 {p.display}
               </a>
             ))}
+            <a href={CONTACTS_2027.whatsappUrl} target="_blank" rel="noopener noreferrer">WhatsApp · {CONTACTS_2027.mainPhone}</a>
             <a href={CONTACTS_2027.telegramUrl}>Telegram · {CONTACTS_2027.telegramHandle}</a>
             <a href={CONTACTS_2027.instagramUrl}>Instagram · {CONTACTS_2027.instagramHandle}</a>
             {CONTACTS_2027.email ? <a href={`mailto:${CONTACTS_2027.email}`}>{CONTACTS_2027.email}</a> : null}

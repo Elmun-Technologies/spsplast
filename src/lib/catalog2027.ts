@@ -70,7 +70,8 @@ export function sectionFromSlug(slug: string): Section | undefined {
   return SECTIONS.find((s) => SECTION_SLUGS[s] === slug);
 }
 
-function hasAnyImage(m: Model): boolean {
+/** Modelda kamida bitta rasm (sahna, qolip yoki plitka) bormi. */
+export function hasAnyImage(m: Model): boolean {
   return !!(m.images.scene || m.images.sceneSm || Object.keys(m.images.molds).length || Object.keys(m.images.tiles).length);
 }
 

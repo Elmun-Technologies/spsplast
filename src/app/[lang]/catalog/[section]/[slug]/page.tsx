@@ -12,6 +12,7 @@ import {
   localizedText,
   modelName,
   sectionLabel,
+  hasAnyImage,
 } from '@/lib/catalog2027';
 import { isValidLocale, locales, type Locale } from '@/lib/i18n';
 import { getUi } from '@/lib/ui';
@@ -49,6 +50,8 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
       `${sectionLabel(model.section, locale)}${size ? ` · ${size} mm` : ''}. ${getUi(locale).seo.leadCta}`,
     image: modelImage(model) ?? undefined,
     imageAlt: name,
+    // Rasmsiz model — yupqa sahifa: rasm kelguncha indekslanmaydi (havolalar kuchi saqlanadi).
+    noindex: !hasAnyImage(model),
   });
 }
 

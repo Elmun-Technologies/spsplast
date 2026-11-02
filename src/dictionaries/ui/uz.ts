@@ -36,6 +36,9 @@ export const uz = {
     sales: "Savdo bo'limi",
     telegram: 'Telegram',
     whatsapp: 'WhatsApp',
+    waWrite: 'WhatsApp’da yozish',
+    /** Suzuvchi WhatsApp tugmasidagi tayyor matn. */
+    waText: 'Salom! SPS qoliplari bo‘yicha savolim bor.',
     pdf: 'PDF katalog',
     productionExport: 'Ishlab chiqarish va eksport',
   },

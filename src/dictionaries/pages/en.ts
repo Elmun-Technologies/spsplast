@@ -58,6 +58,10 @@ export const pagesEn: PagesDictionary = {
 
   model: {
     breadcrumbHome: 'Home',
+    photoAskTitle: 'A photo of this model is coming soon',
+    photoAskText: 'Your manager will send photos of the mold and the finished tile on WhatsApp or Telegram.',
+    photoAskWa: 'Ask on WhatsApp',
+    photoAskMessage: (label: string) => `Hello! Could you send a photo of the ${label} mold?`,
     materialTag: 'PP / ABS',
     keyTile: 'Finished tile',
     keyPer: 'Per 1 m²',
@@ -79,6 +83,7 @@ export const pagesEn: PagesDictionary = {
     ctaCompare: 'Compare',
     ctaCompareOn: 'In comparison ✓',
     callA11y: 'Call us',
+    waAbout: (label: string) => `Hello! I have a question about the ${label} mold.`,
     gallery: {
       scene: 'Laid view',
       mold: 'Mold · real photo',

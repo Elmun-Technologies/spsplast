@@ -35,6 +35,8 @@ export const en: UiDictionary = {
     sales: 'Sales department',
     telegram: 'Telegram',
     whatsapp: 'WhatsApp',
+    waWrite: 'Message us on WhatsApp',
+    waText: 'Hello! I have a question about SPS molds.',
     pdf: 'PDF catalog',
     productionExport: 'Production & export',
   },

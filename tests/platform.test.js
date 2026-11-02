@@ -386,7 +386,8 @@ test('14. Sitemap/robots/hreflang yangi marshrutlar uchun (3 til + x-default)', 
   const { default: robots } = await loadAliased('src/app/robots.ts');
 
   const entries = sitemap();
-  assert.ok(entries.length > 300, `sitemap juda kichik: ${entries.length}`);
+  // Rasmsiz modellar sitemap'da yo'q (audit 2026-11-02) — hozir ~276 URL.
+  assert.ok(entries.length > 250, `sitemap juda kichik: ${entries.length}`);
 
   // Har bir URL uch tilda va har birida hreflang to'plami bor.
   const perPath = new Map();

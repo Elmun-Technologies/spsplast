@@ -105,7 +105,14 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
                   <Icon.phone width={16} height={16} strokeWidth={2} aria-hidden="true" />
                   {CONTACTS_2027.mainPhone}
                 </a>
-                <span>WhatsApp · Telegram {CONTACTS_2027.telegramHandle}</span>
+                <a href={`${CONTACTS_2027.whatsappUrl}?text=${encodeURIComponent(t.menu.waText)}`} target="_blank" rel="noopener noreferrer">
+                  <Icon.whatsapp width={16} height={16} strokeWidth={2} aria-hidden="true" />
+                  WhatsApp
+                </a>
+                <a href={CONTACTS_2027.telegramUrl} target="_blank" rel="noopener noreferrer">
+                  <Icon.telegram width={16} height={16} strokeWidth={2} aria-hidden="true" />
+                  Telegram
+                </a>
                 <span>{t.header.hours}</span>
               </p>
             </div>

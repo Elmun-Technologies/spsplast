@@ -43,6 +43,11 @@ const models = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'models-2027.j
 const MODEL_PATHS = new Set(
   models.models.map((m) => `/catalog/${SECTION_SLUGS[m.section]}/${m.slug}`),
 );
+/** Rasmi bor modellar — faqat shular sitemap'da (rasmsizlari `noindex`, audit 2026-11-02). */
+const hasImage = (m) => !!(m.images.scene || m.images.sceneSm || Object.keys(m.images.molds).length || Object.keys(m.images.tiles).length);
+const MODEL_PATHS_WITH_IMAGE = new Set(
+  models.models.filter(hasImage).map((m) => `/catalog/${SECTION_SLUGS[m.section]}/${m.slug}`),
+);
 
 /** Eski (o'chirilgan) marshrutlar — sitemap yoki redirect manzilida bo'lmasligi kerak. */
 const DEAD_SEGMENTS = [
@@ -125,8 +130,10 @@ test('3. sitemap: 390 URL, har biri 3 tilda, duplikat yo\'q', async (t) => {
   const { getSeoTags, EXPORT_COUNTRIES } = await loadAliased('src/lib/seoPages.ts');
   const seoCount = getSeoTags().length + EXPORT_COUNTRIES.length;
   const staticCount = 6 + nonEmptySections + seoCount;
-  assert.strictEqual(entries.length, (staticCount + models.models.length) * 3,
-    `kutilgan: (${staticCount} statik/SEO + ${models.models.length} model) × 3 til, bor: ${entries.length}`);
+  // Rasmi yo'q modellar sitemap'da yo'q (autoNoindex, audit 2026-11-02).
+  const withImage = models.models.filter(hasImage).length;
+  assert.strictEqual(entries.length, (staticCount + withImage) * 3,
+    `kutilgan: (${staticCount} statik/SEO + ${withImage} rasmli model) × 3 til, bor: ${entries.length}`);
 
   for (const url of urls) {
     assert.ok(url.startsWith(`${SITE_URL}/`), `URL sayt domeni bilan boshlanmadi: ${url}`);
@@ -148,7 +155,8 @@ test('3. sitemap: 390 URL, har biri 3 tilda, duplikat yo\'q', async (t) => {
 
   // Modellar: har bir model slugi sitemap da.
   for (const modelPath of MODEL_PATHS) {
-    assert.ok(byPath.has(modelPath), `model sitemap da yo'q: ${modelPath}`);
+    if (MODEL_PATHS_WITH_IMAGE.has(modelPath)) assert.ok(byPath.has(modelPath), `model sitemap da yo'q: ${modelPath}`);
+    else assert.ok(!byPath.has(modelPath), `rasmsiz model sitemap da: ${modelPath}`);
   }
 
   // Statik sahifalar: doimiylar + modeli bor bo'limlar.

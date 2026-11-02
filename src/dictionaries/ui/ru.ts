@@ -35,6 +35,8 @@ export const ru: UiDictionary = {
     sales: 'Отдел продаж',
     telegram: 'Telegram',
     whatsapp: 'WhatsApp',
+    waWrite: 'Написать в WhatsApp',
+    waText: 'Здравствуйте! У меня вопрос по формам SPS.',
     pdf: 'PDF-каталог',
     productionExport: 'Производство и экспорт',
   },

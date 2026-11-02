@@ -12,14 +12,15 @@ import { indexablePaths } from '@/lib/sitePaths';
  *  - `/compare`, `/request` — foydalanuvchi holatiga bog'liq, `noindex`;
  *  - modeli bo'lmagan bo'limlar (hozir `zabor`) — yupqa kontent; ma'lumot
  *    to'ldirilgach o'zi qo'shiladi;
- *  - admin → SEO da `noindex` belgilangan sahifalar.
+ *  - admin → SEO da `noindex` belgilangan sahifalar;
+ *  - rasmi hali yo'q modellar (`autoNoindex`) — rasm nashr qilingach o'zi qo'shiladi.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const hidden = noindexPaths();
   const out: MetadataRoute.Sitemap = [];
-  for (const { path, priority, changeFrequency } of indexablePaths()) {
-    if (hidden.has(path)) continue;
+  for (const { path, priority, changeFrequency, autoNoindex } of indexablePaths()) {
+    if (hidden.has(path) || autoNoindex) continue;
     for (const lang of locales) {
       out.push({
         url: `${SITE_URL}/${lang}${path}`,

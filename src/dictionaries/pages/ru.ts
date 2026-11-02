@@ -58,6 +58,10 @@ export const pagesRu: PagesDictionary = {
 
   model: {
     breadcrumbHome: 'Главная',
+    photoAskTitle: 'Фото этой модели скоро появится',
+    photoAskText: 'Менеджер пришлёт фото формы и готовой плитки в WhatsApp или Telegram.',
+    photoAskWa: 'Запросить в WhatsApp',
+    photoAskMessage: (label: string) => `Здравствуйте! Пришлите, пожалуйста, фото формы ${label}.`,
     materialTag: 'PP / ABS',
     keyTile: 'Готовая плитка',
     keyPer: 'На 1 м²',
@@ -79,6 +83,7 @@ export const pagesRu: PagesDictionary = {
     ctaCompare: 'Сравнить',
     ctaCompareOn: 'В сравнении ✓',
     callA11y: 'Позвонить',
+    waAbout: (label: string) => `Здравствуйте! У меня вопрос по форме ${label}.`,
     gallery: {
       scene: 'Вид укладки',
       mold: 'Форма · фото',

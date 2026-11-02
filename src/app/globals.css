@@ -535,6 +535,19 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
 }
 .ft-bottom a { font-size: 13px; line-height: 20px; color: var(--on-ink-muted); }
 
+/* --- Suzuvchi WhatsApp tugmasi (faqat telefonda) --------------------------------------- */
+.wa-fab { display: none; }
+@media (max-width: 760px) {
+  .wa-fab {
+    position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom)); z-index: 35;
+    width: 56px; height: 56px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+    background: #1f8f4e; color: #fff; box-shadow: 0 10px 28px rgba(21, 23, 26, .28);
+  }
+  .wa-fab:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+  body:has(.mbar) .wa-fab { display: none; }
+  body:has(.cmp-bar:not([hidden])) .wa-fab { bottom: calc(84px + env(safe-area-inset-bottom)); }
+}
+
 /* --- Solishtirish paneli (pastda qora, Redesign 2028) ------------------------------------- */
 .cmp-bar {
   position: fixed; left: 50%; transform: translateX(-50%); bottom: 12px; z-index: 40;
@@ -1133,6 +1146,16 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
   font: 500 12px/16px var(--font-sans); letter-spacing: .04em;
 }
 .sps-card__nophoto svg { opacity: .45; }
+/* `.sps-card__media > a` (display:block) bu bloki ustidan yozib, yozuvni chap-yuqori burchakka
+   qisib qo'yardi (audit 2026-11-02) — spetsifiklik bir xil darajaga ko'tarildi. */
+.sps-card__media > a.sps-card__nophoto { display: flex; padding: 12px; text-align: center; }
+/* Model sahifasi: rasm yo'q — bo'sh kulrang quti o'rniga izoh va "suratini so'rash" tugmalari. */
+.stage-nophoto {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+  padding: 24px; max-width: 420px; text-align: center; color: var(--ink);
+}
+.stage-nophoto svg { opacity: .45; }
+.stage-nophoto b { font: 600 18px/24px var(--font-sans); }
 
 /* Hamkorlar kartochkalari: rasm 16:9 (Image height atributi aspect-ratio'ni bosmasin), mobil — 1 ustun (UI audit P0-5). */
 .who-img { height: auto; max-width: none; }

@@ -60,6 +60,11 @@ export const pagesUz = {
 
   model: {
     breadcrumbHome: 'Bosh sahifa',
+    /** Rasmi hali yo'q model: menejerdan surat so'rash (audit 2026-11-02). */
+    photoAskTitle: 'Bu modelning surati tez orada qo‘shiladi',
+    photoAskText: 'Menejer qolip va tayyor plitka suratini WhatsApp yoki Telegram’da yuboradi.',
+    photoAskWa: 'WhatsApp’da so‘rash',
+    photoAskMessage: (label: string) => `Salom! ${label} qolipining suratini yuborsangiz.`,
     materialTag: 'PP / ABS',
     keyTile: 'Tayyor plitka',
     keyPer: '1 m² ga',
@@ -81,6 +86,7 @@ export const pagesUz = {
     ctaCompare: 'Solishtirish',
     ctaCompareOn: 'Solishtirishda ✓',
     callA11y: "Qo'ng'iroq qilish",
+    waAbout: (label: string) => `Salom! ${label} qolipi bo‘yicha savolim bor.`,
     gallery: {
       scene: "Terilgan ko'rinish",
       mold: 'Qolip · haqiqiy surat',
