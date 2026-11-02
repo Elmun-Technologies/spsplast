@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { modelSeoTitle } from '@/lib/seoTitles';
 import {
   getModelBySlug,
   getModels,
@@ -42,7 +43,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   return pageMetadata({
     lang: locale,
     path: `/catalog/${section}/${model.slug}`,
-    title: `${model.code ? `№ ${model.code} ` : ''}${name} — ${sectionLabel(model.section, locale)}`,
+    title: modelSeoTitle(model, locale),
     description:
       subtitle ||
       `${sectionLabel(model.section, locale)}${size ? ` · ${size} mm` : ''}. ${getUi(locale).seo.leadCta}`,

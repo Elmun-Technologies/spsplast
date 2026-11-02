@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import { normalizePhone, isValidUzPhone, isValidIntlPhone } from '@/lib/phone';
+import { normalizePhone, isValidIntlPhone } from '@/lib/phone';
 import { escapeTelegramHtml, sendTelegramNotification } from '@/lib/telegram';
 import { checkRateLimit } from '@/lib/rateLimit';
 import { calcMolds, getModelBySlug, modelName, modelSetSize } from '@/lib/catalog2027';
@@ -17,6 +17,7 @@ import { createLead, hitRateLimit, markTelegram } from '@/server/leads';
  *
  * Baza (`DATABASE_URL`) bo'lmasa yoki yozish yiqilsa, eski yo'l ishlaydi:
  * tasodifiy raqam + faqat Telegram — mijoz baribir zayafka qoldira oladi.
+ * Ikkalasi ham ishlamasa — 503 `not_delivered` (productionda "ok" deyilmaydi).
  */
 export const dynamic = 'force-dynamic';
 
@@ -24,15 +25,17 @@ const leadSchema = z.object({
   type: z.enum(['quick', 'list', 'partners']).default('quick'),
   clientType: z.enum(['workshop', 'dealer', 'builder', 'private']).optional(),
   name: z
-    .string({ required_error: 'Ism kiritilishi shart', invalid_type_error: 'Ism kiritilishi shart' })
+    .string({ error: 'Ism kiritilishi shart' })
     .trim()
     .min(2, 'Ism kiritilishi shart')
     .max(120, 'Ism juda uzun'),
   phone: z
-    .string({ required_error: 'Telefon raqami noto‘g‘ri', invalid_type_error: 'Telefon raqami noto‘g‘ri' })
+    .string({ error: 'Telefon raqami noto‘g‘ri' })
     .trim()
     .min(7, 'Telefon raqami noto‘g‘ri')
     .max(32, 'Telefon raqami noto‘g‘ri'),
+  // Formada tanlangan davlat kodi (`+996`) — davlat kodisiz yozilgan raqamni to'g'ri o'qish uchun.
+  dial: z.string().regex(/^\+\d{1,4}$/).optional(),
   city: z.string().trim().max(120).optional(),
   volumeM2: z.coerce.number().min(1).max(1_000_000).optional(),
   company: z.string().trim().max(200).optional(),
@@ -146,8 +149,8 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: true, requestId: makeRequestId(new Date()) });
   }
 
-  const phone = normalizePhone(data.phone);
-  if (!isValidIntlPhone(data.phone)) {
+  const phone = normalizePhone(data.phone, data.dial);
+  if (!isValidIntlPhone(data.phone, data.dial)) {
     return NextResponse.json({ ok: false, error: 'bad_phone' }, { status: 400 });
   }
 
@@ -199,8 +202,10 @@ export async function POST(req: Request) {
   const client = data.clientType ? CLIENT_LABELS[data.clientType] : null;
   lines.push(`Mijoz: ${escapeTelegramHtml([client, data.name].filter(Boolean).join(' · '))}`);
 
-  const wa = isValidUzPhone(phone) ? `  (WhatsApp: wa.me/${phone.replace(/\D/g, '')})` : '';
+  const wa = `  (WhatsApp: wa.me/${phone.replace(/\D/g, '')})`;
   lines.push(`Telefon: <a href="tel:${phone.replace(/[^\d+]/g, '')}">${escapeTelegramHtml(phone)}</a>${wa}`);
+  // Raqam davlat kodi bo'yicha to'ldirilgan bo'lsa — menejer mijoz nima yozganini ham ko'rsin.
+  if (data.phone.replace(/\D/g, '') !== phone.replace(/\D/g, '')) lines.push(`Mijoz yozgani: ${escapeTelegramHtml(data.phone)}`);
 
   const place = [data.city, data.country].filter(Boolean).join(', ');
   if (place) lines.push(`Shahar: ${escapeTelegramHtml(place)}`);
@@ -245,7 +250,14 @@ export async function POST(req: Request) {
     }
   }
 
-  // Telegram sozlanmagan bo'lsa (mahalliy dev) — javob baribir ok, /api/health
-  // "degraded" holatini ko'rsatadi.
+  // Zayafka hech qayerga yetmadi (baza ham, Telegram ham yo'q yoki ikkalasi ham yiqildi):
+  // mijozga "qabul qilindi" deyish — zayafkani jim yo'qotish. 503 qaytadi, forma mijozga
+  // telefon/Telegram/WhatsApp tugmalarini ko'rsatadi (audit 2026-11-02, 1-band).
+  // Mahalliy `npm run dev` da (baza va Telegram sozlanmagan) forma oqimini tekshirish uchun ok.
+  if (!saved && !sent && process.env.NODE_ENV === 'production') {
+    console.error('[leads] ZAYAFKA YETKAZILMADI', { requestId, type: data.type, lang: data.lang });
+    return NextResponse.json({ ok: false, error: 'not_delivered', requestId }, { status: 503 });
+  }
+
   return NextResponse.json({ ok: true, requestId, delivered: sent });
 }

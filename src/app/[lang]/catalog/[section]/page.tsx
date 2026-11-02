@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { sectionSeoTitle } from '@/lib/seoTitles';
 import {
   getModelsBySection,
   SECTIONS,
@@ -46,7 +47,7 @@ export async function generateMetadata({
   return pageMetadata({
     lang: locale,
     path: `/catalog/${section}`,
-    title: `${sectionLabel(sec, locale)} · ${count} ${pluralModels(locale, count)}`,
+    title: sectionSeoTitle(sec, locale, count),
     description: `${sectionLabel(sec, locale)} — ${count} ${pluralModels(locale, count)}. ${getUi(locale).seo.leadCta}`,
     image: cover,
   });

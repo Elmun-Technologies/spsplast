@@ -333,7 +333,7 @@ export const pagesUz = {
     materialEyebrow: 'MATERIAL',
     materialTitle: "Ikki material — har biri o'z vazifasiga.",
     materialLead: "Trotuar qoliplari polipropilen yoki ABS'dan ishlab chiqariladi. Fasad, zabor va dekor qoliplari ikkala variantda bor.",
-    materialHead: ['', 'Polipropilen (PP)', 'ABS'],
+    materialHead: ['Xususiyat', 'Polipropilen (PP)', 'ABS'],
     materialRows: [
       { k: 'Rangi', pp: 'Qora', abs: 'Oq' },
       { k: '1 m² qolip vazni (fasad)', pp: '3,3–4,3 kg', abs: '4,2–5,1 kg' },

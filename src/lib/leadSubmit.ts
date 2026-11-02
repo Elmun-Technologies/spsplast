@@ -9,6 +9,8 @@ export type LeadPayload = {
   clientType?: 'workshop' | 'dealer' | 'builder' | 'private';
   name: string;
   phone: string;
+  /** Tanlangan davlat kodi (`+996`) — davlat kodisiz yozilgan raqam uchun. */
+  dial?: string;
   city?: string;
   volumeM2?: number;
   company?: string;

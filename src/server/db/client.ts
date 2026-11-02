@@ -22,7 +22,9 @@ export function getDb(): Db | null {
     // DATABASE_POOL_MAX: serverless'da (Neon/Supabase pooler) yoki bitta ulanishli lokal
     // test bazasida (PGlite socket) kichikroq pul kerak bo'lishi mumkin.
     const max = Math.min(Math.max(Number(process.env.DATABASE_POOL_MAX) || 5, 1), 20);
-    const client = postgres(url, { max, prepare: false, idle_timeout: 20 });
+    // connect_timeout: baza javob bermasa zayafka 30 s osilib qolmasin — 5 s dan keyin
+    // `/api/leads` Telegram yo'liga o'tadi (audit 2026-11-02).
+    const client = postgres(url, { max, prepare: false, idle_timeout: 20, connect_timeout: 5 });
     globalForDb.__spsDb = drizzle(client, { schema }) as unknown as Db;
   }
   return globalForDb.__spsDb;

@@ -324,7 +324,7 @@ export const pagesEn: PagesDictionary = {
     materialEyebrow: 'MATERIAL',
     materialTitle: 'Two materials — each with its own job.',
     materialLead: 'Paving molds are made of polypropylene or ABS. Facade, fence and decor molds are available in both versions.',
-    materialHead: ['', 'Polypropylene (PP)', 'ABS'],
+    materialHead: ['Property', 'Polypropylene (PP)', 'ABS'],
     materialRows: [
       { k: 'Colour', pp: 'Black', abs: 'White' },
       { k: 'Mold weight per 1 m² (facade)', pp: '3.3–4.3 kg', abs: '4.2–5.1 kg' },

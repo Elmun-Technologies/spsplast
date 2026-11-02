@@ -62,6 +62,24 @@ export const uz = {
   },
   seo: {
     leadCta: "Zayafka qoldiring — menejer qolip soni va narxini hisoblab beradi.",
+    /** Sarlavhalardagi asosiy so'rov (audit 2026-11-02): bo'lim → "… qoliplari", model → "… qolipi". */
+    sectionMolds: {
+      trotuar: 'Trotuar plitkasi qoliplari',
+      fasad: 'Fasad plitkasi qoliplari',
+      zabor: 'Zabor panellari qoliplari',
+      dekor: 'Dekor panel qoliplari',
+      skameyka: 'Skameyka oyog‘i qoliplari',
+    } as Record<string, string>,
+    sectionMoldsFallback: 'qoliplari',
+    modelMold: {
+      trotuar: 'plitka qolipi',
+      fasad: 'fasad qolipi',
+      zabor: 'zabor qolipi',
+      dekor: 'dekor qolipi',
+      skameyka: 'skameyka qolipi',
+    } as Record<string, string>,
+    modelMoldFallback: 'qolipi',
+    catalogTitle: 'Beton mahsulotlari uchun qoliplar',
   },
   models: {
     one: 'model',
@@ -130,6 +148,11 @@ export const uz = {
     formBack: 'Katalogga qaytish',
     formError: 'Ism va telefon raqamini tekshiring.',
     formRateLimit: 'Juda ko‘p so‘rov yuborildi. Bir ozdan so‘ng qayta urinib ko‘ring.',
+    formErrorName: 'Ismingizni yozing (kamida 2 harf).',
+    formErrorPhone: 'Telefon raqamini to‘liq yozing: davlat kodi bilan (+998, +7, +996 …) yoki 9 xonali O‘zbekiston raqami.',
+    formErrorNetwork: 'Internet aloqasi uzildi. Qayta urinib ko‘ring yoki bizga to‘g‘ridan-to‘g‘ri yozing.',
+    formErrorDelivery: 'Zayafkani hozir yuborib bo‘lmadi. Iltimos, qo‘ng‘iroq qiling yoki Telegram/WhatsApp’ga yozing — tezda javob beramiz.',
+    formCall: 'Qo‘ng‘iroq qilish',
     formSending: 'Yuborilmoqda…',
     quickViewDetails: 'Batafsil',
     compareOf: '/ 4 model',

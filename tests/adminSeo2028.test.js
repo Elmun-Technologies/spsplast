@@ -126,7 +126,10 @@ test('4. 301 yo\'naltirishlar: tekshiruv, zanjir/aylanish, tizim yo\'llari, next
   assert.deepStrictEqual(v('https://sps.uz/ru/old-page/?utm=1', '/ru/catalog'), { ok: true, source: '/ru/old-page', destination: '/ru/catalog' });
   assert.strictEqual(v('/ru/blog/*', '/ru').source, '/ru/blog/:path*');
   assert.strictEqual(v('/ru/a', 'https://spsplast.com/ru/b').ok, true);
-  for (const [s, d] of [['/admin', '/ru'], ['/api/leads', '/ru'], ['/', '/ru'], ['/ru/a', '/ru/a'], ['ru/a', '/ru'], ['/ru/a', 'javascript:alert(1)'], ['/ru/a', '//evil.com'], ['/ru/:x', '/ru']]) {
+  for (const [s, d] of [['/admin', '/ru'], ['/api/leads', '/ru'], ['/', '/ru'], ['/ru/a', '/ru/a'], ['ru/a', '/ru'], ['/ru/a', 'javascript:alert(1)'], ['/ru/a', '//evil.com'], ['/ru/:x', '/ru'],
+    // Audit 2026-11-02: path-to-regexp belgilari butun saytni/admin'ni yo'naltirardi yoki build'ni yiqitardi.
+    ['/(.*)', '/ru'], ['/(admin.*)', '/ru'], ['/a(', '/ru'], ['/x*', '/ru'], ['/x+', '/ru'], ['/ru/a', '/ru/(.*)'],
+    ['/*', '/ru'], ['/ru/*', '/uz'], ['/%61dmin', '/ru']]) {
     assert.strictEqual(v(s, d).ok, false, `${s} → ${d} o'tib ketdi`);
   }
   // Zanjir: a → b mavjud bo'lsa, b → c va c → a rad etiladi.

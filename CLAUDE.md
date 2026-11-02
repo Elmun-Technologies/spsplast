@@ -220,6 +220,23 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
 
 ## Known Pitfalls
 
+- **Audit 2026-11-02 fixes (`tests/auditFixes2611.test.js`)** — keep them:
+  - `/api/leads` returns **503 `not_delivered`** in production when neither the DB nor Telegram took the
+    lead (never a silent `ok`); forms then show call/Telegram/WhatsApp buttons (`LeadFeedback.tsx`).
+    Telegram/DB/deploy-hook calls have timeouts.
+  - Phones: `normalizePhone(input, dial?)` — `8 701…` → `+7`, local `0…` only with the form's country
+    code (`dial`, sent by PartnersForm/export pages). Known codes are length-checked.
+  - Lead forms are `noValidate` + `checkLead()` (our own uz/ru/en messages, not the browser's), success
+    blocks get focus + scroll (`useRevealOnShow`).
+  - **No `[lang]/loading.tsx`**: on static pages it streamed every page as a skeleton inside `<main>` with
+    the real H1 in a hidden `<div>`. `audit:seo` now fails if the H1 is outside `<main>` or under `[hidden]`.
+  - Catalog `<title>`s come from `src/lib/seoTitles.ts` + `getUi().seo.sectionMolds/modelMold`
+    ("Формы для тротуарной плитки …", "… qoliplari", "… molds"), ≤ 53 chars before " · SPS Plast".
+  - Admin 301 sources must not contain `( ) * + ? :` (path-to-regexp), and `/*`, `/{lang}/*` are refused;
+    `export-snapshot.mjs` drops unsafe rows again at build time (`safeRedirect`).
+  - Deps: next 15.5.28+, zod 4, drizzle-orm 0.45+, `overrides.postcss`; CI runs
+    `npm audit --omit=dev --audit-level=high`, Dependabot is weekly.
+
 - **Never reintroduce Tailwind.** The database is back (Stage 7, user decision) **only** behind
   `src/server/` — public pages (`[lang]`, `components`, `lib`) must never import it
   (`tests/platform.test.js` test 6), otherwise the storefront stops being static.
@@ -330,7 +347,7 @@ npm run dev            # local dev server
 npm run build          # models:check + next build (448 static pages)
 npm run typecheck      # tsc --noEmit
 npm run lint           # next lint
-npm test               # node --test --experimental-strip-types tests/*.test.js (143 tests)
+npm test               # node --test --experimental-strip-types tests/*.test.js (151 tests)
 npm run models:build && npm run models:images && npm run models:check
 npm run db:generate    # after editing src/server/db/schema.ts → new SQL in drizzle/
 DATABASE_URL=... npm run db:migrate

@@ -45,6 +45,8 @@ export async function sendTelegramNotification(message: string): Promise<boolean
         parse_mode: 'HTML',
         disable_web_page_preview: true,
       }),
+      // Telegram osilib qolsa mijoz 5 s dan ortiq kutmasin (Vercel funksiyasi ham to'xtab qolmaydi).
+      signal: AbortSignal.timeout(5_000),
     });
 
     if (!res.ok) {

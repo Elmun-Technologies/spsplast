@@ -38,8 +38,8 @@ const payloadSchema = z.object({
   images: z.object({
     scene: z.string().nullable(),
     sceneSm: z.string().nullable(),
-    molds: z.record(z.string()),
-    tiles: z.record(z.string()),
+    molds: z.record(z.string(), z.string()),
+    tiles: z.record(z.string(), z.string()),
   }),
 });
 

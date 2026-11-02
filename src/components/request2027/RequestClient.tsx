@@ -19,6 +19,7 @@ import { getPages } from '@/lib/pages';
 import { CONTACTS_2027 } from '@/lib/contacts2027';
 import { submitLead } from '@/lib/leadSubmit';
 import { useRequestList } from '@/lib/store/spsLists';
+import { LeadFormError, checkLead, useRevealOnShow, type LeadError } from '@/components/site/LeadFeedback';
 
 type ClientType = 'workshop' | 'dealer' | 'builder' | 'private';
 
@@ -40,7 +41,8 @@ export function RequestClient({ lang }: { lang: Locale }) {
   const [message, setMessage] = useState('');
   const [state, setState] = useState<'idle' | 'sending' | 'ok' | 'error'>('idle');
   const [requestId, setRequestId] = useState('');
-  const [error, setError] = useState('');
+  const [error, setError] = useState<LeadError>('');
+  const okRef = useRevealOnShow<HTMLDivElement>(state === 'ok');
 
   const rows = list.items.flatMap((item) => {
     const m = getModelBySlug(item.slug);
@@ -62,6 +64,12 @@ export function RequestClient({ lang }: { lang: Locale }) {
 
   const send = async (e: React.FormEvent) => {
     e.preventDefault();
+    const invalid = checkLead(name, phone);
+    if (invalid) {
+      setError(invalid);
+      setState('error');
+      return;
+    }
     setState('sending');
     setError('');
     const res = await submitLead({
@@ -83,7 +91,7 @@ export function RequestClient({ lang }: { lang: Locale }) {
       setState('ok');
       list.clear();
     } else {
-      setError(res.error === 'rate_limit' ? t.catalog.formRateLimit : t.catalog.formError);
+      setError(res.error || 'network');
       setState('error');
     }
   };
@@ -102,7 +110,7 @@ export function RequestClient({ lang }: { lang: Locale }) {
           <p className="body muted">{p.request.note}</p>
         </div>
 
-        <div className="rl">
+        <div className={rows.length ? 'rl' : 'rl rl--empty'}>
           <div>
             <div className="rl-head">
               <span className="sps-label">{p.request.colModel}</span>
@@ -194,7 +202,7 @@ export function RequestClient({ lang }: { lang: Locale }) {
 
           <div className="rl-sum">
             {state === 'ok' ? (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <div className="lead-ok" style={{ display: 'flex', flexDirection: 'column', gap: 12 }} role="status" tabIndex={-1} ref={okRef}>
                 <div
                   style={{
                     width: 48,
@@ -268,6 +276,7 @@ export function RequestClient({ lang }: { lang: Locale }) {
                     placeholder={p.request.namePlaceholder}
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    aria-invalid={error === 'name' || undefined}
                     required
                     minLength={2}
                     maxLength={120}
@@ -285,6 +294,7 @@ export function RequestClient({ lang }: { lang: Locale }) {
                     placeholder={p.request.phonePlaceholder}
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
+                    aria-invalid={error === 'bad_phone' || undefined}
                     required
                     minLength={7}
                   />
@@ -322,11 +332,7 @@ export function RequestClient({ lang }: { lang: Locale }) {
                 <button className="sps-btn sps-btn--primary sps-btn--lg" type="submit" disabled={state === 'sending'}>
                   {state === 'sending' ? t.catalog.formSending : p.request.submit}
                 </button>
-                {state === 'error' ? (
-                  <p className="sps-form__error" role="alert" style={{ margin: 0 }}>
-                    {error}
-                  </p>
-                ) : null}
+                {state === 'error' && error ? <LeadFormError lang={lang} error={error} /> : null}
                 <p className="small muted" style={{ margin: 0 }}>
                   {p.request.direct} <span className="mono">{CONTACTS_2027.mainPhone}</span> · Telegram{' '}
                   {CONTACTS_2027.telegramHandle}

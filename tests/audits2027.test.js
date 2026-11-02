@@ -121,6 +121,7 @@ test('2. Buzilgan sahifada barcha qoidalar ishlaydi', async () => {
     ['hreflang mutlaq emas', /mutlaq URL emas/],
     ['og yo\'q', /og:title yo'q/],
     ['h1 ikkita', /h1 soni 2/],
+    ['main yo\'q', /<main> yo'q/],
     ['sarlavha sakraydi', /h1 -> h4/],
     ['alt yo\'q', /alt atributi yo'q/],
     ['o\'chirilgan marshrut', /o'chirilgan marshrut/],
@@ -152,6 +153,17 @@ test('2b. Til/viewport/charset yo\u02BBq bo\u02BBlsa \u2014 uchta xato', async (
   assert.ok(/<html lang> yo/.test(joined), 'html lang qoidasi ishlamadi');
   assert.ok(/meta viewport/.test(joined), 'viewport qoidasi ishlamadi');
   assert.ok(/charset/.test(joined), 'charset qoidasi ishlamadi');
+});
+
+test('2c. H1 <main> tashqarisida yoki yashirin blokda — xato (loading.tsx streaming)', async () => {
+  const streamed = GOOD.replace(
+    /<main id="main-content">[\s\S]*<\/main>/,
+    '<main id="main-content"><div role="status"></div></main><div hidden id="S:0"><h1>Trotuar plitkasi qoliplari</h1></div>',
+  );
+  const out = await audit(streamed, { path: '/uz/catalog/paving', lang: 'uz', expect: { jsonLd: ['Organization', 'WebSite', 'Product'] } });
+  const joined = out.errors.join('\n');
+  assert.match(joined, /h1 <main> ichida emas/);
+  assert.match(joined, /yashirin blok/);
 });
 
 test('3. noindex sahifalar: hreflang/OG talab qilinmaydi, robots talab qilinadi', async () => {
