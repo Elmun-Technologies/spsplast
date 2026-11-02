@@ -62,7 +62,9 @@ test('4. Zayafka API’si Telegram’ga yuboradi va bazani ishlatmaydi', () => {
   const route = fs.readFileSync(path.join(__dirname, '..', 'src', 'app', 'api', 'leads', 'route.ts'), 'utf8');
 
   assert.ok(route.includes('sendTelegramNotification'), 'Telegram yuborilishi kerak');
-  assert.ok(route.includes('escapeTelegramHtml'), 'HTML escape ishlatilishi kerak');
+  // Xabar matni (escape bilan) src/server/leadMessage.ts da — route va admin "qayta yuborish" uchun bitta manba.
+  const message = fs.readFileSync(path.join(__dirname, '..', 'src', 'server', 'leadMessage.ts'), 'utf8');
+  assert.ok(route.includes('formatLeadMessage') && message.includes('escapeTelegramHtml'), 'HTML escape ishlatilishi kerak');
   assert.ok(route.includes('checkRateLimit'), 'rate limit bo‘lishi kerak');
   assert.ok(route.includes('website'), 'honeypot maydoni bo‘lishi kerak');
   assert.ok(!route.includes('@/lib/db'), 'baza importi bo‘lmasligi kerak');

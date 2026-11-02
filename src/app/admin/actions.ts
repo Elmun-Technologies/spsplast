@@ -15,7 +15,9 @@ import {
 } from '@/server/auth';
 import { getDb } from '@/server/db/client';
 import { ADMIN_ROLES, LEAD_STATUSES, type AdminRole, type LeadStatus } from '@/server/db/schema';
-import { addLeadNote, assignLead, recentHits, recordHit, setLeadStatus } from '@/server/leads';
+import { addLeadNote, assignLead, recentHits, recordHit, resendLeadTelegram, setLeadStatus } from '@/server/leads';
+import { sendTelegramNotification } from '@/lib/telegram';
+import { SITE_URL } from '@/lib/seo';
 import { clearSessionCookie, requireUser, setSessionCookie } from '@/server/session';
 import { saveIntegrations, triggerPublish } from '@/server/settings';
 import { INTEGRATION_FIELDS } from '@/lib/integrations';
@@ -90,6 +92,16 @@ export async function noteAction(fd: FormData): Promise<void> {
   if (!id) return;
   await addLeadNote(db, id, user.id, str(fd, 'body'));
   revalidatePath(`/admin/leads/${id}`);
+}
+
+/** Telegram'ga yetmagan zayafkani qayta yuborish (zayafka sahifasidagi tugma). */
+export async function resendTelegramAction(fd: FormData): Promise<void> {
+  const { user, db } = await requireUser();
+  const id = int(fd, 'leadId');
+  if (!id) return;
+  await resendLeadTelegram(db, id, user.id, SITE_URL, sendTelegramNotification);
+  revalidatePath(`/admin/leads/${id}`);
+  revalidatePath('/admin');
 }
 
 export async function createUserAction(_prev: FormState, fd: FormData): Promise<FormState> {

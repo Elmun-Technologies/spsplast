@@ -92,6 +92,7 @@
 .adm-dl dd { margin: 0; overflow-wrap: anywhere; }
 @media (max-width: 520px) { .adm-dl { grid-template-columns: 1fr; gap: 0; } .adm-dl dd { margin-bottom: 10px; } }
 .adm-contact { display: flex; gap: 8px; flex-wrap: wrap; margin: 16px 0 0; }
+.adm-resend { margin: 12px 0 0; }
 .adm-statusbar { display: flex; gap: 6px; flex-wrap: wrap; }
 .adm-statusbar button { height: 40px; padding: 0 14px; border-radius: var(--radius-pill); border: 1px solid var(--line-strong); background: var(--surface); font: 500 14px/18px var(--font-sans); cursor: pointer; color: var(--ink); }
 .adm-statusbar button[aria-pressed='true'] { background: var(--ink); color: var(--surface); border-color: var(--ink); cursor: default; }

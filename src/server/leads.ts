@@ -1,5 +1,6 @@
 import { and, count, desc, eq, gte, ilike, inArray, lt, or, sql } from 'drizzle-orm';
 import type { Db } from './db/client.ts';
+import { formatLeadMessage } from './leadMessage.ts';
 import {
   adminUsers,
   leadActivity,
@@ -114,6 +115,39 @@ export async function markTelegram(db: Db, leadId: number, delivered: boolean): 
   if (!delivered) {
     await db.insert(leadActivity).values({ leadId, kind: 'telegram', body: "Telegram'ga yetkazilmadi" });
   }
+}
+
+/**
+ * Telegram'ga yetmagan zayafkani admin'dan qayta yuborish (audit 2026-11-02). Xabar bazadagi
+ * ma'lumotdan qayta yig'iladi (sarlavhada "Qayta yuborildi"), natija tarixga yoziladi.
+ * `send` — `sendTelegramNotification` (testlarda soxta funksiya).
+ */
+export async function resendLeadTelegram(
+  db: Db,
+  leadId: number,
+  userId: number,
+  siteUrl: string,
+  send: (message: string) => Promise<boolean>,
+): Promise<boolean> {
+  const [lead] = await db.select().from(leads).where(eq(leads.id, leadId)).limit(1);
+  if (!lead) return false;
+  const items = await db.select().from(leadItems).where(eq(leadItems.leadId, leadId)).orderBy(leadItems.id);
+  const ok = await send(
+    formatLeadMessage({
+      ...lead,
+      items,
+      siteUrl,
+      resent: true,
+    }),
+  );
+  await db.update(leads).set({ telegramDelivered: ok || lead.telegramDelivered, updatedAt: new Date() }).where(eq(leads.id, leadId));
+  await db.insert(leadActivity).values({
+    leadId,
+    userId,
+    kind: 'telegram',
+    body: ok ? "Telegram'ga qayta yuborildi" : "Qayta yuborish ham Telegram'ga yetmadi",
+  });
+  return ok;
 }
 
 /**

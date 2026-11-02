@@ -61,6 +61,11 @@ function materialize(absFile) {
   const rewritten = source.replace(
     /(from\s+|import\s*\(\s*)(['"])([^'"]+)\2/g,
     (match, prefix, quote, spec) => {
+      // `next/server` kabi subpath'lar: Next paketida `exports` xaritasi yo'q, Node ESM esa
+      // kengaytmasiz CJS faylni topolmaydi — `next/server.js` ga aylantiramiz (route testlari).
+      if (/^next\/[a-z-]+$/.test(spec) && fs.existsSync(path.join(ROOT, 'node_modules', `${spec}.js`))) {
+        return `${prefix}${quote}${spec}.js${quote}`;
+      }
       if (!spec.startsWith('@/') && !spec.startsWith('.')) return match; // bare: next, react...
       const target = resolveSpec(spec, absFile);
       if (!target) return match;
