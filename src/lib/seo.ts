@@ -134,8 +134,16 @@ function postalAddress(lang: Locale): JsonLdValue {
   };
 }
 
-/** `description` — sahifa tilidagi matn (`getUi(lang).footer.about`), kod ichida yozilmaydi. */
-export function jsonLdOrganization(lang: Locale = 'uz', description?: string): JsonLdValue {
+/**
+ * `description` — sahifa tilidagi matn (`getUi(lang).footer.about`), kod ichida yozilmaydi.
+ * `rating` — faqat kamida bitta sharhga baho qo'yilgan bo'lsa beriladi (`aggregateRating`
+ * ishonch dalillari, audit 2026-11-02, 3-bosqich: `src/lib/testimonials2027.ts`).
+ */
+export function jsonLdOrganization(
+  lang: Locale = 'uz',
+  description?: string,
+  rating?: { ratingValue: string; reviewCount: number },
+): JsonLdValue {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
@@ -146,6 +154,22 @@ export function jsonLdOrganization(lang: Locale = 'uz', description?: string): J
     telephone: CONTACT_PHONE,
     address: postalAddress(lang),
     sameAs: [...SOCIAL_PROFILES],
+    aggregateRating: rating
+      ? { '@type': 'AggregateRating', ratingValue: rating.ratingValue, reviewCount: rating.reviewCount, bestRating: '5', worstRating: '1' }
+      : undefined,
+  };
+}
+
+/** Bitta mijoz sharhi (narxsiz — HANDOFF, faqat matn/baho). `rating` bo'lmasa `reviewRating` chiqmaydi. */
+export function jsonLdReview(opts: { authorName: string; reviewBody: string; rating?: number | null }): JsonLdValue {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Review',
+    itemReviewed: { '@type': 'Organization', name: SITE_NAME },
+    author: { '@type': 'Person', name: opts.authorName },
+    reviewBody: opts.reviewBody,
+    reviewRating:
+      opts.rating != null ? { '@type': 'Rating', ratingValue: String(opts.rating), bestRating: '5', worstRating: '1' } : undefined,
   };
 }
 

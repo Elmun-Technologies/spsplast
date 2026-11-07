@@ -56,6 +56,9 @@ export const pagesUz = {
     wholesalePdf: 'PDF katalog',
     wholesaleImg1: 'Quyish sexi',
     wholesaleImg2: 'SPS plastik qolipi',
+    testimonialsEyebrowLabel: 'MIJOZLAR',
+    testimonialsEyebrow: 'Ishonch dalillari',
+    testimonialsTitle: 'Mijozlar fikri',
   },
 
   model: {
@@ -335,6 +338,7 @@ export const pagesUz = {
       { value: '{objects}', unit: '', label: 'Obyekt' },
       { value: '{countries}', unit: '', label: 'Eksport davlati' },
     ],
+    factoryVideoTitle: 'SPS zavodi videosi',
     materialEyebrow: 'MATERIAL',
     materialTitle: "Ikki material — har biri o'z vazifasiga.",
     materialLead: "Trotuar qoliplari polipropilen yoki ABS'dan ishlab chiqariladi. Fasad, zabor va dekor qoliplari ikkala variantda bor.",

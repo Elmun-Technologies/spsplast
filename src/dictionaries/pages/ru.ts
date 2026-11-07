@@ -54,6 +54,9 @@ export const pagesRu: PagesDictionary = {
     wholesalePdf: 'PDF-каталог',
     wholesaleImg1: 'Литейный цех',
     wholesaleImg2: 'Пластиковая форма SPS',
+    testimonialsEyebrowLabel: 'КЛИЕНТЫ',
+    testimonialsEyebrow: 'Отзывы и доверие',
+    testimonialsTitle: 'Отзывы клиентов',
   },
 
   model: {
@@ -325,6 +328,7 @@ export const pagesRu: PagesDictionary = {
       { value: '{objects}', unit: '', label: 'Объектов' },
       { value: '{countries}', unit: '', label: 'Стран экспорта' },
     ],
+    factoryVideoTitle: 'Видео завода SPS',
     materialEyebrow: 'МАТЕРИАЛ',
     materialTitle: 'Два материала — у каждого своя задача.',
     materialLead: 'Формы для тротуарной плитки производятся из полипропилена или ABS. Фасадные, заборные и декоративные формы есть в обоих вариантах.',

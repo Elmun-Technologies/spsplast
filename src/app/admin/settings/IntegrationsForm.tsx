@@ -7,6 +7,7 @@ import { saveIntegrationsAction, type FormState } from '../actions';
 const GROUPS = [
   { key: 'contacts', title: "Kontaktlar (header, footer, kontakt sahifasi, JSON-LD)" },
   { key: 'stats', title: "Saytdagi raqamlar (3 tilda avtomatik)" },
+  { key: 'trust', title: 'Ishonch dalillari' },
   { key: 'analytics', title: 'Analitika' },
   { key: 'ads', title: 'Reklama piksellari' },
   { key: 'verification', title: 'Qidiruv tizimlari va domen tasdig\'i (SEO)' },

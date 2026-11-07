@@ -23,6 +23,10 @@ qarorlar va og'ishlar (sababi bilan). Ma'lumot darajasidagi batafsil savollar:
 | 1.10 | Eksport xaritasi (`map-uz.webp`) faqat o'zbekcha — RU/EN versiyalari kerakmi? | Bitta rasm uch tilda ham shu. |
 | 1.11 | Maxfiylik siyosati matni yuridik tekshiruvdan o'tganmi? (`[YURIST TASDIG'I]` belgisi bor) | Matn maketdan olingan, placeholder saqlanadi. |
 | 1.12 | RU/EN sahifa matnlari (model, solishtirish, zayafka, ulgurji, ishlab chiqarish, kontakt, maxfiylik, 404) agent tarjimasi — marketolog tekshiradimi? | uz matnlari maketdan; ru/en tarjima qilingan. |
+| 1.13 | Mijoz sharhlari (3-5 ta haqiqiy): matn, ism, (ixtiyoriy) baho? Audit 2026-11-02, 3-bosqich: "ishonch dalillari". | **Texnik tayyorgarlik tayyor**: Admin → Sharhlar (`/admin/testimonials`) — admin kiritgan sharhlar bosh sahifada chiqadi va JSON-LD Review/AggregateRating hosil bo'ladi. Hozir 0 ta sharh — bo'lim butunlay yashirin (soxta sharh yozilmadi). |
+| 1.14 | 6-9 ta haqiqiy obyekt (quyilgan plitka/fasad) fotosi bormi? | Hozircha faqat studiyadagi qolip suratlari (`public/images/site/molds/`). Rasm kelganda `partners`/bosh sahifadagi mavjud massiv-asoslangan andozaga (`whoMedia`, `moldWall`) qo'shish kifoya — yangi kod/jadval kerak emas. |
+| 1.15 | Zavod videosi (YouTube/Vimeo havolasi)? | **Texnik tayyorgarlik tayyor**: Admin → Sozlamalar → "Ishonch dalillari" → "Zavod videosi" maydoni. Kiritilsa ishlab chiqarish sahifasida avtomatik ko'rinadi (CSP `frame-src` YouTube/Vimeo'ga ochiq). |
+| 1.16 | Sertifikat(lar) bormi (sifat, GOST/standart)? Minimal buyurtma/muddat/to'lov bo'yicha aniq oraliqlar berilsinmi (hozir "Menejer bilan kelishiladi")? | Hali kod ishi yo'q — sertifikat uchun rasm/fayl kelsa, mavjud rasm yuklash andozasi (mahsulot rasmlari kabi) bilan tezda qo'shiladi. Aniq oraliq berilmaguncha "kelishiladi" matni qoladi (Biznes qoidasi 4: `[...]` ko'rinmaydi). |
 
 ### 2. Migratsiya (301)
 
@@ -72,6 +76,7 @@ Qaror qilinmaguncha kod A variantda qoldi. `npm run shots` hisoboti aniq ro'yxat
 | B10 | Analitika ID'lari faqat env orqali; ID bo'lmasa skript yuklanmaydi. | Secret'lar kodda bo'lmasligi kerak (foydalanuvchi talabi) va preview'da statistika ifloslanmasligi kerak. |
 | B11 | Filtrlar/qidiruv mijoz tomonida (`window.location.search`), server `searchParams` o'qimaydi. | Bo'lim sahifalari to'liq statik qoladi (`dynamicParams = false`) — noma'lum slug uchun qattiq 404, CDN kesh va yuqori Lighthouse balli. |
 | B12 | `npm test` node:test + type-stripping (Playwright/Vitest yo'q), `@/` aliasli modullar `tests/helpers/load-alias.mjs` orqali yuklanadi. | Sandbox'da brauzer o'rnatib bo'lmaydi; testlar haqiqiy `sitemap.ts`/`seo.ts` kodini chaqiradi (nusxa emas). |
+| B13 | Mijoz sharhlari (bosh sahifa) va zavod videosi (ishlab chiqarish) uslubi ataylab sodda (mavjud `.sec`/`.sps-eyebrow`/`.h1` token'lari, maxsus vizual dizayn yo'q). | HANDOFF maketida bu bo'limlar yo'q (yangi funksiya, audit 2026-11-02 3-bosqich: "ishonch dalillari"). Maxsus dizayn o'rniga boshqa bo'limlar bilan uyg'un, minimal ko'rinish tanlandi — rasmiy dizayn bosqichida nafislashtirilishi mumkin. Kontent bo'lmasa (0 sharh, video havolasi yo'q) ikkala bo'lim ham butunlay yashirin. |
 ## C. O'lchov metodikasi eslatmalari (2026-10-11)
 
 - **Lighthouse mediana**: CI runner'ida bitta yurish shovqini katta (bosh sahifa

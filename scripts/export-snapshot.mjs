@@ -111,6 +111,9 @@ try {
   const seoRows = await optional(() => sql`select path, lang, title, description, h1, intro, noindex from seo_pages order by path, lang`);
   const textRows = await optional(() => sql`select key, lang, value from content_overrides order by key, lang`);
   const redirectRows = await optional(() => sql`select source, destination from redirects order by source`);
+  const testimonialRows = await optional(
+    () => sql`select id, author_name, author_role, text, rating from testimonials where visible order by sort, id`,
+  );
   const texts = {};
   for (const r of textRows) (texts[r.lang] ??= {})[r.key] = r.value;
   fs.writeFileSync(
@@ -150,10 +153,11 @@ try {
     models: null,
     seo: seoRows.map((r) => ({ path: r.path, lang: r.lang, title: r.title, description: r.description, h1: r.h1, intro: r.intro, noindex: r.noindex })),
     texts,
+    testimonials: testimonialRows.map((r) => ({ id: r.id, authorName: r.author_name, authorRole: r.author_role, text: r.text, rating: r.rating })),
   });
   if (models) fs.writeFileSync(OUT_JSON, JSON.stringify({ sections: sectionRows, models }));
   console.log(
-    `[snapshot] ${hasCatalog ? `${models.length} ta nashr qilingan mahsulot, ${sectionRows.length} bo'lim` : 'katalog bazada yo\'q (statik)'}; ${Object.keys(settings).length} sozlama; SEO ${seoRows.length}, matn ${textRows.length}, 301 ${redirectRows.length}.`,
+    `[snapshot] ${hasCatalog ? `${models.length} ta nashr qilingan mahsulot, ${sectionRows.length} bo'lim` : 'katalog bazada yo\'q (statik)'}; ${Object.keys(settings).length} sozlama; SEO ${seoRows.length}, matn ${textRows.length}, 301 ${redirectRows.length}, sharh ${testimonialRows.length}.`,
   );
 } catch (error) {
   console.error('[snapshot] bazadan o\'qib bo\'lmadi:', error.message);

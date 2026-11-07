@@ -14,6 +14,15 @@ export type SnapshotSeoPage = {
   noindex: boolean;
 };
 
+/** Mijoz sharhi (`testimonials` jadvali, faqat `visible` qatorlar). */
+export type SnapshotTestimonial = {
+  id: number;
+  authorName: SnapshotLocalized;
+  authorRole: SnapshotLocalized | null;
+  text: SnapshotLocalized;
+  rating: number | null;
+};
+
 export type SiteSnapshot = {
   generatedAt: string;
   /** Integratsiya sozlamalari (kalit → qiymat), `src/lib/integrations.ts`. */
@@ -25,4 +34,6 @@ export type SiteSnapshot = {
   seo?: SnapshotSeoPage[];
   /** Matnlar (CMS): til → `pages.home.h1` kabi kalit → matn. */
   texts?: Partial<Record<'uz' | 'ru' | 'en', Record<string, string>>>;
+  /** Mijoz sharhlari (eski snapshot'larda yo'q — bo'sh massiv bilan teng). */
+  testimonials?: SnapshotTestimonial[];
 };

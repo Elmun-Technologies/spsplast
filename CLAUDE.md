@@ -70,6 +70,12 @@ src/lib/seoPages.ts          # SEO landing logic: TAG_DEFS (MIN_TAG_MODELS=6), E
 src/components/seo2028/SeoBlocks.tsx  # TagChips, CountriesStrip, PavingGuide (server components)
 src/app/robots.ts            # allow all; disallow /api/, /*/compare, /*/request
 src/components/site/JsonLd.tsx     # server-only <script type="application/ld+json"> renderer
+src/server/testimonials.ts  # customer reviews admin CRUD (list/save/delete), "trust signals" prep (3.3)
+src/app/admin/testimonials/ # admin "Sharhlar" page + TestimonialForm.tsx + actions.ts
+src/lib/testimonials2027.ts # getTestimonials() (snapshot, empty-safe) + lang fallback + aggregateRating()
+src/lib/video2027.ts        # factory_video_url setting → safe YouTube/Vimeo embed URL (ID-only, never raw src)
+src/components/site/Testimonials.tsx  # home-page reviews section, renders null when empty
+src/components/site/FactoryVideo.tsx  # production-page video embed, renders null when unset
 scripts/redirects-2027.json  # GENERATED 301 map (436 entries) — read by next.config.js
 scripts/extract/build_redirects_2027.py  # generator: legacy catalog × models-2027 name match
 scripts/lib/routes.mjs       # audit routes (AUDIT_ROUTES) + screenshot plan (SHOT_PLAN) + viewports
@@ -312,6 +318,33 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   - Mobile menu (`HeaderClient.tsx`) has a Tab/Shift+Tab focus trap inside `#sps-mobile-menu` while
     open (axe needs a real browser for this, not `audit-a11y.mjs`'s jsdom pass).
 
+- **Audit 2026-11-02, stage 3.3 (trust signals, `tests/testimonials2027.test.js`)** — keep them:
+  - **Technical preparation only** — no fake reviews/photos were invented. Built: `testimonials` table
+    (migration `0003`) + admin CRUD (`/admin/testimonials`) + `factory_video_url` setting (admin →
+    Sozlamalar → "Ishonch dalillari"). Both are **empty-safe**: 0 testimonials or no video URL means
+    the corresponding component (`Testimonials.tsx`/`FactoryVideo.tsx`) returns `null` — nothing fake
+    ever renders, consistent with Business Rule 4. Remaining asks (project photos, certificates,
+    concrete min-order/timeline/payment ranges) are pure business content with no code blocker —
+    tracked in `docs/unresolved-questions.md` §1.13–1.16.
+  - `src/lib/testimonials2027.ts`'s `getTestimonials()` reads `siteSnapshot?.testimonials ?? []` —
+    never throws when `DATABASE_URL` is unset (same empty-safe pattern as `catalog2027.ts`).
+  - `jsonLdOrganization()` takes an optional 3rd `rating` param (`AggregateRating`, computed from
+    testimonials that have a `rating`) — only emitted when at least one testimonial has a rating,
+    so an unrated review doesn't silently count toward a fake average.
+  - **Video embed never renders an admin-supplied URL as a raw iframe `src`.** `video2027.ts`
+    extracts the YouTube/Vimeo video ID via regex and rebuilds a known-shape `/embed/` URL — so even
+    a compromised admin account can't point the iframe at an arbitrary origin. CSP `frame-src` in
+    `next.config.js` only allows `youtube.com`/`player.vimeo.com` (plus the existing GTM host).
+  - Caught during review, not after: a hidden input named `id` in `TestimonialForm.tsx` (the exact
+    `form.id`-collision bug already documented below under "Admin forms") — renamed to
+    `testimonialId` before it ever shipped.
+  - New admin section follows the existing small-CRUD template exactly (`src/app/admin/products/
+    sections/{page.tsx,SectionForm.tsx}`): `tests/admin2027.test.js` test 12's generic `requireUser()`
+    scan covers it with no test changes needed.
+  - No HANDOFF design exists for a reviews/video section (new functionality, not in the approved
+    package) — intentionally built with existing tokens/classes only (`.sec`, `.sps-eyebrow`, `.h1`),
+    no bespoke CSS, so it doesn't invent unapproved visual language; a future design pass can refine it.
+
 - **Never reintroduce Tailwind.** The database is back (Stage 7, user decision) **only** behind
   `src/server/` — public pages (`[lang]`, `components`, `lib`) must never import it
   (`tests/platform.test.js` test 6), otherwise the storefront stops being static.
@@ -422,7 +455,7 @@ npm run dev            # local dev server
 npm run build          # models:check + next build (448 static pages)
 npm run typecheck      # tsc --noEmit
 npm run lint           # next lint
-npm test               # node --test --experimental-strip-types tests/*.test.js (174 tests)
+npm test               # node --test --experimental-strip-types tests/*.test.js (180 tests)
 npm run models:build && npm run models:images && npm run models:check
 npm run db:generate    # after editing src/server/db/schema.ts → new SQL in drizzle/
 DATABASE_URL=... npm run db:migrate

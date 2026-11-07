@@ -54,6 +54,9 @@ export const pagesEn: PagesDictionary = {
     wholesalePdf: 'PDF catalog',
     wholesaleImg1: 'Casting workshop',
     wholesaleImg2: 'SPS plastic mold',
+    testimonialsEyebrowLabel: 'CUSTOMERS',
+    testimonialsEyebrow: 'Trust signals',
+    testimonialsTitle: 'Customer reviews',
   },
 
   model: {
@@ -325,6 +328,7 @@ export const pagesEn: PagesDictionary = {
       { value: '{objects}', unit: '', label: 'Projects' },
       { value: '{countries}', unit: '', label: 'Export countries' },
     ],
+    factoryVideoTitle: 'SPS factory video',
     materialEyebrow: 'MATERIAL',
     materialTitle: 'Two materials — each with its own job.',
     materialLead: 'Paving molds are made of polypropylene or ABS. Facade, fence and decor molds are available in both versions.',

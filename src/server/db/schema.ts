@@ -256,6 +256,23 @@ export const products = pgTable(
   (t) => [index('products_section_idx').on(t.section), index('products_status_idx').on(t.status)],
 );
 
+/**
+ * Mijoz sharhlari (audit 2026-11-02, 3-bosqich — "ishonch dalillari", texnik tayyorgarlik:
+ * admin haqiqiy sharh kiritguncha jadval bo'sh, saytda hech narsa ko'rinmaydi).
+ * `rating` — 1-5, ixtiyoriy (bo'lsa JSON-LD AggregateRating'ga qo'shiladi).
+ */
+export const testimonials = pgTable('testimonials', {
+  id: serial('id').primaryKey(),
+  authorName: jsonb('author_name').$type<LocalizedText>().notNull(),
+  authorRole: jsonb('author_role').$type<LocalizedText | null>(),
+  text: jsonb('text').$type<LocalizedText>().notNull(),
+  rating: integer('rating'),
+  sort: integer('sort').notNull().default(100),
+  visible: boolean('visible').notNull().default(true),
+  createdAt: createdAt(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+});
+
 /** Admin'dan yuklangan rasmlar (WebP). `/media/{id}.webp` orqali uzoq kesh bilan beriladi. */
 export const media = pgTable('media', {
   id: text('id').primaryKey(),

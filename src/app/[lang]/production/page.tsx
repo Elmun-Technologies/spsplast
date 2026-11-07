@@ -6,6 +6,8 @@ import { getPages } from '@/lib/pages';
 import { getTotalCount } from '@/lib/catalog2027';
 import { JsonLd } from '@/components/site/JsonLd';
 import { jsonLdBreadcrumb, pageMetadata } from '@/lib/seo';
+import { FactoryVideo } from '@/components/site/FactoryVideo';
+import { factoryVideoEmbedUrl } from '@/lib/video2027';
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -77,6 +79,8 @@ export default async function ProductionPage({ params }: { params: Promise<{ lan
           </div>
         </div>
       </section>
+
+      <FactoryVideo embedUrl={factoryVideoEmbedUrl()} title={p.production.factoryVideoTitle} />
 
       {/* Material: PP vs ABS */}
       <section className="sec">

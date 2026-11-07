@@ -63,7 +63,9 @@ const nextConfig = {
                 `img-src 'self' data: ${ANALYTICS_HOSTS.join(' ')}`,
                 "font-src 'self'",
                 `connect-src 'self' ${ANALYTICS_HOSTS.join(' ')}`,
-                "frame-src 'self' https://www.googletagmanager.com",
+                // YouTube/Vimeo (audit 2026-11-02, 3-bosqich: zavod videosi) — faqat embed
+                // iframe uchun, admin'dagi havoladan ID ajratib olingach (src/lib/video2027.ts).
+                "frame-src 'self' https://www.googletagmanager.com https://www.youtube.com https://player.vimeo.com",
                 "object-src 'none'",
                 "base-uri 'self'",
                 "form-action 'self'",

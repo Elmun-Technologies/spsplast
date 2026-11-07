@@ -14,6 +14,7 @@ const NAV = [
   { href: '/admin/visits', label: 'Tashriflar', key: 'visits' },
   { href: '/admin/analytics', label: 'Analitika', key: 'analytics' },
   { href: '/admin/products', label: 'Mahsulotlar', key: 'products' },
+  { href: '/admin/testimonials', label: 'Sharhlar', key: 'testimonials' },
   { href: '/admin/content', label: 'Matnlar', key: 'content', admin: true },
   { href: '/admin/seo', label: 'SEO', key: 'seo', admin: true },
   { href: '/admin/settings', label: 'Sozlamalar', key: 'settings', admin: true },
