@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { SECTION_SLUGS, getPopular, getTotalCount, modelImage, modelName, modelPerM2, modelThickness } from '@/lib/catalog2027';
 import { isValidLocale, locales, type Locale } from '@/lib/i18n';
 import { getUi } from '@/lib/ui';
+import { getPages } from '@/lib/pages';
 import { getSitePages } from '@/lib/pagesServer';
 import { CONTACTS_2027 } from '@/lib/contacts2027';
 import { EXPORT_COUNTRIES, isExportCountry } from '@/lib/seoPages';
@@ -49,6 +50,9 @@ export default async function ExportCountryPage({ params }: { params: Promise<Pa
 
   const t = getUi(lang);
   const p = getSitePages(lang);
+  // `PartnersForm` endi lug'atni o'zi so'ramaydi (audit 2026-11-02, 3.4-band) — `getSitePages`
+  // (`p`) shu sahifaning SEO matni, forma esa boshqa shaklga (`PagesDictionary`) muhtoj.
+  const partnersPages = getPages(lang);
   const g = p.seo.geo;
   const c = g.countries[country];
   const total = getTotalCount();
@@ -177,7 +181,13 @@ export default async function ExportCountryPage({ params }: { params: Promise<Pa
           </div>
           <div className="hm-stack">
             <h2 className="h1">{g.formTitle}</h2>
-            <PartnersForm lang={lang} defaultCountry={c.name} phonePrefix={EXPORT_COUNTRIES.find((x) => x.key === country)?.phone} />
+            <PartnersForm
+              lang={lang}
+              defaultCountry={c.name}
+              phonePrefix={EXPORT_COUNTRIES.find((x) => x.key === country)?.phone}
+              t={t}
+              p={{ model: partnersPages.model, partners: partnersPages.partners, request: partnersPages.request }}
+            />
           </div>
         </div>
       </section>

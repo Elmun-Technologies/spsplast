@@ -20,3 +20,17 @@ export const defaultLocale: Locale = 'uz';
 export function isValidLocale(lang: string): lang is Locale {
   return (locales as string[]).includes(lang);
 }
+
+/**
+ * `{one, few, many}` shakllaridan birini tanlaydi (`Intl.PluralRules`, 'zero'/'two' holatlari
+ * 'many'ga tushadi — `getUi(lang).models`dagi uchta shaklga mos). `pluralModels` (`lib/ui.ts`)
+ * bilan bir xil mantiq, lekin lug'atga (`getUi`) bog'liq emas — klient komponent `p.*.subtitleForms`
+ * kabi allaqachon uzatilgan, bitta tilga tegishli ma'lumotni ishlatganda shu funksiya kerak
+ * bo'ladi (audit 2026-11-02, 3.4-band: uch tilning HAM lug'ati klient bundle'iga tushmasin).
+ */
+export function pluralCategory<T extends string>(lang: Locale, n: number, forms: { one: T; few: T; many: T }): T {
+  const category = new Intl.PluralRules(lang === 'uz' ? 'uz' : lang).select(n);
+  if (category === 'one') return forms.one;
+  if (category === 'few') return forms.few;
+  return forms.many;
+}

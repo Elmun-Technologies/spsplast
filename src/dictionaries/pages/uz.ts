@@ -67,7 +67,9 @@ export const pagesUz = {
     photoAskTitle: 'Bu modelning surati tez orada qo‘shiladi',
     photoAskText: 'Menejer qolip va tayyor plitka suratini WhatsApp yoki Telegram’da yuboradi.',
     photoAskWa: 'WhatsApp’da so‘rash',
-    photoAskMessage: (label: string) => `Salom! ${label} qolipining suratini yuborsangiz.`,
+    /** `{label}` o'rniga model nomi qo'yiladi — server tomonda (audit 2026-11-02, 3.4-band: funksiya
+     * emas, oddiy satr, aks holda klient komponentga uzatilganda RSC serializatsiyasi buziladi). */
+    photoAskMessageTemplate: 'Salom! {label} qolipining suratini yuborsangiz.',
     materialTag: 'PP / ABS',
     keyTile: 'Tayyor plitka',
     keyPer: '1 m² ga',
@@ -89,7 +91,7 @@ export const pagesUz = {
     ctaCompare: 'Solishtirish',
     ctaCompareOn: 'Solishtirishda ✓',
     callA11y: "Qo'ng'iroq qilish",
-    waAbout: (label: string) => `Salom! ${label} qolipi bo‘yicha savolim bor.`,
+    waAboutTemplate: 'Salom! {label} qolipi bo‘yicha savolim bor.',
     gallery: {
       scene: "Terilgan ko'rinish",
       mold: 'Qolip · haqiqiy surat',
@@ -161,8 +163,12 @@ export const pagesUz = {
 
   compare: {
     title: 'Solishtirish',
-    subtitle: (n: number, diff: boolean) =>
-      `${n} ta model${diff ? " · farq qiladigan qatorlar sariq bilan belgilangan" : ''}`,
+    /** Funksiya emas, oddiy ma'lumot (audit 2026-11-02, 3.4-band): `n` klient holatiga
+     * bog'liq (ro'yxatdagi model soni), shuning uchun klient `Intl.PluralRules` bilan
+     * shaklni o'zi tanlaydi — `getUi`/`pluralModels` chaqirilmaydi (uch tilning HAM
+     * lug'ati klient bundle'iga tushmasin). */
+    subtitleForms: { one: 'ta model', few: 'ta model', many: 'ta model' },
+    subtitleDiffSuffix: " · farq qiladigan qatorlar sariq bilan belgilangan",
     onlyDiff: "Faqat farqlarni ko'rsatish",
     removeA11y: 'Olib tashlash',
     rows: {
@@ -181,7 +187,6 @@ export const pagesUz = {
     emptyText: 'Katalogda kartochkadagi "Solishtirish" belgisini bosing — maks 4 ta model.',
     toCatalog: 'Katalogga o\'tish',
     dash: '—',
-    setValue: (n: number, letters: string) => `${n}${letters ? ` (${letters})` : ''}`,
     useWalk: "Piyoda yo'lak",
     useYard: 'Hovli',
     useCar: 'Avtoturargoh',
@@ -194,7 +199,8 @@ export const pagesUz = {
     colVolume: 'Kunlik hajm, m²',
     volumeA11y: 'Kunlik hajm, m²',
     removeA11y: 'Olib tashlash',
-    approx: (n: string) => `≈ ${n} qolip`,
+    /** `{n}` o'rniga son klient tomonda qo'yiladi (audit 2026-11-02, 3.4-band). */
+    approxTemplate: '≈ {n} qolip',
     managerCounts: 'soni menejer hisoblaydi',
     emptyTitle: "Ro'yxat bo'sh",
     emptyText: "Katalogdan modellarni tanlang yoki shunchaki zayafka qoldiring — menejer o'zi tavsiya qiladi.",

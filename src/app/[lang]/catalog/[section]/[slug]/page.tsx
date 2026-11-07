@@ -116,7 +116,7 @@ export default async function ModelPage({ params }: { params: Promise<Params> })
           jsonLdFaq(p.model.faq),
         ]}
       />
-      <ModelClient lang={lang} model={model} related={relatedModels(model, 4)} />
+      <ModelClient lang={lang} model={model} related={relatedModels(model, 4)} t={t} p={{ model: p.model, partners: p.partners }} />
     </>
   );
 }

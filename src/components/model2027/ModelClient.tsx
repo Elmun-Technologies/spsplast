@@ -16,8 +16,8 @@ import {
   sectionLabel,
 } from '@/lib/catalog2027';
 import type { Locale } from '@/lib/i18n';
-import { getUi, formatNumber } from '@/lib/ui';
-import { getPages } from '@/lib/pages';
+import { formatNumber, type UiDictionary } from '@/lib/ui';
+import type { PagesDictionary } from '@/lib/pages';
 import { CONTACTS_2027 } from '@/lib/contacts2027';
 import { useCompareList, useRequestList } from '@/lib/store/spsLists';
 import dynamic from 'next/dynamic';
@@ -43,18 +43,28 @@ export function ModelClient({
   lang,
   model,
   related,
+  t,
+  p,
 }: {
   lang: Locale;
   model: Model;
   related: Model[];
+  /** Server komponentdan tayyor holda keladi (audit 2026-11-02, 3.4-band): mijozga
+   * uch tilning HAM lug'ati emas, faqat joriy til ma'lumoti RSC orqali yuboriladi —
+   * `@/lib/ui`/`@/lib/pages` modullari (barcha til obyektlari) klient bundle'iga tushmaydi.
+   * Faqat kerakli bo'limlar (`Pick`) — `p.home` kabi boshqa bo'limlar (funksiya maydonlari
+   * bor, RSC orqali o'ta olmaydi) umuman uzatilmaydi. */
+  t: UiDictionary;
+  p: Pick<PagesDictionary, 'model' | 'partners'>;
 }) {
-  const t = getUi(lang);
-  const p = getPages(lang);
   const request = useRequestList();
   const compare = useCompareList();
   const [leadOpen, setLeadOpen] = useState(false);
   const [tab, setTab] = useState<'spec' | 'use' | 'delivery' | 'faq'>('spec');
   const [m2, setM2] = useState('100');
+  const modelLabel = `${model.code ? `№ ${model.code} ` : ''}${modelName(model, lang)}`;
+  const photoAskMessage = p.model.photoAskMessageTemplate.replace('{label}', modelLabel);
+  const waAboutMessage = p.model.waAboutTemplate.replace('{label}', modelLabel);
 
   const gallery = useMemo<GalleryItem[]>(() => {
     const out: GalleryItem[] = [];
@@ -227,7 +237,7 @@ export function ModelClient({
                   <span className="row" style={{ justifyContent: 'center' }}>
                     <a
                       className="sps-btn sps-btn--dark sps-btn--sm"
-                      href={`${CONTACTS_2027.whatsappUrl}?text=${encodeURIComponent(p.model.photoAskMessage(`${model.code ? `№ ${model.code} ` : ''}${modelName(model, lang)}`))}`}
+                      href={`${CONTACTS_2027.whatsappUrl}?text=${encodeURIComponent(photoAskMessage)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -531,7 +541,7 @@ export function ModelClient({
         </a>
         <a
           className="sps-btn sps-btn--outline"
-          href={`${CONTACTS_2027.whatsappUrl}?text=${encodeURIComponent(p.model.waAbout(`${model.code ? `№ ${model.code} ` : ''}${modelName(model, lang)}`))}`}
+          href={`${CONTACTS_2027.whatsappUrl}?text=${encodeURIComponent(waAboutMessage)}`}
           target="_blank"
           rel="noopener noreferrer"
           aria-label={t.menu.waWrite}

@@ -64,7 +64,7 @@ export const pagesEn: PagesDictionary = {
     photoAskTitle: 'A photo of this model is coming soon',
     photoAskText: 'Your manager will send photos of the mold and the finished tile on WhatsApp or Telegram.',
     photoAskWa: 'Ask on WhatsApp',
-    photoAskMessage: (label: string) => `Hello! Could you send a photo of the ${label} mold?`,
+    photoAskMessageTemplate: 'Hello! Could you send a photo of the {label} mold?',
     materialTag: 'PP / ABS',
     keyTile: 'Finished tile',
     keyPer: 'Per 1 m²',
@@ -86,7 +86,7 @@ export const pagesEn: PagesDictionary = {
     ctaCompare: 'Compare',
     ctaCompareOn: 'In comparison ✓',
     callA11y: 'Call us',
-    waAbout: (label: string) => `Hello! I have a question about the ${label} mold.`,
+    waAboutTemplate: 'Hello! I have a question about the {label} mold.',
     gallery: {
       scene: 'Laid view',
       mold: 'Mold · real photo',
@@ -155,7 +155,8 @@ export const pagesEn: PagesDictionary = {
 
   compare: {
     title: 'Compare',
-    subtitle: (n: number, diff: boolean) => `${n} model${n === 1 ? '' : 's'}${diff ? ' · rows that differ are highlighted' : ''}`,
+    subtitleForms: { one: 'model', few: 'models', many: 'models' },
+    subtitleDiffSuffix: ' · rows that differ are highlighted',
     onlyDiff: 'Show differences only',
     removeA11y: 'Remove',
     rows: {
@@ -174,7 +175,6 @@ export const pagesEn: PagesDictionary = {
     emptyText: 'Tap "Compare" on a catalog card — up to 4 models.',
     toCatalog: 'Go to catalog',
     dash: '—',
-    setValue: (n: number, letters: string) => `${n}${letters ? ` (${letters})` : ''}`,
     useWalk: 'Pedestrian paths',
     useYard: 'Yard',
     useCar: 'Parking',
@@ -187,7 +187,7 @@ export const pagesEn: PagesDictionary = {
     colVolume: 'Daily volume, m²',
     volumeA11y: 'Daily volume, m²',
     removeA11y: 'Remove',
-    approx: (n: string) => `≈ ${n} molds`,
+    approxTemplate: '≈ {n} molds',
     managerCounts: 'count calculated by manager',
     emptyTitle: 'The list is empty',
     emptyText: 'Pick models in the catalog or simply request a quote — the manager will recommend for you.',

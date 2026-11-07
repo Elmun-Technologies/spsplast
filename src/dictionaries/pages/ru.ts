@@ -64,7 +64,7 @@ export const pagesRu: PagesDictionary = {
     photoAskTitle: 'Фото этой модели скоро появится',
     photoAskText: 'Менеджер пришлёт фото формы и готовой плитки в WhatsApp или Telegram.',
     photoAskWa: 'Запросить в WhatsApp',
-    photoAskMessage: (label: string) => `Здравствуйте! Пришлите, пожалуйста, фото формы ${label}.`,
+    photoAskMessageTemplate: 'Здравствуйте! Пришлите, пожалуйста, фото формы {label}.',
     materialTag: 'PP / ABS',
     keyTile: 'Готовая плитка',
     keyPer: 'На 1 м²',
@@ -86,7 +86,7 @@ export const pagesRu: PagesDictionary = {
     ctaCompare: 'Сравнить',
     ctaCompareOn: 'В сравнении ✓',
     callA11y: 'Позвонить',
-    waAbout: (label: string) => `Здравствуйте! У меня вопрос по форме ${label}.`,
+    waAboutTemplate: 'Здравствуйте! У меня вопрос по форме {label}.',
     gallery: {
       scene: 'Вид укладки',
       mold: 'Форма · фото',
@@ -155,7 +155,8 @@ export const pagesRu: PagesDictionary = {
 
   compare: {
     title: 'Сравнение',
-    subtitle: (n: number, diff: boolean) => `${n} модел${n === 1 ? 'ь' : n < 5 ? 'и' : 'ей'}${diff ? ' · различающиеся строки выделены жёлтым' : ''}`,
+    subtitleForms: { one: 'модель', few: 'модели', many: 'моделей' },
+    subtitleDiffSuffix: ' · различающиеся строки выделены жёлтым',
     onlyDiff: 'Показать только различия',
     removeA11y: 'Убрать',
     rows: {
@@ -174,7 +175,6 @@ export const pagesRu: PagesDictionary = {
     emptyText: 'Нажмите «Сравнить» на карточке в каталоге — максимум 4 модели.',
     toCatalog: 'Перейти в каталог',
     dash: '—',
-    setValue: (n: number, letters: string) => `${n}${letters ? ` (${letters})` : ''}`,
     useWalk: 'Пешеходные дорожки',
     useYard: 'Двор',
     useCar: 'Парковка',
@@ -187,7 +187,7 @@ export const pagesRu: PagesDictionary = {
     colVolume: 'Суточный объём, м²',
     volumeA11y: 'Суточный объём, м²',
     removeA11y: 'Убрать',
-    approx: (n: string) => `≈ ${n} форм`,
+    approxTemplate: '≈ {n} форм',
     managerCounts: 'количество рассчитает менеджер',
     emptyTitle: 'Список пуст',
     emptyText: 'Выберите модели в каталоге или просто оставьте заявку — менеджер порекомендует сам.',

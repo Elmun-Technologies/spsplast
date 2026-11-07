@@ -18,5 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 export default async function ComparePage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang: langParam } = await params;
   if (!isValidLocale(langParam)) notFound();
-  return <CompareClient lang={langParam as Locale} />;
+  const lang = langParam as Locale;
+  const pages = getPages(lang);
+  return <CompareClient lang={lang} t={getUi(lang)} p={{ compare: pages.compare, model: pages.model }} />;
 }

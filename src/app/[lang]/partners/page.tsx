@@ -189,7 +189,7 @@ export default async function PartnersPage({ params }: { params: Promise<{ lang:
             <h2 className="h1">{p.partners.formTitle}</h2>
             <p className="lead muted">{p.partners.formLead}</p>
           </div>
-          <PartnersForm lang={lang} />
+          <PartnersForm lang={lang} t={t} p={{ model: p.model, partners: p.partners, request: p.request }} />
         </div>
       </section>
 

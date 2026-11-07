@@ -345,6 +345,42 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     package) — intentionally built with existing tokens/classes only (`.sec`, `.sps-eyebrow`, `.h1`),
     no bespoke CSS, so it doesn't invent unapproved visual language; a future design pass can refine it.
 
+- **Audit 2026-11-02, stage 3.4 (JS size, `tests/speed2027.test.js`)** — keep them:
+  - `src/lib/pages.ts`/`src/lib/ui.ts` unconditionally import **all 3 locale dictionaries** at module
+    top level. Four client components (`ModelClient`, `CompareClient`, `RequestClient`,
+    `PartnersForm`) used to call `getPages(lang)`/`getUi(lang)` themselves, which shipped **all 3
+    languages'** `pages.ts`/`ui.ts` modules (not just the one rendered) into their browser bundle on
+    every page. Fixed by having the **server parent** (`page.tsx`, which already needs the dictionary
+    for metadata/SSR anyway) resolve it once and pass only the needed sections down as props —
+    `Pick<PagesDictionary, 'model' | 'partners'>` etc., never the whole `p`. Measured ~15-20 KB
+    (raw, per Next's own "First Load JS") off `/catalog/[section]/[slug]`, `/compare`, `/request`,
+    `/partners`. `tests/speed2027.test.js` guards both the `getPages(`/`getUi(` call sites and (see
+    next bullet) the function-field hazard, so this doesn't silently regress.
+  - **A dictionary function field crashes the production build, not just lint/typecheck**, the moment
+    it's passed as a prop to a Client Component: *"Functions cannot be passed directly to Client
+    Components"* — `next build`'s static export step fails with no warning beforehand. Several
+    `pages/{uz,ru,en}.ts` fields were plain JS functions (`home.h1(n)`, `model.photoAskMessage(label)`,
+    `compare.subtitle(n, diff)`, `compare.setValue(n, letters)`, `request.approx(n)`) for the exact
+    reason template literals are normally reached for — a value that depends on an argument known
+    only at render time. Converted to **plain data** instead: `{label}`/`{n}` string templates
+    (`.replace('{label}', ...)`) for args known server-side (`photoAskMessageTemplate`,
+    `waAboutTemplate`, `approxTemplate`), or `{one, few, many}` plural-form objects
+    (`subtitleForms`) for args that are genuinely client-dynamic (list length), resolved via the new
+    dictionary-free `pluralCategory(lang, n, forms)` in `src/lib/i18n.ts` (same `Intl.PluralRules`
+    logic as `pluralModels`, minus the `getUi()` call so it doesn't reintroduce the bundle problem it's
+    fixing). `compare.setValue` had no actual translatable content at all (identical in uz/ru/en) —
+    just inlined as plain formatting in `CompareClient.tsx`, removed from the dictionary entirely.
+    `home.h1`/`home.seoTitle` are still functions (fine — `getPages()` is never passed to a client
+    component from the home page).
+  - **Not done, still open**: "katalog ma'lumotini kartochkaga keraklisigacha qisqartirish" (trim
+    catalog data to what the card needs) from the same audit item. Investigated: `Model` (
+    `catalog2027.ts`) is already fairly lean (no FAQ/long text — that's dictionary-side, per-model
+    `name`/`subtitle` carry all 3 locales but are short strings) — lower value, higher risk than the
+    dictionary fix above, deferred rather than rushed. Real Lighthouse/LCP numbers are still
+    unavailable here (`npm run lighthouse` needs a real browser + reachable network; even with the
+    sandbox's pre-installed Chromium pointed at via `CHROME_PATH`, it did not complete in this
+    environment) — CI or a real machine is the source of truth, per `docs/checks.md`.
+
 - **Never reintroduce Tailwind.** The database is back (Stage 7, user decision) **only** behind
   `src/server/` — public pages (`[lang]`, `components`, `lib`) must never import it
   (`tests/platform.test.js` test 6), otherwise the storefront stops being static.
@@ -455,7 +491,7 @@ npm run dev            # local dev server
 npm run build          # models:check + next build (448 static pages)
 npm run typecheck      # tsc --noEmit
 npm run lint           # next lint
-npm test               # node --test --experimental-strip-types tests/*.test.js (180 tests)
+npm test               # node --test --experimental-strip-types tests/*.test.js (182 tests)
 npm run models:build && npm run models:images && npm run models:check
 npm run db:generate    # after editing src/server/db/schema.ts → new SQL in drizzle/
 DATABASE_URL=... npm run db:migrate

@@ -14,8 +14,8 @@ import {
   sectionLabel,
 } from '@/lib/catalog2027';
 import type { Locale } from '@/lib/i18n';
-import { getUi, formatNumber } from '@/lib/ui';
-import { getPages } from '@/lib/pages';
+import { formatNumber, type UiDictionary } from '@/lib/ui';
+import type { PagesDictionary } from '@/lib/pages';
 import { CONTACTS_2027 } from '@/lib/contacts2027';
 import { submitLead } from '@/lib/leadSubmit';
 import { useRequestList } from '@/lib/store/spsLists';
@@ -29,9 +29,16 @@ const num = (lang: Locale, n: number) => new Intl.NumberFormat(lang === 'en' ? '
  * Zayafka ro'yxati (HANDOFF 4.4): "Bu savat emas — to'lov yo'q."
  * Har qatorda kunlik m² va "≈ N qolip"; o'ngda forma → POST /api/leads.
  */
-export function RequestClient({ lang }: { lang: Locale }) {
-  const t = getUi(lang);
-  const p = getPages(lang);
+export function RequestClient({
+  lang,
+  t,
+  p,
+}: {
+  lang: Locale;
+  t: UiDictionary;
+  /** Faqat kerakli bo'limlar — audit 2026-11-02, 3.4-band (izoh: ModelClient.tsx). */
+  p: Pick<PagesDictionary, 'model' | 'request'>;
+}) {
   const list = useRequestList();
   const [volumes, setVolumes] = useState<Record<string, string>>({});
   const [clientType, setClientType] = useState<ClientType>('workshop');
@@ -161,7 +168,7 @@ export function RequestClient({ lang }: { lang: Locale }) {
                       }
                     />
                     <span className="small muted">
-                      {molds === null ? p.request.managerCounts : p.request.approx(num(lang, molds))}
+                      {molds === null ? p.request.managerCounts : p.request.approxTemplate.replace('{n}', num(lang, molds))}
                     </span>
                   </div>
                   <button

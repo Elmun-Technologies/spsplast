@@ -14,18 +14,25 @@ import {
   modelSetSize,
   sectionLabel,
 } from '@/lib/catalog2027';
-import type { Locale } from '@/lib/i18n';
-import { getUi, formatNumber } from '@/lib/ui';
-import { getPages } from '@/lib/pages';
+import { pluralCategory, type Locale } from '@/lib/i18n';
+import { formatNumber, type UiDictionary } from '@/lib/ui';
+import type { PagesDictionary } from '@/lib/pages';
 import { useCompareList, useRequestList } from '@/lib/store/spsLists';
 
 /**
  * Solishtirish (HANDOFF 4.3): ustunlar = modellar, qatorlar = 8 ta ko'rsatkich.
  * Farq qiladigan qatorlar #fff7e6; "Faqat farqlarni ko'rsatish" filtri.
  */
-export function CompareClient({ lang }: { lang: Locale }) {
-  const t = getUi(lang);
-  const p = getPages(lang);
+export function CompareClient({
+  lang,
+  t,
+  p,
+}: {
+  lang: Locale;
+  t: UiDictionary;
+  /** Faqat kerakli bo'limlar — audit 2026-11-02, 3.4-band (izoh: ModelClient.tsx). */
+  p: Pick<PagesDictionary, 'compare' | 'model'>;
+}) {
   const compare = useCompareList();
   const request = useRequestList();
   const [onlyDiff, setOnlyDiff] = useState(false);
@@ -43,8 +50,12 @@ export function CompareClient({ lang }: { lang: Locale }) {
         const th = modelThickness(m);
         return th === null ? p.compare.dash : `${th} mm`;
       }
-      case 'moldsCount':
-        return p.compare.setValue(modelSetSize(m), m.molds.length > 1 ? moldLetters(m) : '');
+      case 'moldsCount': {
+        // Son formatlash — tilga bog'liq emas (lug'atdan olib tashlandi, audit 2026-11-02, 3.4-band).
+        const n = modelSetSize(m);
+        const letters = m.molds.length > 1 ? moldLetters(m) : '';
+        return `${n}${letters ? ` (${letters})` : ''}`;
+      }
       case 'per': {
         const per = modelPerM2(m);
         return per ? `${formatNumber(lang, per)} ${p.model.keyPerUnit}` : p.compare.dash;
@@ -117,7 +128,10 @@ export function CompareClient({ lang }: { lang: Locale }) {
         <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-end', gap: 'var(--space-4)' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             <h1 className="disp-l">{p.compare.title}</h1>
-            <p className="body muted">{p.compare.subtitle(models.length, true)}</p>
+            <p className="body muted">
+              {models.length} {pluralCategory(lang, models.length, p.compare.subtitleForms)}
+              {p.compare.subtitleDiffSuffix}
+            </p>
           </div>
           <label className="check" style={{ fontSize: 15 }}>
             <input type="checkbox" checked={onlyDiff} onChange={(e) => setOnlyDiff(e.target.checked)} />
