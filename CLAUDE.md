@@ -1,5 +1,9 @@
 # SPS Plast — CLAUDE.md (redesign 2027)
 
+**Yangi sessiya boshida**: joriy holat va keyingi qadam — `docs/NEXT-SESSION-PROMPT.md`.
+Katta ish tugagach shu faylni yangilang (bu fayl boshqa loyihalardagi `HOLAT.md` bilan
+bir xil vazifani bajaradi — shu nom bilan qoldirildi, chunki tayyor va batafsil).
+
 ## Overview
 
 Uch tilli (uz/ru/en) **lead-generating website** for SPS, an Uzbek manufacturer of
