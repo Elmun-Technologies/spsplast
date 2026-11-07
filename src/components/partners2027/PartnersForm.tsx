@@ -12,8 +12,9 @@ import { LeadFormError, checkLead, useRevealOnShow, type LeadError } from '@/com
 
 type ClientType = 'workshop' | 'dealer' | 'builder';
 const MATERIALS: ('pp' | 'abs' | 'advice')[] = ['pp', 'abs', 'advice'];
-/** `p.partners.countries` tartibida (uz/ru/en bir xil): telefon raqamini davlat kodi bilan o'qish uchun. */
-const COUNTRY_DIALS: (string | undefined)[] = ['+998', '+7', '+7', '+996', '+992', undefined];
+/** `p.partners.countries` tartibida (uz/ru/en bir xil): telefon raqamini davlat kodi bilan o'qish uchun.
+ * Audit 2026-11-02, 3.5-band: Ozarbayjon/Armaniston/Gruziya/Belarus qo'shildi (8 eksport davlati). */
+const COUNTRY_DIALS: (string | undefined)[] = ['+998', '+7', '+7', '+996', '+992', '+994', '+374', '+995', '+375', undefined];
 
 /**
  * Ulgurji formasi (Partners.dc.html, `#sorov`): mijoz turi, kompaniya, davlat,

@@ -297,7 +297,21 @@ export const pagesUz = {
     company: 'Kompaniya',
     companyPlaceholder: 'Kompaniya nomi',
     country: 'Davlat',
-    countries: ["O'zbekiston", "Qozog'iston", 'Rossiya', "Qirg'iziston", 'Tojikiston', 'Boshqa'],
+    // Audit 2026-11-02, 3.5-band: Ozarbayjon/Armaniston/Gruziya/Belarus qo'shildi (8 eksport
+    // davlatining HAMMASI, `EXPORT_COUNTRIES` bilan bir xil) — `PartnersForm.tsx`dagi
+    // `COUNTRY_DIALS` shu tartibda telefon kodini o'qiydi, tartib o'zgarsa u ham yangilansin.
+    countries: [
+      "O'zbekiston",
+      "Qozog'iston",
+      'Rossiya',
+      "Qirg'iziston",
+      'Tojikiston',
+      'Ozarbayjon',
+      'Armaniston',
+      'Gruziya',
+      'Belarus',
+      'Boshqa',
+    ],
     phone: 'Telefon / WhatsApp *',
     volume: 'Kunlik hajm, m²',
     volumePlaceholder: 'Masalan, 120',

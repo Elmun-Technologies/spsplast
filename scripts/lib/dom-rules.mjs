@@ -150,8 +150,10 @@ export function checkAlternates(doc, { path, lang, siteUrl, expect = {} }, out) 
   for (const key of ['uz', 'ru', 'en', 'x-default']) {
     if (!langs[key]) out.errors.push(`${path}: hreflang "${key}" yo'q`);
   }
-  if (langs['x-default'] && langs.uz && langs['x-default'] !== langs.uz) {
-    out.errors.push(`${path}: x-default (${langs['x-default']}) uz (${langs.uz}) bilan bir xil emas`);
+  // x-default = ru (audit 2026-11-02, 3.5-band): MDH tillari (qozoq, gruzin …) uchun
+  // zaxira — ko'pincha ruscha o'zbekchadan yaxshiroq tushuniladi (src/lib/seo.ts).
+  if (langs['x-default'] && langs.ru && langs['x-default'] !== langs.ru) {
+    out.errors.push(`${path}: x-default (${langs['x-default']}) ru (${langs.ru}) bilan bir xil emas`);
   }
   for (const [key, href] of alts) {
     if (!href || !href.startsWith('http')) {

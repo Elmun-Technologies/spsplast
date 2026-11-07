@@ -39,11 +39,17 @@ interface PageMetadataOptions {
   alternatePaths?: Partial<Record<Locale, string>>;
 }
 
-/** uz/ru/en + x-default (asosiy = uz). */
+/**
+ * uz/ru/en + x-default. `x-default` — "aniq uz/ru/en'ga mos kelmagan" ziyoratchi uchun
+ * (audit 2026-11-02, 3.5-band): avval o'zbekchaga qarardi, lekin MDH mamlakatlari
+ * (Qozog'iston, Gruziya, Armaniston …) brauzerida o'z tili bo'lgan mijoz ko'pincha
+ * ruschani o'zbekchadan ko'ra yaxshiroq tushunadi — shuning uchun endi ruscha
+ * (`src/middleware.ts`dagi `preferredLocale()` ham xuddi shu MDH ro'yxatini ishlatadi).
+ */
 export function hreflang(path: string, alternatePaths?: Partial<Record<Locale, string>>): Record<string, string> {
   const out: Record<string, string> = {};
   for (const lang of locales) out[lang] = `/${lang}${alternatePaths?.[lang] ?? path}`;
-  out['x-default'] = `/uz${alternatePaths?.uz ?? path}`;
+  out['x-default'] = `/ru${alternatePaths?.ru ?? path}`;
   return out;
 }
 

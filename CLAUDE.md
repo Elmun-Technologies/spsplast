@@ -381,6 +381,33 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     sandbox's pre-installed Chromium pointed at via `CHROME_PATH`, it did not complete in this
     environment) — CI or a real machine is the source of truth, per `docs/checks.md`.
 
+- **Audit 2026-11-02, stage 3.5 (international signals)** — keep them:
+  - **`x-default` hreflang is now `/ru`, not `/uz`** (`hreflang()` in `src/lib/seo.ts`, enforced
+    by `scripts/lib/dom-rules.mjs`'s hreflang check and `tests/seo2027.test.js`/`platform.test.js`).
+    A visitor whose browser is in Kazakh, Georgian, or another CIS language that doesn't match
+    uz/ru/en falls to `x-default` — Russian is usually understood far better than Uzbek in those
+    markets. `src/middleware.ts`'s `preferredLocale()` mirrors this with an explicit
+    `CIS_LANGUAGE_TAGS` list (`kk, ky, tg, az, hy, ka, be` — exactly `EXPORT_COUNTRIES`'s
+    languages) → `ru`; a genuinely unrelated language (French, Chinese, …) still falls to `uz`,
+    the primary market default — this is a targeted CIS fallback, not a blanket default change.
+  - **`robots.txt` no longer `Disallow`s `/compare`/`/request`.** They were both `Disallow`'d
+    *and* `noindex, follow` — a real conflict: `Disallow` stops crawlers from ever visiting the
+    page, so `follow: true` (meant to let link equity flow to the model pages linked from
+    compare/request) was silently doing nothing. `noindex` alone already keeps them out of the
+    index; removing the `Disallow` is what actually lets `follow` work as intended (HANDOFF B8).
+  - Partners/export form's country dropdown (`p.partners.countries`) only had 5 of the 8
+    `EXPORT_COUNTRIES` (missing Azerbaijan/Armenia/Georgia/Belarus) — `src/lib/phone.ts` already
+    had working dial-code normalization for all 4 (`374`/`994`/`995`/`375`), just nothing in the
+    UI could select them. Added to all 3 locale dictionaries + `PartnersForm.tsx`'s
+    `COUNTRY_DIALS` (must stay index-aligned with `p.partners.countries` — same order, same length).
+  - **Not done, still open**: Yandex `Clean-param` directive for `robots.txt`. Next's typed
+    `MetadataRoute.Robots` (the `app/robots.ts` file convention) has no field for it — only
+    `userAgent`/`allow`/`disallow`/`crawlDelay`/`sitemap`/`host` — so emitting it needs converting
+    `robots.ts` to a manual `route.ts` text handler, a bigger change for a minor win: `canonical`
+    (no query string) already tells every search engine, Yandex included, to ignore `?q=`
+    variants — `Clean-param` would only save Yandex some redundant crawl budget, not fix a real
+    indexing gap. Deferred rather than rushed; `docs/unresolved-questions.md` tracks it.
+
 - **Never reintroduce Tailwind.** The database is back (Stage 7, user decision) **only** behind
   `src/server/` — public pages (`[lang]`, `components`, `lib`) must never import it
   (`tests/platform.test.js` test 6), otherwise the storefront stops being static.

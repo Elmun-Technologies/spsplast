@@ -46,7 +46,7 @@ const GOOD = `<!doctype html>
   <link rel="alternate" hreflang="uz" href="${SITE}/uz/catalog/paving" />
   <link rel="alternate" hreflang="ru" href="${SITE}/ru/catalog/paving" />
   <link rel="alternate" hreflang="en" href="${SITE}/en/catalog/paving" />
-  <link rel="alternate" hreflang="x-default" href="${SITE}/uz/catalog/paving" />
+  <link rel="alternate" hreflang="x-default" href="${SITE}/ru/catalog/paving" />
   <meta property="og:title" content="Trotuar plitkasi qoliplari" />
   <meta property="og:description" content="95 model, zavoddan to'g'ridan-to'g'ri." />
   <meta property="og:url" content="${SITE}/uz/catalog/paving" />
