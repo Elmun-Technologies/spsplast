@@ -37,14 +37,32 @@ export function HeaderClient({
   const [menuOpen, setMenuOpen] = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);
   const burgerRef = useRef<HTMLAnchorElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!menuOpen) return;
     closeRef.current?.focus();
+    // Fokus tuzog'i (audit 2026-11-02): modal ochiqda Tab/Shift+Tab panel ichidagi
+    // havolalar/tugmalar orasida aylanadi, ortidagi sahifaga chiqib ketmaydi.
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setMenuOpen(false);
         burgerRef.current?.focus();
+        return;
+      }
+      if (e.key !== 'Tab' || !panelRef.current) return;
+      const focusables = Array.from(
+        panelRef.current.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'),
+      ).filter((el) => el.offsetParent !== null);
+      if (!focusables.length) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
       }
     };
     document.addEventListener('keydown', onKey);
@@ -153,7 +171,7 @@ export function HeaderClient({
         Tashqi `div` (role/hidden/ref) doim qoladi, shuning uchun ochilganda
         semantika va fokus oqimi o'zgarmaydi.
       */}
-      <div className="mm" id="sps-mobile-menu" hidden={!menuOpen} role="dialog" aria-modal="true" aria-label={t.header.menu}>
+      <div className="mm" id="sps-mobile-menu" hidden={!menuOpen} role="dialog" aria-modal="true" aria-label={t.header.menu} ref={panelRef}>
         {menuOpen ? (
           <>
             <div className="mm-head">

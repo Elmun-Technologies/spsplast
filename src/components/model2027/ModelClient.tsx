@@ -170,7 +170,9 @@ export function ModelClient({
   return (
     <>
       <section className="pd-sec">
-        <div className="wrap" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>
+        {/* Mobilda bo'sh joy ixchamroq (audit 2026-11-02): H1 bo'lmasa, sahna+miniatyuralardan
+            keyin yopishqoq pastki panel (.mbar) ostida to'liq yashiringan edi. */}
+        <div className="wrap" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
           <nav className="crumbs" aria-label="breadcrumb">
             <a href={`/${lang}`}>{p.model.breadcrumbHome}</a>
             <span>/</span>

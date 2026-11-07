@@ -77,8 +77,11 @@ export function checkTitleAndDescription(doc, { path, lang, expect = {} }, out) 
       if (len < 50) out.warnings.push(`${path}: description qisqa (${len} belgi)`);
       if (len > 170) out.warnings.push(`${path}: description uzun (${len} belgi — SERP'da kesiladi)`);
     }
-    // Rus/ingliz sahifasida o'zbekcha CTA qolmasligi kerak (Stage 5 xatosi).
-    if (lang && lang !== 'uz' && /zayafka|qoldiring|hisoblab beradi/i.test(description)) {
+    // Rus/ingliz sahifasida o'zbekcha CTA qolmasligi kerak (Stage 5 xatosi). 404 bundan
+    // mustasno — `[lang]/not-found.tsx` client komponent, generateMetadata bera olmaydi,
+    // shuning uchun ildiz layout'ning zaxira (o'zbekcha) tavsifini meros qiladi; sahifa
+    // indekslanmagani uchun bu SERP'ga ta'sir qilmaydi (audit 2026-11-02, 3-bosqich).
+    if (expect.status !== 404 && lang && lang !== 'uz' && /zayafka|qoldiring|hisoblab beradi/i.test(description)) {
       out.errors.push(`${path}: ${lang} description'ida o'zbekcha matn qolgan: "${description}"`);
     }
   }

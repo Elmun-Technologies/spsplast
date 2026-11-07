@@ -73,6 +73,10 @@ export const AUDIT_ROUTES = [
   // 404: status, noindex va brendlangan tana.
   { path: '/uz/catalog/paving/this-model-does-not-exist', lang: 'uz', expect: { status: 404, noindex: true, allowCyrillic: true } },
   { path: '/xx', lang: null, expect: { status: 404, noindex: true, allowCyrillic: true } },
+  // Lang ichidagi mos kelmaydigan yo'l (audit 2026-11-02, 3-bosqich): avval ildiz 404'ga
+  // tushib, o'zbekcha va header'siz chiqar edi — `[lang]/[...slug]` ushlagichi bilan tuzatildi.
+  { path: '/ru/bu-yol-mavjud-emas', lang: 'ru', expect: { status: 404, noindex: true } },
+  { path: '/en/this-path-does-not-exist', lang: 'en', expect: { status: 404, noindex: true } },
 
   // 301 migratsiya: eski manzillar yangi sahifaga tushishi kerak.
   { path: '/uz/product/g001-floriya', lang: null, expect: { status: 301, redirectTo: '/uz/catalog/paving/15-floriya' } },

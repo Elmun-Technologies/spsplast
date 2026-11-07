@@ -282,6 +282,36 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   - Admin login rate-limits by **IP and by e-mail** (`ipKey('login_email', normalizeEmail(...))`), so a
     botnet can't brute-force one account by rotating IPs — the IP limit alone didn't stop that.
 
+- **Audit 2026-11-02, stage 3.2 (mobile & a11y)** — keep them:
+  - **`[lang]` catch-all for truly unmatched paths** (`src/app/[lang]/[...slug]/page.tsx` +
+    co-located `not-found.tsx`): without it, a path matching no file segment at all (e.g.
+    `/ru/xato-manzil`) skipped `[lang]/layout.tsx` entirely and fell to the root
+    `src/app/not-found.tsx` — always Uzbek, wrong status metadata, outside the `[lang]` tree.
+    **Must have `generateStaticParams` returning `[]` AND `dynamicParams = false`** — with the
+    default (`dynamicParams: true`, no static params), this sibling dynamic segment breaks the
+    SSR of *other*, already-correct dynamic 404s elsewhere under `[lang]` (e.g.
+    `catalog/[section]/[slug]`'s own not-found lost `<head>`/`h1`/`<main>` — confirmed by a clean
+    before/after rebuild, not a caching artifact). Has its own `generateMetadata` (noindex, per-lang
+    title/description) so `tests/seo2027.test.js` test 12's `pageMetadata(` scan passes.
+  - **Known pre-existing limitation, not introduced by the above**: *any* `notFound()`-triggered
+    page under `[lang]` (new catch-all or the long-existing `catalog/[section]/[slug]`) renders
+    without `SiteHeader`/`SiteFooter` and with Uzbek `NotFoundBody` text regardless of locale —
+    confirmed on the untouched `/ru/catalog/paving/<invalid-slug>` too. `[lang]/not-found.tsx` is a
+    client component (Next doesn't pass `params` to `not-found.tsx`) and its `useParams()` doesn't
+    resolve the matched segment in this render path, SSR or post-hydration. Not caught by
+    `audit-seo-dom.mjs`/`audit-a11y.mjs` (no rule checks 404 body text language or header presence).
+    Fixing properly needs a lang-context provider set by the layout, not a `useParams()` read —
+    out of scope here; flagged for a future stage.
+  - **`dom-rules.mjs`'s ru/en "o'zbekcha matn qolgan" description check now skips `expect.status
+    === 404`** too (same reasoning as the existing description-length exemption just above it):
+    a 404 page's inherited fallback description isn't SERP-relevant since it's `noindex`.
+  - Mobile header/pdp/`.mbar` spacing trimmed (`.hd-logo` 60→52px, `.hd-search`/`.hd-tabs` padding,
+    `.pd-sec`/`.pdp` gaps, `.mbar` padding/button height) so the model page H1 clears the sticky
+    bottom bar at 390×844 (measured via Playwright `boundingBox()`, not guessed) — the gallery-
+    before-H1 order itself is the approved design, only the whitespace around it was too generous.
+  - Mobile menu (`HeaderClient.tsx`) has a Tab/Shift+Tab focus trap inside `#sps-mobile-menu` while
+    open (axe needs a real browser for this, not `audit-a11y.mjs`'s jsdom pass).
+
 - **Never reintroduce Tailwind.** The database is back (Stage 7, user decision) **only** behind
   `src/server/` — public pages (`[lang]`, `components`, `lib`) must never import it
   (`tests/platform.test.js` test 6), otherwise the storefront stops being static.

@@ -388,18 +388,22 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
   grid-template-areas: 'logo . actions' 'search search search' 'tabs tabs tabs';
   align-items: center; column-gap: 8px;
 }
-.hd-logo { grid-area: logo; display: flex; align-items: center; height: 60px; }
+/* Mobil sarlavha ixchamroq (audit 2026-11-02, 3-bosqich: model sahifasida H1 pastki
+   yopishqoq panel ostida to'liq yashiringan edi — 390×844 da aniq o'lchab tasdiqlangan).
+   Logo qatori va qatorlar orasidagi bo'sh joy kichraytirildi; tegish maydonlari (qidiruv
+   44px, bo'lim pillari) o'zgarmaydi — faqat ularning atrofidagi bo'sh joy. */
+.hd-logo { grid-area: logo; display: flex; align-items: center; height: 52px; }
 .hd-logo img { height: 32px; width: auto; }
 .hd-search {
   grid-area: search; display: flex; align-items: center; gap: 8px; height: 44px; min-width: 0;
   padding: 0 14px; border-radius: var(--radius-btn); background: var(--surface-alt); color: var(--ink-muted);
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 .hd-search:focus-within { outline: 2px solid var(--focus); outline-offset: 0; }
 .hd-search input { flex: 1; min-width: 0; border: 0; outline: 0; background: none; color: var(--ink); font: 400 16px/20px var(--font-sans); }
 .hd-tabs {
   grid-area: tabs; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
-  margin-inline: calc(var(--gutter) * -1); padding: 0 var(--gutter) 10px;
+  margin-inline: calc(var(--gutter) * -1); padding: 0 var(--gutter) 6px;
 }
 .hd-tabs::-webkit-scrollbar { display: none; }
 .hd-tabs a {
@@ -884,8 +888,8 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
 /* --- Model sahifasi (Redesign 2028) ---------------------------------------------------
    Desktop: 96px miniatyuralar | katta rasm (1:1) | 440px yopishgan panel.
    Fonsiz qolip/plitka ko'rinishi "chizma taxtasi": mm-to'r + o'lcham chizig'i. */
-.pd-sec { padding-block: var(--space-4) 40px; background: var(--surface-alt); }
-.pdp { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; align-items: start; }
+.pd-sec { padding-block: 12px 40px; background: var(--surface-alt); }
+.pdp { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; align-items: start; }
 .stage {
   position: relative; aspect-ratio: 1; background: var(--surface); display: flex; align-items: center; justify-content: center;
   overflow: hidden; order: 1; margin-inline: calc(-1 * var(--gutter)); border: 1px solid var(--line);
@@ -938,8 +942,8 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
 .tabs .on { color: var(--ink); font-weight: 600; border-bottom-color: var(--red); }
 .spec-split { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-5); align-items: start; }
 .spec-split > div > div { border-radius: var(--radius-card); }
-.mbar { display: flex; position: sticky; bottom: 0; z-index: 20; background: var(--surface); border-top: 1px solid var(--line); padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); gap: 8px; box-shadow: 0 -8px 24px rgba(21, 23, 26, .08); }
-.mbar .sps-btn { height: 52px; }
+.mbar { display: flex; position: sticky; bottom: 0; z-index: 20; background: var(--surface); border-top: 1px solid var(--line); padding: 6px 16px calc(6px + env(safe-area-inset-bottom)); gap: 8px; box-shadow: 0 -8px 24px rgba(21, 23, 26, .08); }
+.mbar .sps-btn { height: 46px; }
 .rel { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
 .rc { border: 1px solid var(--line); background: var(--surface); text-decoration: none; color: var(--ink); display: flex; flex-direction: column; border-radius: var(--radius-card); overflow: hidden; transition: border-color .16s ease-out, box-shadow .16s ease-out; }
 .rc:hover { border-color: var(--line-strong); box-shadow: var(--shadow-raise); }
