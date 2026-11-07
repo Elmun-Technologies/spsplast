@@ -52,6 +52,7 @@ src/app/indexnow-key.txt/    # IndexNow key file (static, from admin setting `in
 src/server/                  # DB layer: db/schema.ts, db/client.ts, leads.ts, auth.ts, session.ts (Next glue)
 drizzle/                     # GENERATED SQL migrations (`npm run db:generate`), applied by `npm run db:migrate`
 vercel.json                  # buildCommand: `npm run db:migrate:deploy && npm run build` (overrides the dashboard)
+.nvmrc                       # Node version pin (also package.json `engines`, CI's node-version-file)
 docs/ADMIN.md                # admin setup (Neon/Supabase, migrate, first admin) + security notes
 docs/ROADMAP-2027.md         # gap analysis + stages 7–12
 src/components/site/         # new layer: SiteHeader, HeaderClient, SiteFooter, LangSwitch, icons, MotionLayer
@@ -380,6 +381,32 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     unavailable here (`npm run lighthouse` needs a real browser + reachable network; even with the
     sandbox's pre-installed Chromium pointed at via `CHROME_PATH`, it did not complete in this
     environment) — CI or a real machine is the source of truth, per `docs/checks.md`.
+
+- **Audit 2026-11-02, stage 3.6 (repo/docs hygiene)**:
+  - `README.md`/`docs/ARCHITECTURE.md`/`docs/DEPLOYMENT.md`/`docs/SECURITY.md` described the
+    **pre-redesign (2026, "backendsiz") architecture** — no database, Tailwind, Zustand, a `/blog`
+    and `/product/` that no longer exist. Rewritten to match the current redesign (2027 storefront
+    + Stage 7–11 admin/Postgres), pointing to `CLAUDE.md` as the detailed, actively-maintained
+    source of truth rather than duplicating it. The other `docs/*-2026.md`/`MADANI-RAQOBAT-AUDITI.md`
+    style files are left alone — they're genuinely historical (self-dated planning/decision logs,
+    not "current state" docs), unlike these four which claimed to describe *now*.
+  - **Node version pinned**: `.nvmrc` (`22.6.0`) + `package.json` `engines.node` (`>=22.6.0`) +
+    CI's `actions/setup-node` now reads `node-version-file: .nvmrc` instead of a hardcoded `22` —
+    one source of truth. `--experimental-strip-types` (used by `npm test` and several scripts)
+    needs Node ≥ 22.6; nothing enforced that version anywhere before.
+  - Removed `sps-design-handoff.zip` (8.8 MB) from the working tree — dead weight: it's the
+    original zip of what's already fully extracted into `docs/design-handoff/` (9.7 MB), and
+    nothing in the build/scripts ever reads the zip itself.
+  - **`.git` is ~485 MB — investigated, not rewritten.** The large blobs still in the *current*
+    tree (`media-src/pdf/*.pdf` ~46 MB, `public/catalog/pdf/*.pdf` ~15 MB, `public/admin-ai/*.wasm`+
+    `*.onnx` ~15 MB) are all legitimate, documented, currently-used assets (source PDFs the extract
+    pipeline reads, the public catalog download, the admin background-removal model) — nothing to
+    remove there. The bulk of the 485 MB is **historical**: blobs from files already deleted from
+    HEAD (a stray ~20 MB binary, dozens of ~3 MB auto-named `Изображение*` images from an old
+    import, superseded by the Stage 5 "old 2026 layer deleted" cleanup) that `git rm` never
+    shrinks — only a history rewrite (`git filter-repo`/BFG) does, which needs a force-push and
+    breaks every existing clone/fork. That's a hard-to-reverse, shared-history-affecting call for
+    the user/team to make deliberately, not something to do unilaterally mid-audit; left open.
 
 - **Audit 2026-11-02, stage 3.5 (international signals)** — keep them:
   - **`x-default` hreflang is now `/ru`, not `/uz`** (`hreflang()` in `src/lib/seo.ts`, enforced

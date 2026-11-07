@@ -1,36 +1,45 @@
-# SPS Plast — sayt (backendsiz)
+# SPS Plast — sayt
 
-Bilingual (uz/ru) website for **SPS**, an Uzbekistan-based manufacturer of
-concrete molds (bruschatka / bordyur / plitka qoliplari) and facade decor.
+Uch tilli (uz/ru/en) lead-generating website for **SPS**, an Uzbekistan-based
+manufacturer of plastic molds for concrete paving slabs, facade, fence and
+decor elements.
 
 The site is **not a shop**. Its job is to show the catalog, build trust and
-collect a **zayafka** (lead): name, phone, product of interest, quantity, note.
-The lead is delivered to the company's Telegram group and a manager calls back.
+collect a **zayafka** (lead): name, phone, product of interest, quantity.
+The lead is saved to Postgres, then delivered to the company's Telegram
+group; a manager calls back with price and mold count.
 
-Built with Next.js 15 (App Router) + React 19, TypeScript, Tailwind CSS and
-Zustand. Deployed to Vercel. **No database, no Prisma, no admin panel.**
+Built with Next.js 15 (App Router) + React 19, TypeScript, plain CSS (no
+Tailwind). Deployed to Vercel. Admin panel + Postgres (Drizzle) power the
+leads CRM, catalog editing and SEO/content tools, but the **public storefront
+stays fully static** — it never queries the database at request time.
 
-> Documentation: [`CLAUDE.md`](CLAUDE.md) (project guide), [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md),
-> [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md), [`docs/OPTIMIZATION-LOG.md`](docs/OPTIMIZATION-LOG.md),
-> [`docs/UI-DESIGN-SYSTEM.md`](docs/UI-DESIGN-SYSTEM.md), [`docs/SECURITY.md`](docs/SECURITY.md)
-> and the audit [`docs/MADANI-RAQOBAT-AUDITI.md`](docs/MADANI-RAQOBAT-AUDITI.md).
-> Eski (savat/checkout davri) hujjatlar [`docs/archive/`](docs/archive/) da.
+> **Full project guide (architecture, routes, business rules, pitfalls):**
+> [`CLAUDE.md`](CLAUDE.md) — this is the actively-maintained source of truth.
+> Also see [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md),
+> [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md), [`docs/ADMIN.md`](docs/ADMIN.md)
+> (admin/database setup), [`docs/SECURITY.md`](docs/SECURITY.md).
 
 ---
 
 ## Features
 
-- **Storefront** — home, catalog with filters, product detail (variants, area
-  calculator), search, blog, projects, company pages — all prerendered static HTML.
-- **Zayafka flow** — one compact form (name, phone with `+998` mask, product,
-  quantity, note) reachable from every page; the Telegram message carries the
-  source page, language, time and product SKU.
-- **Trust content** — FAQ (uz/ru, one source for visible text and JSON-LD),
-  real photos, delivery/payment terms, no unverifiable numbers (P0-8 rule).
-- **i18n** — `uz` / `ru`, prerendered per locale with hreflang + `x-default`.
-- **Analytics** — GTM/GA4, Yandex Metrica and Meta Pixel, all env-gated.
-- **SEO** — canonical + hreflang on every page, sitemap, Product/FAQPage/HowTo
-  JSON-LD, 300+ word category pages.
+- **Storefront** — home, catalog with filters, model detail (mold/tile specs,
+  area calculator), compare, request list, partners/export, production,
+  contact — all prerendered static HTML (448 pages).
+- **Zayafka flow** — `POST /api/leads` saves to Postgres first, then Telegram;
+  never fails silently (returns 503 if neither succeeds, with phone/WhatsApp
+  fallback shown to the visitor).
+- **Admin panel** (`/admin`) — leads CRM, catalog (products/sections) editor
+  with image upload and AI background removal, customer reviews, SEO center
+  (per-page meta, 301s, IndexNow, Search Console/Webmaster), text CMS,
+  visit analytics, integration settings.
+- **i18n** — uz (default) / ru / en, hreflang + `x-default` (→ ru, for CIS
+  browsers that don't match uz/ru/en).
+- **SEO** — canonical + hreflang on every page, sitemap (276 URLs),
+  Organization/Product/FAQPage/Review JSON-LD (never includes a price).
+- **Analytics** — GTM/GA4, Yandex Metrica, Meta Pixel — env or admin-settings
+  gated, nothing loads without an ID.
 
 ---
 
@@ -38,86 +47,87 @@ Zustand. Deployed to Vercel. **No database, no Prisma, no admin panel.**
 
 ```bash
 npm install
-cp .env.example .env   # Telegram pair is the only required part
+cp .env.example .env   # Telegram pair is enough for local dev; DATABASE_URL optional
 
 npm run dev            # http://localhost:3000
 ```
 
-The catalog is read from the committed `src/data/catalog.json`, so the site runs
-with an empty `.env` — only the Telegram delivery of new leads needs the bot
-token and chat id.
+The catalog is read from the committed `src/data/models2027.ts`, so the site
+runs with an empty `.env` — only Telegram lead delivery needs the bot token
+and chat id. `/admin` needs `DATABASE_URL` (see `docs/ADMIN.md`).
+
+Node **≥ 22.6** is required (`.nvmrc`; `npm test` uses
+`--experimental-strip-types`).
 
 ### Scripts
 
 | Command | Purpose |
 | --- | --- |
 | `npm run dev` | Dev server |
-| `npm run build` | `catalog:check` + `next build` (441 static pages) |
+| `npm run build` | snapshot export + `models:check` + `next build` (448 static pages) |
 | `npm start` | Production server |
 | `npm run typecheck` | `tsc --noEmit` |
 | `npm run lint` | ESLint (`next lint`) |
-| `npm test` | `node --test --experimental-strip-types tests/*.test.js` |
-| `npm run catalog:build` | Regenerate `src/data/catalog.json` |
-| `npm run catalog:check` | Fail if the catalog JSON is stale |
-| `npm run media:build` | Regenerate `public/media` from `media-src/` masters |
-| `npm run fonts:sync` | Refresh the vendored Inter woff2 files |
+| `npm test` | `node --test --experimental-strip-types tests/*.test.js` (182 tests) |
+| `npm run models:build` / `models:images` / `models:check` | Catalog data pipeline (Excel → `data/models-2027.json` → WebP) |
+| `npm run db:generate` / `db:migrate` | Drizzle migrations (after editing `src/server/db/schema.ts`) |
+| `npm run admin:create` | Create the first admin user |
+| `npm run audit:seo` / `audit:a11y` | SEO/DOM and axe-core checks (no browser needed) |
+| `npm run shots` / `npm run lighthouse` | Visual + performance checks (need a real browser) |
 
 ---
 
 ## Architecture notes
 
-### Static catalog instead of a database
+See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the full picture.
+Highlights:
 
-`catalog_build/products.json`, `data/molds-2026.json` and `data/content-2026.json`
-are merged by `scripts/build-static-catalog.js` into a single committed file,
-`src/data/catalog.json`. `src/lib/catalog/*` reads it synchronously, so pages do
-not await anything and there is no way for the site to be “down” because a
-database is unreachable. `npm run catalog:check` runs before `next build` and
-fails fast when the JSON is out of date.
+### Static catalog, database only behind `src/server/`
 
-### One write endpoint
+`data/models-2027.json` (generated from the business's Excel source) is
+compiled into the committed `src/data/models2027.ts`; `src/lib/catalog2027.ts`
+reads it synchronously. If an admin has published catalog changes in
+Postgres, `scripts/export-snapshot.mjs` overwrites that same file at build
+time — the storefront code path doesn't change, there's just a different
+source. Public pages (`[lang]`, `components`, `lib`) never import
+`src/server/*` directly (`tests/platform.test.js` enforces this).
 
-`POST /api/leads` (Zod-validated, HTML-escaped, honeypot + per-IP rate limit,
-optional UTM fields) is the only public write API; `GET /api/health` reports the
-Telegram configuration. A test asserts that no other route handlers exist.
+### Three write endpoints, nothing else
 
-### Async request APIs
+`POST /api/leads`, `GET /api/health`, `POST /api/track` are the **only**
+route handlers under `src/app/api` (`tests/foundation2027.test.js` enforces
+it). Everything else in the admin panel uses server actions.
 
-Next.js 15 makes `params`, `searchParams` and `cookies()` promises:
+### Async request APIs (Next.js 15)
 
-```tsx
-// server component / route handler
-const { lang } = await params;
+`params`/`searchParams` are promises; `[lang]/layout.tsx` and every dynamic
+page export `generateStaticParams()` with `dynamicParams = false`, so the
+whole public storefront prerenders.
 
-// 'use client' page
-const { lang } = React.use(params);
-```
+### No prices anywhere
 
-`[lang]/layout.tsx`, product, blog and category pages export
-`generateStaticParams()`, so the whole storefront is prerendered HTML.
-
-### Trust rules (P0-8)
-
-No discount percentages, delivery tariffs or durability figures are published
-unless they are verifiable. Where a number depends on the order, the copy says
-so (“narx hajmga bog‘liq”, “resurs modelga bog‘liq”) — see
-`docs/MADANI-RAQOBAT-AUDITI.md` §7.5.
+No cart, no checkout, no price — not in the UI, not in JSON-LD structured
+data (`Offer` omits `price`/`priceSpecification`). A visitor leaves a
+zayafka; a manager quotes by phone or Telegram.
 
 ### Fonts are self-hosted
 
-Inter (variable) ships as latin + cyrillic woff2 subsets from `/public/fonts`
-with `@font-face` rules in `src/app/globals.css`. This keeps `next build` free of
-outbound network calls and removes a third-party request from the critical path.
+Onest (variable weight) ships as latin + cyrillic woff2 subsets from
+`/public/fonts`. `next build` needs no outbound network call for fonts.
 
 ---
 
 ## Deploying (Vercel)
 
 1. Import the repository into Vercel (framework preset: Next.js).
-2. Set the environment variables — see `.env.example`. Required for lead
-   delivery: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`. Recommended:
-   `NEXT_PUBLIC_SITE_URL=https://spsplast.com` plus the analytics IDs.
-3. Deploy. No build step needs a database; `npm run build` regenerates nothing.
+2. Set up a Postgres database (Neon or Supabase) and the environment
+   variables — see `.env.example` and `docs/ADMIN.md`. Required for lead
+   delivery: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`. Required for `/admin`:
+   `DATABASE_URL`.
+3. Deploy. `vercel.json`'s `buildCommand` runs `db:migrate:deploy` before
+   `next build` — a failed Production migration fails the build (the
+   previous deploy keeps serving).
 
 Full runbook: [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) ·
+admin/database setup: [`docs/ADMIN.md`](docs/ADMIN.md) ·
 pre-launch checks: [`docs/LAUNCH-CHECKLIST.md`](docs/LAUNCH-CHECKLIST.md).
