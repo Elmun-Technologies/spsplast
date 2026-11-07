@@ -10,6 +10,14 @@ import { sql } from 'drizzle-orm';
  *
  * Konfiguratsiya (Telegram token/chat, analitika) va baza ulanishi
  * (`SELECT 1`, zayafkalar shu yerda saqlanadi). Bu javob keshga olinmaydi.
+ *
+ * Batafsil javob (qaysi integratsiya ulangan, baza xatosi matni, sayt manzili) ilgari
+ * HAMMAGA ochiq edi — bu raqibga yoki hujumchiga konfiguratsiyani oshkor qiladi (audit
+ * 2026-11-02, xavfsizlik). Endi: `HEALTH_CHECK_TOKEN` env sozlanmagan bo'lsa — avvalgidek
+ * (uptime monitorlar va admin'ning o'zi hech narsa sozlamasdan ishlataveradi). Sozlangan
+ * bo'lsa — faqat `Authorization: Bearer <token>` yoki `?token=` mos kelsa batafsil javob,
+ * aks holda faqat `{ status, timestamp }` (uptime monitor uchun shuning o'zi yetarli: HTTP
+ * kodi 200/503 va `status` maydoni).
  */
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -26,11 +34,28 @@ async function databaseCheck(): Promise<'connected' | 'missing' | 'error'> {
   }
 }
 
-export async function GET() {
+function isAuthorized(req: Request): boolean {
+  const required = process.env.HEALTH_CHECK_TOKEN;
+  if (!required) return true;
+  const header = req.headers.get('authorization');
+  const bearer = header?.toLowerCase().startsWith('bearer ') ? header.slice(7).trim() : null;
+  const query = new URL(req.url).searchParams.get('token');
+  return bearer === required || query === required;
+}
+
+export async function GET(req: Request) {
   const env = validateEnvironment();
   const database = await databaseCheck();
   if (database === 'error') env.errors.push('Baza ulanishi xato (DATABASE_URL tekshiring).');
   env.valid = env.errors.length === 0;
+  const status = env.valid ? 'ok' : 'degraded';
+  const httpStatus = env.valid ? 200 : 503;
+  const timestamp = new Date().toISOString();
+
+  if (!isAuthorized(req)) {
+    return NextResponse.json({ status, timestamp }, { status: httpStatus });
+  }
+
   const telegram = isTelegramConfigured();
   const models = getModels();
   const counts = getSectionCounts();
@@ -44,8 +69,8 @@ export async function GET() {
 
   return NextResponse.json(
     {
-      status: env.valid ? 'ok' : 'degraded',
-      timestamp: new Date().toISOString(),
+      status,
+      timestamp,
       checks: {
         telegram: telegram ? 'configured' : 'missing',
         database,
@@ -60,6 +85,6 @@ export async function GET() {
       errors: env.errors,
       warnings: env.warnings,
     },
-    { status: env.valid ? 200 : 503 }
+    { status: httpStatus }
   );
 }

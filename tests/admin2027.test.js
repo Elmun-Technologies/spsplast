@@ -258,5 +258,7 @@ test('13. Login limiti faqat xato urinishlarni sanaydi', async () => {
   await leads.recordHit(db, 'login_9.9.9.9', now);
   assert.strictEqual(await leads.recentHits(db, 'login_9.9.9.9', 60_000, now), 2);
   assert.strictEqual(await leads.recentHits(db, 'login_9.9.9.9', 60_000, new Date(now.getTime() + 61_000)), 0);
-  assert.match(read('src/app/admin/actions.ts'), /if \(!user\) \{\s*await recordHit/);
+  // IP va e-pochta bo'yicha bitta chaqiruvda (Promise.all) — audit 2026-11-02: e-pochta bo'yicha
+  // limit botnet (ko'p IP, bitta hisob) hujumini ham to'xtatadi.
+  assert.match(read('src/app/admin/actions.ts'), /if \(!user\) \{[\s\S]*?recordHit\(db, ipRateKey\)[\s\S]*?recordHit\(db, emailRateKey\)/);
 });

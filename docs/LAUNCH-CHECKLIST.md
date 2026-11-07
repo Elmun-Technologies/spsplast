@@ -77,6 +77,9 @@ Har bir qadam oxirida "tekshiruv" bandi bajarilmaguncha keyingisiga o'tilmaydi.
   - Vercel → Project → Observability / Log Drains: `[leads] ZAYAFKA YETKAZILMADI` va `[leads] bazaga yozilmadi`
     qatorlari uchun ogohlantirish (yoki log drain → Better Stack alert).
   - Xatolarni yig'ish kerak bo'lsa — Sentry (`@sentry/nextjs`, DSN env orqali) alohida qaror.
+  - Ixtiyoriy: `HEALTH_CHECK_TOKEN` o'rnatilsa, `/api/health` batafsil javobi (Telegram/baza/analitika
+    holati, sayt manzili) faqat shu token bilan ko'rinadi — boshqa hamma uchun faqat `{status}`.
+    Uptime monitor ham ishlayveradi (u faqat `status` va HTTP kodiga qaraydi).
 - [ ] Har hafta: Tashriflar → manbalar va davlatlar; Search Console → indeks xatolari.
 - [ ] Biznesdan kutilayotganlar: yakuniy 2027 PDF katalog (uz/ru/en), zavod/ombor/obyekt suratlari,
       ulgurji shartlar, yuridik nom — `docs/unresolved-questions.md`.

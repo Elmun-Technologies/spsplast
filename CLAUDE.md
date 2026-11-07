@@ -259,6 +259,29 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   - CI: `defaults.run.shell: bash` (pipefail); audit/shots steps continue for the report, the last step fails the job.
   - Only real SPS images: the port/container stock photos were deleted (export map + mold photo instead).
 
+- **Audit 2026-11-02, stage 3 (`tests/auditStage3.test.js`)** — keep them:
+  - **CSP**: `next.config.js` sets a site-wide CSP (prod only) with `'unsafe-inline'` for script/style
+    (pages are statically prerendered — no per-request nonce is possible there) but a real allowlist for
+    `connect-src`/`img-src`/`script-src` (only the analytics hosts actually used) plus `object-src 'none'`,
+    `base-uri 'self'`, `form-action 'self'`, `frame-ancestors 'none'`. **`/admin` REPLACES this entirely**
+    (verified live: only one `Content-Security-Policy` header reaches the browser there) with a stricter,
+    self-contained, nonce-based policy from `src/middleware.ts` (`script-src 'self' 'nonce-x' 'strict-dynamic'`,
+    no `'unsafe-inline'` for scripts — admin has zero hand-written `<script>`, only Next's own hydration
+    scripts, which Next auto-nonces when it sees the nonce in the *request* header, not just the response).
+    Don't assume the two CSPs merge — if you touch either, re-verify with a real browser (zero console/CSP
+    errors) that admin pages still hydrate, since a nonce-wiring mistake silently breaks every admin form.
+  - `/api/leads` and `/api/track` reject cross-site writes via `src/lib/requestGuard.ts`'s `isCrossOrigin()`
+    (Origin vs. Host, not a hardcoded domain — works on Preview/localhost too) and read the body through
+    `readLimitedText()` (a real streamed byte cap, not a `Content-Length` check) instead of `req.json()`
+    directly; `/api/leads` also requires `Content-Type: application/json` (blocks the classic `text/plain`
+    CORS-preflight-bypass trick). Honeypot/validation behavior is unchanged.
+  - `/api/health`'s detailed body (Telegram/DB/analytics config, error text) is gated behind an optional
+    `HEALTH_CHECK_TOKEN` (`Authorization: Bearer` or `?token=`); unset (default) keeps today's open behavior.
+    The admin Settings page link appends the token server-side when configured. Uptime monitors only need
+    `status` + the HTTP code, both still returned without a token.
+  - Admin login rate-limits by **IP and by e-mail** (`ipKey('login_email', normalizeEmail(...))`), so a
+    botnet can't brute-force one account by rotating IPs — the IP limit alone didn't stop that.
+
 - **Never reintroduce Tailwind.** The database is back (Stage 7, user decision) **only** behind
   `src/server/` — public pages (`[lang]`, `components`, `lib`) must never import it
   (`tests/platform.test.js` test 6), otherwise the storefront stops being static.
@@ -369,7 +392,7 @@ npm run dev            # local dev server
 npm run build          # models:check + next build (448 static pages)
 npm run typecheck      # tsc --noEmit
 npm run lint           # next lint
-npm test               # node --test --experimental-strip-types tests/*.test.js (165 tests)
+npm test               # node --test --experimental-strip-types tests/*.test.js (174 tests)
 npm run models:build && npm run models:images && npm run models:check
 npm run db:generate    # after editing src/server/db/schema.ts → new SQL in drizzle/
 DATABASE_URL=... npm run db:migrate

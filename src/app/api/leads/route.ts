@@ -9,6 +9,10 @@ import { getDb } from '@/server/db/client';
 import { createLead, hitRateLimit, markTelegram } from '@/server/leads';
 import { formatLeadMessage } from '@/server/leadMessage';
 import { ipKey } from '@/server/privacy';
+import { isCrossOrigin, readLimitedText } from '@/lib/requestGuard';
+
+/** Eng katta zayafka — ro'yxat (60 model) + izoh (2000 belgi) ham bundan ancha kichik. */
+const MAX_BODY_BYTES = 32 * 1024;
 
 /**
  * Zayafka endpoint'i — saytdagi YAGONA yozuv API (HANDOFF 5-bo'lim).
@@ -108,9 +112,21 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: 'rate_limit' }, { status: 429 });
   }
 
+  // "text/plain" bilan yuborilgan JSON — CORS preflight'ni aylanib o'tish hiylasi
+  // (begona sayt oddiy `fetch`/`<form>` bilan, brauzer so'rovni oldindan tekshirmaydi).
+  // Chin mijoz (leadSubmit.ts) har doim `application/json` yuboradi.
+  const contentType = req.headers.get('content-type') || '';
+  if (!contentType.toLowerCase().includes('application/json') || isCrossOrigin(req)) {
+    return NextResponse.json({ ok: false, error: 'bad_json' }, { status: 400 });
+  }
+
+  const text = await readLimitedText(req, MAX_BODY_BYTES);
+  if (text === null) {
+    return NextResponse.json({ ok: false, error: 'bad_json' }, { status: 413 });
+  }
   let raw: unknown;
   try {
-    raw = await req.json();
+    raw = JSON.parse(text);
   } catch {
     return NextResponse.json({ ok: false, error: 'bad_json' }, { status: 400 });
   }

@@ -48,6 +48,17 @@ function post(route, body, ip = `10.0.0.${++ipSeq}`) {
   );
 }
 
+/** `post()` kabi, lekin sarlavha/tana to'liq nazoratda — xavfsizlik testlari uchun. */
+function postRaw(route, body, extraHeaders = {}, ip = `10.0.0.${++ipSeq}`) {
+  return route.POST(
+    new Request('http://localhost/api/leads', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', 'x-forwarded-for': ip, ...extraHeaders },
+      body,
+    }),
+  );
+}
+
 const base = { type: 'quick', name: 'Aziz Test', phone: '90 123 45 67', lang: 'uz', items: [{ slug: '01-monako', m2: 120 }] };
 
 test('1. Zayafka bazaga yoziladi, Telegram\'ga ketadi, raqam SPS-YYMM-NNNN', async () => {
@@ -149,4 +160,47 @@ test('5. Honeypot — soxta ok, Telegram yuborilmaydi; 11-so\'rov — 429', asyn
     tg.restore();
     client.setDbForTests(undefined);
   }
+});
+
+test('6. Begona Origin — "text/plain" CORS-aylanib o\'tish hiylasi rad etiladi (audit 2026-11-02)', async () => {
+  const { client, route } = await setup();
+  client.setDbForTests(null);
+  // Telegram'ga haqiqiy tarmoq so'rovi ketmasin — avvalgi testdan qolgan token bo'lishi mumkin.
+  const savedToken = process.env.TELEGRAM_BOT_TOKEN;
+  const savedChat = process.env.TELEGRAM_CHAT_ID;
+  delete process.env.TELEGRAM_BOT_TOKEN;
+  delete process.env.TELEGRAM_CHAT_ID;
+  const body = JSON.stringify(base);
+  // Begona sayt: Origin so'ralgan Host bilan mos kelmaydi.
+  const cross = await postRaw(route, body, { origin: 'https://evil.example', host: 'localhost' });
+  assert.strictEqual(cross.status, 400);
+  assert.strictEqual((await cross.json()).error, 'bad_json');
+
+  // "text/plain" — begona sayt <form>/fetch bilan CORS preflight'siz yuborishi mumkin.
+  const plain = await postRaw(route, body, { 'content-type': 'text/plain;charset=UTF-8' });
+  assert.strictEqual(plain.status, 400);
+
+  // O'zining Origin'i (Host bilan mos) — ruxsat etiladi.
+  const same = await postRaw(route, body, { origin: 'http://localhost', host: 'localhost' });
+  assert.strictEqual(same.status, 200);
+
+  // Origin umuman yo'q (ko'p brauzer/mijoz) — ham ruxsat etiladi (faqat begonasi bloklanadi).
+  const noOrigin = await postRaw(route, body);
+  assert.strictEqual(noOrigin.status, 200);
+
+  client.setDbForTests(undefined);
+  if (savedToken === undefined) delete process.env.TELEGRAM_BOT_TOKEN;
+  else process.env.TELEGRAM_BOT_TOKEN = savedToken;
+  if (savedChat === undefined) delete process.env.TELEGRAM_CHAT_ID;
+  else process.env.TELEGRAM_CHAT_ID = savedChat;
+});
+
+test('7. Juda katta so\'rov tanasi — 413, server tanani oxirigacha o\'qimay to\'xtaydi', async () => {
+  const { client, route } = await setup();
+  client.setDbForTests(null);
+  const huge = JSON.stringify({ ...base, message: 'x'.repeat(40 * 1024) }); // 32 KB limitdan katta
+  const res = await postRaw(route, huge);
+  assert.strictEqual(res.status, 413);
+  assert.strictEqual((await res.json()).error, 'bad_json');
+  client.setDbForTests(undefined);
 });

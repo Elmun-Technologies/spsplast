@@ -14,6 +14,10 @@ export default async function SettingsPage() {
   const saved = await getSettings(db);
   // Hozir saytda ishlayotgan qiymat (oxirgi nashr yoki env).
   const live = Object.fromEntries(INTEGRATION_FIELDS.map((f) => [f.key, settingValue(f.key)]));
+  // HEALTH_CHECK_TOKEN sozlangan bo'lsa /api/health batafsil javobni faqat shu token bilan
+  // beradi (audit 2026-11-02) — admin'ning o'z havolasi ishlashda davom etsin.
+  const healthToken = process.env.HEALTH_CHECK_TOKEN;
+  const healthUrl = `${SITE_URL}/api/health${healthToken ? `?token=${encodeURIComponent(healthToken)}` : ''}`;
 
   return (
     <AdminShell user={user} active="settings" title="Sozlamalar: kontaktlar, raqamlar, integratsiyalar va SEO">
@@ -43,7 +47,7 @@ export default async function SettingsPage() {
           </dd>
           <dt>Tekshiruv</dt>
           <dd>
-            <a href={`${SITE_URL}/api/health`} target="_blank" rel="noopener noreferrer">
+            <a href={healthUrl} target="_blank" rel="noopener noreferrer">
               /api/health
             </a>{' '}
             — qaysi integratsiyalar ulanganini ko&apos;rsatadi.
