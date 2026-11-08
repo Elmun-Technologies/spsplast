@@ -1,0 +1,29 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>НОЖКА СКАМЕЙКИ 5 — 3D · SPS</title>
+<meta name="description" content="3D-просмотр формы, изделия и укладки — Stone Profy Servise"><style>:root{--bg:#f4f0e9;--ink:#1c1b1a;--mut:#6b655c;--red:#d3202a;--card:#fff;--line:#d8d0c2}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#171615;--ink:#ece7df;--mut:#a39c90;--card:#22201e;--line:#35322e}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+.w{max-width:960px;margin:0 auto;padding:0 16px}header{display:flex;align-items:center;justify-content:space-between;padding:14px 0}header img{height:34px}
+header a{color:var(--mut);font-size:13px;text-decoration:none}.k{color:var(--red);font:700 11px/1 system-ui;letter-spacing:.18em;text-transform:uppercase;margin:8px 0 6px}
+h1{font:800 clamp(26px,6vw,40px)/1.05 system-ui;margin:0 0 10px;text-transform:uppercase}.sp{display:flex;gap:10px 22px;flex-wrap:wrap;color:var(--mut);font-size:14px;margin-bottom:14px}.sp b{color:var(--ink)}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:8px 0}.tabs button{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:11px 4px;border-radius:10px;font:600 13px/1.2 system-ui;cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}.tabs button:disabled{opacity:.4;cursor:default}
+.st{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}model-viewer{width:100%;height:min(66vh,520px);background:radial-gradient(#e9e3d7,#cfc6b4);--poster-color:transparent}
+@media (prefers-color-scheme:dark){model-viewer{background:radial-gradient(#3a3834,#1b1a19)}}
+.hint{font-size:12px;color:var(--mut);padding:8px 12px}.gal{display:grid;gap:8px;padding:8px}.gal img{width:100%;border-radius:10px;display:block}
+footer{padding:24px 0 40px;color:var(--mut);font-size:13px}footer a{color:var(--red);font-weight:700;text-decoration:none}[hidden]{display:none!important}
+.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin:12px 0 24px}.g a{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;text-decoration:none;color:var(--ink)}
+.g img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;background:#ddd}.g span{display:block;padding:8px 10px;font:700 12px/1.25 system-ui}.g small{display:block;color:var(--mut);font-weight:500}
+input{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:16px system-ui;margin:10px 0}</style></head><body><div class="w"><header><a href="/3d/"><img src="/3d/assets/logo.png" alt="SPS"></a><a href="/3d/">Все формы →</a></header>
+<div class="k">Скамейки · S05</div><h1>НОЖКА СКАМЕЙКИ 5</h1>
+<div class="sp"><span>Размер <b>800×800 мм</b></span><span>Глубина формы <b>60 мм</b></span></div>
+<div class="tabs" role="tablist"><button role="tab" data-k="qolip" aria-selected="false">Форма</button><button role="tab" data-k="mahsulot" aria-selected="false">Изделие</button><button role="tab" data-k="terilgan" aria-selected="false">Укладка</button><button role="tab" data-k="sahna" aria-selected="false" disabled>На объекте</button></div>
+<div class="st"><div id="v"><model-viewer id="mv" camera-controls touch-action="pan-y" auto-rotate shadow-intensity="1" exposure="1" camera-orbit="25deg 62deg 72%" environment-image="neutral" interaction-prompt="auto" ></model-viewer></div><div id="gal" class="gal" hidden></div><div class="hint" id="hint">Вращайте модель пальцем · приближайте щипком</div></div>
+<footer>Stone Profy Servise · <a href="tel:+998983007772">+998 (98) 300-77-72</a></footer></div>
+<script type="module" src="/3d/assets/model-viewer.min.js"></script>
+<script>const H={"qolip": "/3d/s05/qolip.glb", "mahsulot": "/3d/s05/mahsulot.glb", "terilgan": "/3d/s05/terilgan.glb"};const P=null;const mv=document.getElementById('mv'),g=document.getElementById('gal'),v=document.getElementById('v');
+const T={qolip:'Форма для литья — видны рельеф и глубина',mahsulot:'Готовое изделие',terilgan:'Укладка: одно изделие приподнято — видна толщина',sahna:''};
+function go(k){document.querySelectorAll('.tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.k===k));
+ if(k==='sahna'){v.hidden=true;g.hidden=false}else{g.hidden=true;v.hidden=false;mv.removeAttribute('poster');mv.src=H[k];if(k==='qolip'&&P)mv.setAttribute('poster',P)}
+ document.getElementById('hint').textContent=T[k]||'';history.replaceState(null,'','#'+k)}
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>!b.disabled&&go(b.dataset.k));
+go((location.hash||'').slice(1)||"qolip");</script></body></html>
