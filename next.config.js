@@ -56,6 +56,11 @@ const nextConfig = {
         headers: [{ key: 'Cache-Control', value: 'public, max-age=604800, stale-while-revalidate=604800' }],
       },
       {
+        // 3D modellar (GLB) va rasmlar statik: uzoq keshlanadi.
+        source: '/3d/:path*',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=604800, stale-while-revalidate=604800' }],
+      },
+      {
         source: '/sw.js',
         headers: [{ key: 'Cache-Control', value: 'public, max-age=0, must-revalidate' }],
       },
@@ -109,6 +114,9 @@ const nextConfig = {
   async rewrites() {
     return [
       { source: '/sitemap.xml', destination: '/sitemap' },
+      // 3D-katalog (QR sahifalar): public/3d/<id>/index.html papka manzilida ochilsin.
+      { source: '/3d', destination: '/3d/index.html' },
+      { source: '/3d/:id', destination: '/3d/:id/index.html' },
     ];
   },
 };
