@@ -1338,3 +1338,8 @@ html[data-scrolled] .hd { box-shadow: 0 6px 24px rgba(21, 23, 26, .08); border-b
   .cat-head__cta .sps-btn { flex: none; }
 }
 .cat-head + .sec { padding-top: var(--space-5); }
+
+/* Yopishqoq header ostida langar (#3d, #eksport, #faq) ko'rinib tursin: header balandligi
+   aylantirilganda mobil 153px, desktop 118px (2026-11-12, Playwright bilan o'lchangan). */
+html { scroll-padding-top: 164px; }
+@media (min-width: 761px) { html { scroll-padding-top: 130px; } }
