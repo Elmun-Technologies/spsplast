@@ -1,18 +1,27 @@
 'use client';
 
-import type { ReactNode } from 'react';
-import { useParams } from 'next/navigation';
+import { useEffect, useSyncExternalStore, type ReactNode } from 'react';
 import { isValidLocale, type Locale } from '@/lib/i18n';
 
+const noop = () => () => {};
+/** URL'ning birinchi bo'lagi: /ru/xato-yol -> ru. Server'da (prerender) — uz. */
+function urlLang(): Locale {
+  const first = window.location.pathname.split('/')[1] ?? '';
+  return isValidLocale(first) ? (first as Locale) : 'uz';
+}
+
 /**
- * `not-found.tsx` ga Next `params` bermaydi: til `useParams()` dan olinadi (noma'lum — uz).
- * Uch tildagi tana server'da tayyorlanib prop sifatida keladi — mijoz bundle'iga katalog
- * ma'lumoti va lug'atlar kirmaydi.
+ * 404 tili. `dynamicParams = false` tufayli HAR qanday noma'lum manzil (`/ru/xato-yol`,
+ * `/en/catalog/paving/yoq`) bitta oldindan tayyorlangan ildiz `not-found.tsx` bilan javob
+ * oladi — u `[lang]` dan tashqarida, `params`/`useParams()` yo'q (2026-11-12 da curl bilan
+ * tasdiqlandi: `[lang]/not-found.tsx` amalda ishlatilmaydi). Shuning uchun til brauzerdagi
+ * haqiqiy URL'dan olinadi; uch tildagi tana (header/footer bilan) server'da tayyorlanib prop
+ * sifatida keladi — mijoz bundle'iga katalog ma'lumoti va lug'atlar kirmaydi.
  */
 export function NotFoundLangPick(props: Record<Locale, ReactNode>) {
-  const params = useParams<{ lang?: string }>();
-  // Ma'lum cheklov (CLAUDE.md, 3.2): `notFound()` yo'lida `useParams()` ham, `usePathname()` ham
-  // segmentni bermaydi (2026-11-12 da ikkalasi brauzerda tekshirildi) — 404 tanasi hozircha uz.
-  const lang: Locale = isValidLocale(params?.lang ?? '') ? (params.lang as Locale) : 'uz';
+  const lang = useSyncExternalStore(noop, urlLang, () => 'uz' as Locale);
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
   return <>{props[lang]}</>;
 }

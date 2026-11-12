@@ -1,10 +1,6 @@
-import { NotFoundBody } from '@/components/site/NotFoundBody';
-import { NotFoundLangPick } from '@/components/site/NotFoundLangPick';
-
 /**
- * Til ichidagi 404. Next `not-found.tsx` ga `params` bermaydi — tana uch tilda server'da
- * renderlanadi, til mijozda `useParams()` bilan tanlanadi (noma'lum holatda uz).
+ * `notFound()` `[lang]` ichida chaqirilsa ham amalda ildiz `app/not-found.tsx` ishlaydi
+ * (`dynamicParams = false`, oldindan tayyorlangan 404). Bir xil ko'rinish bo'lishi uchun
+ * shu yerda ham o'shani qayta ishlatamiz.
  */
-export default function LangNotFound() {
-  return <NotFoundLangPick uz={<NotFoundBody lang="uz" />} ru={<NotFoundBody lang="ru" />} en={<NotFoundBody lang="en" />} />;
-}
+export { default } from '../not-found';

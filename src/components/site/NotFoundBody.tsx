@@ -31,7 +31,8 @@ export function NotFoundBody({ lang }: { lang: Locale }) {
             <h1 className="h1">{p.notfound.title}</h1>
             <p className="lead muted">{p.notfound.text}</p>
 
-            <form className="srch" action={`/${lang}/catalog`} method="get" role="search">
+            {/* Header'da ham `role="search"` bor — nomsiz ikkita bir xil landmark bo'lmasin (axe `landmark-unique`). */}
+            <form className="srch" action={`/${lang}/catalog`} method="get" role="search" aria-label={`${p.notfound.search} · ${t.header.catalog}`}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                 <circle cx="11" cy="11" r="7" />
                 <path d="M20 20l-4-4" />
