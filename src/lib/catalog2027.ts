@@ -153,7 +153,8 @@ export function getModelBySlug(slug: string): Model | undefined {
 export function modelName(m: Model, lang: Locale): string {
   const own = m.name[lang];
   if (own) return own;
-  const uz = m.name.uz || m.slug;
+  // Tipografik apostrof (o‘, g‘, ’) — lug'at va transliteratsiya ASCII `'` bilan ishlaydi.
+  const uz = (m.name.uz || m.slug).replace(/[‘’ʻʼ`]/g, "'");
   if (lang === 'ru') return uzToCyrillic(translateWords(uz, UZ_RU_WORDS));
   if (lang === 'en') return uzToEnglishName(uz);
   return uz;

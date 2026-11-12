@@ -4252,7 +4252,7 @@
    "slug": "88-parket-yog-och-naqshli",
    "section": "trotuar",
    "name": {
-    "uz": "Parket yog'och naqshli",
+    "uz": "Parket yog‘och naqshli",
     "ru": null,
     "en": null
    },
@@ -5410,7 +5410,7 @@
    "slug": "d10-kop-ramkali-keng",
    "section": "dekor",
    "name": {
-    "uz": "Ko'p ramkali, keng",
+    "uz": "Ko‘p ramkali, keng",
     "ru": "Многорамочная широкая",
     "en": "Multi-frame, wide"
    },
@@ -5453,7 +5453,7 @@
    "slug": "d11-kop-ramkali",
    "section": "dekor",
    "name": {
-    "uz": "Ko'p ramkali",
+    "uz": "Ko‘p ramkali",
     "ru": "Многорамочная",
     "en": "Multi-frame"
    },
@@ -5496,7 +5496,7 @@
    "slug": "d12-tolqinsimon-panel",
    "section": "dekor",
    "name": {
-    "uz": "To'lqinsimon panel",
+    "uz": "To‘lqinsimon panel",
     "ru": "Волнистая панель",
     "en": "Wave panel"
    },
@@ -9761,7 +9761,7 @@
    "slug": "s01-skameyka-oyogi-1",
    "section": "skameyka",
    "name": {
-    "uz": "Skameyka oyog'i 1",
+    "uz": "Skameyka oyog‘i 1",
     "ru": "Ножка скамейки 1",
     "en": "Bench leg 1"
    },
@@ -9804,7 +9804,7 @@
    "slug": "s02-skameyka-oyogi-2",
    "section": "skameyka",
    "name": {
-    "uz": "Skameyka oyog'i 2",
+    "uz": "Skameyka oyog‘i 2",
     "ru": "Ножка скамейки 2",
     "en": "Bench leg 2"
    },
@@ -9847,7 +9847,7 @@
    "slug": "s03-skameyka-oyogi-3",
    "section": "skameyka",
    "name": {
-    "uz": "Skameyka oyog'i 3",
+    "uz": "Skameyka oyog‘i 3",
     "ru": "Ножка скамейки 3",
     "en": "Bench leg 3"
    },
@@ -9890,7 +9890,7 @@
    "slug": "s04-skameyka-oyogi-4",
    "section": "skameyka",
    "name": {
-    "uz": "Skameyka oyog'i 4",
+    "uz": "Skameyka oyog‘i 4",
     "ru": "Ножка скамейки 4",
     "en": "Bench leg 4"
    },
@@ -9933,7 +9933,7 @@
    "slug": "s05-skameyka-oyogi-5",
    "section": "skameyka",
    "name": {
-    "uz": "Skameyka oyog'i 5",
+    "uz": "Skameyka oyog‘i 5",
     "ru": "Ножка скамейки 5",
     "en": "Bench leg 5"
    },
@@ -9976,7 +9976,7 @@
    "slug": "s06-skameyka-oyogi-6",
    "section": "skameyka",
    "name": {
-    "uz": "Skameyka oyog'i 6",
+    "uz": "Skameyka oyog‘i 6",
     "ru": "Ножка скамейки 6",
     "en": "Bench leg 6"
    },
@@ -10019,7 +10019,7 @@
    "slug": "s07-skameyka-oyogi-7",
    "section": "skameyka",
    "name": {
-    "uz": "Skameyka oyog'i 7",
+    "uz": "Skameyka oyog‘i 7",
     "ru": "Ножка скамейки 7",
     "en": "Bench leg 7"
    },
@@ -11263,7 +11263,7 @@
    "slug": "z02-yevrozabor-gunchalar",
    "section": "zabor",
    "name": {
-    "uz": "Yevrozabor «G'unchalar»",
+    "uz": "Yevrozabor «G‘unchalar»",
     "ru": "Еврозабор «Бутоны»",
     "en": "Euro fence «Buds»"
    },
@@ -11345,7 +11345,7 @@
    "slug": "z04-yevrozabor-tolqinli-tosh",
    "section": "zabor",
    "name": {
-    "uz": "Yevrozabor «To'lqinli tosh»",
+    "uz": "Yevrozabor «To‘lqinli tosh»",
     "ru": "Еврозабор «Камень с волной»",
     "en": "Euro fence «Wave stone»"
    },
@@ -11427,7 +11427,7 @@
    "slug": "z07-yevrozabor-gisht-va-tosh",
    "section": "zabor",
    "name": {
-    "uz": "Yevrozabor «G'isht va tosh»",
+    "uz": "Yevrozabor «G‘isht va tosh»",
     "ru": "Еврозабор «Кирпич с камнем»",
     "en": "Euro fence «Brick and stone»"
    },

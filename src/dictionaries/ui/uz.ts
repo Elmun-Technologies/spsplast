@@ -1,6 +1,6 @@
 /**
- * UI lug'ati — uz (asosiy). Barcha matnlar HANDOFF.md 1–4 bo'limlaridan.
- * "yaratish" so'zi ishlatilmaydi; narx/savat terminlari yo'q.
+ * UI lug‘ati — uz (asosiy). Barcha matnlar HANDOFF.md 1–4 bo‘limlaridan.
+ * "yaratish" so‘zi ishlatilmaydi; narx/savat terminlari yo‘q.
  */
 export const uz = {
   a11y: {
@@ -8,8 +8,8 @@ export const uz = {
     langNavHeader: 'Til / Language',
     langNavMenu: 'Til (mobil menyu)',
     langNavFooter: 'Til (sahifa oxiri)',
-    skip: "Asosiy kontentga o'tish",
-    sectionsNav: "Bo'limlar",
+    skip: "Asosiy kontentga o‘tish",
+    sectionsNav: "Bo‘limlar",
     close: 'Yopish',
     companyNav: 'Kompaniya',
   },
@@ -20,8 +20,8 @@ export const uz = {
     search: 'Qidirish',
     hours: 'Du–Sha · 09:00–18:00',
     compare: 'Solishtirish',
-    requestList: "Zayafka ro'yxati",
-    call: "Qo'ng'iroq qilish",
+    requestList: "Zayafka ro‘yxati",
+    call: "Qo‘ng‘iroq qilish",
     menu: 'Menyu',
     cta: 'Zayafka qoldirish',
     pdf: 'PDF katalog ↓',
@@ -33,7 +33,7 @@ export const uz = {
     contact: 'Kontakt',
   },
   menu: {
-    sales: "Savdo bo'limi",
+    sales: "Savdo bo‘limi",
     telegram: 'Telegram',
     whatsapp: 'WhatsApp',
     waWrite: 'WhatsApp’da yozish',
@@ -44,7 +44,7 @@ export const uz = {
   },
   footer: {
     ctaTitle: 'Qolip soni va narxini menejer hisoblab beradi',
-    about: "Trotuar plitkasi, fasad, zabor va dekor elementlari uchun plastik qoliplar. Toshkent, O'zbekiston.",
+    about: "Trotuar plitkasi, fasad, zabor va dekor elementlari uchun plastik qoliplar. Toshkent, O‘zbekiston.",
     catalog: 'Katalog',
     company: 'Kompaniya',
     contact: 'Aloqa',
@@ -58,17 +58,17 @@ export const uz = {
     privacy: 'Maxfiylik siyosati',
   },
   alt: {
-    scene: "terilgan ko'rinishi",
+    scene: "terilgan ko‘rinishi",
     mold: 'qolip',
     tile: 'plitka',
     logo: 'SPS Stone Profy Servise logotipi',
   },
   seo: {
-    /** JSON-LD: Offer.itemOffered nomi va LocalBusiness.priceRange (narx yo'q). */
+    /** JSON-LD: Offer.itemOffered nomi va LocalBusiness.priceRange (narx yo‘q). */
     offerService: 'Qolip hisob-kitobi va yetkazib berish',
     priceRange: 'Zayafka bo‘yicha',
     leadCta: "Zayafka qoldiring — menejer qolip soni va narxini hisoblab beradi.",
-    /** Sarlavhalardagi asosiy so'rov (audit 2026-11-02): bo'lim → "… qoliplari", model → "… qolipi". */
+    /** Sarlavhalardagi asosiy so‘rov (audit 2026-11-02): bo‘lim → "… qoliplari", model → "… qolipi". */
     sectionMolds: {
       trotuar: 'Trotuar plitkasi qoliplari',
       fasad: 'Fasad plitkasi qoliplari',
@@ -101,22 +101,22 @@ export const uz = {
     inCatalog: 'katalogda',
     searchPlaceholder: 'Kod yoki nom: 70, Monako',
     sort: 'Saralash',
-    sortPopular: "Ko'p so'raladigan",
+    sortPopular: "Ko‘p so‘raladigan",
     sortCode: 'Kod',
     sortThickness: 'Qalinlik',
-    sortSize: "O'lcham",
+    sortSize: "O‘lcham",
     viewGrid: 'Panjara',
-    viewList: "Ro'yxat",
+    viewList: "Ro‘yxat",
     filters: 'Filtr',
     clear: 'Tozalash',
-    show: 'ta modelni ko’rsatish',
-    /** Katalog sahifasi sarlavha bandi: {n} model soni, {models} — ko'plik shakli, {s} — bo'limlar soni. */
+    show: 'ta modelni ko‘rsatish',
+    /** Katalog sahifasi sarlavha bandi: {n} model soni, {models} — ko‘plik shakli, {s} — bo‘limlar soni. */
     headLead: '{n} {models} · {s} bo‘lim. Narx saytda yo‘q — zayafka qoldiring, menejer qolip soni va narxini hisoblab beradi.',
     groupKind: 'Turi',
-    groupUse: "Qo'llanish",
-    groupSize: "Plitka o'lchami",
-    groupSet: "To'plam",
-    useWalk: 'Piyoda yo’lak',
+    groupUse: "Qo‘llanish",
+    groupSize: "Plitka o‘lchami",
+    groupSet: "To‘plam",
+    useWalk: 'Piyoda yo‘lak',
     useWalkNote: '25–30 mm',
     useYard: 'Hovli',
     useYardNote: '35–40 mm',
@@ -129,20 +129,20 @@ export const uz = {
     set1: '1 qolipli',
     set2: '2 qolipli',
     set3: '3 qolipli',
-    empty: 'Bu filtrlar bo’yicha model topilmadi',
+    empty: 'Bu filtrlar bo‘yicha model topilmadi',
     emptyReset: 'Filtrni tozalash',
-    more: 'Yana ko’rsatish',
-    shown: 'ko’rsatildi',
+    more: 'Yana ko‘rsatish',
+    shown: 'ko‘rsatildi',
     allCatalog: 'Butun katalog',
     cardCompare: 'Solishtirish',
     photoSoon: 'Foto tayyorlanmoqda',
-    cardQuick: 'Tez ko’rish',
+    cardQuick: 'Tez ko‘rish',
     cardRequest: 'Zayafka',
-    cardAdd: "Zayafka ro’yxatiga qo’shish",
-    cardInList: "Ro’yxatda",
-    mSize: "O'lcham",
+    cardAdd: "Zayafka ro‘yxatiga qo‘shish",
+    cardInList: "Ro‘yxatda",
+    mSize: "O‘lcham",
     mThickness: 'Qalinlik',
-    mSet: "To'plam",
+    mSet: "To‘plam",
     mPer: '1 m² ga',
     mMaterial: 'Material',
     molds: 'qolip',
@@ -155,9 +155,9 @@ export const uz = {
     formNote: 'Izoh',
     formHelp: 'Narx va qolip sonini menejer hisoblab, telefon yoki Telegram orqali aytadi.',
     formSubmit: 'Zayafka yuborish',
-    formAddList: "Ro’yxatga qo’shish",
+    formAddList: "Ro‘yxatga qo‘shish",
     formOk: 'Zayafka qabul qilindi',
-    formOkText: 'Menejer ish vaqtida bog’lanadi: Du–Sha · 09:00–18:00 (Toshkent).',
+    formOkText: 'Menejer ish vaqtida bog‘lanadi: Du–Sha · 09:00–18:00 (Toshkent).',
     formBack: 'Katalogga qaytish',
     formError: 'Ism va telefon raqamini tekshiring.',
     formRateLimit: 'Juda ko‘p so‘rov yuborildi. Bir ozdan so‘ng qayta urinib ko‘ring.',

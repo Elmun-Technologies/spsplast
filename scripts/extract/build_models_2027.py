@@ -76,6 +76,11 @@ def norm(s: str) -> str:
     return re.sub(r"\s+", " ", s).strip()
 
 
+def uz_typo(s: str) -> str:
+    """Bo'g'in ichidagi apostrofni tipografik qiladi: o'/g' -> ‘, boshqasi (tutuq) -> ’."""
+    return re.sub(r"([A-Za-z])['‘’ʻʼ](?=[a-z])", lambda m: m.group(1) + ("‘" if m.group(1) in "oOgG" else "’"), s)
+
+
 def slugify(s: str) -> str:
     s = unicodedata.normalize("NFKD", str(s)).lower()
     s = s.replace("‘", "").replace("’", "")
@@ -698,6 +703,11 @@ def main():
     for m in models:
         m.pop("_3d", None)
         m.pop("_name_norm", None)
+        # O'zbekcha tipografik apostrof (o‘, g‘ — U+2018; tutuq — U+2019), sayt lug'atlari bilan bir xil.
+        # Slug allaqachon hisoblangan — URL o'zgarmaydi (tests/foundation2027 test).
+        for fld in ("name", "subtitle"):
+            if m[fld].get("uz"):
+                m[fld]["uz"] = uz_typo(m[fld]["uz"])
         m.pop("_src", None)
         m.pop("_pop", None)
     payload = {
