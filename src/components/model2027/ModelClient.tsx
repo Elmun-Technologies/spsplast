@@ -14,6 +14,7 @@ import {
   modelThickness,
   localizedText,
   sectionLabel,
+  isRenderImage,
 } from '@/lib/catalog2027';
 import type { Locale } from '@/lib/i18n';
 import { formatNumber, type UiDictionary } from '@/lib/ui';
@@ -31,7 +32,7 @@ const QuickRequestModal = dynamic(
   { ssr: false },
 );
 
-type GalleryItem = { src: string; label: string; cover: boolean };
+type GalleryItem = { src: string; label: string; cover: boolean; render?: boolean };
 
 const num = (lang: Locale, n: number) =>
   new Intl.NumberFormat(lang === 'en' ? 'en-US' : 'ru-RU', { maximumFractionDigits: 1 }).format(n);
@@ -69,9 +70,16 @@ export function ModelClient({
 
   const gallery = useMemo<GalleryItem[]>(() => {
     const out: GalleryItem[] = [];
-    if (model.images.scene) out.push({ src: model.images.scene, label: p.model.gallery.scene, cover: true });
+    // 3D render (tirik surat hali yo'q) — yorlig'i "haqiqiy surat" demasligi kerak.
+    if (model.images.scene) {
+      const render = isRenderImage(model.images.scene);
+      out.push({ src: model.images.scene, label: render ? p.model.gallery.sceneRender : p.model.gallery.scene, cover: true, render });
+    }
     const mold = model.images.molds.A;
-    if (mold) out.push({ src: mold, label: p.model.gallery.mold, cover: false });
+    if (mold) {
+      const render = isRenderImage(mold);
+      out.push({ src: mold, label: render ? p.model.gallery.moldRender : p.model.gallery.mold, cover: false, render });
+    }
     const tile = model.images.tiles.A;
     if (tile) out.push({ src: tile, label: p.model.gallery.tile, cover: false });
     // `sceneSm` — o'sha sahnaning kichik nusxasi (ko'pincha bayt-ma-bayt bir xil), galereyada takrorlanmaydi.
@@ -157,7 +165,7 @@ export function ModelClient({
           : thickness <= 40
             ? p.model.use.yard
             : p.model.use.car
-      : model.section === 'fasad'
+      : model.section === 'fasad' || model.section === 'termopanel' || model.section === 'fasad_dekor'
         ? p.model.use.facade
         : model.section === 'dekor'
           ? p.model.use.decor
@@ -230,7 +238,8 @@ export function ModelClient({
                   // Fonsiz qolip/mahsulot surati markazda, chetlardan joy bilan (avval chap-yuqoriga siqilib qolardi).
                   style={{ objectFit: hero.cover ? 'cover' : 'contain', padding: hero.cover ? undefined : '8%' }}
                 />
-              ) : (
+              ) : null}
+              {hero ? null : (
                 <div className="stage-nophoto">
                   <Icon.grid width={32} height={32} strokeWidth={1.25} aria-hidden="true" />
                   <b>{p.model.photoAskTitle}</b>

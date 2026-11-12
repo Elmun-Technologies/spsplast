@@ -4,7 +4,7 @@ Bosqich 5 — migratsiya xaritasi: eski (2026) URL'lar → yangi (2027) marshrut
 
 Chiqish: `scripts/redirects-2027.json` (next.config.js shu faylni o'qiydi).
 Manba: `docs/legacy/catalog-2026.json` (eski 192 mahsulot + 3 kategoriya + blog/loyihalar)
-va `data/models-2027.json` (yangi 119 model).
+va `data/models-2027.json` (yangi katalog) + `data/moved-2027.json` (ko'chgan modellar).
 
 Moslash qoidasi: eski mahsulot nomi (uz) yangi model nomiga mos kelsa — aniq
 model sahifasiga 301; mos kelmasa — bo'lim/katalog sahifasiga. HANDOFF 7:
@@ -19,6 +19,11 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 OLD = os.path.join(ROOT, "docs/legacy/catalog-2026.json")
 NEW = os.path.join(ROOT, "data/models-2027.json")
 OUT = os.path.join(ROOT, "scripts/redirects-2027.json")
+MOVED = os.path.join(ROOT, "data/moved-2027.json")  # build_models_2027.py: ko'chirilgan/chiqarilgan modellar
+
+# Bo'lim kaliti -> marshrut slugi (src/lib/catalog2027.ts DEFAULT_SECTIONS bilan bir xil).
+SECTION_SLUG = {"trotuar": "paving", "fasad": "facade", "termopanel": "thermal-panels",
+                "fasad_dekor": "facade-decor", "zabor": "fence", "dekor": "decor", "skameyka": "bench"}
 
 LOCALES = ["uz", "ru"]
 LANG_FALLBACK = {"uz": "uz", "ru": "ru"}
@@ -61,14 +66,30 @@ def main() -> None:
         if m.get("code"):
             index.setdefault("#" + str(m["code"]).lower(), m)
 
+    by_slug = {m["slug"]: m for m in new}
+    moved = json.load(open(MOVED, encoding="utf-8"))["moved"] if os.path.exists(MOVED) else []
+    # Eski nom bilan qidirilganda ham yangi (birlashtirilgan) modelga borsin: "Labirint" -> TP-012.
+    for mv in moved:
+        target = by_slug.get(mv["to"][1] or "")
+        if target:
+            index.setdefault(norm(mv["name"]), target)
+
     redirects = []
-    stats = {"products": 0, "matched": 0, "categories": 0, "static": 0, "legacy": 0}
+    stats = {"products": 0, "matched": 0, "categories": 0, "static": 0, "legacy": 0, "moved": 0}
+
+    # 0) 2027 saytining o'zida ko'chgan model sahifalari (3D katalog bilan yarashtirish):
+    #    birlashtirilgan -> yangi model, chiqarilgan -> bo'lim sahifasi. Uch tilda.
+    for mv in moved:
+        (from_sec, from_slug), (to_sec, to_slug) = mv["from"], mv["to"]
+        for lang in ("uz", "ru", "en"):
+            dest = f"/{lang}/catalog/{SECTION_SLUG[to_sec]}" + (f"/{to_slug}" if to_slug else "")
+            redirects.append({"source": f"/{lang}/catalog/{SECTION_SLUG[from_sec]}/{from_slug}",
+                              "destination": dest, "statusCode": 301})
+            stats["moved"] += 1
 
     def section_path(m: dict | None, lang: str, category_id: str | None = None) -> str:
         if m:
-            slug = {"trotuar": "paving", "fasad": "facade", "zabor": "fence",
-                    "dekor": "decor", "skameyka": "bench"}[m["section"]]
-            return f"/{lang}/catalog/{slug}/{m['slug']}"
+            return f"/{lang}/catalog/{SECTION_SLUG[m['section']]}/{m['slug']}"
         # Mos model topilmasa — eski kategoriyaning yangi bo'limiga
         fallback = SECTION_BY_OLD_CATEGORY.get(category_id or "")
         return f"/{lang}/catalog/{fallback}" if fallback else f"/{lang}/catalog"
@@ -184,7 +205,7 @@ def main() -> None:
         indent=1,
     )
     print(f"redirects={len(redirects)} products={stats['products']} matched={stats['matched']} "
-          f"categories={stats['categories']} static={stats['static']} legacy={stats['legacy']}")
+          f"categories={stats['categories']} static={stats['static']} legacy={stats['legacy']} moved={stats['moved']}")
 
 
 if __name__ == "__main__":

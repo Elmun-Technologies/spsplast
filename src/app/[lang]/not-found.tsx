@@ -1,15 +1,10 @@
-'use client';
-
-import { useParams } from 'next/navigation';
 import { NotFoundBody } from '@/components/site/NotFoundBody';
-import { isValidLocale, type Locale } from '@/lib/i18n';
+import { NotFoundLangPick } from '@/components/site/NotFoundLangPick';
 
 /**
- * Til ichidagi 404. Next `not-found.tsx` ga `params` bermaydi — til
- * `useParams()` dan olinadi, noma'lum holatda uz (asosiy til).
+ * Til ichidagi 404. Next `not-found.tsx` ga `params` bermaydi — tana uch tilda server'da
+ * renderlanadi, til mijozda `useParams()` bilan tanlanadi (noma'lum holatda uz).
  */
 export default function LangNotFound() {
-  const params = useParams<{ lang?: string }>();
-  const lang: Locale = isValidLocale(params?.lang ?? '') ? (params.lang as Locale) : 'uz';
-  return <NotFoundBody lang={lang} />;
+  return <NotFoundLangPick uz={<NotFoundBody lang="uz" />} ru={<NotFoundBody lang="ru" />} en={<NotFoundBody lang="en" />} />;
 }

@@ -453,14 +453,14 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
   .hd-tabs a[aria-current='page'] .num { color: var(--ink-muted); }
 }
 @media (min-width: 761px) and (max-width: 1100px) { .hd-util__hours { display: none; } }
+/* 7 bo'lim (2026-11-12, 3D katalog) bir qatorga logo/qidiruv bilan sig'maydi: desktopda ham
+   tablar alohida qatorda (qisqa nomlar — `sectionShortLabel`), 1440 px da gorizontal scroll yo'q. */
 @media (min-width: 1201px) {
-  .hd-main { grid-template-columns: auto auto minmax(200px, 1fr) auto; grid-template-areas: 'logo tabs search actions'; column-gap: 24px; }
-  .hd-logo { height: 76px; }
+  .hd-main { column-gap: 24px; }
+  .hd-logo { height: 68px; }
   .hd-logo img { height: 40px; }
-  .hd-tabs { border-top: 0; align-self: stretch; overflow: visible; }
-  .hd-tabs a { height: 76px; }
-  .hd-tabs a:first-child { padding-left: 12px; }
-  .hd-search { max-width: 340px; }
+  .hd-search { max-width: 420px; }
+  .hd-tabs { justify-content: space-between; }
 }
 /* RU'da tab nomlari uzun ("Тротуарная плитка", "Оставить заявку"): ichki joy kichikroq (HANDOFF 4.10) */
 @media (min-width: 761px) { .hd-tabs--ru a { padding-inline: 10px; } }
@@ -624,10 +624,10 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
 
 /* --- Katalog bloki (bosqich 2) ------------------------------------------------ */
 .cat { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-5); }
-@media (min-width: 1101px) { .cat { grid-template-columns: 248px minmax(0, 1fr); gap: var(--space-6); } }
+@media (min-width: 1101px) { .cat { grid-template-columns: 248px minmax(0, 1fr); gap: var(--space-6); } .cat--nofilters { grid-template-columns: minmax(0, 1fr); } }
 .cat-side { display: none; }
 @media (min-width: 1101px) {
-  .cat-side { display: block; position: sticky; top: 100px; align-self: start; max-height: calc(100vh - 116px); overflow: auto; }
+  .cat-side { display: block; position: sticky; top: 132px; align-self: start; max-height: calc(100vh - 148px); overflow: auto; }
 }
 /* Filtr guruhi: sarlavha — kichik CAPS yorliq (h2 semantikasi saqlanadi, audit qoidasi),
    variant — butun qator tugma; tanlangani grafit (radio kabi, qayta bosish bekor qiladi). */
@@ -968,7 +968,7 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
   .stage { order: 0; }
   .th { flex-direction: column; order: 0; overflow: visible; gap: 10px; }
   .th button { width: 96px; height: 96px; }
-  .side-sticky { order: 0; position: sticky; top: 100px; }
+  .side-sticky { order: 0; position: sticky; top: 132px; }
   .rel { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .spec-split { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 64px; }
 }

@@ -39,12 +39,24 @@ export type Model = {
   };
 };
 
+/**
+ * 3D render (tirik surat emas): generator render fayllarini `-3d.webp` bilan nomlaydi
+ * (scripts/extract/build_models_2027.py `attach_renders`). Sayt ularni "3D vizualizatsiya" deb
+ * belgilaydi; tirik surat yoki admin'dan yuklangan rasm bu nomda bo'lmaydi — belgi o'zi yo'qoladi.
+ */
+export function isRenderImage(src: string | null | undefined): boolean {
+  return !!src && /-3d\.webp$/.test(src);
+}
+
 type SectionMeta = { key: Section; slug: string; name: Localized };
 
 /** Standart bo'limlar (admin snapshot bo'lmaganda). Nomlar — HANDOFF atamalari. */
 const DEFAULT_SECTIONS: SectionMeta[] = [
+  // Admin bazasidagi DEFAULT_SECTIONS (src/server/catalog.ts) bilan bir xil kalit/slug/tartib.
   { key: 'trotuar', slug: 'paving', name: { uz: 'Trotuar plitkasi', ru: 'Тротуарная плитка', en: 'Paving tiles' } },
-  { key: 'fasad', slug: 'facade', name: { uz: 'Fasad', ru: 'Фасад', en: 'Facade' } },
+  { key: 'fasad', slug: 'facade', name: { uz: 'Fasad plitkasi', ru: 'Фасадная плитка', en: 'Facade tiles' } },
+  { key: 'termopanel', slug: 'thermal-panels', name: { uz: 'Fasad termopanellari', ru: 'Фасадные термопанели', en: 'Facade thermal panels' } },
+  { key: 'fasad_dekor', slug: 'facade-decor', name: { uz: 'Fasad dekor elementlari', ru: 'Фасадный декор', en: 'Facade decor elements' } },
   { key: 'zabor', slug: 'fence', name: { uz: 'Zabor panellari', ru: 'Заборные панели', en: 'Fence panels' } },
   { key: 'dekor', slug: 'decor', name: { uz: 'Dekor panellar', ru: 'Декор-панели', en: 'Decor panels' } },
   { key: 'skameyka', slug: 'bench', name: { uz: 'Skameyka oyoqlari', ru: 'Ножки скамеек', en: 'Bench legs' } },
@@ -64,6 +76,24 @@ export const SECTION_SLUGS: Record<Section, string> = Object.fromEntries(SECTION
 export function sectionLabel(section: Section, lang: Locale): string {
   const meta = SECTION_META.find((x) => x.key === section) ?? DEFAULT_SECTIONS.find((x) => x.key === section);
   return meta?.name[lang] || meta?.name.uz || section;
+}
+
+/**
+ * Header tablari uchun qisqa nom (7 bo'lim bir qatorga sig'ishi uchun). Admin'dagi bo'limda
+ * qisqa nom yo'q, shuning uchun noma'lum kalitda to'liq nom (`sectionLabel`) qaytadi.
+ */
+const SECTION_SHORT: Record<string, Record<Locale, string>> = {
+  trotuar: { uz: 'Trotuar', ru: 'Тротуар', en: 'Paving' },
+  fasad: { uz: 'Fasad', ru: 'Фасад', en: 'Facade' },
+  termopanel: { uz: 'Termopanel', ru: 'Термопанели', en: 'Thermal panels' },
+  fasad_dekor: { uz: 'Fasad dekor', ru: 'Фасадный декор', en: 'Facade decor' },
+  zabor: { uz: 'Zabor', ru: 'Заборы', en: 'Fences' },
+  dekor: { uz: 'Dekor', ru: 'Декор', en: 'Decor' },
+  skameyka: { uz: 'Skameyka', ru: 'Скамейки', en: 'Benches' },
+};
+
+export function sectionShortLabel(section: Section, lang: Locale): string {
+  return SECTION_SHORT[section]?.[lang] || sectionLabel(section, lang);
 }
 
 export function sectionFromSlug(slug: string): Section | undefined {

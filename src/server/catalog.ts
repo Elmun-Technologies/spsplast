@@ -22,7 +22,7 @@ export const EMPTY_IMAGES: ProductImages = { scene: null, sceneSm: null, molds: 
 
 export const DEFAULT_SECTIONS = [
   { key: 'trotuar', slug: 'paving', name: { uz: 'Trotuar plitkasi', ru: 'Тротуарная плитка', en: 'Paving tiles' }, sort: 10 },
-  { key: 'fasad', slug: 'facade', name: { uz: 'Fasad', ru: 'Фасад', en: 'Facade' }, sort: 20 },
+  { key: 'fasad', slug: 'facade', name: { uz: 'Fasad plitkasi', ru: 'Фасадная плитка', en: 'Facade tiles' }, sort: 20 },
   { key: 'termopanel', slug: 'thermal-panels', name: { uz: 'Fasad termopanellari', ru: 'Фасадные термопанели', en: 'Facade thermal panels' }, sort: 30 },
   { key: 'fasad_dekor', slug: 'facade-decor', name: { uz: 'Fasad dekor elementlari', ru: 'Фасадный декор', en: 'Facade decor elements' }, sort: 40 },
   { key: 'zabor', slug: 'fence', name: { uz: 'Zabor panellari', ru: 'Заборные панели', en: 'Fence panels' }, sort: 50 },

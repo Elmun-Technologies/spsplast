@@ -11,7 +11,7 @@ import { LangSwitch } from '@/components/site/LangSwitch';
 import { Icon } from '@/components/site/icons';
 
 /** `match` — faol holat uchun yo'l prefiksi ('' — hech qachon faol emas, masalan #eksport). */
-type NavItem = { href: string; match: string; label: string; count?: number };
+type NavItem = { href: string; match: string; label: string; full?: string; count?: number };
 
 const isActive = (pathname: string, match: string) =>
   Boolean(match) && (pathname === match || pathname.startsWith(`${match}/`));
@@ -77,8 +77,8 @@ export function HeaderClient({
   // "Katalog" tabi faqat umumiy katalogda faol; bo'lim sahifasida bo'lim tabi faol.
   const catalogActive = pathname === catalogHref;
   const tabs = [
-    { href: catalogHref, label: t.header.catalog, count: total, active: catalogActive },
-    ...sections.map((s) => ({ href: s.href, label: s.label, count: s.count, active: isActive(pathname, s.match) })),
+    { href: catalogHref, label: t.header.catalog, full: t.header.catalog, count: total, active: catalogActive },
+    ...sections.map((s) => ({ href: s.href, label: s.label, full: s.full ?? s.label, count: s.count, active: isActive(pathname, s.match) })),
   ];
 
   return (
@@ -115,7 +115,7 @@ export function HeaderClient({
 
           <nav className={`hd-tabs${lang === 'ru' ? ' hd-tabs--ru' : ''}`} aria-label={t.a11y.sectionsNav}>
             {tabs.map((tab) => (
-              <a key={tab.href} href={tab.href} aria-current={tab.active ? 'page' : undefined}>
+              <a key={tab.href} href={tab.href} title={tab.full !== tab.label ? tab.full : undefined} aria-current={tab.active ? 'page' : undefined}>
                 {tab.label}
                 <span className="num">{tab.count}</span>
               </a>
@@ -193,7 +193,7 @@ export function HeaderClient({
             <nav className="mm-nav" aria-label={t.a11y.mobileNav}>
               {tabs.map((tab) => (
                 <a key={tab.href} className="mm-link" href={tab.href} aria-current={tab.active ? 'page' : undefined}>
-                  {tab.label} <span className="mono">{tab.count}</span>
+                  {tab.full} <span className="mono">{tab.count}</span>
                 </a>
               ))}
               <div className="mm-sub">

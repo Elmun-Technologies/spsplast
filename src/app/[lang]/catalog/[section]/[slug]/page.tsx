@@ -45,9 +45,11 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
     lang: locale,
     path: `/catalog/${section}/${model.slug}`,
     title: modelSeoTitle(model, locale),
+    // Qisqa tavsif ("Termopanel") SERP uchun yetmaydi (≥ 50 belgi): bo'lim/o'lcham/CTA bilan to'ldiriladi.
     description:
-      subtitle ||
-      `${sectionLabel(model.section, locale)}${size ? ` · ${size} mm` : ''}. ${getUi(locale).seo.leadCta}`,
+      subtitle && subtitle.length >= 50
+        ? subtitle
+        : `${subtitle || sectionLabel(model.section, locale)}${size ? ` · ${size} mm` : ''}. ${getUi(locale).seo.leadCta}`,
     image: modelImage(model) ?? undefined,
     imageAlt: name,
     // Rasmsiz model — yupqa sahifa: rasm kelguncha indekslanmaydi (havolalar kuchi saqlanadi).

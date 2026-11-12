@@ -41,20 +41,9 @@ const QuickViewModal = dynamic(
   { ssr: false },
 );
 
-function FilterGroups({
-  filters,
-  facets,
-  lang,
-  onToggle,
-}: {
-  filters: Filters;
-  facets: ReturnType<typeof facetCounts>;
-  lang: Locale;
-  onToggle: (patch: Partial<Filters>) => void;
-}) {
+function filterGroups(filters: Filters, facets: ReturnType<typeof facetCounts>, lang: Locale) {
   const t = getUi(lang).catalog;
   const groups: { title: string; items: { key: string; label: string; note?: string; on: boolean; count: number; patch: Partial<Filters> }[] }[] = [];
-
   if (USE_VALUES.some((v) => facets.use[v] > 0)) {
     groups.push({
       title: t.groupUse,
@@ -92,7 +81,21 @@ function FilterGroups({
   // Tanlov bo'lmagan guruh (0–1 variant) ko'rsatilmaydi: masalan fasad yoki bo'sh bo'limda
   // "Plitka o'lchami" sarlavhasi variantlarsiz osilib qolmasin (UI audit P0-6, P1-13).
   const visible = groups.filter((g) => g.items.some((i) => i.on) || g.items.filter((i) => i.count > 0).length >= 2);
+  return visible;
+}
 
+function FilterGroups({
+  filters,
+  facets,
+  lang,
+  onToggle,
+}: {
+  filters: Filters;
+  facets: ReturnType<typeof facetCounts>;
+  lang: Locale;
+  onToggle: (patch: Partial<Filters>) => void;
+}) {
+  const visible = filterGroups(filters, facets, lang);
   return (
     <>
       {visible.map((g) => (
@@ -171,6 +174,8 @@ export function CatalogClient({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters.q, filtered.length]);
   const facets = useMemo(() => facetCounts(models, filters), [models, filters]);
+  // Filtr guruhi bo'lmasa (fasad, zabor, dekor... bo'limlari) — bo'sh yon ustun va "Filtr" tugmasi ko'rsatilmaydi.
+  const hasFilters = filterGroups(filters, facets, lang).length > 0;
   const total = getTotalCount();
   const active = activeFilterCount(filters);
 
@@ -201,10 +206,12 @@ export function CatalogClient({
 
   return (
     <>
-      <div className="cat">
-        <aside className="cat-side" aria-label={t.filters}>
-          <FilterGroups filters={filters} facets={facets} lang={lang} onToggle={update} />
-        </aside>
+      <div className={`cat${hasFilters ? '' : ' cat--nofilters'}`}>
+        {hasFilters ? (
+          <aside className="cat-side" aria-label={t.filters}>
+            <FilterGroups filters={filters} facets={facets} lang={lang} onToggle={update} />
+          </aside>
+        ) : null}
 
         <div>
           <div className="cat-tools">
@@ -218,11 +225,13 @@ export function CatalogClient({
                 onChange={(e) => update({ q: e.target.value })}
               />
             </label>
-            <button type="button" className="sps-btn sps-btn--outline hide-1100" onClick={() => setSheetOpen(true)}>
-              <Icon.grid width={18} height={18} strokeWidth={1.5} aria-hidden="true" />
-              {t.filters}
-              {active > 0 ? ` · ${active}` : ''}
-            </button>
+            {hasFilters ? (
+              <button type="button" className="sps-btn sps-btn--outline hide-1100" onClick={() => setSheetOpen(true)}>
+                <Icon.grid width={18} height={18} strokeWidth={1.5} aria-hidden="true" />
+                {t.filters}
+                {active > 0 ? ` · ${active}` : ''}
+              </button>
+            ) : null}
             <select
               className="sps-select cat-sort"
               value={filters.sort}

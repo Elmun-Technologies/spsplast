@@ -23,7 +23,8 @@ const DEAD_SEGMENTS = [
 // havola (xato), shuning uchun faqat haqiqiy fayl yo'llari ro'yxatda.
 const ASSET_PREFIXES = ['/_next/', '/catalog/2027/', '/catalog/pdf/', '/images/', '/fonts/', '/icons/', '/favicon.ico', '/sw.js'];
 
-const PRICE_RE = /(\d[\d\s.,]{1,12})\s*(so['‘’]m|so'm|сум|sum\b|USD|\$|₽|евро)/i;
+// `евро(?![а-яё])`: "Z05 Еврозабор" (yevrozabor) narx emas — 2026-11-12 da soxta xato bergan edi.
+const PRICE_RE = /(\d[\d\s.,]{1,12})\s*(so['‘’]m|so'm|сум|sum\b|USD|\$|₽|евро(?![а-яё]))/i;
 const CYRILLIC_WORD_RE = /[а-яёА-ЯЁЁ]{2,}/g;
 const PLACEHOLDER_RE = /\[[^\]\n]{2,60}\]/g;
 

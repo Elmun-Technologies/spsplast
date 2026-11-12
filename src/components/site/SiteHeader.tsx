@@ -1,4 +1,4 @@
-import { getSectionCounts, getTotalCount, SECTION_SLUGS, sectionLabel, getActiveSections } from '@/lib/catalog2027';
+import { getSectionCounts, getTotalCount, SECTION_SLUGS, sectionLabel, sectionShortLabel, getActiveSections } from '@/lib/catalog2027';
 import { type Locale } from '@/lib/i18n';
 import { getUi } from '@/lib/ui';
 import { HeaderClient } from '@/components/site/HeaderClient';
@@ -20,7 +20,8 @@ export function SiteHeader({ lang }: { lang: Locale }) {
 
   const sections = getActiveSections().map((s) => {
     const href = `/${lang}/catalog/${SECTION_SLUGS[s]}`;
-    return { href, match: href, label: sectionLabel(s, lang), count: counts[s] };
+    // Tabda qisqa nom (7 bo'lim sig'sin), to'liq nom — title va mobil menyuda.
+    return { href, match: href, label: sectionShortLabel(s, lang), full: sectionLabel(s, lang), count: counts[s] };
   });
 
   const nav = [

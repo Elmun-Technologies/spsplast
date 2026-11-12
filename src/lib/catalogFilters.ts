@@ -92,11 +92,19 @@ function matchesQuery(m: Model, q: string): boolean {
   return searchNames(m).some((n) => n.includes(query));
 }
 
+/**
+ * Plitka o'lchami va qolip to'plami — trotuar plitkasiga xos belgilar. Boshqa bo'limlar (fasad,
+ * karniz, zabor...) ularda sanalmaydi: aks holda umumiy katalogda "Figurali/boshqa 178" kabi
+ * yolg'on sonlar chiqardi (2026-11-12, 3D katalog qo'shilganda).
+ */
+const pavingSize = (m: Model) => (m.section === 'trotuar' ? modelSizeGroup(m) : null);
+const pavingSet = (m: Model) => (m.section === 'trotuar' ? modelSetSize(m) : null);
+
 function matchesExcept(m: Model, f: Filters, skip: 'use' | 'size' | 'set' | null): boolean {
   if (!matchesQuery(m, f.q)) return false;
   if (skip !== 'use' && f.use && modelUse(m) !== f.use) return false;
-  if (skip !== 'size' && f.size && modelSizeGroup(m) !== f.size) return false;
-  if (skip !== 'set' && f.set && modelSetSize(m) !== f.set) return false;
+  if (skip !== 'size' && f.size && pavingSize(m) !== f.size) return false;
+  if (skip !== 'set' && f.set && pavingSet(m) !== f.set) return false;
   return true;
 }
 
@@ -111,8 +119,8 @@ export function facetCounts(models: Model[], f: Filters) {
     models.filter((m) => matchesExcept(m, f, skip) && test(m)).length;
   return {
     use: Object.fromEntries(USE_VALUES.map((v) => [v, count('use', (m) => modelUse(m) === v)])) as Record<UseGroup, number>,
-    size: Object.fromEntries(SIZE_VALUES.map((v) => [v, count('size', (m) => modelSizeGroup(m) === v)])) as Record<SizeGroup, number>,
-    set: Object.fromEntries(SET_VALUES.map((v) => [v, count('set', (m) => modelSetSize(m) === v)])) as Record<1 | 2 | 3, number>,
+    size: Object.fromEntries(SIZE_VALUES.map((v) => [v, count('size', (m) => pavingSize(m) === v)])) as Record<SizeGroup, number>,
+    set: Object.fromEntries(SET_VALUES.map((v) => [v, count('set', (m) => pavingSet(m) === v)])) as Record<1 | 2 | 3, number>,
   };
 }
 

@@ -32,15 +32,21 @@ export const AUDIT_ROUTES = [
   { path: '/ru/catalog/facade', lang: 'ru', expect: { jsonLd: ['BreadcrumbList'] } },
   { path: '/en/catalog/decor', lang: 'en', expect: { jsonLd: ['BreadcrumbList'] } },
   { path: '/uz/catalog/bench', lang: 'uz', expect: { jsonLd: ['BreadcrumbList'] } },
-  // 0 model: marshrut ishlaydi, lekin sitemap'da yo'q (yupqa kontent).
-  { path: '/uz/catalog/fence', lang: 'uz', expect: { jsonLd: ['BreadcrumbList'], thin: true } },
+  // 2026-11-12: 3D katalogdan qo'shilgan bo'limlar (zabor endi bo'sh emas).
+  { path: '/uz/catalog/fence', lang: 'uz', expect: { jsonLd: ['BreadcrumbList'] } },
+  { path: '/uz/catalog/thermal-panels', lang: 'uz', expect: { jsonLd: ['BreadcrumbList'] } },
+  { path: '/ru/catalog/facade-decor', lang: 'ru', expect: { jsonLd: ['BreadcrumbList'] } },
 
   { path: '/uz/catalog/paving/01-monako', lang: 'uz', expect: { jsonLd: ['BreadcrumbList', 'Product', 'FAQPage'] } },
   { path: '/ru/catalog/paving/15-floriya', lang: 'ru', expect: { jsonLd: ['BreadcrumbList', 'Product', 'FAQPage'] } },
-  { path: '/en/catalog/decor/kapitel-40-tepa', lang: 'en', expect: { jsonLd: ['BreadcrumbList', 'Product', 'FAQPage'] } },
+  { path: '/en/catalog/facade-decor/kapitel-40-tepa', lang: 'en', expect: { jsonLd: ['BreadcrumbList', 'Product', 'FAQPage'] } },
+  { path: '/uz/catalog/thermal-panels/tp-012-25x50-labirint', lang: 'uz', expect: { jsonLd: ['BreadcrumbList', 'Product', 'FAQPage'] } },
+  { path: '/ru/catalog/facade-decor/krn-005-35x120-karniz', lang: 'ru', expect: { jsonLd: ['BreadcrumbList', 'Product', 'FAQPage'] } },
+  { path: '/en/catalog/fence/z03-yevrozabor-reykalar', lang: 'en', expect: { jsonLd: ['BreadcrumbList', 'Product', 'FAQPage'] } },
+  { path: '/uz/catalog/decor/d08-rombli-panjara', lang: 'uz', expect: { jsonLd: ['BreadcrumbList', 'Product', 'FAQPage'] } },
   // Rasmsiz model: fallback (placeholder) va alt matnlari tekshiriladi.
   // Rasmsiz model: rasm kelguncha `noindex, follow` (audit 2026-11-02) — sahifa ishlaydi, sitemap'da yo'q.
-  { path: '/uz/catalog/paving/70-kabanchik-17-5-naqshli', lang: 'uz', expect: { jsonLd: ['Product'], noImage: true, noindex: true } },
+  { path: '/uz/catalog/paving/29-eksklyuziv-30-30-4-sakkiz-qirra', lang: 'uz', expect: { jsonLd: ['Product'], noImage: true, noindex: true } },
 
   // SEO landing (docs/SEO-2028-RU.md): teg va eksport (geo) sahifalari
   { path: '/ru/catalog/paving/tag/300x300', lang: 'ru', expect: { jsonLd: ['BreadcrumbList', 'ItemList'] } },

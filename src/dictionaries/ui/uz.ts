@@ -72,6 +72,8 @@ export const uz = {
     sectionMolds: {
       trotuar: 'Trotuar plitkasi qoliplari',
       fasad: 'Fasad plitkasi qoliplari',
+      termopanel: 'Fasad termopanel qoliplari',
+      fasad_dekor: 'Fasad dekor elementlari qoliplari',
       zabor: 'Zabor panellari qoliplari',
       dekor: 'Dekor panel qoliplari',
       skameyka: 'Skameyka oyog‘i qoliplari',
@@ -80,6 +82,8 @@ export const uz = {
     modelMold: {
       trotuar: 'plitka qolipi',
       fasad: 'fasad qolipi',
+      termopanel: 'termopanel qolipi',
+      fasad_dekor: 'fasad dekor qolipi',
       zabor: 'zabor qolipi',
       dekor: 'dekor qolipi',
       skameyka: 'skameyka qolipi',

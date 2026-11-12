@@ -1,4 +1,4 @@
-import { getModels, getTotalCount, getActiveSections, sectionLabel } from '@/lib/catalog2027';
+import { getModels, getTotalCount, getActiveSections, sectionLabel, sectionShortLabel } from '@/lib/catalog2027';
 import { catalogSeoTitle } from '@/lib/seoTitles';
 import { isValidLocale, type Locale } from '@/lib/i18n';
 import { getUi, pluralModels } from '@/lib/ui';
@@ -20,7 +20,8 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     lang: locale,
     path: '/catalog',
     title: catalogSeoTitle(locale, total),
-    description: `${getActiveSections().map((x) => sectionLabel(x, locale)).join(', ')} — ${total} ${pluralModels(locale, total)}. ${t.seo.leadCta}`,
+    // Qisqa bo'lim nomlari: 7 bo'lim to'liq nomi bilan description 200+ belgi bo'lib, SERP'da kesilardi.
+    description: `${getActiveSections().map((x) => sectionShortLabel(x, locale)).join(', ')} — ${total} ${pluralModels(locale, total)}. ${t.seo.leadCta}`,
   });
 }
 

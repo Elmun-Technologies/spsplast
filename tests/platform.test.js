@@ -210,7 +210,7 @@ test('10. Eski (2026) kontent qatlami o‘chirilgan — manba bitta', () => {
 
   // Ma'lumot: faqat 2027 to'plami + migratsiya uchun arxiv (docs/legacy).
   const dataFiles = fs.readdirSync(path.join(root, 'data')).sort();
-  assert.deepStrictEqual(dataFiles, ['image-jobs-2027.json', 'models-2027.json', 'termopanel-2027.json'],
+  assert.deepStrictEqual(dataFiles, ['catalog3d-2027.json', 'image-jobs-2027.json', 'models-2027.json', 'moved-2027.json', 'termopanel-2027.json'],
     `data/ da eski fayllar qolgan: ${dataFiles.join(', ')}`);
   assert.deepStrictEqual(fs.readdirSync(path.join(root, 'src', 'data')).sort(), ['models2027.ts', 'redirects.generated.json', 'site.generated.ts']);
   assert.ok(fs.existsSync(path.join(root, 'docs', 'legacy', 'catalog-2026.json')),

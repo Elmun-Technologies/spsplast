@@ -69,6 +69,8 @@ export const en: UiDictionary = {
     sectionMolds: {
       trotuar: 'Paving tile molds',
       fasad: 'Facade tile molds',
+      termopanel: 'Facade thermal panel molds',
+      fasad_dekor: 'Facade decor element molds',
       zabor: 'Fence panel molds',
       dekor: 'Decor panel molds',
       skameyka: 'Bench leg molds',
@@ -77,6 +79,8 @@ export const en: UiDictionary = {
     modelMold: {
       trotuar: 'paving mold',
       fasad: 'facade mold',
+      termopanel: 'thermal panel mold',
+      fasad_dekor: 'facade decor mold',
       zabor: 'fence mold',
       dekor: 'decor panel mold',
       skameyka: 'bench leg mold',

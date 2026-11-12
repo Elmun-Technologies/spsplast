@@ -90,6 +90,8 @@ export const pagesEn: PagesDictionary = {
     gallery: {
       scene: 'Laid view',
       mold: 'Mold · real photo',
+      moldRender: 'Mold · 3D render',
+      sceneRender: 'Laid view · 3D render',
       tile: 'Finished tile',
       zoom: 'Close-up',
       thumbA11y: 'Change image',
@@ -122,9 +124,9 @@ export const pagesEn: PagesDictionary = {
       yard: 'Yards, verandas and light traffic loads.',
       car: 'Parking areas and light vehicle loads.',
       facade: 'Facade elements: pilaster, cornice, panel.',
-      decor: 'Decor elements: column, capital, frieze.',
+      decor: 'Decorative panels for walls, fences and facades.',
       bench: 'Benches and small architectural forms.',
-      fence: 'Fence panels.',
+      fence: 'Euro fence panels for yards and sites.',
       laying: 'The photo shows a laid sample. Tiles can be rotated to create a different pattern.',
     },
     delivery: {

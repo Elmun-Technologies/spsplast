@@ -9,7 +9,7 @@ const path = require('node:path');
 const ROOT = path.join(__dirname, '..');
 const FILE = path.join(ROOT, 'data/models-2027.json');
 const data = JSON.parse(fs.readFileSync(FILE, 'utf8'));
-const SECTIONS = ['trotuar', 'fasad', 'zabor', 'dekor', 'skameyka'];
+const SECTIONS = ['trotuar', 'fasad', 'termopanel', 'fasad_dekor', 'zabor', 'dekor', 'skameyka'];
 
 function walkStrings(node, cb, trail) {
   trail = trail || '';

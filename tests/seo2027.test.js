@@ -34,6 +34,8 @@ function helper() {
 const SECTION_SLUGS = {
   trotuar: 'paving',
   fasad: 'facade',
+  termopanel: 'thermal-panels',
+  fasad_dekor: 'facade-decor',
   zabor: 'fence',
   dekor: 'decor',
   skameyka: 'bench',

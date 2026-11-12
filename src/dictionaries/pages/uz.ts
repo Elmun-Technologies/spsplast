@@ -95,6 +95,8 @@ export const pagesUz = {
     gallery: {
       scene: "Terilgan ko'rinish",
       mold: 'Qolip · haqiqiy surat',
+      moldRender: 'Qolip · 3D vizualizatsiya',
+      sceneRender: "Terilgan ko'rinish · 3D vizualizatsiya",
       tile: 'Tayyor plitka',
       zoom: 'Yaqindan',
       thumbA11y: 'Rasmni almashtirish',
@@ -127,9 +129,9 @@ export const pagesUz = {
       yard: 'Hovli, ayvon va kichik transport yuklamasi uchun.',
       car: 'Avtoturargoh va yengil transport yuklamasi uchun.',
       facade: 'Fasad elementlari: pilyastr, karniz, panel.',
-      decor: 'Dekor elementlari: ustun, kapitel, friz.',
+      decor: "Devor, zabor va fasad uchun dekorativ panellar.",
       bench: 'Skameyka va kichik arxitektura shakllari.',
-      fence: 'Zabor panellari.',
+      fence: "Yevrozabor panellari: hovli va hudud to'siqlari uchun.",
       laying: 'Rasmdagi namuna terilgan ko\'rinish. Plitkani burab terib, boshqa naqsh olish mumkin.',
     },
     delivery: {
