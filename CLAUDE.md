@@ -35,11 +35,15 @@ visual reference `screens/`, exact CSS/sizes `source/*.dc.html` + `source/site.c
 ## Folder Structure
 
 ```
-data/models-2027.json        # GENERATED catalog (152-model target); do not hand-edit
+data/models-2027.json        # GENERATED catalog (216 models, 7 sections); do not hand-edit
+data/catalog3d-2027.json     # GENERATED from public/3d/*/index.html (206 products: code, RU name, size, depth, renders)
+data/moved-2027.json         # GENERATED: merged/retired old models -> build_redirects_2027.py makes 301s
 data/image-jobs-2027.json    # GENERATED source→webp job list
 docs/data-questions.md       # GENERATED business question list (nulls live here)
 docs/design-handoff/         # HANDOFF.md, PROMPT.md, screens/, source/, images/, data-sources/
-scripts/extract/             # build_models_2027.py, build_images_2027.py (python3 + ImageMagick)
+scripts/extract/             # build_models_2027.py, build_images_2027.py, build_3d_catalog_2027.py (python3 + ImageMagick)
+media-src/live/              # LIVE product photos `<KOD>[-qolip|-plitka|-sahna].jpg` (README.md) — highest image priority
+.github/workflows/live-photos.yml  # on push to media-src/live/**: photos:import + commit back to the same branch
 scripts/validate-models-2027.mjs   # XATO (exit 1) / OGOH (business-pending) split
 src/app/[lang]/              # public site, locale-prefixed (uz, ru, en)
 src/app/api/leads|health|track  # the ONLY /api route handlers (test-enforced); track = visit beacon
@@ -70,7 +74,7 @@ src/lib/contacts2027.ts      # contacts per HANDOFF §1 (single source for new l
 src/lib/store/spsLists.ts    # request list + compare list (localStorage)
 src/lib/ui.ts                # getUi(lang), pluralModels(), formatNumber()
 src/lib/seo.ts               # metadata + hreflang + JSON-LD builders (uz/ru/en, no price)
-src/app/sitemap.ts           # 276 URLs: (6 fixed + 4 non-empty sections + 7 tags + 8 export countries + 67 models WITH an image) × 3 langs
+src/app/sitemap.ts           # 711 URLs: (6 fixed + 7 non-empty sections + 7 tags + 8 export countries + 209 models WITH an image) × 3 langs
 src/lib/seoPages.ts          # SEO landing logic: TAG_DEFS (MIN_TAG_MODELS=6), EXPORT_COUNTRIES (8)
 src/components/seo2028/SeoBlocks.tsx  # TagChips, CountriesStrip, PavingGuide (server components)
 src/app/robots.ts            # allow all; disallow /api/, /*/compare, /*/request
@@ -131,14 +135,15 @@ Everything a visitor could still hit is answered by a 301 (`scripts/redirects-20
 | 404 | `not-found` (root + `[lang]`) |
 | Sitemap / robots | `/sitemap.xml` (rewrite → `/sitemap`), `/robots.txt` |
 
-Section slugs: `paving|facade|fence|decor|bench` → data sections
-`trotuar|fasad|zabor|dekor|skameyka` (mapping lives in `SECTION_SLUGS`).
+Section slugs: `paving|facade|thermal-panels|facade-decor|fence|decor|bench` → data sections
+`trotuar|fasad|termopanel|fasad_dekor|zabor|dekor|skameyka` (mapping lives in `SECTION_SLUGS`; static
+`DEFAULT_SECTIONS` in `catalog2027.ts` mirrors the admin DB `DEFAULT_SECTIONS` in `src/server/catalog.ts`).
 **Every catalog link must go through `SECTION_SLUGS`** — the uz section name is not a
 route (`/uz/catalog/trotuar` 404s); `tests/platform.test.js` test 11 enforces it.
 
 `/compare` and `/request` are `noindex` (user-state pages) and are absent from the
-sitemap; a section with zero models (`fence`, until the zabor data arrives) keeps its
-route but is left out of the sitemap — thin content should not be indexed.
+sitemap; a section with zero models keeps its route but is left out of the sitemap — thin
+content should not be indexed (since 2026-11-12 all 7 sections have models).
 
 ## Business Rules (never break)
 
@@ -169,7 +174,18 @@ npm run models:check   # validator: XATO exit 1, OGOH = business-pending
 npm run redirects:build # regenerate scripts/redirects-2027.json from docs/legacy/catalog-2026.json
 npm run images:variants # sharp: container-ratio crops (1:1/4:3/16:9) -> public/images/site/*-<ratio>.webp
 npm run images:bg      # LOCAL rembg (isnet-general-use) -> media-src/clean/*.png masks + transparent mold/tile WebP
+npm run catalog3d:build # public/3d/*/index.html -> data/catalog3d-2027.json (run when a 3D package is added)
+npm run photos:import  # media-src/live/* -> models:build + images:bg (live only) + models:images + redirects + check
 ```
+
+**Image priority (2026-11-12)**: live photo (`media-src/live/`) → 2026 studio → sheet-5 DSC → **3D render**
+(`public/3d/<id>/qolip_tik.jpg` → mold cutout, `r_04`/`r_05` → scene). Render files are named `*-3d.webp`
+(`-mold-a-3d.webp`, `-scene-3d.webp`, `-scene-sm-3d.webp`); `isRenderImage()` labels them "3D vizualizatsiya"
+in the model gallery — no extra data field, and a live photo (named `-mold-a.webp`) drops the label by itself.
+`build_images_2027.py` refuses a mask whose `manifest.json` `src` differs from the job's source (stale mask after a
+source swap) and writes the image with its background instead — run `npm run images:bg` then.
+`thumb.jpg` in a 3D package is a normal map — never an image source. `MODEL3D` (`model3d.generated.ts`) is now
+written by `build_models_2027.py` (paving map from PR #42 preserved + every non-paving 3D product).
 
 **Background removal (mold/tile cutouts).** Every `*-mold-*.webp` / `*-tile-*.webp` is a
 transparent square WebP (object trimmed, centred, 7% padding, 800px, q82, alpha eroded 1px +
@@ -439,6 +455,25 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     variants — `Clean-param` would only save Yandex some redundant crawl budget, not fix a real
     indexing gap. Deferred rather than rushed; `docs/unresolved-questions.md` tracks it.
 
+- **Catalog expansion 2026-11-12 (3D catalog, `tests/models2027.test.js`, `seo2027` test 14)** — keep them:
+  - 216 models / 7 sections. Non-paving products come from `data/catalog3d-2027.json` (+ uz names/specs from
+    `data/termopanel-2027.json`, reused slugs so `catalog:import` does not duplicate them — termo drafts are now all
+    skipped). Old 3-varaq models are reconciled in `build_models_2027.py` (`OLD_MERGE` → merged + 301, `OLD_KEEP` →
+    stay, the rest retired + 301 to the section); the list goes to `data/moved-2027.json` → `build_redirects_2027.py`.
+    Report + open questions: `docs/unresolved-questions.md` 1.17.
+  - `build_models_2027.py` was broken since Stage 5 (read the deleted `src/data/catalog.json`) — it now reads
+    `docs/legacy/catalog-2026.json`; DSC file choice is `sorted()` (was filesystem order → nondeterministic).
+  - **Header**: 7 tabs do not fit next to logo+search at 1440 → tabs always in their own row on desktop, short names
+    (`sectionShortLabel`), full name in `title` + mobile menu. Sticky offsets (`.cat-side`, `.side-sticky`) = 132px.
+  - **Paving-only facets**: size/set facets count only `trotuar` (`pavingSize`/`pavingSet` in `catalogFilters.ts`);
+    a section with no facet group hides the filter column and the mobile "Filtr" button (`.cat--nofilters`).
+  - **JS weight**: `CompareBar` (layout, every page) is a light shell that `dynamic()`-loads `CompareBarPanel` only
+    when the compare list is non-empty; `NotFoundBody` is a server component (`[lang]/not-found.tsx` renders it in all
+    3 langs and the client `NotFoundLangPick` picks one). Before, both pulled the whole catalog (and all 3 `pages`
+    dictionaries) into EVERY page — the 216-model catalog pushed pages over the 200 KB budget. Never import
+    `catalog2027` data helpers (`getModelBySlug`, `getModels`, counts) into a layout-level client component.
+  - `audit-seo-dom` price rule: `евро(?![а-яё])` — "Z05 Еврозабор" is not a price.
+
 - **Never reintroduce Tailwind.** The database is back (Stage 7, user decision) **only** behind
   `src/server/` — public pages (`[lang]`, `components`, `lib`) must never import it
   (`tests/platform.test.js` test 6), otherwise the storefront stops being static.
@@ -546,7 +581,7 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
 
 ```bash
 npm run dev            # local dev server
-npm run build          # models:check + next build (448 static pages)
+npm run build          # models:check + next build (~740 static HTML pages)
 npm run typecheck      # tsc --noEmit
 npm run lint           # next lint
 npm test               # node --test --experimental-strip-types tests/*.test.js (182 tests)

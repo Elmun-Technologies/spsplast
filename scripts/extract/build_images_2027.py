@@ -83,6 +83,22 @@ def main():
                 if v in failed_dst:
                     del im["tiles"][k]
         json.dump(data, open(MODELS, "w"), ensure_ascii=False, indent=1)
+    # Tirik surat render o'rnini egallaganda eski `*-3d.webp` (va uning niqobi) yetim qoladi —
+    # faqat render fayllari tozalanadi (boshqa qo'lda qo'yilgan fayllarga tegilmaydi).
+    want = {os.path.basename(j["dst"]) for j in jobs}
+    pruned = 0
+    cat_dir = os.path.join(ROOT, "public/catalog/2027")
+    for f in os.listdir(cat_dir):
+        if f.endswith("-3d.webp") and f not in want:
+            os.remove(os.path.join(cat_dir, f))
+            stem = f[:-5]
+            if os.path.exists(os.path.join(ROOT, "media-src/clean", stem + ".png")):
+                os.remove(os.path.join(ROOT, "media-src/clean", stem + ".png"))
+            manifest.pop(stem, None)
+            pruned += 1
+    if pruned:
+        json.dump(dict(sorted(manifest.items())), open(manifest_path, "w"), ensure_ascii=False, indent=1)
+        print(f"yetim render o'chirildi: {pruned}")
     total = 0
     for _r, _d, _f in os.walk(os.path.join(ROOT, "public/catalog/2027")):
         total += len(_f)

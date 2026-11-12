@@ -1,0 +1,65 @@
+name: Tirik suratlar
+
+# Biznes `media-src/live/` ga mahsulot suratini yuklaganda (GitHub web "Upload files" ham):
+# fon olib tashlanadi (qolip/plitka), WebP yasaladi, katalog (`data/models-2027.json`,
+# `src/data/models2027.ts`) yangilanadi va natija SHU branchga commit qilinadi. Tirik surat
+# 3D render o'rnini avtomatik egallaydi. Qoida: media-src/live/README.md.
+on:
+  push:
+    paths:
+      - 'media-src/live/**'
+      - '!media-src/live/README.md'
+  workflow_dispatch:
+
+concurrency:
+  group: live-photos-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    # Action'ning o'z commit'i qayta ishga tushirmasin (u faqat public/ va data/ ni o'zgartiradi,
+    # lekin ehtiyot uchun).
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Vositalar (ImageMagick, rembg)
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq imagemagick webp >/dev/null
+          pip install -q openpyxl rembg onnxruntime pillow numpy scipy
+
+      - name: Suratlarni katalogga qo'shish
+        run: npm run photos:import
+
+      - name: Mos kelmagan fayl nomlari
+        run: |
+          grep -n "Tirik surat" docs/data-questions.md || echo "Hammasi mos keldi."
+
+      - name: Natijani commit qilish
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data src/data/models2027.ts src/components/model2027/model3d.generated.ts \
+            public/catalog/2027 media-src/clean docs/data-questions.md scripts/redirects-2027.json
+          if git diff --cached --quiet; then
+            echo "O'zgarish yo'q."
+          else
+            git commit -m "Tirik suratlar: katalog rasmlari yangilandi (media-src/live)"
+            git push
+          fi

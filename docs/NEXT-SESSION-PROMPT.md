@@ -21,16 +21,16 @@ ishonchli (soxta ko'rinmaydigan) holatga yetkazish**.
 3. **Katta generatsiya qilingan fayllarni o'qima**: `src/data/models2027.ts`, `data/*.json`,
    `scripts/redirects-2027.json`, `drizzle/meta/*`, `public/admin-ai/*`, `media-src/*`. Kerak bo'lsa `grep`/`jq` bilan.
 4. Muhitni tekshir: `npm ci && npm test && npm run typecheck && npm run lint` — hammasi yashil bo'lishi kerak
-   (122 test). Yashil bo'lmasa, avval sababini top.
+   (182 test). Yashil bo'lmasa, avval sababini top.
 
-## 1. Loyiha holati (2026-10-18 dagi PR'dan keyin)
+## 1. Loyiha holati (2026-11-12 holatiga)
 
 **Stack:** Next.js 15 (App Router) + React 19 + TypeScript, oddiy CSS (Tailwind taqiqlangan), Onest shrifti
 (self-host), Postgres (Neon/Supabase) + Drizzle ORM faqat `src/server/` orqasida, Vercel.
 
-**Ommaviy sayt** (`src/app/[lang]/*`): statik prerender (~400 sahifa). Bosh sahifa, katalog/bo'lim/model
+**Ommaviy sayt** (`src/app/[lang]/*`): statik prerender (~740 sahifa). Bosh sahifa, katalog/bo'lim/model
 (filtr, qidiruv, solishtirish, zayafka ro'yxati, qolip kalkulyatori), ulgurji, ishlab chiqarish, kontakt,
-maxfiylik, 404. SEO: hreflang, sitemap, JSON-LD (narxsiz), 436 ta 301. Animatsiyalar: `MotionLayer.tsx` + CSS.
+maxfiylik, 404, SEO landing (teg + 8 eksport davlati), 3D ko'ruvchi (`public/3d`). SEO: hreflang, sitemap (711 URL), JSON-LD (narxsiz), 499 ta 301. Animatsiyalar: `MotionLayer.tsx` + CSS.
 
 **Admin panel** (`/admin`, noindex):
 - Zayafkalar CRM: holat (Yangi → Bog'lanildi → Taklif → Kelishildi/Rad etildi), mas'ul, izoh, tarix, CSV,
@@ -43,8 +43,13 @@ maxfiylik, 404. SEO: hreflang, sitemap, JSON-LD (narxsiz), 436 ta 301. Animatsiy
 - **"Nashr qilish"**: admin o'zgarishlari Vercel Deploy Hook orqali qayta build bilan saytga chiqadi
   (`scripts/export-snapshot.mjs` build boshida bazadan o'qiydi). Zayafka va tashriflar darhol ko'rinadi.
 
-**Katalog ma'lumoti:** 119 model nashrda (52 tasi rasmsiz), 76 ta termopanel/fasad dekor qoralama
-(rasm va RU/EN matn kutilmoqda). RU nomlar hozircha avtomatik kirillcha transliteratsiya.
+**Katalog ma'lumoti (2026-11-12):** 216 model, 7 bo'lim (trotuar 95, fasad plitkasi 7, termopanel 12,
+fasad dekor 67, zabor 10, dekor panel 18, skameyka 7) — biznesning 3D katalogidan to'ldirildi. 209 tasida rasm:
+tirik/studiya surati yoki **3D render** (`*-3d.webp`, saytda "3D vizualizatsiya" belgisi). Rasmsiz 7 ta
+(`noindex`). Tirik suratlar quvuri tayyor: `media-src/live/` (qoida: `media-src/live/README.md`) → GitHub
+Action "Tirik suratlar" o'zi WebP yasab commit qiladi, render avtomatik almashadi. Yarashtirish hisoboti va
+biznes tekshirishi kerak bo'lgan nomlar: `docs/unresolved-questions.md` 1.17. Trotuar RU nomlari hali
+avtomatik transliteratsiya.
 
 ## 2. Vazifalar (tartib bilan; har birini alohida commit, oxirida bitta PR)
 
@@ -65,7 +70,8 @@ foydalanuvchiga qisqa xabar qil. Hech qachon `--force` push qilma, prod bazani o
      ombor, yuklash, obyekt suratlarini so'ra; kelguncha mahsulot suratlari yoki rasmsiz tartib.
    - Bosh sahifa hero: kuchli haqiqiy surat va aniq CTA (Zayafka + Katalog) yo'q.
    - Katalog sahifasi sarlavhasi maketdagidan kambag'al (och fon bandi, lead matn, PDF+Zayafka tugmalari).
-   - Fasad/dekor/skameyka bo'limlarida filtrlar trotuarga moslangan; "Bo'lim" filtri va "Yordam kerakmi?" bloki yo'q.
+   - Fasad/dekor/skameyka bo'limlarida filtr yo'q (trotuar filtrlari endi faqat trotuarni sanaydi, bo'sh ustun
+     yashiriladi); bu bo'limlar uchun o'z filtrlari (o'lcham, tur: karniz/pilyastra/kapitel...) — keyingi qadam.
    - Kartochkalarda har birida to'liq qizil "Zayafka" tugmasi (HANDOFF shuni talab qiladi, lekin sahifada
      juda ko'p qizil) — foydalanuvchiga 2 variant skrinshot bilan ko'rsatib, qaror so'ra.
    - Root 404 da header/footer yo'q; eksport xaritasi faqat o'zbekcha yozuvli rasm (RU/EN uchun SVG yoki alohida rasm).
@@ -76,7 +82,7 @@ foydalanuvchiga qisqa xabar qil. Hech qachon `--force` push qilma, prod bazani o
      kartochkada sahna rasmini ustun qo'y.
 3. Har bir o'zgarishdan keyin: 390 va 1440 px skrinshot, gorizontal scroll yo'q, `npm run audit` 0 xato.
    Lighthouse (CI yoki `npm run lighthouse`): mobil Performance ≥ 90, A11y ≥ 95, SEO 100.
-   JS+CSS gzip byudjeti sahifaga ≤ 200 KB (hozir ~181 KB) — yangi kutubxona qo'shma.
+   JS+CSS gzip byudjeti sahifaga ≤ 200 KB (hozir 185–196 KB, model sahifasi eng og'iri) — yangi kutubxona qo'shma.
 
 ### C. Keyingi imkoniyatlar (P2, A va B dan keyin, foydalanuvchi tasdig'i bilan)
 - Admin'dan haftalik hisobot Telegram'ga (Vercel Cron; `/api` ga yangi marshrut qo'shish testlarda
