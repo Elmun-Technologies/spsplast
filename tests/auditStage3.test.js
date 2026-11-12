@@ -113,6 +113,11 @@ test('5. Umumiy CSP: butun saytga qo\'yiladi, productionda, haqiqiy xavf (object
   // Faqat haqiqatda ishlatiladigan analitika host'lari — ixtiyoriy domen qolmagan.
   assert.ok(csp.value.includes('googletagmanager.com'));
   assert.ok(csp.value.includes('mc.yandex.ru'));
+  // 3D ko'ruvchi (GLB teksturalari blob URL orqali) — `blob:` bo'lmasa relyef teksturasiz
+  // chiqadi (brauzerda tasdiqlangan, 2026-11-12).
+  const directive = (name) => csp.value.split(';').map((d) => d.trim()).find((d) => d.startsWith(`${name} `)) || '';
+  assert.match(directive('img-src'), /\bblob:/, "img-src'da blob: yo'q — 3D teksturalar yuklanmaydi");
+  assert.match(directive('connect-src'), /\bblob:/, "connect-src'da blob: yo'q — 3D teksturalar yuklanmaydi");
 });
 
 test('6. Admin CSP: nonce bilan, "unsafe-inline"siz script-src, umumiy CSP\'ni almashtiradi', () => {

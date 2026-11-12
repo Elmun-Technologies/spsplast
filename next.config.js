@@ -60,9 +60,11 @@ const nextConfig = {
                 "default-src 'self'",
                 `script-src 'self' 'unsafe-inline' ${ANALYTICS_HOSTS.join(' ')}`,
                 "style-src 'self' 'unsafe-inline'",
-                `img-src 'self' data: ${ANALYTICS_HOSTS.join(' ')}`,
+                // `blob:` — 3D ko'ruvchi (model-viewer/three.js GLTFLoader) GLB ichidagi
+                // teksturalarni blob URL orqali o'qiydi; bo'lmasa relyef teksturasiz chiqadi.
+                `img-src 'self' data: blob: ${ANALYTICS_HOSTS.join(' ')}`,
                 "font-src 'self'",
-                `connect-src 'self' ${ANALYTICS_HOSTS.join(' ')}`,
+                `connect-src 'self' blob: ${ANALYTICS_HOSTS.join(' ')}`,
                 // YouTube/Vimeo (audit 2026-11-02, 3-bosqich: zavod videosi) — faqat embed
                 // iframe uchun, admin'dagi havoladan ID ajratib olingach (src/lib/video2027.ts).
                 "frame-src 'self' https://www.googletagmanager.com https://www.youtube.com https://player.vimeo.com",
