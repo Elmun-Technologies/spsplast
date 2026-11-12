@@ -1314,3 +1314,18 @@ html[data-scrolled] .hd { box-shadow: 0 6px 24px rgba(21, 23, 26, .08); border-b
 @media (min-width: 1101px) { .geo-steps { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
 .geo-form { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-6); align-items: start; }
 @media (min-width: 1001px) { .geo-form { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; } }
+
+/* Katalog/bo'lim sarlavha bandi (HANDOFF 02-katalog): och fon, yo'l, H1, izoh, o'ngda PDF + Zayafka.
+   Ilgari oddiy "Katalog" sarlavhasi va tepada bo'sh joy edi (2026-11-12). */
+.cat-head { background: var(--surface-alt); border-bottom: 1px solid var(--line); }
+.cat-head__in { display: grid; gap: var(--space-4); padding-block: var(--space-5); }
+.cat-head__text { display: flex; flex-direction: column; gap: var(--space-3); min-width: 0; }
+.cat-head__text .h1 { margin: 0; }
+.cat-head__lead { margin: 0; font: 400 15px/22px var(--font-sans); max-width: 70ch; }
+.cat-head__cta { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.cat-head__cta .sps-btn { flex: 1 1 auto; }
+@media (min-width: 761px) {
+  .cat-head__in { grid-template-columns: minmax(0, 1fr) auto; align-items: end; padding-block: var(--space-6); }
+  .cat-head__cta .sps-btn { flex: none; }
+}
+.cat-head + .sec { padding-top: var(--space-5); }

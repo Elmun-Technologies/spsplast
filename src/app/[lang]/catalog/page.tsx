@@ -3,6 +3,7 @@ import { catalogSeoTitle } from '@/lib/seoTitles';
 import { isValidLocale, type Locale } from '@/lib/i18n';
 import { getUi, pluralModels } from '@/lib/ui';
 import { CatalogClient } from '@/components/catalog2027/CatalogClient';
+import { CatalogHead } from '@/components/catalog2027/CatalogHead';
 import { JsonLd } from '@/components/site/JsonLd';
 import { jsonLdBreadcrumb, pageMetadata } from '@/lib/seo';
 import { notFound } from 'next/navigation';
@@ -34,25 +35,30 @@ export default async function CatalogPage({ params }: { params: Promise<{ lang: 
   if (!isValidLocale(langParam)) notFound();
   const lang = langParam as Locale;
 
+  const t = getUi(lang);
+  const total = getTotalCount();
+  const lead = t.catalog.headLead
+    .replace('{n}', String(total))
+    .replace('{models}', pluralModels(lang, total))
+    .replace('{s}', String(getActiveSections().length));
+
   return (
-    <div className="wrap sec">
+    <>
       <JsonLd
         data={jsonLdBreadcrumb(lang, [
           { name: 'SPS', path: '' },
-          { name: getUi(lang).header.catalog, path: '/catalog' },
+          { name: t.header.catalog, path: '/catalog' },
         ])}
       />
-      <div className="sps-section-head" style={{ marginBottom: 'var(--space-5)' }}>
-        <div>
-          <p className="sps-eyebrow">
-            <b>SPS</b> · {getUi(lang).header.catalog}
-          </p>
-          <h1 className="h1" style={{ marginTop: 'var(--space-3)' }}>
-            {getUi(lang).header.catalog}
-          </h1>
-        </div>
+      <CatalogHead
+        lang={lang}
+        crumbs={[{ href: `/${lang}`, label: 'SPS' }, { label: t.header.catalog }]}
+        title={t.seo.catalogTitle}
+        lead={lead}
+      />
+      <div className="wrap sec">
+        <CatalogClient lang={lang} models={getModels()} variant="catalog" />
       </div>
-      <CatalogClient lang={lang} models={getModels()} variant="catalog" />
-    </div>
+    </>
   );
 }

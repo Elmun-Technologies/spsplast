@@ -110,6 +110,8 @@ export const uz = {
     filters: 'Filtr',
     clear: 'Tozalash',
     show: 'ta modelni ko’rsatish',
+    /** Katalog sahifasi sarlavha bandi: {n} model soni, {models} — ko'plik shakli, {s} — bo'limlar soni. */
+    headLead: '{n} {models} · {s} bo‘lim. Narx saytda yo‘q — zayafka qoldiring, menejer qolip soni va narxini hisoblab beradi.',
     groupKind: 'Turi',
     groupUse: "Qo'llanish",
     groupSize: "Plitka o'lchami",
