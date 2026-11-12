@@ -107,6 +107,7 @@ export const ru: UiDictionary = {
     filters: 'Фильтр',
     clear: 'Сбросить',
     show: 'показать моделей',
+    groupKind: 'Тип изделия',
     groupUse: 'Применение',
     groupSize: 'Размер плитки',
     groupSet: 'Комплект',

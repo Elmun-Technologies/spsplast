@@ -110,6 +110,7 @@ export const uz = {
     filters: 'Filtr',
     clear: 'Tozalash',
     show: 'ta modelni ko’rsatish',
+    groupKind: 'Turi',
     groupUse: "Qo'llanish",
     groupSize: "Plitka o'lchami",
     groupSet: "To'plam",

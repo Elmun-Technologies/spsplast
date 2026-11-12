@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { getTotalCount, type Model } from '@/lib/catalog2027';
+import { getTotalCount, localizedText, type Model } from '@/lib/catalog2027';
 import {
   activeFilterCount,
   DEFAULT_FILTERS,
@@ -78,6 +78,19 @@ function filterGroups(filters: Filters, facets: ReturnType<typeof facetCounts>, 
     })),
   });
 
+  // Mahsulot turi (karniz, pilyastra, kapitel...): fasad dekor va umumiy katalog uchun (trotuar filtrlaridan keyin).
+  if (facets.kind.length) {
+    groups.push({
+      title: t.groupKind,
+      items: facets.kind.map((k) => ({
+        key: k.key,
+        label: localizedText(k.sample.subtitle, lang) || k.key,
+        on: filters.kind === k.key,
+        count: k.count,
+        patch: { kind: filters.kind === k.key ? null : k.key },
+      })),
+    });
+  }
   // Tanlov bo'lmagan guruh (0–1 variant) ko'rsatilmaydi: masalan fasad yoki bo'sh bo'limda
   // "Plitka o'lchami" sarlavhasi variantlarsiz osilib qolmasin (UI audit P0-6, P1-13).
   const visible = groups.filter((g) => g.items.some((i) => i.on) || g.items.filter((i) => i.count > 0).length >= 2);
@@ -201,6 +214,10 @@ export function CatalogClient({
       patch: { size: null },
     });
   if (filters.set) tags.push({ label: filters.set === 1 ? t.set1 : filters.set === 2 ? t.set2 : t.set3, patch: { set: null } });
+  if (filters.kind) {
+    const k = facets.kind.find((x) => x.key === filters.kind);
+    tags.push({ label: (k && localizedText(k.sample.subtitle, lang)) || filters.kind, patch: { kind: null } });
+  }
 
   const visible = filtered.slice(0, limit);
 

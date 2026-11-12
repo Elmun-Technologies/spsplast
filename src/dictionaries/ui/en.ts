@@ -107,6 +107,7 @@ export const en: UiDictionary = {
     filters: 'Filter',
     clear: 'Clear',
     show: 'show models',
+    groupKind: 'Product type',
     groupUse: 'Application',
     groupSize: 'Slab size',
     groupSet: 'Set',

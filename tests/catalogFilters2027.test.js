@@ -42,10 +42,28 @@ test('saralash: kod va qalinlik', async () => {
 
 test('URL parametrlari aylanadi (parse -> toParams -> parse)', async () => {
   const { parseFilters, filtersToParams, DEFAULT_FILTERS } = await load('src/lib/catalogFilters.ts');
-  const f = { ...DEFAULT_FILTERS, q: 'monako', use: 'walk', set: 2, sort: 'code', view: 'list' };
+  const f = { ...DEFAULT_FILTERS, q: 'monako', kind: 'kapitel-baza', use: 'walk', set: 2, sort: 'code', view: 'list' };
   const back = parseFilters(filtersToParams(f));
   assert.deepEqual(back, f);
   assert.deepEqual(parseFilters(new URLSearchParams('')), DEFAULT_FILTERS);
+  // Noto'g'ri qiymat (URL'da qo'lda yozilgan) e'tiborsiz qoldiriladi.
+  assert.strictEqual(parseFilters(new URLSearchParams('kind=<script>')).kind, null);
+});
+
+test("Turi filtri (2026-11-12): fasad dekorda karniz/pilyastra/kapitel; trotuar o'lcham/to'plam filtrlari faqat trotuarni sanaydi", async () => {
+  const { getModels } = await load('src/lib/catalog2027.ts');
+  const { filterModels, facetCounts, modelKind, DEFAULT_FILTERS } = await load('src/lib/catalogFilters.ts');
+  const all = getModels();
+  const fd = all.filter((m) => m.section === 'fasad_dekor');
+  const kinds = facetCounts(fd, DEFAULT_FILTERS).kind.map((k) => k.key);
+  for (const k of ['karniz', 'pilyastra', 'kapitel-baza', 'sokol']) assert.ok(kinds.includes(k), `fasad dekorda "${k}" turi yo'q`);
+  const karniz = filterModels(fd, { ...DEFAULT_FILTERS, kind: 'karniz' });
+  assert.ok(karniz.length > 5 && karniz.every((m) => modelKind(m) === 'karniz'));
+  // Umumiy katalogda o'lcham/to'plam sonlari trotuar modellaridan oshmaydi.
+  const f = facetCounts(all, DEFAULT_FILTERS);
+  const paving = all.filter((m) => m.section === 'trotuar').length;
+  assert.ok(Object.values(f.size).reduce((a, b) => a + b, 0) <= paving, "o'lcham filtri trotuar bo'lmaganlarni sanayapti");
+  assert.ok(Object.values(f.set).reduce((a, b) => a + b, 0) <= paving, "to'plam filtri trotuar bo'lmaganlarni sanayapti");
 });
 
 test('/api/leads xalqaro telefonni qabul qiladi', async () => {
