@@ -85,7 +85,7 @@ src/lib/testimonials2027.ts # getTestimonials() (snapshot, empty-safe) + lang fa
 src/lib/video2027.ts        # factory_video_url setting → safe YouTube/Vimeo embed URL (ID-only, never raw src)
 src/components/site/Testimonials.tsx  # home-page reviews section, renders null when empty
 src/components/site/FactoryVideo.tsx  # production-page video embed, renders null when unset
-scripts/redirects-2027.json  # GENERATED 301 map (436 entries) — read by next.config.js
+scripts/redirects-2027.json  # GENERATED 301 map (499 entries, incl. 63 moved/retired 2027 models) — read by next.config.js
 scripts/extract/build_redirects_2027.py  # generator: legacy catalog × models-2027 name match
 scripts/lib/routes.mjs       # audit routes (AUDIT_ROUTES) + screenshot plan (SHOT_PLAN) + viewports
 scripts/lib/dom-rules.mjs    # the SEO/DOM rule set itself (unit-tested by tests/audits2027.test.js)
@@ -233,9 +233,10 @@ checkout. What is still missing from the repo are the 2027 assets listed in
 `docs/data-questions.md` (final catalog PDFs and the render archives).
 
 Missing sources (ask business, see `docs/data-questions.md`): `SPS_katalog_A.pdf`
-(+ `_RU`, `_EN`) and `SPS_blender_yakuniy*.zip` / `bgeraser_results_*.zip`.
-Until they arrive: ru/en names are `null` (UI falls back to uz), section split and
-counts come from the Excel sources, images from the 2026 studio set + sheet-5 DSC map.
+(+ `_RU`, `_EN`) and live product photos (`media-src/live/`). Since 2026-11-12 the product list,
+RU names, sizes and depths of all non-paving sections come from the 3D packages (`public/3d`),
+and images missing elsewhere are 3D renders (`*-3d.webp`). Paving RU/EN names are still `null`
+(UI transliterates).
 
 ## Environment Variables
 
@@ -320,15 +321,12 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     `catalog/[section]/[slug]`'s own not-found lost `<head>`/`h1`/`<main>` — confirmed by a clean
     before/after rebuild, not a caching artifact). Has its own `generateMetadata` (noindex, per-lang
     title/description) so `tests/seo2027.test.js` test 12's `pageMetadata(` scan passes.
-  - **Known pre-existing limitation, not introduced by the above**: *any* `notFound()`-triggered
-    page under `[lang]` (new catch-all or the long-existing `catalog/[section]/[slug]`) renders
-    without `SiteHeader`/`SiteFooter` and with Uzbek `NotFoundBody` text regardless of locale —
-    confirmed on the untouched `/ru/catalog/paving/<invalid-slug>` too. `[lang]/not-found.tsx` is a
-    client component (Next doesn't pass `params` to `not-found.tsx`) and its `useParams()` doesn't
-    resolve the matched segment in this render path, SSR or post-hydration. Not caught by
-    `audit-seo-dom.mjs`/`audit-a11y.mjs` (no rule checks 404 body text language or header presence).
-    Fixing properly needs a lang-context provider set by the layout, not a `useParams()` read —
-    out of scope here; flagged for a future stage.
+  - **404 language — FIXED 2026-11-12**: with `dynamicParams = false` Next answers EVERY unknown URL
+    (`/ru/xato-yol`, `/en/catalog/paving/nope`) with the single prebuilt ROOT `app/not-found.tsx` (verified with curl —
+    `[lang]/not-found.tsx` is effectively unused; it now just re-exports the root one). The root 404 renders
+    `SiteHeader` + `NotFoundBody` + `SiteFooter` for all 3 languages on the server and the client
+    `NotFoundLangPick` picks one from `window.location.pathname` (`useSyncExternalStore`, server snapshot `uz`) and
+    sets `<html lang>`. `useParams()`/`usePathname()` do NOT work in this render path — don't go back to them.
   - **`dom-rules.mjs`'s ru/en "o'zbekcha matn qolgan" description check now skips `expect.status
     === 404`** too (same reasoning as the existing description-length exemption just above it):
     a 404 page's inherited fallback description isn't SERP-relevant since it's `noindex`.
@@ -473,6 +471,15 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     dictionaries) into EVERY page — the 216-model catalog pushed pages over the 200 KB budget. Never import
     `catalog2027` data helpers (`getModelBySlug`, `getModels`, counts) into a layout-level client component.
   - `audit-seo-dom` price rule: `евро(?![а-яё])` — "Z05 Еврозабор" is not a price.
+  - **"Turi" facet** (`kind`, `?kind=karniz`): key = slug of `subtitle.uz` (`modelKind()` in `catalogFilters.ts`), label =
+    localized subtitle; shown only where ≥ 2 types exist (fasad dekor, `/catalog`). Test: `tests/catalogFilters2027.test.js`.
+  - **Catalog/section head band** (`CatalogHead.tsx`, server): light band, crumbs, H1, lead (`ui.catalog.headLead` with
+    `{n}` `{models}` `{s}`), "PDF katalog" + "Zayafka qoldirish" — HANDOFF 02-katalog. Catalog H1 = `ui.seo.catalogTitle`.
+  - **Uzbek apostrophes**: o‘/g‘ = U+2018, tutuq = U+2019 in all uz dictionaries and model names (`uz_typo()` in the
+    extractor runs AFTER the slug is computed — URLs unchanged). `modelName()` maps them back to ASCII before the RU/EN
+    word maps. Guard: `tests/typography2027.test.js`. Write new uz copy with ‘/’, never `'`.
+  - Mobile list view (`.cat-grid--list`, ≤ 640px) is a compact row (112px image, compare button bottom-right, 44px).
+  - CI summary/PR comment print only the LATEST report per type (`docs/audits` keeps dated history).
 
 - **Never reintroduce Tailwind.** The database is back (Stage 7, user decision) **only** behind
   `src/server/` — public pages (`[lang]`, `components`, `lib`) must never import it
@@ -584,7 +591,7 @@ npm run dev            # local dev server
 npm run build          # models:check + next build (~740 static HTML pages)
 npm run typecheck      # tsc --noEmit
 npm run lint           # next lint
-npm test               # node --test --experimental-strip-types tests/*.test.js (182 tests)
+npm test               # node --test --experimental-strip-types tests/*.test.js (185 tests)
 npm run models:build && npm run models:images && npm run models:check
 npm run db:generate    # after editing src/server/db/schema.ts → new SQL in drizzle/
 DATABASE_URL=... npm run db:migrate
@@ -617,7 +624,7 @@ Audit-only devDependencies: `axe-core`, `jsdom` (no browser needed); browser che
 - Testlar orqali yuklanadigan TS fayllarda: import yo'llari nisbiy va `.ts` kengaytmasi bilan (`allowImportingTsExtensions` yoqilgan), tip-only importlar `import type {...}` ko'rinishida bo'lsin (aks holda node `@/` aliasni hal qilolmaydi).
 - Dinamik parametrlar bilan statik sahifalar (`catalog/[section]`) `searchParams` o'qimaydi va `dynamicParams = false` bo'ladi — aks holda noma'lum slug uchun soft-404 (200) qaytadi. Filtrlar mijoz tomonida `window.location.search` dan o'qiladi.
 - `/api` da faqat `leads`, `health` va `track` bo'lishi kerak (test nazorat qiladi).
-- `not-found.tsx` chegarasiga Next `params` uzatmaydi: til `useParams()` orqali olinadi, shuning uchun `[lang]/not-found.tsx` va `NotFoundBody` — client komponentlar.
+- `not-found.tsx` chegarasiga Next `params` uzatmaydi va amalda har 404 ildiz `app/not-found.tsx` dan keladi: `NotFoundBody` — server komponent (3 tilda), til brauzerda URL'dan tanlanadi (`NotFoundLangPick`).
 - Sahifa matnlari `src/dictionaries/pages/{uz,ru,en}.ts` (`getPages(lang)`); tuzilma bir xil bo'lishi shart (test 4 tekshiradi).
 - Kontaktlar faqat `CONTACTS_2027` dan; sahifalarda telefon raqamini qattiq yozish mumkin emas (test 7).
 - Ichki havolalar statik string bo'lsa `next/link` ishlatilsin (eslint `no-html-link-for-pages`); dinamik `${lang}` havolalarda `<a>` qolishi mumkin.

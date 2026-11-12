@@ -21,7 +21,7 @@ ishonchli (soxta ko'rinmaydigan) holatga yetkazish**.
 3. **Katta generatsiya qilingan fayllarni o'qima**: `src/data/models2027.ts`, `data/*.json`,
    `scripts/redirects-2027.json`, `drizzle/meta/*`, `public/admin-ai/*`, `media-src/*`. Kerak bo'lsa `grep`/`jq` bilan.
 4. Muhitni tekshir: `npm ci && npm test && npm run typecheck && npm run lint` — hammasi yashil bo'lishi kerak
-   (182 test). Yashil bo'lmasa, avval sababini top.
+   (185 test). Yashil bo'lmasa, avval sababini top.
 
 ## 1. Loyiha holati (2026-11-12 holatiga)
 
@@ -65,21 +65,13 @@ foydalanuvchiga qisqa xabar qil. Hech qachon `--force` push qilma, prod bazani o
 1. Avval o'lcha: `npm run build && npm run start`, so'ng `PW_CHROMIUM_PATH=... npm run shots`
    (390/1440/360 px) va `npm run audit`. Skrinshotlarni o'zing ko'rib chiq va
    `docs/design-handoff/screens/` bilan solishtir.
-2. Ma'lum qolgan muammolar (2026-10-18 UI auditidan):
-   - Stok suratlar (ulgurji, ishlab chiqarish, bosh sahifadagi port/ombor/usta) — biznesdan haqiqiy zavod,
-     ombor, yuklash, obyekt suratlarini so'ra; kelguncha mahsulot suratlari yoki rasmsiz tartib.
-   - Bosh sahifa hero: kuchli haqiqiy surat va aniq CTA (Zayafka + Katalog) yo'q.
-   - Katalog sahifasi sarlavhasi maketdagidan kambag'al (och fon bandi, lead matn, PDF+Zayafka tugmalari).
-   - Fasad/dekor/skameyka bo'limlarida filtr yo'q (trotuar filtrlari endi faqat trotuarni sanaydi, bo'sh ustun
-     yashiriladi); bu bo'limlar uchun o'z filtrlari (o'lcham, tur: karniz/pilyastra/kapitel...) — keyingi qadam.
-   - Kartochkalarda har birida to'liq qizil "Zayafka" tugmasi (HANDOFF shuni talab qiladi, lekin sahifada
-     juda ko'p qizil) — foydalanuvchiga 2 variant skrinshot bilan ko'rsatib, qaror so'ra.
-   - Root 404 da header/footer yo'q; eksport xaritasi faqat o'zbekcha yozuvli rasm (RU/EN uchun SVG yoki alohida rasm).
-   - Kontakt sahifasidagi "xarita" — oddiy blok (statik xarita rasmi + "Xaritada ochish").
-   - Footer: yuridik nom, STIR, e-pochta (admin'dan) — biznesdan so'ra.
-   - Ro'yxat ko'rinishida (list view) bo'sh joylar; o'zbekcha apostroflar uch xil (', ’, ʻ) — bittaga keltir va test yoz.
-   - 22 ta eski studiya qolip surati va plitka suratlari kichik manbadan — xira; yangi suratlar kelguncha
-     kartochkada sahna rasmini ustun qo'y.
+2. Holat (2026-11-12 kechasi yopilganlar ✓, qolganlari — biznes materialiga bog'liq):
+   - ✓ Stok suratlar olib tashlangan; ✓ katalog/bo'lim sarlavha bandi maketdagidek (PDF + Zayafka);
+     ✓ fasad dekor uchun "Turi" filtri; ✓ 404 RU/EN tilida, header/footer bilan; ✓ o'zbekcha apostroflar
+     bir xil (+ test); ✓ mobil ro'yxat ko'rinishi ixcham; ✓ kartochka CTA grafit (qizil faqat asosiy CTA).
+   - Kutilmoqda (biznes): tirik suratlar (`media-src/live/`), obyekt/zavod suratlari, sharhlar, video,
+     sertifikat; footer yuridik nomi/STIR/e-pochta; eksport xaritasining RU/EN varianti; 2027 PDF katalog.
+   - Ixtiyoriy: kontakt sahifasidagi xarita — statik blok ("Xaritada ochish"), embed CSP/tezlik uchun ataylab yo'q.
 3. Har bir o'zgarishdan keyin: 390 va 1440 px skrinshot, gorizontal scroll yo'q, `npm run audit` 0 xato.
    Lighthouse (CI yoki `npm run lighthouse`): mobil Performance ≥ 90, A11y ≥ 95, SEO 100.
    JS+CSS gzip byudjeti sahifaga ≤ 200 KB (hozir 185–196 KB, model sahifasi eng og'iri) — yangi kutubxona qo'shma.
