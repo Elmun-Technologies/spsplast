@@ -107,7 +107,9 @@ jobs:
           {
             echo "## Tekshiruv natijalari"
             echo
-            for f in docs/audits/seo-dom-*.md docs/audits/a11y-*.md docs/audits/visual-*.md docs/audits/lighthouse-*.md; do
+            # Har turdan faqat ENG YANGI hisobot (git'dagi eski sanali fayllar ham shu papkada —
+            # ilgari hammasi chiqib, joriy natija izohning oxiriga tushib qolardi).
+            for f in $(for k in seo-dom a11y visual lighthouse; do ls docs/audits/$k-*.md 2>/dev/null | sort | tail -n 1; done); do
               [ -f "$f" ] || continue
               echo "### $(basename "$f")"
               echo
@@ -140,7 +142,9 @@ jobs:
             echo "<!-- spsplast-checks -->"
             echo "### Tekshiruv natijalari (CI run ${{ github.run_id }}, ${{ github.sha }})"
             echo
-            for f in docs/audits/seo-dom-*.md docs/audits/a11y-*.md docs/audits/visual-*.md docs/audits/lighthouse-*.md; do
+            # Har turdan faqat ENG YANGI hisobot (git'dagi eski sanali fayllar ham shu papkada —
+            # ilgari hammasi chiqib, joriy natija izohning oxiriga tushib qolardi).
+            for f in $(for k in seo-dom a11y visual lighthouse; do ls docs/audits/$k-*.md 2>/dev/null | sort | tail -n 1; done); do
               [ -f "$f" ] || continue
               echo "#### $(basename "$f")"
               echo
