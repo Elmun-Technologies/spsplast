@@ -23,6 +23,7 @@ import { useCompareList, useRequestList } from '@/lib/store/spsLists';
 import dynamic from 'next/dynamic';
 import { Icon } from '@/components/site/icons';
 import { trackEvent } from '@/lib/analytics';
+import { Model3D } from './Model3D';
 
 /** Tez zayafka oynasi faqat ochilganda yuklanadi (yopiqda `null` qaytaradi). */
 const QuickRequestModal = dynamic(
@@ -370,6 +371,9 @@ export function ModelClient({
           </div>
         </div>
       </section>
+
+      {/* 3D: qolip / mahsulot / terilgan (faqat 3D modeli bor mahsulotlarda) */}
+      <Model3D slug={model.slug} lang={lang} />
 
       {/* Tablar */}
       <section style={{ paddingBottom: 'var(--space-9)' }}>
