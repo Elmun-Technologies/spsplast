@@ -667,9 +667,18 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
 .cat-grid--list .sps-card { flex-direction: row; }
 .cat-grid--list .sps-card__media { width: 240px; flex: none; aspect-ratio: 1 / 1; }
 .cat-grid--list .sps-card__body { padding: var(--space-5); }
+/* Mobil ro'yxat: ixcham qator — chapda 112px rasm, o'ngda nom/spec/tugma (avval to'r bilan bir xil,
+   to'liq kenglikdagi katta kartochka edi, ko'rinishlar orasida farq yo'q edi — 2026-11-12). */
 @media (max-width: 640px) {
-  .cat-grid--list .sps-card { flex-direction: column; }
-  .cat-grid--list .sps-card__media { width: 100%; }
+  .cat-grid--list { gap: var(--space-2); }
+  .cat-grid--list .sps-card { display: grid; grid-template-columns: 112px minmax(0, 1fr); grid-template-rows: auto auto; }
+  .cat-grid--list .sps-card__media { width: auto; grid-row: 1 / span 2; align-self: stretch; aspect-ratio: auto; min-height: 112px; }
+  .cat-grid--list .sps-card__mold, .cat-grid--list .sps-card__quick { display: none; }
+  /* kod tegi tepada, solishtirish pastki burchakda — 112px'da ustma-ust tushmasin; tegish maydoni 44px qoladi */
+  .cat-grid--list .sps-card__cmp { top: auto; bottom: 6px; right: 6px; }
+  .cat-grid--list .sps-card__no { top: 6px; left: 6px; }
+  .cat-grid--list .sps-card__body, .cat-grid--list .sps-card--inset .sps-card__body { padding: 10px 12px 6px; }
+  .cat-grid--list .sps-card__foot { padding: 0 12px 12px; margin: 0; }
 }
 /* Ro'yxat ko'rinishida qolip rasm ichida qoladi (tana yonida, ostida emas). */
 .cat-grid--list .sps-card--inset .sps-card__mold { bottom: var(--space-3); }
