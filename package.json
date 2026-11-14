@@ -57,7 +57,7 @@
     "pixelmatch": "^8.0.0",
     "playwright": "^1.65.0",
     "pngjs": "^7.0.0",
-    "typescript": "^5.5.4"
+    "typescript": "^7.0.2"
   },
   "overrides": {
     "postcss": "^8.5.23"
