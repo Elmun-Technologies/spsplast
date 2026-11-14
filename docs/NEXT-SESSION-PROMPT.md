@@ -21,7 +21,7 @@ ishonchli (soxta ko'rinmaydigan) holatga yetkazish**.
 3. **Katta generatsiya qilingan fayllarni o'qima**: `src/data/models2027.ts`, `data/*.json`,
    `scripts/redirects-2027.json`, `drizzle/meta/*`, `public/admin-ai/*`, `media-src/*`. Kerak bo'lsa `grep`/`jq` bilan.
 4. Muhitni tekshir: `npm ci && npm test && npm run typecheck && npm run lint` — hammasi yashil bo'lishi kerak
-   (185 test). Yashil bo'lmasa, avval sababini top.
+   (188 test). Yashil bo'lmasa, avval sababini top.
 
 ## 1. Loyiha holati (2026-11-12 holatiga)
 
@@ -43,13 +43,13 @@ maxfiylik, 404, SEO landing (teg + 8 eksport davlati), 3D ko'ruvchi (`public/3d`
 - **"Nashr qilish"**: admin o'zgarishlari Vercel Deploy Hook orqali qayta build bilan saytga chiqadi
   (`scripts/export-snapshot.mjs` build boshida bazadan o'qiydi). Zayafka va tashriflar darhol ko'rinadi.
 
-**Katalog ma'lumoti (2026-11-12):** 216 model, 7 bo'lim (trotuar 95, fasad plitkasi 7, termopanel 12,
-fasad dekor 67, zabor 10, dekor panel 18, skameyka 7) — biznesning 3D katalogidan to'ldirildi. 209 tasida rasm:
-tirik/studiya surati yoki **3D render** (`*-3d.webp`, saytda "3D vizualizatsiya" belgisi). Rasmsiz 7 ta
-(`noindex`). Tirik suratlar quvuri tayyor: `media-src/live/` (qoida: `media-src/live/README.md`) → GitHub
-Action "Tirik suratlar" o'zi WebP yasab commit qiladi, render avtomatik almashadi. Yarashtirish hisoboti va
-biznes tekshirishi kerak bo'lgan nomlar: `docs/unresolved-questions.md` 1.17. Trotuar RU nomlari hali
-avtomatik transliteratsiya.
+**Katalog ma'lumoti (2026-11-14):** 216 model, 7 bo'lim (trotuar 95, fasad plitkasi 7, termopanel 12,
+fasad dekor 67, zabor 10, dekor panel 18, skameyka 7). Rasmlar: bosma katalogdan 37 ta haqiqiy qolip surati
+(29 trotuar + Z01–Z09; `media-src/live/`, nomi sayt kodi yoki 3D raqami `tNN`), 205 mahsulotda bosma katalog
+sahnasi (`public/3d/<id>/r_04.jpg` → `*-scene-3d.webp`, "3D vizualizatsiya"). Rasmsiz 5 ta (`noindex`).
+DIQQAT: trotuarda sayt kodi ≠ 3D raqami (sayt №70 = 3D t75) — PR #44 da shu sabab 28 surat boshqa modelga
+tushgan va tuzatilgan; har yangi suratlar to'plamidan keyin surat va 3D renderni yonma-yon solishtiring.
+Ochiq savollar: `docs/unresolved-questions.md` 1.17–1.18.
 
 ## 2. Vazifalar (tartib bilan; har birini alohida commit, oxirida bitta PR)
 

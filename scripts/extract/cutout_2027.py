@@ -79,3 +79,23 @@ def compose_cutout(src: str, mask: str, dst: str, size: int = 800) -> bool:
     ]
     r = subprocess.run(cmd, capture_output=True)
     return r.returncode == 0 and os.path.exists(dst) and os.path.getsize(dst) > 500
+
+
+# --------------------------------------------------------------------------
+# Katalogni yozish: JSON va sayt o'qiydigan TS modul bitta joydan (build_models + build_images).
+# --------------------------------------------------------------------------
+import json as _json
+
+MODELS_JSON = os.path.join(ROOT, "data/models-2027.json")
+MODELS_TS = os.path.join(ROOT, "src/data/models2027.ts")
+TS_HEADER = (
+    "// GENERATED — scripts/extract/build_models_2027.py. Qo'lda tahrirlanmasin!\n"
+    "// Node testlari JSON import qila olmasligi uchun katalog .ts modul sifatida ham yoziladi.\n"
+)
+
+
+def write_catalog(payload):
+    """data/models-2027.json + src/data/models2027.ts — bir xil formatda."""
+    _json.dump(payload, open(MODELS_JSON, "w"), ensure_ascii=False, indent=1)
+    open(MODELS_TS, "w").write(TS_HEADER + "export const models2027 = "
+                               + _json.dumps(payload["models"], ensure_ascii=False) + ";\n")

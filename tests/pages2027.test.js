@@ -171,7 +171,7 @@ test('10. Bo\'lim muqova rasmlari diskda mavjud', async () => {
   for (const s of SECTIONS) {
     const href = sectionCover(s);
     assert.ok(href.startsWith('/'), `${s}: muqova yo'li noto'g'ri`);
-    assert.ok(fs.existsSync(path.join(ROOT, 'public', href)), `${s}: muqova rasmi yo'q (${href})`);
+    assert.ok(fs.existsSync(path.join(ROOT, 'public', href.split('?')[0])), `${s}: muqova rasmi yo'q (${href})`);
   }
 });
 

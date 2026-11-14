@@ -25,6 +25,10 @@ import unicodedata
 
 import openpyxl
 
+import sys
+sys.path.insert(0, os.path.dirname(__file__))
+from cutout_2027 import write_catalog  # noqa: E402
+
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 HANDOFF_XLSX = os.path.join(ROOT, "docs/design-handoff/data-sources/SPS_yakuniy_jadval.xlsx")
 REAL_XLSX = os.path.join(ROOT, "docs/design-handoff/data-sources/SPS_real_malumotlar_bazasi.xlsx")
@@ -529,22 +533,31 @@ LIVE_KIND = {"qolip": "mold", "mold": "mold", "plitka": "tile", "tile": "tile",
 LIVE_EXT = (".jpg", ".jpeg", ".png", ".webp")
 
 
-def live_photos(models):
+def live_photos(models, model3d):
     """media-src/live/<KOD>[-qolip|-plitka|-sahna][-2].jpg — tirik suratlar (eng ustun manba).
 
-    KOD — saytdagi model kodi (01, 70, TP-001, KRN-004-35, D05, Z03, S01, F23) yoki model slugi.
-    Qoida va misollar: media-src/live/README.md.
+    KOD — saytdagi model kodi (01, 70, TP-001, D05, Z03, S01, F23), model slugi YOKI 3D raqami
+    (t70, krn-004-35 — QR sahifadagi /3d/<id> va bosma katalogdagi raqam). Trotuarda sayt kodi
+    va 3D raqami FARQ QILADI: sayt №70 = 3D t75, 3D t70 = sayt №65 — "70" va "t70" boshqa
+    modellar (2026-11-14: bosma katalogdan olingan 29 surat 3D raqami bilan nomlangan, lekin
+    sayt kodi deb o'qilib, boshqa modellarga tushgan edi). Qoida: media-src/live/README.md.
+    Model `key` maydoni (trotuarda "t70" = sayt №70) ataylab hisobga olinmaydi — 3D raqami bilan
+    to'qnashadi.
     """
     if not os.path.isdir(LIVE_DIR):
         return {}
     by_key = {}
+    by_slug = {m["slug"]: m for m in models}
     for m in models:
         keys = {m["slug"].lower()}
         if m.get("code"):
             keys.add(m["code"].lower())
-            keys.add(m["key"].lower())
         for k in keys:
             by_key.setdefault(k, m)
+    for slug, e in model3d.items():
+        m = by_slug.get(slug)
+        if m:
+            by_key.setdefault(e["id"].lower().replace("_", "-"), m)
     found: dict[str, dict[str, str]] = {}
     unknown = []
     for f in sorted(os.listdir(LIVE_DIR)):
@@ -677,12 +690,6 @@ def main():
             m["_pop"] = 1000 + i
     models.sort(key=lambda m: (m["_pop"], m["slug"]))
     jobs, stats = load_image_sources(models)
-    live = live_photos(models)
-    live_jobs: list = []
-    stats["live"] = apply_live(models, live_jobs, live)
-    live_dst = {j["dst"] for j in live_jobs}
-    jobs = [j for j in jobs if j["dst"] not in live_dst] + live_jobs
-
     model3d = load_model3d_map()
     for m in models:
         r = m.get("_3d")
@@ -690,6 +697,12 @@ def main():
             have = [k for k in ("qolip", "mahsulot", "terilgan") if k in r["glb"]]
             if have:
                 model3d[m["slug"]] = {"id": r["id"], "have": have, "poster": False}
+    live = live_photos(models, model3d)
+    live_jobs: list = []
+    stats["live"] = apply_live(models, live_jobs, live)
+    live_dst = {j["dst"] for j in live_jobs}
+    jobs = [j for j in jobs if j["dst"] not in live_dst] + live_jobs
+
     stats["render"] = attach_renders(models, jobs, model3d)
     for m in models:
         im = m["images"]
@@ -719,15 +732,7 @@ def main():
         "models": models,
     }
     os.makedirs(os.path.dirname(OUT_JSON), exist_ok=True)
-    json.dump(payload, open(OUT_JSON, "w"), ensure_ascii=False, indent=1)
-    ts = (
-        "// GENERATED — scripts/extract/build_models_2027.py. Qo'lda tahrirlanmasin!\n"
-        "// Node testlari JSON import qila olmasligi uchun katalog .ts modul sifatida ham yoziladi.\n"
-        "export const models2027 = "
-        + json.dumps(models, ensure_ascii=False)
-        + ";\n"
-    )
-    open(OUT_TS, "w").write(ts)
+    write_catalog(payload)
     json.dump(jobs, open(OUT_JOBS, "w"), ensure_ascii=False, indent=1)
     counts = {}
     for m in models:

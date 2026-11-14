@@ -44,7 +44,7 @@ test('barcha rasm havolalari diskda mavjud', () => {
   for (const m of data.models) {
     const imgs = [m.images.scene, m.images.sceneSm, ...Object.values(m.images.molds), ...Object.values(m.images.tiles)];
     for (const src of imgs) {
-      if (src && !fs.existsSync(path.join(ROOT, 'public', src.replace(/^\//, '')))) missing.push(src);
+      if (src && !fs.existsSync(path.join(ROOT, 'public', src.split('?')[0].replace(/^\//, '')))) missing.push(src);
     }
   }
   assert.deepEqual(missing, []);

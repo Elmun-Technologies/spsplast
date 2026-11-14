@@ -10,7 +10,10 @@ const nextConfig = {
    */
   images: {
     formats: ['image/avif', 'image/webp'],
-    minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
+    // 1 soat (2026-11-14): katalog rasmlari nomi o'zgarmay almashadi (tirik surat render/studiya
+    // o'rniga, yangi bosma katalog sahnasi). 30 kunlik TTL'da yangi surat brauzerda va CDN'da bir
+    // oygacha ko'rinmasdi. ETag bor — muddat o'tgach brauzer arzon 304 bilan tekshiradi.
+    minimumCacheTTL: 60 * 60,
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
   },
   experimental: {
@@ -102,7 +105,8 @@ const nextConfig = {
       {
         // Katalog suratlari statik va og'ir: brauzer/CDN qayta ishlataversin.
         source: '/catalog/(.*)',
-        headers: [{ key: 'Cache-Control', value: 'public, max-age=604800, stale-while-revalidate=604800' }],
+        // Qisqa max-age + uzun stale-while-revalidate: tez ochiladi, almashtirilgan surat ~1 soatda ko'rinadi.
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=3600, stale-while-revalidate=604800' }],
       },
       {
         source: '/images/(.*)',

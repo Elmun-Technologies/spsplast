@@ -1170,7 +1170,7 @@
     "scene": "/catalog/2027/trotuar-18-dubay-40-40-scene-3d.webp",
     "sceneSm": "/catalog/2027/trotuar-18-dubay-40-40-scene-sm-3d.webp",
     "molds": {
-     "A": "/catalog/2027/trotuar-18-dubay-40-40-mold-a.webp"
+     "A": "/catalog/2027/trotuar-18-dubay-40-40-mold-a-3d.webp"
     },
     "tiles": {}
    }
@@ -1301,7 +1301,7 @@
     "scene": "/catalog/2027/trotuar-21-taroq-scene-3d.webp",
     "sceneSm": "/catalog/2027/trotuar-21-taroq-scene-sm-3d.webp",
     "molds": {
-     "A": "/catalog/2027/trotuar-21-taroq-mold-a.webp"
+     "A": "/catalog/2027/trotuar-21-taroq-mold-a-3d.webp"
     },
     "tiles": {}
    }
@@ -1679,9 +1679,7 @@
    "images": {
     "scene": null,
     "sceneSm": null,
-    "molds": {
-     "A": "/catalog/2027/trotuar-29-eksklyuziv-30-30-4-sakkiz-qirra-mold-a.webp"
-    },
+    "molds": {},
     "tiles": {}
    }
   },
@@ -1723,7 +1721,7 @@
     "scene": "/catalog/2027/trotuar-31-aleya-shershavoe-scene-3d.webp",
     "sceneSm": "/catalog/2027/trotuar-31-aleya-shershavoe-scene-sm-3d.webp",
     "molds": {
-     "A": "/catalog/2027/trotuar-31-aleya-shershavoe-mold-a.webp"
+     "A": "/catalog/2027/trotuar-31-aleya-shershavoe-mold-a-3d.webp"
     },
     "tiles": {}
    }
@@ -1833,7 +1831,7 @@
     "scene": "/catalog/2027/trotuar-33-novvot-scene-3d.webp",
     "sceneSm": "/catalog/2027/trotuar-33-novvot-scene-sm-3d.webp",
     "molds": {
-     "A": "/catalog/2027/trotuar-33-novvot-mold-a.webp"
+     "A": "/catalog/2027/trotuar-33-novvot-mold-a-3d.webp"
     },
     "tiles": {}
    }
@@ -2129,7 +2127,7 @@
     "scene": "/catalog/2027/trotuar-39-dubay-toshli-scene-3d.webp",
     "sceneSm": "/catalog/2027/trotuar-39-dubay-toshli-scene-sm-3d.webp",
     "molds": {
-     "A": "/catalog/2027/trotuar-39-dubay-toshli-mold-a.webp"
+     "A": "/catalog/2027/trotuar-39-dubay-toshli-mold-a-3d.webp"
     },
     "tiles": {}
    }
@@ -2533,7 +2531,7 @@
     "scene": "/catalog/2027/trotuar-48-mozaika-scene-3d.webp",
     "sceneSm": "/catalog/2027/trotuar-48-mozaika-scene-sm-3d.webp",
     "molds": {
-     "A": "/catalog/2027/trotuar-48-mozaika-mold-a.webp"
+     "A": "/catalog/2027/trotuar-48-mozaika-mold-a-3d.webp"
     },
     "tiles": {}
    }
@@ -2810,7 +2808,7 @@
     "scene": "/catalog/2027/trotuar-54-aziya-1-scene-3d.webp",
     "sceneSm": "/catalog/2027/trotuar-54-aziya-1-scene-sm-3d.webp",
     "molds": {
-     "A": "/catalog/2027/trotuar-54-aziya-1-mold-a.webp"
+     "A": "/catalog/2027/trotuar-54-aziya-1-mold-a-3d.webp"
     },
     "tiles": {}
    }
@@ -3067,7 +3065,7 @@
     "scene": "/catalog/2027/trotuar-59-kostochka-scene-3d.webp",
     "sceneSm": "/catalog/2027/trotuar-59-kostochka-scene-sm-3d.webp",
     "molds": {
-     "A": "/catalog/2027/trotuar-59-kostochka-mold-a.webp"
+     "A": "/catalog/2027/trotuar-59-kostochka-mold-a-3d.webp"
     },
     "tiles": {}
    }
@@ -3122,7 +3120,7 @@
     "scene": "/catalog/2027/trotuar-60-3d-scene-3d.webp",
     "sceneSm": "/catalog/2027/trotuar-60-3d-scene-sm-3d.webp",
     "molds": {
-     "A": "/catalog/2027/trotuar-60-3d-mold-a.webp"
+     "A": "/catalog/2027/trotuar-60-3d-mold-a-3d.webp"
     },
     "tiles": {}
    }
@@ -3177,7 +3175,7 @@
     "scene": "/catalog/2027/trotuar-61-4d-scene-3d.webp",
     "sceneSm": "/catalog/2027/trotuar-61-4d-scene-sm-3d.webp",
     "molds": {
-     "A": "/catalog/2027/trotuar-61-4d-mold-a.webp"
+     "A": "/catalog/2027/trotuar-61-4d-mold-a-3d.webp"
     },
     "tiles": {}
    }
@@ -3440,7 +3438,7 @@
     "scene": "/catalog/2027/trotuar-67-safir-scene-3d.webp",
     "sceneSm": "/catalog/2027/trotuar-67-safir-scene-sm-3d.webp",
     "molds": {
-     "A": "/catalog/2027/trotuar-67-safir-mold-a.webp"
+     "A": "/catalog/2027/trotuar-67-safir-mold-a-3d.webp"
     },
     "tiles": {}
    }
@@ -3655,7 +3653,7 @@
     "scene": "/catalog/2027/trotuar-73-marokesh-2-scene-3d.webp",
     "sceneSm": "/catalog/2027/trotuar-73-marokesh-2-scene-sm-3d.webp",
     "molds": {
-     "A": "/catalog/2027/trotuar-73-marokesh-2-mold-a.webp"
+     "A": "/catalog/2027/trotuar-73-marokesh-2-mold-a-3d.webp"
     },
     "tiles": {}
    }
@@ -3698,7 +3696,7 @@
     "scene": "/catalog/2027/trotuar-74-nikolay-gladkiy-scene-3d.webp",
     "sceneSm": "/catalog/2027/trotuar-74-nikolay-gladkiy-scene-sm-3d.webp",
     "molds": {
-     "A": "/catalog/2027/trotuar-74-nikolay-gladkiy-mold-a.webp"
+     "A": "/catalog/2027/trotuar-74-nikolay-gladkiy-mold-a-3d.webp"
     },
     "tiles": {}
    }
@@ -4202,7 +4200,7 @@
     "scene": "/catalog/2027/trotuar-86-aleya-3-scene-3d.webp",
     "sceneSm": "/catalog/2027/trotuar-86-aleya-3-scene-sm-3d.webp",
     "molds": {
-     "A": "/catalog/2027/trotuar-86-aleya-3-mold-a.webp"
+     "A": "/catalog/2027/trotuar-86-aleya-3-mold-a-3d.webp"
     },
     "tiles": {}
    }
@@ -4245,7 +4243,7 @@
     "scene": "/catalog/2027/trotuar-87-magna-kubik-bilan-scene-3d.webp",
     "sceneSm": "/catalog/2027/trotuar-87-magna-kubik-bilan-scene-sm-3d.webp",
     "molds": {
-     "A": "/catalog/2027/trotuar-87-magna-kubik-bilan-mold-a.webp"
+     "A": "/catalog/2027/trotuar-87-magna-kubik-bilan-mold-a-3d.webp"
     },
     "tiles": {}
    }
@@ -4288,7 +4286,7 @@
     "scene": "/catalog/2027/trotuar-88-parket-yog-och-naqshli-scene-3d.webp",
     "sceneSm": "/catalog/2027/trotuar-88-parket-yog-och-naqshli-scene-sm-3d.webp",
     "molds": {
-     "A": "/catalog/2027/trotuar-88-parket-yog-och-naqshli-mold-a.webp"
+     "A": "/catalog/2027/trotuar-88-parket-yog-och-naqshli-mold-a-3d.webp"
     },
     "tiles": {}
    }
@@ -4331,7 +4329,7 @@
     "scene": "/catalog/2027/trotuar-polosa-scene-3d.webp",
     "sceneSm": "/catalog/2027/trotuar-polosa-scene-sm-3d.webp",
     "molds": {
-     "A": "/catalog/2027/trotuar-polosa-mold-a-3d.webp"
+     "A": "/catalog/2027/trotuar-polosa-mold-a.webp"
     },
     "tiles": {}
    }
@@ -4460,7 +4458,7 @@
     "scene": "/catalog/2027/trotuar-shashka-scene-3d.webp",
     "sceneSm": "/catalog/2027/trotuar-shashka-scene-sm-3d.webp",
     "molds": {
-     "A": "/catalog/2027/trotuar-shashka-mold-a-3d.webp"
+     "A": "/catalog/2027/trotuar-shashka-mold-a.webp"
     },
     "tiles": {}
    }

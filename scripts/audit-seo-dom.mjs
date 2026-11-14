@@ -95,7 +95,7 @@ async function measureAssets(doc, origin, out, routePath) {
   for (const img of doc.querySelectorAll('img[src^="/"]')) {
     const src = img.getAttribute('src');
     if (src.startsWith('/_next/image')) continue;
-    const file = path.join(ROOT, 'public', src);
+    const file = path.join(ROOT, 'public', src.split('?')[0]);
     if (!fs.existsSync(file)) {
       out.errors.push(`${routePath}: rasm fayli yo'q: ${src}`);
       continue;
