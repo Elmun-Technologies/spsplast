@@ -20,7 +20,7 @@ import subprocess
 import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
-from cutout_2027 import compose_cutout, is_cutout_job, mask_path, resolve_src  # noqa: E402
+from cutout_2027 import compose_cutout, is_cutout_job, mask_path, resolve_src, write_catalog  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 JOBS = os.path.join(ROOT, "data/image-jobs-2027.json")
@@ -39,28 +39,60 @@ def convert(src: str, dst: str, width: int) -> bool:
     return r.returncode == 0 and os.path.exists(dst) and os.path.getsize(dst) > 500
 
 
+ENCODED = os.path.join(ROOT, "media-src/clean/encoded.json")
+PIPELINE_VERSION = "1"  # kodlash sozlamasi (o'lcham, sifat, kesish) o'zgarsa oshiring — hammasi qayta yoziladi
+
+
+def _sha(path):
+    import hashlib
+    with open(path, "rb") as f:
+        return hashlib.sha1(f.read()).hexdigest()[:16]
+
+
+def _signature(src, mask, width):
+    """Rasm imzosi: manba fayl + (bo'lsa) niqob + kenglik + pipeline versiyasi. Manba yo'q bo'lsa None."""
+    src_abs = os.path.join(ROOT, src)
+    if not os.path.isfile(src_abs):
+        return None
+    parts = [PIPELINE_VERSION, str(width), _sha(src_abs), _sha(mask) if mask else "-"]
+    return ":".join(parts)
+
+
 def main():
     jobs = json.load(open(JOBS))
     manifest_path = os.path.join(ROOT, "media-src/clean/manifest.json")
     manifest = json.load(open(manifest_path)) if os.path.exists(manifest_path) else {}
-    ok = fail = cut = kept = stale = 0
+    ok = fail = cut = kept = stale = same = 0
     failed_dst = set()
+    # Inkremental (2026-11-14): har rasm imzosi = manba + niqob + kenglik + sozlama. O'zgarmagan rasm
+    # qayta kodlanmaydi. Aks holda GitHub Action (boshqa ImageMagick/libwebp) har surat yuklanganda
+    # 600+ rasmni qayta yozib, ~21% kattaroq qilib qo'yardi (30.3 -> 36.8 MB, PR #45).
+    encoded = json.load(open(ENCODED)) if os.path.exists(ENCODED) else {}
     for j in jobs:
         src = resolve_src(j["src"])
         mask = mask_path(j["dst"])
         name = os.path.splitext(os.path.basename(j["dst"]))[0]
+        dst_abs = os.path.join(ROOT, j["dst"])
         # Niqob boshqa manba uchun yasalgan bo'lsa (masalan render o'rniga tirik surat keldi) —
         # ishlatilmaydi: fonli rasm yoziladi, `npm run images:bg` yangi niqob yasaydi.
         fresh = manifest.get(name, {}).get("src") == src
+        use_mask = is_cutout_job(j["dst"]) and os.path.exists(mask) and fresh
         if is_cutout_job(j["dst"]) and os.path.exists(mask) and not fresh:
             stale += 1
             print("NIQOB ESKIRGAN (npm run images:bg)", j["dst"], file=sys.stderr)
-        if is_cutout_job(j["dst"]) and os.path.exists(mask) and fresh and \
-                compose_cutout(src, mask, os.path.join(ROOT, j["dst"]), j["w"]):
+        sig = _signature(src, mask if use_mask else None, j["w"])
+        if sig and encoded.get(j["dst"]) == sig and os.path.exists(dst_abs):
+            ok += 1
+            same += 1
+            cut += 1 if use_mask else 0
+            continue
+        if use_mask and compose_cutout(src, mask, dst_abs, j["w"]):
             ok += 1
             cut += 1
+            encoded[j["dst"]] = sig
         elif convert(src, j["dst"], j["w"]):
             ok += 1
+            encoded[j["dst"]] = sig
         elif not os.path.exists(os.path.join(ROOT, src)) and \
                 os.path.exists(os.path.join(ROOT, j["dst"])):
             kept += 1
@@ -69,40 +101,61 @@ def main():
             failed_dst.add("/" + j["dst"].replace("public/", ""))
             print("FAIL", j["src"], "->", j["dst"], file=sys.stderr)
     if failed_dst:
+        bare = lambda u: (u or "").split("?", 1)[0]  # noqa: E731 — URL'da ?v= xesh bo'lishi mumkin
         data = json.load(open(MODELS))
         for m in data["models"]:
             im = m["images"]
-            if im["scene"] in failed_dst:
+            if bare(im["scene"]) in failed_dst:
                 im["scene"] = None
-            if im["sceneSm"] in failed_dst:
+            if bare(im["sceneSm"]) in failed_dst:
                 im["sceneSm"] = None
             for k, v in list(im["molds"].items()):
-                if v in failed_dst:
+                if bare(v) in failed_dst:
                     del im["molds"][k]
             for k, v in list(im["tiles"].items()):
-                if v in failed_dst:
+                if bare(v) in failed_dst:
                     del im["tiles"][k]
-        json.dump(data, open(MODELS, "w"), ensure_ascii=False, indent=1)
-    # Tirik surat render o'rnini egallaganda eski `*-3d.webp` (va uning niqobi) yetim qoladi —
-    # faqat render fayllari tozalanadi (boshqa qo'lda qo'yilgan fayllarga tegilmaydi).
+        # JSON bilan birga TS modul ham (ilgari faqat JSON yozilardi — sayt eski TS'ni o'qirdi).
+        write_catalog(data)
+    # Yetim fayllar: hech bir job'da yo'q va kodda (src/) nomi tilga olinmagan generatsiya rasmlari
+    # o'chiriladi (niqobi bilan). Masalan tirik surat render o'rnini egallasa eski `*-3d.webp`,
+    # yoki surat boshqa modelga ko'chirilsa eski modelning `-mold-a.webp` i (2026-11-14: PR #44 dagi
+    # noto'g'ri bog'langan 28 surat). Qo'lda qo'yilgan fayl kodda tilga olingan bo'lsa saqlanadi.
     want = {os.path.basename(j["dst"]) for j in jobs}
+    src_text = ""
+    for _r, _d, _f in os.walk(os.path.join(ROOT, "src")):
+        for fn in _f:
+            if fn.endswith((".ts", ".tsx")) and fn != "models2027.ts":
+                src_text += open(os.path.join(_r, fn), encoding="utf-8").read()
     pruned = 0
     cat_dir = os.path.join(ROOT, "public/catalog/2027")
     for f in os.listdir(cat_dir):
-        if f.endswith("-3d.webp") and f not in want:
-            os.remove(os.path.join(cat_dir, f))
-            stem = f[:-5]
-            if os.path.exists(os.path.join(ROOT, "media-src/clean", stem + ".png")):
-                os.remove(os.path.join(ROOT, "media-src/clean", stem + ".png"))
-            manifest.pop(stem, None)
-            pruned += 1
+        if not f.endswith(".webp") or f in want or f in src_text:
+            continue
+        os.remove(os.path.join(cat_dir, f))
+        stem = f[:-5]
+        if os.path.exists(os.path.join(ROOT, "media-src/clean", stem + ".png")):
+            os.remove(os.path.join(ROOT, "media-src/clean", stem + ".png"))
+        manifest.pop(stem, None)
+        pruned += 1
+    # niqobi qolgan, lekin rasmi endi job'da yo'q yozuvlar
+    want_stems = {w[:-5] for w in want}
+    for stem in [k for k in manifest if k not in want_stems]:
+        manifest.pop(stem, None)
+        mp = os.path.join(ROOT, "media-src/clean", stem + ".png")
+        if os.path.exists(mp):
+            os.remove(mp)
+        pruned += 1
     if pruned:
         json.dump(dict(sorted(manifest.items())), open(manifest_path, "w"), ensure_ascii=False, indent=1)
-        print(f"yetim render o'chirildi: {pruned}")
+        print(f"yetim rasm/niqob o'chirildi: {pruned}")
+    job_dst = {j["dst"] for j in jobs}
+    encoded = {k: v for k, v in sorted(encoded.items()) if k in job_dst and v}
+    json.dump(encoded, open(ENCODED, "w"), ensure_ascii=False, indent=0)
     total = 0
     for _r, _d, _f in os.walk(os.path.join(ROOT, "public/catalog/2027")):
         total += len(_f)
-    print(f"webp ok={ok} (fonsiz={cut}, niqobi-eskirgan={stale}) manbasiz-saqlandi={kept} fail={fail} "
+    print(f"webp ok={ok} (o'zgarmagan={same}, fonsiz={cut}, niqobi-eskirgan={stale}) manbasiz-saqlandi={kept} fail={fail} "
           f"files_in_2027={total}")
 
 

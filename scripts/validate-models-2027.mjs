@@ -57,7 +57,7 @@ for (const m of models) {
   for (const src of imgs) {
     if (!src) continue;
     if (src.startsWith('/media/')) continue; // admin'dan yuklangan (bazada)
-    if (!fs.existsSync(path.join(ROOT, 'public', src.replace(/^\//, ''))))
+    if (!fs.existsSync(path.join(ROOT, 'public', src.split('?')[0].replace(/^\//, ''))))
       errors.push(`${m.slug}: rasm fayli yo'q ${src}`);
   }
 }

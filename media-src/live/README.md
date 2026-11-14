@@ -11,13 +11,14 @@ hamisha eng ustun manba (tirik surat → 2026 studiya → zavod DSC → 3D rende
 
 | Qism | Nima yoziladi | Misol |
 |---|---|---|
-| `KOD` | Saytdagi model kodi (kartochkadagi `№` dan keyingi yozuv) yoki model slugi | `01`, `70`, `TP-001`, `KRN-005`, `D05`, `Z03`, `S01`, `F23` |
+| `KOD` | **Saytdagi model kodi** (kartochkadagi `№` dan keyingi yozuv) **yoki 3D raqami** — QR sahifa manzilidagi va bosma katalogdagi raqam, `t` bilan (`/3d/t70` → `t70`). Trotuarda ikkalasi **farq qiladi**: sayt №70 = 3D `t75`; `70.jpg` va `t70.jpg` — boshqa-boshqa modellar! | `01`, `70`, `t75`, `TP-001`, `D05`, `Z03` |
 | `turi` | `qolip` (qolipning o'zi), `plitka` (tayyor mahsulot), `sahna` (obyektda terilgan holati). Yozilmasa — `qolip` | `-plitka` |
 | `raqam` | Bitta turdan bir nechta surat bo'lsa (hozircha birinchisi ishlatiladi) | `-2` |
 
 Misollar:
 
 ```
+t75-qolip.jpg       -> bosma katalogdagi 75-raqam (3D t75) = saytdagi №70 Kabanchik
 01.jpg              -> №01 Monako qolipi
 01-plitka.jpg       -> №01 tayyor plitka
 01-sahna.jpg        -> №01 hovlida terilgan

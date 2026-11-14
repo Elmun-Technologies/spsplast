@@ -45,7 +45,7 @@ export type Model = {
  * belgilaydi; tirik surat yoki admin'dan yuklangan rasm bu nomda bo'lmaydi — belgi o'zi yo'qoladi.
  */
 export function isRenderImage(src: string | null | undefined): boolean {
-  return !!src && /-3d\.webp$/.test(src);
+  return !!src && /-3d\.webp(?:\?|$)/.test(src);
 }
 
 type SectionMeta = { key: Section; slug: string; name: Localized };
