@@ -1211,7 +1211,7 @@
   "src": "media-src/live/t36-qolip.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.376,
+  "cover": 0.3761,
   "edge": 0.0,
   "note": ""
  },
@@ -1491,7 +1491,7 @@
   "src": "media-src/live/t75-qolip.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.6669,
+  "cover": 0.667,
   "edge": 0.0,
   "note": ""
  },
@@ -1563,7 +1563,7 @@
   "src": "media-src/live/t83-qolip.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.2643,
+  "cover": 0.2642,
   "edge": 0.0,
   "note": ""
  },
