@@ -758,12 +758,12 @@
   },
   {
    "source": "/uz/product/g045-gisht-va-tosh",
-   "destination": "/uz/catalog/paving",
+   "destination": "/uz/catalog/fence/z07-yevrozabor-gisht-va-tosh",
    "statusCode": 301
   },
   {
    "source": "/ru/product/g045-gisht-va-tosh",
-   "destination": "/ru/catalog/paving",
+   "destination": "/ru/catalog/fence/z07-yevrozabor-gisht-va-tosh",
    "statusCode": 301
   },
   {

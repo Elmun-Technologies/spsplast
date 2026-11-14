@@ -1087,19 +1087,19 @@
   "edge": 0.0,
   "note": ""
  },
- "trotuar-17-versachi-mold-a-3d": {
-  "src": "public/3d/t17/qolip_tik.jpg",
+ "trotuar-17-versachi-mold-a": {
+  "src": "media-src/live/17-qolip.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.4153,
+  "cover": 0.6324,
   "edge": 0.0,
   "note": ""
  },
- "trotuar-18-dubay-40-40-mold-a-3d": {
-  "src": "public/3d/t22/qolip_tik.jpg",
+ "trotuar-18-dubay-40-40-mold-a": {
+  "src": "media-src/live/18-qolip.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.4074,
+  "cover": 0.6279,
   "edge": 0.0,
   "note": ""
  },
@@ -1127,11 +1127,11 @@
   "edge": 0.0,
   "note": ""
  },
- "trotuar-21-taroq-mold-a-3d": {
-  "src": "public/3d/t25/qolip_tik.jpg",
+ "trotuar-21-taroq-mold-a": {
+  "src": "media-src/live/21-qolip.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.4417,
+  "cover": 0.5854,
   "edge": 0.0,
   "note": ""
  },
@@ -1215,6 +1215,14 @@
   "edge": 0.0,
   "note": ""
  },
+ "trotuar-29-eksklyuziv-30-30-4-sakkiz-qirra-mold-a": {
+  "src": "media-src/live/29-qolip.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.6088,
+  "edge": 0.0,
+  "note": ""
+ },
  "trotuar-30-aleya-mold-a": {
   "src": "media-src/factory/DSC03283.JPG_20260927202647.jpg",
   "status": "ok",
@@ -1223,13 +1231,13 @@
   "edge": 0.0,
   "note": ""
  },
- "trotuar-31-aleya-shershavoe-mold-a-3d": {
-  "src": "public/3d/t35/qolip_tik.jpg",
+ "trotuar-31-aleya-shershavoe-mold-a": {
+  "src": "media-src/live/31-qolip.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.1773,
+  "cover": 0.5629,
   "edge": 0.0,
-  "note": ""
+  "note": "ichki teshiklar to'ldirildi (16.2%)"
  },
  "trotuar-32-tomir-mold-a": {
   "src": "media-src/factory/DSC03293.JPG_20260927202634.jpg",
@@ -1239,11 +1247,11 @@
   "edge": 0.0,
   "note": ""
  },
- "trotuar-33-novvot-mold-a-3d": {
-  "src": "public/3d/t37/qolip_tik.jpg",
+ "trotuar-33-novvot-mold-a": {
+  "src": "media-src/live/33-qolip.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.2241,
+  "cover": 0.6015,
   "edge": 0.0,
   "note": ""
  },
@@ -1263,11 +1271,11 @@
   "edge": 0.0,
   "note": ""
  },
- "trotuar-36-bodom-20-20-mold-a-3d": {
-  "src": "public/3d/t40/qolip_tik.jpg",
+ "trotuar-36-bodom-20-20-mold-a": {
+  "src": "media-src/live/36-qolip.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.2244,
+  "cover": 0.376,
   "edge": 0.0,
   "note": ""
  },
@@ -1295,19 +1303,19 @@
   "edge": 0.0,
   "note": ""
  },
- "trotuar-39-dubay-toshli-mold-a-3d": {
-  "src": "public/3d/t43/qolip_tik.jpg",
+ "trotuar-39-dubay-toshli-mold-a": {
+  "src": "media-src/live/39-qolip.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.234,
+  "cover": 0.6153,
   "edge": 0.0,
   "note": ""
  },
- "trotuar-40-dubay-shershaviy-mold-a-3d": {
-  "src": "public/3d/t44/qolip_tik.jpg",
+ "trotuar-40-dubay-shershaviy-mold-a": {
+  "src": "media-src/live/40-qolip.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.2318,
+  "cover": 0.6154,
   "edge": 0.0,
   "note": ""
  },
@@ -1335,11 +1343,11 @@
   "edge": 0.0,
   "note": ""
  },
- "trotuar-44-parus-18-36-mold-a-3d": {
-  "src": "public/3d/t48/qolip_tik.jpg",
+ "trotuar-44-parus-18-36-mold-a": {
+  "src": "media-src/live/44-qolip.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.2509,
+  "cover": 0.3364,
   "edge": 0.0,
   "note": ""
  },
@@ -1367,11 +1375,11 @@
   "edge": 0.0,
   "note": ""
  },
- "trotuar-48-mozaika-mold-a-3d": {
-  "src": "public/3d/t52/qolip_tik.jpg",
+ "trotuar-48-mozaika-mold-a": {
+  "src": "media-src/live/48-qolip.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.2241,
+  "cover": 0.3431,
   "edge": 0.0,
   "note": ""
  },
@@ -1415,19 +1423,19 @@
   "edge": 0.0,
   "note": ""
  },
- "trotuar-54-aziya-1-mold-a-3d": {
-  "src": "public/3d/t58/qolip_tik.jpg",
+ "trotuar-54-aziya-1-mold-a": {
+  "src": "media-src/live/54-qolip.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.1672,
+  "cover": 0.4346,
   "edge": 0.0,
   "note": ""
  },
- "trotuar-55-aziya-3-mold-a-3d": {
-  "src": "public/3d/t60/qolip_tik.jpg",
+ "trotuar-55-aziya-3-mold-a": {
+  "src": "media-src/live/55-qolip.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.2233,
+  "cover": 0.3079,
   "edge": 0.0,
   "note": ""
  },
@@ -1479,35 +1487,35 @@
   "edge": 0.0,
   "note": ""
  },
- "trotuar-59-kostochka-mold-a-3d": {
-  "src": "public/3d/t64/qolip_tik.jpg",
+ "trotuar-59-kostochka-mold-a": {
+  "src": "media-src/live/59-qolip.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.1855,
+  "cover": 0.4721,
   "edge": 0.0,
   "note": ""
  },
- "trotuar-60-3d-mold-a-3d": {
-  "src": "public/3d/t65/qolip_tik.jpg",
+ "trotuar-60-3d-mold-a": {
+  "src": "media-src/live/60-qolip.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.1909,
+  "cover": 0.4342,
   "edge": 0.0,
   "note": ""
  },
- "trotuar-61-4d-mold-a-3d": {
-  "src": "public/3d/t66/qolip_tik.jpg",
+ "trotuar-61-4d-mold-a": {
+  "src": "media-src/live/61-qolip.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.2467,
+  "cover": 0.3598,
   "edge": 0.0,
-  "note": ""
+  "note": "ichki teshiklar to'ldirildi (9.0%)"
  },
- "trotuar-62-vegas-mold-a-3d": {
-  "src": "public/3d/t67/qolip_tik.jpg",
+ "trotuar-62-vegas-mold-a": {
+  "src": "media-src/live/62-qolip.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.1608,
+  "cover": 0.2802,
   "edge": 0.0,
   "note": ""
  },
@@ -1551,19 +1559,19 @@
   "edge": 0.0,
   "note": "ichki teshiklar to'ldirildi (28.9%)"
  },
- "trotuar-67-safir-mold-a-3d": {
-  "src": "public/3d/t72/qolip_tik.jpg",
+ "trotuar-67-safir-mold-a": {
+  "src": "media-src/live/67-qolip.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.2493,
+  "cover": 0.6072,
   "edge": 0.0,
   "note": ""
  },
- "trotuar-68-aleya-uzor-mold-a-3d": {
-  "src": "public/3d/t73/qolip_tik.jpg",
+ "trotuar-68-aleya-uzor-mold-a": {
+  "src": "media-src/live/68-qolip.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.1919,
+  "cover": 0.4604,
   "edge": 0.0,
   "note": ""
  },
@@ -1575,11 +1583,11 @@
   "edge": 0.0,
   "note": ""
  },
- "trotuar-70-kabanchik-17-5-naqshli-mold-a-3d": {
-  "src": "public/3d/t75/qolip_tik.jpg",
+ "trotuar-70-kabanchik-17-5-naqshli-mold-a": {
+  "src": "media-src/live/70-qolip.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.2068,
+  "cover": 0.4586,
   "edge": 0.0,
   "note": ""
  },
@@ -1599,27 +1607,27 @@
   "edge": 0.0,
   "note": ""
  },
- "trotuar-73-marokesh-2-mold-a-3d": {
-  "src": "public/3d/t78/qolip_tik.jpg",
+ "trotuar-73-marokesh-2-mold-a": {
+  "src": "media-src/live/73-qolip.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.2625,
+  "cover": 0.511,
   "edge": 0.0,
   "note": ""
  },
- "trotuar-74-nikolay-gladkiy-mold-a-3d": {
-  "src": "public/3d/t79/qolip_tik.jpg",
+ "trotuar-74-nikolay-gladkiy-mold-a": {
+  "src": "media-src/live/74-qolip.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.2586,
+  "cover": 0.6268,
   "edge": 0.0,
   "note": ""
  },
- "trotuar-75-nikolay-shershavoe-mold-a-3d": {
-  "src": "public/3d/t80/qolip_tik.jpg",
+ "trotuar-75-nikolay-shershavoe-mold-a": {
+  "src": "media-src/live/75-qolip.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.2586,
+  "cover": 0.6669,
   "edge": 0.0,
   "note": ""
  },
@@ -1631,13 +1639,13 @@
   "edge": 0.0,
   "note": ""
  },
- "trotuar-77-aziya-2-mold-a-3d": {
-  "src": "public/3d/t59/qolip_tik.jpg",
+ "trotuar-77-aziya-2-mold-a": {
+  "src": "media-src/live/77-qolip.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.1031,
+  "cover": 0.5286,
   "edge": 0.0,
-  "note": ""
+  "note": "ichki teshiklar to'ldirildi (31.1%)"
  },
  "trotuar-78-xokkey-mold-a": {
   "src": "media-src/factory/DSC03328.JPG_20260927202440.jpg",
@@ -1663,11 +1671,11 @@
   "edge": 0.0,
   "note": ""
  },
- "trotuar-80-ventilyator-mold-a-3d": {
-  "src": "public/3d/t83/qolip_tik.jpg",
+ "trotuar-80-ventilyator-mold-a": {
+  "src": "media-src/live/80-qolip.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.1298,
+  "cover": 0.3565,
   "edge": 0.0,
   "note": ""
  },
@@ -1695,11 +1703,11 @@
   "edge": 0.0,
   "note": ""
  },
- "trotuar-83-nikolay-2-mold-a-3d": {
-  "src": "public/3d/t86/qolip_tik.jpg",
+ "trotuar-83-nikolay-2-mold-a": {
+  "src": "media-src/live/83-qolip.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.1522,
+  "cover": 0.2643,
   "edge": 0.0,
   "note": ""
  },
@@ -1719,27 +1727,27 @@
   "edge": 0.0,
   "note": ""
  },
- "trotuar-86-aleya-3-mold-a-3d": {
-  "src": "public/3d/t89/qolip_tik.jpg",
+ "trotuar-86-aleya-3-mold-a": {
+  "src": "media-src/live/86-qolip.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.1174,
+  "cover": 0.5241,
   "edge": 0.0,
   "note": ""
  },
- "trotuar-87-magna-kubik-bilan-mold-a-3d": {
-  "src": "public/3d/t90/qolip_tik.jpg",
+ "trotuar-87-magna-kubik-bilan-mold-a": {
+  "src": "media-src/live/87-qolip.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.2494,
+  "cover": 0.4657,
   "edge": 0.0,
   "note": ""
  },
- "trotuar-88-parket-yog-och-naqshli-mold-a-3d": {
-  "src": "public/3d/t91/qolip_tik.jpg",
+ "trotuar-88-parket-yog-och-naqshli-mold-a": {
+  "src": "media-src/live/88-qolip.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.2445,
+  "cover": 0.631,
   "edge": 0.0,
   "note": ""
  },
@@ -1788,6 +1796,78 @@
   "status": "ok",
   "method": "rembg isnet-general-use",
   "cover": 0.4174,
+  "edge": 0.0,
+  "note": ""
+ },
+ "zabor-z01-yevrozabor-okovka-mold-a": {
+  "src": "media-src/live/Z01-qolip.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3062,
+  "edge": 0.0,
+  "note": ""
+ },
+ "zabor-z02-yevrozabor-gunchalar-mold-a": {
+  "src": "media-src/live/Z02-qolip.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2923,
+  "edge": 0.0,
+  "note": ""
+ },
+ "zabor-z03-yevrozabor-reykalar-mold-a": {
+  "src": "media-src/live/Z03-qolip.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2923,
+  "edge": 0.0,
+  "note": ""
+ },
+ "zabor-z04-yevrozabor-tolqinli-tosh-mold-a": {
+  "src": "media-src/live/Z04-qolip.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2867,
+  "edge": 0.0,
+  "note": ""
+ },
+ "zabor-z05-yevrozabor-gul-mold-a": {
+  "src": "media-src/live/Z05-qolip.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2853,
+  "edge": 0.0,
+  "note": ""
+ },
+ "zabor-z06-yevrozabor-silliq-mold-a": {
+  "src": "media-src/live/Z06-qolip.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2788,
+  "edge": 0.0,
+  "note": ""
+ },
+ "zabor-z07-yevrozabor-gisht-va-tosh-mold-a": {
+  "src": "media-src/live/Z07-qolip.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2908,
+  "edge": 0.0,
+  "note": ""
+ },
+ "zabor-z08-yevrozabor-qoya-tosh-mold-a": {
+  "src": "media-src/live/Z08-qolip.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3012,
+  "edge": 0.0,
+  "note": ""
+ },
+ "zabor-z09-yevrozabor-3d-romblar-mold-a": {
+  "src": "media-src/live/Z09-qolip.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3041,
   "edge": 0.0,
   "note": ""
  }
