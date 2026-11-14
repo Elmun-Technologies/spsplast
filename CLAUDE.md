@@ -493,6 +493,11 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     `r_04` scene), so `/catalog/*` max-age and `images.minimumCacheTTL` are **1 h** (ETag revalidation). Per-URL
     content hashes (`?v=`) were tried and rejected: +3–5 KB gzip of incompressible JS on every page. Locally, clear
     `.next/cache/images` after regenerating images or `next start` serves stale optimized copies.
+  - **Incremental image pipeline**: `build_images_2027.py` re-encodes only when the signature (source sha + mask sha +
+    width + `PIPELINE_VERSION`) in `media-src/clean/encoded.json` changed; `remove_bg_2027.py` re-runs rembg only when
+    the source photo's `sha` in `manifest.json` changed (`--force` to override). Reason: the "Tirik suratlar" Action
+    (different ImageMagick/libwebp/onnxruntime) re-encoded all 599 images (+21%, 30.3 → 36.8 MB) on its first run —
+    reverted. Bump `PIPELINE_VERSION` when changing encode settings on purpose.
   - `public/3d/<id>/r_04.jpg` = final printed-catalog scene (205 products) → site `*-scene-3d.webp` (still renders,
     labelled "3D vizualizatsiya"). Open: `t33-qolip.jpg` (3D t33 "Эксклюзив 20×20") has no site product; `t60` photo vs
     "55 Aziya 3" 3D render only partly matches; Z10 not in the printed catalog — `docs/unresolved-questions.md` 1.18.

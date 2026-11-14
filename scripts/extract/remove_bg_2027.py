@@ -80,6 +80,12 @@ def _load_jobs():
     return out
 
 
+def _sha(path):
+    import hashlib
+    with open(path, "rb") as f:
+        return hashlib.sha1(f.read()).hexdigest()[:16]
+
+
 _SESSIONS: dict = {}
 
 
@@ -223,15 +229,31 @@ def main():
     ap.add_argument("--model", help="hammasi uchun boshqa rembg modeli (sinov)")
     ap.add_argument("--compose", action="store_true", help="niqob yasamay, faqat WebP")
     ap.add_argument("--sheets", action="store_true", help="kontakt varaqlarini ham yasash")
+    ap.add_argument("--force", action="store_true",
+                    help="manba o'zgarmagan bo'lsa ham niqobni qayta yasash (odatda o'tkazib yuboriladi)")
     args = ap.parse_args()
 
     manifest = json.load(open(MANIFEST)) if os.path.exists(MANIFEST) else {}
     jobs = [j for j in _load_jobs()
             if not args.only or re.search(args.only, j["dst"] + " " + resolve_src(j["src"]))]
+    skipped = 0
     for j in jobs:
         name = os.path.splitext(os.path.basename(j["dst"]))[0]
+        src_abs = os.path.join(ROOT, resolve_src(j["src"]))
+        sha = _sha(src_abs) if os.path.isfile(src_abs) else None
+        prev = manifest.get(name, {})
+        # Inkremental (2026-11-14): manba fayli (mazmuni) o'zgarmagan va niqob bor bo'lsa rembg qayta
+        # ishlamaydi — GitHub Action har surat yuklanganda barcha niqoblarni boshqa onnxruntime bilan
+        # qayta yasab, keyin barcha rasmlarni o'zgartirib yuborardi.
+        unchanged = (not args.force and sha and prev.get("sha") == sha
+                     and prev.get("src") == resolve_src(j["src"]) and os.path.exists(mask_path(j["dst"])))
+        if unchanged:
+            skipped += 1
+            continue
         if not args.compose:
             manifest[name] = make_mask(j, args.model)
+            if sha:
+                manifest[name]["sha"] = sha
         e = manifest.get(name, {})
         if e.get("status") in ("ok", "fallback") and os.path.exists(mask_path(j["dst"])):
             if not compose_cutout(resolve_src(j["src"]), mask_path(j["dst"]),
@@ -243,7 +265,7 @@ def main():
     c = {}
     for e in manifest.values():
         c[e["status"]] = c.get(e["status"], 0) + 1
-    print("jami:", len(manifest), c)
+    print("jami:", len(manifest), c, f"o'zgarmagan (o'tkazildi): {skipped}")
     if args.sheets:
         contact_sheets(manifest)
         print("kontakt varaqlari: docs/audits/bg-removal/")

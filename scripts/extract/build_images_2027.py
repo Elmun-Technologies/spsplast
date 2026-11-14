@@ -39,28 +39,60 @@ def convert(src: str, dst: str, width: int) -> bool:
     return r.returncode == 0 and os.path.exists(dst) and os.path.getsize(dst) > 500
 
 
+ENCODED = os.path.join(ROOT, "media-src/clean/encoded.json")
+PIPELINE_VERSION = "1"  # kodlash sozlamasi (o'lcham, sifat, kesish) o'zgarsa oshiring — hammasi qayta yoziladi
+
+
+def _sha(path):
+    import hashlib
+    with open(path, "rb") as f:
+        return hashlib.sha1(f.read()).hexdigest()[:16]
+
+
+def _signature(src, mask, width):
+    """Rasm imzosi: manba fayl + (bo'lsa) niqob + kenglik + pipeline versiyasi. Manba yo'q bo'lsa None."""
+    src_abs = os.path.join(ROOT, src)
+    if not os.path.isfile(src_abs):
+        return None
+    parts = [PIPELINE_VERSION, str(width), _sha(src_abs), _sha(mask) if mask else "-"]
+    return ":".join(parts)
+
+
 def main():
     jobs = json.load(open(JOBS))
     manifest_path = os.path.join(ROOT, "media-src/clean/manifest.json")
     manifest = json.load(open(manifest_path)) if os.path.exists(manifest_path) else {}
-    ok = fail = cut = kept = stale = 0
+    ok = fail = cut = kept = stale = same = 0
     failed_dst = set()
+    # Inkremental (2026-11-14): har rasm imzosi = manba + niqob + kenglik + sozlama. O'zgarmagan rasm
+    # qayta kodlanmaydi. Aks holda GitHub Action (boshqa ImageMagick/libwebp) har surat yuklanganda
+    # 600+ rasmni qayta yozib, ~21% kattaroq qilib qo'yardi (30.3 -> 36.8 MB, PR #45).
+    encoded = json.load(open(ENCODED)) if os.path.exists(ENCODED) else {}
     for j in jobs:
         src = resolve_src(j["src"])
         mask = mask_path(j["dst"])
         name = os.path.splitext(os.path.basename(j["dst"]))[0]
+        dst_abs = os.path.join(ROOT, j["dst"])
         # Niqob boshqa manba uchun yasalgan bo'lsa (masalan render o'rniga tirik surat keldi) —
         # ishlatilmaydi: fonli rasm yoziladi, `npm run images:bg` yangi niqob yasaydi.
         fresh = manifest.get(name, {}).get("src") == src
+        use_mask = is_cutout_job(j["dst"]) and os.path.exists(mask) and fresh
         if is_cutout_job(j["dst"]) and os.path.exists(mask) and not fresh:
             stale += 1
             print("NIQOB ESKIRGAN (npm run images:bg)", j["dst"], file=sys.stderr)
-        if is_cutout_job(j["dst"]) and os.path.exists(mask) and fresh and \
-                compose_cutout(src, mask, os.path.join(ROOT, j["dst"]), j["w"]):
+        sig = _signature(src, mask if use_mask else None, j["w"])
+        if sig and encoded.get(j["dst"]) == sig and os.path.exists(dst_abs):
+            ok += 1
+            same += 1
+            cut += 1 if use_mask else 0
+            continue
+        if use_mask and compose_cutout(src, mask, dst_abs, j["w"]):
             ok += 1
             cut += 1
+            encoded[j["dst"]] = sig
         elif convert(src, j["dst"], j["w"]):
             ok += 1
+            encoded[j["dst"]] = sig
         elif not os.path.exists(os.path.join(ROOT, src)) and \
                 os.path.exists(os.path.join(ROOT, j["dst"])):
             kept += 1
@@ -117,10 +149,13 @@ def main():
     if pruned:
         json.dump(dict(sorted(manifest.items())), open(manifest_path, "w"), ensure_ascii=False, indent=1)
         print(f"yetim rasm/niqob o'chirildi: {pruned}")
+    job_dst = {j["dst"] for j in jobs}
+    encoded = {k: v for k, v in sorted(encoded.items()) if k in job_dst and v}
+    json.dump(encoded, open(ENCODED, "w"), ensure_ascii=False, indent=0)
     total = 0
     for _r, _d, _f in os.walk(os.path.join(ROOT, "public/catalog/2027")):
         total += len(_f)
-    print(f"webp ok={ok} (fonsiz={cut}, niqobi-eskirgan={stale}) manbasiz-saqlandi={kept} fail={fail} "
+    print(f"webp ok={ok} (o'zgarmagan={same}, fonsiz={cut}, niqobi-eskirgan={stale}) manbasiz-saqlandi={kept} fail={fail} "
           f"files_in_2027={total}")
 
 
