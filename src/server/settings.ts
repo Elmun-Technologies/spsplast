@@ -72,19 +72,37 @@ export async function pendingChanges(db: Db): Promise<{
 }
 
 /**
- * Vercel Deploy Hook'ni chaqiradi → sayt bazadagi oxirgi ma'lumot bilan qayta yig'iladi
+ * Deploy hook'ni chaqiradi → sayt bazadagi oxirgi ma'lumot bilan qayta yig'iladi
  * (build boshida `scripts/export-snapshot.mjs`). Natija `publishes` jadvaliga yoziladi.
+ *
+ * - Coolify (Hetzner): `DEPLOY_HOOK_URL` = resursning "Deploy webhook" manzili
+ *   (`…/api/v1/deploy?uuid=…`), `DEPLOY_HOOK_TOKEN` = Coolify API tokeni (Keys & Tokens, "deploy"
+ *   huquqi) → `GET` + `Authorization: Bearer`.
+ * - Vercel: `VERCEL_DEPLOY_HOOK_URL` (yoki `DEPLOY_HOOK_URL` tokensiz) → `POST`.
  */
-export async function triggerPublish(db: Db, userId: number, hookUrl = process.env.VERCEL_DEPLOY_HOOK_URL): Promise<{ ok: boolean; message: string }> {
+export function deployHookFromEnv(env: Record<string, string | undefined> = process.env): { url?: string; token?: string } {
+  const url = env.DEPLOY_HOOK_URL || env.VERCEL_DEPLOY_HOOK_URL || undefined;
+  const token = env.DEPLOY_HOOK_TOKEN || undefined;
+  return { url, token };
+}
+
+export async function triggerPublish(
+  db: Db,
+  userId: number,
+  hookUrl = deployHookFromEnv().url,
+  hookToken = deployHookFromEnv().token,
+): Promise<{ ok: boolean; message: string }> {
   if (!hookUrl) {
-    const message = 'VERCEL_DEPLOY_HOOK_URL sozlanmagan (docs/ADMIN.md → Nashr qilish).';
+    const message = 'DEPLOY_HOOK_URL (yoki VERCEL_DEPLOY_HOOK_URL) sozlanmagan (docs/ADMIN.md → Nashr qilish).';
     await db.insert(publishes).values({ userId, status: 'error', message });
     return { ok: false, message };
   }
   try {
-    const res = await fetch(hookUrl, { method: 'POST', signal: AbortSignal.timeout(10_000) });
+    const res = await fetch(hookUrl, hookToken
+      ? { method: 'GET', headers: { Authorization: `Bearer ${hookToken}` }, signal: AbortSignal.timeout(10_000) }
+      : { method: 'POST', signal: AbortSignal.timeout(10_000) });
     const ok = res.ok;
-    const message = ok ? 'Sayt qayta yig\'ilmoqda (odatda 3–5 daqiqa).' : `Deploy hook javobi: HTTP ${res.status}`;
+    const message = ok ? 'Sayt qayta yig\'ilmoqda (odatda 3–7 daqiqa).' : `Deploy hook javobi: HTTP ${res.status}`;
     await db.insert(publishes).values({ userId, status: ok ? 'ok' : 'error', message });
     return { ok, message };
   } catch (error) {

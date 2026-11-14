@@ -51,13 +51,19 @@ Zayafka oqimi: sayt formasi → **avval bazaga** (ketma-ket raqam `SPS-YYMM-NNNN
 ## Nashr qilish (mahsulotlar va integratsiyalar saytga qanday chiqadi)
 
 Sayt tezligi uchun sahifalar statik yig'iladi. Admin'dagi o'zgarishlar bazaga yoziladi va
-**"Nashr qilish"** tugmasi bosilganda Vercel saytni qayta yig'adi (3–5 daqiqa):
+**"Nashr qilish"** tugmasi bosilganda server (hozir Hetzner/Coolify) saytni qayta yig'adi (3–7 daqiqa):
 build boshida `scripts/export-snapshot.mjs` bazadan nashrdagi mahsulotlar, bo'limlar va
 integratsiyalarni oladi. Zayafkalar va tashriflar esa darhol (nashrsiz) ko'rinadi.
 
-Sozlash (bir marta):
-1. Vercel → Project → Settings → Git → **Deploy Hooks** → nom: `admin-publish`, branch: `main` → URL'ni nusxalang.
-2. Environment Variables: `VERCEL_DEPLOY_HOOK_URL=<o'sha URL>`. Vercel **Production**'da baza ulangan
+Sozlash (bir marta) — **Coolify (Hetzner, hozirgi)**:
+1. Coolify → SPS → `spsplast` → **Webhooks** → "Deploy webhook" URL'i (`…/api/v1/deploy?uuid=…`).
+   Coolify → **Keys & Tokens** → API token (`deploy` huquqi bilan).
+2. `spsplast` → Environment Variables: `DEPLOY_HOOK_URL=<o'sha URL>`, `DEPLOY_HOOK_TOKEN=<token>`,
+   `SNAPSHOT_REQUIRED=1` (baza javob bermasa build to'xtaydi, eski versiya ishlashda qoladi).
+   Sayt `GET` + `Authorization: Bearer` bilan chaqiradi (`src/server/settings.ts` → `triggerPublish`).
+
+Vercel'da (zaxira): Settings → Git → **Deploy Hooks** → `VERCEL_DEPLOY_HOOK_URL=<URL>` (tokensiz, `POST`).
+Vercel **Production**'da baza ulangan
    bo'lsa snapshot o'z-o'zidan majburiy: baza javob bermasa build to'xtaydi va eski deploy ishlashda
    qoladi (eski katalog bilan jimgina chiqib ketmaydi). O'chirish kerak bo'lsa: `SNAPSHOT_REQUIRED=0`.
    Ixtiyoriy — admin'da "Saytdagi oxirgi yig'ish: tayyor / yig'ilmoqda / XATO" ko'rinishi uchun:
