@@ -1,11 +1,13 @@
 {
  "$comment": "GENERATED — scripts/extract/build_models_2027.py. Qo'lda tahrirlanmasin!",
  "version": "2027-0",
- "generatedAt": "2026-10-09",
+ "generatedAt": "2026-11-12",
  "source": "docs/design-handoff/data-sources/*.xlsx + src/data/catalog.json (rasmlar)",
  "sections": [
   "trotuar",
+  "termopanel",
   "fasad",
+  "fasad_dekor",
   "zabor",
   "dekor",
   "skameyka"
@@ -46,9 +48,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-70-kabanchik-17-5-naqshli-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-70-kabanchik-17-5-naqshli-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-70-kabanchik-17-5-naqshli-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -132,8 +136,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-85-kabanchik-10-10-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-85-kabanchik-10-10-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-85-kabanchik-10-10-mold-a.webp"
     },
@@ -175,9 +179,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-83-nikolay-2-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-83-nikolay-2-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-83-nikolay-2-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -216,11 +222,52 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-42-kerpich-10-20-5-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-42-kerpich-10-20-5-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-42-kerpich-10-20-5-mold-a.webp"
     },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "z05",
+   "code": "Z05",
+   "slug": "z05-yevrozabor-gul",
+   "section": "zabor",
+   "name": {
+    "uz": "Yevrozabor «Gul»",
+    "ru": "Еврозабор «Цветок»",
+    "en": "Euro fence «Flower»"
+   },
+   "subtitle": {
+    "uz": "Zabor paneli",
+    "ru": "Заборная панель",
+    "en": "Fence panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "500×1900",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×1900",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/zabor-z05-yevrozabor-gul-scene-3d.webp",
+    "sceneSm": "/catalog/2027/zabor-z05-yevrozabor-gul-scene-sm-3d.webp",
+    "molds": {},
     "tiles": {}
    }
   },
@@ -259,8 +306,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-30-aleya-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-30-aleya-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-30-aleya-mold-a.webp"
     },
@@ -302,8 +349,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-22-uzor-50-25-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-22-uzor-50-25-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-22-uzor-50-25-mold-a.webp"
     },
@@ -459,8 +506,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-02-ornament-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-02-ornament-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-02-ornament-mold-a.webp"
     },
@@ -547,8 +594,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-04-tsvetok-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-04-tsvetok-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-04-tsvetok-mold-a.webp"
     },
@@ -680,8 +727,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-08-travertino-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-08-travertino-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-08-travertino-mold-a.webp"
     },
@@ -768,8 +815,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-10-zanjir-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-10-zanjir-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-10-zanjir-mold-a.webp"
     },
@@ -811,8 +858,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-11-setka-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-11-setka-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-11-setka-mold-a.webp"
     },
@@ -899,8 +946,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-13-viking-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-13-viking-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-13-viking-mold-a.webp"
     },
@@ -1032,8 +1079,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-16-strelka-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-16-strelka-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-16-strelka-mold-a.webp"
     },
@@ -1075,9 +1122,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-17-versachi-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-17-versachi-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-17-versachi-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -1116,9 +1165,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-18-dubay-40-40-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-18-dubay-40-40-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-18-dubay-40-40-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -1202,8 +1253,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-20-travertin-40-40-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-20-travertin-40-40-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-20-travertin-40-40-mold-a.webp"
     },
@@ -1245,9 +1296,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-21-taroq-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-21-taroq-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-21-taroq-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -1286,8 +1339,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-23-parket-12-36-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-23-parket-12-36-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-23-parket-12-36-mold-a.webp"
     },
@@ -1341,8 +1394,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-24-guruch-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-24-guruch-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-24-guruch-mold-a.webp"
     },
@@ -1396,8 +1449,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-25-bodom-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-25-bodom-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-25-bodom-mold-a.webp"
     },
@@ -1663,9 +1716,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-31-aleya-shershavoe-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-31-aleya-shershavoe-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-31-aleya-shershavoe-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -1716,8 +1771,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-32-tomir-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-32-tomir-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-32-tomir-mold-a.webp"
     },
@@ -1771,9 +1826,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-33-novvot-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-33-novvot-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-33-novvot-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -1824,8 +1881,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-34-parket-20-20-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-34-parket-20-20-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-34-parket-20-20-mold-a.webp"
     },
@@ -1879,8 +1936,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-35-uzor-20-20-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-35-uzor-20-20-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-35-uzor-20-20-mold-a.webp"
     },
@@ -1934,9 +1991,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-36-bodom-20-20-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-36-bodom-20-20-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-36-bodom-20-20-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -1975,8 +2034,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-37-rombik-eski-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-37-rombik-eski-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-37-rombik-eski-mold-a.webp"
     },
@@ -2063,9 +2122,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-39-dubay-toshli-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-39-dubay-toshli-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-39-dubay-toshli-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -2104,9 +2165,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-40-dubay-shershaviy-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-40-dubay-shershaviy-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-40-dubay-shershaviy-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -2145,8 +2208,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-41-dubay-yaltiroq-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-41-dubay-yaltiroq-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-41-dubay-yaltiroq-mold-a.webp"
     },
@@ -2188,8 +2251,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-43-kerpich-10-20-7-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-43-kerpich-10-20-7-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-43-kerpich-10-20-7-mold-a.webp"
     },
@@ -2243,9 +2306,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-44-parus-18-36-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-44-parus-18-36-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-44-parus-18-36-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -2296,8 +2361,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-45-gladkiy-18-36-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-45-gladkiy-18-36-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-45-gladkiy-18-36-mold-a.webp"
     },
@@ -2351,8 +2416,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-46-dojdik-18-36-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-46-dojdik-18-36-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-46-dojdik-18-36-mold-a.webp"
     },
@@ -2406,8 +2471,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-47-kabanchik-17-17-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-47-kabanchik-17-17-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-47-kabanchik-17-17-mold-a.webp"
     },
@@ -2461,9 +2526,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-48-mozaika-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-48-mozaika-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-48-mozaika-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -2571,8 +2638,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-51-azaliya-2-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-51-azaliya-2-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-51-azaliya-2-mold-a.webp"
     },
@@ -2626,8 +2693,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-52-ona-bola-1-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-52-ona-bola-1-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-52-ona-bola-1-mold-a.webp"
     },
@@ -2681,8 +2748,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-53-aziya-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-53-aziya-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-53-aziya-mold-a.webp"
     },
@@ -2736,9 +2803,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-54-aziya-1-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-54-aziya-1-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-54-aziya-1-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -2789,9 +2858,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-55-aziya-3-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-55-aziya-3-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-55-aziya-3-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -2989,9 +3060,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-59-kostochka-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-59-kostochka-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-59-kostochka-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -3042,9 +3115,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-60-3d-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-60-3d-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-60-3d-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -3095,9 +3170,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-61-4d-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-61-4d-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-61-4d-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -3160,9 +3237,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-62-vegas-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-62-vegas-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-62-vegas-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -3213,8 +3292,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-63-royal-1-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-63-royal-1-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-63-royal-1-mold-a.webp"
     },
@@ -3268,8 +3347,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-65-farovon-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-65-farovon-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-65-farovon-mold-a.webp"
     },
@@ -3311,8 +3390,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-66-aleya-2-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-66-aleya-2-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-66-aleya-2-mold-a.webp"
     },
@@ -3354,9 +3433,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-67-safir-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-67-safir-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-67-safir-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -3395,9 +3476,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-68-aleya-uzor-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-68-aleya-uzor-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-68-aleya-uzor-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -3436,8 +3519,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-69-kabanchik-15-15-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-69-kabanchik-15-15-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-69-kabanchik-15-15-mold-a.webp"
     },
@@ -3479,8 +3562,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-71-mumtoz-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-71-mumtoz-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-71-mumtoz-mold-a.webp"
     },
@@ -3522,8 +3605,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-72-marokesh-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-72-marokesh-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-72-marokesh-mold-a.webp"
     },
@@ -3565,9 +3648,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-73-marokesh-2-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-73-marokesh-2-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-73-marokesh-2-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -3606,9 +3691,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-74-nikolay-gladkiy-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-74-nikolay-gladkiy-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-74-nikolay-gladkiy-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -3647,9 +3734,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-75-nikolay-shershavoe-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-75-nikolay-shershavoe-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-75-nikolay-shershavoe-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -3700,8 +3789,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-76-ona-bola-2-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-76-ona-bola-2-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-76-ona-bola-2-mold-a.webp"
     },
@@ -3767,9 +3856,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-77-aziya-2-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-77-aziya-2-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-77-aziya-2-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -3808,8 +3899,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-78-xokkey-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-78-xokkey-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-78-xokkey-mold-a.webp"
     },
@@ -3920,9 +4011,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-80-ventilyator-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-80-ventilyator-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-80-ventilyator-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -4030,8 +4123,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-82-orxideya-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-82-orxideya-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-82-orxideya-mold-a.webp"
     },
@@ -4073,8 +4166,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-84-vetnam-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-84-vetnam-scene-sm-3d.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-84-vetnam-mold-a.webp"
     },
@@ -4102,9 +4195,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-86-aleya-3-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-86-aleya-3-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-86-aleya-3-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -4143,9 +4238,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-87-magna-kubik-bilan-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-87-magna-kubik-bilan-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-87-magna-kubik-bilan-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -4155,7 +4252,7 @@
    "slug": "88-parket-yog-och-naqshli",
    "section": "trotuar",
    "name": {
-    "uz": "Parket yog'och naqshli",
+    "uz": "Parket yog‘och naqshli",
     "ru": null,
     "en": null
    },
@@ -4184,9 +4281,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-88-parket-yog-och-naqshli-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-88-parket-yog-och-naqshli-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-88-parket-yog-och-naqshli-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -4225,9 +4324,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-polosa-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-polosa-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-polosa-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -4266,9 +4367,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-kaliforniya-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-kaliforniya-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-kaliforniya-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -4307,9 +4410,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-kaliforniya-g-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-kaliforniya-g-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-kaliforniya-g-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -4348,9 +4453,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-shashka-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-shashka-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-shashka-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
@@ -4571,14 +4678,5092 @@
    }
   },
   {
-   "key": "s-skameyka-3-forma",
-   "code": null,
-   "slug": "skameyka-3-forma",
+   "key": "bp-001",
+   "code": "BP-001",
+   "slug": "bp-001-120x40-beeline-1",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "120×40 Beeline 1",
+    "ru": "120×40 Билайн 1",
+    "en": "120×40 Beeline 1"
+   },
+   "subtitle": {
+    "uz": "Beeline panel",
+    "ru": "Панель «Билайн»",
+    "en": "Beeline panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-bp-001-120x40-beeline-1-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-bp-001-120x40-beeline-1-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-bp-001-120x40-beeline-1-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "bp-002",
+   "code": "BP-002",
+   "slug": "bp-002-120x40-beeline-2",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "120×40 Beeline 2",
+    "ru": "120×40 Билайн 2",
+    "en": "120×40 Beeline 2"
+   },
+   "subtitle": {
+    "uz": "Beeline panel",
+    "ru": "Панель «Билайн»",
+    "en": "Beeline panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-bp-002-120x40-beeline-2-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-bp-002-120x40-beeline-2-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-bp-002-120x40-beeline-2-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "bp-003",
+   "code": "BP-003",
+   "slug": "bp-003-120x40-beeline-3",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "120×40 Beeline 3",
+    "ru": "120×40 Билайн 3",
+    "en": "120×40 Beeline 3"
+   },
+   "subtitle": {
+    "uz": "Beeline panel",
+    "ru": "Панель «Билайн»",
+    "en": "Beeline panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "depth": "41",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-bp-003-120x40-beeline-3-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-bp-003-120x40-beeline-3-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-bp-003-120x40-beeline-3-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "bp-004",
+   "code": "BP-004",
+   "slug": "bp-004-120x40-beeline-4",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "120×40 Beeline 4",
+    "ru": "120×40 Билайн 4",
+    "en": "120×40 Beeline 4"
+   },
+   "subtitle": {
+    "uz": "Beeline panel",
+    "ru": "Панель «Билайн»",
+    "en": "Beeline panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-bp-004-120x40-beeline-4-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-bp-004-120x40-beeline-4-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-bp-004-120x40-beeline-4-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "bp-005",
+   "code": "BP-005",
+   "slug": "bp-005-30x120-beeline",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "30×120 Beeline",
+    "ru": "30×120 Билайн",
+    "en": "30×120 Beeline"
+   },
+   "subtitle": {
+    "uz": "Beeline panel",
+    "ru": "Панель «Билайн»",
+    "en": "Beeline panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×1200",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-bp-005-30x120-beeline-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-bp-005-30x120-beeline-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-bp-005-30x120-beeline-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "d01",
+   "code": "D01",
+   "slug": "d01-ramkali-panel",
+   "section": "dekor",
+   "name": {
+    "uz": "Ramkali panel",
+    "ru": "Рамочная панель",
+    "en": "Framed panel"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "435×800",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "435×800",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/dekor-d01-ramkali-panel-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "d02",
+   "code": "D02",
+   "slug": "d02-ramka-2-kvadrat",
+   "section": "dekor",
+   "name": {
+    "uz": "Ramka, 2 kvadrat",
+    "ru": "Рамка, 2 квадрата",
+    "en": "Frame, 2 squares"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "415×800",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "415×800",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/dekor-d02-ramka-2-kvadrat-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "d03",
+   "code": "D03",
+   "slug": "d03-yon-tasmali-ramka",
+   "section": "dekor",
+   "name": {
+    "uz": "Yon tasmali ramka",
+    "ru": "Рамка с боковой лентой",
+    "en": "Frame with side band"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "425×800",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "425×800",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/dekor-d03-yon-tasmali-ramka-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "d04",
+   "code": "D04",
+   "slug": "d04-ramka-4-kvadrat",
+   "section": "dekor",
+   "name": {
+    "uz": "Ramka, 4 kvadrat",
+    "ru": "Рамка, 4 квадрата",
+    "en": "Frame, 4 squares"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "545×800",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "545×800",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/dekor-d04-ramka-4-kvadrat-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "d05",
+   "code": "D05",
+   "slug": "d05-ramka-3-kvadrat",
+   "section": "dekor",
+   "name": {
+    "uz": "Ramka, 3 kvadrat",
+    "ru": "Рамка, 3 квадрата",
+    "en": "Frame, 3 squares"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "415×800",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "415×800",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/dekor-d05-ramka-3-kvadrat-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "d06",
+   "code": "D06",
+   "slug": "d06-oddiy-ramka",
+   "section": "dekor",
+   "name": {
+    "uz": "Oddiy ramka",
+    "ru": "Простая рамка",
+    "en": "Simple frame"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "480×800",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "480×800",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/dekor-d06-oddiy-ramka-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "d07",
+   "code": "D07",
+   "slug": "d07-ramkadagi-kvadrat",
+   "section": "dekor",
+   "name": {
+    "uz": "Ramkadagi kvadrat",
+    "ru": "Квадрат в рамке",
+    "en": "Square in a frame"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "385×500",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "385×500",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/dekor-d07-ramkadagi-kvadrat-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "d08",
+   "code": "D08",
+   "slug": "d08-rombli-panjara",
+   "section": "dekor",
+   "name": {
+    "uz": "Rombli panjara",
+    "ru": "Ромбическая решётка",
+    "en": "Diamond lattice"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "435×800",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "435×800",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/dekor-d08-rombli-panjara-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "d09",
+   "code": "D09",
+   "slug": "d09-3d-piramida",
+   "section": "dekor",
+   "name": {
+    "uz": "3D piramida",
+    "ru": "3D пирамида",
+    "en": "3D pyramid"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "495×500",
+     "depth": "52",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "495×500",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/dekor-d09-3d-piramida-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "d10",
+   "code": "D10",
+   "slug": "d10-kop-ramkali-keng",
+   "section": "dekor",
+   "name": {
+    "uz": "Ko‘p ramkali, keng",
+    "ru": "Многорамочная широкая",
+    "en": "Multi-frame, wide"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "430×800",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "430×800",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/dekor-d10-kop-ramkali-keng-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "d11",
+   "code": "D11",
+   "slug": "d11-kop-ramkali",
+   "section": "dekor",
+   "name": {
+    "uz": "Ko‘p ramkali",
+    "ru": "Многорамочная",
+    "en": "Multi-frame"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×500",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×500",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/dekor-d11-kop-ramkali-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "d12",
+   "code": "D12",
+   "slug": "d12-tolqinsimon-panel",
+   "section": "dekor",
+   "name": {
+    "uz": "To‘lqinsimon panel",
+    "ru": "Волнистая панель",
+    "en": "Wave panel"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "390×800",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "390×800",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/dekor-d12-tolqinsimon-panel-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "d13",
+   "code": "D13",
+   "slug": "d13-tosh-panel",
+   "section": "dekor",
+   "name": {
+    "uz": "Tosh panel",
+    "ru": "Каменная панель",
+    "en": "Stone panel"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "455×1200",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "455×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/dekor-d13-tosh-panel-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "d14",
+   "code": "D14",
+   "slug": "d14-donador-panel",
+   "section": "dekor",
+   "name": {
+    "uz": "Donador panel",
+    "ru": "Зернистая панель",
+    "en": "Grain panel"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "450×1200",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "450×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/dekor-d14-donador-panel-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "d15",
+   "code": "D15",
+   "slug": "d15-tishli-friz",
+   "section": "dekor",
+   "name": {
+    "uz": "Tishli friz",
+    "ru": "Зубчатый фриз",
+    "en": "Dentil frieze"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "315×1200",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "315×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/dekor-d15-tishli-friz-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "d16",
+   "code": "D16",
+   "slug": "d16-rombli-tasmali-panel",
+   "section": "dekor",
+   "name": {
+    "uz": "Rombli tasmali panel",
+    "ru": "Панель с ромбической лентой",
+    "en": "Panel with diamond band"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "305×1200",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "305×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/dekor-d16-rombli-tasmali-panel-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "d17",
+   "code": "D17",
+   "slug": "d17-qirrali-panel",
+   "section": "dekor",
+   "name": {
+    "uz": "Qirrali panel",
+    "ru": "Ребристая панель",
+    "en": "Ribbed panel"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "310×1200",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "310×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/dekor-d17-qirrali-panel-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "d18",
+   "code": "D18",
+   "slug": "d18-keng-qirrali-panel",
+   "section": "dekor",
+   "name": {
+    "uz": "Keng qirrali panel",
+    "ru": "Широкая ребристая панель",
+    "en": "Wide ribbed panel"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "485×1200",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "485×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/dekor-d18-keng-qirrali-panel-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "f23",
+   "code": "F23",
+   "slug": "f23-4-tali-travertin",
+   "section": "fasad",
+   "name": {
+    "uz": "4 tali travertin",
+    "ru": "4 тали травертин",
+    "en": "Travertine, 4 pieces"
+   },
+   "subtitle": {
+    "uz": "Fasad plitkasi",
+    "ru": "Фасадная плитка",
+    "en": "Facade tile"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "88×220",
+     "depth": "20",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "88×220",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Qalinlik, mm",
+      "ru": "Толщина, мм",
+      "en": "Thickness, mm"
+     },
+     "v": {
+      "uz": "15",
+      "ru": "15",
+      "en": "15"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/fasad-f23-4-tali-travertin-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "f24",
+   "code": "F24",
+   "slug": "f24-4-tali-tosh",
+   "section": "fasad",
+   "name": {
+    "uz": "4 tali tosh",
+    "ru": "4 тали камень",
+    "en": "Stone, 4 pieces"
+   },
+   "subtitle": {
+    "uz": "Fasad plitkasi",
+    "ru": "Фасадная плитка",
+    "en": "Facade tile"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "88×220",
+     "depth": "22",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "88×220",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Qalinlik, mm",
+      "ru": "Толщина, мм",
+      "en": "Thickness, mm"
+     },
+     "v": {
+      "uz": "15",
+      "ru": "15",
+      "en": "15"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/fasad-f24-4-tali-tosh-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "f25",
+   "code": "F25",
+   "slug": "f25-6-tali-tosh",
+   "section": "fasad",
+   "name": {
+    "uz": "6 tali tosh",
+    "ru": "6 тали камень",
+    "en": "Stone, 6 pieces"
+   },
+   "subtitle": {
+    "uz": "Fasad plitkasi",
+    "ru": "Фасадная плитка",
+    "en": "Facade tile"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "67×165",
+     "depth": "21",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "67×165",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Qalinlik, mm",
+      "ru": "Толщина, мм",
+      "en": "Thickness, mm"
+     },
+     "v": {
+      "uz": "15",
+      "ru": "15",
+      "en": "15"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/fasad-f25-6-tali-tosh-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "f26",
+   "code": "F26",
+   "slug": "f26-korka-15-30",
+   "section": "fasad",
+   "name": {
+    "uz": "Korka 15×30",
+    "ru": "Корка 15×30",
+    "en": "Bark 15×30"
+   },
+   "subtitle": {
+    "uz": "Fasad plitkasi",
+    "ru": "Фасадная плитка",
+    "en": "Facade tile"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "150×300",
+     "depth": "27",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "150×300",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Qalinlik, mm",
+      "ru": "Толщина, мм",
+      "en": "Thickness, mm"
+     },
+     "v": {
+      "uz": "15",
+      "ru": "15",
+      "en": "15"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/fasad-f26-korka-15-30-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "fsd-001",
+   "code": "FSD-001",
+   "slug": "fsd-001-120x40-dekor-1",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "120×40 Dekor 1",
+    "ru": "120×40 Декор 1",
+    "en": "120×40 Decor 1"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "depth": "45",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-fsd-001-120x40-dekor-1-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-fsd-001-120x40-dekor-1-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-fsd-001-120x40-dekor-1-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "fsd-002",
+   "code": "FSD-002",
+   "slug": "fsd-002-120x40-dekor-2",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "120×40 Dekor 2",
+    "ru": "120×40 Декор 2",
+    "en": "120×40 Decor 2"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "depth": "45",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-fsd-002-120x40-dekor-2-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-fsd-002-120x40-dekor-2-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-fsd-002-120x40-dekor-2-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "fsd-003",
+   "code": "FSD-003",
+   "slug": "fsd-003-120x40-dekor-3",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "120×40 Dekor 3",
+    "ru": "120×40 Декор 3",
+    "en": "120×40 Decor 3"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "depth": "45",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-fsd-003-120x40-dekor-3-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-fsd-003-120x40-dekor-3-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-fsd-003-120x40-dekor-3-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "fsd-004",
+   "code": "FSD-004",
+   "slug": "fsd-004-120x40-dekor-4",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "120×40 Dekor 4",
+    "ru": "120×40 Декор 4",
+    "en": "120×40 Decor 4"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "depth": "45",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-fsd-004-120x40-dekor-4-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-fsd-004-120x40-dekor-4-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-fsd-004-120x40-dekor-4-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "fsd-005",
+   "code": "FSD-005",
+   "slug": "fsd-005-120x40-dekor-5",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "120×40 Dekor 5",
+    "ru": "120×40 Декор 5",
+    "en": "120×40 Decor 5"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "depth": "45",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-fsd-005-120x40-dekor-5-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-fsd-005-120x40-dekor-5-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-fsd-005-120x40-dekor-5-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "fsd-006",
+   "code": "FSD-006",
+   "slug": "fsd-006-120x40-dekor-6",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "120×40 Dekor 6",
+    "ru": "120×40 Декор 6",
+    "en": "120×40 Decor 6"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "depth": "45",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-fsd-006-120x40-dekor-6-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-fsd-006-120x40-dekor-6-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-fsd-006-120x40-dekor-6-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "fsd-007",
+   "code": "FSD-007",
+   "slug": "fsd-007-120x40-dekor-7",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "120×40 Dekor 7",
+    "ru": "120×40 Декор 7",
+    "en": "120×40 Decor 7"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "depth": "45",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-fsd-007-120x40-dekor-7-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-fsd-007-120x40-dekor-7-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-fsd-007-120x40-dekor-7-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "fsd-008",
+   "code": "FSD-008",
+   "slug": "fsd-008-120x40-dekor-8",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "120×40 Dekor 8",
+    "ru": "120×40 Декор 8",
+    "en": "120×40 Decor 8"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "depth": "45",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-fsd-008-120x40-dekor-8-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-fsd-008-120x40-dekor-8-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-fsd-008-120x40-dekor-8-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "fsd-009",
+   "code": "FSD-009",
+   "slug": "fsd-009-100x50-dekor-1",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "100×50 Dekor 1",
+    "ru": "100×50 Декор 1",
+    "en": "100×50 Decor 1"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "500×1000",
+     "depth": "45",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×1000",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-fsd-009-100x50-dekor-1-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-fsd-009-100x50-dekor-1-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-fsd-009-100x50-dekor-1-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "fsd-010",
+   "code": "FSD-010",
+   "slug": "fsd-010-100x50-dekor-2",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "100×50 Dekor 2",
+    "ru": "100×50 Декор 2",
+    "en": "100×50 Decor 2"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "500×1000",
+     "depth": "56",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×1000",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-fsd-010-100x50-dekor-2-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-fsd-010-100x50-dekor-2-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-fsd-010-100x50-dekor-2-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "fsd-011",
+   "code": "FSD-011",
+   "slug": "fsd-011-100x50-dekor-3",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "100×50 Dekor 3",
+    "ru": "100×50 Декор 3",
+    "en": "100×50 Decor 3"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "500×1000",
+     "depth": "45",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×1000",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-fsd-011-100x50-dekor-3-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-fsd-011-100x50-dekor-3-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-fsd-011-100x50-dekor-3-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "fsd-012",
+   "code": "FSD-012",
+   "slug": "fsd-012-80x40-dekor-1",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "80×40 Dekor 1",
+    "ru": "80×40 Декор 1",
+    "en": "80×40 Decor 1"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×800",
+     "depth": "45",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×800",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-fsd-012-80x40-dekor-1-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-fsd-012-80x40-dekor-1-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-fsd-012-80x40-dekor-1-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "fsd-013",
+   "code": "FSD-013",
+   "slug": "fsd-013-80x40-dekor-2",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "80×40 Dekor 2",
+    "ru": "80×40 Декор 2",
+    "en": "80×40 Decor 2"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×800",
+     "depth": "45",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×800",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-fsd-013-80x40-dekor-2-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-fsd-013-80x40-dekor-2-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-fsd-013-80x40-dekor-2-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "fsd-014",
+   "code": "FSD-014",
+   "slug": "fsd-014-80x40-dekor-3",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "80×40 Dekor 3",
+    "ru": "80×40 Декор 3",
+    "en": "80×40 Decor 3"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×800",
+     "depth": "45",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×800",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-fsd-014-80x40-dekor-3-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-fsd-014-80x40-dekor-3-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-fsd-014-80x40-dekor-3-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "fsd-015",
+   "code": "FSD-015",
+   "slug": "fsd-015-50x50-dekor-1",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "50×50 Dekor 1",
+    "ru": "50×50 Декор 1",
+    "en": "50×50 Decor 1"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "500×500",
+     "depth": "60",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×500",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-fsd-015-50x50-dekor-1-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-fsd-015-50x50-dekor-1-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-fsd-015-50x50-dekor-1-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "fsd-016",
+   "code": "FSD-016",
+   "slug": "fsd-016-50x50-dekor-2",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "50×50 Dekor 2",
+    "ru": "50×50 Декор 2",
+    "en": "50×50 Decor 2"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "500×500",
+     "depth": "45",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×500",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-fsd-016-50x50-dekor-2-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-fsd-016-50x50-dekor-2-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-fsd-016-50x50-dekor-2-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "kpl-001",
+   "code": "KPL-001",
+   "slug": "kpl-001-15-kapitel-baza",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "15 Kapitel baza",
+    "ru": "15 Капитель база",
+    "en": "15 Capital base"
+   },
+   "subtitle": {
+    "uz": "Kapitel baza",
+    "ru": "База капители",
+    "en": "Capital base"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "125×200",
+     "depth": "65",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "125×200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-kpl-001-15-kapitel-baza-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "kpl-002",
+   "code": "KPL-002",
+   "slug": "kpl-002-20-kapitel-baza",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "20 Kapitel baza",
+    "ru": "20 Капитель база",
+    "en": "20 Capital base"
+   },
+   "subtitle": {
+    "uz": "Kapitel baza",
+    "ru": "База капители",
+    "en": "Capital base"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "125×250",
+     "depth": "65",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "125×250",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-kpl-002-20-kapitel-baza-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "kpl-003",
+   "code": "KPL-003",
+   "slug": "kpl-003-25-kapitel-baza",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "25 Kapitel baza",
+    "ru": "25 Капитель база",
+    "en": "25 Capital base"
+   },
+   "subtitle": {
+    "uz": "Kapitel baza",
+    "ru": "База капители",
+    "en": "Capital base"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "125×300",
+     "depth": "65",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "125×300",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-kpl-003-25-kapitel-baza-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "kpl-004",
+   "code": "KPL-004",
+   "slug": "kpl-004-30-kapitel-baza",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "30 Kapitel baza",
+    "ru": "30 Капитель база",
+    "en": "30 Capital base"
+   },
+   "subtitle": {
+    "uz": "Kapitel baza",
+    "ru": "База капители",
+    "en": "Capital base"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "125×350",
+     "depth": "65",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "125×350",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-kpl-004-30-kapitel-baza-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "kpl-005",
+   "code": "KPL-005",
+   "slug": "kpl-005-40-kapitel-baza",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "40 Kapitel baza",
+    "ru": "40 Капитель база",
+    "en": "40 Capital base"
+   },
+   "subtitle": {
+    "uz": "Kapitel baza",
+    "ru": "База капители",
+    "en": "Capital base"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "125×450",
+     "depth": "85",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "125×450",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-kpl-005-40-kapitel-baza-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "kpl-006",
+   "code": "KPL-006",
+   "slug": "kpl-006-50-kapitel-baza",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "50 Kapitel baza",
+    "ru": "50 Капитель база",
+    "en": "50 Capital base"
+   },
+   "subtitle": {
+    "uz": "Kapitel baza",
+    "ru": "База капители",
+    "en": "Capital base"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "125×550",
+     "depth": "85",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "125×550",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-kpl-006-50-kapitel-baza-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "kpl-007",
+   "code": "KPL-007",
+   "slug": "kpl-007-15-kapitel-baza",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "15 Kapitel baza",
+    "ru": "15 Капитель база",
+    "en": "15 Capital base"
+   },
+   "subtitle": {
+    "uz": "Kapitel baza",
+    "ru": "База капители",
+    "en": "Capital base"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "depth": "65",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-kpl-007-15-kapitel-baza-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "kpl-008",
+   "code": "KPL-008",
+   "slug": "kpl-008-30-kapitel-baza",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "30 Kapitel baza",
+    "ru": "30 Капитель база",
+    "en": "30 Capital base"
+   },
+   "subtitle": {
+    "uz": "Kapitel baza",
+    "ru": "База капители",
+    "en": "Capital base"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "500×1200",
+     "depth": "85",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-kpl-008-30-kapitel-baza-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "krn-001",
+   "code": "KRN-001",
+   "slug": "krn-001-18x120-karniz",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "18×120 Karniz",
+    "ru": "18×120 Карниз",
+    "en": "18×120 Cornice"
+   },
+   "subtitle": {
+    "uz": "Karniz",
+    "ru": "Карниз",
+    "en": "Cornice"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "180×1200",
+     "depth": "70",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "180×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-krn-001-18x120-karniz-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-krn-001-18x120-karniz-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-krn-001-18x120-karniz-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "krn-002",
+   "code": "KRN-002",
+   "slug": "krn-002-18x120-karniz",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "18×120 Karniz",
+    "ru": "18×120 Карниз",
+    "en": "18×120 Cornice"
+   },
+   "subtitle": {
+    "uz": "Karniz",
+    "ru": "Карниз",
+    "en": "Cornice"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "180×1200",
+     "depth": "55",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "180×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-krn-002-18x120-karniz-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-krn-002-18x120-karniz-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-krn-002-18x120-karniz-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "krn-003",
+   "code": "KRN-003",
+   "slug": "krn-003-18x120-karniz",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "18×120 Karniz",
+    "ru": "18×120 Карниз",
+    "en": "18×120 Cornice"
+   },
+   "subtitle": {
+    "uz": "Karniz",
+    "ru": "Карниз",
+    "en": "Cornice"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "180×1200",
+     "depth": "60",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "180×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-krn-003-18x120-karniz-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-krn-003-18x120-karniz-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-krn-003-18x120-karniz-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "krn-004-18",
+   "code": "KRN-004",
+   "slug": "krn-004-18x120-karniz",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "18×120 Karniz",
+    "ru": "18×120 Карниз",
+    "en": "18×120 Cornice"
+   },
+   "subtitle": {
+    "uz": "Karniz",
+    "ru": "Карниз",
+    "en": "Cornice"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "180×1200",
+     "depth": "65",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "180×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-krn-004-18x120-karniz-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "krn-004-35",
+   "code": "KRN-004",
+   "slug": "krn-004-35x120-karniz",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "35×120 Karniz",
+    "ru": "35×120 Карниз",
+    "en": "35×120 Cornice"
+   },
+   "subtitle": {
+    "uz": "Karniz",
+    "ru": "Карниз",
+    "en": "Cornice"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "350×1200",
+     "depth": "105",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "350×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-krn-004-35x120-karniz-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "krn-005",
+   "code": "KRN-005",
+   "slug": "krn-005-35x120-karniz",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "35×120 Karniz",
+    "ru": "35×120 Карниз",
+    "en": "35×120 Cornice"
+   },
+   "subtitle": {
+    "uz": "Karniz",
+    "ru": "Карниз",
+    "en": "Cornice"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "350×1200",
+     "depth": "125",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "350×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-krn-005-35x120-karniz-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-krn-005-35x120-karniz-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-krn-005-35x120-karniz-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "krn-006",
+   "code": "KRN-006",
+   "slug": "krn-006-50x120-karniz",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "50×120 Karniz",
+    "ru": "50×120 Карниз",
+    "en": "50×120 Cornice"
+   },
+   "subtitle": {
+    "uz": "Karniz",
+    "ru": "Карниз",
+    "en": "Cornice"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "500×1200",
+     "depth": "135",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-krn-006-50x120-karniz-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-krn-006-50x120-karniz-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-krn-006-50x120-karniz-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "krn-007",
+   "code": "KRN-007",
+   "slug": "krn-007-35x120-karniz",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "35×120 Karniz",
+    "ru": "35×120 Карниз",
+    "en": "35×120 Cornice"
+   },
+   "subtitle": {
+    "uz": "Karniz",
+    "ru": "Карниз",
+    "en": "Cornice"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "350×1200",
+     "depth": "115",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "350×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-krn-007-35x120-karniz-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "krn-008",
+   "code": "KRN-008",
+   "slug": "krn-008-30x120-karniz",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "30×120 Karniz",
+    "ru": "30×120 Карниз",
+    "en": "30×120 Cornice"
+   },
+   "subtitle": {
+    "uz": "Karniz",
+    "ru": "Карниз",
+    "en": "Cornice"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×1200",
+     "depth": "85",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-krn-008-30x120-karniz-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "krn-009",
+   "code": "KRN-009",
+   "slug": "krn-009-25x120-karniz",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "25×120 Karniz",
+    "ru": "25×120 Карниз",
+    "en": "25×120 Cornice"
+   },
+   "subtitle": {
+    "uz": "Karniz",
+    "ru": "Карниз",
+    "en": "Cornice"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "250×1200",
+     "depth": "75",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "250×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-krn-009-25x120-karniz-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-krn-009-25x120-karniz-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-krn-009-25x120-karniz-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "krn-010",
+   "code": "KRN-010",
+   "slug": "krn-010-20x120-karniz",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "20×120 Karniz",
+    "ru": "20×120 Карниз",
+    "en": "20×120 Cornice"
+   },
+   "subtitle": {
+    "uz": "Karniz",
+    "ru": "Карниз",
+    "en": "Cornice"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "200×1200",
+     "depth": "70",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "200×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-krn-010-20x120-karniz-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "krn-011",
+   "code": "KRN-011",
+   "slug": "krn-011-45x120-karniz",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "45×120 Karniz",
+    "ru": "45×120 Карниз",
+    "en": "45×120 Cornice"
+   },
+   "subtitle": {
+    "uz": "Karniz",
+    "ru": "Карниз",
+    "en": "Cornice"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "450×1200",
+     "depth": "115",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "450×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-krn-011-45x120-karniz-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "krn-012",
+   "code": "KRN-012",
+   "slug": "krn-012-18x120-karniz",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "18×120 Karniz",
+    "ru": "18×120 Карниз",
+    "en": "18×120 Cornice"
+   },
+   "subtitle": {
+    "uz": "Karniz",
+    "ru": "Карниз",
+    "en": "Cornice"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "180×1200",
+     "depth": "65",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "180×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-krn-012-18x120-karniz-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "nl-001",
+   "code": "NL-001",
+   "slug": "nl-001-15x120-tyaga",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "15×120 Tyaga",
+    "ru": "15×120 Тяга",
+    "en": "15×120 Moulding"
+   },
+   "subtitle": {
+    "uz": "Tyaga",
+    "ru": "Тяга",
+    "en": "Moulding"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "150×1200",
+     "depth": "60",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "150×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-nl-001-15x120-tyaga-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "nl-002",
+   "code": "NL-002",
+   "slug": "nl-002-15x120-tyaga",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "15×120 Tyaga",
+    "ru": "15×120 Тяга",
+    "en": "15×120 Moulding"
+   },
+   "subtitle": {
+    "uz": "Tyaga",
+    "ru": "Тяга",
+    "en": "Moulding"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "150×1200",
+     "depth": "80",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "150×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-nl-002-15x120-tyaga-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "nl-003",
+   "code": "NL-003",
+   "slug": "nl-003-15x120-tyaga",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "15×120 Tyaga",
+    "ru": "15×120 Тяга",
+    "en": "15×120 Moulding"
+   },
+   "subtitle": {
+    "uz": "Tyaga",
+    "ru": "Тяга",
+    "en": "Moulding"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "150×1200",
+     "depth": "60",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "150×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-nl-003-15x120-tyaga-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "pl-002",
+   "code": "PL-002",
+   "slug": "pl-002-40x120-pilyastra",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "40×120 Pilyastra",
+    "ru": "40×120 Пилястра",
+    "en": "40×120 Pilaster"
+   },
+   "subtitle": {
+    "uz": "Pilyastra",
+    "ru": "Пилястра",
+    "en": "Pilaster"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-pl-002-40x120-pilyastra-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-pl-002-40x120-pilyastra-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-pl-002-40x120-pilyastra-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "pl-003",
+   "code": "PL-003",
+   "slug": "pl-003-40x120-pilyastra",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "40×120 Pilyastra",
+    "ru": "40×120 Пилястра",
+    "en": "40×120 Pilaster"
+   },
+   "subtitle": {
+    "uz": "Pilyastra",
+    "ru": "Пилястра",
+    "en": "Pilaster"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-pl-003-40x120-pilyastra-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-pl-003-40x120-pilyastra-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-pl-003-40x120-pilyastra-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "pl-004",
+   "code": "PL-004",
+   "slug": "pl-004-40x120-riflyoniy",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "40×120 Riflyoniy",
+    "ru": "40×120 Рифленый",
+    "en": "40×120 Fluted"
+   },
+   "subtitle": {
+    "uz": "Pilyastra",
+    "ru": "Пилястра",
+    "en": "Pilaster"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-pl-004-40x120-riflyoniy-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-pl-004-40x120-riflyoniy-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-pl-004-40x120-riflyoniy-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "pl-005",
+   "code": "PL-005",
+   "slug": "pl-005-30x120-pilyastra",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "30×120 Pilyastra",
+    "ru": "30×120 Пилястра",
+    "en": "30×120 Pilaster"
+   },
+   "subtitle": {
+    "uz": "Pilyastra",
+    "ru": "Пилястра",
+    "en": "Pilaster"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×1200",
+     "depth": "60",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-pl-005-30x120-pilyastra-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-pl-005-30x120-pilyastra-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-pl-005-30x120-pilyastra-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "pl-006",
+   "code": "PL-006",
+   "slug": "pl-006-10x120-pilyastra",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "10×120 Pilyastra",
+    "ru": "10×120 Пилястра",
+    "en": "10×120 Pilaster"
+   },
+   "subtitle": {
+    "uz": "Pilyastra",
+    "ru": "Пилястра",
+    "en": "Pilaster"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "100×1200",
+     "depth": "60",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "100×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-pl-006-10x120-pilyastra-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-pl-006-10x120-pilyastra-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-pl-006-10x120-pilyastra-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "pl-007",
+   "code": "PL-007",
+   "slug": "pl-007-20x120-pilyastra",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "20×120 Pilyastra",
+    "ru": "20×120 Пилястра",
+    "en": "20×120 Pilaster"
+   },
+   "subtitle": {
+    "uz": "Pilyastra",
+    "ru": "Пилястра",
+    "en": "Pilaster"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "200×1200",
+     "depth": "60",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "200×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-pl-007-20x120-pilyastra-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-pl-007-20x120-pilyastra-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-pl-007-20x120-pilyastra-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "pl-008",
+   "code": "PL-008",
+   "slug": "pl-008-30x120-pilyastra",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "30×120 Pilyastra",
+    "ru": "30×120 Пилястра",
+    "en": "30×120 Pilaster"
+   },
+   "subtitle": {
+    "uz": "Pilyastra",
+    "ru": "Пилястра",
+    "en": "Pilaster"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×1200",
+     "depth": "60",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-pl-008-30x120-pilyastra-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-pl-008-30x120-pilyastra-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-pl-008-30x120-pilyastra-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "pl-009",
+   "code": "PL-009",
+   "slug": "pl-009-18x120-nalichnik",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "18×120 Nalichnik",
+    "ru": "18×120 Наличник",
+    "en": "18×120 Window trim"
+   },
+   "subtitle": {
+    "uz": "Pilyastra",
+    "ru": "Пилястра",
+    "en": "Pilaster"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "180×1200",
+     "depth": "80",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "180×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-pl-009-18x120-nalichnik-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-pl-009-18x120-nalichnik-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-pl-009-18x120-nalichnik-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "pl-010",
+   "code": "PL-010",
+   "slug": "pl-010-25x120-pilyastra",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "25×120 Pilyastra",
+    "ru": "25×120 Пилястра",
+    "en": "25×120 Pilaster"
+   },
+   "subtitle": {
+    "uz": "Pilyastra",
+    "ru": "Пилястра",
+    "en": "Pilaster"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "250×1200",
+     "depth": "60",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "250×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-pl-010-25x120-pilyastra-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-pl-010-25x120-pilyastra-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-pl-010-25x120-pilyastra-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "pl-011",
+   "code": "PL-011",
+   "slug": "pl-011-30x120-pilyastra",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "30×120 Pilyastra",
+    "ru": "30×120 Пилястра",
+    "en": "30×120 Pilaster"
+   },
+   "subtitle": {
+    "uz": "Pilyastra",
+    "ru": "Пилястра",
+    "en": "Pilaster"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×1200",
+     "depth": "60",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-pl-011-30x120-pilyastra-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-pl-011-30x120-pilyastra-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-pl-011-30x120-pilyastra-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "pl-012",
+   "code": "PL-012",
+   "slug": "pl-012-40x120-pilyastra",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "40×120 Pilyastra",
+    "ru": "40×120 Пилястра",
+    "en": "40×120 Pilaster"
+   },
+   "subtitle": {
+    "uz": "Pilyastra",
+    "ru": "Пилястра",
+    "en": "Pilaster"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-pl-012-40x120-pilyastra-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-pl-012-40x120-pilyastra-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-pl-012-40x120-pilyastra-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "pl-013",
+   "code": "PL-013",
+   "slug": "pl-013-50x120-pilyastra",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "50×120 Pilyastra",
+    "ru": "50×120 Пилястра",
+    "en": "50×120 Pilaster"
+   },
+   "subtitle": {
+    "uz": "Pilyastra",
+    "ru": "Пилястра",
+    "en": "Pilaster"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "500×1200",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-pl-013-50x120-pilyastra-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-pl-013-50x120-pilyastra-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-pl-013-50x120-pilyastra-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "pl-014",
+   "code": "PL-014",
+   "slug": "pl-014-40x120-pilyastra",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "40×120 Pilyastra",
+    "ru": "40×120 Пилястра",
+    "en": "40×120 Pilaster"
+   },
+   "subtitle": {
+    "uz": "Pilyastra",
+    "ru": "Пилястра",
+    "en": "Pilaster"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-pl-014-40x120-pilyastra-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "pl-015",
+   "code": "PL-015",
+   "slug": "pl-015-50x120-pilyastra",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "50×120 Pilyastra",
+    "ru": "50×120 Пилястра",
+    "en": "50×120 Pilaster"
+   },
+   "subtitle": {
+    "uz": "Pilyastra",
+    "ru": "Пилястра",
+    "en": "Pilaster"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "500×1200",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-pl-015-50x120-pilyastra-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-pl-015-50x120-pilyastra-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-pl-015-50x120-pilyastra-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "pl-016",
+   "code": "PL-016",
+   "slug": "pl-016-30x120-pilyastra",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "30×120 Pilyastra",
+    "ru": "30×120 Пилястра",
+    "en": "30×120 Pilaster"
+   },
+   "subtitle": {
+    "uz": "Pilyastra",
+    "ru": "Пилястра",
+    "en": "Pilaster"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×1200",
+     "depth": "60",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-pl-016-30x120-pilyastra-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-pl-016-30x120-pilyastra-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-pl-016-30x120-pilyastra-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "s01",
+   "code": "S01",
+   "slug": "s01-skameyka-oyogi-1",
    "section": "skameyka",
    "name": {
-    "uz": "Skameyka (3 forma)",
-    "ru": null,
-    "en": null
+    "uz": "Skameyka oyog‘i 1",
+    "ru": "Ножка скамейки 1",
+    "en": "Bench leg 1"
    },
    "subtitle": {
     "uz": null,
@@ -4589,44 +9774,576 @@
    "molds": [
     {
      "l": "A",
-     "size": null,
-     "depth": null,
+     "size": "720×800",
+     "depth": "60",
      "g": null
     }
    ],
    "tiles": [
     {
      "l": "A",
-     "size": null,
+     "size": "720×800",
      "per": null,
      "cap": null
     }
    ],
    "specs": [],
-   "sizeEstimated": true,
+   "sizeEstimated": false,
    "images": {
     "scene": null,
     "sceneSm": null,
-    "molds": {},
+    "molds": {
+     "A": "/catalog/2027/skameyka-s01-skameyka-oyogi-1-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
   {
-   "key": "f-fasad-beeline-gladkiy",
-   "code": null,
-   "slug": "fasad-beeline-gladkiy",
-   "section": "fasad",
+   "key": "s02",
+   "code": "S02",
+   "slug": "s02-skameyka-oyogi-2",
+   "section": "skameyka",
    "name": {
-    "uz": "Fasad Beeline gladkiy",
-    "ru": null,
-    "en": null
+    "uz": "Skameyka oyog‘i 2",
+    "ru": "Ножка скамейки 2",
+    "en": "Bench leg 2"
    },
    "subtitle": {
     "uz": null,
     "ru": null,
     "en": null
    },
-   "kg": "4,7",
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "760×800",
+     "depth": "60",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "760×800",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/skameyka-s02-skameyka-oyogi-2-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "s03",
+   "code": "S03",
+   "slug": "s03-skameyka-oyogi-3",
+   "section": "skameyka",
+   "name": {
+    "uz": "Skameyka oyog‘i 3",
+    "ru": "Ножка скамейки 3",
+    "en": "Bench leg 3"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "780×800",
+     "depth": "60",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "780×800",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/skameyka-s03-skameyka-oyogi-3-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "s04",
+   "code": "S04",
+   "slug": "s04-skameyka-oyogi-4",
+   "section": "skameyka",
+   "name": {
+    "uz": "Skameyka oyog‘i 4",
+    "ru": "Ножка скамейки 4",
+    "en": "Bench leg 4"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "780×800",
+     "depth": "60",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "780×800",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/skameyka-s04-skameyka-oyogi-4-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "s05",
+   "code": "S05",
+   "slug": "s05-skameyka-oyogi-5",
+   "section": "skameyka",
+   "name": {
+    "uz": "Skameyka oyog‘i 5",
+    "ru": "Ножка скамейки 5",
+    "en": "Bench leg 5"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "800×800",
+     "depth": "60",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "800×800",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/skameyka-s05-skameyka-oyogi-5-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "s06",
+   "code": "S06",
+   "slug": "s06-skameyka-oyogi-6",
+   "section": "skameyka",
+   "name": {
+    "uz": "Skameyka oyog‘i 6",
+    "ru": "Ножка скамейки 6",
+    "en": "Bench leg 6"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "740×800",
+     "depth": "60",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "740×800",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/skameyka-s06-skameyka-oyogi-6-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "s07",
+   "code": "S07",
+   "slug": "s07-skameyka-oyogi-7",
+   "section": "skameyka",
+   "name": {
+    "uz": "Skameyka oyog‘i 7",
+    "ru": "Ножка скамейки 7",
+    "en": "Bench leg 7"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "730×800",
+     "depth": "60",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "730×800",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/skameyka-s07-skameyka-oyogi-7-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "sl-001",
+   "code": "SL-001",
+   "slug": "sl-001-75x50-sokol",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "75×50 Sokol",
+    "ru": "75×50 Цоколь",
+    "en": "75×50 Plinth"
+   },
+   "subtitle": {
+    "uz": "Sokol",
+    "ru": "Цоколь",
+    "en": "Plinth"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "750×500",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "750×500",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-sl-001-75x50-sokol-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-sl-001-75x50-sokol-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-sl-001-75x50-sokol-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "sl-002",
+   "code": "SL-002",
+   "slug": "sl-002-75x40-sokol",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "75×40 Sokol",
+    "ru": "75×40 Цоколь",
+    "en": "75×40 Plinth"
+   },
+   "subtitle": {
+    "uz": "Sokol",
+    "ru": "Цоколь",
+    "en": "Plinth"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "750×400",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "750×400",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad_dekor-sl-002-75x40-sokol-scene-3d.webp",
+    "sceneSm": "/catalog/2027/fasad_dekor-sl-002-75x40-sokol-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-sl-002-75x40-sokol-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "sl-003",
+   "code": "SL-003",
+   "slug": "sl-003-60x40-sokol",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "60×40 Sokol",
+    "ru": "60×40 Цоколь",
+    "en": "60×40 Plinth"
+   },
+   "subtitle": {
+    "uz": "Sokol",
+    "ru": "Цоколь",
+    "en": "Plinth"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "600×400",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "600×400",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-sl-003-60x40-sokol-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "sl-004",
+   "code": "SL-004",
+   "slug": "sl-004-80x60-sokol",
+   "section": "fasad_dekor",
+   "name": {
+    "uz": "80×60 Sokol",
+    "ru": "80×60 Цоколь",
+    "en": "80×60 Plinth"
+   },
+   "subtitle": {
+    "uz": "Sokol",
+    "ru": "Цоколь",
+    "en": "Plinth"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "800×600",
+     "depth": "42",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "800×600",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "Polystyrene foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/fasad_dekor-sl-004-80x60-sokol-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "tp-001",
+   "code": "TP-001",
+   "slug": "tp-001-30x60-kirpich",
+   "section": "termopanel",
+   "name": {
+    "uz": "30×60 Kirpich",
+    "ru": "30×60 Кирпич",
+    "en": "30×60 Brick"
+   },
+   "subtitle": {
+    "uz": "Termopanel",
+    "ru": "Термопанель",
+    "en": "Thermal panel"
+   },
+   "kg": null,
    "molds": [
     {
      "l": "A",
@@ -4639,11 +10356,603 @@
     {
      "l": "A",
      "size": "300×600",
-     "per": "5,5",
+     "per": null,
      "cap": null
     }
    ],
    "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast yoki bazalt",
+      "ru": "Пенопласт или базальт",
+      "en": "Polystyrene foam or basalt"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/termopanel-tp-001-30x60-kirpich-scene-3d.webp",
+    "sceneSm": "/catalog/2027/termopanel-tp-001-30x60-kirpich-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/termopanel-tp-001-30x60-kirpich-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "tp-002",
+   "code": "TP-002",
+   "slug": "tp-002-30x60-gladkiy",
+   "section": "termopanel",
+   "name": {
+    "uz": "30×60 Gladkiy",
+    "ru": "30×60 Гладкий",
+    "en": "30×60 Smooth"
+   },
+   "subtitle": {
+    "uz": "Termopanel",
+    "ru": "Термопанель",
+    "en": "Thermal panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×600",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×600",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast yoki bazalt",
+      "ru": "Пенопласт или базальт",
+      "en": "Polystyrene foam or basalt"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/termopanel-tp-002-30x60-gladkiy-scene-3d.webp",
+    "sceneSm": "/catalog/2027/termopanel-tp-002-30x60-gladkiy-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/termopanel-tp-002-30x60-gladkiy-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "tp-003",
+   "code": "TP-003",
+   "slug": "tp-003-30x60-beeline",
+   "section": "termopanel",
+   "name": {
+    "uz": "30×60 Beeline",
+    "ru": "30×60 Билайн",
+    "en": "30×60 Beeline"
+   },
+   "subtitle": {
+    "uz": "Termopanel",
+    "ru": "Термопанель",
+    "en": "Thermal panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×600",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×600",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast yoki bazalt",
+      "ru": "Пенопласт или базальт",
+      "en": "Polystyrene foam or basalt"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/termopanel-tp-003-30x60-beeline-scene-3d.webp",
+    "sceneSm": "/catalog/2027/termopanel-tp-003-30x60-beeline-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/termopanel-tp-003-30x60-beeline-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "tp-004",
+   "code": "TP-004",
+   "slug": "tp-004-30x60-kuba",
+   "section": "termopanel",
+   "name": {
+    "uz": "30×60 Kuba",
+    "ru": "30×60 Куба",
+    "en": "30×60 Cuba"
+   },
+   "subtitle": {
+    "uz": "Termopanel",
+    "ru": "Термопанель",
+    "en": "Thermal panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×600",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×600",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast yoki bazalt",
+      "ru": "Пенопласт или базальт",
+      "en": "Polystyrene foam or basalt"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/termopanel-tp-004-30x60-kuba-scene-3d.webp",
+    "sceneSm": "/catalog/2027/termopanel-tp-004-30x60-kuba-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/termopanel-tp-004-30x60-kuba-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "tp-005",
+   "code": "TP-005",
+   "slug": "tp-005-25x50-pryamaya",
+   "section": "termopanel",
+   "name": {
+    "uz": "25×50 Pryamaya",
+    "ru": "25×50 Прямая",
+    "en": "25×50 Straight"
+   },
+   "subtitle": {
+    "uz": "Termopanel",
+    "ru": "Термопанель",
+    "en": "Thermal panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "250×500",
+     "depth": "35",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "250×500",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast yoki bazalt",
+      "ru": "Пенопласт или базальт",
+      "en": "Polystyrene foam or basalt"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/termopanel-tp-005-25x50-pryamaya-scene-3d.webp",
+    "sceneSm": "/catalog/2027/termopanel-tp-005-25x50-pryamaya-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/termopanel-tp-005-25x50-pryamaya-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "tp-006",
+   "code": "TP-006",
+   "slug": "tp-006-25x50-kruglaya",
+   "section": "termopanel",
+   "name": {
+    "uz": "25×50 Kruglaya",
+    "ru": "25×50 Круглая",
+    "en": "25×50 Round"
+   },
+   "subtitle": {
+    "uz": "Termopanel",
+    "ru": "Термопанель",
+    "en": "Thermal panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "250×500",
+     "depth": "35",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "250×500",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast yoki bazalt",
+      "ru": "Пенопласт или базальт",
+      "en": "Polystyrene foam or basalt"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/termopanel-tp-006-25x50-kruglaya-scene-3d.webp",
+    "sceneSm": "/catalog/2027/termopanel-tp-006-25x50-kruglaya-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/termopanel-tp-006-25x50-kruglaya-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "tp-007",
+   "code": "TP-007",
+   "slug": "tp-007-25x50-kirpich",
+   "section": "termopanel",
+   "name": {
+    "uz": "25×50 Kirpich",
+    "ru": "25×50 Кирпич",
+    "en": "25×50 Brick"
+   },
+   "subtitle": {
+    "uz": "Termopanel",
+    "ru": "Термопанель",
+    "en": "Thermal panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "250×500",
+     "depth": "35",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "250×500",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast yoki bazalt",
+      "ru": "Пенопласт или базальт",
+      "en": "Polystyrene foam or basalt"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/termopanel-tp-007-25x50-kirpich-scene-3d.webp",
+    "sceneSm": "/catalog/2027/termopanel-tp-007-25x50-kirpich-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/termopanel-tp-007-25x50-kirpich-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "tp-008",
+   "code": "TP-008",
+   "slug": "tp-008-25x50-3d",
+   "section": "termopanel",
+   "name": {
+    "uz": "25×50 3D",
+    "ru": "25×50 3D",
+    "en": "25×50 3D"
+   },
+   "subtitle": {
+    "uz": "Termopanel",
+    "ru": "Термопанель",
+    "en": "Thermal panel"
+   },
+   "kg": "4,6",
+   "molds": [
+    {
+     "l": "A",
+     "size": "250×500",
+     "depth": "35",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "250×500",
+     "per": "8",
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast yoki bazalt",
+      "ru": "Пенопласт или базальт",
+      "en": "Polystyrene foam or basalt"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    },
+    {
+     "k": {
+      "uz": "ABS, kg/m²",
+      "ru": null,
+      "en": null
+     },
+     "v": {
+      "uz": "4,6",
+      "ru": null,
+      "en": null
+     }
+    },
+    {
+     "k": {
+      "uz": "PP, kg/m²",
+      "ru": null,
+      "en": null
+     },
+     "v": {
+      "uz": "3,4",
+      "ru": null,
+      "en": null
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/termopanel-tp-008-25x50-3d-scene-3d.webp",
+    "sceneSm": "/catalog/2027/termopanel-tp-008-25x50-3d-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/termopanel-tp-008-25x50-3d-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "tp-009",
+   "code": "TP-009",
+   "slug": "tp-009-25x50-brilliant",
+   "section": "termopanel",
+   "name": {
+    "uz": "25×50 Brilliant",
+    "ru": "25×50 Бриллиант",
+    "en": "25×50 Brilliant"
+   },
+   "subtitle": {
+    "uz": "Termopanel",
+    "ru": "Термопанель",
+    "en": "Thermal panel"
+   },
+   "kg": "4,7",
+   "molds": [
+    {
+     "l": "A",
+     "size": "250×500",
+     "depth": "35",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "250×500",
+     "per": "8",
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast yoki bazalt",
+      "ru": "Пенопласт или базальт",
+      "en": "Polystyrene foam or basalt"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    },
     {
      "k": {
       "uz": "ABS, kg/m²",
@@ -4663,41 +10972,43 @@
       "en": null
      },
      "v": {
-      "uz": "3,75",
+      "uz": "3,9",
       "ru": null,
       "en": null
      }
     }
    ],
-   "sizeEstimated": true,
+   "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/termopanel-tp-009-25x50-brilliant-scene-3d.webp",
+    "sceneSm": "/catalog/2027/termopanel-tp-009-25x50-brilliant-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/termopanel-tp-009-25x50-brilliant-mold-a-3d.webp"
+    },
     "tiles": {}
    }
   },
   {
-   "key": "f-kirpich-fasad",
-   "code": null,
-   "slug": "kirpich-fasad",
-   "section": "fasad",
+   "key": "tp-010",
+   "code": "TP-010",
+   "slug": "tp-010-25x50-beeline",
+   "section": "termopanel",
    "name": {
-    "uz": "Kirpich fasad",
-    "ru": null,
-    "en": null
+    "uz": "25×50 Beeline",
+    "ru": "25×50 Билайн",
+    "en": "25×50 Beeline"
    },
    "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
+    "uz": "Termopanel",
+    "ru": "Термопанель",
+    "en": "Thermal panel"
    },
    "kg": null,
    "molds": [
     {
      "l": "A",
      "size": "250×500",
-     "depth": null,
+     "depth": "35",
      "g": null
     }
    ],
@@ -4709,8 +11020,236 @@
      "cap": null
     }
    ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast yoki bazalt",
+      "ru": "Пенопласт или базальт",
+      "en": "Polystyrene foam or basalt"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/termopanel-tp-010-25x50-beeline-scene-3d.webp",
+    "sceneSm": "/catalog/2027/termopanel-tp-010-25x50-beeline-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/termopanel-tp-010-25x50-beeline-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "tp-011",
+   "code": "TP-011",
+   "slug": "tp-011-20x40-pryamaya",
+   "section": "termopanel",
+   "name": {
+    "uz": "20×40 Pryamaya",
+    "ru": "20×40 Прямая",
+    "en": "20×40 Straight"
+   },
+   "subtitle": {
+    "uz": "Termopanel",
+    "ru": "Термопанель",
+    "en": "Thermal panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "200×400",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "200×400",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast yoki bazalt",
+      "ru": "Пенопласт или базальт",
+      "en": "Polystyrene foam or basalt"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/termopanel-tp-011-20x40-pryamaya-scene-3d.webp",
+    "sceneSm": "/catalog/2027/termopanel-tp-011-20x40-pryamaya-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/termopanel-tp-011-20x40-pryamaya-mold-a-3d.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "tp-012",
+   "code": "TP-012",
+   "slug": "tp-012-25x50-labirint",
+   "section": "termopanel",
+   "name": {
+    "uz": "25×50 Labirint",
+    "ru": "25×50 Лабиринт",
+    "en": "25×50 Labyrinth"
+   },
+   "subtitle": {
+    "uz": "Termopanel",
+    "ru": "Термопанель",
+    "en": "Thermal panel"
+   },
+   "kg": "4,95",
+   "molds": [
+    {
+     "l": "A",
+     "size": "250×500",
+     "depth": "35",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "250×500",
+     "per": "8",
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asos",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast yoki bazalt",
+      "ru": "Пенопласт или базальт",
+      "en": "Polystyrene foam or basalt"
+     }
+    },
+    {
+     "k": {
+      "uz": "Qoplama",
+      "ru": "Покрытие",
+      "en": "Finish"
+     },
+     "v": {
+      "uz": "Travertin / Mramor",
+      "ru": "Травертин / Мрамор",
+      "en": "Travertine / Marble"
+     }
+    },
+    {
+     "k": {
+      "uz": "ABS, kg/m²",
+      "ru": null,
+      "en": null
+     },
+     "v": {
+      "uz": "4,95",
+      "ru": null,
+      "en": null
+     }
+    },
+    {
+     "k": {
+      "uz": "PP, kg/m²",
+      "ru": null,
+      "en": null
+     },
+     "v": {
+      "uz": "3,7",
+      "ru": null,
+      "en": null
+     }
+    }
+   ],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/termopanel-tp-012-25x50-labirint-scene-3d.webp",
+    "sceneSm": "/catalog/2027/termopanel-tp-012-25x50-labirint-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/termopanel-tp-012-25x50-labirint-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "z01",
+   "code": "Z01",
+   "slug": "z01-yevrozabor-okovka",
+   "section": "zabor",
+   "name": {
+    "uz": "Yevrozabor «Okovka»",
+    "ru": "Еврозабор «Оковка»",
+    "en": "Euro fence «Wrought»"
+   },
+   "subtitle": {
+    "uz": "Zabor paneli",
+    "ru": "Заборная панель",
+    "en": "Fence panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "500×1900",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×1900",
+     "per": null,
+     "cap": null
+    }
+   ],
    "specs": [],
-   "sizeEstimated": true,
+   "sizeEstimated": false,
    "images": {
     "scene": null,
     "sceneSm": null,
@@ -4719,39 +11258,326 @@
    }
   },
   {
-   "key": "f-quba-fasad",
-   "code": null,
-   "slug": "quba-fasad",
-   "section": "fasad",
+   "key": "z02",
+   "code": "Z02",
+   "slug": "z02-yevrozabor-gunchalar",
+   "section": "zabor",
    "name": {
-    "uz": "Quba fasad",
-    "ru": null,
-    "en": null
+    "uz": "Yevrozabor «G‘unchalar»",
+    "ru": "Еврозабор «Бутоны»",
+    "en": "Euro fence «Buds»"
    },
    "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
+    "uz": "Zabor paneli",
+    "ru": "Заборная панель",
+    "en": "Fence panel"
    },
    "kg": null,
    "molds": [
     {
      "l": "A",
-     "size": "300×600",
-     "depth": null,
+     "size": "500×1900",
+     "depth": "50",
      "g": null
     }
    ],
    "tiles": [
     {
      "l": "A",
-     "size": "300×600",
+     "size": "500×1900",
      "per": null,
      "cap": null
     }
    ],
    "specs": [],
-   "sizeEstimated": true,
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/zabor-z02-yevrozabor-gunchalar-scene-3d.webp",
+    "sceneSm": "/catalog/2027/zabor-z02-yevrozabor-gunchalar-scene-sm-3d.webp",
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "z03",
+   "code": "Z03",
+   "slug": "z03-yevrozabor-reykalar",
+   "section": "zabor",
+   "name": {
+    "uz": "Yevrozabor «Reykalar»",
+    "ru": "Еврозабор «Рейки»",
+    "en": "Euro fence «Slats»"
+   },
+   "subtitle": {
+    "uz": "Zabor paneli",
+    "ru": "Заборная панель",
+    "en": "Fence panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "500×1900",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×1900",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/zabor-z03-yevrozabor-reykalar-scene-3d.webp",
+    "sceneSm": "/catalog/2027/zabor-z03-yevrozabor-reykalar-scene-sm-3d.webp",
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "z04",
+   "code": "Z04",
+   "slug": "z04-yevrozabor-tolqinli-tosh",
+   "section": "zabor",
+   "name": {
+    "uz": "Yevrozabor «To‘lqinli tosh»",
+    "ru": "Еврозабор «Камень с волной»",
+    "en": "Euro fence «Wave stone»"
+   },
+   "subtitle": {
+    "uz": "Zabor paneli",
+    "ru": "Заборная панель",
+    "en": "Fence panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "500×1900",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×1900",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/zabor-z04-yevrozabor-tolqinli-tosh-scene-3d.webp",
+    "sceneSm": "/catalog/2027/zabor-z04-yevrozabor-tolqinli-tosh-scene-sm-3d.webp",
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "z06",
+   "code": "Z06",
+   "slug": "z06-yevrozabor-silliq",
+   "section": "zabor",
+   "name": {
+    "uz": "Yevrozabor «Silliq»",
+    "ru": "Еврозабор «Гладкий»",
+    "en": "Euro fence «Smooth»"
+   },
+   "subtitle": {
+    "uz": "Zabor paneli",
+    "ru": "Заборная панель",
+    "en": "Fence panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "500×1900",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×1900",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/zabor-z06-yevrozabor-silliq-scene-3d.webp",
+    "sceneSm": "/catalog/2027/zabor-z06-yevrozabor-silliq-scene-sm-3d.webp",
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "z07",
+   "code": "Z07",
+   "slug": "z07-yevrozabor-gisht-va-tosh",
+   "section": "zabor",
+   "name": {
+    "uz": "Yevrozabor «G‘isht va tosh»",
+    "ru": "Еврозабор «Кирпич с камнем»",
+    "en": "Euro fence «Brick and stone»"
+   },
+   "subtitle": {
+    "uz": "Zabor paneli",
+    "ru": "Заборная панель",
+    "en": "Fence panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "500×1900",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×1900",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/zabor-z07-yevrozabor-gisht-va-tosh-scene-3d.webp",
+    "sceneSm": "/catalog/2027/zabor-z07-yevrozabor-gisht-va-tosh-scene-sm-3d.webp",
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "z08",
+   "code": "Z08",
+   "slug": "z08-yevrozabor-qoya-tosh",
+   "section": "zabor",
+   "name": {
+    "uz": "Yevrozabor «Qoya tosh»",
+    "ru": "Еврозабор «Камень скала»",
+    "en": "Euro fence «Rock»"
+   },
+   "subtitle": {
+    "uz": "Zabor paneli",
+    "ru": "Заборная панель",
+    "en": "Fence panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "500×1900",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×1900",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/zabor-z08-yevrozabor-qoya-tosh-scene-3d.webp",
+    "sceneSm": "/catalog/2027/zabor-z08-yevrozabor-qoya-tosh-scene-sm-3d.webp",
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "z09",
+   "code": "Z09",
+   "slug": "z09-yevrozabor-3d-romblar",
+   "section": "zabor",
+   "name": {
+    "uz": "Yevrozabor «3D romblar»",
+    "ru": "Еврозабор «Ромбы 3D»",
+    "en": "Euro fence «3D diamonds»"
+   },
+   "subtitle": {
+    "uz": "Zabor paneli",
+    "ru": "Заборная панель",
+    "en": "Fence panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "500×1900",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×1900",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {},
+    "tiles": {}
+   }
+  },
+  {
+   "key": "z10",
+   "code": "Z10",
+   "slug": "z10-sharqona-aylana-zabor",
+   "section": "zabor",
+   "name": {
+    "uz": "Sharqona aylana zabor",
+    "ru": "Забор восточный круг",
+    "en": "Oriental circle fence"
+   },
+   "subtitle": {
+    "uz": "Zabor paneli",
+    "ru": "Заборная панель",
+    "en": "Fence panel"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "575×2000",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "575×2000",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
    "images": {
     "scene": null,
     "sceneSm": null,
@@ -4828,72 +11654,6 @@
    }
   },
   {
-   "key": "f-yangi-beeline-shershaviy",
-   "code": null,
-   "slug": "yangi-beeline-shershaviy",
-   "section": "fasad",
-   "name": {
-    "uz": "Yangi Beeline shershaviy",
-    "ru": null,
-    "en": null
-   },
-   "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
-   },
-   "kg": "4,5",
-   "molds": [
-    {
-     "l": "A",
-     "size": "300×600",
-     "depth": "30",
-     "g": null
-    }
-   ],
-   "tiles": [
-    {
-     "l": "A",
-     "size": "300×600",
-     "per": null,
-     "cap": null
-    }
-   ],
-   "specs": [
-    {
-     "k": {
-      "uz": "ABS, kg/m²",
-      "ru": null,
-      "en": null
-     },
-     "v": {
-      "uz": "4,5",
-      "ru": null,
-      "en": null
-     }
-    },
-    {
-     "k": {
-      "uz": "PP, kg/m²",
-      "ru": null,
-      "en": null
-     },
-     "v": {
-      "uz": "3,5",
-      "ru": null,
-      "en": null
-     }
-    }
-   ],
-   "sizeEstimated": true,
-   "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
-    "tiles": {}
-   }
-  },
-  {
    "key": "f-rus-2",
    "code": null,
    "slug": "rus-2",
@@ -4958,140 +11718,6 @@
     "molds": {
      "A": "/catalog/2027/fasad-rus-2-mold-a.webp"
     },
-    "tiles": {}
-   }
-  },
-  {
-   "key": "f-labirint",
-   "code": null,
-   "slug": "labirint",
-   "section": "fasad",
-   "name": {
-    "uz": "Labirint",
-    "ru": null,
-    "en": null
-   },
-   "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
-   },
-   "kg": "4,95",
-   "molds": [
-    {
-     "l": "A",
-     "size": "250×500",
-     "depth": "35",
-     "g": null
-    }
-   ],
-   "tiles": [
-    {
-     "l": "A",
-     "size": "250×500",
-     "per": "8",
-     "cap": null
-    }
-   ],
-   "specs": [
-    {
-     "k": {
-      "uz": "ABS, kg/m²",
-      "ru": null,
-      "en": null
-     },
-     "v": {
-      "uz": "4,95",
-      "ru": null,
-      "en": null
-     }
-    },
-    {
-     "k": {
-      "uz": "PP, kg/m²",
-      "ru": null,
-      "en": null
-     },
-     "v": {
-      "uz": "3,7",
-      "ru": null,
-      "en": null
-     }
-    }
-   ],
-   "sizeEstimated": true,
-   "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {
-     "A": "/catalog/2027/fasad-labirint-mold-a.webp"
-    },
-    "tiles": {}
-   }
-  },
-  {
-   "key": "f-fasad-3d",
-   "code": null,
-   "slug": "fasad-3d",
-   "section": "fasad",
-   "name": {
-    "uz": "Fasad 3D",
-    "ru": null,
-    "en": null
-   },
-   "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
-   },
-   "kg": "4,6",
-   "molds": [
-    {
-     "l": "A",
-     "size": null,
-     "depth": "35",
-     "g": null
-    }
-   ],
-   "tiles": [
-    {
-     "l": "A",
-     "size": null,
-     "per": "8",
-     "cap": null
-    }
-   ],
-   "specs": [
-    {
-     "k": {
-      "uz": "ABS, kg/m²",
-      "ru": null,
-      "en": null
-     },
-     "v": {
-      "uz": "4,6",
-      "ru": null,
-      "en": null
-     }
-    },
-    {
-     "k": {
-      "uz": "PP, kg/m²",
-      "ru": null,
-      "en": null
-     },
-     "v": {
-      "uz": "3,4",
-      "ru": null,
-      "en": null
-     }
-    }
-   ],
-   "sizeEstimated": true,
-   "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
     "tiles": {}
    }
   },
@@ -5164,406 +11790,10 @@
    }
   },
   {
-   "key": "f-brilliant",
-   "code": null,
-   "slug": "brilliant",
-   "section": "fasad",
-   "name": {
-    "uz": "Brilliant",
-    "ru": null,
-    "en": null
-   },
-   "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
-   },
-   "kg": "4,7",
-   "molds": [
-    {
-     "l": "A",
-     "size": "250×500",
-     "depth": "35",
-     "g": null
-    }
-   ],
-   "tiles": [
-    {
-     "l": "A",
-     "size": "250×500",
-     "per": "8",
-     "cap": null
-    }
-   ],
-   "specs": [
-    {
-     "k": {
-      "uz": "ABS, kg/m²",
-      "ru": null,
-      "en": null
-     },
-     "v": {
-      "uz": "4,7",
-      "ru": null,
-      "en": null
-     }
-    },
-    {
-     "k": {
-      "uz": "PP, kg/m²",
-      "ru": null,
-      "en": null
-     },
-     "v": {
-      "uz": "3,9",
-      "ru": null,
-      "en": null
-     }
-    }
-   ],
-   "sizeEstimated": true,
-   "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
-    "tiles": {}
-   }
-  },
-  {
-   "key": "f-quba",
-   "code": null,
-   "slug": "quba",
-   "section": "fasad",
-   "name": {
-    "uz": "Quba",
-    "ru": null,
-    "en": null
-   },
-   "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
-   },
-   "kg": null,
-   "molds": [
-    {
-     "l": "A",
-     "size": "250×500",
-     "depth": null,
-     "g": null
-    }
-   ],
-   "tiles": [
-    {
-     "l": "A",
-     "size": "250×500",
-     "per": null,
-     "cap": null
-    }
-   ],
-   "specs": [],
-   "sizeEstimated": true,
-   "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
-    "tiles": {}
-   }
-  },
-  {
-   "key": "d-sokol-kalonna",
-   "code": null,
-   "slug": "sokol-kalonna",
-   "section": "dekor",
-   "name": {
-    "uz": "Sokol kalonna",
-    "ru": null,
-    "en": null
-   },
-   "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
-   },
-   "kg": null,
-   "molds": [
-    {
-     "l": "A",
-     "size": "200×750",
-     "depth": null,
-     "g": null
-    }
-   ],
-   "tiles": [
-    {
-     "l": "A",
-     "size": "200×750",
-     "per": null,
-     "cap": null
-    }
-   ],
-   "specs": [],
-   "sizeEstimated": true,
-   "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
-    "tiles": {}
-   }
-  },
-  {
-   "key": "d-sokol-friz-kubik",
-   "code": null,
-   "slug": "sokol-friz-kubik",
-   "section": "dekor",
-   "name": {
-    "uz": "Sokol friz kubik",
-    "ru": null,
-    "en": null
-   },
-   "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
-   },
-   "kg": null,
-   "molds": [
-    {
-     "l": "A",
-     "size": "150×1200",
-     "depth": null,
-     "g": null
-    }
-   ],
-   "tiles": [
-    {
-     "l": "A",
-     "size": "150×1200",
-     "per": null,
-     "cap": null
-    }
-   ],
-   "specs": [],
-   "sizeEstimated": true,
-   "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
-    "tiles": {}
-   }
-  },
-  {
-   "key": "d-karniz-1",
-   "code": null,
-   "slug": "karniz-1",
-   "section": "dekor",
-   "name": {
-    "uz": "Karniz 1",
-    "ru": null,
-    "en": null
-   },
-   "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
-   },
-   "kg": null,
-   "molds": [
-    {
-     "l": "A",
-     "size": "350×1200",
-     "depth": "150",
-     "g": null
-    }
-   ],
-   "tiles": [
-    {
-     "l": "A",
-     "size": "350×1200",
-     "per": null,
-     "cap": null
-    }
-   ],
-   "specs": [],
-   "sizeEstimated": true,
-   "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
-    "tiles": {}
-   }
-  },
-  {
-   "key": "d-pilyastr-3",
-   "code": null,
-   "slug": "pilyastr-3",
-   "section": "dekor",
-   "name": {
-    "uz": "Pilyastr 3",
-    "ru": null,
-    "en": null
-   },
-   "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
-   },
-   "kg": null,
-   "molds": [
-    {
-     "l": "A",
-     "size": "300×1200",
-     "depth": "50",
-     "g": null
-    }
-   ],
-   "tiles": [
-    {
-     "l": "A",
-     "size": "300×1200",
-     "per": null,
-     "cap": null
-    }
-   ],
-   "specs": [],
-   "sizeEstimated": true,
-   "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
-    "tiles": {}
-   }
-  },
-  {
-   "key": "d-kalonna",
-   "code": null,
-   "slug": "kalonna",
-   "section": "dekor",
-   "name": {
-    "uz": "Kalonna",
-    "ru": null,
-    "en": null
-   },
-   "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
-   },
-   "kg": null,
-   "molds": [
-    {
-     "l": "A",
-     "size": "400×1200",
-     "depth": null,
-     "g": null
-    }
-   ],
-   "tiles": [
-    {
-     "l": "A",
-     "size": "400×1200",
-     "per": null,
-     "cap": null
-    }
-   ],
-   "specs": [],
-   "sizeEstimated": true,
-   "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
-    "tiles": {}
-   }
-  },
-  {
-   "key": "f-beeline-3",
-   "code": null,
-   "slug": "beeline-3",
-   "section": "fasad",
-   "name": {
-    "uz": "Beeline 3",
-    "ru": null,
-    "en": null
-   },
-   "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
-   },
-   "kg": null,
-   "molds": [
-    {
-     "l": "A",
-     "size": "400×1200",
-     "depth": null,
-     "g": null
-    }
-   ],
-   "tiles": [
-    {
-     "l": "A",
-     "size": "400×1200",
-     "per": null,
-     "cap": null
-    }
-   ],
-   "specs": [],
-   "sizeEstimated": true,
-   "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {
-     "A": "/catalog/2027/fasad-beeline-3-mold-a.webp"
-    },
-    "tiles": {}
-   }
-  },
-  {
-   "key": "d-rom-karniz-1",
-   "code": null,
-   "slug": "rom-karniz-1",
-   "section": "dekor",
-   "name": {
-    "uz": "Rom karniz 1",
-    "ru": null,
-    "en": null
-   },
-   "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
-   },
-   "kg": null,
-   "molds": [
-    {
-     "l": "A",
-     "size": "180×1200",
-     "depth": "30",
-     "g": null
-    }
-   ],
-   "tiles": [
-    {
-     "l": "A",
-     "size": "180×1200",
-     "per": null,
-     "cap": null
-    }
-   ],
-   "specs": [],
-   "sizeEstimated": true,
-   "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
-    "tiles": {}
-   }
-  },
-  {
    "key": "d-zina-30-120-gladkiy",
    "code": null,
    "slug": "zina-30-120-gladkiy",
-   "section": "dekor",
+   "section": "fasad_dekor",
    "name": {
     "uz": "Zina 30–120 gladkiy",
     "ru": null,
@@ -5597,7 +11827,7 @@
     "scene": null,
     "sceneSm": null,
     "molds": {
-     "A": "/catalog/2027/dekor-zina-30-120-gladkiy-mold-a.webp"
+     "A": "/catalog/2027/fasad_dekor-zina-30-120-gladkiy-mold-a.webp"
     },
     "tiles": {}
    }
@@ -5606,7 +11836,7 @@
    "key": "d-sokol",
    "code": null,
    "slug": "sokol",
-   "section": "dekor",
+   "section": "fasad_dekor",
    "name": {
     "uz": "Sokol",
     "ru": null,
@@ -5640,90 +11870,8 @@
     "scene": null,
     "sceneSm": null,
     "molds": {
-     "A": "/catalog/2027/dekor-sokol-mold-a.webp"
+     "A": "/catalog/2027/fasad_dekor-sokol-mold-a.webp"
     },
-    "tiles": {}
-   }
-  },
-  {
-   "key": "d-kapitel-20",
-   "code": null,
-   "slug": "kapitel-20",
-   "section": "dekor",
-   "name": {
-    "uz": "Kapitel 20",
-    "ru": null,
-    "en": null
-   },
-   "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
-   },
-   "kg": null,
-   "molds": [
-    {
-     "l": "A",
-     "size": null,
-     "depth": "50",
-     "g": null
-    }
-   ],
-   "tiles": [
-    {
-     "l": "A",
-     "size": null,
-     "per": null,
-     "cap": null
-    }
-   ],
-   "specs": [],
-   "sizeEstimated": true,
-   "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
-    "tiles": {}
-   }
-  },
-  {
-   "key": "d-kapitel-40-past",
-   "code": null,
-   "slug": "kapitel-40-past",
-   "section": "dekor",
-   "name": {
-    "uz": "Kapitel 40 — past",
-    "ru": null,
-    "en": null
-   },
-   "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
-   },
-   "kg": null,
-   "molds": [
-    {
-     "l": "A",
-     "size": null,
-     "depth": "50",
-     "g": null
-    }
-   ],
-   "tiles": [
-    {
-     "l": "A",
-     "size": null,
-     "per": null,
-     "cap": null
-    }
-   ],
-   "specs": [],
-   "sizeEstimated": true,
-   "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
     "tiles": {}
    }
   },
@@ -5731,7 +11879,7 @@
    "key": "d-kapitel-40-tepa",
    "code": null,
    "slug": "kapitel-40-tepa",
-   "section": "dekor",
+   "section": "fasad_dekor",
    "name": {
     "uz": "Kapitel 40 — tepa",
     "ru": null,
@@ -5765,7 +11913,7 @@
     "scene": null,
     "sceneSm": null,
     "molds": {
-     "A": "/catalog/2027/dekor-kapitel-40-tepa-mold-a.webp"
+     "A": "/catalog/2027/fasad_dekor-kapitel-40-tepa-mold-a.webp"
     },
     "tiles": {}
    }

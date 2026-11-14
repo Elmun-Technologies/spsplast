@@ -14,10 +14,11 @@ import {
   modelThickness,
   localizedText,
   sectionLabel,
+  isRenderImage,
 } from '@/lib/catalog2027';
 import type { Locale } from '@/lib/i18n';
-import { getUi, formatNumber } from '@/lib/ui';
-import { getPages } from '@/lib/pages';
+import { formatNumber, type UiDictionary } from '@/lib/ui';
+import type { PagesDictionary } from '@/lib/pages';
 import { CONTACTS_2027 } from '@/lib/contacts2027';
 import { useCompareList, useRequestList } from '@/lib/store/spsLists';
 import dynamic from 'next/dynamic';
@@ -31,7 +32,7 @@ const QuickRequestModal = dynamic(
   { ssr: false },
 );
 
-type GalleryItem = { src: string; label: string; cover: boolean };
+type GalleryItem = { src: string; label: string; cover: boolean; render?: boolean };
 
 const num = (lang: Locale, n: number) =>
   new Intl.NumberFormat(lang === 'en' ? 'en-US' : 'ru-RU', { maximumFractionDigits: 1 }).format(n);
@@ -44,24 +45,41 @@ export function ModelClient({
   lang,
   model,
   related,
+  t,
+  p,
 }: {
   lang: Locale;
   model: Model;
   related: Model[];
+  /** Server komponentdan tayyor holda keladi (audit 2026-11-02, 3.4-band): mijozga
+   * uch tilning HAM lug'ati emas, faqat joriy til ma'lumoti RSC orqali yuboriladi —
+   * `@/lib/ui`/`@/lib/pages` modullari (barcha til obyektlari) klient bundle'iga tushmaydi.
+   * Faqat kerakli bo'limlar (`Pick`) — `p.home` kabi boshqa bo'limlar (funksiya maydonlari
+   * bor, RSC orqali o'ta olmaydi) umuman uzatilmaydi. */
+  t: UiDictionary;
+  p: Pick<PagesDictionary, 'model' | 'partners'>;
 }) {
-  const t = getUi(lang);
-  const p = getPages(lang);
   const request = useRequestList();
   const compare = useCompareList();
   const [leadOpen, setLeadOpen] = useState(false);
   const [tab, setTab] = useState<'spec' | 'use' | 'delivery' | 'faq'>('spec');
   const [m2, setM2] = useState('100');
+  const modelLabel = `${model.code ? `№ ${model.code} ` : ''}${modelName(model, lang)}`;
+  const photoAskMessage = p.model.photoAskMessageTemplate.replace('{label}', modelLabel);
+  const waAboutMessage = p.model.waAboutTemplate.replace('{label}', modelLabel);
 
   const gallery = useMemo<GalleryItem[]>(() => {
     const out: GalleryItem[] = [];
-    if (model.images.scene) out.push({ src: model.images.scene, label: p.model.gallery.scene, cover: true });
+    // 3D render (tirik surat hali yo'q) — yorlig'i "haqiqiy surat" demasligi kerak.
+    if (model.images.scene) {
+      const render = isRenderImage(model.images.scene);
+      out.push({ src: model.images.scene, label: render ? p.model.gallery.sceneRender : p.model.gallery.scene, cover: true, render });
+    }
     const mold = model.images.molds.A;
-    if (mold) out.push({ src: mold, label: p.model.gallery.mold, cover: false });
+    if (mold) {
+      const render = isRenderImage(mold);
+      out.push({ src: mold, label: render ? p.model.gallery.moldRender : p.model.gallery.mold, cover: false, render });
+    }
     const tile = model.images.tiles.A;
     if (tile) out.push({ src: tile, label: p.model.gallery.tile, cover: false });
     // `sceneSm` — o'sha sahnaning kichik nusxasi (ko'pincha bayt-ma-bayt bir xil), galereyada takrorlanmaydi.
@@ -147,7 +165,7 @@ export function ModelClient({
           : thickness <= 40
             ? p.model.use.yard
             : p.model.use.car
-      : model.section === 'fasad'
+      : model.section === 'fasad' || model.section === 'termopanel' || model.section === 'fasad_dekor'
         ? p.model.use.facade
         : model.section === 'dekor'
           ? p.model.use.decor
@@ -171,7 +189,9 @@ export function ModelClient({
   return (
     <>
       <section className="pd-sec">
-        <div className="wrap" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>
+        {/* Mobilda bo'sh joy ixchamroq (audit 2026-11-02): H1 bo'lmasa, sahna+miniatyuralardan
+            keyin yopishqoq pastki panel (.mbar) ostida to'liq yashiringan edi. */}
+        <div className="wrap" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
           <nav className="crumbs" aria-label="breadcrumb">
             <a href={`/${lang}`}>{p.model.breadcrumbHome}</a>
             <span>/</span>
@@ -218,7 +238,8 @@ export function ModelClient({
                   // Fonsiz qolip/mahsulot surati markazda, chetlardan joy bilan (avval chap-yuqoriga siqilib qolardi).
                   style={{ objectFit: hero.cover ? 'cover' : 'contain', padding: hero.cover ? undefined : '8%' }}
                 />
-              ) : (
+              ) : null}
+              {hero ? null : (
                 <div className="stage-nophoto">
                   <Icon.grid width={32} height={32} strokeWidth={1.25} aria-hidden="true" />
                   <b>{p.model.photoAskTitle}</b>
@@ -226,7 +247,7 @@ export function ModelClient({
                   <span className="row" style={{ justifyContent: 'center' }}>
                     <a
                       className="sps-btn sps-btn--dark sps-btn--sm"
-                      href={`${CONTACTS_2027.whatsappUrl}?text=${encodeURIComponent(p.model.photoAskMessage(`${model.code ? `№ ${model.code} ` : ''}${modelName(model, lang)}`))}`}
+                      href={`${CONTACTS_2027.whatsappUrl}?text=${encodeURIComponent(photoAskMessage)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -533,7 +554,7 @@ export function ModelClient({
         </a>
         <a
           className="sps-btn sps-btn--outline"
-          href={`${CONTACTS_2027.whatsappUrl}?text=${encodeURIComponent(p.model.waAbout(`${model.code ? `№ ${model.code} ` : ''}${modelName(model, lang)}`))}`}
+          href={`${CONTACTS_2027.whatsappUrl}?text=${encodeURIComponent(waAboutMessage)}`}
           target="_blank"
           rel="noopener noreferrer"
           aria-label={t.menu.waWrite}

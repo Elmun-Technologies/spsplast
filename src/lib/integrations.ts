@@ -8,7 +8,7 @@ import { siteSnapshot } from '../data/site.generated.ts';
 export type IntegrationField = {
   key: string;
   label: string;
-  group: 'analytics' | 'ads' | 'verification' | 'contacts' | 'stats';
+  group: 'analytics' | 'ads' | 'verification' | 'contacts' | 'stats' | 'trust';
   env?: string;
   pattern: RegExp;
   placeholder: string;
@@ -136,6 +136,17 @@ export const INTEGRATION_FIELDS: IntegrationField[] = [
   { key: 'export_countries_uz', label: "Davlatlar ro'yxati (UZ)", group: 'stats', pattern: SAFE_TEXT, placeholder: "Rossiya, Qozog'iston, …", fallback: "Rossiya, Qozog'iston, Qirg'iziston, Tojikiston, Ozarbayjon, Gruziya, Armaniston, Belarus", help: 'Ulgurji sahifasidagi eksport jadvali.', where: '' },
   { key: 'export_countries_ru', label: "Davlatlar ro'yxati (RU)", group: 'stats', pattern: SAFE_TEXT, placeholder: 'Россия, Казахстан, …', fallback: 'Россия, Казахстан, Кыргызстан, Таджикистан, Азербайджан, Грузия, Армения, Беларусь', help: '', where: '' },
   { key: 'export_countries_en', label: "Davlatlar ro'yxati (EN)", group: 'stats', pattern: SAFE_TEXT, placeholder: 'Russia, Kazakhstan, …', fallback: 'Russia, Kazakhstan, Kyrgyzstan, Tajikistan, Azerbaijan, Georgia, Armenia, Belarus', help: '', where: '' },
+  // --- Ishonch dalillari (audit 2026-11-02, 3-bosqich): faqat YouTube/Vimeo — CSP
+  // frame-src shu ikkisiga ochiq, boshqa manzil bo'sh deb hisoblanadi (video.ts).
+  {
+    key: 'factory_video_url',
+    label: 'Zavod videosi (YouTube/Vimeo havolasi)',
+    group: 'trust',
+    pattern: /^https:\/\/(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/|vimeo\.com\/|player\.vimeo\.com\/video\/)[\w-]+/,
+    placeholder: 'https://www.youtube.com/watch?v=...',
+    help: "Kiritilsa ishlab chiqarish sahifasida ko'rinadi. Faqat YouTube yoki Vimeo havolasi qabul qilinadi.",
+    where: 'ixtiyoriy',
+  },
 ];
 
 /** Sayt sozlamasi: admin (snapshot) → env → standart qiymat. Noto'g'ri format e'tiborga olinmaydi. */

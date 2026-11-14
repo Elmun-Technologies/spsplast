@@ -210,7 +210,7 @@ test('10. Eski (2026) kontent qatlami o‘chirilgan — manba bitta', () => {
 
   // Ma'lumot: faqat 2027 to'plami + migratsiya uchun arxiv (docs/legacy).
   const dataFiles = fs.readdirSync(path.join(root, 'data')).sort();
-  assert.deepStrictEqual(dataFiles, ['image-jobs-2027.json', 'models-2027.json', 'termopanel-2027.json'],
+  assert.deepStrictEqual(dataFiles, ['catalog3d-2027.json', 'image-jobs-2027.json', 'models-2027.json', 'moved-2027.json', 'termopanel-2027.json'],
     `data/ da eski fayllar qolgan: ${dataFiles.join(', ')}`);
   assert.deepStrictEqual(fs.readdirSync(path.join(root, 'src', 'data')).sort(), ['models2027.ts', 'redirects.generated.json', 'site.generated.ts']);
   assert.ok(fs.existsSync(path.join(root, 'docs', 'legacy', 'catalog-2026.json')),
@@ -400,7 +400,8 @@ test('14. Sitemap/robots/hreflang yangi marshrutlar uchun (3 til + x-default)', 
     const langs = entry.alternates.languages;
     assert.deepStrictEqual(Object.keys(langs).sort(), ['en', 'ru', 'uz', 'x-default'],
       `hreflang to'plami noto'g'ri: ${entry.url}`);
-    assert.strictEqual(langs['x-default'], langs.uz, `x-default uz emas: ${entry.url}`);
+    // Audit 2026-11-02, 3.5-band: x-default endi ru (MDH tillari uchun yaxshiroq zaxira).
+    assert.strictEqual(langs['x-default'], langs.ru, `x-default ru emas: ${entry.url}`);
 
     // "https://sps.uz/uz/catalog/..." -> "/catalog/...": til prefiksi olib
     // tashlanadi, shunda bir sahifaning uch tilli nusxasi bitta guruhga tushadi.
@@ -419,8 +420,10 @@ test('14. Sitemap/robots/hreflang yangi marshrutlar uchun (3 til + x-default)', 
   const rules = robots();
   const disallow = Array.isArray(rules.rules[0].disallow) ? rules.rules[0].disallow : [rules.rules[0].disallow];
   assert.ok(disallow.includes('/api/'), 'robots: /api/ yopilmagan');
-  assert.ok(disallow.includes('/*/compare'), 'robots: compare yopilmagan');
-  assert.ok(disallow.includes('/*/request'), 'robots: request yopilmagan');
+  // Audit 2026-11-02, 3.5-band: compare/request ENDI robots.txt'da YO'Q (ziddiyat edi —
+  // noindex+follow ma'nosi yo'qolardi, qidiruvchi ularga kirmay havolalarni ko'rmasdi).
+  assert.ok(!disallow.includes('/*/compare'), "robots: compare noindex'ga tayansin, robots.txt'da yopilmasin");
+  assert.ok(!disallow.includes('/*/request'), "robots: request noindex'ga tayansin, robots.txt'da yopilmasin");
   assert.ok(rules.sitemap.endsWith('/sitemap.xml'), "robots: sitemap manzili yo'q");
 });
 

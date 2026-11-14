@@ -1,5 +1,3 @@
-'use client';
-
 import Image from 'next/image';
 import { SECTION_SLUGS, getSectionCounts, sectionCover, sectionLabel, getActiveSections } from '@/lib/catalog2027';
 import type { Locale } from '@/lib/i18n';
@@ -12,8 +10,10 @@ import { CONTACTS_2027 } from '@/lib/contacts2027';
  * 5 bo'lim chipi, CTA va Monako sahnasi. Qidiruv JS'siz ishlaydi:
  * form action = katalog, input name = q.
  *
- * 'use client': `not-found.tsx` chegarasiga Next `params` uzatmaydi, shuning
- * uchun til `useParams()` orqali olinadi (server komponentda bu iloji yo'q).
+ * Server komponent (2026-11-12): avval 'use client' edi va `[lang]/not-found.tsx` orqali HAR
+ * sahifaning JS'iga butun katalog (`models2027`) va uch tilning `pages` lug'atini qo'shardi.
+ * Endi `[lang]/not-found.tsx` uch tilda server'da renderlaydi, mijoz faqat tilni tanlaydi
+ * (`NotFoundLangPick`, `useParams()`).
  */
 export function NotFoundBody({ lang }: { lang: Locale }) {
   const t = getUi(lang);
@@ -31,7 +31,8 @@ export function NotFoundBody({ lang }: { lang: Locale }) {
             <h1 className="h1">{p.notfound.title}</h1>
             <p className="lead muted">{p.notfound.text}</p>
 
-            <form className="srch" action={`/${lang}/catalog`} method="get" role="search">
+            {/* Header'da ham `role="search"` bor — nomsiz ikkita bir xil landmark bo'lmasin (axe `landmark-unique`). */}
+            <form className="srch" action={`/${lang}/catalog`} method="get" role="search" aria-label={`${p.notfound.search} · ${t.header.catalog}`}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                 <circle cx="11" cy="11" r="7" />
                 <path d="M20 20l-4-4" />

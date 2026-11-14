@@ -23,7 +23,8 @@ const DEAD_SEGMENTS = [
 // havola (xato), shuning uchun faqat haqiqiy fayl yo'llari ro'yxatda.
 const ASSET_PREFIXES = ['/_next/', '/catalog/2027/', '/catalog/pdf/', '/images/', '/fonts/', '/icons/', '/favicon.ico', '/sw.js'];
 
-const PRICE_RE = /(\d[\d\s.,]{1,12})\s*(so['‘’]m|so'm|сум|sum\b|USD|\$|₽|евро)/i;
+// `евро(?![а-яё])`: "Z05 Еврозабор" (yevrozabor) narx emas — 2026-11-12 da soxta xato bergan edi.
+const PRICE_RE = /(\d[\d\s.,]{1,12})\s*(so['‘’]m|so'm|сум|sum\b|USD|\$|₽|евро(?![а-яё]))/i;
 const CYRILLIC_WORD_RE = /[а-яёА-ЯЁЁ]{2,}/g;
 const PLACEHOLDER_RE = /\[[^\]\n]{2,60}\]/g;
 
@@ -77,8 +78,11 @@ export function checkTitleAndDescription(doc, { path, lang, expect = {} }, out) 
       if (len < 50) out.warnings.push(`${path}: description qisqa (${len} belgi)`);
       if (len > 170) out.warnings.push(`${path}: description uzun (${len} belgi — SERP'da kesiladi)`);
     }
-    // Rus/ingliz sahifasida o'zbekcha CTA qolmasligi kerak (Stage 5 xatosi).
-    if (lang && lang !== 'uz' && /zayafka|qoldiring|hisoblab beradi/i.test(description)) {
+    // Rus/ingliz sahifasida o'zbekcha CTA qolmasligi kerak (Stage 5 xatosi). 404 bundan
+    // mustasno — `[lang]/not-found.tsx` client komponent, generateMetadata bera olmaydi,
+    // shuning uchun ildiz layout'ning zaxira (o'zbekcha) tavsifini meros qiladi; sahifa
+    // indekslanmagani uchun bu SERP'ga ta'sir qilmaydi (audit 2026-11-02, 3-bosqich).
+    if (expect.status !== 404 && lang && lang !== 'uz' && /zayafka|qoldiring|hisoblab beradi/i.test(description)) {
       out.errors.push(`${path}: ${lang} description'ida o'zbekcha matn qolgan: "${description}"`);
     }
   }
@@ -147,8 +151,10 @@ export function checkAlternates(doc, { path, lang, siteUrl, expect = {} }, out) 
   for (const key of ['uz', 'ru', 'en', 'x-default']) {
     if (!langs[key]) out.errors.push(`${path}: hreflang "${key}" yo'q`);
   }
-  if (langs['x-default'] && langs.uz && langs['x-default'] !== langs.uz) {
-    out.errors.push(`${path}: x-default (${langs['x-default']}) uz (${langs.uz}) bilan bir xil emas`);
+  // x-default = ru (audit 2026-11-02, 3.5-band): MDH tillari (qozoq, gruzin …) uchun
+  // zaxira — ko'pincha ruscha o'zbekchadan yaxshiroq tushuniladi (src/lib/seo.ts).
+  if (langs['x-default'] && langs.ru && langs['x-default'] !== langs.ru) {
+    out.errors.push(`${path}: x-default (${langs['x-default']}) ru (${langs.ru}) bilan bir xil emas`);
   }
   for (const [key, href] of alts) {
     if (!href || !href.startsWith('http')) {

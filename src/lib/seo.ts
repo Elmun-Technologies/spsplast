@@ -39,11 +39,17 @@ interface PageMetadataOptions {
   alternatePaths?: Partial<Record<Locale, string>>;
 }
 
-/** uz/ru/en + x-default (asosiy = uz). */
+/**
+ * uz/ru/en + x-default. `x-default` — "aniq uz/ru/en'ga mos kelmagan" ziyoratchi uchun
+ * (audit 2026-11-02, 3.5-band): avval o'zbekchaga qarardi, lekin MDH mamlakatlari
+ * (Qozog'iston, Gruziya, Armaniston …) brauzerida o'z tili bo'lgan mijoz ko'pincha
+ * ruschani o'zbekchadan ko'ra yaxshiroq tushunadi — shuning uchun endi ruscha
+ * (`src/middleware.ts`dagi `preferredLocale()` ham xuddi shu MDH ro'yxatini ishlatadi).
+ */
 export function hreflang(path: string, alternatePaths?: Partial<Record<Locale, string>>): Record<string, string> {
   const out: Record<string, string> = {};
   for (const lang of locales) out[lang] = `/${lang}${alternatePaths?.[lang] ?? path}`;
-  out['x-default'] = `/uz${alternatePaths?.uz ?? path}`;
+  out['x-default'] = `/ru${alternatePaths?.ru ?? path}`;
   return out;
 }
 
@@ -134,8 +140,16 @@ function postalAddress(lang: Locale): JsonLdValue {
   };
 }
 
-/** `description` — sahifa tilidagi matn (`getUi(lang).footer.about`), kod ichida yozilmaydi. */
-export function jsonLdOrganization(lang: Locale = 'uz', description?: string): JsonLdValue {
+/**
+ * `description` — sahifa tilidagi matn (`getUi(lang).footer.about`), kod ichida yozilmaydi.
+ * `rating` — faqat kamida bitta sharhga baho qo'yilgan bo'lsa beriladi (`aggregateRating`
+ * ishonch dalillari, audit 2026-11-02, 3-bosqich: `src/lib/testimonials2027.ts`).
+ */
+export function jsonLdOrganization(
+  lang: Locale = 'uz',
+  description?: string,
+  rating?: { ratingValue: string; reviewCount: number },
+): JsonLdValue {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
@@ -146,6 +160,22 @@ export function jsonLdOrganization(lang: Locale = 'uz', description?: string): J
     telephone: CONTACT_PHONE,
     address: postalAddress(lang),
     sameAs: [...SOCIAL_PROFILES],
+    aggregateRating: rating
+      ? { '@type': 'AggregateRating', ratingValue: rating.ratingValue, reviewCount: rating.reviewCount, bestRating: '5', worstRating: '1' }
+      : undefined,
+  };
+}
+
+/** Bitta mijoz sharhi (narxsiz — HANDOFF, faqat matn/baho). `rating` bo'lmasa `reviewRating` chiqmaydi. */
+export function jsonLdReview(opts: { authorName: string; reviewBody: string; rating?: number | null }): JsonLdValue {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Review',
+    itemReviewed: { '@type': 'Organization', name: SITE_NAME },
+    author: { '@type': 'Person', name: opts.authorName },
+    reviewBody: opts.reviewBody,
+    reviewRating:
+      opts.rating != null ? { '@type': 'Rating', ratingValue: String(opts.rating), bestRating: '5', worstRating: '1' } : undefined,
   };
 }
 

@@ -22,6 +22,13 @@
       "when": 1793541555666,
       "tag": "0002_seo_content_reports",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1794034879127,
+      "tag": "0003_abandoned_penance",
+      "breakpoints": true
     }
   ]
 }

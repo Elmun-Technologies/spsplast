@@ -41,12 +41,21 @@ def convert(src: str, dst: str, width: int) -> bool:
 
 def main():
     jobs = json.load(open(JOBS))
-    ok = fail = cut = kept = 0
+    manifest_path = os.path.join(ROOT, "media-src/clean/manifest.json")
+    manifest = json.load(open(manifest_path)) if os.path.exists(manifest_path) else {}
+    ok = fail = cut = kept = stale = 0
     failed_dst = set()
     for j in jobs:
         src = resolve_src(j["src"])
         mask = mask_path(j["dst"])
-        if is_cutout_job(j["dst"]) and os.path.exists(mask) and \
+        name = os.path.splitext(os.path.basename(j["dst"]))[0]
+        # Niqob boshqa manba uchun yasalgan bo'lsa (masalan render o'rniga tirik surat keldi) —
+        # ishlatilmaydi: fonli rasm yoziladi, `npm run images:bg` yangi niqob yasaydi.
+        fresh = manifest.get(name, {}).get("src") == src
+        if is_cutout_job(j["dst"]) and os.path.exists(mask) and not fresh:
+            stale += 1
+            print("NIQOB ESKIRGAN (npm run images:bg)", j["dst"], file=sys.stderr)
+        if is_cutout_job(j["dst"]) and os.path.exists(mask) and fresh and \
                 compose_cutout(src, mask, os.path.join(ROOT, j["dst"]), j["w"]):
             ok += 1
             cut += 1
@@ -74,10 +83,26 @@ def main():
                 if v in failed_dst:
                     del im["tiles"][k]
         json.dump(data, open(MODELS, "w"), ensure_ascii=False, indent=1)
+    # Tirik surat render o'rnini egallaganda eski `*-3d.webp` (va uning niqobi) yetim qoladi —
+    # faqat render fayllari tozalanadi (boshqa qo'lda qo'yilgan fayllarga tegilmaydi).
+    want = {os.path.basename(j["dst"]) for j in jobs}
+    pruned = 0
+    cat_dir = os.path.join(ROOT, "public/catalog/2027")
+    for f in os.listdir(cat_dir):
+        if f.endswith("-3d.webp") and f not in want:
+            os.remove(os.path.join(cat_dir, f))
+            stem = f[:-5]
+            if os.path.exists(os.path.join(ROOT, "media-src/clean", stem + ".png")):
+                os.remove(os.path.join(ROOT, "media-src/clean", stem + ".png"))
+            manifest.pop(stem, None)
+            pruned += 1
+    if pruned:
+        json.dump(dict(sorted(manifest.items())), open(manifest_path, "w"), ensure_ascii=False, indent=1)
+        print(f"yetim render o'chirildi: {pruned}")
     total = 0
     for _r, _d, _f in os.walk(os.path.join(ROOT, "public/catalog/2027")):
         total += len(_f)
-    print(f"webp ok={ok} (fonsiz={cut}) manbasiz-saqlandi={kept} fail={fail} "
+    print(f"webp ok={ok} (fonsiz={cut}, niqobi-eskirgan={stale}) manbasiz-saqlandi={kept} fail={fail} "
           f"files_in_2027={total}")
 
 

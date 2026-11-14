@@ -69,6 +69,8 @@ export const ru: UiDictionary = {
     sectionMolds: {
       trotuar: 'Формы для тротуарной плитки',
       fasad: 'Формы для фасадной плитки',
+      termopanel: 'Формы для фасадных термопанелей',
+      fasad_dekor: 'Формы для фасадного декора',
       zabor: 'Формы для заборных панелей',
       dekor: 'Формы для декор-панелей',
       skameyka: 'Формы для ножек скамеек',
@@ -77,6 +79,8 @@ export const ru: UiDictionary = {
     modelMold: {
       trotuar: 'Форма для плитки',
       fasad: 'Форма для фасада',
+      termopanel: 'Форма для термопанели',
+      fasad_dekor: 'Форма фасадного декора',
       zabor: 'Форма для забора',
       dekor: 'Форма декор-панели',
       skameyka: 'Форма ножки скамейки',
@@ -103,6 +107,9 @@ export const ru: UiDictionary = {
     filters: 'Фильтр',
     clear: 'Сбросить',
     show: 'показать моделей',
+    /** Katalog sahifasi sarlavha bandi: {n} model soni, {models} — ko'plik shakli, {s} — bo'limlar soni. */
+    headLead: '{n} {models} · разделов: {s}. Цен на сайте нет — оставьте заявку, менеджер рассчитает количество форм и стоимость.',
+    groupKind: 'Тип изделия',
     groupUse: 'Применение',
     groupSize: 'Размер плитки',
     groupSet: 'Комплект',

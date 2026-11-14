@@ -34,6 +34,8 @@ function helper() {
 const SECTION_SLUGS = {
   trotuar: 'paving',
   fasad: 'facade',
+  termopanel: 'thermal-panels',
+  fasad_dekor: 'facade-decor',
   zabor: 'fence',
   dekor: 'decor',
   skameyka: 'bench',
@@ -55,7 +57,7 @@ const DEAD_SEGMENTS = [
   '/terms', '/returns', '/delivery-payment', '/how-to-order', '/catalog-preview',
 ];
 
-test('1. hreflang: uz/ru/en + x-default, x-default = uz', async (t) => {
+test("1. hreflang: uz/ru/en + x-default, x-default = ru (audit 2026-11-02, 3.5-band: MDH tillari)", async (t) => {
   if (!supportsTypeStripping) return t.skip("Node type-stripping yo'q");
   const { loadAliased } = await helper();
   const { hreflang } = await loadAliased('src/lib/seo.ts');
@@ -65,11 +67,11 @@ test('1. hreflang: uz/ru/en + x-default, x-default = uz', async (t) => {
   assert.strictEqual(alt.uz, '/uz/catalog/paving/01-monako');
   assert.strictEqual(alt.ru, '/ru/catalog/paving/01-monako');
   assert.strictEqual(alt.en, '/en/catalog/paving/01-monako');
-  assert.strictEqual(alt['x-default'], alt.uz, 'x-default asosiy tilga (uz) teng bo\'lishi shart');
+  assert.strictEqual(alt['x-default'], alt.ru, "x-default ruschaga teng bo'lishi shart");
 
   // Bosh sahifa: path = ''
   const home = hreflang('');
-  assert.deepStrictEqual(home, { uz: '/uz', ru: '/ru', en: '/en', 'x-default': '/uz' });
+  assert.deepStrictEqual(home, { uz: '/uz', ru: '/ru', en: '/en', 'x-default': '/ru' });
 });
 
 test('2. pageMetadata: canonical, OG locale, twitter, robots', async (t) => {
@@ -88,7 +90,7 @@ test('2. pageMetadata: canonical, OG locale, twitter, robots', async (t) => {
 
   assert.strictEqual(md.title, 'Формы для фасада');
   assert.strictEqual(md.alternates.canonical, '/ru/catalog/facade');
-  assert.strictEqual(md.alternates.languages['x-default'], '/uz/catalog/facade');
+  assert.strictEqual(md.alternates.languages['x-default'], '/ru/catalog/facade');
   assert.strictEqual(md.openGraph.locale, 'ru_RU');
   assert.strictEqual(md.openGraph.url, '/ru/catalog/facade');
   assert.strictEqual(md.openGraph.images[0].url, '/images/site/factory.webp');
@@ -196,7 +198,7 @@ test('5. sitemap: har bir yozuvda hreflang alternates + x-default', async (t) =>
     assert.ok(langs, `alternates.languages yo'q: ${entry.url}`);
     assert.deepStrictEqual(Object.keys(langs).sort(), ['en', 'ru', 'uz', 'x-default'].sort(),
       `hreflang to'plami noto'g'ri: ${entry.url}`);
-    assert.strictEqual(langs['x-default'], langs.uz, `x-default != uz: ${entry.url}`);
+    assert.strictEqual(langs['x-default'], langs.ru, `x-default != ru: ${entry.url}`);
 
     // Sitemap alternate'lari mutlaq URL bo'lishi shart (nisbiy href'larni
     // Google hisobga olmaydi).
@@ -232,8 +234,11 @@ test('6. robots.txt: API va shaxsiy sahifalar yopiq, sitemap ko\'rsatilgan', asy
   const rule = Array.isArray(rules.rules) ? rules.rules[0] : rules.rules;
   assert.strictEqual(rule.allow, '/');
   const disallow = Array.isArray(rule.disallow) ? rule.disallow : [rule.disallow];
-  for (const expected of ['/api/', '/*/compare', '/*/request']) {
-    assert.ok(disallow.includes(expected), `robots da ${expected} yo'q: ${disallow.join(', ')}`);
+  assert.ok(disallow.includes('/api/'), `robots da /api/ yo'q: ${disallow.join(', ')}`);
+  // Audit 2026-11-02, 3.5-band: compare/request faqat `noindex, follow` orqali — robots.txt
+  // Disallow qo'ymaydi (aks holda qidiruvchi ularni ko'rmay, follow ma'nosiz qolardi).
+  for (const unexpected of ['/*/compare', '/*/request', '/compare', '/request']) {
+    assert.ok(!disallow.includes(unexpected), `robots da ${unexpected} bo'lmasligi kerak: ${disallow.join(', ')}`);
   }
 });
 

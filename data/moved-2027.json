@@ -1,0 +1,236 @@
+{
+ "$comment": "GENERATED — scripts/extract/build_models_2027.py. Ko'chirilgan/chiqarilgan eski modellar (build_redirects_2027.py 301 yasaydi). to[1] = null -> bo'lim sahifasiga.",
+ "moved": [
+  {
+   "from": [
+    "fasad",
+    "beeline-3"
+   ],
+   "to": [
+    "fasad_dekor",
+    "bp-003-120x40-beeline-3"
+   ],
+   "name": "Beeline 3"
+  },
+  {
+   "from": [
+    "fasad",
+    "quba-fasad"
+   ],
+   "to": [
+    "termopanel",
+    "tp-004-30x60-kuba"
+   ],
+   "name": "Quba fasad"
+  },
+  {
+   "from": [
+    "fasad",
+    "kirpich-fasad"
+   ],
+   "to": [
+    "termopanel",
+    "tp-007-25x50-kirpich"
+   ],
+   "name": "Kirpich fasad"
+  },
+  {
+   "from": [
+    "fasad",
+    "fasad-3d"
+   ],
+   "to": [
+    "termopanel",
+    "tp-008-25x50-3d"
+   ],
+   "name": "Fasad 3D"
+  },
+  {
+   "from": [
+    "fasad",
+    "brilliant"
+   ],
+   "to": [
+    "termopanel",
+    "tp-009-25x50-brilliant"
+   ],
+   "name": "Brilliant"
+  },
+  {
+   "from": [
+    "fasad",
+    "labirint"
+   ],
+   "to": [
+    "termopanel",
+    "tp-012-25x50-labirint"
+   ],
+   "name": "Labirint"
+  },
+  {
+   "from": [
+    "skameyka",
+    "skameyka-3-forma"
+   ],
+   "to": [
+    "skameyka",
+    null
+   ],
+   "name": "Skameyka (3 forma)"
+  },
+  {
+   "from": [
+    "fasad",
+    "fasad-beeline-gladkiy"
+   ],
+   "to": [
+    "fasad",
+    null
+   ],
+   "name": "Fasad Beeline gladkiy"
+  },
+  {
+   "from": [
+    "fasad",
+    "yangi-beeline-shershaviy"
+   ],
+   "to": [
+    "fasad",
+    null
+   ],
+   "name": "Yangi Beeline shershaviy"
+  },
+  {
+   "from": [
+    "fasad",
+    "quba"
+   ],
+   "to": [
+    "fasad",
+    null
+   ],
+   "name": "Quba"
+  },
+  {
+   "from": [
+    "dekor",
+    "sokol-kalonna"
+   ],
+   "to": [
+    "fasad_dekor",
+    null
+   ],
+   "name": "Sokol kalonna"
+  },
+  {
+   "from": [
+    "dekor",
+    "sokol-friz-kubik"
+   ],
+   "to": [
+    "fasad_dekor",
+    null
+   ],
+   "name": "Sokol friz kubik"
+  },
+  {
+   "from": [
+    "dekor",
+    "karniz-1"
+   ],
+   "to": [
+    "fasad_dekor",
+    null
+   ],
+   "name": "Karniz 1"
+  },
+  {
+   "from": [
+    "dekor",
+    "pilyastr-3"
+   ],
+   "to": [
+    "fasad_dekor",
+    null
+   ],
+   "name": "Pilyastr 3"
+  },
+  {
+   "from": [
+    "dekor",
+    "kalonna"
+   ],
+   "to": [
+    "fasad_dekor",
+    null
+   ],
+   "name": "Kalonna"
+  },
+  {
+   "from": [
+    "dekor",
+    "rom-karniz-1"
+   ],
+   "to": [
+    "fasad_dekor",
+    null
+   ],
+   "name": "Rom karniz 1"
+  },
+  {
+   "from": [
+    "dekor",
+    "zina-30-120-gladkiy"
+   ],
+   "to": [
+    "fasad_dekor",
+    "zina-30-120-gladkiy"
+   ],
+   "name": "Zina 30–120 gladkiy"
+  },
+  {
+   "from": [
+    "dekor",
+    "sokol"
+   ],
+   "to": [
+    "fasad_dekor",
+    "sokol"
+   ],
+   "name": "Sokol"
+  },
+  {
+   "from": [
+    "dekor",
+    "kapitel-20"
+   ],
+   "to": [
+    "fasad_dekor",
+    null
+   ],
+   "name": "Kapitel 20"
+  },
+  {
+   "from": [
+    "dekor",
+    "kapitel-40-past"
+   ],
+   "to": [
+    "fasad_dekor",
+    null
+   ],
+   "name": "Kapitel 40 — past"
+  },
+  {
+   "from": [
+    "dekor",
+    "kapitel-40-tepa"
+   ],
+   "to": [
+    "fasad_dekor",
+    "kapitel-40-tepa"
+   ],
+   "name": "Kapitel 40 — tepa"
+  }
+ ]
+}

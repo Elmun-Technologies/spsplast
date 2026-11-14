@@ -15,8 +15,7 @@ const ROOT = process.cwd();
 const SNAPSHOT = path.join(ROOT, '.snapshot.json');
 const snapshot = fs.existsSync(SNAPSHOT) ? JSON.parse(fs.readFileSync(SNAPSHOT, 'utf8')) : null;
 const FILE = path.join(ROOT, 'data/models-2027.json');
-const APPROVED = { total: 152, trotuar: 91, fasad: 26, zabor: 10, dekor: 18, skameyka: 7 };
-const SECTIONS = snapshot?.sections?.map((s) => s.key) ?? ['trotuar', 'fasad', 'zabor', 'dekor', 'skameyka'];
+const SECTIONS = snapshot?.sections?.map((s) => s.key) ?? ['trotuar', 'fasad', 'termopanel', 'fasad_dekor', 'zabor', 'dekor', 'skameyka'];
 const LANGS = ['uz', 'ru', 'en'];
 
 const errors = [];
@@ -63,14 +62,18 @@ for (const m of models) {
   }
 }
 
-// 4. soni va bo'lim taqsimoti (tasdiqlangan 152 ga nisbatan)
+// 4. to'liqlik: biznesning to'liq ro'yxati — 3D katalog (data/catalog3d-2027.json). Trotuar kodlari
+//    sayt kodidan farq qiladi (3D: "23", sayt: "23"), shuning uchun kod bo'yicha faqat qolgan bo'limlar.
 const counts = {};
 for (const m of models) counts[m.section] = (counts[m.section] || 0) + 1;
-if (models.length !== APPROVED.total)
-  warnings.push(`model soni ${models.length} ≠ tasdiqlangan ${APPROVED.total} (yakuniy PDF kutilmoqda)`);
-for (const s of SECTIONS)
-  if ((counts[s] || 0) !== APPROVED[s])
-    warnings.push(`bo'lim ${s}: ${counts[s] || 0} ≠ tasdiqlangan ${APPROVED[s]}`);
+const c3dFile = path.join(ROOT, 'data/catalog3d-2027.json');
+if (fs.existsSync(c3dFile)) {
+  const have = new Set(models.map((m) => (m.code || '').toUpperCase()));
+  const lost = JSON.parse(fs.readFileSync(c3dFile, 'utf8')).items
+    .filter((r) => r.family !== 'trotuar' && !have.has(r.label.split('_')[0].toUpperCase()))
+    .map((r) => r.label);
+  if (lost.length) errors.push(`3D katalogdagi mahsulotlar saytda yo'q: ${lost.join(', ')}`);
+}
 
 // 5. tarjimalar qamrovi
 const missing = { ru: 0, en: 0 };

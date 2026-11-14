@@ -3,9 +3,10 @@
  *
  *   DATABASE_URL=postgres://... npm run catalog:import
  *
- * - data/models-2027.json → hozirgi saytdagi 119 model (nashr holatida, tartib saqlanadi);
- * - data/termopanel-2027.json → 76 ta fasad termopanel/dekor mahsuloti (qoralama: rasm va
- *   tarjimalar admin'da qo'shilgach nashr qilinadi).
+ * - data/models-2027.json → hozirgi saytdagi 216 model (nashr holatida, tartib saqlanadi);
+ * - data/termopanel-2027.json → 76 ta fasad termopanel/dekor mahsuloti. 2026-11-12 dan ular
+ *   statik katalogda (3D katalogdan, o'sha slug'lar bilan) bor, shuning uchun bu yerda slug
+ *   bo'yicha o'tkazib yuboriladi — ikki nusxa paydo bo'lmaydi.
  * Takror ishga tushirish xavfsiz: mavjud slug'lar o'zgartirilmaydi.
  */
 import fs from 'node:fs';

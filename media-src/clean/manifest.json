@@ -1,41 +1,177 @@
 {
- "dekor-kapitel-40-tepa-mold-a": {
-  "src": "media-src/factory/DSC03273.JPG_20260927202736.jpg",
+ "dekor-d01-ramkali-panel-mold-a-3d": {
+  "src": "public/3d/d01/qolip_tik.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.2173,
+  "cover": 0.3891,
   "edge": 0.0,
   "note": ""
  },
- "dekor-sokol-mold-a": {
-  "src": "media-src/factory/DSC03257.JPG_20260927203208.jpg",
+ "dekor-d02-ramka-2-kvadrat-mold-a-3d": {
+  "src": "public/3d/d02/qolip_tik.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.4985,
+  "cover": 0.3723,
   "edge": 0.0,
   "note": ""
  },
- "dekor-zina-30-120-gladkiy-mold-a": {
-  "src": "media-src/factory/DSC03253.JPG_20260927203235.jpg",
+ "dekor-d03-yon-tasmali-ramka-mold-a-3d": {
+  "src": "public/3d/d03/qolip_tik.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.5201,
+  "cover": 0.3807,
   "edge": 0.0,
   "note": ""
  },
- "fasad-beeline-3-mold-a": {
-  "src": "media-src/factory/DSC03250.JPG_20260927203222.jpg",
+ "dekor-d04-ramka-4-kvadrat-mold-a-3d": {
+  "src": "public/3d/d04/qolip_tik.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.4234,
+  "cover": 0.4818,
   "edge": 0.0,
   "note": ""
  },
- "fasad-labirint-mold-a": {
-  "src": "media-src/factory/DSC03174.JPG_20260927203010.jpg",
+ "dekor-d05-ramka-3-kvadrat-mold-a-3d": {
+  "src": "public/3d/d05/qolip_tik.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
-  "cover": 0.5884,
+  "cover": 0.3723,
+  "edge": 0.0,
+  "note": ""
+ },
+ "dekor-d06-oddiy-ramka-mold-a-3d": {
+  "src": "public/3d/d06/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4269,
+  "edge": 0.0,
+  "note": ""
+ },
+ "dekor-d07-ramkadagi-kvadrat-mold-a-3d": {
+  "src": "public/3d/d07/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4838,
+  "edge": 0.0,
+  "note": ""
+ },
+ "dekor-d08-rombli-panjara-mold-a-3d": {
+  "src": "public/3d/d08/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3891,
+  "edge": 0.0,
+  "note": ""
+ },
+ "dekor-d09-3d-piramida-mold-a-3d": {
+  "src": "public/3d/d09/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4176,
+  "edge": 0.0,
+  "note": ""
+ },
+ "dekor-d10-kop-ramkali-keng-mold-a-3d": {
+  "src": "public/3d/d10/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3849,
+  "edge": 0.0,
+  "note": ""
+ },
+ "dekor-d11-kop-ramkali-mold-a-3d": {
+  "src": "public/3d/d11/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4769,
+  "edge": 0.0,
+  "note": ""
+ },
+ "dekor-d12-tolqinsimon-panel-mold-a-3d": {
+  "src": "public/3d/d12/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3515,
+  "edge": 0.0,
+  "note": ""
+ },
+ "dekor-d13-tosh-panel-mold-a-3d": {
+  "src": "public/3d/d13/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2734,
+  "edge": 0.0,
+  "note": ""
+ },
+ "dekor-d14-donador-panel-mold-a-3d": {
+  "src": "public/3d/d14/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2705,
+  "edge": 0.0,
+  "note": ""
+ },
+ "dekor-d15-tishli-friz-mold-a-3d": {
+  "src": "public/3d/d15/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1948,
+  "edge": 0.0,
+  "note": ""
+ },
+ "dekor-d16-rombli-tasmali-panel-mold-a-3d": {
+  "src": "public/3d/d16/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1894,
+  "edge": 0.0,
+  "note": ""
+ },
+ "dekor-d17-qirrali-panel-mold-a-3d": {
+  "src": "public/3d/d17/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1922,
+  "edge": 0.0,
+  "note": ""
+ },
+ "dekor-d18-keng-qirrali-panel-mold-a-3d": {
+  "src": "public/3d/d18/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2902,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad-f23-4-tali-travertin-mold-a-3d": {
+  "src": "public/3d/f23/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1758,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad-f24-4-tali-tosh-mold-a-3d": {
+  "src": "public/3d/f24/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1759,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad-f25-6-tali-tosh-mold-a-3d": {
+  "src": "public/3d/f25/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2529,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad-f26-korka-15-30-mold-a-3d": {
+  "src": "public/3d/f26/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2433,
   "edge": 0.0,
   "note": ""
  },
@@ -60,6 +196,694 @@
   "status": "ok",
   "method": "rembg isnet-general-use",
   "cover": 0.4041,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-bp-001-120x40-beeline-1-mold-a-3d": {
+  "src": "public/3d/bp-001/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2412,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-bp-002-120x40-beeline-2-mold-a-3d": {
+  "src": "public/3d/bp-002/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2414,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-bp-003-120x40-beeline-3-mold-a": {
+  "src": "media-src/factory/DSC03250.JPG_20260927203222.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4234,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-bp-004-120x40-beeline-4-mold-a-3d": {
+  "src": "public/3d/bp-004/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2412,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-bp-005-30x120-beeline-mold-a-3d": {
+  "src": "public/3d/bp-005/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1856,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-fsd-001-120x40-dekor-1-mold-a-3d": {
+  "src": "public/3d/fsd-001/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2428,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-fsd-002-120x40-dekor-2-mold-a-3d": {
+  "src": "public/3d/fsd-002/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2428,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-fsd-003-120x40-dekor-3-mold-a-3d": {
+  "src": "public/3d/fsd-003/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2429,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-fsd-004-120x40-dekor-4-mold-a-3d": {
+  "src": "public/3d/fsd-004/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2427,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-fsd-005-120x40-dekor-5-mold-a-3d": {
+  "src": "public/3d/fsd-005/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2426,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-fsd-006-120x40-dekor-6-mold-a-3d": {
+  "src": "public/3d/fsd-006/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2428,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-fsd-007-120x40-dekor-7-mold-a-3d": {
+  "src": "public/3d/fsd-007/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2426,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-fsd-008-120x40-dekor-8-mold-a-3d": {
+  "src": "public/3d/fsd-008/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2429,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-fsd-009-100x50-dekor-1-mold-a-3d": {
+  "src": "public/3d/fsd-009/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3569,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-fsd-010-100x50-dekor-2-mold-a-3d": {
+  "src": "public/3d/fsd-010/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.356,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-fsd-011-100x50-dekor-3-mold-a-3d": {
+  "src": "public/3d/fsd-011/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.357,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-fsd-012-80x40-dekor-1-mold-a-3d": {
+  "src": "public/3d/fsd-012/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3596,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-fsd-013-80x40-dekor-2-mold-a-3d": {
+  "src": "public/3d/fsd-013/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3599,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-fsd-014-80x40-dekor-3-mold-a-3d": {
+  "src": "public/3d/fsd-014/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3602,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-fsd-015-50x50-dekor-1-mold-a-3d": {
+  "src": "public/3d/fsd-015/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4047,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-fsd-016-50x50-dekor-2-mold-a-3d": {
+  "src": "public/3d/fsd-016/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4261,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-kapitel-40-tepa-mold-a": {
+  "src": "media-src/factory/DSC03273.JPG_20260927202736.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2173,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-kpl-001-15-kapitel-baza-mold-a-3d": {
+  "src": "public/3d/kpl-001/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1534,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-kpl-002-20-kapitel-baza-mold-a-3d": {
+  "src": "public/3d/kpl-002/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1673,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-kpl-003-25-kapitel-baza-mold-a-3d": {
+  "src": "public/3d/kpl-003/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.167,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-kpl-004-30-kapitel-baza-mold-a-3d": {
+  "src": "public/3d/kpl-004/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1656,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-kpl-005-40-kapitel-baza-mold-a-3d": {
+  "src": "public/3d/kpl-005/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1765,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-kpl-006-50-kapitel-baza-mold-a-3d": {
+  "src": "public/3d/kpl-006/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1693,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-kpl-007-15-kapitel-baza-mold-a-3d": {
+  "src": "public/3d/kpl-007/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1614,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-kpl-008-30-kapitel-baza-mold-a-3d": {
+  "src": "public/3d/kpl-008/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1759,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-krn-001-18x120-karniz-mold-a-3d": {
+  "src": "public/3d/krn-001/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1376,
+  "edge": 0.0,
+  "note": "ichki teshiklar to'ldirildi (3.3%)"
+ },
+ "fasad_dekor-krn-002-18x120-karniz-mold-a-3d": {
+  "src": "public/3d/krn-002/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1324,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-krn-003-18x120-karniz-mold-a-3d": {
+  "src": "public/3d/krn-003/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1344,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-krn-004-18x120-karniz-mold-a-3d": {
+  "src": "public/3d/krn-004_18/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1355,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-krn-004-35x120-karniz-mold-a-3d": {
+  "src": "public/3d/krn-004_35/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.163,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-krn-005-35x120-karniz-mold-a-3d": {
+  "src": "public/3d/krn-005/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1672,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-krn-006-50x120-karniz-mold-a-3d": {
+  "src": "public/3d/krn-006/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1665,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-krn-007-35x120-karniz-mold-a-3d": {
+  "src": "public/3d/krn-007/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1648,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-krn-008-30x120-karniz-mold-a-3d": {
+  "src": "public/3d/krn-008/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1566,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-krn-009-25x120-karniz-mold-a-3d": {
+  "src": "public/3d/krn-009/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.15,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-krn-010-20x120-karniz-mold-a-3d": {
+  "src": "public/3d/krn-010/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1427,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-krn-011-45x120-karniz-mold-a-3d": {
+  "src": "public/3d/krn-011/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1654,
+  "edge": 0.0,
+  "note": "ichki teshiklar to'ldirildi (11.3%)"
+ },
+ "fasad_dekor-krn-012-18x120-karniz-mold-a-3d": {
+  "src": "public/3d/krn-012/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1357,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-nl-001-15x120-tyaga-mold-a-3d": {
+  "src": "public/3d/nl-001/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1265,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-nl-002-15x120-tyaga-mold-a-3d": {
+  "src": "public/3d/nl-002/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1397,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-nl-003-15x120-tyaga-mold-a-3d": {
+  "src": "public/3d/nl-003/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1296,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-pl-002-40x120-pilyastra-mold-a-3d": {
+  "src": "public/3d/pl-002/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2425,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-pl-003-40x120-pilyastra-mold-a-3d": {
+  "src": "public/3d/pl-003/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2426,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-pl-004-40x120-riflyoniy-mold-a-3d": {
+  "src": "public/3d/pl-004/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2427,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-pl-005-30x120-pilyastra-mold-a-3d": {
+  "src": "public/3d/pl-005/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1885,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-pl-006-10x120-pilyastra-mold-a-3d": {
+  "src": "public/3d/pl-006/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.0783,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-pl-007-20x120-pilyastra-mold-a-3d": {
+  "src": "public/3d/pl-007/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.133,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-pl-008-30x120-pilyastra-mold-a-3d": {
+  "src": "public/3d/pl-008/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1886,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-pl-009-18x120-nalichnik-mold-a-3d": {
+  "src": "public/3d/pl-009/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1269,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-pl-010-25x120-pilyastra-mold-a-3d": {
+  "src": "public/3d/pl-010/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1605,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-pl-011-30x120-pilyastra-mold-a-3d": {
+  "src": "public/3d/pl-011/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.189,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-pl-012-40x120-pilyastra-mold-a-3d": {
+  "src": "public/3d/pl-012/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2427,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-pl-013-50x120-pilyastra-mold-a-3d": {
+  "src": "public/3d/pl-013/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2988,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-pl-014-40x120-pilyastra-mold-a-3d": {
+  "src": "public/3d/pl-014/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2425,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-pl-015-50x120-pilyastra-mold-a-3d": {
+  "src": "public/3d/pl-015/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2986,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-pl-016-30x120-pilyastra-mold-a-3d": {
+  "src": "public/3d/pl-016/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1885,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-sl-001-75x50-sokol-mold-a-3d": {
+  "src": "public/3d/sl-001/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4724,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-sl-002-75x40-sokol-mold-a-3d": {
+  "src": "public/3d/sl-002/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3828,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-sl-003-60x40-sokol-mold-a-3d": {
+  "src": "public/3d/sl-003/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4749,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-sl-004-80x60-sokol-mold-a-3d": {
+  "src": "public/3d/sl-004/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4326,
+  "edge": 0.04,
+  "note": ""
+ },
+ "fasad_dekor-sokol-mold-a": {
+  "src": "media-src/factory/DSC03257.JPG_20260927203208.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4985,
+  "edge": 0.0,
+  "note": ""
+ },
+ "fasad_dekor-zina-30-120-gladkiy-mold-a": {
+  "src": "media-src/factory/DSC03253.JPG_20260927203235.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.5201,
+  "edge": 0.0,
+  "note": ""
+ },
+ "skameyka-s01-skameyka-oyogi-1-mold-a-3d": {
+  "src": "public/3d/s01/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3071,
+  "edge": 0.0,
+  "note": ""
+ },
+ "skameyka-s02-skameyka-oyogi-2-mold-a-3d": {
+  "src": "public/3d/s02/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4549,
+  "edge": 0.0,
+  "note": ""
+ },
+ "skameyka-s03-skameyka-oyogi-3-mold-a-3d": {
+  "src": "public/3d/s03/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4384,
+  "edge": 0.0,
+  "note": ""
+ },
+ "skameyka-s04-skameyka-oyogi-4-mold-a-3d": {
+  "src": "public/3d/s04/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4496,
+  "edge": 0.0,
+  "note": ""
+ },
+ "skameyka-s05-skameyka-oyogi-5-mold-a-3d": {
+  "src": "public/3d/s05/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3798,
+  "edge": 0.0,
+  "note": ""
+ },
+ "skameyka-s06-skameyka-oyogi-6-mold-a-3d": {
+  "src": "public/3d/s06/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4566,
+  "edge": 0.0,
+  "note": ""
+ },
+ "skameyka-s07-skameyka-oyogi-7-mold-a-3d": {
+  "src": "public/3d/s07/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3065,
+  "edge": 0.0,
+  "note": ""
+ },
+ "termopanel-tp-001-30x60-kirpich-mold-a-3d": {
+  "src": "public/3d/tp-001/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3631,
+  "edge": 0.0,
+  "note": ""
+ },
+ "termopanel-tp-002-30x60-gladkiy-mold-a-3d": {
+  "src": "public/3d/tp-002/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3639,
+  "edge": 0.0,
+  "note": ""
+ },
+ "termopanel-tp-003-30x60-beeline-mold-a-3d": {
+  "src": "public/3d/tp-003/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3631,
+  "edge": 0.0,
+  "note": ""
+ },
+ "termopanel-tp-004-30x60-kuba-mold-a-3d": {
+  "src": "public/3d/tp-004/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3637,
+  "edge": 0.0,
+  "note": ""
+ },
+ "termopanel-tp-005-25x50-pryamaya-mold-a-3d": {
+  "src": "public/3d/tp-005/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3676,
+  "edge": 0.0,
+  "note": ""
+ },
+ "termopanel-tp-006-25x50-kruglaya-mold-a-3d": {
+  "src": "public/3d/tp-006/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3676,
+  "edge": 0.0,
+  "note": ""
+ },
+ "termopanel-tp-007-25x50-kirpich-mold-a-3d": {
+  "src": "public/3d/tp-007/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3679,
+  "edge": 0.0,
+  "note": ""
+ },
+ "termopanel-tp-008-25x50-3d-mold-a-3d": {
+  "src": "public/3d/tp-008/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3676,
+  "edge": 0.0,
+  "note": ""
+ },
+ "termopanel-tp-009-25x50-brilliant-mold-a-3d": {
+  "src": "public/3d/tp-009/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3678,
+  "edge": 0.0,
+  "note": ""
+ },
+ "termopanel-tp-010-25x50-beeline-mold-a-3d": {
+  "src": "public/3d/tp-010/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3677,
+  "edge": 0.0,
+  "note": ""
+ },
+ "termopanel-tp-011-20x40-pryamaya-mold-a-3d": {
+  "src": "public/3d/tp-011/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.3708,
+  "edge": 0.0,
+  "note": ""
+ },
+ "termopanel-tp-012-25x50-labirint-mold-a": {
+  "src": "media-src/factory/DSC03174.JPG_20260927203010.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.5884,
   "edge": 0.0,
   "note": ""
  },
@@ -263,6 +1087,22 @@
   "edge": 0.0,
   "note": ""
  },
+ "trotuar-17-versachi-mold-a-3d": {
+  "src": "public/3d/t17/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4153,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-18-dubay-40-40-mold-a-3d": {
+  "src": "public/3d/t22/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4074,
+  "edge": 0.0,
+  "note": ""
+ },
  "trotuar-19-eksklyuziv-mold-a": {
   "src": "media-src/studio-2026/G014-mold.jpg",
   "status": "fallback",
@@ -284,6 +1124,14 @@
   "status": "ok",
   "method": "rembg isnet-general-use",
   "cover": 0.5444,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-21-taroq-mold-a-3d": {
+  "src": "public/3d/t25/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4417,
   "edge": 0.0,
   "note": ""
  },
@@ -375,11 +1223,27 @@
   "edge": 0.0,
   "note": ""
  },
+ "trotuar-31-aleya-shershavoe-mold-a-3d": {
+  "src": "public/3d/t35/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1773,
+  "edge": 0.0,
+  "note": ""
+ },
  "trotuar-32-tomir-mold-a": {
   "src": "media-src/factory/DSC03293.JPG_20260927202634.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
   "cover": 0.3684,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-33-novvot-mold-a-3d": {
+  "src": "public/3d/t37/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2241,
   "edge": 0.0,
   "note": ""
  },
@@ -396,6 +1260,14 @@
   "status": "ok",
   "method": "rembg isnet-general-use",
   "cover": 0.3819,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-36-bodom-20-20-mold-a-3d": {
+  "src": "public/3d/t40/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2244,
   "edge": 0.0,
   "note": ""
  },
@@ -423,6 +1295,22 @@
   "edge": 0.0,
   "note": ""
  },
+ "trotuar-39-dubay-toshli-mold-a-3d": {
+  "src": "public/3d/t43/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.234,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-40-dubay-shershaviy-mold-a-3d": {
+  "src": "public/3d/t44/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2318,
+  "edge": 0.0,
+  "note": ""
+ },
  "trotuar-41-dubay-yaltiroq-mold-a": {
   "src": "media-src/factory/DSC03296.JPG_20260927202618.jpg",
   "status": "ok",
@@ -447,6 +1335,14 @@
   "edge": 0.0,
   "note": ""
  },
+ "trotuar-44-parus-18-36-mold-a-3d": {
+  "src": "public/3d/t48/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2509,
+  "edge": 0.0,
+  "note": ""
+ },
  "trotuar-45-gladkiy-18-36-mold-a": {
   "src": "media-src/factory/DSC03314.JPG_20260927202510.jpg",
   "status": "ok",
@@ -468,6 +1364,14 @@
   "status": "ok",
   "method": "rembg isnet-general-use",
   "cover": 0.4498,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-48-mozaika-mold-a-3d": {
+  "src": "public/3d/t52/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2241,
   "edge": 0.0,
   "note": ""
  },
@@ -508,6 +1412,22 @@
   "status": "ok",
   "method": "rembg isnet-general-use",
   "cover": 0.5451,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-54-aziya-1-mold-a-3d": {
+  "src": "public/3d/t58/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1672,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-55-aziya-3-mold-a-3d": {
+  "src": "public/3d/t60/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2233,
   "edge": 0.0,
   "note": ""
  },
@@ -559,6 +1479,38 @@
   "edge": 0.0,
   "note": ""
  },
+ "trotuar-59-kostochka-mold-a-3d": {
+  "src": "public/3d/t64/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1855,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-60-3d-mold-a-3d": {
+  "src": "public/3d/t65/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1909,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-61-4d-mold-a-3d": {
+  "src": "public/3d/t66/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2467,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-62-vegas-mold-a-3d": {
+  "src": "public/3d/t67/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1608,
+  "edge": 0.0,
+  "note": ""
+ },
  "trotuar-63-royal-1-mold-a": {
   "src": "media-src/factory/DSC03303.JPG_20260927202554.jpg",
   "status": "ok",
@@ -599,11 +1551,35 @@
   "edge": 0.0,
   "note": "ichki teshiklar to'ldirildi (28.9%)"
  },
+ "trotuar-67-safir-mold-a-3d": {
+  "src": "public/3d/t72/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2493,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-68-aleya-uzor-mold-a-3d": {
+  "src": "public/3d/t73/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1919,
+  "edge": 0.0,
+  "note": ""
+ },
  "trotuar-69-kabanchik-15-15-mold-a": {
   "src": "media-src/factory/DSC03292.JPG_20260927202649.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
   "cover": 0.3163,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-70-kabanchik-17-5-naqshli-mold-a-3d": {
+  "src": "public/3d/t75/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2068,
   "edge": 0.0,
   "note": ""
  },
@@ -623,11 +1599,43 @@
   "edge": 0.0,
   "note": ""
  },
+ "trotuar-73-marokesh-2-mold-a-3d": {
+  "src": "public/3d/t78/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2625,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-74-nikolay-gladkiy-mold-a-3d": {
+  "src": "public/3d/t79/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2586,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-75-nikolay-shershavoe-mold-a-3d": {
+  "src": "public/3d/t80/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2586,
+  "edge": 0.0,
+  "note": ""
+ },
  "trotuar-76-ona-bola-2-mold-a": {
   "src": "media-src/factory/DSC03326.JPG_20260927202453.jpg",
   "status": "ok",
   "method": "rembg isnet-general-use",
   "cover": 0.2604,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-77-aziya-2-mold-a-3d": {
+  "src": "public/3d/t59/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1031,
   "edge": 0.0,
   "note": ""
  },
@@ -655,6 +1663,14 @@
   "edge": 0.0,
   "note": ""
  },
+ "trotuar-80-ventilyator-mold-a-3d": {
+  "src": "public/3d/t83/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1298,
+  "edge": 0.0,
+  "note": ""
+ },
  "trotuar-81-vindovs-mold-a": {
   "src": "media-src/studio-2026/G028-mold.jpg",
   "status": "fallback",
@@ -679,6 +1695,14 @@
   "edge": 0.0,
   "note": ""
  },
+ "trotuar-83-nikolay-2-mold-a-3d": {
+  "src": "public/3d/t86/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1522,
+  "edge": 0.0,
+  "note": ""
+ },
  "trotuar-84-vetnam-mold-a": {
   "src": "media-src/factory/DSC03299.JPG_20260927202613.jpg",
   "status": "ok",
@@ -695,6 +1719,30 @@
   "edge": 0.0,
   "note": ""
  },
+ "trotuar-86-aleya-3-mold-a-3d": {
+  "src": "public/3d/t89/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.1174,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-87-magna-kubik-bilan-mold-a-3d": {
+  "src": "public/3d/t90/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2494,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-88-parket-yog-och-naqshli-mold-a-3d": {
+  "src": "public/3d/t91/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2445,
+  "edge": 0.0,
+  "note": ""
+ },
  "trotuar-bumerang-mold-a": {
   "src": "media-src/studio-2026/G020-mold.jpg",
   "status": "fallback",
@@ -708,6 +1756,38 @@
   "status": "ok",
   "method": "rembg isnet-general-use",
   "cover": 0.0238,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-kaliforniya-g-mold-a-3d": {
+  "src": "public/3d/t20/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4174,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-kaliforniya-mold-a-3d": {
+  "src": "public/3d/t19/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4174,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-polosa-mold-a-3d": {
+  "src": "public/3d/t18/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4174,
+  "edge": 0.0,
+  "note": ""
+ },
+ "trotuar-shashka-mold-a-3d": {
+  "src": "public/3d/t21/qolip_tik.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4174,
   "edge": 0.0,
   "note": ""
  }

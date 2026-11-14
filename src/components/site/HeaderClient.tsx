@@ -11,7 +11,7 @@ import { LangSwitch } from '@/components/site/LangSwitch';
 import { Icon } from '@/components/site/icons';
 
 /** `match` — faol holat uchun yo'l prefiksi ('' — hech qachon faol emas, masalan #eksport). */
-type NavItem = { href: string; match: string; label: string; count?: number };
+type NavItem = { href: string; match: string; label: string; full?: string; count?: number };
 
 const isActive = (pathname: string, match: string) =>
   Boolean(match) && (pathname === match || pathname.startsWith(`${match}/`));
@@ -37,14 +37,32 @@ export function HeaderClient({
   const [menuOpen, setMenuOpen] = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);
   const burgerRef = useRef<HTMLAnchorElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!menuOpen) return;
     closeRef.current?.focus();
+    // Fokus tuzog'i (audit 2026-11-02): modal ochiqda Tab/Shift+Tab panel ichidagi
+    // havolalar/tugmalar orasida aylanadi, ortidagi sahifaga chiqib ketmaydi.
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setMenuOpen(false);
         burgerRef.current?.focus();
+        return;
+      }
+      if (e.key !== 'Tab' || !panelRef.current) return;
+      const focusables = Array.from(
+        panelRef.current.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'),
+      ).filter((el) => el.offsetParent !== null);
+      if (!focusables.length) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
       }
     };
     document.addEventListener('keydown', onKey);
@@ -59,8 +77,8 @@ export function HeaderClient({
   // "Katalog" tabi faqat umumiy katalogda faol; bo'lim sahifasida bo'lim tabi faol.
   const catalogActive = pathname === catalogHref;
   const tabs = [
-    { href: catalogHref, label: t.header.catalog, count: total, active: catalogActive },
-    ...sections.map((s) => ({ href: s.href, label: s.label, count: s.count, active: isActive(pathname, s.match) })),
+    { href: catalogHref, label: t.header.catalog, full: t.header.catalog, count: total, active: catalogActive },
+    ...sections.map((s) => ({ href: s.href, label: s.label, full: s.full ?? s.label, count: s.count, active: isActive(pathname, s.match) })),
   ];
 
   return (
@@ -97,7 +115,7 @@ export function HeaderClient({
 
           <nav className={`hd-tabs${lang === 'ru' ? ' hd-tabs--ru' : ''}`} aria-label={t.a11y.sectionsNav}>
             {tabs.map((tab) => (
-              <a key={tab.href} href={tab.href} aria-current={tab.active ? 'page' : undefined}>
+              <a key={tab.href} href={tab.href} title={tab.full !== tab.label ? tab.full : undefined} aria-current={tab.active ? 'page' : undefined}>
                 {tab.label}
                 <span className="num">{tab.count}</span>
               </a>
@@ -153,7 +171,7 @@ export function HeaderClient({
         Tashqi `div` (role/hidden/ref) doim qoladi, shuning uchun ochilganda
         semantika va fokus oqimi o'zgarmaydi.
       */}
-      <div className="mm" id="sps-mobile-menu" hidden={!menuOpen} role="dialog" aria-modal="true" aria-label={t.header.menu}>
+      <div className="mm" id="sps-mobile-menu" hidden={!menuOpen} role="dialog" aria-modal="true" aria-label={t.header.menu} ref={panelRef}>
         {menuOpen ? (
           <>
             <div className="mm-head">
@@ -175,7 +193,7 @@ export function HeaderClient({
             <nav className="mm-nav" aria-label={t.a11y.mobileNav}>
               {tabs.map((tab) => (
                 <a key={tab.href} className="mm-link" href={tab.href} aria-current={tab.active ? 'page' : undefined}>
-                  {tab.label} <span className="mono">{tab.count}</span>
+                  {tab.full} <span className="mono">{tab.count}</span>
                 </a>
               ))}
               <div className="mm-sub">

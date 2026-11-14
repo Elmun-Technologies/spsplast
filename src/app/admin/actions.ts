@@ -10,6 +10,7 @@ import {
   createSession,
   deleteSession,
   isUniqueViolation,
+  normalizeEmail,
   setUserActive,
   setUserPassword,
 } from '@/server/auth';
@@ -44,17 +45,25 @@ const int = (fd: FormData, k: string) => {
 
 export async function loginAction(_prev: FormState, fd: FormData): Promise<FormState> {
   const db = getDb();
-  const values = { email: str(fd, 'email') };
+  const emailRaw = str(fd, 'email');
+  const values = { email: emailRaw };
   if (!db) return { error: 'Baza ulanmagan (DATABASE_URL).', values };
   const ip = (await headers()).get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
   // Faqat xato urinishlar sanaladi: ofisdagi bir IP ortidagi menejerlar bir-birini bloklamaydi.
-  const key = ipKey('login', ip); // bazada IP emas, HMAC xeshi
-  if ((await recentHits(db, key, 15 * 60 * 1000)) >= 10) {
+  const ipRateKey = ipKey('login', ip); // bazada IP emas, HMAC xeshi
+  // E-pochta bo'yicha ham: aks holda bitta hisobni ko'p xil IP'dan (botnet) cheksiz urinish
+  // mumkin edi — IP limiti buni to'xtatmaydi (audit 2026-11-02, xavfsizlik).
+  const emailRateKey = ipKey('login_email', normalizeEmail(emailRaw));
+  const [ipHits, emailHits] = await Promise.all([
+    recentHits(db, ipRateKey, 15 * 60 * 1000),
+    recentHits(db, emailRateKey, 15 * 60 * 1000),
+  ]);
+  if (ipHits >= 10 || emailHits >= 5) {
     return { error: "Juda ko'p urinish. 15 daqiqadan keyin qayta urinib ko'ring.", values };
   }
-  const user = await authenticate(db, str(fd, 'email'), String(fd.get('password') ?? ''));
+  const user = await authenticate(db, emailRaw, String(fd.get('password') ?? ''));
   if (!user) {
-    await recordHit(db, key);
+    await Promise.all([recordHit(db, ipRateKey), recordHit(db, emailRateKey)]);
     return { error: "E-pochta yoki parol noto'g'ri.", values };
   }
   const { token, expiresAt } = await createSession(db, user.id);

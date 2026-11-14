@@ -19,9 +19,12 @@ import {
 } from '@/lib/catalog2027';
 import { CatalogClient } from '@/components/catalog2027/CatalogClient';
 import { Icon } from '@/components/site/icons';
-import { pageMetadata } from '@/lib/seo';
+import { jsonLdReview, pageMetadata } from '@/lib/seo';
+import { JsonLd } from '@/components/site/JsonLd';
 import { PDF_CATALOG_HREF } from '@/components/site/SiteHeader';
 import { notFound } from 'next/navigation';
+import { Testimonials } from '@/components/site/Testimonials';
+import { getTestimonials, testimonialAuthorName, testimonialText } from '@/lib/testimonials2027';
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -78,9 +81,17 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   const featuredPer = featured ? modelPerM2(featured) : null;
   const exMolds = featured ? calcMolds(featured, CALC_EXAMPLE_M2) : null;
   const exWeight = featured ? calcWeight(featured, CALC_EXAMPLE_M2) : null;
+  const testimonials = getTestimonials();
 
   return (
     <>
+      {testimonials.length ? (
+        <JsonLd
+          data={testimonials.map((item) =>
+            jsonLdReview({ authorName: testimonialAuthorName(item, lang), reviewBody: testimonialText(item, lang), rating: item.rating }),
+          )}
+        />
+      ) : null}
       {/* 1. Hero (A — yorug'): matn + terilgan plitka surati ustida spec karta, ostida raqamlar */}
       <section className="hm-hero">
         <div className="wrap">
@@ -343,6 +354,14 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           </div>
         </div>
       </section>
+
+      <Testimonials
+        items={testimonials}
+        lang={lang}
+        eyebrowLabel={p.home.testimonialsEyebrowLabel}
+        eyebrow={p.home.testimonialsEyebrow}
+        title={p.home.testimonialsTitle}
+      />
 
       {/* 6. Ulgurji va hamkorlik */}
       <section className="sec">

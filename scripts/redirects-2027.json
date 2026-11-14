@@ -2,6 +2,321 @@
  "$comment": "GENERATED — scripts/extract/build_redirects_2027.py. Eski URL → yangi marshrut (301).",
  "redirects": [
   {
+   "source": "/uz/catalog/facade/beeline-3",
+   "destination": "/uz/catalog/facade-decor/bp-003-120x40-beeline-3",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/catalog/facade/beeline-3",
+   "destination": "/ru/catalog/facade-decor/bp-003-120x40-beeline-3",
+   "statusCode": 301
+  },
+  {
+   "source": "/en/catalog/facade/beeline-3",
+   "destination": "/en/catalog/facade-decor/bp-003-120x40-beeline-3",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/catalog/facade/quba-fasad",
+   "destination": "/uz/catalog/thermal-panels/tp-004-30x60-kuba",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/catalog/facade/quba-fasad",
+   "destination": "/ru/catalog/thermal-panels/tp-004-30x60-kuba",
+   "statusCode": 301
+  },
+  {
+   "source": "/en/catalog/facade/quba-fasad",
+   "destination": "/en/catalog/thermal-panels/tp-004-30x60-kuba",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/catalog/facade/kirpich-fasad",
+   "destination": "/uz/catalog/thermal-panels/tp-007-25x50-kirpich",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/catalog/facade/kirpich-fasad",
+   "destination": "/ru/catalog/thermal-panels/tp-007-25x50-kirpich",
+   "statusCode": 301
+  },
+  {
+   "source": "/en/catalog/facade/kirpich-fasad",
+   "destination": "/en/catalog/thermal-panels/tp-007-25x50-kirpich",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/catalog/facade/fasad-3d",
+   "destination": "/uz/catalog/thermal-panels/tp-008-25x50-3d",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/catalog/facade/fasad-3d",
+   "destination": "/ru/catalog/thermal-panels/tp-008-25x50-3d",
+   "statusCode": 301
+  },
+  {
+   "source": "/en/catalog/facade/fasad-3d",
+   "destination": "/en/catalog/thermal-panels/tp-008-25x50-3d",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/catalog/facade/brilliant",
+   "destination": "/uz/catalog/thermal-panels/tp-009-25x50-brilliant",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/catalog/facade/brilliant",
+   "destination": "/ru/catalog/thermal-panels/tp-009-25x50-brilliant",
+   "statusCode": 301
+  },
+  {
+   "source": "/en/catalog/facade/brilliant",
+   "destination": "/en/catalog/thermal-panels/tp-009-25x50-brilliant",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/catalog/facade/labirint",
+   "destination": "/uz/catalog/thermal-panels/tp-012-25x50-labirint",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/catalog/facade/labirint",
+   "destination": "/ru/catalog/thermal-panels/tp-012-25x50-labirint",
+   "statusCode": 301
+  },
+  {
+   "source": "/en/catalog/facade/labirint",
+   "destination": "/en/catalog/thermal-panels/tp-012-25x50-labirint",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/catalog/bench/skameyka-3-forma",
+   "destination": "/uz/catalog/bench",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/catalog/bench/skameyka-3-forma",
+   "destination": "/ru/catalog/bench",
+   "statusCode": 301
+  },
+  {
+   "source": "/en/catalog/bench/skameyka-3-forma",
+   "destination": "/en/catalog/bench",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/catalog/facade/fasad-beeline-gladkiy",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/catalog/facade/fasad-beeline-gladkiy",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/en/catalog/facade/fasad-beeline-gladkiy",
+   "destination": "/en/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/catalog/facade/yangi-beeline-shershaviy",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/catalog/facade/yangi-beeline-shershaviy",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/en/catalog/facade/yangi-beeline-shershaviy",
+   "destination": "/en/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/catalog/facade/quba",
+   "destination": "/uz/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/catalog/facade/quba",
+   "destination": "/ru/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/en/catalog/facade/quba",
+   "destination": "/en/catalog/facade",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/catalog/decor/sokol-kalonna",
+   "destination": "/uz/catalog/facade-decor",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/catalog/decor/sokol-kalonna",
+   "destination": "/ru/catalog/facade-decor",
+   "statusCode": 301
+  },
+  {
+   "source": "/en/catalog/decor/sokol-kalonna",
+   "destination": "/en/catalog/facade-decor",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/catalog/decor/sokol-friz-kubik",
+   "destination": "/uz/catalog/facade-decor",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/catalog/decor/sokol-friz-kubik",
+   "destination": "/ru/catalog/facade-decor",
+   "statusCode": 301
+  },
+  {
+   "source": "/en/catalog/decor/sokol-friz-kubik",
+   "destination": "/en/catalog/facade-decor",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/catalog/decor/karniz-1",
+   "destination": "/uz/catalog/facade-decor",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/catalog/decor/karniz-1",
+   "destination": "/ru/catalog/facade-decor",
+   "statusCode": 301
+  },
+  {
+   "source": "/en/catalog/decor/karniz-1",
+   "destination": "/en/catalog/facade-decor",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/catalog/decor/pilyastr-3",
+   "destination": "/uz/catalog/facade-decor",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/catalog/decor/pilyastr-3",
+   "destination": "/ru/catalog/facade-decor",
+   "statusCode": 301
+  },
+  {
+   "source": "/en/catalog/decor/pilyastr-3",
+   "destination": "/en/catalog/facade-decor",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/catalog/decor/kalonna",
+   "destination": "/uz/catalog/facade-decor",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/catalog/decor/kalonna",
+   "destination": "/ru/catalog/facade-decor",
+   "statusCode": 301
+  },
+  {
+   "source": "/en/catalog/decor/kalonna",
+   "destination": "/en/catalog/facade-decor",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/catalog/decor/rom-karniz-1",
+   "destination": "/uz/catalog/facade-decor",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/catalog/decor/rom-karniz-1",
+   "destination": "/ru/catalog/facade-decor",
+   "statusCode": 301
+  },
+  {
+   "source": "/en/catalog/decor/rom-karniz-1",
+   "destination": "/en/catalog/facade-decor",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/catalog/decor/zina-30-120-gladkiy",
+   "destination": "/uz/catalog/facade-decor/zina-30-120-gladkiy",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/catalog/decor/zina-30-120-gladkiy",
+   "destination": "/ru/catalog/facade-decor/zina-30-120-gladkiy",
+   "statusCode": 301
+  },
+  {
+   "source": "/en/catalog/decor/zina-30-120-gladkiy",
+   "destination": "/en/catalog/facade-decor/zina-30-120-gladkiy",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/catalog/decor/sokol",
+   "destination": "/uz/catalog/facade-decor/sokol",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/catalog/decor/sokol",
+   "destination": "/ru/catalog/facade-decor/sokol",
+   "statusCode": 301
+  },
+  {
+   "source": "/en/catalog/decor/sokol",
+   "destination": "/en/catalog/facade-decor/sokol",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/catalog/decor/kapitel-20",
+   "destination": "/uz/catalog/facade-decor",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/catalog/decor/kapitel-20",
+   "destination": "/ru/catalog/facade-decor",
+   "statusCode": 301
+  },
+  {
+   "source": "/en/catalog/decor/kapitel-20",
+   "destination": "/en/catalog/facade-decor",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/catalog/decor/kapitel-40-past",
+   "destination": "/uz/catalog/facade-decor",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/catalog/decor/kapitel-40-past",
+   "destination": "/ru/catalog/facade-decor",
+   "statusCode": 301
+  },
+  {
+   "source": "/en/catalog/decor/kapitel-40-past",
+   "destination": "/en/catalog/facade-decor",
+   "statusCode": 301
+  },
+  {
+   "source": "/uz/catalog/decor/kapitel-40-tepa",
+   "destination": "/uz/catalog/facade-decor/kapitel-40-tepa",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/catalog/decor/kapitel-40-tepa",
+   "destination": "/ru/catalog/facade-decor/kapitel-40-tepa",
+   "statusCode": 301
+  },
+  {
+   "source": "/en/catalog/decor/kapitel-40-tepa",
+   "destination": "/en/catalog/facade-decor/kapitel-40-tepa",
+   "statusCode": 301
+  },
+  {
    "source": "/uz/product/g001-floriya",
    "destination": "/uz/catalog/paving/15-floriya",
    "statusCode": 301
@@ -553,12 +868,12 @@
   },
   {
    "source": "/uz/product/g056-ramkali-panel",
-   "destination": "/uz/catalog/paving",
+   "destination": "/uz/catalog/decor/d01-ramkali-panel",
    "statusCode": 301
   },
   {
    "source": "/ru/product/g056-ramkali-panel",
-   "destination": "/ru/catalog/paving",
+   "destination": "/ru/catalog/decor/d01-ramkali-panel",
    "statusCode": 301
   },
   {
@@ -1213,12 +1528,12 @@
   },
   {
    "source": "/uz/product/a10-028-qatlamli-tosh",
-   "destination": "/uz/catalog/facade",
+   "destination": "/uz/catalog/decor/d13-tosh-panel",
    "statusCode": 301
   },
   {
    "source": "/ru/product/a10-028-qatlamli-tosh",
-   "destination": "/ru/catalog/facade",
+   "destination": "/ru/catalog/decor/d13-tosh-panel",
    "statusCode": 301
   },
   {
@@ -1623,12 +1938,12 @@
   },
   {
    "source": "/uz/product/tsokol-paneli-qolipi-ramkali",
-   "destination": "/uz/catalog/decor/sokol",
+   "destination": "/uz/catalog/facade-decor/sokol",
    "statusCode": 301
   },
   {
    "source": "/ru/product/forma-cokolnoj-paneli-ramochnaya",
-   "destination": "/ru/catalog/decor/sokol",
+   "destination": "/ru/catalog/facade-decor/sokol",
    "statusCode": 301
   },
   {

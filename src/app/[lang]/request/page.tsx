@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, locales, type Locale } from '@/lib/i18n';
 import { getPages } from '@/lib/pages';
+import { getUi } from '@/lib/ui';
 import { RequestClient } from '@/components/request2027/RequestClient';
 
 export function generateStaticParams() {
@@ -17,5 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 export default async function RequestPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang: langParam } = await params;
   if (!isValidLocale(langParam)) notFound();
-  return <RequestClient lang={langParam as Locale} />;
+  const lang = langParam as Locale;
+  const pages = getPages(lang);
+  return <RequestClient lang={lang} t={getUi(lang)} p={{ model: pages.model, request: pages.request }} />;
 }

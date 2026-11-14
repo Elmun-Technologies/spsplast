@@ -3,6 +3,10 @@ import { checkRateLimit } from '@/lib/rateLimit';
 import { SITE_URL } from '@/lib/seo';
 import { getDb } from '@/server/db/client';
 import { VISIT_EVENTS, isBot, pruneVisits, recordVisit } from '@/server/visits';
+import { isCrossOrigin, readLimitedText } from '@/lib/requestGuard';
+
+/** Beacon payload'i mayda (barcha maydonlar jami ~1 KB dan kichik). */
+const MAX_BODY_BYTES = 4 * 1024;
 
 /**
  * Tashrif statistikasi uchun beacon (`navigator.sendBeacon`): sahifa ko'rish va
@@ -41,10 +45,14 @@ export async function POST(req: Request) {
   if (isBot(ua)) return NO_CONTENT();
   const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
   if (!checkRateLimit(`track_${ip}`, 120, 60_000).allowed) return NO_CONTENT();
+  // Begona sayt skriptidan soxta tashrif yuborilmasin (statistikani buzadi) — audit 2026-11-02.
+  if (isCrossOrigin(req)) return NO_CONTENT();
 
+  const text = await readLimitedText(req, MAX_BODY_BYTES);
+  if (text === null) return NO_CONTENT();
   let raw: unknown;
   try {
-    raw = JSON.parse(await req.text());
+    raw = JSON.parse(text);
   } catch {
     return NO_CONTENT();
   }

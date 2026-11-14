@@ -26,7 +26,7 @@ test('1. Rasmsiz model: kartochka yozuvi markazda, model sahifasida "suratini so
   const css = read('src/app/globals.css');
   assert.match(css, /\.sps-card__media > a\.sps-card__nophoto \{ display: flex;/);
   const model = read('src/components/model2027/ModelClient.tsx');
-  assert.match(model, /photoAskMessage\(/);
+  assert.match(model, /photoAskMessageTemplate\.replace\(/);
   assert.match(read('src/app/[lang]/catalog/[section]/[slug]/page.tsx'), /noindex: !hasAnyImage\(model\)/);
   assert.match(read('src/lib/sitePaths.ts'), /autoNoindex: true/);
   assert.match(read('src/app/sitemap.ts'), /autoNoindex\) continue/);
@@ -52,7 +52,7 @@ test('3. WhatsApp: hero, footer, telefonda suzuvchi tugma, model panelida model 
   assert.match(read('src/components/site/MessengerFab.tsx'), /whatsappUrl\}\?text=/);
   assert.match(read('src/app/[lang]/page.tsx'), /whatsappUrl\}\?text=/);
   assert.match(read('src/components/site/SiteFooter.tsx'), /whatsappUrl/);
-  assert.match(read('src/components/model2027/ModelClient.tsx'), /p\.model\.waAbout\(/);
+  assert.match(read('src/components/model2027/ModelClient.tsx'), /p\.model\.waAboutTemplate\.replace\(/);
   const css = read('src/app/globals.css');
   assert.match(css, /body:has\(\.mbar\) \.wa-fab \{ display: none; \}/);
 });

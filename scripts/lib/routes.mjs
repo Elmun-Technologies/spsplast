@@ -32,15 +32,21 @@ export const AUDIT_ROUTES = [
   { path: '/ru/catalog/facade', lang: 'ru', expect: { jsonLd: ['BreadcrumbList'] } },
   { path: '/en/catalog/decor', lang: 'en', expect: { jsonLd: ['BreadcrumbList'] } },
   { path: '/uz/catalog/bench', lang: 'uz', expect: { jsonLd: ['BreadcrumbList'] } },
-  // 0 model: marshrut ishlaydi, lekin sitemap'da yo'q (yupqa kontent).
-  { path: '/uz/catalog/fence', lang: 'uz', expect: { jsonLd: ['BreadcrumbList'], thin: true } },
+  // 2026-11-12: 3D katalogdan qo'shilgan bo'limlar (zabor endi bo'sh emas).
+  { path: '/uz/catalog/fence', lang: 'uz', expect: { jsonLd: ['BreadcrumbList'] } },
+  { path: '/uz/catalog/thermal-panels', lang: 'uz', expect: { jsonLd: ['BreadcrumbList'] } },
+  { path: '/ru/catalog/facade-decor', lang: 'ru', expect: { jsonLd: ['BreadcrumbList'] } },
 
   { path: '/uz/catalog/paving/01-monako', lang: 'uz', expect: { jsonLd: ['BreadcrumbList', 'Product', 'FAQPage'] } },
   { path: '/ru/catalog/paving/15-floriya', lang: 'ru', expect: { jsonLd: ['BreadcrumbList', 'Product', 'FAQPage'] } },
-  { path: '/en/catalog/decor/kapitel-40-tepa', lang: 'en', expect: { jsonLd: ['BreadcrumbList', 'Product', 'FAQPage'] } },
+  { path: '/en/catalog/facade-decor/kapitel-40-tepa', lang: 'en', expect: { jsonLd: ['BreadcrumbList', 'Product', 'FAQPage'] } },
+  { path: '/uz/catalog/thermal-panels/tp-012-25x50-labirint', lang: 'uz', expect: { jsonLd: ['BreadcrumbList', 'Product', 'FAQPage'] } },
+  { path: '/ru/catalog/facade-decor/krn-005-35x120-karniz', lang: 'ru', expect: { jsonLd: ['BreadcrumbList', 'Product', 'FAQPage'] } },
+  { path: '/en/catalog/fence/z03-yevrozabor-reykalar', lang: 'en', expect: { jsonLd: ['BreadcrumbList', 'Product', 'FAQPage'] } },
+  { path: '/uz/catalog/decor/d08-rombli-panjara', lang: 'uz', expect: { jsonLd: ['BreadcrumbList', 'Product', 'FAQPage'] } },
   // Rasmsiz model: fallback (placeholder) va alt matnlari tekshiriladi.
   // Rasmsiz model: rasm kelguncha `noindex, follow` (audit 2026-11-02) — sahifa ishlaydi, sitemap'da yo'q.
-  { path: '/uz/catalog/paving/70-kabanchik-17-5-naqshli', lang: 'uz', expect: { jsonLd: ['Product'], noImage: true, noindex: true } },
+  { path: '/uz/catalog/paving/29-eksklyuziv-30-30-4-sakkiz-qirra', lang: 'uz', expect: { jsonLd: ['Product'], noImage: true, noindex: true } },
 
   // SEO landing (docs/SEO-2028-RU.md): teg va eksport (geo) sahifalari
   { path: '/ru/catalog/paving/tag/300x300', lang: 'ru', expect: { jsonLd: ['BreadcrumbList', 'ItemList'] } },
@@ -73,6 +79,10 @@ export const AUDIT_ROUTES = [
   // 404: status, noindex va brendlangan tana.
   { path: '/uz/catalog/paving/this-model-does-not-exist', lang: 'uz', expect: { status: 404, noindex: true, allowCyrillic: true } },
   { path: '/xx', lang: null, expect: { status: 404, noindex: true, allowCyrillic: true } },
+  // Lang ichidagi mos kelmaydigan yo'l (audit 2026-11-02, 3-bosqich): avval ildiz 404'ga
+  // tushib, o'zbekcha va header'siz chiqar edi — `[lang]/[...slug]` ushlagichi bilan tuzatildi.
+  { path: '/ru/bu-yol-mavjud-emas', lang: 'ru', expect: { status: 404, noindex: true } },
+  { path: '/en/this-path-does-not-exist', lang: 'en', expect: { status: 404, noindex: true } },
 
   // 301 migratsiya: eski manzillar yangi sahifaga tushishi kerak.
   { path: '/uz/product/g001-floriya', lang: null, expect: { status: 301, redirectTo: '/uz/catalog/paving/15-floriya' } },

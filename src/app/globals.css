@@ -388,18 +388,22 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
   grid-template-areas: 'logo . actions' 'search search search' 'tabs tabs tabs';
   align-items: center; column-gap: 8px;
 }
-.hd-logo { grid-area: logo; display: flex; align-items: center; height: 60px; }
+/* Mobil sarlavha ixchamroq (audit 2026-11-02, 3-bosqich: model sahifasida H1 pastki
+   yopishqoq panel ostida to'liq yashiringan edi — 390×844 da aniq o'lchab tasdiqlangan).
+   Logo qatori va qatorlar orasidagi bo'sh joy kichraytirildi; tegish maydonlari (qidiruv
+   44px, bo'lim pillari) o'zgarmaydi — faqat ularning atrofidagi bo'sh joy. */
+.hd-logo { grid-area: logo; display: flex; align-items: center; height: 52px; }
 .hd-logo img { height: 32px; width: auto; }
 .hd-search {
   grid-area: search; display: flex; align-items: center; gap: 8px; height: 44px; min-width: 0;
   padding: 0 14px; border-radius: var(--radius-btn); background: var(--surface-alt); color: var(--ink-muted);
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 .hd-search:focus-within { outline: 2px solid var(--focus); outline-offset: 0; }
 .hd-search input { flex: 1; min-width: 0; border: 0; outline: 0; background: none; color: var(--ink); font: 400 16px/20px var(--font-sans); }
 .hd-tabs {
   grid-area: tabs; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
-  margin-inline: calc(var(--gutter) * -1); padding: 0 var(--gutter) 10px;
+  margin-inline: calc(var(--gutter) * -1); padding: 0 var(--gutter) 6px;
 }
 .hd-tabs::-webkit-scrollbar { display: none; }
 .hd-tabs a {
@@ -449,14 +453,14 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
   .hd-tabs a[aria-current='page'] .num { color: var(--ink-muted); }
 }
 @media (min-width: 761px) and (max-width: 1100px) { .hd-util__hours { display: none; } }
+/* 7 bo'lim (2026-11-12, 3D katalog) bir qatorga logo/qidiruv bilan sig'maydi: desktopda ham
+   tablar alohida qatorda (qisqa nomlar — `sectionShortLabel`), 1440 px da gorizontal scroll yo'q. */
 @media (min-width: 1201px) {
-  .hd-main { grid-template-columns: auto auto minmax(200px, 1fr) auto; grid-template-areas: 'logo tabs search actions'; column-gap: 24px; }
-  .hd-logo { height: 76px; }
+  .hd-main { column-gap: 24px; }
+  .hd-logo { height: 68px; }
   .hd-logo img { height: 40px; }
-  .hd-tabs { border-top: 0; align-self: stretch; overflow: visible; }
-  .hd-tabs a { height: 76px; }
-  .hd-tabs a:first-child { padding-left: 12px; }
-  .hd-search { max-width: 340px; }
+  .hd-search { max-width: 420px; }
+  .hd-tabs { justify-content: space-between; }
 }
 /* RU'da tab nomlari uzun ("Тротуарная плитка", "Оставить заявку"): ichki joy kichikroq (HANDOFF 4.10) */
 @media (min-width: 761px) { .hd-tabs--ru a { padding-inline: 10px; } }
@@ -620,10 +624,10 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
 
 /* --- Katalog bloki (bosqich 2) ------------------------------------------------ */
 .cat { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-5); }
-@media (min-width: 1101px) { .cat { grid-template-columns: 248px minmax(0, 1fr); gap: var(--space-6); } }
+@media (min-width: 1101px) { .cat { grid-template-columns: 248px minmax(0, 1fr); gap: var(--space-6); } .cat--nofilters { grid-template-columns: minmax(0, 1fr); } }
 .cat-side { display: none; }
 @media (min-width: 1101px) {
-  .cat-side { display: block; position: sticky; top: 100px; align-self: start; max-height: calc(100vh - 116px); overflow: auto; }
+  .cat-side { display: block; position: sticky; top: 132px; align-self: start; max-height: calc(100vh - 148px); overflow: auto; }
 }
 /* Filtr guruhi: sarlavha — kichik CAPS yorliq (h2 semantikasi saqlanadi, audit qoidasi),
    variant — butun qator tugma; tanlangani grafit (radio kabi, qayta bosish bekor qiladi). */
@@ -663,9 +667,18 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
 .cat-grid--list .sps-card { flex-direction: row; }
 .cat-grid--list .sps-card__media { width: 240px; flex: none; aspect-ratio: 1 / 1; }
 .cat-grid--list .sps-card__body { padding: var(--space-5); }
+/* Mobil ro'yxat: ixcham qator — chapda 112px rasm, o'ngda nom/spec/tugma (avval to'r bilan bir xil,
+   to'liq kenglikdagi katta kartochka edi, ko'rinishlar orasida farq yo'q edi — 2026-11-12). */
 @media (max-width: 640px) {
-  .cat-grid--list .sps-card { flex-direction: column; }
-  .cat-grid--list .sps-card__media { width: 100%; }
+  .cat-grid--list { gap: var(--space-2); }
+  .cat-grid--list .sps-card { display: grid; grid-template-columns: 112px minmax(0, 1fr); grid-template-rows: auto auto; }
+  .cat-grid--list .sps-card__media { width: auto; grid-row: 1 / span 2; align-self: stretch; aspect-ratio: auto; min-height: 112px; }
+  .cat-grid--list .sps-card__mold, .cat-grid--list .sps-card__quick { display: none; }
+  /* kod tegi tepada, solishtirish pastki burchakda — 112px'da ustma-ust tushmasin; tegish maydoni 44px qoladi */
+  .cat-grid--list .sps-card__cmp { top: auto; bottom: 6px; right: 6px; }
+  .cat-grid--list .sps-card__no { top: 6px; left: 6px; }
+  .cat-grid--list .sps-card__body, .cat-grid--list .sps-card--inset .sps-card__body { padding: 10px 12px 6px; }
+  .cat-grid--list .sps-card__foot { padding: 0 12px 12px; margin: 0; }
 }
 /* Ro'yxat ko'rinishida qolip rasm ichida qoladi (tana yonida, ostida emas). */
 .cat-grid--list .sps-card--inset .sps-card__mold { bottom: var(--space-3); }
@@ -884,8 +897,8 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
 /* --- Model sahifasi (Redesign 2028) ---------------------------------------------------
    Desktop: 96px miniatyuralar | katta rasm (1:1) | 440px yopishgan panel.
    Fonsiz qolip/plitka ko'rinishi "chizma taxtasi": mm-to'r + o'lcham chizig'i. */
-.pd-sec { padding-block: var(--space-4) 40px; background: var(--surface-alt); }
-.pdp { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; align-items: start; }
+.pd-sec { padding-block: 12px 40px; background: var(--surface-alt); }
+.pdp { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; align-items: start; }
 .stage {
   position: relative; aspect-ratio: 1; background: var(--surface); display: flex; align-items: center; justify-content: center;
   overflow: hidden; order: 1; margin-inline: calc(-1 * var(--gutter)); border: 1px solid var(--line);
@@ -938,8 +951,8 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
 .tabs .on { color: var(--ink); font-weight: 600; border-bottom-color: var(--red); }
 .spec-split { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-5); align-items: start; }
 .spec-split > div > div { border-radius: var(--radius-card); }
-.mbar { display: flex; position: sticky; bottom: 0; z-index: 20; background: var(--surface); border-top: 1px solid var(--line); padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); gap: 8px; box-shadow: 0 -8px 24px rgba(21, 23, 26, .08); }
-.mbar .sps-btn { height: 52px; }
+.mbar { display: flex; position: sticky; bottom: 0; z-index: 20; background: var(--surface); border-top: 1px solid var(--line); padding: 6px 16px calc(6px + env(safe-area-inset-bottom)); gap: 8px; box-shadow: 0 -8px 24px rgba(21, 23, 26, .08); }
+.mbar .sps-btn { height: 46px; }
 .rel { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
 .rc { border: 1px solid var(--line); background: var(--surface); text-decoration: none; color: var(--ink); display: flex; flex-direction: column; border-radius: var(--radius-card); overflow: hidden; transition: border-color .16s ease-out, box-shadow .16s ease-out; }
 .rc:hover { border-color: var(--line-strong); box-shadow: var(--shadow-raise); }
@@ -964,7 +977,7 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
   .stage { order: 0; }
   .th { flex-direction: column; order: 0; overflow: visible; gap: 10px; }
   .th button { width: 96px; height: 96px; }
-  .side-sticky { order: 0; position: sticky; top: 100px; }
+  .side-sticky { order: 0; position: sticky; top: 132px; }
   .rel { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .spec-split { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 64px; }
 }
@@ -1310,3 +1323,23 @@ html[data-scrolled] .hd { box-shadow: 0 6px 24px rgba(21, 23, 26, .08); border-b
 @media (min-width: 1101px) { .geo-steps { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
 .geo-form { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-6); align-items: start; }
 @media (min-width: 1001px) { .geo-form { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; } }
+
+/* Katalog/bo'lim sarlavha bandi (HANDOFF 02-katalog): och fon, yo'l, H1, izoh, o'ngda PDF + Zayafka.
+   Ilgari oddiy "Katalog" sarlavhasi va tepada bo'sh joy edi (2026-11-12). */
+.cat-head { background: var(--surface-alt); border-bottom: 1px solid var(--line); }
+.cat-head__in { display: grid; gap: var(--space-4); padding-block: var(--space-5); }
+.cat-head__text { display: flex; flex-direction: column; gap: var(--space-3); min-width: 0; }
+.cat-head__text .h1 { margin: 0; }
+.cat-head__lead { margin: 0; font: 400 15px/22px var(--font-sans); max-width: 70ch; }
+.cat-head__cta { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.cat-head__cta .sps-btn { flex: 1 1 auto; }
+@media (min-width: 761px) {
+  .cat-head__in { grid-template-columns: minmax(0, 1fr) auto; align-items: end; padding-block: var(--space-6); }
+  .cat-head__cta .sps-btn { flex: none; }
+}
+.cat-head + .sec { padding-top: var(--space-5); }
+
+/* Yopishqoq header ostida langar (#3d, #eksport, #faq) ko'rinib tursin: header balandligi
+   aylantirilganda mobil 153px, desktop 118px (2026-11-12, Playwright bilan o'lchangan). */
+html { scroll-padding-top: 164px; }
+@media (min-width: 761px) { html { scroll-padding-top: 130px; } }

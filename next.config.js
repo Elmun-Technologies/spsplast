@@ -24,12 +24,65 @@ const nextConfig = {
     const frameHeaders =
       process.env.NODE_ENV === 'development' ? [] : [{ key: 'X-Frame-Options', value: 'DENY' }];
 
+    /**
+     * Umumiy sayt CSP (audit 2026-11-02, 3-bosqich: xavfsizlik). Sahifalar statik
+     * prerender bo'lgani uchun (dynamicParams=false) so'rov bo'yicha nonce qo'yib
+     * bo'lmaydi — shuning uchun `script-src`/`style-src`da `'unsafe-inline'` bor
+     * (Next'ning o'zi qo'shadigan gidratatsiya skriptlari + React inline `style={{}}`
+     * atributlari uchun). Shunga qaramay bu bo'sh qoida emas: `object-src`, `base-uri`,
+     * `form-action` va `frame-ancestors` haqiqiy xavf (plugin orqali kod, `<base>`
+     * ilib qo'yish, formani begona manzilga yuborish, clickjacking) ni to'xtatadi, va
+     * `script-src`/`connect-src`/`img-src` faqat haqiqatda ishlatiladigan analitika
+     * host'lari bilan cheklangan — begona domenlarga so'rov/skript ketolmaydi. Admin
+     * (`/admin`) uchun `src/middleware.ts` bu qoidani O'Z (nonce bilan, `'unsafe-inline'`siz)
+     * qattiqroq CSP'si bilan ALMASHTIRADI — tekshirildi: `/admin` javobida faqat bitta
+     * `Content-Security-Policy` sarlavhasi (middleware'niki) boradi, shu yerdagisi emas;
+     * shuning uchun admin xavfsizligi bu yerdagi qoidaga tayanmaydi, o'zi yetarli bo'lishi
+     * kerak. `next dev`da butunlay o'chirilgan: HMR websocket va devtools buzilmasin.
+     */
+    const ANALYTICS_HOSTS = [
+      'https://www.googletagmanager.com',
+      'https://www.google-analytics.com',
+      'https://analytics.google.com',
+      'https://region1.google-analytics.com',
+      'https://mc.yandex.ru',
+      'https://connect.facebook.net',
+      'https://www.facebook.com',
+      'https://analytics.tiktok.com',
+    ];
+    const cspHeaders =
+      process.env.NODE_ENV === 'development'
+        ? []
+        : [
+            {
+              key: 'Content-Security-Policy',
+              value: [
+                "default-src 'self'",
+                `script-src 'self' 'unsafe-inline' ${ANALYTICS_HOSTS.join(' ')}`,
+                "style-src 'self' 'unsafe-inline'",
+                // `blob:` — 3D ko'ruvchi (model-viewer/three.js GLTFLoader) GLB ichidagi
+                // teksturalarni blob URL orqali o'qiydi; bo'lmasa relyef teksturasiz chiqadi.
+                `img-src 'self' data: blob: ${ANALYTICS_HOSTS.join(' ')}`,
+                "font-src 'self'",
+                `connect-src 'self' blob: ${ANALYTICS_HOSTS.join(' ')}`,
+                // YouTube/Vimeo (audit 2026-11-02, 3-bosqich: zavod videosi) — faqat embed
+                // iframe uchun, admin'dagi havoladan ID ajratib olingach (src/lib/video2027.ts).
+                "frame-src 'self' https://www.googletagmanager.com https://www.youtube.com https://player.vimeo.com",
+                "object-src 'none'",
+                "base-uri 'self'",
+                "form-action 'self'",
+                "frame-ancestors 'none'",
+              ].join('; '),
+            },
+          ];
+
     return [
       {
         source: '/(.*)',
         headers: [
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           ...frameHeaders,
+          ...cspHeaders,
           { key: 'X-XSS-Protection', value: '1; mode=block' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(), payment=()' },

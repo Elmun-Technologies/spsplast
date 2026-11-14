@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import { getModelBySlug, calcMolds, modelName, sectionLabel } from '@/lib/catalog2027';
 import type { Locale } from '@/lib/i18n';
-import { getUi } from '@/lib/ui';
-import { getPages } from '@/lib/pages';
+import type { UiDictionary } from '@/lib/ui';
+import type { PagesDictionary } from '@/lib/pages';
 import { CONTACTS_2027 } from '@/lib/contacts2027';
 import { submitLead } from '@/lib/leadSubmit';
 import { useRequestList } from '@/lib/store/spsLists';
@@ -12,8 +12,9 @@ import { LeadFormError, checkLead, useRevealOnShow, type LeadError } from '@/com
 
 type ClientType = 'workshop' | 'dealer' | 'builder';
 const MATERIALS: ('pp' | 'abs' | 'advice')[] = ['pp', 'abs', 'advice'];
-/** `p.partners.countries` tartibida (uz/ru/en bir xil): telefon raqamini davlat kodi bilan o'qish uchun. */
-const COUNTRY_DIALS: (string | undefined)[] = ['+998', '+7', '+7', '+996', '+992', undefined];
+/** `p.partners.countries` tartibida (uz/ru/en bir xil): telefon raqamini davlat kodi bilan o'qish uchun.
+ * Audit 2026-11-02, 3.5-band: Ozarbayjon/Armaniston/Gruziya/Belarus qo'shildi (8 eksport davlati). */
+const COUNTRY_DIALS: (string | undefined)[] = ['+998', '+7', '+7', '+996', '+992', '+994', '+374', '+995', '+375', undefined];
 
 /**
  * Ulgurji formasi (Partners.dc.html, `#sorov`): mijoz turi, kompaniya, davlat,
@@ -24,9 +25,20 @@ const COUNTRY_DIALS: (string | undefined)[] = ['+998', '+7', '+7', '+996', '+992
  * `defaultCountry` — eksport (geo) sahifasida davlat oldindan tanlanadi; ro'yxatda bo'lmasa
  * (masalan Belarus) oxirgi variant ("Boshqa") tanlanadi.
  */
-export function PartnersForm({ lang, defaultCountry, phonePrefix }: { lang: Locale; defaultCountry?: string; phonePrefix?: string }) {
-  const t = getUi(lang);
-  const p = getPages(lang);
+export function PartnersForm({
+  lang,
+  defaultCountry,
+  phonePrefix,
+  t,
+  p,
+}: {
+  lang: Locale;
+  defaultCountry?: string;
+  phonePrefix?: string;
+  t: UiDictionary;
+  /** Faqat kerakli bo'limlar — audit 2026-11-02, 3.4-band (izoh: ModelClient.tsx). */
+  p: Pick<PagesDictionary, 'model' | 'partners' | 'request'>;
+}) {
   const list = useRequestList();
   const [clientType, setClientType] = useState<ClientType>('workshop');
   const [name, setName] = useState('');

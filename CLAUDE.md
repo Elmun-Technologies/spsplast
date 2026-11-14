@@ -35,11 +35,15 @@ visual reference `screens/`, exact CSS/sizes `source/*.dc.html` + `source/site.c
 ## Folder Structure
 
 ```
-data/models-2027.json        # GENERATED catalog (152-model target); do not hand-edit
+data/models-2027.json        # GENERATED catalog (216 models, 7 sections); do not hand-edit
+data/catalog3d-2027.json     # GENERATED from public/3d/*/index.html (206 products: code, RU name, size, depth, renders)
+data/moved-2027.json         # GENERATED: merged/retired old models -> build_redirects_2027.py makes 301s
 data/image-jobs-2027.json    # GENERATED source→webp job list
 docs/data-questions.md       # GENERATED business question list (nulls live here)
 docs/design-handoff/         # HANDOFF.md, PROMPT.md, screens/, source/, images/, data-sources/
-scripts/extract/             # build_models_2027.py, build_images_2027.py (python3 + ImageMagick)
+scripts/extract/             # build_models_2027.py, build_images_2027.py, build_3d_catalog_2027.py (python3 + ImageMagick)
+media-src/live/              # LIVE product photos `<KOD>[-qolip|-plitka|-sahna].jpg` (README.md) — highest image priority
+.github/workflows/live-photos.yml  # on push to media-src/live/**: photos:import + commit back to the same branch
 scripts/validate-models-2027.mjs   # XATO (exit 1) / OGOH (business-pending) split
 src/app/[lang]/              # public site, locale-prefixed (uz, ru, en)
 src/app/api/leads|health|track  # the ONLY /api route handlers (test-enforced); track = visit beacon
@@ -56,6 +60,7 @@ src/app/indexnow-key.txt/    # IndexNow key file (static, from admin setting `in
 src/server/                  # DB layer: db/schema.ts, db/client.ts, leads.ts, auth.ts, session.ts (Next glue)
 drizzle/                     # GENERATED SQL migrations (`npm run db:generate`), applied by `npm run db:migrate`
 vercel.json                  # buildCommand: `npm run db:migrate:deploy && npm run build` (overrides the dashboard)
+.nvmrc                       # Node version pin (also package.json `engines`, CI's node-version-file)
 docs/ADMIN.md                # admin setup (Neon/Supabase, migrate, first admin) + security notes
 docs/ROADMAP-2027.md         # gap analysis + stages 7–12
 src/components/site/         # new layer: SiteHeader, HeaderClient, SiteFooter, LangSwitch, icons, MotionLayer
@@ -69,12 +74,18 @@ src/lib/contacts2027.ts      # contacts per HANDOFF §1 (single source for new l
 src/lib/store/spsLists.ts    # request list + compare list (localStorage)
 src/lib/ui.ts                # getUi(lang), pluralModels(), formatNumber()
 src/lib/seo.ts               # metadata + hreflang + JSON-LD builders (uz/ru/en, no price)
-src/app/sitemap.ts           # 276 URLs: (6 fixed + 4 non-empty sections + 7 tags + 8 export countries + 67 models WITH an image) × 3 langs
+src/app/sitemap.ts           # 711 URLs: (6 fixed + 7 non-empty sections + 7 tags + 8 export countries + 209 models WITH an image) × 3 langs
 src/lib/seoPages.ts          # SEO landing logic: TAG_DEFS (MIN_TAG_MODELS=6), EXPORT_COUNTRIES (8)
 src/components/seo2028/SeoBlocks.tsx  # TagChips, CountriesStrip, PavingGuide (server components)
 src/app/robots.ts            # allow all; disallow /api/, /*/compare, /*/request
 src/components/site/JsonLd.tsx     # server-only <script type="application/ld+json"> renderer
-scripts/redirects-2027.json  # GENERATED 301 map (436 entries) — read by next.config.js
+src/server/testimonials.ts  # customer reviews admin CRUD (list/save/delete), "trust signals" prep (3.3)
+src/app/admin/testimonials/ # admin "Sharhlar" page + TestimonialForm.tsx + actions.ts
+src/lib/testimonials2027.ts # getTestimonials() (snapshot, empty-safe) + lang fallback + aggregateRating()
+src/lib/video2027.ts        # factory_video_url setting → safe YouTube/Vimeo embed URL (ID-only, never raw src)
+src/components/site/Testimonials.tsx  # home-page reviews section, renders null when empty
+src/components/site/FactoryVideo.tsx  # production-page video embed, renders null when unset
+scripts/redirects-2027.json  # GENERATED 301 map (499 entries, incl. 63 moved/retired 2027 models) — read by next.config.js
 scripts/extract/build_redirects_2027.py  # generator: legacy catalog × models-2027 name match
 scripts/lib/routes.mjs       # audit routes (AUDIT_ROUTES) + screenshot plan (SHOT_PLAN) + viewports
 scripts/lib/dom-rules.mjs    # the SEO/DOM rule set itself (unit-tested by tests/audits2027.test.js)
@@ -124,14 +135,15 @@ Everything a visitor could still hit is answered by a 301 (`scripts/redirects-20
 | 404 | `not-found` (root + `[lang]`) |
 | Sitemap / robots | `/sitemap.xml` (rewrite → `/sitemap`), `/robots.txt` |
 
-Section slugs: `paving|facade|fence|decor|bench` → data sections
-`trotuar|fasad|zabor|dekor|skameyka` (mapping lives in `SECTION_SLUGS`).
+Section slugs: `paving|facade|thermal-panels|facade-decor|fence|decor|bench` → data sections
+`trotuar|fasad|termopanel|fasad_dekor|zabor|dekor|skameyka` (mapping lives in `SECTION_SLUGS`; static
+`DEFAULT_SECTIONS` in `catalog2027.ts` mirrors the admin DB `DEFAULT_SECTIONS` in `src/server/catalog.ts`).
 **Every catalog link must go through `SECTION_SLUGS`** — the uz section name is not a
 route (`/uz/catalog/trotuar` 404s); `tests/platform.test.js` test 11 enforces it.
 
 `/compare` and `/request` are `noindex` (user-state pages) and are absent from the
-sitemap; a section with zero models (`fence`, until the zabor data arrives) keeps its
-route but is left out of the sitemap — thin content should not be indexed.
+sitemap; a section with zero models keeps its route but is left out of the sitemap — thin
+content should not be indexed (since 2026-11-12 all 7 sections have models).
 
 ## Business Rules (never break)
 
@@ -162,7 +174,18 @@ npm run models:check   # validator: XATO exit 1, OGOH = business-pending
 npm run redirects:build # regenerate scripts/redirects-2027.json from docs/legacy/catalog-2026.json
 npm run images:variants # sharp: container-ratio crops (1:1/4:3/16:9) -> public/images/site/*-<ratio>.webp
 npm run images:bg      # LOCAL rembg (isnet-general-use) -> media-src/clean/*.png masks + transparent mold/tile WebP
+npm run catalog3d:build # public/3d/*/index.html -> data/catalog3d-2027.json (run when a 3D package is added)
+npm run photos:import  # media-src/live/* -> models:build + images:bg (live only) + models:images + redirects + check
 ```
+
+**Image priority (2026-11-12)**: live photo (`media-src/live/`) → 2026 studio → sheet-5 DSC → **3D render**
+(`public/3d/<id>/qolip_tik.jpg` → mold cutout, `r_04`/`r_05` → scene). Render files are named `*-3d.webp`
+(`-mold-a-3d.webp`, `-scene-3d.webp`, `-scene-sm-3d.webp`); `isRenderImage()` labels them "3D vizualizatsiya"
+in the model gallery — no extra data field, and a live photo (named `-mold-a.webp`) drops the label by itself.
+`build_images_2027.py` refuses a mask whose `manifest.json` `src` differs from the job's source (stale mask after a
+source swap) and writes the image with its background instead — run `npm run images:bg` then.
+`thumb.jpg` in a 3D package is a normal map — never an image source. `MODEL3D` (`model3d.generated.ts`) is now
+written by `build_models_2027.py` (paving map from PR #42 preserved + every non-paving 3D product).
 
 **Background removal (mold/tile cutouts).** Every `*-mold-*.webp` / `*-tile-*.webp` is a
 transparent square WebP (object trimmed, centred, 7% padding, 800px, q82, alpha eroded 1px +
@@ -210,9 +233,10 @@ checkout. What is still missing from the repo are the 2027 assets listed in
 `docs/data-questions.md` (final catalog PDFs and the render archives).
 
 Missing sources (ask business, see `docs/data-questions.md`): `SPS_katalog_A.pdf`
-(+ `_RU`, `_EN`) and `SPS_blender_yakuniy*.zip` / `bgeraser_results_*.zip`.
-Until they arrive: ru/en names are `null` (UI falls back to uz), section split and
-counts come from the Excel sources, images from the 2026 studio set + sheet-5 DSC map.
+(+ `_RU`, `_EN`) and live product photos (`media-src/live/`). Since 2026-11-12 the product list,
+RU names, sizes and depths of all non-paving sections come from the 3D packages (`public/3d`),
+and images missing elsewhere are 3D renders (`*-3d.webp`). Paving RU/EN names are still `null`
+(UI transliterates).
 
 ## Environment Variables
 
@@ -262,6 +286,200 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   - JSON-LD Organization/WebSite are in `[lang]/layout.tsx` (localized description/address from `CONTACTS_2027`).
   - CI: `defaults.run.shell: bash` (pipefail); audit/shots steps continue for the report, the last step fails the job.
   - Only real SPS images: the port/container stock photos were deleted (export map + mold photo instead).
+
+- **Audit 2026-11-02, stage 3 (`tests/auditStage3.test.js`)** — keep them:
+  - **CSP**: `next.config.js` sets a site-wide CSP (prod only) with `'unsafe-inline'` for script/style
+    (pages are statically prerendered — no per-request nonce is possible there) but a real allowlist for
+    `connect-src`/`img-src`/`script-src` (only the analytics hosts actually used) plus `object-src 'none'`,
+    `base-uri 'self'`, `form-action 'self'`, `frame-ancestors 'none'`. **`/admin` REPLACES this entirely**
+    (verified live: only one `Content-Security-Policy` header reaches the browser there) with a stricter,
+    self-contained, nonce-based policy from `src/middleware.ts` (`script-src 'self' 'nonce-x' 'strict-dynamic'`,
+    no `'unsafe-inline'` for scripts — admin has zero hand-written `<script>`, only Next's own hydration
+    scripts, which Next auto-nonces when it sees the nonce in the *request* header, not just the response).
+    Don't assume the two CSPs merge — if you touch either, re-verify with a real browser (zero console/CSP
+    errors) that admin pages still hydrate, since a nonce-wiring mistake silently breaks every admin form.
+  - `/api/leads` and `/api/track` reject cross-site writes via `src/lib/requestGuard.ts`'s `isCrossOrigin()`
+    (Origin vs. Host, not a hardcoded domain — works on Preview/localhost too) and read the body through
+    `readLimitedText()` (a real streamed byte cap, not a `Content-Length` check) instead of `req.json()`
+    directly; `/api/leads` also requires `Content-Type: application/json` (blocks the classic `text/plain`
+    CORS-preflight-bypass trick). Honeypot/validation behavior is unchanged.
+  - `/api/health`'s detailed body (Telegram/DB/analytics config, error text) is gated behind an optional
+    `HEALTH_CHECK_TOKEN` (`Authorization: Bearer` or `?token=`); unset (default) keeps today's open behavior.
+    The admin Settings page link appends the token server-side when configured. Uptime monitors only need
+    `status` + the HTTP code, both still returned without a token.
+  - Admin login rate-limits by **IP and by e-mail** (`ipKey('login_email', normalizeEmail(...))`), so a
+    botnet can't brute-force one account by rotating IPs — the IP limit alone didn't stop that.
+
+- **Audit 2026-11-02, stage 3.2 (mobile & a11y)** — keep them:
+  - **`[lang]` catch-all for truly unmatched paths** (`src/app/[lang]/[...slug]/page.tsx` +
+    co-located `not-found.tsx`): without it, a path matching no file segment at all (e.g.
+    `/ru/xato-manzil`) skipped `[lang]/layout.tsx` entirely and fell to the root
+    `src/app/not-found.tsx` — always Uzbek, wrong status metadata, outside the `[lang]` tree.
+    **Must have `generateStaticParams` returning `[]` AND `dynamicParams = false`** — with the
+    default (`dynamicParams: true`, no static params), this sibling dynamic segment breaks the
+    SSR of *other*, already-correct dynamic 404s elsewhere under `[lang]` (e.g.
+    `catalog/[section]/[slug]`'s own not-found lost `<head>`/`h1`/`<main>` — confirmed by a clean
+    before/after rebuild, not a caching artifact). Has its own `generateMetadata` (noindex, per-lang
+    title/description) so `tests/seo2027.test.js` test 12's `pageMetadata(` scan passes.
+  - **404 language — FIXED 2026-11-12**: with `dynamicParams = false` Next answers EVERY unknown URL
+    (`/ru/xato-yol`, `/en/catalog/paving/nope`) with the single prebuilt ROOT `app/not-found.tsx` (verified with curl —
+    `[lang]/not-found.tsx` is effectively unused; it now just re-exports the root one). The root 404 renders
+    `SiteHeader` + `NotFoundBody` + `SiteFooter` for all 3 languages on the server and the client
+    `NotFoundLangPick` picks one from `window.location.pathname` (`useSyncExternalStore`, server snapshot `uz`) and
+    sets `<html lang>`. `useParams()`/`usePathname()` do NOT work in this render path — don't go back to them.
+  - **`dom-rules.mjs`'s ru/en "o'zbekcha matn qolgan" description check now skips `expect.status
+    === 404`** too (same reasoning as the existing description-length exemption just above it):
+    a 404 page's inherited fallback description isn't SERP-relevant since it's `noindex`.
+  - Mobile header/pdp/`.mbar` spacing trimmed (`.hd-logo` 60→52px, `.hd-search`/`.hd-tabs` padding,
+    `.pd-sec`/`.pdp` gaps, `.mbar` padding/button height) so the model page H1 clears the sticky
+    bottom bar at 390×844 (measured via Playwright `boundingBox()`, not guessed) — the gallery-
+    before-H1 order itself is the approved design, only the whitespace around it was too generous.
+  - Mobile menu (`HeaderClient.tsx`) has a Tab/Shift+Tab focus trap inside `#sps-mobile-menu` while
+    open (axe needs a real browser for this, not `audit-a11y.mjs`'s jsdom pass).
+
+- **Audit 2026-11-02, stage 3.3 (trust signals, `tests/testimonials2027.test.js`)** — keep them:
+  - **Technical preparation only** — no fake reviews/photos were invented. Built: `testimonials` table
+    (migration `0003`) + admin CRUD (`/admin/testimonials`) + `factory_video_url` setting (admin →
+    Sozlamalar → "Ishonch dalillari"). Both are **empty-safe**: 0 testimonials or no video URL means
+    the corresponding component (`Testimonials.tsx`/`FactoryVideo.tsx`) returns `null` — nothing fake
+    ever renders, consistent with Business Rule 4. Remaining asks (project photos, certificates,
+    concrete min-order/timeline/payment ranges) are pure business content with no code blocker —
+    tracked in `docs/unresolved-questions.md` §1.13–1.16.
+  - `src/lib/testimonials2027.ts`'s `getTestimonials()` reads `siteSnapshot?.testimonials ?? []` —
+    never throws when `DATABASE_URL` is unset (same empty-safe pattern as `catalog2027.ts`).
+  - `jsonLdOrganization()` takes an optional 3rd `rating` param (`AggregateRating`, computed from
+    testimonials that have a `rating`) — only emitted when at least one testimonial has a rating,
+    so an unrated review doesn't silently count toward a fake average.
+  - **Video embed never renders an admin-supplied URL as a raw iframe `src`.** `video2027.ts`
+    extracts the YouTube/Vimeo video ID via regex and rebuilds a known-shape `/embed/` URL — so even
+    a compromised admin account can't point the iframe at an arbitrary origin. CSP `frame-src` in
+    `next.config.js` only allows `youtube.com`/`player.vimeo.com` (plus the existing GTM host).
+  - Caught during review, not after: a hidden input named `id` in `TestimonialForm.tsx` (the exact
+    `form.id`-collision bug already documented below under "Admin forms") — renamed to
+    `testimonialId` before it ever shipped.
+  - New admin section follows the existing small-CRUD template exactly (`src/app/admin/products/
+    sections/{page.tsx,SectionForm.tsx}`): `tests/admin2027.test.js` test 12's generic `requireUser()`
+    scan covers it with no test changes needed.
+  - No HANDOFF design exists for a reviews/video section (new functionality, not in the approved
+    package) — intentionally built with existing tokens/classes only (`.sec`, `.sps-eyebrow`, `.h1`),
+    no bespoke CSS, so it doesn't invent unapproved visual language; a future design pass can refine it.
+
+- **Audit 2026-11-02, stage 3.4 (JS size, `tests/speed2027.test.js`)** — keep them:
+  - `src/lib/pages.ts`/`src/lib/ui.ts` unconditionally import **all 3 locale dictionaries** at module
+    top level. Four client components (`ModelClient`, `CompareClient`, `RequestClient`,
+    `PartnersForm`) used to call `getPages(lang)`/`getUi(lang)` themselves, which shipped **all 3
+    languages'** `pages.ts`/`ui.ts` modules (not just the one rendered) into their browser bundle on
+    every page. Fixed by having the **server parent** (`page.tsx`, which already needs the dictionary
+    for metadata/SSR anyway) resolve it once and pass only the needed sections down as props —
+    `Pick<PagesDictionary, 'model' | 'partners'>` etc., never the whole `p`. Measured ~15-20 KB
+    (raw, per Next's own "First Load JS") off `/catalog/[section]/[slug]`, `/compare`, `/request`,
+    `/partners`. `tests/speed2027.test.js` guards both the `getPages(`/`getUi(` call sites and (see
+    next bullet) the function-field hazard, so this doesn't silently regress.
+  - **A dictionary function field crashes the production build, not just lint/typecheck**, the moment
+    it's passed as a prop to a Client Component: *"Functions cannot be passed directly to Client
+    Components"* — `next build`'s static export step fails with no warning beforehand. Several
+    `pages/{uz,ru,en}.ts` fields were plain JS functions (`home.h1(n)`, `model.photoAskMessage(label)`,
+    `compare.subtitle(n, diff)`, `compare.setValue(n, letters)`, `request.approx(n)`) for the exact
+    reason template literals are normally reached for — a value that depends on an argument known
+    only at render time. Converted to **plain data** instead: `{label}`/`{n}` string templates
+    (`.replace('{label}', ...)`) for args known server-side (`photoAskMessageTemplate`,
+    `waAboutTemplate`, `approxTemplate`), or `{one, few, many}` plural-form objects
+    (`subtitleForms`) for args that are genuinely client-dynamic (list length), resolved via the new
+    dictionary-free `pluralCategory(lang, n, forms)` in `src/lib/i18n.ts` (same `Intl.PluralRules`
+    logic as `pluralModels`, minus the `getUi()` call so it doesn't reintroduce the bundle problem it's
+    fixing). `compare.setValue` had no actual translatable content at all (identical in uz/ru/en) —
+    just inlined as plain formatting in `CompareClient.tsx`, removed from the dictionary entirely.
+    `home.h1`/`home.seoTitle` are still functions (fine — `getPages()` is never passed to a client
+    component from the home page).
+  - **Not done, still open**: "katalog ma'lumotini kartochkaga keraklisigacha qisqartirish" (trim
+    catalog data to what the card needs) from the same audit item. Investigated: `Model` (
+    `catalog2027.ts`) is already fairly lean (no FAQ/long text — that's dictionary-side, per-model
+    `name`/`subtitle` carry all 3 locales but are short strings) — lower value, higher risk than the
+    dictionary fix above, deferred rather than rushed. Real Lighthouse/LCP numbers are still
+    unavailable here (`npm run lighthouse` needs a real browser + reachable network; even with the
+    sandbox's pre-installed Chromium pointed at via `CHROME_PATH`, it did not complete in this
+    environment) — CI or a real machine is the source of truth, per `docs/checks.md`.
+
+- **Audit 2026-11-02, stage 3.6 (repo/docs hygiene)**:
+  - `README.md`/`docs/ARCHITECTURE.md`/`docs/DEPLOYMENT.md`/`docs/SECURITY.md` described the
+    **pre-redesign (2026, "backendsiz") architecture** — no database, Tailwind, Zustand, a `/blog`
+    and `/product/` that no longer exist. Rewritten to match the current redesign (2027 storefront
+    + Stage 7–11 admin/Postgres), pointing to `CLAUDE.md` as the detailed, actively-maintained
+    source of truth rather than duplicating it. The other `docs/*-2026.md`/`MADANI-RAQOBAT-AUDITI.md`
+    style files are left alone — they're genuinely historical (self-dated planning/decision logs,
+    not "current state" docs), unlike these four which claimed to describe *now*.
+  - **Node version pinned**: `.nvmrc` (`22.6.0`) + `package.json` `engines.node` (`>=22.6.0`) +
+    CI's `actions/setup-node` now reads `node-version-file: .nvmrc` instead of a hardcoded `22` —
+    one source of truth. `--experimental-strip-types` (used by `npm test` and several scripts)
+    needs Node ≥ 22.6; nothing enforced that version anywhere before.
+  - Removed `sps-design-handoff.zip` (8.8 MB) from the working tree — dead weight: it's the
+    original zip of what's already fully extracted into `docs/design-handoff/` (9.7 MB), and
+    nothing in the build/scripts ever reads the zip itself.
+  - **`.git` is ~485 MB — investigated, not rewritten.** The large blobs still in the *current*
+    tree (`media-src/pdf/*.pdf` ~46 MB, `public/catalog/pdf/*.pdf` ~15 MB, `public/admin-ai/*.wasm`+
+    `*.onnx` ~15 MB) are all legitimate, documented, currently-used assets (source PDFs the extract
+    pipeline reads, the public catalog download, the admin background-removal model) — nothing to
+    remove there. The bulk of the 485 MB is **historical**: blobs from files already deleted from
+    HEAD (a stray ~20 MB binary, dozens of ~3 MB auto-named `Изображение*` images from an old
+    import, superseded by the Stage 5 "old 2026 layer deleted" cleanup) that `git rm` never
+    shrinks — only a history rewrite (`git filter-repo`/BFG) does, which needs a force-push and
+    breaks every existing clone/fork. That's a hard-to-reverse, shared-history-affecting call for
+    the user/team to make deliberately, not something to do unilaterally mid-audit; left open.
+
+- **Audit 2026-11-02, stage 3.5 (international signals)** — keep them:
+  - **`x-default` hreflang is now `/ru`, not `/uz`** (`hreflang()` in `src/lib/seo.ts`, enforced
+    by `scripts/lib/dom-rules.mjs`'s hreflang check and `tests/seo2027.test.js`/`platform.test.js`).
+    A visitor whose browser is in Kazakh, Georgian, or another CIS language that doesn't match
+    uz/ru/en falls to `x-default` — Russian is usually understood far better than Uzbek in those
+    markets. `src/middleware.ts`'s `preferredLocale()` mirrors this with an explicit
+    `CIS_LANGUAGE_TAGS` list (`kk, ky, tg, az, hy, ka, be` — exactly `EXPORT_COUNTRIES`'s
+    languages) → `ru`; a genuinely unrelated language (French, Chinese, …) still falls to `uz`,
+    the primary market default — this is a targeted CIS fallback, not a blanket default change.
+  - **`robots.txt` no longer `Disallow`s `/compare`/`/request`.** They were both `Disallow`'d
+    *and* `noindex, follow` — a real conflict: `Disallow` stops crawlers from ever visiting the
+    page, so `follow: true` (meant to let link equity flow to the model pages linked from
+    compare/request) was silently doing nothing. `noindex` alone already keeps them out of the
+    index; removing the `Disallow` is what actually lets `follow` work as intended (HANDOFF B8).
+  - Partners/export form's country dropdown (`p.partners.countries`) only had 5 of the 8
+    `EXPORT_COUNTRIES` (missing Azerbaijan/Armenia/Georgia/Belarus) — `src/lib/phone.ts` already
+    had working dial-code normalization for all 4 (`374`/`994`/`995`/`375`), just nothing in the
+    UI could select them. Added to all 3 locale dictionaries + `PartnersForm.tsx`'s
+    `COUNTRY_DIALS` (must stay index-aligned with `p.partners.countries` — same order, same length).
+  - **Not done, still open**: Yandex `Clean-param` directive for `robots.txt`. Next's typed
+    `MetadataRoute.Robots` (the `app/robots.ts` file convention) has no field for it — only
+    `userAgent`/`allow`/`disallow`/`crawlDelay`/`sitemap`/`host` — so emitting it needs converting
+    `robots.ts` to a manual `route.ts` text handler, a bigger change for a minor win: `canonical`
+    (no query string) already tells every search engine, Yandex included, to ignore `?q=`
+    variants — `Clean-param` would only save Yandex some redundant crawl budget, not fix a real
+    indexing gap. Deferred rather than rushed; `docs/unresolved-questions.md` tracks it.
+
+- **Catalog expansion 2026-11-12 (3D catalog, `tests/models2027.test.js`, `seo2027` test 14)** — keep them:
+  - 216 models / 7 sections. Non-paving products come from `data/catalog3d-2027.json` (+ uz names/specs from
+    `data/termopanel-2027.json`, reused slugs so `catalog:import` does not duplicate them — termo drafts are now all
+    skipped). Old 3-varaq models are reconciled in `build_models_2027.py` (`OLD_MERGE` → merged + 301, `OLD_KEEP` →
+    stay, the rest retired + 301 to the section); the list goes to `data/moved-2027.json` → `build_redirects_2027.py`.
+    Report + open questions: `docs/unresolved-questions.md` 1.17.
+  - `build_models_2027.py` was broken since Stage 5 (read the deleted `src/data/catalog.json`) — it now reads
+    `docs/legacy/catalog-2026.json`; DSC file choice is `sorted()` (was filesystem order → nondeterministic).
+  - **Header**: 7 tabs do not fit next to logo+search at 1440 → tabs always in their own row on desktop, short names
+    (`sectionShortLabel`), full name in `title` + mobile menu. Sticky offsets (`.cat-side`, `.side-sticky`) = 132px.
+  - **Paving-only facets**: size/set facets count only `trotuar` (`pavingSize`/`pavingSet` in `catalogFilters.ts`);
+    a section with no facet group hides the filter column and the mobile "Filtr" button (`.cat--nofilters`).
+  - **JS weight**: `CompareBar` (layout, every page) is a light shell that `dynamic()`-loads `CompareBarPanel` only
+    when the compare list is non-empty; `NotFoundBody` is a server component (`[lang]/not-found.tsx` renders it in all
+    3 langs and the client `NotFoundLangPick` picks one). Before, both pulled the whole catalog (and all 3 `pages`
+    dictionaries) into EVERY page — the 216-model catalog pushed pages over the 200 KB budget. Never import
+    `catalog2027` data helpers (`getModelBySlug`, `getModels`, counts) into a layout-level client component.
+  - `audit-seo-dom` price rule: `евро(?![а-яё])` — "Z05 Еврозабор" is not a price.
+  - **"Turi" facet** (`kind`, `?kind=karniz`): key = slug of `subtitle.uz` (`modelKind()` in `catalogFilters.ts`), label =
+    localized subtitle; shown only where ≥ 2 types exist (fasad dekor, `/catalog`). Test: `tests/catalogFilters2027.test.js`.
+  - **Catalog/section head band** (`CatalogHead.tsx`, server): light band, crumbs, H1, lead (`ui.catalog.headLead` with
+    `{n}` `{models}` `{s}`), "PDF katalog" + "Zayafka qoldirish" — HANDOFF 02-katalog. Catalog H1 = `ui.seo.catalogTitle`.
+  - **Uzbek apostrophes**: o‘/g‘ = U+2018, tutuq = U+2019 in all uz dictionaries and model names (`uz_typo()` in the
+    extractor runs AFTER the slug is computed — URLs unchanged). `modelName()` maps them back to ASCII before the RU/EN
+    word maps. Guard: `tests/typography2027.test.js`. Write new uz copy with ‘/’, never `'`.
+  - Mobile list view (`.cat-grid--list`, ≤ 640px) is a compact row (112px image, compare button bottom-right, 44px).
+  - CI summary/PR comment print only the LATEST report per type (`docs/audits` keeps dated history).
 
 - **Never reintroduce Tailwind.** The database is back (Stage 7, user decision) **only** behind
   `src/server/` — public pages (`[lang]`, `components`, `lib`) must never import it
@@ -370,10 +588,10 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
 
 ```bash
 npm run dev            # local dev server
-npm run build          # models:check + next build (448 static pages)
+npm run build          # models:check + next build (~740 static HTML pages)
 npm run typecheck      # tsc --noEmit
 npm run lint           # next lint
-npm test               # node --test --experimental-strip-types tests/*.test.js (165 tests)
+npm test               # node --test --experimental-strip-types tests/*.test.js (185 tests)
 npm run models:build && npm run models:images && npm run models:check
 npm run db:generate    # after editing src/server/db/schema.ts → new SQL in drizzle/
 DATABASE_URL=... npm run db:migrate
@@ -406,7 +624,7 @@ Audit-only devDependencies: `axe-core`, `jsdom` (no browser needed); browser che
 - Testlar orqali yuklanadigan TS fayllarda: import yo'llari nisbiy va `.ts` kengaytmasi bilan (`allowImportingTsExtensions` yoqilgan), tip-only importlar `import type {...}` ko'rinishida bo'lsin (aks holda node `@/` aliasni hal qilolmaydi).
 - Dinamik parametrlar bilan statik sahifalar (`catalog/[section]`) `searchParams` o'qimaydi va `dynamicParams = false` bo'ladi — aks holda noma'lum slug uchun soft-404 (200) qaytadi. Filtrlar mijoz tomonida `window.location.search` dan o'qiladi.
 - `/api` da faqat `leads`, `health` va `track` bo'lishi kerak (test nazorat qiladi).
-- `not-found.tsx` chegarasiga Next `params` uzatmaydi: til `useParams()` orqali olinadi, shuning uchun `[lang]/not-found.tsx` va `NotFoundBody` — client komponentlar.
+- `not-found.tsx` chegarasiga Next `params` uzatmaydi va amalda har 404 ildiz `app/not-found.tsx` dan keladi: `NotFoundBody` — server komponent (3 tilda), til brauzerda URL'dan tanlanadi (`NotFoundLangPick`).
 - Sahifa matnlari `src/dictionaries/pages/{uz,ru,en}.ts` (`getPages(lang)`); tuzilma bir xil bo'lishi shart (test 4 tekshiradi).
 - Kontaktlar faqat `CONTACTS_2027` dan; sahifalarda telefon raqamini qattiq yozish mumkin emas (test 7).
 - Ichki havolalar statik string bo'lsa `next/link` ishlatilsin (eslint `no-html-link-for-pages`); dinamik `${lang}` havolalarda `<a>` qolishi mumkin.

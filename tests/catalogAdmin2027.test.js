@@ -32,21 +32,24 @@ async function setup() {
 const models = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/models-2027.json'), 'utf8')).models;
 const termo = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/termopanel-2027.json'), 'utf8')).items;
 
-test('1. Import: hozirgi katalog nashrda (tartib saqlanadi), termopanellar qoralama; takror import xavfsiz', async () => {
+test('1. Import: statik katalog nashrda (tartib saqlanadi), termopanellar unda bor — takror yaratilmaydi; takror import xavfsiz', async () => {
   const { db, catalog } = await setup();
+  // 2026-11-12: termopanel/fasad dekor mahsulotlari (3D katalog) statik katalogga kirdi, shuning
+  // uchun `termo` qoralamalari slug bo'yicha o'tkazib yuboriladi — ikki nusxa paydo bo'lmaydi.
   const res = await catalog.importCatalog(db, models, termo);
-  assert.strictEqual(res.added, models.length + termo.length);
+  assert.strictEqual(res.added, models.length);
+  assert.strictEqual(res.skipped, termo.length);
   assert.ok(res.sections >= 7);
   const again = await catalog.importCatalog(db, models, termo);
   assert.strictEqual(again.added, 0);
   const counts = await catalog.productStatusCounts(db);
   assert.strictEqual(counts.published, models.length);
-  assert.strictEqual(counts.draft, termo.length);
+  assert.strictEqual(counts.draft ?? 0, 0);
   const all = await catalog.listProducts(db, { status: 'published' });
   assert.deepStrictEqual(all.slice(0, 3).map((p) => p.slug), models.slice(0, 3).map((m) => m.slug), '"ko\'p so\'raladigan" tartibi buzildi');
   const sections = await catalog.listSections(db);
   const tp = sections.find((s) => s.key === 'termopanel');
-  assert.ok(tp && tp.total > 0 && tp.published === 0);
+  assert.ok(tp && tp.total > 0 && tp.published === tp.total);
 });
 
 test('2. Filtrlar: rasmsiz, ruscha nomsiz, qidiruv (kod/nom), bo\'lim', async () => {

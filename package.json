@@ -2,6 +2,9 @@
   "name": "spsplast-ecommerce",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": ">=22.6.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "node scripts/export-snapshot.mjs && node scripts/validate-models-2027.mjs && next build",
@@ -16,6 +19,8 @@
     "fonts:sync": "node scripts/sync-fonts.js",
     "images:variants": "node scripts/extract/build_site_variants.mjs",
     "images:bg": "python3 scripts/extract/remove_bg_2027.py",
+    "photos:import": "python3 scripts/extract/build_models_2027.py && python3 scripts/extract/remove_bg_2027.py --only media-src/live/ && python3 scripts/extract/build_images_2027.py && python3 scripts/extract/build_redirects_2027.py && node scripts/validate-models-2027.mjs",
+    "catalog3d:build": "python3 scripts/extract/build_3d_catalog_2027.py",
     "audit:a11y": "node scripts/audit-a11y.mjs",
     "audit:seo": "node scripts/audit-seo-dom.mjs",
     "audit": "node scripts/audit-seo-dom.mjs && node scripts/audit-a11y.mjs",
