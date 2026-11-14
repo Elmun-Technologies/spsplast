@@ -156,6 +156,15 @@ test('7. Integratsiyalar: format tekshiruvi, nashr kutayotgan o\'zgarishlar, dep
   assert.strictEqual((await settings.lastPublish(db)).status, 'error');
 });
 
+test('7b. Deploy hook: Coolify (token bilan) yoki Vercel (tokensiz) env\'dan olinadi', async () => {
+  const { settings } = await setup();
+  assert.deepStrictEqual(settings.deployHookFromEnv({ DEPLOY_HOOK_URL: 'https://c.example/api/v1/deploy?uuid=x', DEPLOY_HOOK_TOKEN: 't' }),
+    { url: 'https://c.example/api/v1/deploy?uuid=x', token: 't' });
+  assert.deepStrictEqual(settings.deployHookFromEnv({ VERCEL_DEPLOY_HOOK_URL: 'https://api.vercel.com/v1/integrations/deploy/x' }),
+    { url: 'https://api.vercel.com/v1/integrations/deploy/x', token: undefined });
+  assert.deepStrictEqual(settings.deployHookFromEnv({}), { url: undefined, token: undefined });
+});
+
 test('8. Snapshot: git\'dagi nusxa null, build skripti bazasiz statik katalogni saqlaydi', () => {
   const gen = fs.readFileSync(path.join(ROOT, 'src/data/site.generated.ts'), 'utf8');
   assert.match(gen, /siteSnapshot: SiteSnapshot \| null = null;/, 'site.generated.ts git\'da null bo\'lishi kerak (build uni to\'ldiradi)');
