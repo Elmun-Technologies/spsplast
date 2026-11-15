@@ -21,7 +21,7 @@ import { CatalogClient } from '@/components/catalog2027/CatalogClient';
 import { Icon } from '@/components/site/icons';
 import { jsonLdReview, pageMetadata } from '@/lib/seo';
 import { JsonLd } from '@/components/site/JsonLd';
-import { PDF_CATALOG_HREF } from '@/components/site/SiteHeader';
+import { flipHref } from '@/lib/catalogPdf';
 import { notFound } from 'next/navigation';
 import { Testimonials } from '@/components/site/Testimonials';
 import { getTestimonials, testimonialAuthorName, testimonialText } from '@/lib/testimonials2027';
@@ -376,7 +376,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
                 {p.home.wholesaleLead}
               </p>
             </div>
-            <a className="hm-link" href={PDF_CATALOG_HREF} download>
+            <a className="hm-link" href={flipHref(lang)}>
               <Icon.download width={18} height={18} strokeWidth={2} aria-hidden="true" />
               {p.home.wholesalePdf}
             </a>

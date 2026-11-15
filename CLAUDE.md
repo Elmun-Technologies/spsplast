@@ -521,6 +521,12 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     check `/3d/t12/#tering` in a browser.
   - Tap vs orbit: a pointer that moved > 8 px, lasted > 650 ms or had a second finger is never a tap.
     Rendering is on-demand (no idle rAF loop); `prefers-reduced-motion` = no drop animation, no damping.
+- **PDF kataloglar + varaqlagich (2026-11-16)**: `public/catalog/pdf/` — 3 ta ruscha A4-yotiq PDF (trotuar fayli eski nom
+  `sps-qoliplar-katalogi-2026.pdf` bilan, fasad, skameyka+yevrozabor; ~26 MB, linearized). Barcha "PDF katalog" havolalari
+  `flipHref()` (`src/lib/catalogPdf.ts`) orqali `/{lang}/catalog/flip[?c=fasad]` ga boradi — `FlipBook.tsx` (pdf.js legacy + page-flip,
+  sahifalar Range bilan bo'laklab, faqat atrofdagilar chiziladi; worker `public/pdfjs/`, `?c=` brauzerda o'qiladi). Sahifa `noindex`.
+  PDF yangilansa fayl nomini saqlang (yoki `CATALOG_PDFS` ni o'zgartiring). Katta (≥50 MB) PDF'lar repoga kirmaydi — yengil versiya.
+
 - **Never reintroduce Tailwind.** The database is back (Stage 7, user decision) **only** behind
   `src/server/` — public pages (`[lang]`, `components`, `lib`) must never import it
   (`tests/platform.test.js` test 6), otherwise the storefront stops being static.

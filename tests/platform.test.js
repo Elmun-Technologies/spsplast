@@ -276,7 +276,7 @@ test('11. Ichki havolalar faqat haqiqiy bo‘lim slug‘laridan foydalanadi', ()
         for (const match of source.matchAll(/\/catalog\/([a-z0-9-]{4,})(?![a-z0-9.-])/g)) {
           const slug = match[1];
           // statik fayl yo'llari (renderlar, pdf) katalog marshruti emas
-          if (slug === '2027' || slug === 'pdf') continue;
+          if (slug === '2027' || slug === 'pdf' || slug === 'flip') continue; // flip = varaqlanadigan kataloglar sahifasi
           if (!validSlugs.has(slug) && !slug.startsWith('[')) {
             offenders.push(`${path.relative(srcDir, full)}: /catalog/${slug}`);
           }

@@ -12,6 +12,7 @@ import { isValidLocale, locales, type Locale } from "@/lib/i18n";
 import { getUi, pluralModels } from "@/lib/ui";
 import { CatalogClient } from "@/components/catalog2027/CatalogClient";
 import { CatalogHead } from "@/components/catalog2027/CatalogHead";
+import { catalogKeyForSection } from "@/lib/catalogPdf";
 import { JsonLd } from "@/components/site/JsonLd";
 import { jsonLdBreadcrumb, pageMetadata } from "@/lib/seo";
 import { seoOverride } from "@/lib/seoOverrides";
@@ -91,6 +92,7 @@ export default async function SectionPage({
         ]}
         title={o?.h1 || sectionLabel(sec, lang)}
         intro={o?.intro}
+        catalog={catalogKeyForSection(sec)}
         lead={`${models.length} ${pluralModels(lang, models.length)} · ${t.header.catalog} ${getTotalCount()}. ${t.seo.leadCta}`}
       />
       <div className="wrap sec">
