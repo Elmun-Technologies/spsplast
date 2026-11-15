@@ -1,8 +1,28 @@
-# SPS PLAST — deploy qo'llanmasi (Vercel-only)
+# SPS PLAST — deploy qo'llanmasi
 
-**Yangilangan:** 2026-11-07 (baza qo'shilgandan keyin, Stage 7+). Admin/baza
-sozlash tafsilotlari: **`docs/ADMIN.md`**. Bu fayl umumiy deploy oqimini
-tasvirlaydi.
+**Yangilangan:** 2026-11-14 — sayt **Hetzner/Coolify**'ga ko'chirildi (Vercel endi ishlatilmaydi).
+Admin/baza sozlash tafsilotlari: **`docs/ADMIN.md`**.
+
+## 0. Hozirgi holat: Hetzner + Coolify (2026-11-14)
+
+| Resurs (Coolify → SPS → production) | Nima |
+|---|---|
+| `spsplast` (app) | GitHub `Elmun-Technologies/spsplast`, `main`; build strategiyasi **Nixpacks** (Railpack build paytida bazaga ulana olmaydi — snapshot uchun kerak); build buyrug'i `npm run db:migrate:deploy && npm run build`; port 3000 |
+| `sps-postgres` | Postgres 18 (ichki tarmoq). Ma'lumot Neon'dan (`spsplast-db`) to'liq ko'chirilgan, har jadval soni tekshirilgan |
+
+Env (Coolify → spsplast → Environment Variables): `DATABASE_URL` (ichki URL), `NEXT_PUBLIC_SITE_URL`,
+`SNAPSHOT_REQUIRED=1`, `DEPLOY_HOOK_URL=http://coolify:8080/api/v1/deploy?uuid=<app uuid>&force=false`,
+`DEPLOY_HOOK_TOKEN` (Coolify API token: faqat `deploy`+`read`, faqat shu ilovaga, muddatsiz).
+`TELEGRAM_BOT_TOKEN`/`TELEGRAM_CHAT_ID` — biznesdan olinadi (Vercel'da yashirin edi, ko'chmagan).
+
+- **Domen:** `spsplast.com` hali ro'yxatdan o'tmagan. Domen tayyor bo'lgach: DNS `A @ → 2.29.137.243`
+  (+ `www`), Coolify → spsplast → Domains, `NEXT_PUBLIC_SITE_URL` ni yangilab **Redeploy**.
+- **Admin "Nashr qilish"** → `DEPLOY_HOOK_*` → Coolify qayta build qiladi (3–7 daqiqa).
+- **`main` ga push → avtomatik deploy:** GitHub webhook (`http://2.29.137.243:8000/webhooks/source/github/events/manual`,
+  faqat push, sir = Coolify → spsplast → Webhooks → GitHub). Ishlamasa — Coolify'da **Redeploy**.
+- Migratsiyalar build boshida; faqat kengaytiruvchi bo'lsin (eski versiya yangi sxemada ishlay olishi kerak).
+
+Quyidagi 1–… bo'limlar Vercel davri uchun (zaxira sifatida qoldirildi).
 
 ## 1. Platforma
 
