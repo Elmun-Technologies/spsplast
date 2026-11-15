@@ -1364,3 +1364,20 @@ html[data-scrolled] .hd { box-shadow: 0 6px 24px rgba(21, 23, 26, .08); border-b
    aylantirilganda mobil 153px, desktop 118px (2026-11-12, Playwright bilan o'lchangan). */
 html { scroll-padding-top: 164px; }
 @media (min-width: 761px) { html { scroll-padding-top: 130px; } }
+
+/* Varaqlanadigan kataloglar (flipbook) — /{lang}/catalog/flip */
+.flip-sec{padding-block:var(--space-6,32px) var(--space-8,64px)}
+.flip__tabs{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 16px}
+.flip__tabs button{min-height:44px;padding:8px 16px;border:1px solid var(--line,#d9d2c7);border-radius:999px;background:transparent;color:inherit;font:600 14px/1 inherit;cursor:pointer}
+.flip__tabs button.is-on{background:#15171a;color:#fff;border-color:#15171a}
+.flip__stage{position:relative;min-height:300px;display:flex;justify-content:center;background:#15171a;border-radius:12px;padding:16px 8px;outline-offset:2px;overflow:hidden}
+.flip__host{width:100%;display:flex;justify-content:center}
+.flip__msg{position:absolute;inset:0;display:grid;place-items:center;color:#d9d4cb;text-align:center;padding:16px;z-index:2}
+.flip__msg a{color:#fff;text-decoration:underline}
+.flip__page{background:#15171a;overflow:hidden}
+.flip__page canvas{display:block;width:100%;height:100%;background:#15171a}
+.flip__bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:14px}
+.flip__bar .sps-btn{min-width:48px}
+.flip__count{font:600 14px/1 inherit;min-width:110px;text-align:center}
+.flip__dl{margin-left:auto}
+.flip__hint{margin-top:10px;font-size:13px}

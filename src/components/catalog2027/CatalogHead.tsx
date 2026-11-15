@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import type { Locale } from '@/lib/i18n';
 import { getUi } from '@/lib/ui';
-import { PDF_CATALOG_HREF } from '@/components/site/SiteHeader';
+import { flipHref, type CatalogKey } from '@/lib/catalogPdf';
 
 /**
  * Katalog va bo'lim sahifalarining sarlavha bandi (HANDOFF `screens/desktop/02-katalog`):
@@ -14,6 +14,7 @@ export function CatalogHead({
   title,
   lead,
   intro,
+  catalog,
   children,
 }: {
   lang: Locale;
@@ -21,6 +22,8 @@ export function CatalogHead({
   title: string;
   lead: string;
   intro?: string | null;
+  /** Qaysi katalog ochilsin (bo'lim sahifasida). */
+  catalog?: CatalogKey;
   children?: ReactNode;
 }) {
   const t = getUi(lang);
@@ -43,7 +46,7 @@ export function CatalogHead({
           {children}
         </div>
         <div className="cat-head__cta">
-          <a className="sps-btn sps-btn--outline" href={PDF_CATALOG_HREF}>
+          <a className="sps-btn sps-btn--outline" href={flipHref(lang, catalog)}>
             {t.menu.pdf}
           </a>
           <a className="sps-btn sps-btn--primary" href={`/${lang}/request`}>
