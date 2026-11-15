@@ -31,7 +31,8 @@
     "db:migrate:deploy": "node scripts/db-migrate.mjs --deploy",
     "admin:create": "node --experimental-strip-types scripts/admin-create.ts",
     "snapshot": "node scripts/export-snapshot.mjs",
-    "catalog:import": "node --experimental-strip-types scripts/catalog-import.ts"
+    "catalog:import": "node --experimental-strip-types scripts/catalog-import.ts",
+    "catalog:sync-2026-11-16": "node --experimental-strip-types scripts/catalog-sync-2026-11-16.ts"
   },
   "dependencies": {
     "drizzle-orm": "^0.45.4",

@@ -1,0 +1,1003 @@
+{
+ "comment": "2026-11-16: eski SPS trotuar katalogidagi, saytda yo'q bo'lgan modellar (scripts/catalog-sync-2026-11-16.ts bazaga yozadi).",
+ "add": [
+  {
+   "key": "t92",
+   "code": "92",
+   "slug": "gidroponika-eko-gazon",
+   "section": "trotuar",
+   "name": {
+    "uz": "Gidroponika (eko-gazon)",
+    "ru": "Гидропоника (эко-газон)",
+    "en": "Hydroponic grass paver"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "600×400×80",
+     "depth": "80",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "600×400×80",
+     "per": "4,2",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-gidroponika-eko-gazon-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-gidroponika-eko-gazon-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-gidroponika-eko-gazon-mold-a.webp"
+    },
+    "tiles": {}
+   },
+   "model3d": "/3d/t92/"
+  },
+  {
+   "key": "t97",
+   "code": "97",
+   "slug": "glyanets-15-15",
+   "section": "trotuar",
+   "name": {
+    "uz": "Glyanets 15×15",
+    "ru": "Глянец 15×15",
+    "en": "Gloss 15×15"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,2",
+   "molds": [
+    {
+     "l": "A",
+     "size": "150×150",
+     "depth": "25",
+     "g": null
+    },
+    {
+     "l": "B",
+     "size": "53×53",
+     "depth": "25",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "150×150",
+     "per": "40",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "53×53",
+     "per": "40",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-glyanets-15-15-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-glyanets-15-15-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-glyanets-15-15-mold-a.webp"
+    },
+    "tiles": {}
+   },
+   "model3d": "/3d/t97/"
+  },
+  {
+   "key": "t98",
+   "code": "98",
+   "slug": "tomir-15-15",
+   "section": "trotuar",
+   "name": {
+    "uz": "Tomir 15×15",
+    "ru": "Томир 15×15",
+    "en": "Tomir 15×15"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,3",
+   "molds": [
+    {
+     "l": "A",
+     "size": "150×150",
+     "depth": "25",
+     "g": null
+    },
+    {
+     "l": "B",
+     "size": "53×53",
+     "depth": "25",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "150×150",
+     "per": "40",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "53×53",
+     "per": "40",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-tomir-15-15-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-tomir-15-15-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-tomir-15-15-mold-a.webp"
+    },
+    "tiles": {}
+   },
+   "model3d": "/3d/t98/"
+  },
+  {
+   "key": "t99",
+   "code": "99",
+   "slug": "bodom-15-15",
+   "section": "trotuar",
+   "name": {
+    "uz": "Bodom 15×15",
+    "ru": "Бодом 15×15",
+    "en": "Bodom 15×15"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,4",
+   "molds": [
+    {
+     "l": "A",
+     "size": "150×150",
+     "depth": "25",
+     "g": null
+    },
+    {
+     "l": "B",
+     "size": "53×53",
+     "depth": "25",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "150×150",
+     "per": "40",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "53×53",
+     "per": "40",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-bodom-15-15-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-bodom-15-15-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-bodom-15-15-mold-a.webp"
+    },
+    "tiles": {}
+   },
+   "model3d": "/3d/t99/"
+  },
+  {
+   "key": "t100",
+   "code": "100",
+   "slug": "tomir-20-20-kvadrat",
+   "section": "trotuar",
+   "name": {
+    "uz": "Tomir 20×20 kvadrat",
+    "ru": "Томир 20×20",
+    "en": "Tomir 20×20 square"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,1",
+   "molds": [
+    {
+     "l": "A",
+     "size": "200×200",
+     "depth": "25",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "200×200",
+     "per": "25",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-tomir-20-20-kvadrat-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-tomir-20-20-kvadrat-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-tomir-20-20-kvadrat-mold-a.webp"
+    },
+    "tiles": {}
+   },
+   "model3d": "/3d/t100/"
+  },
+  {
+   "key": "t101",
+   "code": "101",
+   "slug": "zina-1",
+   "section": "trotuar",
+   "name": {
+    "uz": "Zina 1 (zinapoya)",
+    "ru": "Зина 1",
+    "en": "Step 1"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300",
+     "per": "1",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-zina-1-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-zina-1-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-zina-1-mold-a.webp"
+    },
+    "tiles": {}
+   },
+   "model3d": "/3d/t101/"
+  },
+  {
+   "key": "t102",
+   "code": "102",
+   "slug": "zina-2",
+   "section": "trotuar",
+   "name": {
+    "uz": "Zina 2 (zinapoya)",
+    "ru": "Зина 2",
+    "en": "Step 2"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300",
+     "per": "1",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-zina-2-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-zina-2-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-zina-2-mold-a.webp"
+    },
+    "tiles": {}
+   },
+   "model3d": "/3d/t102/"
+  },
+  {
+   "key": "t103",
+   "code": "103",
+   "slug": "yulduz-yulduzsimon",
+   "section": "trotuar",
+   "name": {
+    "uz": "Yulduz (yulduzsimon)",
+    "ru": "Юлдуз (звезда)",
+    "en": "Yulduz star"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,25",
+   "molds": [
+    {
+     "l": "A",
+     "size": "320×320",
+     "depth": "40",
+     "g": null
+    },
+    {
+     "l": "B",
+     "size": "90×160",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "320×320",
+     "per": "14",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "90×160",
+     "per": "15",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-yulduz-yulduzsimon-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-yulduz-yulduzsimon-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-yulduz-yulduzsimon-mold-a.webp"
+    },
+    "tiles": {}
+   },
+   "model3d": "/3d/t103/"
+  },
+  {
+   "key": "t104",
+   "code": "104",
+   "slug": "afsona",
+   "section": "trotuar",
+   "name": {
+    "uz": "Afsona",
+    "ru": "Афсона",
+    "en": "Afsona"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "6,52",
+   "molds": [
+    {
+     "l": "A",
+     "size": "320×320",
+     "depth": "40",
+     "g": null
+    },
+    {
+     "l": "B",
+     "size": "330×195",
+     "depth": "35",
+     "g": null
+    },
+    {
+     "l": "V",
+     "size": "290×170",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "320×320",
+     "per": "3,5",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "330×195",
+     "per": "20",
+     "cap": null
+    },
+    {
+     "l": "V",
+     "size": "290×170",
+     "per": "11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-afsona-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-afsona-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-afsona-mold-a.webp"
+    },
+    "tiles": {}
+   },
+   "model3d": "/3d/t104/"
+  },
+  {
+   "key": "t105",
+   "code": "105",
+   "slug": "versal",
+   "section": "trotuar",
+   "name": {
+    "uz": "Versal",
+    "ru": "Версал",
+    "en": "Versailles"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "6,34",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300",
+     "depth": "30",
+     "g": null
+    },
+    {
+     "l": "B",
+     "size": "100×300",
+     "depth": "30",
+     "g": null
+    },
+    {
+     "l": "V",
+     "size": "100×100",
+     "depth": "25",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300",
+     "per": "6",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "100×300",
+     "per": "13",
+     "cap": null
+    },
+    {
+     "l": "V",
+     "size": "100×100",
+     "per": "7",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-versal-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-versal-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-versal-mold-a.webp"
+    },
+    "tiles": {}
+   },
+   "model3d": "/3d/t105/"
+  },
+  {
+   "key": "t106",
+   "code": "106",
+   "slug": "charogon-1",
+   "section": "trotuar",
+   "name": {
+    "uz": "Charog‘on 1",
+    "ru": "Чарогон 1",
+    "en": "Charogon 1"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,35",
+   "molds": [
+    {
+     "l": "A",
+     "size": "360×250",
+     "depth": "40",
+     "g": null
+    },
+    {
+     "l": "B",
+     "size": "175×175",
+     "depth": "25",
+     "g": null
+    },
+    {
+     "l": "V",
+     "size": "110×110",
+     "depth": "40",
+     "g": null
+    },
+    {
+     "l": "G",
+     "size": "100×100",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "360×250",
+     "per": "18",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "175×175",
+     "per": "9",
+     "cap": null
+    },
+    {
+     "l": "V",
+     "size": "110×110",
+     "per": "4,5",
+     "cap": null
+    },
+    {
+     "l": "G",
+     "size": "100×100",
+     "per": "4,5",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-charogon-1-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-charogon-1-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-charogon-1-mold-a.webp"
+    },
+    "tiles": {}
+   },
+   "model3d": "/3d/t106/"
+  },
+  {
+   "key": "t107",
+   "code": "107",
+   "slug": "charogon-2",
+   "section": "trotuar",
+   "name": {
+    "uz": "Charog‘on 2",
+    "ru": "Чарогон 2",
+    "en": "Charogon 2"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,71",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300",
+     "depth": "30",
+     "g": null
+    },
+    {
+     "l": "B",
+     "size": "100×300",
+     "depth": "30",
+     "g": null
+    },
+    {
+     "l": "V",
+     "size": "135×135",
+     "depth": "35",
+     "g": null
+    },
+    {
+     "l": "G",
+     "size": "175×175",
+     "depth": "25",
+     "g": null
+    },
+    {
+     "l": "D",
+     "size": "150×300",
+     "depth": "35",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300",
+     "per": null,
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "100×300",
+     "per": null,
+     "cap": null
+    },
+    {
+     "l": "V",
+     "size": "135×135",
+     "per": null,
+     "cap": null
+    },
+    {
+     "l": "G",
+     "size": "175×175",
+     "per": null,
+     "cap": null
+    },
+    {
+     "l": "D",
+     "size": "150×300",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-charogon-2-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-charogon-2-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-charogon-2-mold-a.webp"
+    },
+    "tiles": {}
+   },
+   "model3d": "/3d/t107/"
+  },
+  {
+   "key": "t108",
+   "code": "108",
+   "slug": "flajok",
+   "section": "trotuar",
+   "name": {
+    "uz": "Flajok",
+    "ru": "Флажок",
+    "en": "Flag"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,04",
+   "molds": [
+    {
+     "l": "A",
+     "size": "295×295",
+     "depth": "45",
+     "g": null
+    },
+    {
+     "l": "B",
+     "size": "100×100",
+     "depth": "30",
+     "g": null
+    },
+    {
+     "l": "V",
+     "size": "135×135",
+     "depth": "45",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "295×295",
+     "per": "12",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "100×100",
+     "per": "12",
+     "cap": null
+    },
+    {
+     "l": "V",
+     "size": "135×135",
+     "per": "12",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-flajok-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-flajok-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-flajok-mold-a.webp"
+    },
+    "tiles": {}
+   },
+   "model3d": "/3d/t108/"
+  },
+  {
+   "key": "t109",
+   "code": "109",
+   "slug": "okean-25-50",
+   "section": "trotuar",
+   "name": {
+    "uz": "Okean 25×50",
+    "ru": "Океан 25×50",
+    "en": "Ocean 25×50"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,76",
+   "molds": [
+    {
+     "l": "A",
+     "size": "500×250",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×250",
+     "per": "8",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-okean-25-50-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-okean-25-50-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-okean-25-50-mold-a.webp"
+    },
+    "tiles": {}
+   },
+   "model3d": "/3d/t109/"
+  },
+  {
+   "key": "t110",
+   "code": "110",
+   "slug": "kubiki-25-50",
+   "section": "trotuar",
+   "name": {
+    "uz": "Kubiklar 25×50",
+    "ru": "Кубики 25×50",
+    "en": "Cubes 25×50"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "6,32",
+   "molds": [
+    {
+     "l": "A",
+     "size": "500×250",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×250",
+     "per": "8",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-kubiki-25-50-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-kubiki-25-50-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-kubiki-25-50-mold-a.webp"
+    },
+    "tiles": {}
+   },
+   "model3d": "/3d/t110/"
+  },
+  {
+   "key": "t111",
+   "code": "111",
+   "slug": "shershaviy-25-50",
+   "section": "trotuar",
+   "name": {
+    "uz": "Shershaviy 25×50",
+    "ru": "Шершавый 25×50",
+    "en": "Rough 25×50"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "6,0",
+   "molds": [
+    {
+     "l": "A",
+     "size": "500×250",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×250",
+     "per": "8",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-shershaviy-25-50-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-shershaviy-25-50-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-shershaviy-25-50-mold-a.webp"
+    },
+    "tiles": {}
+   },
+   "model3d": "/3d/t111/"
+  },
+  {
+   "key": "t112",
+   "code": "112",
+   "slug": "travertino-30-40",
+   "section": "trotuar",
+   "name": {
+    "uz": "Travertino 30×40",
+    "ru": "Травертино 30×40",
+    "en": "Travertino 30×40"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,8",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×400",
+     "depth": "48",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×400",
+     "per": "8,8",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-travertino-30-40-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-travertino-30-40-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-travertino-30-40-mold-a.webp"
+    },
+    "tiles": {}
+   },
+   "model3d": "/3d/t112/"
+  }
+ ],
+ "images": {
+  "vegas-2-shershaviy": {
+   "scene": "/catalog/2027/trotuar-vegas-2-shershaviy-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-vegas-2-shershaviy-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-vegas-2-shershaviy-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "ornament-18-36": {
+   "scene": "/catalog/2027/trotuar-ornament-18-36-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-ornament-18-36-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-ornament-18-36-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "dubay-aylana-okrujnost": {
+   "scene": "/catalog/2027/trotuar-dubay-aylana-okrujnost-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-dubay-aylana-okrujnost-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-dubay-aylana-okrujnost-mold-a.webp"
+   },
+   "tiles": {}
+  }
+ },
+ "archive": [
+  "d01",
+  "d02",
+  "d03",
+  "d04",
+  "d05",
+  "d06",
+  "d07",
+  "d08",
+  "d09",
+  "d10",
+  "d11",
+  "d12",
+  "d13",
+  "d14",
+  "d15",
+  "d16",
+  "d17",
+  "d18"
+ ]
+}
