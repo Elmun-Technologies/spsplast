@@ -999,5 +999,849 @@
   "d16",
   "d17",
   "d18"
- ]
+ ],
+ "refresh": {
+  "70-kabanchik-17-5-naqshli": {
+   "scene": "/catalog/2027/trotuar-70-kabanchik-17-5-naqshli-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-70-kabanchik-17-5-naqshli-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-70-kabanchik-17-5-naqshli-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "01-monako": {
+   "scene": "/catalog/2027/trotuar-01-monako-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-01-monako-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-01-monako-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "85-kabanchik-10-10": {
+   "scene": "/catalog/2027/trotuar-85-kabanchik-10-10-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-85-kabanchik-10-10-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-85-kabanchik-10-10-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "83-nikolay-2": {
+   "scene": "/catalog/2027/trotuar-83-nikolay-2-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-83-nikolay-2-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-83-nikolay-2-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "42-kerpich-10-20-5": {
+   "scene": "/catalog/2027/trotuar-42-kerpich-10-20-5-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-42-kerpich-10-20-5-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-42-kerpich-10-20-5-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "30-aleya": {
+   "scene": "/catalog/2027/trotuar-30-aleya-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-30-aleya-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-30-aleya-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "22-uzor-50-25": {
+   "scene": "/catalog/2027/trotuar-22-uzor-50-25-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-22-uzor-50-25-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-22-uzor-50-25-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "64-royal-2": {
+   "scene": "/catalog/2027/trotuar-64-royal-2-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-64-royal-2-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-64-royal-2-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "05-magna": {
+   "scene": "/catalog/2027/trotuar-05-magna-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-05-magna-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-05-magna-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "02-ornament": {
+   "scene": "/catalog/2027/trotuar-02-ornament-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-02-ornament-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-02-ornament-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "03-yalta": {
+   "scene": "/catalog/2027/trotuar-03-yalta-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-03-yalta-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-03-yalta-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "04-tsvetok": {
+   "scene": "/catalog/2027/trotuar-04-tsvetok-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-04-tsvetok-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-04-tsvetok-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "06-azara": {
+   "scene": "/catalog/2027/trotuar-06-azara-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-06-azara-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-06-azara-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "07-parus": {
+   "scene": "/catalog/2027/trotuar-07-parus-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-07-parus-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-07-parus-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "08-travertino": {
+   "scene": "/catalog/2027/trotuar-08-travertino-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-08-travertino-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-08-travertino-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "09-versache-1": {
+   "scene": "/catalog/2027/trotuar-09-versache-1-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-09-versache-1-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-09-versache-1-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "10-zanjir": {
+   "scene": "/catalog/2027/trotuar-10-zanjir-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-10-zanjir-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-10-zanjir-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "11-setka": {
+   "scene": "/catalog/2027/trotuar-11-setka-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-11-setka-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-11-setka-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "12-rio": {
+   "scene": "/catalog/2027/trotuar-12-rio-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-12-rio-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-12-rio-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "13-viking": {
+   "scene": "/catalog/2027/trotuar-13-viking-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-13-viking-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-13-viking-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "14-shersha": {
+   "scene": "/catalog/2027/trotuar-14-shersha-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-14-shersha-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-14-shersha-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "15-floriya": {
+   "scene": "/catalog/2027/trotuar-15-floriya-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-15-floriya-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-15-floriya-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "16-strelka": {
+   "scene": "/catalog/2027/trotuar-16-strelka-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-16-strelka-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-16-strelka-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "17-versachi": {
+   "scene": "/catalog/2027/trotuar-17-versachi-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-17-versachi-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-17-versachi-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "18-dubay-40-40": {
+   "scene": "/catalog/2027/trotuar-18-dubay-40-40-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-18-dubay-40-40-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-18-dubay-40-40-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "19-eksklyuziv": {
+   "scene": null,
+   "sceneSm": null,
+   "molds": {
+    "A": "/catalog/2027/trotuar-19-eksklyuziv-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "20-travertin-40-40": {
+   "scene": "/catalog/2027/trotuar-20-travertin-40-40-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-20-travertin-40-40-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-20-travertin-40-40-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "21-taroq": {
+   "scene": "/catalog/2027/trotuar-21-taroq-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-21-taroq-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-21-taroq-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "23-parket-12-36": {
+   "scene": "/catalog/2027/trotuar-23-parket-12-36-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-23-parket-12-36-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-23-parket-12-36-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "24-guruch": {
+   "scene": "/catalog/2027/trotuar-24-guruch-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-24-guruch-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-24-guruch-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "25-bodom": {
+   "scene": "/catalog/2027/trotuar-25-bodom-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-25-bodom-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-25-bodom-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "26-astana": {
+   "scene": "/catalog/2027/trotuar-26-astana-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-26-astana-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-26-astana-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "27-yulduz": {
+   "scene": "/catalog/2027/trotuar-27-yulduz-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-27-yulduz-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-27-yulduz-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "28-turkman-guli": {
+   "scene": "/catalog/2027/trotuar-28-turkman-guli-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-28-turkman-guli-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-28-turkman-guli-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "29-eksklyuziv-30-30-4-sakkiz-qirra": {
+   "scene": null,
+   "sceneSm": null,
+   "molds": {},
+   "tiles": {}
+  },
+  "31-aleya-shershavoe": {
+   "scene": "/catalog/2027/trotuar-31-aleya-shershavoe-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-31-aleya-shershavoe-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-31-aleya-shershavoe-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "32-tomir": {
+   "scene": "/catalog/2027/trotuar-32-tomir-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-32-tomir-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-32-tomir-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "33-novvot": {
+   "scene": "/catalog/2027/trotuar-33-novvot-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-33-novvot-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-33-novvot-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "34-parket-20-20": {
+   "scene": "/catalog/2027/trotuar-34-parket-20-20-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-34-parket-20-20-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-34-parket-20-20-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "35-uzor-20-20": {
+   "scene": "/catalog/2027/trotuar-35-uzor-20-20-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-35-uzor-20-20-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-35-uzor-20-20-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "36-bodom-20-20": {
+   "scene": "/catalog/2027/trotuar-36-bodom-20-20-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-36-bodom-20-20-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-36-bodom-20-20-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "37-rombik-eski": {
+   "scene": "/catalog/2027/trotuar-37-rombik-eski-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-37-rombik-eski-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-37-rombik-eski-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "38-rombik-yangi": {
+   "scene": "/catalog/2027/trotuar-38-rombik-yangi-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-38-rombik-yangi-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-38-rombik-yangi-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "39-dubay-toshli": {
+   "scene": "/catalog/2027/trotuar-39-dubay-toshli-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-39-dubay-toshli-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-39-dubay-toshli-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "40-dubay-shershaviy": {
+   "scene": "/catalog/2027/trotuar-40-dubay-shershaviy-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-40-dubay-shershaviy-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-40-dubay-shershaviy-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "41-dubay-yaltiroq": {
+   "scene": "/catalog/2027/trotuar-41-dubay-yaltiroq-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-41-dubay-yaltiroq-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-41-dubay-yaltiroq-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "43-kerpich-10-20-7": {
+   "scene": "/catalog/2027/trotuar-43-kerpich-10-20-7-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-43-kerpich-10-20-7-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-43-kerpich-10-20-7-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "44-parus-18-36": {
+   "scene": "/catalog/2027/trotuar-44-parus-18-36-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-44-parus-18-36-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-44-parus-18-36-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "45-gladkiy-18-36": {
+   "scene": "/catalog/2027/trotuar-45-gladkiy-18-36-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-45-gladkiy-18-36-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-45-gladkiy-18-36-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "46-dojdik-18-36": {
+   "scene": "/catalog/2027/trotuar-46-dojdik-18-36-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-46-dojdik-18-36-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-46-dojdik-18-36-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "47-kabanchik-17-17": {
+   "scene": "/catalog/2027/trotuar-47-kabanchik-17-17-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-47-kabanchik-17-17-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-47-kabanchik-17-17-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "48-mozaika": {
+   "scene": "/catalog/2027/trotuar-48-mozaika-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-48-mozaika-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-48-mozaika-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "50-azaliya-1": {
+   "scene": "/catalog/2027/trotuar-50-azaliya-1-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-50-azaliya-1-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-50-azaliya-1-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "51-azaliya-2": {
+   "scene": "/catalog/2027/trotuar-51-azaliya-2-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-51-azaliya-2-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-51-azaliya-2-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "52-ona-bola-1": {
+   "scene": "/catalog/2027/trotuar-52-ona-bola-1-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-52-ona-bola-1-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-52-ona-bola-1-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "53-aziya": {
+   "scene": "/catalog/2027/trotuar-53-aziya-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-53-aziya-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-53-aziya-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "54-aziya-1": {
+   "scene": "/catalog/2027/trotuar-54-aziya-1-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-54-aziya-1-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-54-aziya-1-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "55-aziya-3": {
+   "scene": "/catalog/2027/trotuar-55-aziya-3-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-55-aziya-3-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-55-aziya-3-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "56-buxoro": {
+   "scene": "/catalog/2027/trotuar-56-buxoro-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-56-buxoro-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-56-buxoro-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "57-afina": {
+   "scene": "/catalog/2027/trotuar-57-afina-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-57-afina-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-57-afina-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "58-rokki": {
+   "scene": "/catalog/2027/trotuar-58-rokki-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-58-rokki-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-58-rokki-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "59-kostochka": {
+   "scene": "/catalog/2027/trotuar-59-kostochka-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-59-kostochka-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-59-kostochka-mold-a-3d.webp"
+   },
+   "tiles": {}
+  },
+  "60-3d": {
+   "scene": "/catalog/2027/trotuar-60-3d-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-60-3d-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-60-3d-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "61-4d": {
+   "scene": "/catalog/2027/trotuar-61-4d-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-61-4d-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-61-4d-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "62-vegas": {
+   "scene": "/catalog/2027/trotuar-62-vegas-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-62-vegas-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-62-vegas-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "63-royal-1": {
+   "scene": "/catalog/2027/trotuar-63-royal-1-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-63-royal-1-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-63-royal-1-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "65-farovon": {
+   "scene": "/catalog/2027/trotuar-65-farovon-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-65-farovon-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-65-farovon-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "66-aleya-2": {
+   "scene": "/catalog/2027/trotuar-66-aleya-2-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-66-aleya-2-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-66-aleya-2-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "67-safir": {
+   "scene": "/catalog/2027/trotuar-67-safir-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-67-safir-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-67-safir-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "68-aleya-uzor": {
+   "scene": "/catalog/2027/trotuar-68-aleya-uzor-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-68-aleya-uzor-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-68-aleya-uzor-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "69-kabanchik-15-15": {
+   "scene": "/catalog/2027/trotuar-69-kabanchik-15-15-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-69-kabanchik-15-15-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-69-kabanchik-15-15-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "71-mumtoz": {
+   "scene": "/catalog/2027/trotuar-71-mumtoz-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-71-mumtoz-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-71-mumtoz-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "72-marokesh": {
+   "scene": "/catalog/2027/trotuar-72-marokesh-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-72-marokesh-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-72-marokesh-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "73-marokesh-2": {
+   "scene": "/catalog/2027/trotuar-73-marokesh-2-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-73-marokesh-2-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-73-marokesh-2-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "74-nikolay-gladkiy": {
+   "scene": "/catalog/2027/trotuar-74-nikolay-gladkiy-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-74-nikolay-gladkiy-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-74-nikolay-gladkiy-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "75-nikolay-shershavoe": {
+   "scene": "/catalog/2027/trotuar-75-nikolay-shershavoe-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-75-nikolay-shershavoe-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-75-nikolay-shershavoe-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "76-ona-bola-2": {
+   "scene": "/catalog/2027/trotuar-76-ona-bola-2-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-76-ona-bola-2-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-76-ona-bola-2-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "77-aziya-2": {
+   "scene": "/catalog/2027/trotuar-77-aziya-2-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-77-aziya-2-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-77-aziya-2-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "78-xokkey": {
+   "scene": "/catalog/2027/trotuar-78-xokkey-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-78-xokkey-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-78-xokkey-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "79-palma": {
+   "scene": "/catalog/2027/trotuar-79-palma-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-79-palma-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-79-palma-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "80-ventilyator": {
+   "scene": "/catalog/2027/trotuar-80-ventilyator-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-80-ventilyator-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-80-ventilyator-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "81-vindovs": {
+   "scene": "/catalog/2027/trotuar-81-vindovs-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-81-vindovs-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-81-vindovs-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "82-orxideya": {
+   "scene": "/catalog/2027/trotuar-82-orxideya-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-82-orxideya-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-82-orxideya-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "84-vetnam": {
+   "scene": "/catalog/2027/trotuar-84-vetnam-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-84-vetnam-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-84-vetnam-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "86-aleya-3": {
+   "scene": "/catalog/2027/trotuar-86-aleya-3-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-86-aleya-3-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-86-aleya-3-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "87-magna-kubik-bilan": {
+   "scene": "/catalog/2027/trotuar-87-magna-kubik-bilan-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-87-magna-kubik-bilan-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-87-magna-kubik-bilan-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "88-parket-yog-och-naqshli": {
+   "scene": "/catalog/2027/trotuar-88-parket-yog-och-naqshli-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-88-parket-yog-och-naqshli-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-88-parket-yog-och-naqshli-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "polosa": {
+   "scene": "/catalog/2027/trotuar-polosa-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-polosa-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-polosa-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "kaliforniya": {
+   "scene": "/catalog/2027/trotuar-kaliforniya-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-kaliforniya-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-kaliforniya-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "kaliforniya-g": {
+   "scene": "/catalog/2027/trotuar-kaliforniya-g-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-kaliforniya-g-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-kaliforniya-g-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "shashka": {
+   "scene": "/catalog/2027/trotuar-shashka-scene-3d.webp",
+   "sceneSm": "/catalog/2027/trotuar-shashka-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/trotuar-shashka-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "bumerang": {
+   "scene": null,
+   "sceneSm": null,
+   "molds": {
+    "A": "/catalog/2027/trotuar-bumerang-mold-a.webp"
+   },
+   "tiles": {}
+  },
+  "vegas-2-shershaviy": {
+   "scene": null,
+   "sceneSm": null,
+   "molds": {},
+   "tiles": {}
+  },
+  "ornament-18-36": {
+   "scene": null,
+   "sceneSm": null,
+   "molds": {},
+   "tiles": {}
+  },
+  "dubay-aylana-okrujnost": {
+   "scene": null,
+   "sceneSm": null,
+   "molds": {},
+   "tiles": {}
+  }
+ },
+ "ruNames": {
+  "70-kabanchik-17-5-naqshli": "Кабанчик 17,5 с рисунком",
+  "01-monako": "Монако",
+  "85-kabanchik-10-10": "Кабанчик 10×10",
+  "83-nikolay-2": "Николай 2",
+  "42-kerpich-10-20-5": "Кирпич 10×20×5",
+  "30-aleya": "Алея 1",
+  "22-uzor-50-25": "Узор 50×25",
+  "64-royal-2": "Рояль 2",
+  "05-magna": "Магна",
+  "02-ornament": "Орнамент",
+  "03-yalta": "Ялта",
+  "04-tsvetok": "Цветок",
+  "06-azara": "Азара",
+  "07-parus": "Парус",
+  "08-travertino": "Травертино",
+  "09-versache-1": "Версаче 1",
+  "10-zanjir": "Занжир",
+  "11-setka": "Сетка",
+  "12-rio": "Рио",
+  "13-viking": "Викинг",
+  "14-shersha": "Шерша",
+  "15-floriya": "Флория",
+  "16-strelka": "Стрелка",
+  "17-versachi": "Версачи",
+  "18-dubay-40-40": "Дубай 40×40",
+  "20-travertin-40-40": "Травертино 40×40",
+  "21-taroq": "Тарок",
+  "23-parket-12-36": "Паркет 12×36",
+  "24-guruch": "Гуруч",
+  "25-bodom": "Бодом",
+  "26-astana": "Астана",
+  "27-yulduz": "Юлдуз",
+  "28-turkman-guli": "Туркман гули",
+  "31-aleya-shershavoe": "Алея шершавое",
+  "32-tomir": "Томир",
+  "33-novvot": "Новвот",
+  "34-parket-20-20": "Паркет 20×20",
+  "35-uzor-20-20": "Узор 20×20",
+  "36-bodom-20-20": "Бодом 20×20",
+  "37-rombik-eski": "Ромбик старый",
+  "38-rombik-yangi": "Ромбик новый",
+  "39-dubay-toshli": "Дубай каменный",
+  "40-dubay-shershaviy": "Дубай шершавый",
+  "41-dubay-yaltiroq": "Дубай глянец",
+  "43-kerpich-10-20-7": "Кирпич 10×20×7",
+  "44-parus-18-36": "Парус 18×36",
+  "45-gladkiy-18-36": "Гладкий 18×36",
+  "46-dojdik-18-36": "Дождик 18×36",
+  "47-kabanchik-17-17": "Кабанчик 17×17",
+  "48-mozaika": "Мозайка",
+  "50-azaliya-1": "Азалия 1",
+  "51-azaliya-2": "Азалия 2",
+  "52-ona-bola-1": "Она-бола 1",
+  "53-aziya": "Азия",
+  "54-aziya-1": "Азия 1",
+  "55-aziya-3": "Азия 3",
+  "56-buxoro": "Бухоро",
+  "57-afina": "Афина",
+  "58-rokki": "Рокки",
+  "60-3d": "3D",
+  "61-4d": "4D",
+  "62-vegas": "Вегас",
+  "63-royal-1": "Рояль 1",
+  "65-farovon": "Фаровон",
+  "66-aleya-2": "Алея 2",
+  "67-safir": "Сафир",
+  "68-aleya-uzor": "Алея узор",
+  "69-kabanchik-15-15": "Кабанчик 15×15",
+  "71-mumtoz": "Мумтоз",
+  "72-marokesh": "Марокко",
+  "73-marokesh-2": "Марокко 2",
+  "74-nikolay-gladkiy": "Николай гладкий",
+  "75-nikolay-shershavoe": "Николай шершавый",
+  "76-ona-bola-2": "Она-бола 2",
+  "77-aziya-2": "Азия 2",
+  "78-xokkey": "Хоккей",
+  "79-palma": "Пальма",
+  "80-ventilyator": "Вентилятор",
+  "81-vindovs": "Виндовс",
+  "82-orxideya": "Орхидея",
+  "84-vetnam": "Вьетнам",
+  "86-aleya-3": "Алея 3",
+  "87-magna-kubik-bilan": "Магна с кубиком",
+  "88-parket-yog-och-naqshli": "Паркет под дерево",
+  "polosa": "Полоса",
+  "kaliforniya": "Калифорния",
+  "kaliforniya-g": "Калифорния Г",
+  "shashka": "Шашка"
+ }
 }
