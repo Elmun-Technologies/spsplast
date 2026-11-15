@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { isValidLocale, locales, type Locale } from '@/lib/i18n';
 import { getUi } from '@/lib/ui';
 import { getPages } from '@/lib/pages';
-import { PDF_CATALOG_HREF } from '@/components/site/SiteHeader';
+import { flipHref } from '@/lib/catalogPdf';
 import { PartnersForm } from '@/components/partners2027/PartnersForm';
 import { JsonLd } from '@/components/site/JsonLd';
 import { jsonLdBreadcrumb, jsonLdFaq, pageMetadata } from '@/lib/seo';
@@ -65,7 +65,7 @@ export default async function PartnersPage({ params }: { params: Promise<{ lang:
             <a className="sps-btn sps-btn--primary sps-btn--lg" href="#sorov">
               {p.partners.cta}
             </a>
-            <a className="sps-btn sps-btn--outline sps-btn--lg" href={PDF_CATALOG_HREF} download>
+            <a className="sps-btn sps-btn--outline sps-btn--lg" href={flipHref(lang)}>
               {p.partners.pdf}
             </a>
           </div>

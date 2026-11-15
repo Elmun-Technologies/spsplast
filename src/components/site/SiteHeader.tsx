@@ -1,10 +1,9 @@
 import { getSectionCounts, getTotalCount, SECTION_SLUGS, sectionLabel, sectionShortLabel, getActiveSections } from '@/lib/catalog2027';
 import { type Locale } from '@/lib/i18n';
 import { getUi } from '@/lib/ui';
+import { flipHref } from '@/lib/catalogPdf';
 import { HeaderClient } from '@/components/site/HeaderClient';
 
-/** Katalog PDF (2026, uz) — 2027 uch tilli PDF biznesdan kutilmoqda (savol). */
-export const PDF_CATALOG_HREF = '/catalog/pdf/sps-qoliplar-katalogi-2026.pdf';
 
 /**
  * Header (Redesign 2028): qora utilita qatori (kompaniya havolalari, telefon,
@@ -32,5 +31,5 @@ export function SiteHeader({ lang }: { lang: Locale }) {
     { href: `/${lang}/contact`, match: `/${lang}/contact`, label: t.nav.contact },
   ];
 
-  return <HeaderClient lang={lang} sections={sections} total={getTotalCount()} nav={nav} pdfHref={PDF_CATALOG_HREF} />;
+  return <HeaderClient lang={lang} sections={sections} total={getTotalCount()} nav={nav} pdfHref={flipHref(lang)} />;
 }

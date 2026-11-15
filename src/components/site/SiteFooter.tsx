@@ -5,7 +5,7 @@ import { type Locale } from '@/lib/i18n';
 import { getUi } from '@/lib/ui';
 import { MessengerFab } from './MessengerFab';
 import { LangSwitch } from '@/components/site/LangSwitch';
-import { PDF_CATALOG_HREF } from '@/components/site/SiteHeader';
+import { flipHref } from '@/lib/catalogPdf';
 import { Icon } from '@/components/site/icons';
 import { getSitePages } from '@/lib/pagesServer';
 import { EXPORT_COUNTRIES } from '@/lib/seoPages';
@@ -56,7 +56,7 @@ export function SiteFooter({ lang }: { lang: Locale }) {
             <a href={`/${lang}/production#eksport`}>{t.footer.export}</a>
             <a href={`/${lang}/partners`}>{t.footer.partners}</a>
             <a href={`/${lang}/partners#faq`}>{t.footer.faq}</a>
-            <a href={PDF_CATALOG_HREF}>{t.footer.pdf}</a>
+            <a href={flipHref(lang)}>{t.footer.pdf}</a>
           </div>
           <div className="ft-col">
             <span className="sps-eyebrow">{t.footer.export}</span>
