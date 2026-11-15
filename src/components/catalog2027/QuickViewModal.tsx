@@ -51,10 +51,18 @@ export function QuickViewModal({
         </div>
         <div className="qv-grid">
           <div className="qv-media">
-            {model.images.scene ? <Image src={model.images.scene} alt={`${modelName(model, lang)} — ${getUi(lang).alt.scene}`} fill sizes="(max-width: 760px) 100vw, 340px" style={{ objectFit: 'cover' }} /> : <div className="ph" style={{ position: 'absolute', inset: 0 }}>{model.code || '—'}</div>}
             {model.images.molds.A ? (
-              <span className="sps-card__mold">
-                <Image src={model.images.molds.A} alt={`${modelName(model, lang)} — ${getUi(lang).alt.mold}`} fill sizes="80px" style={{ objectFit: 'contain' }} />
+              <span className="sps-card__cutout sps-card__cutout--tilt" style={{ position: 'absolute', inset: 0 }}>
+                <Image src={model.images.molds.A} alt={`${modelName(model, lang)} — ${getUi(lang).alt.mold}`} fill sizes="(max-width: 760px) 100vw, 340px" style={{ objectFit: 'contain' }} />
+              </span>
+            ) : model.images.scene ? (
+              <Image src={model.images.scene} alt={`${modelName(model, lang)} — ${getUi(lang).alt.scene}`} fill sizes="(max-width: 760px) 100vw, 340px" style={{ objectFit: 'cover' }} />
+            ) : (
+              <div className="ph" style={{ position: 'absolute', inset: 0 }}>{model.code || '—'}</div>
+            )}
+            {model.images.molds.A && model.images.scene ? (
+              <span className="sps-card__mold sps-card__scene">
+                <Image src={(model.images.sceneSm || model.images.scene) as string} alt={`${modelName(model, lang)} — ${getUi(lang).alt.scene}`} fill sizes="160px" style={{ objectFit: 'cover' }} />
               </span>
             ) : null}
           </div>
