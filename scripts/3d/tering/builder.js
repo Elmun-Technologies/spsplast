@@ -372,7 +372,12 @@ export function mount(root, opts) {
       if (!meshes.length) continue;
       if (/^qum/i.test(node.name)) {
         // qum yostig'i — joyida qoladi, soyalarni qabul qiladi
-        meshes.forEach((m) => (m.receiveShadow = true));
+        meshes.forEach((m) => {
+          m.receiveShadow = true;
+          // qora asos: och plitkalar oq-bej fonda qo'shilib ketmasin
+          m.material = m.material.clone();
+          m.material.color.set(0x2a2b2d);
+        });
         scene.add(node);
         frameBox.expandByObject(node);
         continue;
