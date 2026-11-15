@@ -43,7 +43,7 @@ export const AUDIT_ROUTES = [
   { path: '/uz/catalog/thermal-panels/tp-012-25x50-labirint', lang: 'uz', expect: { jsonLd: ['BreadcrumbList', 'Product', 'FAQPage'] } },
   { path: '/ru/catalog/facade-decor/krn-005-35x120-karniz', lang: 'ru', expect: { jsonLd: ['BreadcrumbList', 'Product', 'FAQPage'] } },
   { path: '/en/catalog/fence/z03-yevrozabor-reykalar', lang: 'en', expect: { jsonLd: ['BreadcrumbList', 'Product', 'FAQPage'] } },
-  { path: '/uz/catalog/decor/d08-rombli-panjara', lang: 'uz', expect: { jsonLd: ['BreadcrumbList', 'Product', 'FAQPage'] } },
+  { path: '/uz/catalog/bench/s01-skameyka-oyogi-1', lang: 'uz', expect: { jsonLd: ['BreadcrumbList', 'Product', 'FAQPage'] } },
   // Rasmsiz model: fallback (placeholder) va alt matnlari tekshiriladi.
   // Rasmsiz model: rasm kelguncha `noindex, follow` (audit 2026-11-02) — sahifa ishlaydi, sitemap'da yo'q.
   { path: '/uz/catalog/paving/29-eksklyuziv-30-30-4-sakkiz-qirra', lang: 'uz', expect: { jsonLd: ['Product'], noImage: true, noindex: true } },
