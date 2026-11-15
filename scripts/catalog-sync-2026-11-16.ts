@@ -62,6 +62,18 @@ for (const [slug, images] of Object.entries(data.images)) {
   imaged += res.length;
 }
 
+// Trotuar rasmlari: bosma katalogdagi aniq qolip surati + 3D sahna (eski 2026 studiya rasmlari xira edi).
+// Admin yuklagan rasm (/media/...) bo'lsa — tegilmaydi.
+let refreshed = 0;
+for (const [slug, images] of Object.entries((data.refresh ?? {}) as Record<string, unknown>)) {
+  const res = await db
+    .update(products)
+    .set({ images: images as never, updatedAt: new Date() })
+    .where(and(eq(products.slug, slug), sql`${products.images}::text not like '%/media/%'`))
+    .returning({ id: products.id });
+  refreshed += res.length;
+}
+
 let archived = 0;
 for (const code of data.archive as string[]) {
   const res = await db
@@ -72,5 +84,5 @@ for (const code of data.archive as string[]) {
   archived += res.length;
 }
 
-console.log(`Qo'shildi: ${added} / ${data.add.length}; rasm qo'yildi: ${imaged}; arxivga: ${archived}.`);
+console.log(`Qo'shildi: ${added} / ${data.add.length}; rasm qo'yildi: ${imaged}; rasm yangilandi: ${refreshed}; arxivga: ${archived}.`);
 process.exit(0);
