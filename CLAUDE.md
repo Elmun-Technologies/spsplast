@@ -66,6 +66,9 @@ docs/ROADMAP-2027.md         # gap analysis + stages 7–12
 src/components/site/         # new layer: SiteHeader, HeaderClient, SiteFooter, LangSwitch, icons, MotionLayer
 src/lib/siteContent.ts       # admin numbers/contacts → `{years}` `{countries}` `{contactLine}`… tokens in getPages()
 src/lib/integrations.ts      # admin settings fields (integrations, contacts, stats) + validation regexes
+scripts/3d/build-tering.mjs  # QR 3D sahifalariga "Соберите сами" tabi: bundle + sahifalarni yangilash (`npm run 3d:tering`)
+scripts/3d/tering/builder.js # o'sha rejim manbasi (three.js, terilgan.glb dan slotlar); glb-layout.mjs — ko'tarilgan plitka teshigi
+public/3d/assets/tering-<hash>.js  # GENERATED bundle (three 0.186.1 + builder, ~162 KB gzip), faqat tab ochilganda import qilinadi
 public/admin-ai/             # onnxruntime-web + u2netp.onnx (16 MB) — admin-only browser background removal
 src/dictionaries/ui/{uz,ru,en}.ts   # UI copy for the new layer (uz = type source)
 src/dictionaries/pagesServer/      # server-only page copy: `seo` (tag/export landings) + `privacy` → getSitePages()
@@ -175,6 +178,7 @@ npm run redirects:build # regenerate scripts/redirects-2027.json from docs/legac
 npm run images:variants # sharp: container-ratio crops (1:1/4:3/16:9) -> public/images/site/*-<ratio>.webp
 npm run images:bg      # LOCAL rembg (isnet-general-use) -> media-src/clean/*.png masks + transparent mold/tile WebP
 npm run catalog3d:build # public/3d/*/index.html -> data/catalog3d-2027.json (run when a 3D package is added)
+npm run 3d:tering      # QR 3D sahifalari: "Соберите сами" bundle + 91 trotuar sahifasi (`-- --check` = faqat tekshirish)
 npm run photos:import  # media-src/live/* -> models:build + images:bg (live only) + models:images + redirects + check
 ```
 
@@ -502,6 +506,21 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     labelled "3D vizualizatsiya"). Open: `t33-qolip.jpg` (3D t33 "Эксклюзив 20×20") has no site product; `t60` photo vs
     "55 Aziya 3" 3D render only partly matches; Z10 not in the printed catalog — `docs/unresolved-questions.md` 1.18.
 
+- **QR 3D "Соберите сами" (2026-11-16, `tests/tering3d.test.js`)** — keep them:
+  - `public/3d/<id>/index.html` are produced by an EXTERNAL 3D pipeline (no generator in this repo).
+    `scripts/3d/build-tering.mjs` is an idempotent post-process for paving pages (`t<NN>` with `terilgan.glb`,
+    91 pages): it adds a 5th tab, the panel skeleton, CSS and a tiny connector, and asserts
+    `unpatch(patch(html)) === html`, so the 4 original tabs stay byte-identical. After a new 3D package or a
+    re-export of the pages: `npm run 3d:tering`. Non-paving pages are never touched (test).
+  - Slots come from `terilgan.glb` (real laying pattern, sets of 2–3 pieces, rotations, edge pieces), not from a
+    uniform grid of `mahsulot.glb`. The lifted tile there sits at `+9°`, shifted `(0.62·m, 0.18·m)` (m = longest
+    side) — `findHole()` puts it back; verified for all 91 models (no overlap, no gap).
+  - three.js is bundled (esbuild, exact pins, Dependabot ignores both) into one hashed file — CSP allows only
+    `'self'` scripts and `/3d/*` is cached 7 days. The "Multiple instances of Three.js" console warning (model-viewer
+    has its own copy) is stripped at bundle time. Bumping three: change `THREE_VERSION` + package.json, rebuild,
+    check `/3d/t12/#tering` in a browser.
+  - Tap vs orbit: a pointer that moved > 8 px, lasted > 650 ms or had a second finger is never a tap.
+    Rendering is on-demand (no idle rAF loop); `prefers-reduced-motion` = no drop animation, no damping.
 - **Never reintroduce Tailwind.** The database is back (Stage 7, user decision) **only** behind
   `src/server/` — public pages (`[lang]`, `components`, `lib`) must never import it
   (`tests/platform.test.js` test 6), otherwise the storefront stops being static.
@@ -612,7 +631,7 @@ npm run dev            # local dev server
 npm run build          # models:check + next build (~740 static HTML pages)
 npm run typecheck      # tsc --noEmit
 npm run lint           # eslint . (next lint Next 16 da olib tashlangan)
-npm test               # node --test --experimental-strip-types tests/*.test.js (188 tests)
+npm test               # node --test --experimental-strip-types tests/*.test.js (194 tests)
 npm run models:build && npm run models:images && npm run models:check
 npm run db:generate    # after editing src/server/db/schema.ts → new SQL in drizzle/
 DATABASE_URL=... npm run db:migrate

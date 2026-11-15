@@ -30,7 +30,7 @@ ishonchli (soxta ko'rinmaydigan) holatga yetkazish**.
 
 **Ommaviy sayt** (`src/app/[lang]/*`): statik prerender (~740 sahifa). Bosh sahifa, katalog/bo'lim/model
 (filtr, qidiruv, solishtirish, zayafka ro'yxati, qolip kalkulyatori), ulgurji, ishlab chiqarish, kontakt,
-maxfiylik, 404, SEO landing (teg + 8 eksport davlati), 3D ko'ruvchi (`public/3d`). SEO: hreflang, sitemap (711 URL), JSON-LD (narxsiz), 499 ta 301. Animatsiyalar: `MotionLayer.tsx` + CSS.
+maxfiylik, 404, SEO landing (teg + 8 eksport davlati), 3D ko'ruvchi (`public/3d`; trotuar QR sahifalarida "Соберите сами" — plitkani o'zing ter, `npm run 3d:tering`). SEO: hreflang, sitemap (711 URL), JSON-LD (narxsiz), 499 ta 301. Animatsiyalar: `MotionLayer.tsx` + CSS.
 
 **Admin panel** (`/admin`, noindex):
 - Zayafkalar CRM: holat (Yangi → Bog'lanildi → Taklif → Kelishildi/Rad etildi), mas'ul, izoh, tarix, CSV,
