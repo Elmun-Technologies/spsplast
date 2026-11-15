@@ -513,7 +513,12 @@ def attach_renders(models, jobs, model3d):
         target = f"{m['section']}-{m['slug']}"
         if "A" not in m["images"]["molds"] and os.path.exists(os.path.join(ROOT, base, "qolip_tik.jpg")):
             dst = f"public/catalog/2027/{target}-mold-a-3d.webp"
-            jobs.append({"src": f"{base}/qolip_tik.jpg", "dst": dst, "w": 800, "kind": "render"})
+            # AI-kattalashtirilgan manba (Real-ESRGAN x4, media-src/upscaled) bo'lsa — tiniqroq, 1200 px.
+            up_src = f"media-src/upscaled/{e['id']}-qolip.jpg"
+            if os.path.exists(os.path.join(ROOT, up_src)):
+                jobs.append({"src": up_src, "dst": dst, "w": 1200, "kind": "render"})
+            else:
+                jobs.append({"src": f"{base}/qolip_tik.jpg", "dst": dst, "w": 800, "kind": "render"})
             m["images"]["molds"]["A"] = "/" + dst[len("public/"):]
             stats["mold"] += 1
         if not m["images"]["scene"]:
