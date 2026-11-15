@@ -3,7 +3,7 @@
 > Bu fayl `scripts/extract/build_models_2027.py` tomonidan qayta yoziladi.
 > Har bir savol manba fayl va katakka ishora qiladi. Javob kelgacha qiymat `null`; saytda neytral matn chiqadi (`[...]` hech qachon ko'rsatilmaydi).
 
-Jami model: **216** (HANDOFF dastlabki rejasi: 152; 3D katalog bilan to'ldirildi). Bo'limlar: trotuar 95, zabor 10, fasad_dekor 67, dekor 18, fasad 7, skameyka 7, termopanel 12
+Jami model: **198** (HANDOFF dastlabki rejasi: 152; 3D katalog bilan to'ldirildi). Bo'limlar: trotuar 95, zabor 10, fasad_dekor 67, fasad 7, skameyka 7, termopanel 12
 
 ## Manbalar holati
 
