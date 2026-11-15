@@ -13,6 +13,12 @@ updates:
     groups:
       minor-and-patch:
         update-types: [minor, patch]
+    ignore:
+      # three + esbuild public/3d/assets/tering-<hash>.js ichiga bundle qilingan (aniq versiya,
+      # tests/tering3d.test.js --check bilan solishtiradi). Yangilash — qo'lda: versiyani
+      # o'zgartirib `npm run 3d:tering`, keyin QR sahifani brauzerda tekshirish.
+      - dependency-name: three
+      - dependency-name: esbuild
   - package-ecosystem: github-actions
     directory: /
     schedule:

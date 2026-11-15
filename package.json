@@ -21,6 +21,7 @@
     "images:bg": "python3 scripts/extract/remove_bg_2027.py",
     "photos:import": "python3 scripts/extract/build_models_2027.py && python3 scripts/extract/remove_bg_2027.py --only media-src/live/ && python3 scripts/extract/build_images_2027.py && python3 scripts/extract/build_redirects_2027.py && node scripts/validate-models-2027.mjs",
     "catalog3d:build": "python3 scripts/extract/build_3d_catalog_2027.py",
+    "3d:tering": "node scripts/3d/build-tering.mjs",
     "audit:a11y": "node scripts/audit-a11y.mjs",
     "audit:seo": "node scripts/audit-seo-dom.mjs",
     "audit": "node scripts/audit-seo-dom.mjs && node scripts/audit-a11y.mjs",
@@ -51,6 +52,7 @@
     "@types/react-dom": "^19.3.0",
     "axe-core": "^4.14.0",
     "drizzle-kit": "^0.31.11",
+    "esbuild": "0.25.12",
     "eslint": "^8.57.0",
     "eslint-config-next": "^15.5.28",
     "jsdom": "^25.0.1",
@@ -58,6 +60,7 @@
     "pixelmatch": "^8.0.0",
     "playwright": "^1.65.0",
     "pngjs": "^7.0.0",
+    "three": "0.186.1",
     "typescript": "^5.5.4"
   },
   "overrides": {
