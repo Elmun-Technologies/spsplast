@@ -74,6 +74,17 @@ for (const [slug, images] of Object.entries((data.refresh ?? {}) as Record<strin
   refreshed += res.length;
 }
 
+// Ruscha nomlar bosma katalogdan — faqat bo'sh bo'lsa (admin yozgan nom saqlanadi).
+let named = 0;
+for (const [slug, ru] of Object.entries((data.ruNames ?? {}) as Record<string, string>)) {
+  const res = await db
+    .update(products)
+    .set({ name: sql`jsonb_set(${products.name}, '{ru}', ${JSON.stringify(ru)}::jsonb)`, updatedAt: new Date() })
+    .where(and(eq(products.slug, slug), sql`coalesce(${products.name}->>'ru', '') = ''`))
+    .returning({ id: products.id });
+  named += res.length;
+}
+
 let archived = 0;
 for (const code of data.archive as string[]) {
   const res = await db
@@ -84,5 +95,5 @@ for (const code of data.archive as string[]) {
   archived += res.length;
 }
 
-console.log(`Qo'shildi: ${added} / ${data.add.length}; rasm qo'yildi: ${imaged}; rasm yangilandi: ${refreshed}; arxivga: ${archived}.`);
+console.log(`Qo'shildi: ${added} / ${data.add.length}; rasm qo'yildi: ${imaged}; rasm yangilandi: ${refreshed}; ruscha nom: ${named}; arxivga: ${archived}.`);
 process.exit(0);
