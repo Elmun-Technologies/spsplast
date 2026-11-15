@@ -3,14 +3,15 @@
 import { useEffect, useRef, useState } from 'react';
 import type { Locale } from '@/lib/i18n';
 import { MODEL3D } from './model3d.generated';
+import { MODEL3D_PHOTOS } from './model3d-photos.generated';
 
 type Entry = { id: string; have: string[]; poster: boolean };
 const MAP: Record<string, Entry> = MODEL3D;
 
-const L: Record<Locale, { h: string; qolip: string; mahsulot: string; terilgan: string; hint: string }> = {
-  uz: { h: '3D ko‘rinish', qolip: 'Qolip', mahsulot: 'Mahsulot', terilgan: 'Terilgan', hint: 'Aylantirish — barmoq bilan, yaqinlashtirish — ikki barmoq bilan' },
-  ru: { h: '3D-просмотр', qolip: 'Форма', mahsulot: 'Изделие', terilgan: 'Укладка', hint: 'Вращайте пальцем, приближайте щипком' },
-  en: { h: '3D view', qolip: 'Mold', mahsulot: 'Product', terilgan: 'Laid', hint: 'Drag to rotate, pinch to zoom' },
+const L: Record<Locale, { h: string; qolip: string; mahsulot: string; terilgan: string; sahna: string; hint: string }> = {
+  uz: { h: '3D ko‘rinish', qolip: 'Qolip', mahsulot: 'Mahsulot', terilgan: 'Terilgan', sahna: 'Obyektda', hint: 'Aylantirish — barmoq bilan, yaqinlashtirish — ikki barmoq bilan' },
+  ru: { h: '3D-просмотр', qolip: 'Форма', mahsulot: 'Изделие', terilgan: 'Укладка', sahna: 'На объекте', hint: 'Вращайте пальцем, приближайте щипком' },
+  en: { h: '3D view', qolip: 'Mold', mahsulot: 'Product', terilgan: 'Laid', sahna: 'On site', hint: 'Drag to rotate, pinch to zoom' },
 };
 
 export function hasModel3D(slug: string) {
@@ -25,7 +26,9 @@ export function Model3D({ slug, lang }: { slug: string; lang: Locale }) {
   const e = MAP[slug];
   const t = L[lang];
   const [on, setOn] = useState(false);
-  const [tab, setTab] = useState(e?.have[0] ?? 'qolip');
+  const photos = e ? MODEL3D_PHOTOS[e.id] ?? [] : [];
+  const tabs = e ? [...e.have, ...(photos.length ? ['sahna'] : [])] : [];
+  const [tab, setTab] = useState(tabs[0] ?? 'qolip');
   const box = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -55,30 +58,40 @@ export function Model3D({ slug, lang }: { slug: string; lang: Locale }) {
       <div className="wrap" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
         <h2 style={{ margin: 0 }}>{t.h}</h2>
         <div className="tabs" role="tablist">
-          {e.have.map((k) => (
+          {tabs.map((k) => (
             <button key={k} type="button" role="tab" aria-selected={tab === k} className={tab === k ? 'on' : ''} onClick={() => setTab(k)}>
-              {t[k as 'qolip' | 'mahsulot' | 'terilgan']}
+              {t[k as 'qolip' | 'mahsulot' | 'terilgan' | 'sahna']}
             </button>
           ))}
         </div>
-        <div ref={box} style={{ height: 'min(66vh, 520px)', borderRadius: 12, overflow: 'hidden', background: 'var(--bg-alt, #f3f3f1)' }}>
-          {on && (
-            <MV
-              key={tab}
-              src={`${base}/${tab}.glb`}
-              poster={tab === 'qolip' && e.poster ? `${base}/qolip_tik.jpg` : undefined}
-              camera-controls=""
-              auto-rotate=""
-              touch-action="pan-y"
-              shadow-intensity="1"
-              camera-orbit="25deg 62deg 72%"
-              environment-image="neutral"
-              interaction-prompt="auto"
-              style={{ width: '100%', height: '100%' }}
-            />
-          )}
-        </div>
-        <p className="muted" style={{ margin: 0, fontSize: 14 }}>{t.hint}</p>
+        <div ref={box} style={{ marginBlock: 'calc(var(--space-3) / -2)' }} />
+        {tab === 'sahna' ? (
+          <div style={{ display: 'grid', gap: 8 }}>
+            {photos.map((f) => (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img key={f} src={`${base}/${f}`} alt={t.sahna} loading="lazy" style={{ width: '100%', borderRadius: 10, display: 'block' }} />
+            ))}
+          </div>
+        ) : (
+        <div style={{ height: 'min(66vh, 520px)', borderRadius: 12, overflow: 'hidden', background: 'var(--bg-alt, #f3f3f1)' }}>
+            {on && (
+              <MV
+                key={tab}
+                src={`${base}/${tab}.glb`}
+                poster={tab === 'qolip' && e.poster ? `${base}/qolip_tik.jpg` : undefined}
+                camera-controls=""
+                auto-rotate=""
+                touch-action="pan-y"
+                shadow-intensity="1"
+                camera-orbit="25deg 62deg 72%"
+                environment-image="neutral"
+                interaction-prompt="auto"
+                style={{ width: '100%', height: '100%' }}
+              />
+            )}
+          </div>
+        )}
+        {tab !== 'sahna' && <p className="muted" style={{ margin: 0, fontSize: 14 }}>{t.hint}</p>}
       </div>
     </section>
   );
