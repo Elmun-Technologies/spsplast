@@ -9,7 +9,7 @@
     "dev": "next dev",
     "build": "node scripts/export-snapshot.mjs && node scripts/validate-models-2027.mjs && next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx,.mjs",
     "typecheck": "tsc --noEmit",
     "test": "node --test --experimental-strip-types tests/*.test.js",
     "models:build": "python3 scripts/extract/build_models_2027.py",
