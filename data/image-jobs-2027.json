@@ -82,7 +82,7 @@
  {
   "src": "media-src/live/Z05-qolip.jpg",
   "dst": "public/catalog/2027/zabor-z05-yevrozabor-gul-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {
@@ -586,49 +586,49 @@
  {
   "src": "media-src/live/Z01-qolip.jpg",
   "dst": "public/catalog/2027/zabor-z01-yevrozabor-okovka-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {
   "src": "media-src/live/Z02-qolip.jpg",
   "dst": "public/catalog/2027/zabor-z02-yevrozabor-gunchalar-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {
   "src": "media-src/live/Z03-qolip.jpg",
   "dst": "public/catalog/2027/zabor-z03-yevrozabor-reykalar-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {
   "src": "media-src/live/Z04-qolip.jpg",
   "dst": "public/catalog/2027/zabor-z04-yevrozabor-tolqinli-tosh-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {
   "src": "media-src/live/Z06-qolip.jpg",
   "dst": "public/catalog/2027/zabor-z06-yevrozabor-silliq-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {
   "src": "media-src/live/Z07-qolip.jpg",
   "dst": "public/catalog/2027/zabor-z07-yevrozabor-gisht-va-tosh-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {
   "src": "media-src/live/Z08-qolip.jpg",
   "dst": "public/catalog/2027/zabor-z08-yevrozabor-qoya-tosh-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {
   "src": "media-src/live/Z09-qolip.jpg",
   "dst": "public/catalog/2027/zabor-z09-yevrozabor-3d-romblar-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {
