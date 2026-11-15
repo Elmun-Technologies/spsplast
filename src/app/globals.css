@@ -910,6 +910,11 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
 }
 .stage img { width: 100%; height: 100%; object-fit: cover; }
 .stage img.contain { max-width: 70%; max-height: 80%; object-fit: contain; width: auto; height: auto; }
+/* Qolip (fonsiz) — kartochkadagidek biroz qiya, soyali; o'lcham chizig'i ma'nosini yo'qotmasin deb yengilroq. */
+.stage img.stage-tilt {
+  transform: perspective(1400px) rotateX(11deg) rotateY(-6deg) rotateZ(-2deg);
+  filter: drop-shadow(0 22px 20px rgba(21, 23, 26, .26)) drop-shadow(0 4px 6px rgba(21, 23, 26, .16));
+}
 .stage .sps-tag { position: absolute; left: 16px; top: 16px; height: 32px; border: 0; background: rgba(21, 23, 26, .82); color: var(--on-ink); letter-spacing: .02em; text-transform: none; font-size: 13px; }
 .dimline {
   position: absolute; left: 14%; right: 14%; bottom: 5%; display: flex; align-items: center; gap: 8px;
@@ -1155,6 +1160,22 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
 /* Kartochka: sahna rasmi bo'lmasa — fonsiz qolip surati yoki "foto tayyorlanmoqda" (UI audit P0-1). */
 .sps-card__cutout { position: absolute; inset: 0; background: linear-gradient(180deg, #f7f5f1 0%, #f2f0eb 100%); }
 .sps-card__cutout img { padding: 10%; }
+/* 2026-11-16: qolip — kartochkaning asosiy rasmi, bosma katalogdagidek biroz qiya va soyali. */
+.sps-card__cutout--tilt img {
+  padding: 9% 12% 13%;
+  transform: perspective(1100px) rotateX(16deg) rotateY(-9deg) rotateZ(-3deg);
+  filter: drop-shadow(0 14px 14px rgba(21, 23, 26, .28)) drop-shadow(0 3px 4px rgba(21, 23, 26, .18));
+  transition: transform .25s ease-out;
+}
+.sps-card:hover .sps-card__cutout--tilt img { transform: perspective(1100px) rotateX(12deg) rotateY(-6deg) rotateZ(-2deg) scale(1.03); }
+/* Natija (sahna): kichik oyna; desktopda kursor kelganda butun rasm maydoniga chiqadi. */
+.sps-card__scene, .sps-card--inset .sps-card__scene { padding: 3px; }
+.sps-card__scene img { object-fit: cover; border-radius: calc(var(--radius-mini) - 2px); }
+@media (min-width: 761px) { .sps-card--inset .sps-card__scene { width: 96px; height: 96px; bottom: -32px; } .sps-card--inset .sps-card__body { padding-top: 44px; } }
+.sps-card__hover { position: absolute; inset: 0; opacity: 0; pointer-events: none; transition: opacity .25s ease-out; }
+@media (hover: hover) and (min-width: 761px) {
+  .sps-card:hover .sps-card__hover { opacity: 1; }
+}
 .sps-card__nophoto {
   position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
   background: linear-gradient(180deg, #f7f5f1 0%, #f2f0eb 100%); color: var(--ink-muted); text-decoration: none;

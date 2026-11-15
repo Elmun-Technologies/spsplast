@@ -7,6 +7,9 @@ import { formatNumber, getUi } from '@/lib/ui';
 import { useCompareList, useRequestList } from '@/lib/store/spsLists';
 import { Icon } from '@/components/site/icons';
 
+/** Sahna rasmi (kichik oyna va hover qatlami) — bitta `sizes`, brauzer bir xil faylni oladi. */
+const SCENE_SIZES = '(max-width: 640px) 50vw, (max-width: 1100px) 33vw, 25vw';
+
 export function productHref(lang: Locale, m: Model): string {
   return `/${lang}/catalog/${SECTION_SLUGS[m.section]}/${m.slug}`;
 }
@@ -44,16 +47,24 @@ export function ProductCard({
   const href = productHref(lang, model);
   const main = load === 'priority' ? ({ priority: true, fetchPriority: 'high' } as const) : ({ loading: load } as const);
   const inset = { loading: load === 'lazy' ? 'lazy' : 'eager' } as const;
+  const mold = model.images.molds.A || null;
+  const scene = (model.images.sceneSm || model.images.scene || null) as string | null;
 
   return (
-    <article className={`sps-card${model.images.scene && model.images.molds.A ? ' sps-card--inset' : ''}`}>
+    <article className={`sps-card${mold && scene ? ' sps-card--inset' : ''}`}>
       <div className="sps-card__media">
-        {model.images.scene ? (
+        {mold ? (
+          // 2026-11-16: asosiy fokus — qolip (biz qolip sotamiz). Qolip katta, bosma katalogdagidek
+          // biroz qiya; natija (sahna) pastda kichik, desktopda kursor kelganda butun rasmga chiqadi.
+          <a href={href} tabIndex={-1} aria-hidden="true" className="sps-card__cutout sps-card__cutout--tilt">
+            <Image src={mold} alt="" fill sizes="(max-width: 640px) 50vw, (max-width: 1100px) 33vw, 25vw" style={{ objectFit: 'contain' }} {...main} />
+          </a>
+        ) : scene ? (
           <a href={href} tabIndex={-1} aria-hidden="true">
-            <Image src={(model.images.sceneSm || model.images.scene) as string} alt="" fill sizes="(max-width: 640px) 50vw, (max-width: 1100px) 33vw, 25vw" style={{ objectFit: 'cover' }} {...main} />
+            <Image src={scene} alt="" fill sizes={SCENE_SIZES} style={{ objectFit: 'cover' }} {...main} />
           </a>
         ) : cutout ? (
-          // Sahna rasmi yo'q — qolip/mahsulot suratining o'zi (fonsiz) asosiy rasm bo'ladi.
+          // Sahna va qolip rasmi yo'q — mahsulot suratining o'zi (fonsiz) asosiy rasm bo'ladi.
           <a href={href} tabIndex={-1} aria-hidden="true" className="sps-card__cutout">
             <Image src={cutout} alt="" fill sizes="(max-width: 640px) 50vw, (max-width: 1100px) 33vw, 25vw" style={{ objectFit: 'contain' }} {...main} />
           </a>
@@ -63,10 +74,15 @@ export function ProductCard({
             <span>{t.photoSoon}</span>
           </a>
         )}
-        {model.images.scene && model.images.molds.A ? (
-          <span className="sps-card__mold">
-            <Image src={model.images.molds.A} alt={`${modelName(model, lang)} — ${getUi(lang).alt.mold}`} fill sizes="(max-width: 640px) 19vw, 9vw" style={{ objectFit: 'contain' }} {...inset} />
-          </span>
+        {mold && scene ? (
+          <>
+            <span className="sps-card__hover" aria-hidden="true">
+              <Image src={scene} alt="" fill sizes={SCENE_SIZES} style={{ objectFit: 'cover' }} loading="lazy" />
+            </span>
+            <span className="sps-card__mold sps-card__scene">
+              <Image src={scene} alt={`${modelName(model, lang)} — ${getUi(lang).alt.scene}`} fill sizes={SCENE_SIZES} style={{ objectFit: 'cover' }} {...inset} />
+            </span>
+          </>
         ) : null}
         {model.code ? (
           <span className="sps-card__no" aria-hidden="true">
