@@ -8,7 +8,7 @@ import type { Locale } from '@/lib/i18n';
 export const CATALOG_PDFS = [
   { key: 'trotuar', file: '/catalog/pdf/sps-qoliplar-katalogi-2026.pdf?v=20261116' },
   { key: 'fasad', file: '/catalog/pdf/sps-katalog-fasad.pdf?v=20261116b' },
-  { key: 'skameyka', file: '/catalog/pdf/sps-katalog-skameyka.pdf?v=20261116' },
+  { key: 'skameyka', file: '/catalog/pdf/sps-katalog-skameyka.pdf?v=20261116c' },
 ] as const;
 
 export type CatalogKey = (typeof CATALOG_PDFS)[number]['key'];
