@@ -19,7 +19,7 @@ visual reference `screens/`, exact CSS/sizes `source/*.dc.html` + `source/site.c
 
 ## Tech Stack
 
-- **Framework**: Next.js 15 (App Router) + React 19, TypeScript
+- **Framework**: Next.js 16 (App Router) + React 19, TypeScript
 - **Styling**: plain CSS only (`src/app/globals.css`, design tokens = HANDOFF §2, style B).
   **Tailwind removed** (no `tailwind.config.js`, no `postcss.config.js`).
 - **Font**: **Onest** (400/500/600 via variable wght), self-hosted woff2 latin + cyrillic
@@ -630,7 +630,7 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
 npm run dev            # local dev server
 npm run build          # models:check + next build (~740 static HTML pages)
 npm run typecheck      # tsc --noEmit
-npm run lint           # next lint
+npm run lint           # eslint . (next lint Next 16 da olib tashlangan)
 npm test               # node --test --experimental-strip-types tests/*.test.js (194 tests)
 npm run models:build && npm run models:images && npm run models:check
 npm run db:generate    # after editing src/server/db/schema.ts → new SQL in drizzle/

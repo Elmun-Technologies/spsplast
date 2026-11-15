@@ -8,7 +8,7 @@ narsalar (brauzer talab qilmaydi) va **haqiqiy brauzer kerak bo'lgan** tekshiruv
 # 1) Har doim ishlaydigan darvoza (sandbox/CI)
 npm install --no-audit --no-fund
 npm run typecheck      # tsc --noEmit
-npm run lint           # next lint
+npm run lint           # eslint . (next lint Next 16 da olib tashlangan)
 npm test               # 93 test: data, platform, katalog, sahifalar, analitika, leads, SEO, auditlar
 npm run build          # models:check + next build → 402 statik sahifa
 

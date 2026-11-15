@@ -868,12 +868,12 @@
   },
   {
    "source": "/uz/product/g056-ramkali-panel",
-   "destination": "/uz/catalog/decor/d01-ramkali-panel",
+   "destination": "/uz/catalog/paving",
    "statusCode": 301
   },
   {
    "source": "/ru/product/g056-ramkali-panel",
-   "destination": "/ru/catalog/decor/d01-ramkali-panel",
+   "destination": "/ru/catalog/paving",
    "statusCode": 301
   },
   {
@@ -1528,12 +1528,12 @@
   },
   {
    "source": "/uz/product/a10-028-qatlamli-tosh",
-   "destination": "/uz/catalog/decor/d13-tosh-panel",
+   "destination": "/uz/catalog/facade",
    "statusCode": 301
   },
   {
    "source": "/ru/product/a10-028-qatlamli-tosh",
-   "destination": "/ru/catalog/decor/d13-tosh-panel",
+   "destination": "/ru/catalog/facade",
    "statusCode": 301
   },
   {

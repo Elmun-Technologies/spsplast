@@ -1,558 +1,13 @@
 [
  {
-  "src": "public/catalog/2026/G006-mold.jpg",
-  "dst": "public/catalog/2027/trotuar-01-monako-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G006-quyma.jpg",
-  "dst": "public/catalog/2027/trotuar-01-monako-tile-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G006-env.jpg",
-  "dst": "public/catalog/2027/trotuar-01-monako-scene.webp",
-  "w": 1400
- },
- {
-  "src": "public/catalog/2026/G006-env.jpg",
-  "dst": "public/catalog/2027/trotuar-01-monako-scene-sm.webp",
-  "w": 720
- },
- {
-  "src": "media-src/factory/DSC03294.JPG_20260927202655.jpg",
-  "dst": "public/catalog/2027/trotuar-42-kerpich-10-20-5-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "media-src/factory/DSC03283.JPG_20260927202647.jpg",
-  "dst": "public/catalog/2027/trotuar-30-aleya-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "media-src/factory/DSC03165.JPG_20260927202833.jpg",
-  "dst": "public/catalog/2027/trotuar-22-uzor-50-25-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G018-mold.jpg",
-  "dst": "public/catalog/2027/trotuar-64-royal-2-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G018-quyma.jpg",
-  "dst": "public/catalog/2027/trotuar-64-royal-2-tile-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G018-env.jpg",
-  "dst": "public/catalog/2027/trotuar-64-royal-2-scene.webp",
-  "w": 1400
- },
- {
-  "src": "public/catalog/2026/G018-env.jpg",
-  "dst": "public/catalog/2027/trotuar-64-royal-2-scene-sm.webp",
-  "w": 720
- },
- {
-  "src": "public/catalog/2026/G002-mold.jpg",
-  "dst": "public/catalog/2027/trotuar-05-magna-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G002-quyma.jpg",
-  "dst": "public/catalog/2027/trotuar-05-magna-tile-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G002-env.jpg",
-  "dst": "public/catalog/2027/trotuar-05-magna-scene.webp",
-  "w": 1400
- },
- {
-  "src": "public/catalog/2026/G002-env.jpg",
-  "dst": "public/catalog/2027/trotuar-05-magna-scene-sm.webp",
-  "w": 720
- },
- {
-  "src": "media-src/factory/DSC03304.JPG_20260927202624.jpg",
-  "dst": "public/catalog/2027/trotuar-02-ornament-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G005-mold.jpg",
-  "dst": "public/catalog/2027/trotuar-03-yalta-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G005-quyma.jpg",
-  "dst": "public/catalog/2027/trotuar-03-yalta-tile-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G005-env.jpg",
-  "dst": "public/catalog/2027/trotuar-03-yalta-scene.webp",
-  "w": 1400
- },
- {
-  "src": "public/catalog/2026/G005-env.jpg",
-  "dst": "public/catalog/2027/trotuar-03-yalta-scene-sm.webp",
-  "w": 720
- },
- {
-  "src": "media-src/factory/DSC03323.JPG_20260927202546.jpg",
-  "dst": "public/catalog/2027/trotuar-04-tsvetok-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G004-mold.jpg",
-  "dst": "public/catalog/2027/trotuar-06-azara-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G004-quyma.jpg",
-  "dst": "public/catalog/2027/trotuar-06-azara-tile-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G004-env.jpg",
-  "dst": "public/catalog/2027/trotuar-06-azara-scene.webp",
-  "w": 1400
- },
- {
-  "src": "public/catalog/2026/G004-env.jpg",
-  "dst": "public/catalog/2027/trotuar-06-azara-scene-sm.webp",
-  "w": 720
- },
- {
-  "src": "public/catalog/2026/G024-mold.jpg",
-  "dst": "public/catalog/2027/trotuar-07-parus-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G024-quyma.jpg",
-  "dst": "public/catalog/2027/trotuar-07-parus-tile-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G024-env.jpg",
-  "dst": "public/catalog/2027/trotuar-07-parus-scene.webp",
-  "w": 1400
- },
- {
-  "src": "public/catalog/2026/G024-env.jpg",
-  "dst": "public/catalog/2027/trotuar-07-parus-scene-sm.webp",
-  "w": 720
- },
- {
-  "src": "media-src/factory/DSC03290.JPG_20260927202711.jpg",
-  "dst": "public/catalog/2027/trotuar-08-travertino-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G003-mold.jpg",
-  "dst": "public/catalog/2027/trotuar-09-versache-1-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G003-quyma.jpg",
-  "dst": "public/catalog/2027/trotuar-09-versache-1-tile-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G003-env.jpg",
-  "dst": "public/catalog/2027/trotuar-09-versache-1-scene.webp",
-  "w": 1400
- },
- {
-  "src": "public/catalog/2026/G003-env.jpg",
-  "dst": "public/catalog/2027/trotuar-09-versache-1-scene-sm.webp",
-  "w": 720
- },
- {
-  "src": "media-src/factory/DSC03291.JPG_20260927202708.jpg",
-  "dst": "public/catalog/2027/trotuar-10-zanjir-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "media-src/factory/DSC03335.JPG_20260927202500.jpg",
-  "dst": "public/catalog/2027/trotuar-11-setka-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G025-mold.jpg",
-  "dst": "public/catalog/2027/trotuar-12-rio-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G025-quyma.jpg",
-  "dst": "public/catalog/2027/trotuar-12-rio-tile-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G025-env.jpg",
-  "dst": "public/catalog/2027/trotuar-12-rio-scene.webp",
-  "w": 1400
- },
- {
-  "src": "public/catalog/2026/G025-env.jpg",
-  "dst": "public/catalog/2027/trotuar-12-rio-scene-sm.webp",
-  "w": 720
- },
- {
-  "src": "media-src/factory/DSC03354.JPG_20260927202307.jpg",
-  "dst": "public/catalog/2027/trotuar-13-viking-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G007-mold.jpg",
-  "dst": "public/catalog/2027/trotuar-14-shersha-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G007-quyma.jpg",
-  "dst": "public/catalog/2027/trotuar-14-shersha-tile-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G007-env.jpg",
-  "dst": "public/catalog/2027/trotuar-14-shersha-scene.webp",
-  "w": 1400
- },
- {
-  "src": "public/catalog/2026/G007-env.jpg",
-  "dst": "public/catalog/2027/trotuar-14-shersha-scene-sm.webp",
-  "w": 720
- },
- {
-  "src": "public/catalog/2026/G001-mold.jpg",
-  "dst": "public/catalog/2027/trotuar-15-floriya-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G001-quyma.jpg",
-  "dst": "public/catalog/2027/trotuar-15-floriya-tile-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G001-env.jpg",
-  "dst": "public/catalog/2027/trotuar-15-floriya-scene.webp",
-  "w": 1400
- },
- {
-  "src": "public/catalog/2026/G001-env.jpg",
-  "dst": "public/catalog/2027/trotuar-15-floriya-scene-sm.webp",
-  "w": 720
- },
- {
-  "src": "media-src/factory/DSC03289.JPG_20260927202713.jpg",
-  "dst": "public/catalog/2027/trotuar-16-strelka-mold-a.webp",
-  "w": 800
- },
- {
   "src": "public/catalog/2026/G014-mold.jpg",
   "dst": "public/catalog/2027/trotuar-19-eksklyuziv-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G014-quyma.jpg",
-  "dst": "public/catalog/2027/trotuar-19-eksklyuziv-tile-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G014-env.jpg",
-  "dst": "public/catalog/2027/trotuar-19-eksklyuziv-scene.webp",
-  "w": 1400
- },
- {
-  "src": "public/catalog/2026/G014-env.jpg",
-  "dst": "public/catalog/2027/trotuar-19-eksklyuziv-scene-sm.webp",
-  "w": 720
- },
- {
-  "src": "media-src/factory/DSC03309.JPG_20260927202609.jpg",
-  "dst": "public/catalog/2027/trotuar-20-travertin-40-40-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "media-src/factory/DSC03287.JPG_20260927202658.jpg",
-  "dst": "public/catalog/2027/trotuar-23-parket-12-36-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "media-src/factory/DSC03301.JPG_20260927202604.jpg",
-  "dst": "public/catalog/2027/trotuar-24-guruch-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G011-mold.jpg",
-  "dst": "public/catalog/2027/trotuar-26-astana-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G011-quyma.jpg",
-  "dst": "public/catalog/2027/trotuar-26-astana-tile-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G011-env.jpg",
-  "dst": "public/catalog/2027/trotuar-26-astana-scene.webp",
-  "w": 1400
- },
- {
-  "src": "public/catalog/2026/G011-env.jpg",
-  "dst": "public/catalog/2027/trotuar-26-astana-scene-sm.webp",
-  "w": 720
- },
- {
-  "src": "public/catalog/2026/G012-quyma.jpg",
-  "dst": "public/catalog/2027/trotuar-27-yulduz-tile-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G012-env.jpg",
-  "dst": "public/catalog/2027/trotuar-27-yulduz-scene.webp",
-  "w": 1400
- },
- {
-  "src": "public/catalog/2026/G012-env.jpg",
-  "dst": "public/catalog/2027/trotuar-27-yulduz-scene-sm.webp",
-  "w": 720
- },
- {
-  "src": "public/catalog/2026/G013-mold.jpg",
-  "dst": "public/catalog/2027/trotuar-28-turkman-guli-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G013-quyma.jpg",
-  "dst": "public/catalog/2027/trotuar-28-turkman-guli-tile-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G013-env.jpg",
-  "dst": "public/catalog/2027/trotuar-28-turkman-guli-scene.webp",
-  "w": 1400
- },
- {
-  "src": "public/catalog/2026/G013-env.jpg",
-  "dst": "public/catalog/2027/trotuar-28-turkman-guli-scene-sm.webp",
-  "w": 720
- },
- {
-  "src": "media-src/factory/DSC03295.JPG_20260927202606.jpg",
-  "dst": "public/catalog/2027/trotuar-34-parket-20-20-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "media-src/factory/DSC03307.JPG_20260927202549.jpg",
-  "dst": "public/catalog/2027/trotuar-37-rombik-eski-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G009-mold.jpg",
-  "dst": "public/catalog/2027/trotuar-38-rombik-yangi-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G009-quyma.jpg",
-  "dst": "public/catalog/2027/trotuar-38-rombik-yangi-tile-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G009-env.jpg",
-  "dst": "public/catalog/2027/trotuar-38-rombik-yangi-scene.webp",
-  "w": 1400
- },
- {
-  "src": "public/catalog/2026/G009-env.jpg",
-  "dst": "public/catalog/2027/trotuar-38-rombik-yangi-scene-sm.webp",
-  "w": 720
- },
- {
-  "src": "media-src/factory/DSC03296.JPG_20260927202618.jpg",
-  "dst": "public/catalog/2027/trotuar-41-dubay-yaltiroq-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "media-src/factory/DSC03282.JPG_20260927202642.jpg",
-  "dst": "public/catalog/2027/trotuar-43-kerpich-10-20-7-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "media-src/factory/DSC03314.JPG_20260927202510.jpg",
-  "dst": "public/catalog/2027/trotuar-45-gladkiy-18-36-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "media-src/factory/DSC03317.JPG_20260927202522.jpg",
-  "dst": "public/catalog/2027/trotuar-46-dojdik-18-36-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "media-src/factory/DSC03332.JPG_20260927202438.jpg",
-  "dst": "public/catalog/2027/trotuar-47-kabanchik-17-17-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G010-mold.jpg",
-  "dst": "public/catalog/2027/trotuar-50-azaliya-1-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G010-quyma.jpg",
-  "dst": "public/catalog/2027/trotuar-50-azaliya-1-tile-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G010-env.jpg",
-  "dst": "public/catalog/2027/trotuar-50-azaliya-1-scene.webp",
-  "w": 1400
- },
- {
-  "src": "public/catalog/2026/G010-env.jpg",
-  "dst": "public/catalog/2027/trotuar-50-azaliya-1-scene-sm.webp",
-  "w": 720
- },
- {
-  "src": "media-src/factory/DSC03306.JPG_20260927202556.jpg",
-  "dst": "public/catalog/2027/trotuar-53-aziya-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G016-quyma.jpg",
-  "dst": "public/catalog/2027/trotuar-56-buxoro-tile-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G016-env.jpg",
-  "dst": "public/catalog/2027/trotuar-56-buxoro-scene.webp",
-  "w": 1400
- },
- {
-  "src": "public/catalog/2026/G016-env.jpg",
-  "dst": "public/catalog/2027/trotuar-56-buxoro-scene-sm.webp",
-  "w": 720
- },
- {
-  "src": "public/catalog/2026/G017-quyma.jpg",
-  "dst": "public/catalog/2027/trotuar-57-afina-tile-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G017-env.jpg",
-  "dst": "public/catalog/2027/trotuar-57-afina-scene.webp",
-  "w": 1400
- },
- {
-  "src": "public/catalog/2026/G017-env.jpg",
-  "dst": "public/catalog/2027/trotuar-57-afina-scene-sm.webp",
-  "w": 720
- },
- {
-  "src": "public/catalog/2026/G008-mold.jpg",
-  "dst": "public/catalog/2027/trotuar-58-rokki-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G008-quyma.jpg",
-  "dst": "public/catalog/2027/trotuar-58-rokki-tile-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G008-env.jpg",
-  "dst": "public/catalog/2027/trotuar-58-rokki-scene.webp",
-  "w": 1400
- },
- {
-  "src": "public/catalog/2026/G008-env.jpg",
-  "dst": "public/catalog/2027/trotuar-58-rokki-scene-sm.webp",
-  "w": 720
- },
- {
-  "src": "media-src/factory/DSC03285.JPG_20260927202640.jpg",
-  "dst": "public/catalog/2027/trotuar-66-aleya-2-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "media-src/factory/DSC03334.JPG_20260927202445.jpg",
-  "dst": "public/catalog/2027/trotuar-71-mumtoz-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "media-src/factory/DSC03326.JPG_20260927202453.jpg",
-  "dst": "public/catalog/2027/trotuar-76-ona-bola-2-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "media-src/factory/DSC03328.JPG_20260927202440.jpg",
-  "dst": "public/catalog/2027/trotuar-78-xokkey-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G019-mold.jpg",
-  "dst": "public/catalog/2027/trotuar-79-palma-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G019-quyma.jpg",
-  "dst": "public/catalog/2027/trotuar-79-palma-tile-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G019-env.jpg",
-  "dst": "public/catalog/2027/trotuar-79-palma-scene.webp",
-  "w": 1400
- },
- {
-  "src": "public/catalog/2026/G019-env.jpg",
-  "dst": "public/catalog/2027/trotuar-79-palma-scene-sm.webp",
-  "w": 720
- },
- {
-  "src": "public/catalog/2026/G028-mold.jpg",
-  "dst": "public/catalog/2027/trotuar-81-vindovs-mold-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G028-quyma.jpg",
-  "dst": "public/catalog/2027/trotuar-81-vindovs-tile-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G028-env.jpg",
-  "dst": "public/catalog/2027/trotuar-81-vindovs-scene.webp",
-  "w": 1400
- },
- {
-  "src": "public/catalog/2026/G028-env.jpg",
-  "dst": "public/catalog/2027/trotuar-81-vindovs-scene-sm.webp",
-  "w": 720
- },
- {
-  "src": "media-src/factory/DSC03338.JPG_20260927202443.jpg",
-  "dst": "public/catalog/2027/trotuar-82-orxideya-mold-a.webp",
   "w": 800
  },
  {
   "src": "public/catalog/2026/G020-mold.jpg",
   "dst": "public/catalog/2027/trotuar-bumerang-mold-a.webp",
   "w": 800
- },
- {
-  "src": "public/catalog/2026/G020-quyma.jpg",
-  "dst": "public/catalog/2027/trotuar-bumerang-tile-a.webp",
-  "w": 800
- },
- {
-  "src": "public/catalog/2026/G020-env.jpg",
-  "dst": "public/catalog/2027/trotuar-bumerang-scene.webp",
-  "w": 1400
- },
- {
-  "src": "public/catalog/2026/G020-env.jpg",
-  "dst": "public/catalog/2027/trotuar-bumerang-scene-sm.webp",
-  "w": 720
  },
  {
   "src": "media-src/factory/DSC03250.JPG_20260927203222.jpg",
@@ -601,6 +56,12 @@
   "kind": "live"
  },
  {
+  "src": "media-src/live/t01-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-01-monako-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
   "src": "media-src/live/t88-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-85-kabanchik-10-10-mold-a.webp",
   "w": 800,
@@ -613,8 +74,122 @@
   "kind": "live"
  },
  {
+  "src": "media-src/live/t46-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-42-kerpich-10-20-5-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
   "src": "media-src/live/Z05-qolip.jpg",
   "dst": "public/catalog/2027/zabor-z05-yevrozabor-gul-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t34-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-30-aleya-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t26-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-22-uzor-50-25-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t69-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-64-royal-2-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t05-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-05-magna-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t02-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-02-ornament-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t03-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-03-yalta-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t04-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-04-tsvetok-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t06-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-06-azara-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t07-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-07-parus-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t08-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-08-travertino-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t09-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-09-versache-1-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t10-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-10-zanjir-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t11-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-11-setka-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t12-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-12-rio-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t13-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-13-viking-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t14-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-14-shersha-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t15-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-15-floriya-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t16-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-16-strelka-mold-a.webp",
   "w": 800,
   "kind": "live"
  },
@@ -625,8 +200,44 @@
   "kind": "live"
  },
  {
+  "src": "media-src/live/t22-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-18-dubay-40-40-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t24-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-20-travertin-40-40-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t25-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-21-taroq-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t27-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-23-parket-12-36-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t28-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-24-guruch-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
   "src": "media-src/live/t29-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-25-bodom-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t30-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-26-astana-mold-a.webp",
   "w": 800,
   "kind": "live"
  },
@@ -637,8 +248,32 @@
   "kind": "live"
  },
  {
+  "src": "media-src/live/t32-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-28-turkman-guli-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t35-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-31-aleya-shershavoe-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
   "src": "media-src/live/t36-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-32-tomir-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t37-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-33-novvot-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t38-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-34-parket-20-20-mold-a.webp",
   "w": 800,
   "kind": "live"
  },
@@ -655,14 +290,74 @@
   "kind": "live"
  },
  {
+  "src": "media-src/live/t41-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-37-rombik-eski-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t42-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-38-rombik-yangi-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t43-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-39-dubay-toshli-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
   "src": "media-src/live/t44-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-40-dubay-shershaviy-mold-a.webp",
   "w": 800,
   "kind": "live"
  },
  {
+  "src": "media-src/live/t45-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-41-dubay-yaltiroq-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t47-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-43-kerpich-10-20-7-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
   "src": "media-src/live/t48-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-44-parus-18-36-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t49-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-45-gladkiy-18-36-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t50-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-46-dojdik-18-36-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t51-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-47-kabanchik-17-17-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t52-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-48-mozaika-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t53-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-50-azaliya-1-mold-a.webp",
   "w": 800,
   "kind": "live"
  },
@@ -675,6 +370,18 @@
  {
   "src": "media-src/live/t55-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-52-ona-bola-1-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t57-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-53-aziya-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t58-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-54-aziya-1-mold-a.webp",
   "w": 800,
   "kind": "live"
  },
@@ -697,6 +404,24 @@
   "kind": "live"
  },
  {
+  "src": "media-src/live/t63-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-58-rokki-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t65-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-60-3d-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t66-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-61-4d-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
   "src": "media-src/live/t67-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-62-vegas-mold-a.webp",
   "w": 800,
@@ -715,6 +440,18 @@
   "kind": "live"
  },
  {
+  "src": "media-src/live/t71-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-66-aleya-2-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t72-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-67-safir-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
   "src": "media-src/live/t73-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-68-aleya-uzor-mold-a.webp",
   "w": 800,
@@ -727,8 +464,26 @@
   "kind": "live"
  },
  {
+  "src": "media-src/live/t76-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-71-mumtoz-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
   "src": "media-src/live/t77-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-72-marokesh-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t78-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-73-marokesh-2-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t79-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-74-nikolay-gladkiy-mold-a.webp",
   "w": 800,
   "kind": "live"
  },
@@ -739,8 +494,26 @@
   "kind": "live"
  },
  {
+  "src": "media-src/live/t56-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-76-ona-bola-2-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
   "src": "media-src/live/t59-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-77-aziya-2-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t81-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-78-xokkey-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t82-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-79-palma-mold-a.webp",
   "w": 800,
   "kind": "live"
  },
@@ -751,14 +524,56 @@
   "kind": "live"
  },
  {
+  "src": "media-src/live/t84-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-81-vindovs-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t85-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-82-orxideya-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
   "src": "media-src/live/t87-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-84-vetnam-mold-a.webp",
   "w": 800,
   "kind": "live"
  },
  {
+  "src": "media-src/live/t89-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-86-aleya-3-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t90-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-87-magna-kubik-bilan-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t91-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-88-parket-yog-och-naqshli-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
   "src": "media-src/live/t18-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-polosa-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t19-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-kaliforniya-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/t20-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-kaliforniya-g-mold-a.webp",
   "w": 800,
   "kind": "live"
  },
@@ -825,6 +640,18 @@
  {
   "src": "public/3d/t75/r_04.jpg",
   "dst": "public/catalog/2027/trotuar-70-kabanchik-17-5-naqshli-scene-sm-3d.webp",
+  "w": 720,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t01/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-01-monako-scene-3d.webp",
+  "w": 1400,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t01/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-01-monako-scene-sm-3d.webp",
   "w": 720,
   "kind": "render"
  },
@@ -901,6 +728,30 @@
   "kind": "render"
  },
  {
+  "src": "public/3d/t69/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-64-royal-2-scene-3d.webp",
+  "w": 1400,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t69/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-64-royal-2-scene-sm-3d.webp",
+  "w": 720,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t05/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-05-magna-scene-3d.webp",
+  "w": 1400,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t05/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-05-magna-scene-sm-3d.webp",
+  "w": 720,
+  "kind": "render"
+ },
+ {
   "src": "public/3d/t02/r_04.jpg",
   "dst": "public/catalog/2027/trotuar-02-ornament-scene-3d.webp",
   "w": 1400,
@@ -909,6 +760,18 @@
  {
   "src": "public/3d/t02/r_04.jpg",
   "dst": "public/catalog/2027/trotuar-02-ornament-scene-sm-3d.webp",
+  "w": 720,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t03/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-03-yalta-scene-3d.webp",
+  "w": 1400,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t03/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-03-yalta-scene-sm-3d.webp",
   "w": 720,
   "kind": "render"
  },
@@ -925,6 +788,30 @@
   "kind": "render"
  },
  {
+  "src": "public/3d/t06/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-06-azara-scene-3d.webp",
+  "w": 1400,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t06/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-06-azara-scene-sm-3d.webp",
+  "w": 720,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t07/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-07-parus-scene-3d.webp",
+  "w": 1400,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t07/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-07-parus-scene-sm-3d.webp",
+  "w": 720,
+  "kind": "render"
+ },
+ {
   "src": "public/3d/t08/r_04.jpg",
   "dst": "public/catalog/2027/trotuar-08-travertino-scene-3d.webp",
   "w": 1400,
@@ -933,6 +820,18 @@
  {
   "src": "public/3d/t08/r_04.jpg",
   "dst": "public/catalog/2027/trotuar-08-travertino-scene-sm-3d.webp",
+  "w": 720,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t09/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-09-versache-1-scene-3d.webp",
+  "w": 1400,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t09/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-09-versache-1-scene-sm-3d.webp",
   "w": 720,
   "kind": "render"
  },
@@ -961,6 +860,18 @@
   "kind": "render"
  },
  {
+  "src": "public/3d/t12/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-12-rio-scene-3d.webp",
+  "w": 1400,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t12/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-12-rio-scene-sm-3d.webp",
+  "w": 720,
+  "kind": "render"
+ },
+ {
   "src": "public/3d/t13/r_04.jpg",
   "dst": "public/catalog/2027/trotuar-13-viking-scene-3d.webp",
   "w": 1400,
@@ -969,6 +880,30 @@
  {
   "src": "public/3d/t13/r_04.jpg",
   "dst": "public/catalog/2027/trotuar-13-viking-scene-sm-3d.webp",
+  "w": 720,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t14/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-14-shersha-scene-3d.webp",
+  "w": 1400,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t14/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-14-shersha-scene-sm-3d.webp",
+  "w": 720,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t15/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-15-floriya-scene-3d.webp",
+  "w": 1400,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t15/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-15-floriya-scene-sm-3d.webp",
   "w": 720,
   "kind": "render"
  },
@@ -997,12 +932,6 @@
   "kind": "render"
  },
  {
-  "src": "public/3d/t22/qolip_tik.jpg",
-  "dst": "public/catalog/2027/trotuar-18-dubay-40-40-mold-a-3d.webp",
-  "w": 800,
-  "kind": "render"
- },
- {
   "src": "public/3d/t22/r_04.jpg",
   "dst": "public/catalog/2027/trotuar-18-dubay-40-40-scene-3d.webp",
   "w": 1400,
@@ -1024,12 +953,6 @@
   "src": "public/3d/t24/r_04.jpg",
   "dst": "public/catalog/2027/trotuar-20-travertin-40-40-scene-sm-3d.webp",
   "w": 720,
-  "kind": "render"
- },
- {
-  "src": "public/3d/t25/qolip_tik.jpg",
-  "dst": "public/catalog/2027/trotuar-21-taroq-mold-a-3d.webp",
-  "w": 800,
   "kind": "render"
  },
  {
@@ -1081,9 +1004,39 @@
   "kind": "render"
  },
  {
-  "src": "public/3d/t35/qolip_tik.jpg",
-  "dst": "public/catalog/2027/trotuar-31-aleya-shershavoe-mold-a-3d.webp",
-  "w": 800,
+  "src": "public/3d/t30/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-26-astana-scene-3d.webp",
+  "w": 1400,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t30/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-26-astana-scene-sm-3d.webp",
+  "w": 720,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t31/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-27-yulduz-scene-3d.webp",
+  "w": 1400,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t31/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-27-yulduz-scene-sm-3d.webp",
+  "w": 720,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t32/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-28-turkman-guli-scene-3d.webp",
+  "w": 1400,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t32/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-28-turkman-guli-scene-sm-3d.webp",
+  "w": 720,
   "kind": "render"
  },
  {
@@ -1108,12 +1061,6 @@
   "src": "public/3d/t36/r_04.jpg",
   "dst": "public/catalog/2027/trotuar-32-tomir-scene-sm-3d.webp",
   "w": 720,
-  "kind": "render"
- },
- {
-  "src": "public/3d/t37/qolip_tik.jpg",
-  "dst": "public/catalog/2027/trotuar-33-novvot-mold-a-3d.webp",
-  "w": 800,
   "kind": "render"
  },
  {
@@ -1177,9 +1124,15 @@
   "kind": "render"
  },
  {
-  "src": "public/3d/t43/qolip_tik.jpg",
-  "dst": "public/catalog/2027/trotuar-39-dubay-toshli-mold-a-3d.webp",
-  "w": 800,
+  "src": "public/3d/t42/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-38-rombik-yangi-scene-3d.webp",
+  "w": 1400,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t42/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-38-rombik-yangi-scene-sm-3d.webp",
+  "w": 720,
   "kind": "render"
  },
  {
@@ -1279,12 +1232,6 @@
   "kind": "render"
  },
  {
-  "src": "public/3d/t52/qolip_tik.jpg",
-  "dst": "public/catalog/2027/trotuar-48-mozaika-mold-a-3d.webp",
-  "w": 800,
-  "kind": "render"
- },
- {
   "src": "public/3d/t52/r_04.jpg",
   "dst": "public/catalog/2027/trotuar-48-mozaika-scene-3d.webp",
   "w": 1400,
@@ -1293,6 +1240,18 @@
  {
   "src": "public/3d/t52/r_04.jpg",
   "dst": "public/catalog/2027/trotuar-48-mozaika-scene-sm-3d.webp",
+  "w": 720,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t53/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-50-azaliya-1-scene-3d.webp",
+  "w": 1400,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t53/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-50-azaliya-1-scene-sm-3d.webp",
   "w": 720,
   "kind": "render"
  },
@@ -1333,12 +1292,6 @@
   "kind": "render"
  },
  {
-  "src": "public/3d/t58/qolip_tik.jpg",
-  "dst": "public/catalog/2027/trotuar-54-aziya-1-mold-a-3d.webp",
-  "w": 800,
-  "kind": "render"
- },
- {
   "src": "public/3d/t58/r_04.jpg",
   "dst": "public/catalog/2027/trotuar-54-aziya-1-scene-3d.webp",
   "w": 1400,
@@ -1363,6 +1316,42 @@
   "kind": "render"
  },
  {
+  "src": "public/3d/t61/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-56-buxoro-scene-3d.webp",
+  "w": 1400,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t61/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-56-buxoro-scene-sm-3d.webp",
+  "w": 720,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t62/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-57-afina-scene-3d.webp",
+  "w": 1400,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t62/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-57-afina-scene-sm-3d.webp",
+  "w": 720,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t63/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-58-rokki-scene-3d.webp",
+  "w": 1400,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t63/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-58-rokki-scene-sm-3d.webp",
+  "w": 720,
+  "kind": "render"
+ },
+ {
   "src": "public/3d/t64/qolip_tik.jpg",
   "dst": "public/catalog/2027/trotuar-59-kostochka-mold-a-3d.webp",
   "w": 800,
@@ -1381,12 +1370,6 @@
   "kind": "render"
  },
  {
-  "src": "public/3d/t65/qolip_tik.jpg",
-  "dst": "public/catalog/2027/trotuar-60-3d-mold-a-3d.webp",
-  "w": 800,
-  "kind": "render"
- },
- {
   "src": "public/3d/t65/r_04.jpg",
   "dst": "public/catalog/2027/trotuar-60-3d-scene-3d.webp",
   "w": 1400,
@@ -1396,12 +1379,6 @@
   "src": "public/3d/t65/r_04.jpg",
   "dst": "public/catalog/2027/trotuar-60-3d-scene-sm-3d.webp",
   "w": 720,
-  "kind": "render"
- },
- {
-  "src": "public/3d/t66/qolip_tik.jpg",
-  "dst": "public/catalog/2027/trotuar-61-4d-mold-a-3d.webp",
-  "w": 800,
   "kind": "render"
  },
  {
@@ -1465,12 +1442,6 @@
   "kind": "render"
  },
  {
-  "src": "public/3d/t72/qolip_tik.jpg",
-  "dst": "public/catalog/2027/trotuar-67-safir-mold-a-3d.webp",
-  "w": 800,
-  "kind": "render"
- },
- {
   "src": "public/3d/t72/r_04.jpg",
   "dst": "public/catalog/2027/trotuar-67-safir-scene-3d.webp",
   "w": 1400,
@@ -1531,12 +1502,6 @@
   "kind": "render"
  },
  {
-  "src": "public/3d/t78/qolip_tik.jpg",
-  "dst": "public/catalog/2027/trotuar-73-marokesh-2-mold-a-3d.webp",
-  "w": 800,
-  "kind": "render"
- },
- {
   "src": "public/3d/t78/r_04.jpg",
   "dst": "public/catalog/2027/trotuar-73-marokesh-2-scene-3d.webp",
   "w": 1400,
@@ -1546,12 +1511,6 @@
   "src": "public/3d/t78/r_04.jpg",
   "dst": "public/catalog/2027/trotuar-73-marokesh-2-scene-sm-3d.webp",
   "w": 720,
-  "kind": "render"
- },
- {
-  "src": "public/3d/t79/qolip_tik.jpg",
-  "dst": "public/catalog/2027/trotuar-74-nikolay-gladkiy-mold-a-3d.webp",
-  "w": 800,
   "kind": "render"
  },
  {
@@ -1615,6 +1574,18 @@
   "kind": "render"
  },
  {
+  "src": "public/3d/t82/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-79-palma-scene-3d.webp",
+  "w": 1400,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t82/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-79-palma-scene-sm-3d.webp",
+  "w": 720,
+  "kind": "render"
+ },
+ {
   "src": "public/3d/t83/r_04.jpg",
   "dst": "public/catalog/2027/trotuar-80-ventilyator-scene-3d.webp",
   "w": 1400,
@@ -1623,6 +1594,18 @@
  {
   "src": "public/3d/t83/r_04.jpg",
   "dst": "public/catalog/2027/trotuar-80-ventilyator-scene-sm-3d.webp",
+  "w": 720,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t84/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-81-vindovs-scene-3d.webp",
+  "w": 1400,
+  "kind": "render"
+ },
+ {
+  "src": "public/3d/t84/r_04.jpg",
+  "dst": "public/catalog/2027/trotuar-81-vindovs-scene-sm-3d.webp",
   "w": 720,
   "kind": "render"
  },
@@ -1651,12 +1634,6 @@
   "kind": "render"
  },
  {
-  "src": "public/3d/t89/qolip_tik.jpg",
-  "dst": "public/catalog/2027/trotuar-86-aleya-3-mold-a-3d.webp",
-  "w": 800,
-  "kind": "render"
- },
- {
   "src": "public/3d/t89/r_04.jpg",
   "dst": "public/catalog/2027/trotuar-86-aleya-3-scene-3d.webp",
   "w": 1400,
@@ -1669,12 +1646,6 @@
   "kind": "render"
  },
  {
-  "src": "public/3d/t90/qolip_tik.jpg",
-  "dst": "public/catalog/2027/trotuar-87-magna-kubik-bilan-mold-a-3d.webp",
-  "w": 800,
-  "kind": "render"
- },
- {
   "src": "public/3d/t90/r_04.jpg",
   "dst": "public/catalog/2027/trotuar-87-magna-kubik-bilan-scene-3d.webp",
   "w": 1400,
@@ -1684,12 +1655,6 @@
   "src": "public/3d/t90/r_04.jpg",
   "dst": "public/catalog/2027/trotuar-87-magna-kubik-bilan-scene-sm-3d.webp",
   "w": 720,
-  "kind": "render"
- },
- {
-  "src": "public/3d/t91/qolip_tik.jpg",
-  "dst": "public/catalog/2027/trotuar-88-parket-yog-och-naqshli-mold-a-3d.webp",
-  "w": 800,
   "kind": "render"
  },
  {
@@ -1717,12 +1682,6 @@
   "kind": "render"
  },
  {
-  "src": "public/3d/t19/qolip_tik.jpg",
-  "dst": "public/catalog/2027/trotuar-kaliforniya-mold-a-3d.webp",
-  "w": 800,
-  "kind": "render"
- },
- {
   "src": "public/3d/t19/r_04.jpg",
   "dst": "public/catalog/2027/trotuar-kaliforniya-scene-3d.webp",
   "w": 1400,
@@ -1732,12 +1691,6 @@
   "src": "public/3d/t19/r_04.jpg",
   "dst": "public/catalog/2027/trotuar-kaliforniya-scene-sm-3d.webp",
   "w": 720,
-  "kind": "render"
- },
- {
-  "src": "public/3d/t20/qolip_tik.jpg",
-  "dst": "public/catalog/2027/trotuar-kaliforniya-g-mold-a-3d.webp",
-  "w": 800,
   "kind": "render"
  },
  {
@@ -1845,330 +1798,6 @@
  {
   "src": "public/3d/bp-005/r_04.jpg",
   "dst": "public/catalog/2027/fasad_dekor-bp-005-30x120-beeline-scene-sm-3d.webp",
-  "w": 720,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d01/qolip_tik.jpg",
-  "dst": "public/catalog/2027/dekor-d01-ramkali-panel-mold-a-3d.webp",
-  "w": 800,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d01/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d01-ramkali-panel-scene-3d.webp",
-  "w": 1400,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d01/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d01-ramkali-panel-scene-sm-3d.webp",
-  "w": 720,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d02/qolip_tik.jpg",
-  "dst": "public/catalog/2027/dekor-d02-ramka-2-kvadrat-mold-a-3d.webp",
-  "w": 800,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d02/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d02-ramka-2-kvadrat-scene-3d.webp",
-  "w": 1400,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d02/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d02-ramka-2-kvadrat-scene-sm-3d.webp",
-  "w": 720,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d03/qolip_tik.jpg",
-  "dst": "public/catalog/2027/dekor-d03-yon-tasmali-ramka-mold-a-3d.webp",
-  "w": 800,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d03/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d03-yon-tasmali-ramka-scene-3d.webp",
-  "w": 1400,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d03/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d03-yon-tasmali-ramka-scene-sm-3d.webp",
-  "w": 720,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d04/qolip_tik.jpg",
-  "dst": "public/catalog/2027/dekor-d04-ramka-4-kvadrat-mold-a-3d.webp",
-  "w": 800,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d04/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d04-ramka-4-kvadrat-scene-3d.webp",
-  "w": 1400,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d04/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d04-ramka-4-kvadrat-scene-sm-3d.webp",
-  "w": 720,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d05/qolip_tik.jpg",
-  "dst": "public/catalog/2027/dekor-d05-ramka-3-kvadrat-mold-a-3d.webp",
-  "w": 800,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d05/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d05-ramka-3-kvadrat-scene-3d.webp",
-  "w": 1400,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d05/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d05-ramka-3-kvadrat-scene-sm-3d.webp",
-  "w": 720,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d06/qolip_tik.jpg",
-  "dst": "public/catalog/2027/dekor-d06-oddiy-ramka-mold-a-3d.webp",
-  "w": 800,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d06/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d06-oddiy-ramka-scene-3d.webp",
-  "w": 1400,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d06/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d06-oddiy-ramka-scene-sm-3d.webp",
-  "w": 720,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d07/qolip_tik.jpg",
-  "dst": "public/catalog/2027/dekor-d07-ramkadagi-kvadrat-mold-a-3d.webp",
-  "w": 800,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d07/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d07-ramkadagi-kvadrat-scene-3d.webp",
-  "w": 1400,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d07/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d07-ramkadagi-kvadrat-scene-sm-3d.webp",
-  "w": 720,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d08/qolip_tik.jpg",
-  "dst": "public/catalog/2027/dekor-d08-rombli-panjara-mold-a-3d.webp",
-  "w": 800,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d08/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d08-rombli-panjara-scene-3d.webp",
-  "w": 1400,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d08/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d08-rombli-panjara-scene-sm-3d.webp",
-  "w": 720,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d09/qolip_tik.jpg",
-  "dst": "public/catalog/2027/dekor-d09-3d-piramida-mold-a-3d.webp",
-  "w": 800,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d09/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d09-3d-piramida-scene-3d.webp",
-  "w": 1400,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d09/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d09-3d-piramida-scene-sm-3d.webp",
-  "w": 720,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d10/qolip_tik.jpg",
-  "dst": "public/catalog/2027/dekor-d10-kop-ramkali-keng-mold-a-3d.webp",
-  "w": 800,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d10/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d10-kop-ramkali-keng-scene-3d.webp",
-  "w": 1400,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d10/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d10-kop-ramkali-keng-scene-sm-3d.webp",
-  "w": 720,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d11/qolip_tik.jpg",
-  "dst": "public/catalog/2027/dekor-d11-kop-ramkali-mold-a-3d.webp",
-  "w": 800,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d11/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d11-kop-ramkali-scene-3d.webp",
-  "w": 1400,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d11/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d11-kop-ramkali-scene-sm-3d.webp",
-  "w": 720,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d12/qolip_tik.jpg",
-  "dst": "public/catalog/2027/dekor-d12-tolqinsimon-panel-mold-a-3d.webp",
-  "w": 800,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d12/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d12-tolqinsimon-panel-scene-3d.webp",
-  "w": 1400,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d12/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d12-tolqinsimon-panel-scene-sm-3d.webp",
-  "w": 720,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d13/qolip_tik.jpg",
-  "dst": "public/catalog/2027/dekor-d13-tosh-panel-mold-a-3d.webp",
-  "w": 800,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d13/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d13-tosh-panel-scene-3d.webp",
-  "w": 1400,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d13/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d13-tosh-panel-scene-sm-3d.webp",
-  "w": 720,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d14/qolip_tik.jpg",
-  "dst": "public/catalog/2027/dekor-d14-donador-panel-mold-a-3d.webp",
-  "w": 800,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d14/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d14-donador-panel-scene-3d.webp",
-  "w": 1400,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d14/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d14-donador-panel-scene-sm-3d.webp",
-  "w": 720,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d15/qolip_tik.jpg",
-  "dst": "public/catalog/2027/dekor-d15-tishli-friz-mold-a-3d.webp",
-  "w": 800,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d15/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d15-tishli-friz-scene-3d.webp",
-  "w": 1400,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d15/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d15-tishli-friz-scene-sm-3d.webp",
-  "w": 720,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d16/qolip_tik.jpg",
-  "dst": "public/catalog/2027/dekor-d16-rombli-tasmali-panel-mold-a-3d.webp",
-  "w": 800,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d16/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d16-rombli-tasmali-panel-scene-3d.webp",
-  "w": 1400,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d16/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d16-rombli-tasmali-panel-scene-sm-3d.webp",
-  "w": 720,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d17/qolip_tik.jpg",
-  "dst": "public/catalog/2027/dekor-d17-qirrali-panel-mold-a-3d.webp",
-  "w": 800,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d17/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d17-qirrali-panel-scene-3d.webp",
-  "w": 1400,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d17/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d17-qirrali-panel-scene-sm-3d.webp",
-  "w": 720,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d18/qolip_tik.jpg",
-  "dst": "public/catalog/2027/dekor-d18-keng-qirrali-panel-mold-a-3d.webp",
-  "w": 800,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d18/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d18-keng-qirrali-panel-scene-3d.webp",
-  "w": 1400,
-  "kind": "render"
- },
- {
-  "src": "public/3d/d18/r_04.jpg",
-  "dst": "public/catalog/2027/dekor-d18-keng-qirrali-panel-scene-sm-3d.webp",
   "w": 720,
   "kind": "render"
  },

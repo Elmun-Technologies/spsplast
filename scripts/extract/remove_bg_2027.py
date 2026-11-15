@@ -51,6 +51,11 @@ def _auto_override(name: str, src: str) -> dict:
     ajratiladi (qolip qorong'i, fon och/sariq)."""
     if src.startswith("media-src/studio-2026/") and "-mold-" in name:
         return {"dark": 110}
+    # 2026-11-16: bosma katalogdagi trotuar qoliplari (media-src/live/tNN-qolip.jpg) — to'q qolip
+    # bir xil och kulrang fonda. isnet relyefdagi yaltiroq joylarni "fon" deb kesib tashladi
+    # (Monako, Rio...), burchakdan floodfill esa toza ajratadi.
+    if re.match(r"media-src/live/t\d+-qolip\.", src):
+        return {"flood": 14}
     return {}
 
 

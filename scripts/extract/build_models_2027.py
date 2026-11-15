@@ -650,11 +650,14 @@ def load_image_sources(models):
             if mold:
                 jobs.append({"src": f"public{mold}", "dst": f"public/catalog/2027/{m['section']}-{target}-mold-a.webp", "w": 800})
                 m["images"]["molds"]["A"] = f"/catalog/2027/{m['section']}-{target}-mold-a.webp"
-            tile = media.get("FINISHED_RESULT")
+            # 2026-11-16: trotuarda 2026 studiya plitka/sahna suratlari juda kichik (obyekt ~190 px,
+            # 9–17 KB) — saytda xira. Bosma katalog kabi: qolip (tirik surat) + sahna (3D r_04).
+            sharp_only = m["section"] == "trotuar"
+            tile = None if sharp_only else media.get("FINISHED_RESULT")
             if tile:
                 jobs.append({"src": f"public{tile}", "dst": f"public/catalog/2027/{m['section']}-{target}-tile-a.webp", "w": 800})
                 m["images"]["tiles"]["A"] = f"/catalog/2027/{m['section']}-{target}-tile-a.webp"
-            env = media.get("USAGE")
+            env = None if sharp_only else media.get("USAGE")
             if env:
                 jobs.append({"src": f"public{env}", "dst": f"public/catalog/2027/{m['section']}-{target}-scene.webp", "w": 1400})
                 jobs.append({"src": f"public{env}", "dst": f"public/catalog/2027/{m['section']}-{target}-scene-sm.webp", "w": 720})

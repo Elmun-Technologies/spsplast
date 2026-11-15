@@ -70,15 +70,16 @@ export function ModelClient({
 
   const gallery = useMemo<GalleryItem[]>(() => {
     const out: GalleryItem[] = [];
-    // 3D render (tirik surat hali yo'q) — yorlig'i "haqiqiy surat" demasligi kerak.
-    if (model.images.scene) {
-      const render = isRenderImage(model.images.scene);
-      out.push({ src: model.images.scene, label: render ? p.model.gallery.sceneRender : p.model.gallery.scene, cover: true, render });
-    }
+    // 2026-11-16: birinchi — qolip (biz qolip sotamiz), keyin natija (sahna).
     const mold = model.images.molds.A;
     if (mold) {
       const render = isRenderImage(mold);
       out.push({ src: mold, label: render ? p.model.gallery.moldRender : p.model.gallery.mold, cover: false, render });
+    }
+    // 3D render (tirik surat hali yo'q) — yorlig'i "haqiqiy surat" demasligi kerak.
+    if (model.images.scene) {
+      const render = isRenderImage(model.images.scene);
+      out.push({ src: model.images.scene, label: render ? p.model.gallery.sceneRender : p.model.gallery.scene, cover: true, render });
     }
     const tile = model.images.tiles.A;
     if (tile) out.push({ src: tile, label: p.model.gallery.tile, cover: false });
@@ -228,7 +229,7 @@ export function ModelClient({
               {hero ? (
                 <Image
                   key={hero.src}
-                  className={picked ? 'fade-in' : undefined}
+                  className={[picked ? 'fade-in' : '', hero.cover ? '' : 'stage-tilt'].filter(Boolean).join(' ') || undefined}
                   src={hero.src}
                   alt={`${modelName(model, lang)} — ${hero.label}`}
                   fill
