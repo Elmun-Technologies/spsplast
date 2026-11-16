@@ -16,12 +16,12 @@ import { seoOverride } from '@/lib/seoOverrides';
  */
 
 /**
- * Kanonik domen — spsplast.com (qaror 2026-11-01, docs/SEO-2028-RU.md 0-bo'lim).
- * `.uz` ccTLD Google'da O'zbekistonga geo-bog'lanadi va RU/KZ bozorida
- * pozitsiyani pasaytiradi; `.com` geo-neytral, tillar hreflang bilan ajraladi.
- * Eski `sps.uz` va `www.*` hostlari next.config.js da shu domenga 301 qilinadi.
+ * Kanonik domen — spsplast.uz (qaror 2026-11-17: rasmiy domen). Avval `.com`
+ * tanlangan edi (qaror 2026-11-01, docs/SEO-2028-RU.md 0-bo'lim: `.uz` ccTLD
+ * Google'da O'zbekistonga geo-bog'lanadi); tillar hreflang bilan ajraladi.
+ * Eski `spsplast.com`, `sps.uz` va `www.*` hostlari next.config.js da shu domenga 301 qilinadi.
  */
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://spsplast.com').replace(/\/$/, '');
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://spsplast.uz').replace(/\/$/, '');
 export const SITE_NAME = 'SPS Plast';
 export const DEFAULT_OG_IMAGE = '/images/og-logo.jpg';
 

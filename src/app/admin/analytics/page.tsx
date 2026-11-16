@@ -180,7 +180,7 @@ export default async function AnalyticsPage({ searchParams }: { searchParams: Pr
                 'Sozlamalar → Google Search Console: tasdiqlash meta-tegini kiriting, nashr qiling, Search Console\'da "Tasdiqlash"ni bosing',
                 'Google Cloud\'da service account yarating, Search Console API\'ni yoqing, JSON kalitni yuklab oling',
                 'Search Console → Sozlamalar → Foydalanuvchilar: service account email\'ini "Full" huquq bilan qo\'shing',
-                'Pastdagi "Ulanishlar"ga JSON kalit va mulk nomini (sc-domain:spsplast.com) kiriting',
+                'Pastdagi "Ulanishlar"ga JSON kalit va mulk nomini (sc-domain:spsplast.uz) kiriting',
               ]}
             />
           ) : !gsc.ok ? (
