@@ -56,7 +56,7 @@ The catalog is read from the committed `src/data/models2027.ts`, so the site
 runs with an empty `.env` — only Telegram lead delivery needs the bot token
 and chat id. `/admin` needs `DATABASE_URL` (see `docs/ADMIN.md`).
 
-Node **≥ 22.6** is required (`.nvmrc`; `npm test` uses
+Node **≥ 22.22.2** is required (`.nvmrc`; `npm test` uses
 `--experimental-strip-types`).
 
 ### Scripts

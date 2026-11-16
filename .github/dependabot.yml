@@ -19,6 +19,14 @@ updates:
       # o'zgartirib `npm run 3d:tering`, keyin QR sahifani brauzerda tekshirish.
       - dependency-name: three
       - dependency-name: esbuild
+      # typescript-eslint TS >=7 ni hali qo'llamaydi (lint yiqildi, PR #38) — eslint/eslint-config-next
+      # bilan birga qo'lda ko'tariladi.
+      - dependency-name: typescript
+        update-types: ['version-update:semver-major']
+      - dependency-name: eslint
+        update-types: ['version-update:semver-major']
+      - dependency-name: eslint-config-next
+        update-types: ['version-update:semver-major']
   - package-ecosystem: github-actions
     directory: /
     schedule:
