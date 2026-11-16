@@ -36,7 +36,10 @@ import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment
 const TXT = {
   nogl: 'Ваш браузер не поддерживает 3D. Посмотрите вкладку «Укладка».',
   fail: 'Не удалось загрузить модель. Обновите страницу.',
-  hintPlace: 'Нажмите на пустую клетку — уложите плитку · на плитку — уберите её',
+  hintPlace: 'Перетащите плитку из набора на пустую клетку · на плитку в сетке — уберите её',
+  tray: 'Набор плиток — перетащите на сетку',
+  left: 'осталось',
+  done: 'готово',
   hintTurn: 'Нажмите на плитку — поверните её',
 };
 
@@ -47,6 +50,10 @@ const DROP_MS = 340;
 const LIFT_MS = 170;
 const TURN_MS = 220;
 const GHOST_S = 0.08; // bo'sh slot soyasining qalinligi (plitka qalinligiga nisbatan)
+
+const GHOST_WHITE = new Color(0xffffff);
+const GHOST_HOT = new Color(0xffc857); // sudralayotgan plitka sig'adigan bo'sh kataklar
+const GHOST_SNAP = new Color(0x4ade80); // qo'yib yuborilsa shu katakka tushadi
 
 const fmtArea = (v) => v.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const easeInOut = (t) => (t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2);
@@ -244,6 +251,7 @@ export function mount(root, opts) {
       }
     }
     countEl.textContent = `Плиток: ${n} · ≈ ${fmtArea(area)} м²`;
+    updateTray();
   }
 
   function place(slot, delay = 0) {
@@ -306,6 +314,134 @@ export function mount(root, opts) {
     }
   }
 
+
+  // --- plitkalar to'plami (lotok): kartochkani sudrab katakka qo'yish — Lego kabi
+  const tray = document.createElement('div');
+  tray.className = 'tr';
+  tray.hidden = true;
+  tray.setAttribute('role', 'group');
+  tray.setAttribute('aria-label', TXT.tray);
+  view.insertAdjacentElement('afterend', tray);
+  const cards = [];
+  let dragging = null;
+  let tint = { type: null, slot: null };
+
+  const tileCss = () => {
+    const m = tileMats[0];
+    return m ? '#' + m.mat.color.getHexString(SRGBColorSpace) : '#bbb';
+  };
+
+  function tintGhosts(type, slot) {
+    if (tint.type === type && tint.slot === slot) return;
+    tint = { type, slot };
+    for (const t of types) {
+      for (const s of t.slots) {
+        const c = s === slot ? GHOST_SNAP : t === type && !s.placed ? GHOST_HOT : GHOST_WHITE;
+        for (const im of t.ghosts) im.setColorAt(s.i, c);
+      }
+      for (const im of t.ghosts) if (im.instanceColor) im.instanceColor.needsUpdate = true;
+    }
+    req();
+  }
+
+  function pickGhost(x, y) {
+    const r = el.getBoundingClientRect();
+    if (x < r.left || x > r.right || y < r.top || y > r.bottom) return null;
+    ndc.set(((x - r.left) / r.width) * 2 - 1, -((y - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    const hit = ray.intersectObjects(pickables, false)[0];
+    if (!hit || !hit.object.userData.ghost) return null;
+    const slot = hit.object.userData.slots[hit.instanceId];
+    return slot && !slot.placed ? slot : null;
+  }
+
+  function placeNext(t) {
+    const free = t.slots.filter((s) => !s.placed).sort((a, b) => a.order - b.order)[0];
+    if (!free) return;
+    place(free);
+    changed();
+  }
+
+  function buildTray() {
+    for (const t of types) {
+      const card = document.createElement('button');
+      card.type = 'button';
+      card.className = 'tc';
+      const mm = (v) => Math.round((v * 1000) / 5) * 5;
+      const k = 34 / Math.max(t.w, t.d);
+      const brick = document.createElement('i');
+      brick.style.width = Math.max(14, Math.round(t.w * k)) + 'px';
+      brick.style.height = Math.max(14, Math.round(t.d * k)) + 'px';
+      const label = document.createElement('span');
+      card.append(brick, label);
+      card.dataset.size = `${mm(t.w)}×${mm(t.d)}`;
+      tray.appendChild(card);
+      const c = { t, card, brick, label, left: -1 };
+      cards.push(c);
+
+      card.addEventListener('pointerdown', (e) => {
+        if (!ready || card.disabled || (e.pointerType === 'mouse' && e.button !== 0)) return;
+        e.preventDefault();
+        const float = brick.cloneNode(false);
+        float.className = 'dg';
+        float.style.background = tileCss();
+        float.style.left = e.clientX + 'px';
+        float.style.top = e.clientY + 'px';
+        document.body.appendChild(float);
+        dragging = { id: e.pointerId, c, float, x: e.clientX, y: e.clientY, moved: false, slot: null };
+        card.setPointerCapture(e.pointerId);
+        tintGhosts(t, null);
+      });
+      card.addEventListener('pointermove', (e) => {
+        const d = dragging;
+        if (!d || d.id !== e.pointerId) return;
+        if (Math.hypot(e.clientX - d.x, e.clientY - d.y) > 6) d.moved = true;
+        d.float.style.left = e.clientX + 'px';
+        d.float.style.top = e.clientY + 'px';
+        const slot = pickGhost(e.clientX, e.clientY);
+        d.slot = slot && slot.type === t ? slot : null;
+        d.float.classList.toggle('ok', !!d.slot);
+        tintGhosts(t, d.slot);
+      });
+      const finish = (e, drop) => {
+        const d = dragging;
+        if (!d || d.id !== e.pointerId) return;
+        dragging = null;
+        d.float.remove();
+        tintGhosts(null, null);
+        if (!drop) return;
+        if (d.slot) {
+          place(d.slot);
+          changed();
+        } else if (!d.moved) placeNext(t); // oddiy bosish — eng yaqin bo'sh katakka
+      };
+      card.addEventListener('pointerup', (e) => finish(e, true));
+      card.addEventListener('pointercancel', (e) => finish(e, false));
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          placeNext(t);
+        }
+      });
+    }
+    tray.hidden = false;
+    updateTray();
+  }
+
+  function updateTray() {
+    const col = tileCss();
+    for (const c of cards) {
+      const left = c.t.slots.reduce((n, s) => n + (s.placed ? 0 : 1), 0);
+      c.brick.style.background = col;
+      if (c.left !== left) {
+        c.left = left;
+        c.label.textContent = left ? `${c.card.dataset.size} · ${left}` : `${c.card.dataset.size} · ${TXT.done}`;
+        c.card.disabled = !left;
+        c.card.setAttribute('aria-label', `${c.card.dataset.size} мм, ${TXT.left}: ${left}`);
+      }
+    }
+  }
+
   // --- asboblar paneli
   root.querySelectorAll('.sw button').forEach((b) => {
     b.addEventListener('click', () => {
@@ -315,6 +451,7 @@ export function mount(root, opts) {
         if (hex) mat.color.set(hex);
         else mat.color.copy(orig);
       }
+      updateTray();
       req();
     });
   });
@@ -352,6 +489,7 @@ export function mount(root, opts) {
       }
       say('');
       ready = true;
+      buildTray();
       updateCount();
       resize();
       req();
@@ -401,6 +539,8 @@ export function mount(root, opts) {
         t = {
           parts: meshes.map((m) => ({ geometry: m.geometry, material: m.material, local: node === m ? null : m.matrix.clone() })),
           ymin: bb.min.y,
+          w,
+          d,
           // relyefli ustki yuza proyeksiyasi; to'g'ri to'rtburchakda gabaritdan oshmasin
           area: Math.min(meshes.reduce((s, m) => s + topArea(m.geometry), 0) || w * d, w * d),
           step: Math.abs(w - d) < 0.004 ? Math.PI / 2 : Math.PI,
@@ -442,6 +582,7 @@ export function mount(root, opts) {
         const ghosts = new InstancedMesh(geo, ghostMat, t.slots.length);
         ghosts.userData = { slots: t.slots, ghost: true };
         ghosts.renderOrder = 1;
+        for (let k = 0; k < t.slots.length; k++) ghosts.setColorAt(k, GHOST_WHITE);
         for (const im of [tiles, ghosts]) {
           im.boundingSphere = sphere; // o'zgarmas: ko'rinmas nusxalar uni buzmasin
           scene.add(im);

@@ -60,3 +60,12 @@ test('bundle va sahifalar manbaga mos (npm run 3d:tering -- --check)', () => {
   const out = execFileSync(process.execPath, [path.join(ROOT, 'scripts/3d/build-tering.mjs'), '--check'], { cwd: ROOT, encoding: 'utf8' });
   assert.match(out, /\(0 eskirgan\)/);
 });
+
+test('3D sahifalar: model-viewer foni qora (och bej fon oq mahsulotni yo\'qotardi) — `npm run 3d:dark`', () => {
+  const dir = path.join(process.cwd(), 'public/3d');
+  const bad = fs
+    .readdirSync(dir)
+    .filter((d) => fs.existsSync(path.join(dir, d, 'index.html')))
+    .filter((d) => fs.readFileSync(path.join(dir, d, 'index.html'), 'utf8').includes('#e9e3d7'));
+  assert.deepEqual(bad, [], `och fon qolgan: ${bad.join(', ')}`);
+});

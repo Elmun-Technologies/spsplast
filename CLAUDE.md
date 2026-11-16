@@ -768,3 +768,8 @@ dashboard, content/global, launch) and the full gap analysis: **`docs/ROADMAP-20
 - **Og'irlik byudjeti.** Sahifa boshiga zamonaviy JS+CSS gzip ~170 KB (`nomodule` polyfill
   39 KB bundan tashqari). Yangi kutubxona qo'shishdan oldin auditni ishga tushiring —
   200 KB dan oshsa ogohlantirish chiqadi.
+- **3D sahifalar: qora fon + lotok (2026-11-16)** — `npm run 3d:dark` (`scripts/3d/dark-viewer.mjs`) barcha `public/3d/<id>/index.html`
+  dagi och bej `model-viewer` fonini qoraga almashtiradi (oq/och mahsulot qo'shilib ketardi); tashqi pipeline sahifani qayta eksport
+  qilsa qayta ishga tushiring (`tests/tering3d.test.js` tekshiradi). "Соберите сами": plitka turlari uchun **lotok** (`.tr`/`.tc`) —
+  kartochkani sudrab katakka qo'yiladi (mos bo'sh kataklar amber, tushadigan katak yashil, qoldiq soni ko'rinadi), bosish = eng yaqin
+  katakka. `/3d/:id/index.html` keshi `max-age=0` (HTML 7 kun keshlanib, yangilanish ko'rinmay qolardi).
