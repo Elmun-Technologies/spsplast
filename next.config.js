@@ -118,6 +118,16 @@ const nextConfig = {
         headers: [{ key: 'Cache-Control', value: 'public, max-age=604800, stale-while-revalidate=604800' }],
       },
       {
+        // 3D sahifalarning HTML'i tez-tez yangilanadi (fon, tab) — 7 kun keshlanmasin: har safar tekshiriladi.
+        // GLB/rasm/hashli bundle (/3d/assets/tering-<hash>.js) yuqoridagi uzoq keshda qoladi.
+        source: '/3d/:id/index.html',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=0, must-revalidate' }],
+      },
+      {
+        source: '/3d',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=0, must-revalidate' }],
+      },
+      {
         source: '/sw.js',
         headers: [{ key: 'Cache-Control', value: 'public, max-age=0, must-revalidate' }],
       },

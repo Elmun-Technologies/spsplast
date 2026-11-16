@@ -38,6 +38,11 @@ const CSS =
   '.bv canvas{display:block;width:100%!important;height:100%!important;outline:none}' +
   '.bc{position:absolute;left:10px;top:10px;z-index:1;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font:600 13px/1.3 system-ui;pointer-events:none}' +
   '.bl{position:absolute;inset:0;display:grid;place-items:center;padding:16px;text-align:center;color:var(--mut);font-size:14px;pointer-events:none}' +
+'.tr{display:flex;flex-wrap:wrap;gap:8px;padding:10px 12px;border-top:1px solid var(--line);background:var(--card)}.tr[hidden]{display:none}' +
+  '.tc{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:6px;min-width:72px;min-height:64px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:600 11px/1.2 system-ui;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}' +
+  '.tc:active{cursor:grabbing}.tc[disabled]{opacity:.35;cursor:default}.tc:focus-visible{outline:2px solid var(--red);outline-offset:2px}' +
+  '.tc i,.dg{display:block;border-radius:3px;box-shadow:inset 0 2px 0 rgba(255,255,255,.35),inset 0 0 0 1px rgba(0,0,0,.3),0 3px 0 rgba(0,0,0,.45)}' +
+  '.dg{position:fixed;z-index:9999;pointer-events:none;transform:translate(-50%,-60%) scale(1.5) rotate(-5deg);box-shadow:0 14px 22px rgba(0,0,0,.5),inset 0 2px 0 rgba(255,255,255,.4)!important;transition:transform .12s}.dg.ok{transform:translate(-50%,-60%) scale(1.2) rotate(0)}' +
   '.bt{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;padding:10px 12px;border-top:1px solid var(--line)}' +
   '.sw{display:flex;gap:8px;flex-wrap:wrap}.sw button{width:36px;height:36px;border-radius:50%;border:2px solid var(--card);box-shadow:0 0 0 1px var(--line);padding:0;cursor:pointer;background:conic-gradient(#b08a5a 0 50%,#8c8a85 0)}' +
   '.sw button[aria-checked=true]{box-shadow:0 0 0 2px var(--ink)}' +
@@ -67,7 +72,7 @@ const PANEL =
   '<button type="button" data-a="rot" aria-pressed="false">⟳ Поворот</button></div></div></div><!--/b-->';
 
 const T_OLD = "sahna:''};";
-const T_NEW = "sahna:'',tering:'Нажмите на пустую клетку — уложите плитку · на плитку — уберите её'};";
+const T_NEW = "sahna:'',tering:'Перетащите плитку из набора на пустую клетку · на плитку в сетке — уберите её'};";
 const GO_OLD = "if(k==='sahna'){v.hidden=true;g.hidden=false}";
 const GO_NEW = "TB(k);if(k==='tering'){v.hidden=true;g.hidden=true}else if(k==='sahna'){v.hidden=true;g.hidden=false}";
 

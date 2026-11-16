@@ -73,7 +73,7 @@ export function Model3D({ slug, lang }: { slug: string; lang: Locale }) {
             ))}
           </div>
         ) : (
-        <div style={{ height: 'min(66vh, 520px)', borderRadius: 12, overflow: 'hidden', background: 'var(--bg-alt, #f3f3f1)' }}>
+        <div style={{ height: 'min(66vh, 520px)', borderRadius: 12, overflow: 'hidden', background: 'radial-gradient(#3d3b38, #121314)' }}>
             {on && (
               <MV
                 key={tab}

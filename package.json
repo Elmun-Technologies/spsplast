@@ -21,6 +21,7 @@
     "images:bg": "python3 scripts/extract/remove_bg_2027.py",
     "photos:import": "python3 scripts/extract/build_models_2027.py && python3 scripts/extract/remove_bg_2027.py --only media-src/live/ && python3 scripts/extract/build_images_2027.py && python3 scripts/extract/build_redirects_2027.py && node scripts/validate-models-2027.mjs",
     "catalog3d:build": "python3 scripts/extract/build_3d_catalog_2027.py",
+    "3d:dark": "node scripts/3d/dark-viewer.mjs",
     "3d:tering": "node scripts/3d/build-tering.mjs",
     "audit:a11y": "node scripts/audit-a11y.mjs",
     "audit:seo": "node scripts/audit-seo-dom.mjs",
