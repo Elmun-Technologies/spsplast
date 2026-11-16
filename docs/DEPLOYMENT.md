@@ -15,7 +15,7 @@ Env (Coolify → spsplast → Environment Variables): `DATABASE_URL` (ichki URL)
 `DEPLOY_HOOK_TOKEN` (Coolify API token: faqat `deploy`+`read`, faqat shu ilovaga, muddatsiz).
 `TELEGRAM_BOT_TOKEN`/`TELEGRAM_CHAT_ID` — biznesdan olinadi (Vercel'da yashirin edi, ko'chmagan).
 
-- **Domen:** `spsplast.com` hali ro'yxatdan o'tmagan. Domen tayyor bo'lgach: DNS `A @ → 2.29.137.243`
+- **Domen:** `spsplast.uz` sotib olingan (2026-11-17). DNS ulangach: DNS `A @ → 2.29.137.243`
   (+ `www`), Coolify → spsplast → Domains, `NEXT_PUBLIC_SITE_URL` ni yangilab **Redeploy**.
 - **Admin "Nashr qilish"** → `DEPLOY_HOOK_*` → Coolify qayta build qiladi (3–7 daqiqa).
 - **`main` ga push → avtomatik deploy:** GitHub webhook (`http://2.29.137.243:8000/webhooks/source/github/events/manual`,
@@ -38,7 +38,7 @@ Vercel → Project → Settings → Environment Variables:
 | Kalit | Majburiymi | Izoh |
 |---|---|---|
 | `DATABASE_URL` | **Ha** (production) | Neon/Supabase Postgres — zayafka saqlash, `/admin`, build snapshot uchun. Bo'lmasa sayt statik katalog bilan ishlaydi, lekin `/admin` ishlamaydi. |
-| `NEXT_PUBLIC_SITE_URL` | Tavsiya | `https://spsplast.com` — canonical, sitemap, hreflang shunga tayanadi |
+| `NEXT_PUBLIC_SITE_URL` | Tavsiya | `https://spsplast.uz` — canonical, sitemap, hreflang shunga tayanadi |
 | `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` | **Ha** (zayafka uchun) | `@BotFather` dan; guruh ID'si `-100…` |
 | `IP_HASH_SECRET` | Tavsiya (production) | Tashrif/rate-limit IP xeshlash kaliti |
 | `HEALTH_CHECK_TOKEN` | Yo'q | `/api/health` batafsil javobini yopish uchun |
@@ -59,18 +59,18 @@ To'liq ro'yxat: `.env.example`.
    yuboriladi; Production'da bo'lsa va muvaffaqiyatsiz bo'lsa — build to'xtaydi
    (eski deploy ishlashda davom etadi, sayt jim eskirib qolmaydi).
 5. Birinchi admin foydalanuvchini yarating (`docs/ADMIN.md` — `npm run admin:create`).
-6. Domenni ulang: `spsplast.com` (apex, kanonik) + `www.spsplast.com`, eski
-   `sps.uz`/`www.sps.uz` — hammasi 301 bilan `spsplast.com`ga (`next.config.js`).
+6. Domenni ulang: `spsplast.uz` (apex, kanonik) + `www.spsplast.uz`, eski
+   `spsplast.uz`/`sps.uz`/`www.sps.uz` — hammasi 301 bilan `spsplast.uz`ga (`next.config.js`).
 
 ## 4. Deploydan keyin tekshirish
 
 ```bash
-curl -s https://spsplast.com/api/health | jq
+curl -s https://spsplast.uz/api/health | jq
 # { "status": "ok", "checks": { "db": true, "telegram": true, ... } }
 
-curl -sI https://spsplast.com/uz | head -1           # 200
-curl -sI https://sps.uz/uz | head -3                  # 301 → https://spsplast.com/uz
-curl -sI https://spsplast.com/admin | head -3          # 302 → /admin/login (cookie'siz)
+curl -sI https://spsplast.uz/uz | head -1           # 200
+curl -sI https://sps.uz/uz | head -3                  # 301 → https://spsplast.uz/uz
+curl -sI https://spsplast.uz/admin | head -3          # 302 → /admin/login (cookie'siz)
 ```
 
 Qo'lda zayafka sinovi: `/uz` → model → "Zayafka qoldirish" → formani

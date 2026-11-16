@@ -17,7 +17,7 @@ const path = require('node:path');
  */
 
 const ROOT = path.join(__dirname, '..');
-const SITE = 'https://spsplast.com';
+const SITE = 'https://spsplast.uz';
 
 async function loadRules() {
   return import(path.join(__dirname, '..', 'scripts', 'lib', 'dom-rules.mjs'));

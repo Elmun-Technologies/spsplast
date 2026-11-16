@@ -245,8 +245,10 @@ and images missing elsewhere are 3D renders (`*-3d.webp`). Paving RU/EN names ar
 ## Environment Variables
 
 Required for lead delivery: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`.
-Canonical domain: **`https://spsplast.com`** (decision 2026-11-01, `docs/SEO-2028-RU.md` §0 — `.uz`
-ccTLD geo-targets Uzbekistan and hurts RU/KZ rankings); it is the `SITE_URL` default and old `sps.uz` 301s to it.
+Canonical domain: **`https://spsplast.uz`** (decision 2026-11-17: official domain; previously `spsplast.com`,
+decision 2026-11-01, `docs/SEO-2028-RU.md` §0 — a `.uz` ccTLD geo-targets Uzbekistan, so RU/KZ rankings rely on hreflang).
+It is the `SITE_URL` default; `spsplast.com`, `sps.uz` and all `www.*` 301 to it (`next.config.js`).
+Hosting: Hetzner + Coolify (Nixpacks, port 3000) with `sps-postgres`; Vercel is being retired.
 Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
 `NEXT_PUBLIC_GA_MEASUREMENT_ID`, `NEXT_PUBLIC_YANDEX_METRICA_ID`, `NEXT_PUBLIC_META_PIXEL_ID`.
 `DATABASE_URL` (Postgres) is required in production for lead storage and `/admin`; see `docs/ADMIN.md`.
@@ -602,7 +604,7 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   use `hreflangAbsolute()` there, never `hreflang()`.
 - **301s live in `scripts/redirects-2027.json`**, not in `next.config.js`. Add/regenerate
   entries there (`npm run redirects:build`); the config only prepends the canonical-host rule
-  (`www.spsplast.com`, `sps.uz`, `www.sps.uz` → `https://spsplast.com/:path*`, one regex host rule).
+  (`www.spsplast.uz`, `spsplast.com`, `www.spsplast.com`, `sps.uz`, `www.sps.uz` → `https://spsplast.uz/:path*`, one regex host rule).
 - After deleting routes, run `rm -rf .next` before `npm run typecheck` — stale
   `.next/types` produces bogus TS2307 errors for files that no longer exist.
 - `<html lang>` is `uz` in the SSR markup for every locale (single root layout) and is
@@ -684,7 +686,7 @@ Audit-only devDependencies: `axe-core`, `jsdom` (no browser needed); browser che
   tabs), mobile menu, footer CTA band; catalog block (card with code tag, inset mold, spec dl, graphite
   CTA; filters; compare bar); home (hero A + spec card, stats, sections + help card, steps + calculator
   example, factory, wholesale with real mold photos); model (drawing-board mold view with dimension line,
-  ±10 calculator); partners/production stock photos replaced; canonical domain `spsplast.com`.
+  ±10 calculator); partners/production stock photos replaced; canonical domain `spsplast.com` (since 2026-11-17: `spsplast.uz`).
   Fixed on the way: React #185 site crash with a non-empty compare/request list, footer red button
   contrast, production stats font bug, tap targets. Checks: 124 tests, audit:seo 35/0/0, audit:a11y 0,
   browser axe color-contrast 0 (14 pages × 1440/390), `npm run shots` 28 screens without horizontal scroll.

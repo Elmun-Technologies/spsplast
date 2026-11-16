@@ -460,7 +460,7 @@ test('13. 301 migratsiya xaritasi: manzillar yangi marshrutlarga, status 301', a
   for (const r of redirects) {
     // www -> apex qoidasi mutlaqo manzil beradi, qolganlari ichki.
     if (r.destination.startsWith('https://')) {
-      assert.ok(r.destination.startsWith('https://spsplast.com/'), `notanish host: ${r.destination}`);
+      assert.ok(r.destination.startsWith('https://spsplast.uz/'), `notanish host: ${r.destination}`);
       continue;
     }
     assert.strictEqual(r.statusCode, 301, `${r.source}: 301 emas (${r.statusCode})`);
@@ -521,23 +521,23 @@ test('14. Migratsiya: eski mahsulot URL\'lari aniq model sahifasiga tushadi', as
     'wildcard product qoidasi yo\'q');
 });
 
-test('15. Kanonik host qoidasi birinchi turadi: www va eski sps.uz -> spsplast.com', async () => {
+test('15. Kanonik host qoidasi birinchi turadi: www, eski sps.uz va spsplast.com -> spsplast.uz', async () => {
   const config = require('../next.config.js');
   const redirects = await config.redirects();
   const first = redirects[0];
 
-  assert.strictEqual(first.destination, 'https://spsplast.com/:path*');
+  assert.strictEqual(first.destination, 'https://spsplast.uz/:path*');
   assert.strictEqual(first.statusCode, 301);
   const hostRule = first.has.find((h) => h.type === 'host');
   assert.ok(hostRule, 'host sharti yo\'q');
 
   // Next `has.value` ni aynan shunday RegExp qiladi (prepare-destination.js).
   const matcher = new RegExp('^' + hostRule.value + '$');
-  for (const host of ['www.spsplast.com', 'sps.uz', 'www.sps.uz']) {
+  for (const host of ['www.spsplast.uz', 'spsplast.com', 'www.spsplast.com', 'sps.uz', 'www.sps.uz']) {
     assert.ok(matcher.test(host), `${host} kanonik domenga yo'naltirilmaydi`);
   }
   // Kanonik host o'ziga yo'naltirilmasin (cheksiz sikl), preview/boshqa hostlar tegilmasin.
-  for (const host of ['spsplast.com', 'spsplast-git-main.vercel.app', 'evilsps.uz', 'sps.uz.evil.com', 'xsps.uz']) {
+  for (const host of ['spsplast.uz', 'spsplast-git-main.vercel.app', 'evilsps.uz', 'sps.uz.evil.com', 'xsps.uz']) {
     assert.ok(!matcher.test(host), `${host} noto'g'ri tutildi`);
   }
 

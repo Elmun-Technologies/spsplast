@@ -17,7 +17,7 @@ const FONT_PRELOAD = '/fonts/onest-latin-wght-normal.woff2';
 // SITE_URL / SITE_NAME — src/lib/seo.ts (bitta manba).
 
 function toMetadataBase(value: string): URL | undefined {
-  for (const candidate of [value, `https://${value}`, 'https://spsplast.com']) {
+  for (const candidate of [value, `https://${value}`, 'https://spsplast.uz']) {
     try {
       return new URL(candidate);
     } catch {

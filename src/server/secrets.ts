@@ -57,8 +57,8 @@ export const SECRET_FIELDS: SecretField[] = [
     label: 'Search Console mulki',
     env: 'GSC_PROPERTY',
     secret: false,
-    placeholder: 'sc-domain:spsplast.com',
-    help: "Domen mulki: sc-domain:spsplast.com; URL-prefiks mulki: https://spsplast.com/ (oxiridagi / bilan).",
+    placeholder: 'sc-domain:spsplast.uz',
+    help: "Domen mulki: sc-domain:spsplast.uz; URL-prefiks mulki: https://spsplast.uz/ (oxiridagi / bilan).",
     validate: (v) => (/^(sc-domain:[a-z0-9.-]+\.[a-z]{2,}|https:\/\/[a-z0-9.-]+\.[a-z]{2,}\/)$/i.test(v) ? null : 'sc-domain:domen yoki https://domen/ ko\'rinishida'),
   },
   {

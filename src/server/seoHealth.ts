@@ -20,9 +20,9 @@ export async function seoHealth(db: Db): Promise<HealthCheck[]> {
 
   // 1. Domen
   add(
-    SITE_URL === 'https://spsplast.com' ? 'ok' : 'warn',
+    SITE_URL === 'https://spsplast.uz' ? 'ok' : 'warn',
     'Kanonik domen',
-    SITE_URL === 'https://spsplast.com' ? SITE_URL : `${SITE_URL} — rejadagi domen https://spsplast.com (NEXT_PUBLIC_SITE_URL)`,
+    SITE_URL === 'https://spsplast.uz' ? SITE_URL : `${SITE_URL} — rejadagi domen https://spsplast.uz (NEXT_PUBLIC_SITE_URL)`,
   );
 
   // 2. Qidiruv tizimlarida tasdiq
