@@ -1381,3 +1381,26 @@ html { scroll-padding-top: 164px; }
 .flip__count{font:600 14px/1 inherit;min-width:110px;text-align:center}
 .flip__dl{margin-left:auto}
 .flip__hint{margin-top:10px;font-size:13px}
+
+/* Bosh sahifa: ikki yo'nalish paneli (qoliplar / tayyor mahsulotlar) */
+.hm-split-sec { padding-bottom: 0; }
+.hm-split { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-4); }
+.hm-panel { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-card); overflow: hidden; color: var(--ink); text-decoration: none; transition: border-color .2s, box-shadow .2s; }
+.hm-panel:hover { border-color: var(--line-strong); box-shadow: var(--shadow-raise); }
+.hm-panel--ready { background: var(--surface-ink); color: var(--on-ink); border-color: var(--surface-ink); }
+.hm-panel__media { position: relative; display: block; aspect-ratio: 16 / 9; background: var(--surface-alt); }
+.hm-panel__media img { object-fit: cover; }
+.hm-panel__media--cutout img { object-fit: contain; padding: 8%; }
+.hm-panel__body { display: flex; flex-direction: column; gap: var(--space-3); padding: var(--space-5); flex: 1; }
+.hm-panel__label { font: 600 12px/16px var(--font-sans); letter-spacing: .08em; color: var(--red-text, #b51e25); }
+.hm-panel--ready .hm-panel__label { color: var(--red-on-ink, #ff6b72); }
+.hm-panel__title { margin: 0; font: 600 28px/32px var(--font-sans); letter-spacing: -0.03em; }
+.hm-panel__text { font: 400 16px/24px var(--font-sans); color: var(--ink-muted); }
+.hm-panel--ready .hm-panel__text, .hm-panel--ready .hm-panel__list { color: var(--on-ink-muted); }
+.hm-panel__list { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; font: 400 15px/22px var(--font-sans); color: var(--ink-muted); }
+.hm-panel__cta { align-self: flex-start; margin-top: auto; }
+@media (min-width: 761px) {
+  .hm-split { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-5); }
+  .hm-panel__title { font-size: 36px; line-height: 40px; }
+  .hm-panel__body { padding: var(--space-6); }
+}

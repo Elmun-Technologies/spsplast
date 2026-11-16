@@ -127,6 +127,7 @@ Everything a visitor could still hit is answered by a 301 (`scripts/redirects-20
 | Home | `/{lang}` |
 | Catalog / section | `/{lang}/catalog`, `/{lang}/catalog/{section}` |
 | Model | `/{lang}/catalog/{section}/{slug}` |
+| Ready products (fasad, termopanel; zayafka only) | `/{lang}/ready` (noindex + not in sitemap until products exist; layout.tsx) |
 | Compare | `/{lang}/compare` |
 | Request list | `/{lang}/request` |
 | Wholesale & partners | `/{lang}/partners` |
@@ -149,6 +150,8 @@ sitemap; a section with zero models keeps its route but is left out of the sitem
 content should not be indexed (since 2026-11-12 all 7 sections have models).
 
 ## Business Rules (never break)
+
+0. **Two directions (decision 2026-11-17)**: *Qoliplar* (molds, `/catalog`) and *Tayyor mahsulotlar* (ready facade/thermal panels, `/ready`). Home shows two big panels. Ready products are also **zayafka only, no prices**. Product data comes from the business later; `/ready` is an honest empty-state skeleton until then.
 
 1. **No prices, no cart, no checkout.** Only "zayafka". Terms: "Zayafka",
    "Zayafka qoldirish", "Zayafka ro'yxati", "Ulgurji va hamkorlik".

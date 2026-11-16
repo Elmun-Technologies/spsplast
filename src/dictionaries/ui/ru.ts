@@ -26,6 +26,7 @@ export const ru: UiDictionary = {
     pdf: 'PDF-каталог ↓',
   },
   nav: {
+    ready: 'Готовая продукция',
     partners: 'Опт и партнёрство',
     production: 'Производство',
     export: 'Экспорт',

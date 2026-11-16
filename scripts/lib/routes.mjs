@@ -64,6 +64,9 @@ export const AUDIT_ROUTES = [
   { path: '/ru/production', lang: 'ru', expect: { jsonLd: ['BreadcrumbList'] } },
   { path: '/en/production', lang: 'en', expect: { jsonLd: ['BreadcrumbList'] } },
 
+  { path: '/uz/ready', lang: 'uz', expect: { jsonLd: ['BreadcrumbList'], noindex: true } },
+  { path: '/ru/ready', lang: 'ru', expect: { jsonLd: ['BreadcrumbList'], noindex: true } },
+  { path: '/en/ready', lang: 'en', expect: { jsonLd: ['BreadcrumbList'], noindex: true } },
   { path: '/uz/contact', lang: 'uz', expect: { jsonLd: ['BreadcrumbList', 'LocalBusiness'] } },
   { path: '/ru/contact', lang: 'ru', expect: { jsonLd: ['BreadcrumbList', 'LocalBusiness'] } },
   { path: '/en/contact', lang: 'en', expect: { jsonLd: ['BreadcrumbList', 'LocalBusiness'] } },

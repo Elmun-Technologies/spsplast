@@ -27,6 +27,7 @@ export const uz = {
     pdf: 'PDF katalog ↓',
   },
   nav: {
+    ready: 'Tayyor mahsulotlar',
     partners: 'Ulgurji va hamkorlik',
     production: 'Ishlab chiqarish',
     export: 'Eksport',
