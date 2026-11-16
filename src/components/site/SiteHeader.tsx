@@ -24,6 +24,7 @@ export function SiteHeader({ lang }: { lang: Locale }) {
   });
 
   const nav = [
+    { href: `/${lang}/ready`, match: `/${lang}/ready`, label: t.nav.ready },
     { href: `/${lang}/partners`, match: `/${lang}/partners`, label: t.nav.partners },
     { href: `/${lang}/production`, match: `/${lang}/production`, label: t.nav.production },
     // RU'da qator sig'maydi: "Экспорт" alohida havola emas — u "Производство" ichida (HANDOFF 4.10)

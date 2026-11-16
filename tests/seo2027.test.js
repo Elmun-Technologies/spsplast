@@ -415,7 +415,7 @@ test('11. FAQ JSON-LD va sahifadagi FAQ bir manbadan (lug\'at)', async (t) => {
 
 test('12. noindex faqat compare/request da, qolgan sahifalarda metadata bor', () => {
   const pagesDir = path.join(ROOT, 'src', 'app', '[lang]');
-  const noindexPaths = ['compare', 'request'];
+  const noindexPaths = ['compare', 'request', 'ready'];
 
   for (const entry of fs.readdirSync(pagesDir, { withFileTypes: true })) {
     if (!entry.isDirectory()) continue;

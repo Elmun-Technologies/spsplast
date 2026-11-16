@@ -59,6 +59,32 @@ export const pagesUz = {
     testimonialsEyebrowLabel: 'MIJOZLAR',
     testimonialsEyebrow: 'Ishonch dalillari',
     testimonialsTitle: 'Mijozlar fikri',
+    split: {
+      eyebrow: 'Yo‘nalishni tanlang',
+      moldsLabel: 'QOLIPLAR',
+      moldsTitle: 'Qoliplar',
+      moldsText: 'Beton plitka, fasad, to‘siq va dekor uchun plastik qoliplar: qolip, undan chiqadigan mahsulot va terilgan ko‘rinish.',
+      moldsPoints: ['Trotuar, fasad va termopanel qoliplari', 'Qolip soni va vaznini hisoblab beramiz', 'Zavoddan to‘g‘ridan-to‘g‘ri'],
+      moldsCta: 'Qoliplar katalogi',
+      readyLabel: 'TAYYOR MAHSULOT',
+      readyTitle: 'Tayyor mahsulotlar',
+      readyText: 'Fasad va termopanellarni tayyor holda yetkazib beramiz: qolip sotib olish shart emas.',
+      readyPoints: ['Fasad elementlari va termopanellar', 'Zavoddan yetkazib berish', 'Narxni menejer hajmingizga qarab aytadi'],
+      readyCta: 'Tayyor mahsulotlar',
+    },
+  },
+
+  ready: {
+    title: 'Tayyor mahsulotlar',
+    eyebrow: 'Fasad va termopanel',
+    seoTitle: 'Tayyor fasad va termopanellar',
+    lead: 'Fasad elementlari va termopanellarni tayyor holda yetkazib beramiz. Zayafka qoldiring: menejer narx va muddatni aytadi.',
+    emptyTitle: 'Katalog tayyorlanmoqda',
+    emptyText: 'Tayyor mahsulotlar ro‘yxati tez orada shu yerda bo‘ladi. Hozir kerakli mahsulotni menejerga yozing: u suratlar va shartlarni yuboradi.',
+    cta: 'Zayafka qoldirish',
+    ctaTelegram: 'Telegram orqali yozish',
+    moldsLink: 'Qoliplar katalogi',
+    waText: 'Salom! Tayyor fasad va termopanellar bo‘yicha savolim bor.',
   },
 
   model: {

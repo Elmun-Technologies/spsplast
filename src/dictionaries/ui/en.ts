@@ -26,6 +26,7 @@ export const en: UiDictionary = {
     pdf: 'PDF catalog ↓',
   },
   nav: {
+    ready: 'Ready products',
     partners: 'Wholesale & partners',
     production: 'Production',
     export: 'Export',

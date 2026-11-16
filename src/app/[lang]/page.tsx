@@ -92,6 +92,35 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           )}
         />
       ) : null}
+      {/* 0. Ikki yo'nalish: qoliplar va tayyor mahsulotlar */}
+      <section className="sec hm-split-sec" aria-label={p.home.split.eyebrow}>
+        <div className="wrap hm-split">
+          {[
+            { key: 'molds', href: `/${lang}/catalog`, label: p.home.split.moldsLabel, title: p.home.split.moldsTitle, text: p.home.split.moldsText, points: p.home.split.moldsPoints, cta: p.home.split.moldsCta, cover: sectionCoverImage('trotuar'), meta: `${total} ${pluralModels(lang, total)}` },
+            { key: 'ready', href: `/${lang}/ready`, label: p.home.split.readyLabel, title: p.home.split.readyTitle, text: p.home.split.readyText, points: p.home.split.readyPoints, cta: p.home.split.readyCta, cover: sectionCoverImage('fasad'), meta: '' },
+          ].map((c) => (
+            <a key={c.key} className={`hm-panel hm-panel--${c.key}`} href={c.href}>
+              <span className={`hm-panel__media${c.cover.fit === 'contain' ? ' hm-panel__media--cutout' : ''}`}>
+                <Image src={c.cover.src} alt="" fill sizes="(max-width: 760px) 100vw, 600px" priority={c.key === 'molds'} />
+              </span>
+              <span className="hm-panel__body">
+                <span className="hm-panel__label">{c.label}{c.meta ? ` · ${c.meta}` : ''}</span>
+                <h2 className="hm-panel__title">{c.title}</h2>
+                <span className="hm-panel__text">{c.text}</span>
+                <ul className="hm-panel__list">
+                  {c.points.map((x) => (
+                    <li key={x}>{x}</li>
+                  ))}
+                </ul>
+                <span className="sps-btn sps-btn--primary hm-panel__cta">
+                  {c.cta}
+                  <Icon.arrowRight width={18} height={18} strokeWidth={2} aria-hidden="true" />
+                </span>
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
       {/* 1. Hero (A — yorug'): matn + terilgan plitka surati ustida spec karta, ostida raqamlar */}
       <section className="hm-hero">
         <div className="wrap">

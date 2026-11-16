@@ -57,6 +57,32 @@ export const pagesEn: PagesDictionary = {
     testimonialsEyebrowLabel: 'CUSTOMERS',
     testimonialsEyebrow: 'Trust signals',
     testimonialsTitle: 'Customer reviews',
+    split: {
+      eyebrow: 'Choose a direction',
+      moldsLabel: 'MOLDS',
+      moldsTitle: 'Molds',
+      moldsText: 'Plastic molds for concrete paving, facade, fence and decor: the mold, the product it makes and the finished laying.',
+      moldsPoints: ['Paving, facade and thermal panel molds', 'We calculate mold count and weight', 'Direct from the factory'],
+      moldsCta: 'Molds catalog',
+      readyLabel: 'READY PRODUCTS',
+      readyTitle: 'Ready products',
+      readyText: 'We deliver ready-made facade elements and thermal panels: you do not need to buy a mold.',
+      readyPoints: ['Facade elements and thermal panels', 'Delivery from the factory', 'The manager quotes a price for your volume'],
+      readyCta: 'Ready products',
+    },
+  },
+
+  ready: {
+    title: 'Ready products',
+    eyebrow: 'Facade and thermal panels',
+    seoTitle: 'Ready facade and thermal panels',
+    lead: 'We deliver ready-made facade elements and thermal panels. Choose a product and leave a request: the manager will confirm price and lead time.',
+    emptyTitle: 'Catalog is being prepared',
+    emptyText: 'The list of ready products will appear here soon. For now, tell the manager what you need: they will send photos and terms.',
+    cta: 'Leave a request',
+    ctaTelegram: 'Write on Telegram',
+    moldsLink: 'Molds catalog',
+    waText: 'Hello! I have a question about ready facade and thermal panels.',
   },
 
   model: {

@@ -20,6 +20,7 @@ const PAGES = [
   'app/[lang]/partners/page.tsx',
   'app/[lang]/production/page.tsx',
   'app/[lang]/contact/page.tsx',
+  'app/[lang]/ready/page.tsx',
   'app/[lang]/privacy/page.tsx',
   'app/[lang]/catalog/[section]/tag/[tag]/page.tsx',
   'app/[lang]/export/[country]/page.tsx',
@@ -131,6 +132,7 @@ test('6. Faqat tasdiqlangan raqamlar ishlatilgan (HANDOFF 1.5)', async () => {
 test('7. Kontaktlar yagona manbadan (CONTACTS_2027), sahifalarda qattiq raqam yo\'q', () => {
   const files = [
     'app/[lang]/contact/page.tsx',
+  'app/[lang]/ready/page.tsx',
     'components/model2027/ModelClient.tsx',
     'components/request2027/RequestClient.tsx',
     'components/site/NotFoundBody.tsx',

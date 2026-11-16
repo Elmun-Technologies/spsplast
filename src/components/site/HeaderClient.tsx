@@ -209,6 +209,7 @@ export function HeaderClient({
                     {compare.count}
                   </b>
                 </a>
+                <a href={`/${lang}/ready`}>{t.nav.ready}</a>
                 <a href={`/${lang}/partners`}>{t.nav.partners}</a>
                 <a href={`/${lang}/production`}>{t.menu.productionExport}</a>
                 <a href={`/${lang}/contact`}>{t.nav.contact}</a>
