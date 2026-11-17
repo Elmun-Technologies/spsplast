@@ -3,6 +3,7 @@ import { isValidLocale, locales, type Locale } from '@/lib/i18n';
 import { pluralModels } from '@/lib/ui';
 import { getPages } from '@/lib/pages';
 import {
+  getModelBySlug,
   getTotalCount,
   sectionCoverImage,
   sectionShortLabel,
@@ -40,11 +41,23 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   const p = getPages(lang);
   const total = getTotalCount();
 
-  // Qoliplar paneli rasmi: katalog muqovalaridagi haqiqiy qolip fotosi (chapda trotuar, o'ngda fasad qoliplari).
-  const moldDuo = [
-    { label: sectionShortLabel('trotuar', lang) },
-    { label: sectionShortLabel('fasad', lang) },
-  ];
+  // Qoliplar paneli: katalogdagi kabi — toza qolip fotosi (trotuar + fasad). Slug bo'yicha olinadi: rasm fayli
+  // (jonli foto / 3D render) almashsa ham yo'l o'zgarmaydi. Bo'sh bo'lsa bo'lim muqovasiga qaytadi.
+  const moldShots = (
+    [
+      ['04-tsvetok', 'trotuar'],
+      ['tp-001-30x60-kirpich', 'fasad'],
+    ] as const
+  )
+    .map(([slug, sec]) => ({ src: getModelBySlug(slug)?.images.molds.A ?? null, label: sectionShortLabel(sec, lang) }))
+    .filter((x): x is { src: string; label: string } => Boolean(x.src));
+  // Tayyor mahsulotlar paneli: fasad mahsulotlarining tayyor ko'rinishi (g'isht, termopanel, dekorativ panel).
+  const readyShots = ['f25-6-tali-tosh', 'tp-004-30x60-kuba', 'fsd-004-120x40-dekor-4']
+    .map((slug) => {
+      const m = getModelBySlug(slug);
+      return m?.images.sceneSm ?? m?.images.scene ?? null;
+    })
+    .filter((x): x is string => Boolean(x));
 
   const panels = [
     {
@@ -56,7 +69,8 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       points: p.home.split.moldsPoints,
       cta: p.home.split.moldsCta,
       cover: sectionCoverImage('trotuar'),
-      duo: moldDuo,
+      molds: moldShots.length ? moldShots : null,
+      ready: null as string[] | null,
       meta: `${total} ${pluralModels(lang, total)}`,
     },
     {
@@ -68,7 +82,8 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       points: p.home.split.readyPoints,
       cta: p.home.split.readyCta,
       cover: sectionCoverImage('fasad'),
-      duo: null,
+      molds: null,
+      ready: readyShots.length ? readyShots : null,
       meta: '',
     },
   ];
@@ -80,12 +95,20 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         <div className="hm-split">
           {panels.map((c) => (
             <a key={c.key} className={`hm-panel hm-panel--${c.key}`} href={c.href}>
-              {c.duo ? (
-                <span className="hm-panel__media hm-panel__media--duo">
-                  <Image src="/images/site/molds-duo.webp" alt="" fill sizes="(max-width: 760px) 100vw, 640px" priority />
-                  {c.duo.map((d, i) => (
-                    <span key={d.label} className={`hm-duo__chip hm-duo__chip--${i === 0 ? 'a' : 'b'}`}>
-                      {d.label}
+              {c.molds ? (
+                <span className="hm-panel__media hm-panel__media--molds">
+                  {c.molds.map((d, i) => (
+                    <span key={d.src} className="hm-mold">
+                      <Image src={d.src} alt="" fill sizes="(max-width: 760px) 45vw, 260px" priority={i === 0} />
+                      <span className="hm-duo__chip">{d.label}</span>
+                    </span>
+                  ))}
+                </span>
+              ) : c.ready ? (
+                <span className="hm-panel__media hm-panel__media--ready">
+                  {c.ready.map((src) => (
+                    <span key={src} className="hm-ready">
+                      <Image src={src} alt="" fill sizes="(max-width: 760px) 34vw, 210px" />
                     </span>
                   ))}
                 </span>

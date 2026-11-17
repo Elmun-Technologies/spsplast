@@ -1401,12 +1401,15 @@ html { scroll-padding-top: 164px; }
 .hm-panel--ready .hm-panel__text, .hm-panel--ready .hm-panel__list { color: var(--on-ink-muted); }
 .hm-panel__list { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; font: 400 15px/22px var(--font-sans); color: var(--ink-muted); }
 .hm-panel__cta { align-self: flex-start; margin-top: auto; }
-/* Qoliplar paneli: katalog muqovasidagi haqiqiy qolip fotosi (trotuar | fasad), qora fon */
-.hm-panel__media--duo { background: #0d0f12; overflow: hidden; }
-.hm-panel__media--duo img { object-fit: cover; object-position: center; }
-.hm-duo__chip { position: absolute; bottom: 12px; background: var(--red); color: #fff; font: 600 12px/16px var(--font-sans); padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
-.hm-duo__chip--a { left: 12px; }
-.hm-duo__chip--b { right: 12px; }
+/* Qoliplar paneli: katalogdagidek — och studiya foni, toza qolip fotolari (trotuar + fasad) */
+.hm-panel__media--molds { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); background: radial-gradient(110% 120% at 50% 20%, #f4f1ec 0%, #e6e1da 100%); overflow: hidden; }
+.hm-mold { position: relative; display: block; }
+.hm-mold img { object-fit: contain; padding: 5% 6% 15%; filter: drop-shadow(0 14px 12px rgba(21, 23, 26, .28)); }
+.hm-duo__chip { position: absolute; left: 50%; bottom: 10px; transform: translateX(-50%); background: var(--surface-ink); color: var(--on-ink); font: 600 12px/16px var(--font-sans); padding: 4px 12px; border-radius: 999px; white-space: nowrap; }
+/* Tayyor mahsulotlar paneli: fasad mahsulotlarining tayyor ko'rinishi, uch ustun */
+.hm-panel__media--ready { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3px; background: var(--surface-ink); overflow: hidden; }
+.hm-ready { position: relative; display: block; }
+.hm-ready img { object-fit: cover; }
 @media (max-width: 760px) {
   /* Mobil: ikkala panel birinchi ekranga sig'sin (390×844) — matn va ro'yxat yashirin, sarlavha + tugma qoladi */
   .hm-split { gap: var(--space-3); }
