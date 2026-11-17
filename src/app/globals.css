@@ -1440,3 +1440,28 @@ html { scroll-padding-top: 164px; }
 /* /ready bo'sh holati: qora blok ichida kontur tugmalar ko'rinsin */
 .ct-note .sps-btn--outline { color: var(--on-ink); border-color: rgba(255, 255, 255, .4); }
 .ct-note .sps-btn--outline:hover { border-color: var(--on-ink); }
+
+/* Model sahifasi: "Соберите сами" (Lego) 3D rejimi — QR 3D sahifalardagi uslubning sayt tokenlariga moslangani */
+.tg { display: flex; flex-direction: column; gap: var(--space-3); }
+.tg .bd { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.tg .bv { position: relative; height: min(66vh, 520px, 110vw); background: radial-gradient(#3d3b38, #121314); touch-action: none; user-select: none; -webkit-user-select: none; }
+.tg .bv canvas { display: block; width: 100% !important; height: 100% !important; outline: none; }
+.tg .bc { position: absolute; left: 10px; top: 10px; z-index: 1; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; font: 600 13px/1.3 var(--font-sans); pointer-events: none; }
+.tg .bl { position: absolute; inset: 0; display: grid; place-items: center; padding: 16px; text-align: center; color: var(--on-ink-muted); font-size: 14px; pointer-events: none; }
+.tg .bl:empty { display: none; }
+.tg .tr { display: flex; flex-wrap: wrap; gap: 8px; padding: 10px 12px; border-top: 1px solid var(--line); background: var(--surface); }
+.tg .tr[hidden] { display: none; }
+.tg .tc { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 6px; min-width: 72px; min-height: 64px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-alt); color: var(--ink); font: 600 11px/1.2 var(--font-sans); cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; }
+.tg .tc:active { cursor: grabbing; }
+.tg .tc[disabled] { opacity: .35; cursor: default; }
+.tg .tc:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+.tg .tc i, .dg { display: block; border-radius: 3px; box-shadow: inset 0 2px 0 rgba(255,255,255,.35), inset 0 0 0 1px rgba(0,0,0,.3), 0 3px 0 rgba(0,0,0,.45); }
+.dg { position: fixed; z-index: 9999; pointer-events: none; transform: translate(-50%, -60%) scale(1.5) rotate(-5deg); box-shadow: 0 14px 22px rgba(0,0,0,.5), inset 0 2px 0 rgba(255,255,255,.4) !important; transition: transform .12s; }
+.dg.ok { transform: translate(-50%, -60%) scale(1.2) rotate(0); }
+.tg .bt { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: space-between; padding: 10px 12px; border-top: 1px solid var(--line); }
+.tg .sw { display: flex; gap: 8px; flex-wrap: wrap; }
+.tg .sw button { width: 44px; height: 44px; border-radius: 50%; border: 3px solid var(--surface); box-shadow: 0 0 0 1px var(--line); padding: 0; cursor: pointer; background: conic-gradient(#b08a5a 0 50%, #8c8a85 0); }
+.tg .sw button[aria-checked='true'] { box-shadow: 0 0 0 2px var(--ink); }
+.tg .ba { display: flex; gap: 6px; flex-wrap: wrap; }
+.tg .ba button { min-height: 44px; padding: 9px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); font: 600 13px/1.2 var(--font-sans); cursor: pointer; }
+.tg .ba button[aria-pressed='true'] { background: var(--ink); color: var(--surface); border-color: var(--ink); }

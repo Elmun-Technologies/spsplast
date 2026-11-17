@@ -69,3 +69,15 @@ test('3D sahifalar: model-viewer foni qora (och bej fon oq mahsulotni yo\'qotard
     .filter((d) => fs.readFileSync(path.join(dir, d, 'index.html'), 'utf8').includes('#e9e3d7'));
   assert.deepEqual(bad, [], `och fon qolgan: ${bad.join(', ')}`);
 });
+
+test('Model sahifasi (3D ko‘rinish): "Соберите сами" tabi trotuar modellari uchun, teshiklar generatsiya qilingan', () => {
+  const m3d = fs.readFileSync(path.join(ROOT, 'src/components/model2027/Model3D.tsx'), 'utf8');
+  assert.match(m3d, /TeringPanel/);
+  assert.match(m3d, /TERING_HOLES/);
+  const holes = fs.readFileSync(path.join(ROOT, 'src/components/model2027/tering-holes.generated.ts'), 'utf8');
+  const n = (holes.match(/"t\d+":/g) || []).length;
+  assert.ok(n >= 91, `teshiklar: ${n} ta (kamida 91)`);
+  // three.js endi sayt bundle'iga ham kiradi (dynamic import) — dependencies'da bo'lishi shart
+  const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
+  assert.ok(pkg.dependencies.three, 'three dependencies ichida bo‘lsin');
+});

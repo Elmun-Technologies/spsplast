@@ -4,14 +4,16 @@ import { useEffect, useRef, useState } from 'react';
 import type { Locale } from '@/lib/i18n';
 import { MODEL3D } from './model3d.generated';
 import { MODEL3D_PHOTOS } from './model3d-photos.generated';
+import { TERING_HOLES } from './tering-holes.generated';
+import { TeringPanel } from './TeringPanel';
 
 type Entry = { id: string; have: string[]; poster: boolean };
 const MAP: Record<string, Entry> = MODEL3D;
 
-const L: Record<Locale, { h: string; qolip: string; mahsulot: string; terilgan: string; sahna: string; hint: string }> = {
-  uz: { h: '3D ko‘rinish', qolip: 'Qolip', mahsulot: 'Mahsulot', terilgan: 'Terilgan', sahna: 'Obyektda', hint: 'Aylantirish — barmoq bilan, yaqinlashtirish — ikki barmoq bilan' },
-  ru: { h: '3D-просмотр', qolip: 'Форма', mahsulot: 'Изделие', terilgan: 'Укладка', sahna: 'На объекте', hint: 'Вращайте пальцем, приближайте щипком' },
-  en: { h: '3D view', qolip: 'Mold', mahsulot: 'Product', terilgan: 'Laid', sahna: 'On site', hint: 'Drag to rotate, pinch to zoom' },
+const L: Record<Locale, { h: string; qolip: string; mahsulot: string; terilgan: string; sahna: string; tering: string; hint: string }> = {
+  uz: { h: '3D ko‘rinish', qolip: 'Qolip', mahsulot: 'Mahsulot', terilgan: 'Terilgan', sahna: 'Obyektda', tering: 'Terib ko‘ring', hint: 'Aylantirish — barmoq bilan, yaqinlashtirish — ikki barmoq bilan' },
+  ru: { h: '3D-просмотр', qolip: 'Форма', mahsulot: 'Изделие', terilgan: 'Укладка', sahna: 'На объекте', tering: 'Соберите сами', hint: 'Вращайте пальцем, приближайте щипком' },
+  en: { h: '3D view', qolip: 'Mold', mahsulot: 'Product', terilgan: 'Laid', sahna: 'On site', tering: 'Build it yourself', hint: 'Drag to rotate, pinch to zoom' },
 };
 
 export function hasModel3D(slug: string) {
@@ -27,7 +29,9 @@ export function Model3D({ slug, lang }: { slug: string; lang: Locale }) {
   const t = L[lang];
   const [on, setOn] = useState(false);
   const photos = e ? MODEL3D_PHOTOS[e.id] ?? [] : [];
-  const tabs = e ? [...e.have, ...(photos.length ? ['sahna'] : [])] : [];
+  const hole = e && e.id in TERING_HOLES ? TERING_HOLES[e.id] : undefined;
+  const canTering = Boolean(e && /^t\d+$/.test(e.id) && e.have.includes('terilgan') && hole !== undefined);
+  const tabs = e ? [...e.have, ...(photos.length ? ['sahna'] : []), ...(canTering ? ['tering'] : [])] : [];
   const [tab, setTab] = useState(tabs[0] ?? 'qolip');
   const box = useRef<HTMLDivElement>(null);
 
@@ -60,12 +64,14 @@ export function Model3D({ slug, lang }: { slug: string; lang: Locale }) {
         <div className="tabs" role="tablist">
           {tabs.map((k) => (
             <button key={k} type="button" role="tab" aria-selected={tab === k} className={tab === k ? 'on' : ''} onClick={() => setTab(k)}>
-              {t[k as 'qolip' | 'mahsulot' | 'terilgan' | 'sahna']}
+              {t[k as 'qolip' | 'mahsulot' | 'terilgan' | 'sahna' | 'tering']}
             </button>
           ))}
         </div>
         <div ref={box} style={{ marginBlock: 'calc(var(--space-3) / -2)' }} />
-        {tab === 'sahna' ? (
+        {tab === 'tering' && canTering && hole !== undefined ? (
+          <TeringPanel id={e.id} hole={hole} lang={lang} />
+        ) : tab === 'sahna' ? (
           <div style={{ display: 'grid', gap: 8 }}>
             {photos.map((f) => (
               // eslint-disable-next-line @next/next/no-img-element
@@ -91,7 +97,7 @@ export function Model3D({ slug, lang }: { slug: string; lang: Locale }) {
             )}
           </div>
         )}
-        {tab !== 'sahna' && <p className="muted" style={{ margin: 0, fontSize: 14 }}>{t.hint}</p>}
+        {tab !== 'sahna' && tab !== 'tering' && <p className="muted" style={{ margin: 0, fontSize: 14 }}>{t.hint}</p>}
       </div>
     </section>
   );
