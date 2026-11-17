@@ -3,8 +3,6 @@ import { isValidLocale, locales, type Locale } from '@/lib/i18n';
 import { pluralModels } from '@/lib/ui';
 import { getPages } from '@/lib/pages';
 import {
-  getModelsBySection,
-  getPopular,
   getTotalCount,
   sectionCoverImage,
   sectionShortLabel,
@@ -42,19 +40,11 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   const p = getPages(lang);
   const total = getTotalCount();
 
-  // Qoliplar paneli: ikkala yo'nalish qolipi — trotuar (bruschatka) va fasad — bitta kompozitsiyada.
-  const paveMold = getPopular(60).find((m) => m.section === 'trotuar' && m.images.molds.A)?.images.molds.A ?? null;
-  const facadeMold =
-    getModelsBySection('fasad_dekor').find((m) => m.images.molds.A && !m.images.molds.A.includes('-3d'))?.images.molds.A ??
-    getModelsBySection('fasad').find((m) => m.images.molds.A)?.images.molds.A ??
-    null;
-  const moldDuo =
-    paveMold && facadeMold
-      ? [
-          { src: paveMold, label: sectionShortLabel('trotuar', lang) },
-          { src: facadeMold, label: sectionShortLabel('fasad', lang) },
-        ]
-      : null;
+  // Qoliplar paneli rasmi: katalog muqovalaridagi haqiqiy qolip fotosi (chapda trotuar, o'ngda fasad qoliplari).
+  const moldDuo = [
+    { label: sectionShortLabel('trotuar', lang) },
+    { label: sectionShortLabel('fasad', lang) },
+  ];
 
   const panels = [
     {
@@ -92,16 +82,16 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
             <a key={c.key} className={`hm-panel hm-panel--${c.key}`} href={c.href}>
               {c.duo ? (
                 <span className="hm-panel__media hm-panel__media--duo">
+                  <Image src="/images/site/molds-duo.webp" alt="" fill sizes="(max-width: 760px) 100vw, 640px" priority />
                   {c.duo.map((d, i) => (
-                    <span key={d.src} className={`hm-duo hm-duo--${i === 0 ? 'a' : 'b'}`}>
-                      <Image src={d.src} alt="" fill sizes="(max-width: 760px) 45vw, 280px" priority={i === 0} />
-                      <span className="hm-duo__chip">{d.label}</span>
+                    <span key={d.label} className={`hm-duo__chip hm-duo__chip--${i === 0 ? 'a' : 'b'}`}>
+                      {d.label}
                     </span>
                   ))}
                 </span>
               ) : (
                 <span className={`hm-panel__media${c.cover.fit === 'contain' ? ' hm-panel__media--cutout' : ''}`}>
-                  <Image src={c.cover.src} alt="" fill sizes="(max-width: 760px) 100vw, 600px" priority={c.key === 'molds'} />
+                  <Image src={c.cover.src} alt="" fill sizes="(max-width: 760px) 100vw, 600px" />
                 </span>
               )}
               <span className="hm-panel__body">
