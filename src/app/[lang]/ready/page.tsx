@@ -2,7 +2,9 @@ import { notFound } from 'next/navigation';
 import { isValidLocale, locales, type Locale } from '@/lib/i18n';
 import { getPages } from '@/lib/pages';
 import { CONTACTS_2027 } from '@/lib/contacts2027';
+import Image from 'next/image';
 import { JsonLd } from '@/components/site/JsonLd';
+import { READY_PRODUCTS } from '@/lib/ready2027';
 import { jsonLdBreadcrumb } from '@/lib/seo';
 
 export function generateStaticParams() {
@@ -38,6 +40,33 @@ export default async function ReadyPage({ params }: { params: Promise<{ lang: st
           <p className="body muted">{r.lead}</p>
         </div>
 
+        {READY_PRODUCTS.length ? (
+          <ul className="rd-grid">
+            {READY_PRODUCTS.map((x) => {
+              const name = x.name[lang];
+              return (
+                <li key={x.slug} className="rd-card">
+                  <span className="rd-card__img">
+                    <Image src={x.image} alt={name} fill sizes="(max-width: 760px) 100vw, 360px" />
+                  </span>
+                  <span className="rd-card__body">
+                    <b>{name}</b>
+                    {x.size ? <span className="muted">{x.size}</span> : null}
+                    <a
+                      className="sps-btn sps-btn--primary"
+                      href={`${CONTACTS_2027.whatsappUrl}?text=${encodeURIComponent(`${r.waText} ${name}`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {r.cta}
+                    </a>
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        ) : null}
+
         <div className="ct-note">
           <b>{r.emptyTitle}</b>
           <span>{r.emptyText}</span>
@@ -54,9 +83,6 @@ export default async function ReadyPage({ params }: { params: Promise<{ lang: st
           </a>
           <a className="sps-btn sps-btn--outline" href={CONTACTS_2027.telegramUrl} target="_blank" rel="noopener noreferrer">
             {r.ctaTelegram}
-          </a>
-          <a className="hm-link" href={`/${lang}/catalog`}>
-            {r.moldsLink}
           </a>
         </div>
       </div>

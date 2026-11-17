@@ -76,6 +76,8 @@ export function HeaderClient({
   const catalogHref = `/${lang}/catalog`;
   // "Katalog" tabi faqat umumiy katalogda faol; bo'lim sahifasida bo'lim tabi faol.
   const catalogActive = pathname === catalogHref;
+  // Bosh sahifa (tanlov ekrani) va /ready da qolip bo'limlari/qidiruvi ko'rsatilmaydi — bu yerda faqat tanlov va tayyor mahsulot.
+  const forkView = pathname === `/${lang}` || pathname === `/${lang}/ready` || pathname.startsWith(`/${lang}/ready/`);
   const tabs = [
     { href: catalogHref, label: t.header.catalog, full: t.header.catalog, count: total, active: catalogActive },
     ...sections.map((s) => ({ href: s.href, label: s.label, full: s.full ?? s.label, count: s.count, active: isActive(pathname, s.match) })),
@@ -113,6 +115,8 @@ export function HeaderClient({
             <Image src="/images/brand/logo-ink.webp" alt="" width={62} height={38} priority />
           </a>
 
+          {!forkView && (
+            <>
           <nav className={`hd-tabs${lang === 'ru' ? ' hd-tabs--ru' : ''}`} aria-label={t.a11y.sectionsNav}>
             {tabs.map((tab) => (
               <a key={tab.href} href={tab.href} title={tab.full !== tab.label ? tab.full : undefined} aria-current={tab.active ? 'page' : undefined}>
@@ -126,6 +130,8 @@ export function HeaderClient({
             <Icon.search width={18} height={18} strokeWidth={1.75} aria-hidden="true" />
             <input type="search" name="q" placeholder={t.header.searchPlaceholder} aria-label={t.header.searchLabel} />
           </form>
+            </>
+          )}
 
           <div className="hd-actions">
             <a className="hd-ic" href={`/${lang}/compare`} aria-label={`${t.header.compare}: ${compare.count}`}>

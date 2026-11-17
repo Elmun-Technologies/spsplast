@@ -47,10 +47,10 @@ test('2. Qidiruv saytda ko\'rsatilgan (kirill) nom bo\'yicha ham topadi', async 
   }
 });
 
-test('3. WhatsApp: hero, footer, telefonda suzuvchi tugma, model panelida model nomi bilan', () => {
+test('3. WhatsApp: tayyor mahsulot sahifasi (bosh sahifa endi faqat tanlov ekrani), footer, telefonda suzuvchi tugma, model panelida model nomi bilan', () => {
   assert.match(read('src/components/site/SiteFooter.tsx'), /<MessengerFab lang=\{lang\} \/>/);
   assert.match(read('src/components/site/MessengerFab.tsx'), /whatsappUrl\}\?text=/);
-  assert.match(read('src/app/[lang]/page.tsx'), /whatsappUrl\}\?text=/);
+  assert.match(read('src/app/[lang]/ready/page.tsx'), /whatsappUrl\}\?text=/);
   assert.match(read('src/components/site/SiteFooter.tsx'), /whatsappUrl/);
   assert.match(read('src/components/model2027/ModelClient.tsx'), /p\.model\.waAboutTemplate\.replace\(/);
   const css = read('src/app/globals.css');
