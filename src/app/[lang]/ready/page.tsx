@@ -68,8 +68,12 @@ export default async function ReadyPage({ params }: { params: Promise<{ lang: st
         ) : null}
 
         <div className="ct-note">
-          <b>{r.emptyTitle}</b>
-          <span>{r.emptyText}</span>
+          {READY_PRODUCTS.length ? null : (
+            <>
+              <b>{r.emptyTitle}</b>
+              <span>{r.emptyText}</span>
+            </>
+          )}
           <a className="sps-btn sps-btn--primary" href={`/${lang}/request`}>
             {r.cta}
           </a>

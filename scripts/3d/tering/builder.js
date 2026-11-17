@@ -33,7 +33,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 
-const TXT = {
+const DEFAULT_TXT = {
   nogl: 'Ваш браузер не поддерживает 3D. Посмотрите вкладку «Укладка».',
   fail: 'Не удалось загрузить модель. Обновите страницу.',
   hintPlace: 'Перетащите плитку из набора на пустую клетку · на плитку в сетке — уберите её',
@@ -41,7 +41,13 @@ const TXT = {
   left: 'осталось',
   done: 'готово',
   hintTurn: 'Нажмите на плитку — поверните её',
+  count: 'Плиток: {n} · ≈ {area} м²',
+  mm: 'мм',
+  locale: 'ru-RU',
 };
+
+/** mount() chaqiruvida `opts.labels` bilan almashtiriladi (sayt uz/ru/en); QR sahifalar ruscha standartda */
+let TXT = DEFAULT_TXT;
 
 const Y = new Vector3(0, 1, 0);
 const HIDE = new Matrix4().compose(new Vector3(0, -50, 0), new Quaternion(), new Vector3(1e-5, 1e-5, 1e-5));
@@ -55,7 +61,7 @@ const GHOST_WHITE = new Color(0xffffff);
 const GHOST_HOT = new Color(0xffc857); // sudralayotgan plitka sig'adigan bo'sh kataklar
 const GHOST_SNAP = new Color(0x4ade80); // qo'yib yuborilsa shu katakka tushadi
 
-const fmtArea = (v) => v.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const fmtArea = (v) => v.toLocaleString(TXT.locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const easeInOut = (t) => (t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2);
 
 /** Plitkaning yuqoriga qaragan yuzalari proyeksiyasi (m²) — relyef va faskalar bilan. */
@@ -86,9 +92,11 @@ function topArea(geometry) {
  * @param {{ glb: string, hole: [number, number, number] | null, hint?: HTMLElement | null }} opts
  */
 export function mount(root, opts) {
+  TXT = { ...DEFAULT_TXT, ...(opts.labels || {}) };
+  let disposed = false;
   const view = root.querySelector('.bv');
-  const countEl = root.querySelector('#bc');
-  const msg = root.querySelector('#bl');
+  const countEl = root.querySelector('.bc');
+  const msg = root.querySelector('.bl');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const say = (t) => {
     msg.textContent = t;
@@ -100,7 +108,7 @@ export function mount(root, opts) {
     renderer = new WebGLRenderer({ antialias: true, alpha: true });
   } catch {
     say(TXT.nogl);
-    return { show() {} };
+    return { show() {}, dispose() {} };
   }
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.toneMapping = NeutralToneMapping;
@@ -145,7 +153,8 @@ export function mount(root, opts) {
     camera.updateProjectionMatrix();
     req();
   };
-  new ResizeObserver(resize).observe(view);
+  const resizeObs = new ResizeObserver(resize);
+  resizeObs.observe(view);
 
   /** @type {Array<{type:any, i:number, pos:Vector3, q:Quaternion, extra:number, placed:boolean, anim:any}>} */
   const slots = [];
@@ -250,7 +259,7 @@ export function mount(root, opts) {
         area += s.type.area;
       }
     }
-    countEl.textContent = `Плиток: ${n} · ≈ ${fmtArea(area)} м²`;
+    countEl.textContent = TXT.count.replace('{n}', String(n)).replace('{area}', fmtArea(area));
     updateTray();
   }
 
@@ -437,7 +446,7 @@ export function mount(root, opts) {
         c.left = left;
         c.label.textContent = left ? `${c.card.dataset.size} · ${left}` : `${c.card.dataset.size} · ${TXT.done}`;
         c.card.disabled = !left;
-        c.card.setAttribute('aria-label', `${c.card.dataset.size} мм, ${TXT.left}: ${left}`);
+        c.card.setAttribute('aria-label', `${c.card.dataset.size} ${TXT.mm}, ${TXT.left}: ${left}`);
       }
     }
   }
@@ -480,6 +489,7 @@ export function mount(root, opts) {
   new GLTFLoader().load(
     opts.glb,
     (gltf) => {
+      if (disposed) return;
       try {
         build(gltf.scene);
       } catch (err) {
@@ -668,6 +678,19 @@ export function mount(root, opts) {
         cancelAnimationFrame(raf);
         raf = 0;
       }
+    },
+    /** React'da tab yopilganda: renderer, kuzatuvchi va lotokni tozalaydi */
+    dispose() {
+      disposed = true;
+      active = false;
+      if (raf) cancelAnimationFrame(raf);
+      raf = 0;
+      resizeObs.disconnect();
+      controls.dispose();
+      renderer.dispose();
+      renderer.domElement.remove();
+      tray.remove();
+      document.querySelectorAll('.dg').forEach((n) => n.remove());
     },
   };
 }

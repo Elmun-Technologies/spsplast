@@ -185,6 +185,7 @@ async function main() {
   }
   let changed = 0;
   const noHole = [];
+  const holes = {};
   const ids = paverIds();
   for (const id of ids) {
     const file = path.join(PUB3D, id, 'index.html');
@@ -192,6 +193,7 @@ async function main() {
     const base = unpatch(html);
     const h = findHole(readGlbJson(path.join(PUB3D, id, 'terilgan.glb')));
     if (!h) noHole.push(id);
+    holes[id] = h ? [Number(h.x.toFixed(5)), Number(h.z.toFixed(5)), Number(h.yaw.toFixed(5))] : null;
     const next = patch(base, { bundle: b.name, glb: `/3d/${id}/terilgan.glb`, hole: h ? [h.x, h.z, h.yaw] : null }, file);
     if (unpatch(next) !== base) throw new Error(`${file}: unpatch(patch(x)) !== x — mavjud tablar buzilishi mumkin`);
     if (next !== html) {
@@ -199,6 +201,17 @@ async function main() {
       if (CHECK) problems.push(`eskirgan: ${id}`);
       else fs.writeFileSync(file, next);
     }
+  }
+  // Sayt (Model3D.tsx) uchun: har bir trotuar modelining "teshik"i — QR sahifadagi ulagich bilan bir xil ma'lumot.
+  const holesFile = path.join(ROOT, 'src/components/model2027/tering-holes.generated.ts');
+  const holesSrc =
+    "// GENERATED — scripts/3d/build-tering.mjs (`npm run 3d:tering`). Qo'lda tahrirlanmasin!\n" +
+    "// 3D id -> [x, z, yaw] (m, m, rad): ko'tarilgan plitkaning asl o'rni; null — teshik topilmadi.\n" +
+    `export const TERING_HOLES: Record<string, [number, number, number] | null> = ${JSON.stringify(holes)};\n`;
+  const holesOld = fs.existsSync(holesFile) ? fs.readFileSync(holesFile, 'utf8') : '';
+  if (holesOld !== holesSrc) {
+    if (CHECK) problems.push('tering-holes.generated.ts eskirgan');
+    else fs.writeFileSync(holesFile, holesSrc);
   }
   const kb = (n) => (n / 1024).toFixed(1);
   const zlib = await import('node:zlib');
