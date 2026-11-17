@@ -1,0 +1,49 @@
+# Hetzner/Coolify deploy: `checks` yashil tugagan `main` uchun Coolify API orqali qayta build ishga tushiriladi.
+# Sabab (2026-11-17): GitHub webhook'i (http://<IP>:8000/webhooks/...) ishlamay, Hetznerdagi sayt kunlar bo'yi eski
+# qoldi (katalog 215 model, main'da 198). Bu workflow webhook'dan mustaqil.
+#
+# Sozlash (GitHub → Settings → Secrets and variables → Actions → Secrets). Qiymatlar repoga yozilmaydi:
+#   COOLIFY_URL       masalan https://coolify.<domen>  (yoki http://<IP>:8000) — slash bilan tugamasin
+#   COOLIFY_TOKEN     Coolify → Keys & Tokens → API tokens (faqat `deploy` + `read`, faqat shu ilova)
+#   COOLIFY_APP_UUID  Coolify → spsplast ilovasi → URL dagi / sozlamalardagi UUID
+# Secret'lar yo'q bo'lsa workflow hech narsa qilmaydi (xato bermaydi).
+name: deploy-coolify
+
+on:
+  workflow_run:
+    workflows: [checks]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-coolify
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      COOLIFY_URL: ${{ secrets.COOLIFY_URL }}
+      COOLIFY_TOKEN: ${{ secrets.COOLIFY_TOKEN }}
+      COOLIFY_APP_UUID: ${{ secrets.COOLIFY_APP_UUID }}
+    steps:
+      - name: Coolify deploy
+        shell: bash
+        run: |
+          if [ -z "$COOLIFY_URL" ] || [ -z "$COOLIFY_TOKEN" ] || [ -z "$COOLIFY_APP_UUID" ]; then
+            echo "::notice::COOLIFY_URL / COOLIFY_TOKEN / COOLIFY_APP_UUID secret'lari berilmagan — deploy o'tkazib yuborildi"
+            exit 0
+          fi
+          code=$(curl -sS -m 60 -o /tmp/resp.txt -w '%{http_code}' \
+            -H "Authorization: Bearer $COOLIFY_TOKEN" \
+            "$COOLIFY_URL/api/v1/deploy?uuid=$COOLIFY_APP_UUID&force=false" || true)
+          echo "Coolify javobi: HTTP $code"
+          head -c 400 /tmp/resp.txt || true
+          echo
+          if [ "$code" != "200" ]; then
+            echo "::error::Coolify deploy ishga tushmadi (HTTP $code) — URL/token/UUID va 8000-port ochiqligini tekshiring"
+            exit 1
+          fi

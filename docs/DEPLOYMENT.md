@@ -22,6 +22,12 @@ Env (Coolify → spsplast → Environment Variables): `DATABASE_URL` (ichki URL)
   faqat push, sir = Coolify → spsplast → Webhooks → GitHub). Ishlamasa — Coolify'da **Redeploy**.
 - Migratsiyalar build boshida; faqat kengaytiruvchi bo'lsin (eski versiya yangi sxemada ishlay olishi kerak).
 
+- **Avtomatik deploy (2026-11-17):** GitHub webhook'i (`http://<IP>:8000/webhooks/...`) ishonchsiz bo'lib chiqdi — Hetznerdagi sayt kunlar
+  bo'yi eski qoldi (katalog 215 model, `main`da 198). Shuning uchun `.github/workflows/deploy-coolify.yml`: `checks` yashil tugagan `main`
+  uchun Coolify API (`/api/v1/deploy?uuid=…`) chaqiriladi. Kerakli GitHub Secrets: `COOLIFY_URL`, `COOLIFY_TOKEN` (faqat deploy+read),
+  `COOLIFY_APP_UUID`. Secret yo'q bo'lsa workflow o'tkazib yuboradi. Tekshirish: Actions → deploy-coolify → Run workflow.
+  Jonli sayt versiyasini tekshirish: bosh sahifada `class="hm-fork"` bo'lishi kerak (`curl -s https://spsplast.uz/uz | grep -c hm-fork`).
+
 Quyidagi 1–… bo'limlar Vercel davri uchun (zaxira sifatida qoldirildi).
 
 ## 1. Platforma
