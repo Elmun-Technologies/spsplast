@@ -1,0 +1,24 @@
+# Docker/Nixpacks build context — image hajmini kamaytirish (5.4 GB → kichikroq).
+# Build (`npm run build`) va runtime (`next start`) bularni ishlatmaydi.
+.git
+.github
+.next
+node_modules
+npm-debug.log*
+
+# Manba fotolar/PDF — faqat lokal `npm run photos:import` pipeline uchun (public/catalog/2027 allaqachon tayyor)
+media-src
+
+# Hujjatlar, testlar, skrinshotlar, qoralamalar
+docs
+tests
+catalog_build
+screens-actual
+.tmp-tests
+*.md
+!README.md
+
+# Maxfiy/lokal env fayllar (Coolify env'ni o'zi beradi)
+.env
+.env.*
+!.env.example
