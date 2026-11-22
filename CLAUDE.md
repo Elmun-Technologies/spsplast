@@ -532,6 +532,12 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   sahifalar Range bilan bo'laklab, faqat atrofdagilar chiziladi; worker `public/pdfjs/`, `?c=` brauzerda o'qiladi). Sahifa `noindex`.
   PDF yangilansa fayl nomini saqlang (yoki `CATALOG_PDFS` ni o'zgartiring). Katta (≥50 MB) PDF'lar repoga kirmaydi — yengil versiya.
 
+- **Docker image hajmi (2026-11-22, `.dockerignore`)**: Coolify/Nixpacks `COPY . /app/.` butun repo'ni image'ga solardi (5.4 GB:
+  `media-src` 111 MB, docs, tests + dev paketlar + playwright apt kutubxonalari 558 MB). `.dockerignore` endi `media-src`, `docs`,
+  `tests`, `catalog_build`, `.git` va `*.md` ni chiqarib tashlaydi — build (`models:check` + `next build`) va runtime ularni o'qimaydi.
+  Yangi build-vaqti fayl (masalan `docs/…` dan o'qiydigan skript) qo'shsangiz, uni `.dockerignore` da qoldirmang. Server diski
+  to'lib qolsa: Coolify → Server → Docker Cleanup lock'i qotishi mumkin (`docker exec coolify php artisan cleanup:redis --clear-locks`).
+
 - **Never reintroduce Tailwind.** The database is back (Stage 7, user decision) **only** behind
   `src/server/` — public pages (`[lang]`, `components`, `lib`) must never import it
   (`tests/platform.test.js` test 6), otherwise the storefront stops being static.
