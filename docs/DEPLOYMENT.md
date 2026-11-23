@@ -46,6 +46,8 @@ Bir martalik sozlash (Coolify UI):
 2. **Environment Variables:** `DATABASE_URL`, `SNAPSHOT_REQUIRED`, `NEXT_PUBLIC_*` uchun **"Build Variable"** belgilangan
    bo'lsin (Dockerfile ularni `ARG` sifatida oladi; boshqalar — faqat runtime). `SNAPSHOT_REQUIRED=1` — baza yetib
    bo'lmasa build to'xtaydi, eski versiya ishlashda qoladi (bo'sh katalog chiqib ketmaydi).
+   **Tavsiya: Configuration → General → "Use Docker Build Secrets" ni yoqing** — `DATABASE_URL` build-arg emas,
+   BuildKit secret bo'lib keladi va image tarixiga/provenance'ga yozilmaydi (Dockerfile ikkalasini ham qo'llaydi).
 3. **Servers → (server) → Configuration → Docker Cleanup:** Threshold `75`%, Frequency `0 4 * * *` (har kuni),
    "Delete unused networks" yoqilgan. **"Delete unused volumes" — YOQMANG** (Postgres ma'lumoti).
 4. Rollback uchun saqlanadigan image soni — 2 (Coolify'dagi "Docker Images to keep" sozlamasi).

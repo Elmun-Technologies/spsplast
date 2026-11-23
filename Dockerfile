@@ -9,7 +9,8 @@
 #     keyingi deployda o'sha qatlam qayta ishlatiladi, diskka yangidan yozilmaydi;
 #   - dev-paketlar, manba fotolar, testlar faqat build bosqichida qoladi (final image'ga kirmaydi).
 #
-# Build vaqtida kerak bo'ladigan env (Coolify → Environment Variables → "Build Variable" belgilangan):
+# Build vaqtida kerak bo'ladigan env (Coolify → Environment Variables → "Build Variable" belgilangan;
+# Configuration → General → "Use Docker Build Secrets" yoqilsa, ular build-arg emas, secret bo'lib keladi):
 # DATABASE_URL (migratsiya + snapshot: admin'dagi mahsulotlar/sozlamalar), NEXT_PUBLIC_* (analitika),
 # SNAPSHOT_REQUIRED=1 (baza yetib bo'lmasa build to'xtaydi — eski versiya ishlashda davom etadi).
 # Runtime env (TELEGRAM_*, DATABASE_URL, DEPLOY_HOOK_*, IP_HASH_SECRET, …) Coolify konteynerga o'zi beradi.
@@ -40,7 +41,12 @@ ARG NEXT_PUBLIC_META_PIXEL_ID
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 # Migratsiya (DATABASE_URL bo'lmasa o'tkazib yuboriladi) — Nixpacks'dagi build buyrug'i bilan bir xil.
-RUN npm run db:migrate:deploy && npm run build \
+# DATABASE_URL avval BuildKit secret'idan olinadi (Coolify → "Use Docker Build Secrets"): u image tarixiga va
+# provenance'ga yozilmaydi. Secret berilmasa — eski usul, `ARG DATABASE_URL` (Nixpacks bilan bir xil, kamroq xavfsiz).
+# (Fayl usuli: `env=` bilan secret berilmasa build-arg qiymati ham o'chib qolardi — sinab ko'rildi.)
+RUN --mount=type=secret,id=DATABASE_URL,required=false \
+    if [ -s /run/secrets/DATABASE_URL ]; then DATABASE_URL="$(cat /run/secrets/DATABASE_URL)"; export DATABASE_URL; fi \
+ && npm run db:migrate:deploy && npm run build \
  # Katta statik papkalar runner'ga to'g'ridan-to'g'ri build kontekstidan ko'chiriladi (alohida qatlam).
  && rm -rf public/3d public/catalog
 

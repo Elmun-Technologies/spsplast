@@ -58,3 +58,10 @@ test('4. Runtime: dev-paketlar yo`q, root emas', () => {
   assert.doesNotMatch(runner, /COPY --link --from=deps/);
   assert.match(runner, /^USER node$/m);
 });
+
+test("5. DATABASE_URL BuildKit secret'idan o'qiladi (image tarixi/provenance'ga yozilmaydi), ARG — zaxira", () => {
+  assert.match(docker, /RUN --mount=type=secret,id=DATABASE_URL,required=false/);
+  // `env=DATABASE_URL` ISHLATILMASIN: secret yo'q bo'lsa u build-arg qiymatini ham bo'shatadi (sinab ko'rilgan).
+  assert.doesNotMatch(docker, /id=DATABASE_URL,env=/);
+  assert.match(docker, /if \[ -s \/run\/secrets\/DATABASE_URL \]/);
+});
