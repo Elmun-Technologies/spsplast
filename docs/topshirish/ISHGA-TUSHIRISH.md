@@ -29,8 +29,10 @@ Har bo'lim oxiridagi **Tekshiruv** bajarilmaguncha keyingisiga o'tilmaydi. `[D]`
       **"Delete unused volumes" YOQILMAYDI** (Postgres ma'lumotlari volume'da).
 - [ ] Traefik label'lari: http→https middleware nomi **`redirect-to-https-sps`** (umumiy nom boshqa ilovalar bilan
       to'qnashadi — CLAUDE.md "Traefik"). Har domen uchun `http-N` va `https-N` router'lari bor.
-- [ ] Katalogni bazaga sinxronlash (Coolify terminali, bir marta):
-      `npm run catalog:sync -- scripts/catalog-add-2026-11-23.json` → **Redeploy**.
+- [ ] Katalogni bazaga sinxronlash (Coolify terminali, bir marta, tartib bilan):
+      `npm run catalog:sync -- scripts/catalog-add-2026-11-23.json` (yangi trotuar qoliplari),
+      `npm run catalog:sync -- scripts/catalog-add-2026-11-23-tayyor-fasad.json` (80 ta tayyor fasad mahsuloti)
+      → **Redeploy**. Tekshiruv: `/uz/ready` da 9 bo'lim va 80 mahsulot.
 - [ ] **Tekshiruv:** `https://spsplast.uz/api/health` → `"status": "ok"`, baza `connected`, Telegram `configured`.
       Server diskida build'dan keyin bo'sh joy ≥ 25%.
 
