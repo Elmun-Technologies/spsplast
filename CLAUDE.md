@@ -129,7 +129,7 @@ Everything a visitor could still hit is answered by a 301 (`scripts/redirects-20
 | Home | `/{lang}` |
 | Catalog / section | `/{lang}/catalog`, `/{lang}/catalog/{section}` |
 | Model | `/{lang}/catalog/{section}/{slug}` |
-| Ready products (fasad, termopanel; zayafka only) | `/{lang}/ready` (noindex + not in sitemap until products exist; layout.tsx) |
+| Ready products (zayafka only) | `/{lang}/ready`, `/{lang}/ready/{section}`, `/{lang}/ready/{section}/{slug}` (noindex while empty) |
 | Compare | `/{lang}/compare` |
 | Request list | `/{lang}/request` |
 | Wholesale & partners | `/{lang}/partners` |
@@ -153,7 +153,7 @@ content should not be indexed (since 2026-11-12 all 7 sections have models).
 
 ## Business Rules (never break)
 
-0. **Two directions (decision 2026-11-17)**: *Qoliplar* (molds, `/catalog`) and *Tayyor mahsulotlar* (ready facade/thermal panels, `/ready`). Home shows two big panels. Ready products are also **zayafka only, no prices**. Product data comes from the business later; `/ready` is an honest empty-state skeleton until then.
+0. **Two directions (decision 2026-11-17)**: *Qoliplar* (molds, `/catalog`) and *Tayyor mahsulotlar* (ready products, `/ready`). Home shows two big panels. Ready products are also **zayafka only, no prices**. Since 2026-11-23 `/ready` has the 80 facade products of the printed "FASAD MAHSULOT" catalog (9 sections); benches and euro fences come next (sections exist, empty = hidden + noindex).
 
 1. **No prices, no cart, no checkout.** Only "zayafka". Terms: "Zayafka",
    "Zayafka qoldirish", "Zayafka ro'yxati", "Ulgurji va hamkorlik".
@@ -583,6 +583,26 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     testimonials (null when empty) → wholesale.
   - Header search (`.hd-search`) is hidden on list pages (catalog, section, tag) — they have their own search box.
   - Card "quick view" button exists only at ≥1101 px (as before); on hover-capable devices it appears on card hover/focus.
+- **Tayyor mahsulotlar (2026-11-23, `tests/ready2027.test.js`)** — keep them:
+  - **One products table, two directions**: `catalog_sections.kind` (`molds` | `ready`, migration `0004` — also seeds the 11
+    ready sections `tayyor_*`; slug unique per kind, so `/catalog/thermal-panels` and `/ready/thermal-panels` coexist).
+    Snapshot exports `kind`. `catalogCore`: `SECTIONS` = molds only (header tabs, filters, /catalog routes, sitemap
+    /catalog paths stay mold-only), `READY_SECTIONS`, `sectionPath()`/`modelPath()` (**build product links with
+    `modelPath`** — a ready product under /catalog 404s), `readySectionFromSlug()`. `catalog2027`: `getModels()`/
+    `getPopular()`/counts = molds only; `getReady*()`; `getModelBySlug()` finds BOTH (request list, Telegram message).
+  - Ready card: no compare / quick view (mold fields), 3rd column = 1 m² or weight, never "PP / ABS". Quick-request
+    form asks "Kerakli miqdor (m² yoki dona)"; `/api/leads` does not compute molds for ready items; Telegram line
+    `• TAYYOR: …`. Product page `/ready/{section}/{slug}`: `ReadyGallery` (product shot → facade view → extras),
+    spec table (size, 1 m², weight + free `specs`), `ReadyActions` (zayafka / list / WhatsApp), Product JSON-LD
+    without price, related items. Mold page shows a "tayyor holda ham bor" link when `<mold-slug>-tayyor` exists.
+  - Data: `scripts/extract/build_ready_fasad_2027.py <MAHSULOT.pdf>` → `scripts/catalog-add-2026-11-23-tayyor-fasad.json`
+    (`add` 80 + `moldPer` for termopanel molds) + `public/catalog/2027/tayyor-<slug>-{scene,scene-sm,fasad}.webp`
+    (product shot = square crop of the left catalog page, facade = right page). Names/translations reuse the mold
+    with the same code (KRN-004 is two products — matched by size). Prod: `npm run catalog:sync -- <that file>`
+    (sync now supports any `section`, `note`, `moldPer`). When the catalog agent delivers original PNG/CSV, rebuild
+    images from those, keep the slugs.
+  - Admin: section form has "Yo'nalish" (molds/ready; can't change for a section that has products), product form
+    groups sections by direction, live URL / auto-301 follow the direction.
 - **Never reintroduce Tailwind.** The database is back (Stage 7, user decision) **only** behind
   `src/server/` — public pages (`[lang]`, `components`, `lib`) must never import it
   (`tests/platform.test.js` test 6), otherwise the storefront stops being static.
