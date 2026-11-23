@@ -24,8 +24,8 @@ export function CatalogHead({
   title: string;
   lead: string;
   intro?: string | null;
-  /** Qaysi katalog ochilsin (bo'lim sahifasida). */
-  catalog?: CatalogKey;
+  /** Qaysi PDF katalog ochilsin (bo'lim sahifasida); `null` — PDF tugmasi yo'q (tayyor mahsulotlarda hozircha PDF yo'q). */
+  catalog?: CatalogKey | null;
   /** Bo'limning naqshi (`sectionPattern()`), sarlavhaning o'ng tomonida — bo'limlar bir-biridan ajralib turadi. */
   pattern?: PatternName;
   children?: ReactNode;
@@ -50,9 +50,11 @@ export function CatalogHead({
           {children}
         </div>
         <div className="cat-head__cta">
-          <a className="sps-btn sps-btn--outline" href={flipHref(lang, catalog)}>
-            {t.menu.pdf}
-          </a>
+          {catalog === null ? null : (
+            <a className="sps-btn sps-btn--outline" href={flipHref(lang, catalog)}>
+              {t.menu.pdf}
+            </a>
+          )}
           <a className="sps-btn sps-btn--primary" href={`/${lang}/request`}>
             {t.header.cta}
           </a>

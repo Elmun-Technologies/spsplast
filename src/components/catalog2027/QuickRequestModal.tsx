@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { type Model, modelName, modelSetSize, sectionLabel } from '@/lib/catalogCore';
+import { type Model, isReadySection, modelName, modelSetSize, sectionLabel } from '@/lib/catalogCore';
 import { type Locale } from '@/lib/i18n';
 import { useUi } from '@/components/site/UiProvider';
 import { submitLead } from '@/lib/leadSubmit';
@@ -29,11 +29,12 @@ export function QuickRequestModal({
 }) {
   const ui = useUi();
   const t = ui.catalog;
+  const ready = model ? isReadySection(model.section) : false;
   const request = useRequestList();
   const ref = useModalShell(Boolean(model), onClose);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [volume, setVolume] = useState(initialVolume ? String(initialVolume) : '100');
+  const [volume, setVolume] = useState(initialVolume ? String(initialVolume) : ready ? '' : '100');
   const [city, setCity] = useState('');
   const [message, setMessage] = useState('');
   const [state, setState] = useState<'idle' | 'sending' | 'ok' | 'error'>('idle');
@@ -124,8 +125,8 @@ export function QuickRequestModal({
             </label>
             <div className="sps-form__row">
               <label className="sps-field">
-                <span className="sps-label">{t.formVolume}</span>
-                <input className="sps-input ym-disable-keys" type="number" min={1} max={100000} value={volume} aria-label={t.formVolume} onChange={(e) => setVolume(e.target.value)} />
+                <span className="sps-label">{ready ? t.formQty : t.formVolume}</span>
+                <input className="sps-input ym-disable-keys" type="number" min={1} max={100000} value={volume} aria-label={ready ? t.formQty : t.formVolume} onChange={(e) => setVolume(e.target.value)} />
               </label>
               <label className="sps-field">
                 <span className="sps-label">{t.formCity}</span>

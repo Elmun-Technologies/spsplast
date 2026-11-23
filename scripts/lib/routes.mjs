@@ -64,9 +64,16 @@ export const AUDIT_ROUTES = [
   { path: '/ru/production', lang: 'ru', expect: { jsonLd: ['BreadcrumbList'] } },
   { path: '/en/production', lang: 'en', expect: { jsonLd: ['BreadcrumbList'] } },
 
-  { path: '/uz/ready', lang: 'uz', expect: { jsonLd: ['BreadcrumbList'], noindex: true } },
-  { path: '/ru/ready', lang: 'ru', expect: { jsonLd: ['BreadcrumbList'], noindex: true } },
-  { path: '/en/ready', lang: 'en', expect: { jsonLd: ['BreadcrumbList'], noindex: true } },
+  // Tayyor mahsulotlar (2026-11-23): bosma "FASAD MAHSULOT" katalogidan 80 mahsulot, 9 bo'lim.
+  { path: '/uz/ready', lang: 'uz', expect: { jsonLd: ['BreadcrumbList'] } },
+  { path: '/ru/ready', lang: 'ru', expect: { jsonLd: ['BreadcrumbList'] } },
+  { path: '/en/ready', lang: 'en', expect: { jsonLd: ['BreadcrumbList'] } },
+  { path: '/uz/ready/cornices', lang: 'uz', expect: { jsonLd: ['BreadcrumbList'] } },
+  { path: '/ru/ready/thermal-panels', lang: 'ru', expect: { jsonLd: ['BreadcrumbList'] } },
+  // Bo'sh tayyor bo'lim (skameyka hali yo'q): sahifa ishlaydi, lekin indekslanmaydi.
+  { path: '/uz/ready/benches', lang: 'uz', expect: { jsonLd: ['BreadcrumbList'], noindex: true } },
+  { path: '/uz/ready/thermal-panels/tp-001-30x60-kirpich-tayyor', lang: 'uz', expect: { jsonLd: ['BreadcrumbList', 'Product'] } },
+  { path: '/en/ready/cornices/krn-006-50x120-karniz-tayyor', lang: 'en', expect: { jsonLd: ['BreadcrumbList', 'Product'] } },
   { path: '/uz/contact', lang: 'uz', expect: { jsonLd: ['BreadcrumbList', 'LocalBusiness'] } },
   { path: '/ru/contact', lang: 'ru', expect: { jsonLd: ['BreadcrumbList', 'LocalBusiness'] } },
   { path: '/en/contact', lang: 'en', expect: { jsonLd: ['BreadcrumbList', 'LocalBusiness'] } },
@@ -125,6 +132,9 @@ export const SHOT_PLAN = [
   // SEO landing sahifalari (etalon yo'q — faqat scroll/tegish tekshiruvi).
   { id: 'seo-teg', path: '/ru/catalog/paving/tag/300x300', mobile: true, desktop: true, noRef: true },
   { id: 'seo-eksport', path: '/ru/export/kazakhstan', mobile: true, desktop: true, noRef: true },
+  // Tayyor mahsulotlar (2026-11-23, etalon yo'q).
+  { id: 'tayyor-katalog', path: '/uz/ready', mobile: true, desktop: true, noRef: true },
+  { id: 'tayyor-mahsulot', path: '/ru/ready/cornices/krn-006-50x120-karniz-tayyor', mobile: true, desktop: true, noRef: true },
   // i18n ekranlari: ru/en bosh sahifa, mobil va desktop.
   { id: 'ru-mobil-bosh-sahifa', path: '/ru', mobile: true, ref: 'ru-bosh-sahifa' },
   { id: 'ru-desktop-bosh-sahifa', path: '/ru', desktop: true, ref: 'ru-bosh-sahifa' },

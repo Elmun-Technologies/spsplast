@@ -1,4 +1,16 @@
-import { getModels, getSectionCounts, hasAnyImage, modelName, SECTIONS, SECTION_SLUGS, sectionLabel } from './catalog2027.ts';
+import {
+  getActiveReadySections,
+  getModels,
+  getReadyModels,
+  getSectionCounts,
+  hasAnyImage,
+  modelName,
+  modelPath,
+  SECTIONS,
+  SECTION_SLUGS,
+  sectionLabel,
+  sectionPath,
+} from './catalog2027.ts';
 import { getSitePages } from './pagesServer.ts';
 import { EXPORT_COUNTRIES, getSeoTags } from './seoPages.ts';
 
@@ -11,7 +23,7 @@ import { EXPORT_COUNTRIES, getSeoTags } from './seoPages.ts';
  * `autoNoindex` — rasmi yo'q model: sahifa ishlaydi, lekin rasm kelguncha `noindex, follow` va
  * sitemap'da yo'q (audit 2026-11-02: 52 model × 3 til = 156 yupqa URL). Rasm nashr qilinsa — o'zi qaytadi.
  */
-export type PathKind = 'page' | 'section' | 'tag' | 'export' | 'model';
+export type PathKind = 'page' | 'section' | 'tag' | 'export' | 'model' | 'ready';
 export type ChangeFrequency = 'daily' | 'weekly' | 'monthly' | 'yearly';
 export type SitePath = { path: string; kind: PathKind; label: string; priority: number; changeFrequency: ChangeFrequency; autoNoindex?: boolean };
 
@@ -54,6 +66,26 @@ export function indexablePaths(): SitePath[] {
       path: `/catalog/${SECTION_SLUGS[m.section]}/${m.slug}`,
       kind: 'model' as const,
       label: `${m.code ? `№ ${m.code} ` : ''}${modelName(m, 'uz')}`,
+      priority: 0.6,
+      changeFrequency: 'monthly' as const,
+      ...(hasAnyImage(m) ? {} : { autoNoindex: true }),
+    })),
+    // Tayyor mahsulotlar (2026-11-23): bosh sahifa, rasmli mahsuloti bor bo'limlar va mahsulotlar.
+    // Mahsulot yo'q paytda `/ready` noindex (yupqa kontent) — ro'yxatga ham kirmaydi.
+    ...(getReadyModels().length
+      ? [{ path: '/ready', kind: 'page' as const, label: 'Tayyor mahsulotlar', priority: 0.8, changeFrequency: 'weekly' as const }]
+      : []),
+    ...getActiveReadySections().map((s) => ({
+      path: sectionPath(s),
+      kind: 'section' as const,
+      label: `${sectionLabel(s, 'uz')} (tayyor mahsulot bo'limi)`,
+      priority: 0.7,
+      changeFrequency: 'weekly' as const,
+    })),
+    ...getReadyModels().map((m) => ({
+      path: modelPath(m),
+      kind: 'ready' as const,
+      label: `Tayyor: ${m.code ? `№ ${m.code} ` : ''}${modelName(m, 'uz')}`,
       priority: 0.6,
       changeFrequency: 'monthly' as const,
       ...(hasAnyImage(m) ? {} : { autoNoindex: true }),

@@ -9,7 +9,12 @@ const path = require('node:path');
 const ROOT = path.join(__dirname, '..');
 const FILE = path.join(ROOT, 'data/models-2027.json');
 const data = JSON.parse(fs.readFileSync(FILE, 'utf8'));
-const SECTIONS = ['trotuar', 'fasad', 'termopanel', 'fasad_dekor', 'zabor', 'dekor', 'skameyka'];
+const SECTIONS = [
+  'trotuar', 'fasad', 'termopanel', 'fasad_dekor', 'zabor', 'dekor', 'skameyka',
+  // Tayyor mahsulotlar (2026-11-23, scripts/catalog-add-*-tayyor-*.json)
+  'tayyor_termopanel', 'tayyor_bilayn', 'tayyor_dekor', 'tayyor_karniz', 'tayyor_tyaga', 'tayyor_pilyastra',
+  'tayyor_kapitel', 'tayyor_tsokol', 'tayyor_tosh', 'tayyor_skameyka', 'tayyor_zabor',
+];
 
 function walkStrings(node, cb, trail) {
   trail = trail || '';

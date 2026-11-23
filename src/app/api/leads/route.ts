@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { normalizePhone, isValidIntlPhone } from '@/lib/phone';
 import { sendTelegramNotification } from '@/lib/telegram';
 import { checkRateLimit } from '@/lib/rateLimit';
-import { calcMolds, getModelBySlug, modelName } from '@/lib/catalog2027';
+import { calcMolds, getModelBySlug, isReadySection, modelName } from '@/lib/catalog2027';
 import { SITE_URL } from '@/lib/seo';
 import { getDb } from '@/server/db/client';
 import { createLead, hitRateLimit, markTelegram } from '@/server/leads';
@@ -162,7 +162,8 @@ export async function POST(req: Request) {
       code: model?.code || item.code || null,
       name: model ? modelName(model, 'uz') : null,
       m2: item.m2,
-      molds: model && item.m2 ? calcMolds(model, item.m2) : null,
+      // Tayyor mahsulotda qolip hisoblanmaydi — miqdor (m² yoki dona) o'zicha yuboriladi.
+      molds: model && item.m2 && !isReadySection(model.section) ? calcMolds(model, item.m2) : null,
     };
   });
 

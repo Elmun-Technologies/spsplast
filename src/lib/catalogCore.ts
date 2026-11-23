@@ -51,29 +51,66 @@ export function isRenderImage(src: string | null | undefined): boolean {
   return !!src && /-3d\.webp(?:\?|$)/.test(src);
 }
 
-type SectionMeta = { key: Section; slug: string; name: Localized };
+export type SectionKind = 'molds' | 'ready';
+type SectionMeta = { key: Section; slug: string; name: Localized; kind: SectionKind };
 
 /** Standart bo'limlar (admin snapshot bo'lmaganda). Nomlar — HANDOFF atamalari. */
 const DEFAULT_SECTIONS: SectionMeta[] = [
   // Admin bazasidagi DEFAULT_SECTIONS (src/server/catalog.ts) bilan bir xil kalit/slug/tartib.
-  { key: 'trotuar', slug: 'paving', name: { uz: 'Trotuar plitkasi', ru: 'Тротуарная плитка', en: 'Paving tiles' } },
-  { key: 'fasad', slug: 'facade', name: { uz: 'Fasad plitkasi', ru: 'Фасадная плитка', en: 'Facade tiles' } },
-  { key: 'termopanel', slug: 'thermal-panels', name: { uz: 'Fasad termopanellari', ru: 'Фасадные термопанели', en: 'Facade thermal panels' } },
-  { key: 'fasad_dekor', slug: 'facade-decor', name: { uz: 'Fasad dekor elementlari', ru: 'Фасадный декор', en: 'Facade decor elements' } },
-  { key: 'zabor', slug: 'fence', name: { uz: 'Zabor panellari', ru: 'Заборные панели', en: 'Fence panels' } },
-  { key: 'dekor', slug: 'decor', name: { uz: 'Dekor panellar', ru: 'Декор-панели', en: 'Decor panels' } },
-  { key: 'skameyka', slug: 'bench', name: { uz: 'Skameyka oyoqlari', ru: 'Ножки скамеек', en: 'Bench legs' } },
+  { key: 'trotuar', slug: 'paving', kind: 'molds', name: { uz: 'Trotuar plitkasi', ru: 'Тротуарная плитка', en: 'Paving tiles' } },
+  { key: 'fasad', slug: 'facade', kind: 'molds', name: { uz: 'Fasad plitkasi', ru: 'Фасадная плитка', en: 'Facade tiles' } },
+  { key: 'termopanel', slug: 'thermal-panels', kind: 'molds', name: { uz: 'Fasad termopanellari', ru: 'Фасадные термопанели', en: 'Facade thermal panels' } },
+  { key: 'fasad_dekor', slug: 'facade-decor', kind: 'molds', name: { uz: 'Fasad dekor elementlari', ru: 'Фасадный декор', en: 'Facade decor elements' } },
+  { key: 'zabor', slug: 'fence', kind: 'molds', name: { uz: 'Zabor panellari', ru: 'Заборные панели', en: 'Fence panels' } },
+  { key: 'dekor', slug: 'decor', kind: 'molds', name: { uz: 'Dekor panellar', ru: 'Декор-панели', en: 'Decor panels' } },
+  { key: 'skameyka', slug: 'bench', kind: 'molds', name: { uz: 'Skameyka oyoqlari', ru: 'Ножки скамеек', en: 'Bench legs' } },
+  // Tayyor mahsulotlar (/ready, migratsiya 0004). Mahsulotsiz bo'lim saytda ko'rinmaydi.
+  { key: 'tayyor_termopanel', slug: 'thermal-panels', kind: 'ready', name: { uz: 'Termopanellar', ru: 'Термопанели', en: 'Thermal panels' } },
+  { key: 'tayyor_bilayn', slug: 'beeline-panels', kind: 'ready', name: { uz: 'Bilayn panellari', ru: 'Панели «Билайн»', en: 'Beeline panels' } },
+  { key: 'tayyor_dekor', slug: 'decor-panels', kind: 'ready', name: { uz: 'Dekorativ panellar', ru: 'Декоративные панели', en: 'Decorative panels' } },
+  { key: 'tayyor_karniz', slug: 'cornices', kind: 'ready', name: { uz: 'Karnizlar', ru: 'Карнизы', en: 'Cornices' } },
+  { key: 'tayyor_tyaga', slug: 'mouldings', kind: 'ready', name: { uz: 'Tyagalar', ru: 'Тяги', en: 'Mouldings' } },
+  { key: 'tayyor_pilyastra', slug: 'pilasters', kind: 'ready', name: { uz: 'Pilyastra va nalichniklar', ru: 'Пилястры и наличники', en: 'Pilasters and window trims' } },
+  { key: 'tayyor_kapitel', slug: 'capitals', kind: 'ready', name: { uz: 'Kapitel va bazalar', ru: 'Капители и базы', en: 'Capitals and bases' } },
+  { key: 'tayyor_tsokol', slug: 'plinth', kind: 'ready', name: { uz: 'Sokol elementlari', ru: 'Цоколь', en: 'Plinth elements' } },
+  { key: 'tayyor_tosh', slug: 'facade-stone', kind: 'ready', name: { uz: 'Fasad toshi', ru: 'Фасадный камень', en: 'Facade stone' } },
+  { key: 'tayyor_skameyka', slug: 'benches', kind: 'ready', name: { uz: 'Beton skameykalar', ru: 'Бетонные скамейки', en: 'Concrete benches' } },
+  { key: 'tayyor_zabor', slug: 'euro-fence', kind: 'ready', name: { uz: 'Yevrozaborlar', ru: 'Еврозаборы', en: 'Euro fences' } },
 ];
 
 const SECTION_META: SectionMeta[] = siteSnapshot?.sections?.length
-  ? siteSnapshot.sections.map((x) => ({ key: x.key, slug: x.slug, name: x.name }))
+  ? siteSnapshot.sections.map((x) => ({ key: x.key, slug: x.slug, name: x.name, kind: x.kind === 'ready' ? 'ready' : 'molds' }))
   : DEFAULT_SECTIONS;
 
-/** Barcha bo'limlar (marshrutlar shular uchun yaratiladi, 0 modelli ham). */
-export const SECTIONS: Section[] = SECTION_META.map((x) => x.key);
+/**
+ * Qolip bo'limlari (`/catalog`) — marshrutlar shular uchun yaratiladi, 0 modelli ham. Tayyor mahsulot bo'limlari
+ * bu ro'yxatga KIRMAYDI (`READY_SECTIONS`): qolip katalogi, header tablari, filtrlar, sitemap'dagi /catalog
+ * yo'llari faqat qoliplar bilan ishlaydi.
+ */
+export const SECTIONS: Section[] = SECTION_META.filter((x) => x.kind === 'molds').map((x) => x.key);
 
-/** Marshrut slug'lari (HANDOFF 4): /{lang}/catalog/{slug}. */
+/** Tayyor mahsulot bo'limlari (`/ready/{slug}`). */
+export const READY_SECTIONS: Section[] = SECTION_META.filter((x) => x.kind === 'ready').map((x) => x.key);
+
+/**
+ * Bo'lim kaliti → URL slug'i (ikkala yo'nalish; kalitlar unikal, slug faqat yo'nalish ichida unikal).
+ * Qoliplar: /{lang}/catalog/{slug}; tayyor: /{lang}/ready/{slug} — URL'ni `sectionPath`/`modelPath` bilan yasang.
+ */
 export const SECTION_SLUGS: Record<Section, string> = Object.fromEntries(SECTION_META.map((x) => [x.key, x.slug]));
+
+export function isReadySection(section: Section): boolean {
+  return READY_SECTIONS.includes(section);
+}
+
+/** Bo'lim sahifasi yo'li, til prefiksisiz: `/catalog/paving` yoki `/ready/benches`. */
+export function sectionPath(section: Section): string {
+  return `/${isReadySection(section) ? 'ready' : 'catalog'}/${SECTION_SLUGS[section]}`;
+}
+
+/** Mahsulot sahifasi yo'li, til prefiksisiz. Qolip va tayyor mahsulotni ajratadi — havolalar shu orqali yasalsin. */
+export function modelPath(m: Pick<Model, 'section' | 'slug'>): string {
+  return `${sectionPath(m.section)}/${m.slug}`;
+}
 
 /** Bo'lim nomi: admin'dagi nom → uz → kalit. */
 export function sectionLabel(section: Section, lang: Locale): string {
@@ -101,6 +138,10 @@ export function sectionShortLabel(section: Section, lang: Locale): string {
 
 export function sectionFromSlug(slug: string): Section | undefined {
   return SECTIONS.find((s) => SECTION_SLUGS[s] === slug);
+}
+
+export function readySectionFromSlug(slug: string): Section | undefined {
+  return READY_SECTIONS.find((s) => SECTION_SLUGS[s] === slug);
 }
 
 /** Modelda kamida bitta rasm (sahna, qolip yoki plitka) bormi. */

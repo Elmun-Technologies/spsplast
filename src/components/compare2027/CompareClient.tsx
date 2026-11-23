@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import {
   type Model,
-  SECTION_SLUGS,
+  modelPath,
   modelImage,
   modelName,
   modelPerM2,
@@ -172,7 +172,7 @@ export function CompareClient({
                         {m.code ? `№ ${m.code} · ` : ''}
                         {sectionLabel(m.section, lang)}
                       </span>
-                      <a href={`/${lang}/catalog/${SECTION_SLUGS[m.section]}/${m.slug}`}>{modelName(m, lang)}</a>
+                      <a href={`/${lang}${modelPath(m)}`}>{modelName(m, lang)}</a>
                       <div style={{ display: 'flex', gap: 8 }}>
                         <a
                           className="sps-btn sps-btn--dark sps-btn--sm"

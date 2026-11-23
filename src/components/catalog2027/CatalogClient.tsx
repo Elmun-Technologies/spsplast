@@ -139,11 +139,17 @@ export function CatalogClient({
   initialQuery,
   variant,
   total,
+  searchPlaceholder,
+  foundLabel,
 }: {
   lang: Locale;
   models: Model[];
   initialQuery?: string;
   variant: 'home' | 'catalog';
+  /** Qidiruv maydoni matni (tayyor mahsulotlarda "70, Monako" misoli to'g'ri kelmaydi). */
+  searchPlaceholder?: string;
+  /** "ta model topildi" o'rniga (tayyor mahsulotlarda — "ta mahsulot topildi"). */
+  foundLabel?: string;
   /** Katalogdagi barcha modellar soni (server beradi — katalog ma'lumoti mijoz bundle'iga kirmasin). */
   total: number;
 }) {
@@ -244,8 +250,8 @@ export function CatalogClient({
               <input
                 type="search"
                 value={filters.q}
-                placeholder={t.searchPlaceholder}
-                aria-label={t.searchPlaceholder}
+                placeholder={searchPlaceholder || t.searchPlaceholder}
+                aria-label={searchPlaceholder || t.searchPlaceholder}
                 onChange={(e) => update({ q: e.target.value })}
               />
             </label>
@@ -278,7 +284,7 @@ export function CatalogClient({
               </label>
             </div>
             <span className="cat-count">
-              <b>{filtered.length}</b> {t.found} · {t.inCatalog} {total}
+              <b>{filtered.length}</b> {foundLabel || t.found} · {t.inCatalog} {total}
             </span>
             {tags.length > 0 ? (
               <div className="cat-tags">

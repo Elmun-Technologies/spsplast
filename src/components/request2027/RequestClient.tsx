@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import {
-  SECTION_SLUGS,
+  modelPath,
   calcMolds,
   modelImage,
   modelName,
@@ -156,7 +156,7 @@ export function RequestClient({
                       {sectionLabel(model.section, lang)}
                     </span>
                     <a
-                      href={`/${lang}/catalog/${SECTION_SLUGS[model.section]}/${model.slug}`}
+                      href={`/${lang}${modelPath(model)}`}
                       style={{ font: '600 18px/22px var(--font-sans)', color: 'var(--ink)', textDecoration: 'none' }}
                     >
                       {modelName(model, lang)}

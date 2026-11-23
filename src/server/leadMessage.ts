@@ -1,5 +1,5 @@
 import { escapeTelegramHtml } from '../lib/telegram.ts';
-import { getModelBySlug, modelName, modelSetSize } from '../lib/catalog2027.ts';
+import { getModelBySlug, isReadySection, modelName, modelSetSize } from '../lib/catalog2027.ts';
 
 /**
  * Zayafkaning Telegram xabari (parse_mode HTML). Bitta joyda: `/api/leads` yangi zayafkani
@@ -92,7 +92,10 @@ export function formatLeadMessage(i: LeadMessageInput): string {
         ? `№ ${model.code || '—'} ${modelName(model, 'uz')}`
         : [item.code ? `№ ${item.code}` : null, item.name || item.slug].filter(Boolean).join(' ');
       const setNote = model && modelSetSize(model) > 1 ? " (to'plam A+B)" : '';
-      if (item.m2) {
+      if (model && isReadySection(model.section)) {
+        // Tayyor mahsulot (qolip emas): menejer darhol ajratsin.
+        lines.push(`• TAYYOR: ${escapeTelegramHtml(label)}${item.m2 ? ` — ${item.m2} (m² yoki dona)` : ''}`);
+      } else if (item.m2) {
         lines.push(
           item.molds
             ? `• ${escapeTelegramHtml(label)}${setNote} — ${item.m2} m²/kun ≈ ${item.molds.toLocaleString('ru-RU')} qolip`

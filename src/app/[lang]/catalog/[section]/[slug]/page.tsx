@@ -1,7 +1,9 @@
 import { notFound } from 'next/navigation';
 import { modelSeoTitle } from '@/lib/seoTitles';
 import {
-  getModelBySlug,
+  getMoldBySlug,
+  getReadyBySlug,
+  modelPath,
   getModels,
   modelImage,
   modelPerM2,
@@ -36,7 +38,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   const { lang, section, slug } = await params;
   const locale = isValidLocale(lang) ? (lang as Locale) : 'uz';
   const sec = sectionFromSlug(section);
-  const model = getModelBySlug(slug);
+  const model = getMoldBySlug(slug);
   if (!sec || !model || model.section !== sec) return { title: 'SPS' };
   const name = modelName(model, locale);
   const subtitle = localizedText(model.subtitle, locale) || localizedText(model.note, locale);
@@ -62,10 +64,12 @@ export default async function ModelPage({ params }: { params: Promise<Params> })
   if (!isValidLocale(langParam)) notFound();
   const lang = langParam as Locale;
   const sec = sectionFromSlug(section);
-  const model = getModelBySlug(slug);
+  const model = getMoldBySlug(slug);
   if (!sec || !model || model.section !== sec) notFound();
 
   const p = getPages(lang);
+  // Shu qolipning tayyor mahsuloti (slug + "-tayyor", scripts/extract/build_ready_fasad_2027.py).
+  const readyTwin = getReadyBySlug(`${model.slug}-tayyor`);
   const t = getUi(lang);
   const name = modelName(model, lang);
   const path = `/catalog/${SECTION_SLUGS[model.section]}/${model.slug}`;
@@ -119,6 +123,17 @@ export default async function ModelPage({ params }: { params: Promise<Params> })
         ]}
       />
       <ModelClient lang={lang} model={model} related={relatedModels(model, 4)} t={t} p={{ model: p.model, partners: p.partners }} />
+      {readyTwin ? (
+        // Qolip ↔ tayyor mahsulot (2026-11-23): fasad qoliplarining katalogdagi tayyor varianti.
+        <section className="wrap sec rd-cross">
+          <div className="ct-note">
+            <b>{p.ready.crossFromMold}</b>
+            <a className="sps-btn sps-btn--primary" href={`/${lang}${modelPath(readyTwin)}`}>
+              {p.ready.crossFromMoldCta}
+            </a>
+          </div>
+        </section>
+      ) : null}
     </>
   );
 }

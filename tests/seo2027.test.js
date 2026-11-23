@@ -41,14 +41,29 @@ const SECTION_SLUGS = {
   skameyka: 'bench',
 };
 
+/** Tayyor mahsulotlar (/ready, 2026-11-23) — `catalogCore.ts` DEFAULT_SECTIONS bilan bir xil. */
+const READY_SLUGS = {
+  tayyor_termopanel: 'thermal-panels',
+  tayyor_bilayn: 'beeline-panels',
+  tayyor_dekor: 'decor-panels',
+  tayyor_karniz: 'cornices',
+  tayyor_tyaga: 'mouldings',
+  tayyor_pilyastra: 'pilasters',
+  tayyor_kapitel: 'capitals',
+  tayyor_tsokol: 'plinth',
+  tayyor_tosh: 'facade-stone',
+  tayyor_skameyka: 'benches',
+  tayyor_zabor: 'euro-fence',
+};
+const modelPathOf = (m) =>
+  READY_SLUGS[m.section] ? `/ready/${READY_SLUGS[m.section]}/${m.slug}` : `/catalog/${SECTION_SLUGS[m.section]}/${m.slug}`;
+
 const models = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'models-2027.json'), 'utf8'));
-const MODEL_PATHS = new Set(
-  models.models.map((m) => `/catalog/${SECTION_SLUGS[m.section]}/${m.slug}`),
-);
+const MODEL_PATHS = new Set(models.models.map(modelPathOf));
 /** Rasmi bor modellar — faqat shular sitemap'da (rasmsizlari `noindex`, audit 2026-11-02). */
 const hasImage = (m) => !!(m.images.scene || m.images.sceneSm || Object.keys(m.images.molds).length || Object.keys(m.images.tiles).length);
 const MODEL_PATHS_WITH_IMAGE = new Set(
-  models.models.filter(hasImage).map((m) => `/catalog/${SECTION_SLUGS[m.section]}/${m.slug}`),
+  models.models.filter(hasImage).map(modelPathOf),
 );
 
 /** Eski (o'chirilgan) marshrutlar — sitemap yoki redirect manzilida bo'lmasligi kerak. */
@@ -113,7 +128,7 @@ test('2. pageMetadata: canonical, OG locale, twitter, robots', async (t) => {
   assert.ok(SITE_URL.startsWith('https://'), 'SITE_URL https bo\'lishi kerak');
 });
 
-test('3. sitemap: 390 URL, har biri 3 tilda, duplikat yo\'q', async (t) => {
+test('3. sitemap: har URL 3 tilda, duplikat yo\'q (qoliplar + tayyor mahsulotlar)', async (t) => {
   if (!supportsTypeStripping) return t.skip("Node type-stripping yo'q");
   const { loadAliased } = await helper();
   const { default: sitemap, } = await loadAliased('src/app/sitemap.ts');
@@ -128,10 +143,13 @@ test('3. sitemap: 390 URL, har biri 3 tilda, duplikat yo\'q', async (t) => {
   const counts = {};
   for (const m of models.models) counts[m.section] = (counts[m.section] || 0) + 1;
   const nonEmptySections = Object.keys(SECTION_SLUGS).filter((s) => counts[s] > 0).length;
+  // Tayyor mahsulotlar: /ready (mahsulot bo'lsa) + rasmli mahsuloti bor tayyor bo'limlar.
+  const readyModels = models.models.filter((m) => READY_SLUGS[m.section]);
+  const readySections = Object.keys(READY_SLUGS).filter((s) => readyModels.some((m) => m.section === s && hasImage(m))).length;
   // SEO landing: teg sahifalari (≥ MIN_TAG_MODELS model) + 8 eksport davlati.
   const { getSeoTags, EXPORT_COUNTRIES } = await loadAliased('src/lib/seoPages.ts');
   const seoCount = getSeoTags().length + EXPORT_COUNTRIES.length;
-  const staticCount = 6 + nonEmptySections + seoCount;
+  const staticCount = 6 + nonEmptySections + seoCount + (readyModels.length ? 1 : 0) + readySections;
   // Rasmi yo'q modellar sitemap'da yo'q (autoNoindex, audit 2026-11-02).
   const withImage = models.models.filter(hasImage).length;
   assert.strictEqual(entries.length, (staticCount + withImage) * 3,
@@ -415,7 +433,7 @@ test('11. FAQ JSON-LD va sahifadagi FAQ bir manbadan (lug\'at)', async (t) => {
 
 test('12. noindex faqat compare/request da, qolgan sahifalarda metadata bor', () => {
   const pagesDir = path.join(ROOT, 'src', 'app', '[lang]');
-  const noindexPaths = ['compare', 'request', 'ready'];
+  const noindexPaths = ['compare', 'request'];
 
   for (const entry of fs.readdirSync(pagesDir, { withFileTypes: true })) {
     if (!entry.isDirectory()) continue;
