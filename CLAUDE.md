@@ -539,6 +539,11 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   build-arg jimgina tashlanadi va snapshot bo'sh chiqadi (test yangi `NEXT_PUBLIC_*` ni ham tekshiradi). Yangi `public/`
   papkasi qo'shsangiz — hech narsa qilish kerak emas (builder'dan ko'chadi); yangi katta papka bo'lsa, 3d/catalog kabi alohida
   qatlamga chiqaring. Coolify sozlamalari: `docs/DEPLOYMENT.md` §0.1. `next start` (lokal/CI) standalone bilan ham ishlaydi.
+- **Traefik http→https (2026-11-23, Coolify)**: SPS konteyner label'lari "Managed manually". Redirect middleware nomi **`redirect-to-https-sps`**
+  (`redirectscheme.scheme=https` + `permanent=true`) — umumiy `redirect-to-https` nomini ISHLATMANG: serverdagi boshqa ilovalar ham shu nomni
+  boshqa sozlama bilan e'lon qiladi, Traefik "middleware defined multiple times" deb uni tashlaydi va http router'lar 503 beradi (2026-11-23 da
+  ~12 daqiqa shunday bo'ldi). Traefik 3.x `permanent=true` ni **308** qaytaradi (301 emas) — Google uchun teng, xato emas. Yangi domen qo'shilsa
+  `http-N` va `https-N` router label'larini qo'lda qo'shing. Label o'zgarsa Redeploy kerak (build o'tkazib yuboriladi).
 - **Docker image hajmi (2026-11-22, `.dockerignore`)**: Coolify/Nixpacks `COPY . /app/.` butun repo'ni image'ga solardi (5.4 GB:
   `media-src` 111 MB, docs, tests + dev paketlar + playwright apt kutubxonalari 558 MB). `.dockerignore` endi `media-src`, `docs`,
   `tests`, `catalog_build`, `.git` va `*.md` ni chiqarib tashlaydi — build (`models:check` + `next build`) va runtime ularni o'qimaydi.
