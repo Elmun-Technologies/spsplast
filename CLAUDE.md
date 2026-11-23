@@ -526,12 +526,23 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     check `/3d/t12/#tering` in a browser.
   - Tap vs orbit: a pointer that moved > 8 px, lasted > 650 ms or had a second finger is never a tap.
     Rendering is on-demand (no idle rAF loop); `prefers-reduced-motion` = no drop animation, no damping.
-- **PDF kataloglar + varaqlagich (2026-11-16)**: `public/catalog/pdf/` — 3 ta ruscha A4-yotiq PDF (trotuar fayli eski nom
+- **PDF kataloglar + varaqlagich (2026-11-16)**: `public/catalog/pdf/` — 3 ta ruscha yotiq PDF (trotuar 2026-11-23 dan — A5 bosma katalog 128 bet, veb nusxa ~39 MB; fayli eski nom
   `sps-qoliplar-katalogi-2026.pdf` bilan, fasad, skameyka+yevrozabor; ~26 MB, linearized). Barcha "PDF katalog" havolalari
   `flipHref()` (`src/lib/catalogPdf.ts`) orqali `/{lang}/catalog/flip[?c=fasad]` ga boradi — `FlipBook.tsx` (pdf.js legacy + page-flip,
   sahifalar Range bilan bo'laklab, faqat atrofdagilar chiziladi; worker `public/pdfjs/`, `?c=` brauzerda o'qiladi). Sahifa `noindex`.
   PDF yangilansa fayl nomini saqlang (yoki `CATALOG_PDFS` ni o'zgartiring). Katta (≥50 MB) PDF'lar repoga kirmaydi — yengil versiya.
 
+- **Bosma katalog 2026 → sayt (2026-11-23)** — keep them:
+  - Prod katalog **bazadan** keladi: repodagi rasm/model o'zgarishi bazaga o'zi tushmaydi. Har to'plam uchun
+    `scripts/catalog-add-<sana>.json` (`add` — yangi modellar, `novinka: true` trotuar boshida; `refresh` — rasm yo'llari,
+    `/media/` admin rasmiga tegilmaydi) + `npm run catalog:sync -- <fayl>` (Coolify terminalida), keyin Redeploy.
+  - Extractor `catalog-add-*.json` dagi `add` modellarni statik katalogga ham qo'shadi (bazasiz build = prod), `model3d`
+    maydoni `.glb` bo'lsa 3D xaritaga yoziladi; `EXTRA_3D` — ko'z bilan tasdiqlangan qo'shimcha 3D raqamlar.
+  - `.glb` siz 3D paketlar (t93–t112) xaritada yo'q → ularning tirik suratlari **slug** bilan nomlanadi.
+  - Eski yo'llar o'chmasin: `build_images_2027.py` barcha `scripts/catalog-keep-*.txt` va `catalog-add-*.json` dagi nomlarni
+    saqlaydi (baza sync'gacha eski fayllar kerak).
+  - `remove_bg_2027.py` manifest'da `sha` bo'lmasa niqobni qayta yasaydi → boshqa muhitda boshqa piksel → barcha rasm qayta
+    kodlanadi. Manbasi o'zgarmagan niqob/WebP'ni `git checkout` bilan qaytaring (sha'ni manifestga yozib).
 - **Traefik http→https (2026-11-23, Coolify)**: SPS konteyner label'lari "Managed manually". Redirect middleware nomi **`redirect-to-https-sps`**
   (`redirectscheme.scheme=https` + `permanent=true`) — umumiy `redirect-to-https` nomini ISHLATMANG: serverdagi boshqa ilovalar ham shu nomni
   boshqa sozlama bilan e'lon qiladi, Traefik "middleware defined multiple times" deb uni tashlaydi va http router'lar 503 beradi (2026-11-23 da
