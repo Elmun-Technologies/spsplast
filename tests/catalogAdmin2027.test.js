@@ -65,7 +65,7 @@ test('2. Filtrlar: rasmsiz, ruscha nomsiz, qidiruv (kod/nom), bo\'lim', async ()
 
 test('3. To\'liqlik: rasm — kritik, tarjima/o\'lcham — ogohlantirish', async () => {
   const { catalog } = await setup();
-  const withImg = models.find((m) => m.images.scene);
+  const withImg = models.find((m) => m.images.scene && !m.name.ru); // ruscha nomi yo'q, rasmli model
   const c = catalog.completeness(withImg);
   assert.ok(c.publishable);
   assert.ok(c.checks.find((x) => x.key === 'ru' && !x.ok));

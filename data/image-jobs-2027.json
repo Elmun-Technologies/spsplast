@@ -45,6 +45,276 @@
   "w": 800
  },
  {
+  "src": "media-src/live/oltiburchak-galka-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-oltiburchak-galka-mold-a.webp",
+  "w": 1200,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/oltiburchak-galka-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-oltiburchak-galka-scene.webp",
+  "w": 1400,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/oltiburchak-galka-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-oltiburchak-galka-scene-sm.webp",
+  "w": 720,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/antara-1-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-antara-1-mold-a.webp",
+  "w": 1200,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/antara-1-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-antara-1-scene.webp",
+  "w": 1400,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/antara-1-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-antara-1-scene-sm.webp",
+  "w": 720,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/kristall-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-kristall-mold-a.webp",
+  "w": 1200,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/kristall-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-kristall-scene.webp",
+  "w": 1400,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/kristall-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-kristall-scene-sm.webp",
+  "w": 720,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/girih-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-girih-mold-a.webp",
+  "w": 1200,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/girih-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-girih-scene.webp",
+  "w": 1400,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/girih-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-girih-scene-sm.webp",
+  "w": 720,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/rim-1-2-3-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-rim-1-2-3-mold-a.webp",
+  "w": 1200,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/rim-1-2-3-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-rim-1-2-3-scene.webp",
+  "w": 1400,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/rim-1-2-3-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-rim-1-2-3-scene-sm.webp",
+  "w": 720,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/qrim-valday-sayani-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-qrim-valday-sayani-mold-a.webp",
+  "w": 1200,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/qrim-valday-sayani-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-qrim-valday-sayani-scene.webp",
+  "w": 1400,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/qrim-valday-sayani-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-qrim-valday-sayani-scene-sm.webp",
+  "w": 720,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/slanets-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-slanets-mold-a.webp",
+  "w": 1200,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/slanets-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-slanets-scene.webp",
+  "w": 1400,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/slanets-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-slanets-scene-sm.webp",
+  "w": 720,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/meandr-30-30-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-meandr-30-30-mold-a.webp",
+  "w": 1200,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/meandr-30-30-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-meandr-30-30-scene.webp",
+  "w": 1400,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/meandr-30-30-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-meandr-30-30-scene-sm.webp",
+  "w": 720,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/taktil-konus-30-30-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-taktil-konus-30-30-mold-a.webp",
+  "w": 1200,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/taktil-konus-30-30-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-taktil-konus-30-30-scene.webp",
+  "w": 1400,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/taktil-konus-30-30-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-taktil-konus-30-30-scene-sm.webp",
+  "w": 720,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/taktil-chiziq-30-30-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-taktil-chiziq-30-30-mold-a.webp",
+  "w": 1200,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/taktil-chiziq-30-30-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-taktil-chiziq-30-30-scene.webp",
+  "w": 1400,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/taktil-chiziq-30-30-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-taktil-chiziq-30-30-scene-sm.webp",
+  "w": 720,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/pletyonka-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-pletyonka-mold-a.webp",
+  "w": 1200,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/pletyonka-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-pletyonka-scene.webp",
+  "w": 1400,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/pletyonka-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-pletyonka-scene-sm.webp",
+  "w": 720,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/taxta-parket-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-taxta-parket-mold-a.webp",
+  "w": 1200,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/taxta-parket-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-taxta-parket-scene.webp",
+  "w": 1400,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/taxta-parket-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-taxta-parket-scene-sm.webp",
+  "w": 720,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/daraxt-kesimi-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-daraxt-kesimi-mold-a.webp",
+  "w": 1200,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/daraxt-kesimi-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-daraxt-kesimi-scene.webp",
+  "w": 1400,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/daraxt-kesimi-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-daraxt-kesimi-scene-sm.webp",
+  "w": 720,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/oyoq-izi-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-oyoq-izi-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/oyoq-izi-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-oyoq-izi-scene.webp",
+  "w": 1400,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/oyoq-izi-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-oyoq-izi-scene-sm.webp",
+  "w": 720,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/naqshli-bordyur-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-naqshli-bordyur-mold-a.webp",
+  "w": 1200,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/naqshli-bordyur-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-naqshli-bordyur-scene.webp",
+  "w": 1400,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/naqshli-bordyur-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-naqshli-bordyur-scene-sm.webp",
+  "w": 720,
+  "kind": "live"
+ },
+ {
   "src": "media-src/live/t75-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-70-kabanchik-17-5-naqshli-mold-a.webp",
   "w": 1200,
@@ -1649,276 +1919,6 @@
  {
   "src": "media-src/live/travertino-30-40-sahna.jpg",
   "dst": "public/catalog/2027/trotuar-travertino-30-40-scene-sm.webp",
-  "w": 720,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/oltiburchak-galka-qolip.jpg",
-  "dst": "public/catalog/2027/trotuar-oltiburchak-galka-mold-a.webp",
-  "w": 1200,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/oltiburchak-galka-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-oltiburchak-galka-scene.webp",
-  "w": 1400,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/oltiburchak-galka-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-oltiburchak-galka-scene-sm.webp",
-  "w": 720,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/antara-1-qolip.jpg",
-  "dst": "public/catalog/2027/trotuar-antara-1-mold-a.webp",
-  "w": 1200,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/antara-1-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-antara-1-scene.webp",
-  "w": 1400,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/antara-1-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-antara-1-scene-sm.webp",
-  "w": 720,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/kristall-qolip.jpg",
-  "dst": "public/catalog/2027/trotuar-kristall-mold-a.webp",
-  "w": 1200,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/kristall-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-kristall-scene.webp",
-  "w": 1400,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/kristall-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-kristall-scene-sm.webp",
-  "w": 720,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/girih-qolip.jpg",
-  "dst": "public/catalog/2027/trotuar-girih-mold-a.webp",
-  "w": 1200,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/girih-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-girih-scene.webp",
-  "w": 1400,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/girih-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-girih-scene-sm.webp",
-  "w": 720,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/rim-1-2-3-qolip.jpg",
-  "dst": "public/catalog/2027/trotuar-rim-1-2-3-mold-a.webp",
-  "w": 1200,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/rim-1-2-3-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-rim-1-2-3-scene.webp",
-  "w": 1400,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/rim-1-2-3-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-rim-1-2-3-scene-sm.webp",
-  "w": 720,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/qrim-valday-sayani-qolip.jpg",
-  "dst": "public/catalog/2027/trotuar-qrim-valday-sayani-mold-a.webp",
-  "w": 1200,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/qrim-valday-sayani-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-qrim-valday-sayani-scene.webp",
-  "w": 1400,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/qrim-valday-sayani-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-qrim-valday-sayani-scene-sm.webp",
-  "w": 720,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/slanets-qolip.jpg",
-  "dst": "public/catalog/2027/trotuar-slanets-mold-a.webp",
-  "w": 1200,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/slanets-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-slanets-scene.webp",
-  "w": 1400,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/slanets-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-slanets-scene-sm.webp",
-  "w": 720,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/meandr-30-30-qolip.jpg",
-  "dst": "public/catalog/2027/trotuar-meandr-30-30-mold-a.webp",
-  "w": 1200,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/meandr-30-30-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-meandr-30-30-scene.webp",
-  "w": 1400,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/meandr-30-30-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-meandr-30-30-scene-sm.webp",
-  "w": 720,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/taktil-konus-30-30-qolip.jpg",
-  "dst": "public/catalog/2027/trotuar-taktil-konus-30-30-mold-a.webp",
-  "w": 1200,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/taktil-konus-30-30-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-taktil-konus-30-30-scene.webp",
-  "w": 1400,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/taktil-konus-30-30-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-taktil-konus-30-30-scene-sm.webp",
-  "w": 720,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/taktil-chiziq-30-30-qolip.jpg",
-  "dst": "public/catalog/2027/trotuar-taktil-chiziq-30-30-mold-a.webp",
-  "w": 1200,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/taktil-chiziq-30-30-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-taktil-chiziq-30-30-scene.webp",
-  "w": 1400,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/taktil-chiziq-30-30-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-taktil-chiziq-30-30-scene-sm.webp",
-  "w": 720,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/pletyonka-qolip.jpg",
-  "dst": "public/catalog/2027/trotuar-pletyonka-mold-a.webp",
-  "w": 1200,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/pletyonka-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-pletyonka-scene.webp",
-  "w": 1400,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/pletyonka-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-pletyonka-scene-sm.webp",
-  "w": 720,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/taxta-parket-qolip.jpg",
-  "dst": "public/catalog/2027/trotuar-taxta-parket-mold-a.webp",
-  "w": 1200,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/taxta-parket-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-taxta-parket-scene.webp",
-  "w": 1400,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/taxta-parket-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-taxta-parket-scene-sm.webp",
-  "w": 720,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/daraxt-kesimi-qolip.jpg",
-  "dst": "public/catalog/2027/trotuar-daraxt-kesimi-mold-a.webp",
-  "w": 1200,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/daraxt-kesimi-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-daraxt-kesimi-scene.webp",
-  "w": 1400,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/daraxt-kesimi-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-daraxt-kesimi-scene-sm.webp",
-  "w": 720,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/oyoq-izi-qolip.jpg",
-  "dst": "public/catalog/2027/trotuar-oyoq-izi-mold-a.webp",
-  "w": 800,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/oyoq-izi-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-oyoq-izi-scene.webp",
-  "w": 1400,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/oyoq-izi-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-oyoq-izi-scene-sm.webp",
-  "w": 720,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/naqshli-bordyur-qolip.jpg",
-  "dst": "public/catalog/2027/trotuar-naqshli-bordyur-mold-a.webp",
-  "w": 1200,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/naqshli-bordyur-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-naqshli-bordyur-scene.webp",
-  "w": 1400,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/naqshli-bordyur-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-naqshli-bordyur-scene-sm.webp",
   "w": 720,
   "kind": "live"
  },

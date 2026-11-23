@@ -14,6 +14,649 @@
  ],
  "models": [
   {
+   "key": "oltiburchak-galka",
+   "code": null,
+   "slug": "oltiburchak-galka",
+   "section": "trotuar",
+   "name": {
+    "uz": "Oltiburchak «Galka»",
+    "ru": "Шестигранник «Галька»",
+    "en": "Hexagon “Pebble”"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [],
+   "tiles": [],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-oltiburchak-galka-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-oltiburchak-galka-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-oltiburchak-galka-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "antara-1",
+   "code": null,
+   "slug": "antara-1",
+   "section": "trotuar",
+   "name": {
+    "uz": "Antara №1",
+    "ru": "Антара №1",
+    "en": "Antara No. 1"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "290×190×45",
+     "depth": "45",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "290×190×45",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-antara-1-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-antara-1-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-antara-1-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "kristall",
+   "code": null,
+   "slug": "kristall",
+   "section": "trotuar",
+   "name": {
+    "uz": "Kristall",
+    "ru": "Кристалл",
+    "en": "Crystal"
+   },
+   "subtitle": {
+    "uz": "3 qolip to‘plami",
+    "ru": "Комплект из 3 форм",
+    "en": "Set of 3 molds"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "depth": "30",
+     "g": null
+    },
+    {
+     "l": "B",
+     "size": "100×300×30",
+     "depth": "30",
+     "g": null
+    },
+    {
+     "l": "V",
+     "size": "100×100×30",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "per": "6",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "100×300×30",
+     "per": "13",
+     "cap": null
+    },
+    {
+     "l": "V",
+     "size": "100×100×30",
+     "per": "7",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": true,
+   "images": {
+    "scene": "/catalog/2027/trotuar-kristall-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-kristall-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-kristall-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "girih",
+   "code": null,
+   "slug": "girih",
+   "section": "trotuar",
+   "name": {
+    "uz": "Girih",
+    "ru": "Гирих",
+    "en": "Girih"
+   },
+   "subtitle": {
+    "uz": "3 qolip to‘plami",
+    "ru": "Комплект из 3 форм",
+    "en": "Set of 3 molds"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "depth": "30",
+     "g": null
+    },
+    {
+     "l": "B",
+     "size": "100×300×30",
+     "depth": "30",
+     "g": null
+    },
+    {
+     "l": "V",
+     "size": "100×100×30",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "per": "6",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "100×300×30",
+     "per": "13",
+     "cap": null
+    },
+    {
+     "l": "V",
+     "size": "100×100×30",
+     "per": "7",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": true,
+   "images": {
+    "scene": "/catalog/2027/trotuar-girih-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-girih-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-girih-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "rim-1-2-3",
+   "code": null,
+   "slug": "rim-1-2-3",
+   "section": "trotuar",
+   "name": {
+    "uz": "Rim №1 · №2 · №3",
+    "ru": "Рим №1 · №2 · №3",
+    "en": "Rome No. 1 · 2 · 3"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "200×200×30",
+     "depth": "30",
+     "g": null
+    },
+    {
+     "l": "B",
+     "size": "200×100×30",
+     "depth": "30",
+     "g": null
+    },
+    {
+     "l": "V",
+     "size": "100×100×30",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "200×200×30",
+     "per": "25",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "200×100×30",
+     "per": "50",
+     "cap": null
+    },
+    {
+     "l": "V",
+     "size": "100×100×30",
+     "per": "100",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-rim-1-2-3-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-rim-1-2-3-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-rim-1-2-3-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "qrim-valday-sayani",
+   "code": null,
+   "slug": "qrim-valday-sayani",
+   "section": "trotuar",
+   "name": {
+    "uz": "Qrim · Valday · Sayani",
+    "ru": "Крым · Валдай · Саяны",
+    "en": "Crimea · Valdai · Sayany"
+   },
+   "subtitle": {
+    "uz": "3 qolip to‘plami",
+    "ru": "Комплект из 3 форм",
+    "en": "Set of 3 molds"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×100×50",
+     "depth": "50",
+     "g": null
+    },
+    {
+     "l": "B",
+     "size": "400×200×50",
+     "depth": "50",
+     "g": null
+    },
+    {
+     "l": "V",
+     "size": "200×200×50",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×100×50",
+     "per": "25",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "400×200×50",
+     "per": "12,5",
+     "cap": null
+    },
+    {
+     "l": "V",
+     "size": "200×200×50",
+     "per": "25",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-qrim-valday-sayani-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-qrim-valday-sayani-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-qrim-valday-sayani-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "slanets",
+   "code": null,
+   "slug": "slanets",
+   "section": "trotuar",
+   "name": {
+    "uz": "Slanets",
+    "ru": "Сланец",
+    "en": "Slate"
+   },
+   "subtitle": {
+    "uz": "3 qolip to‘plami",
+    "ru": "Комплект из 3 форм",
+    "en": "Set of 3 molds"
+   },
+   "kg": null,
+   "molds": [],
+   "tiles": [],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-slanets-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-slanets-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-slanets-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "meandr-30-30",
+   "code": null,
+   "slug": "meandr-30-30",
+   "section": "trotuar",
+   "name": {
+    "uz": "Meandr 30×30",
+    "ru": "Меандр 30×30",
+    "en": "Meander 30×30"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "per": "11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-meandr-30-30-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-meandr-30-30-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-meandr-30-30-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "taktil-konus-30-30",
+   "code": null,
+   "slug": "taktil-konus-30-30",
+   "section": "trotuar",
+   "name": {
+    "uz": "Taktil plitka — konuslar 30×30",
+    "ru": "Тактильная плитка — конусы 30×30",
+    "en": "Tactile paving — cones 30×30"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "per": "11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-taktil-konus-30-30-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-taktil-konus-30-30-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-taktil-konus-30-30-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "taktil-chiziq-30-30",
+   "code": null,
+   "slug": "taktil-chiziq-30-30",
+   "section": "trotuar",
+   "name": {
+    "uz": "Taktil plitka — chiziqlar 30×30",
+    "ru": "Тактильная плитка — полосы 30×30",
+    "en": "Tactile paving — bars 30×30"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "per": "11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-taktil-chiziq-30-30-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-taktil-chiziq-30-30-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-taktil-chiziq-30-30-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "pletyonka",
+   "code": null,
+   "slug": "pletyonka",
+   "section": "trotuar",
+   "name": {
+    "uz": "Pletyonka",
+    "ru": "Плетёнка",
+    "en": "Basket weave"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [],
+   "tiles": [],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-pletyonka-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-pletyonka-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-pletyonka-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "taxta-parket",
+   "code": null,
+   "slug": "taxta-parket",
+   "section": "trotuar",
+   "name": {
+    "uz": "Taxta ×2 (parket)",
+    "ru": "Доска ×2 (паркет)",
+    "en": "Wood plank ×2 (parquet)"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [],
+   "tiles": [],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-taxta-parket-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-taxta-parket-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-taxta-parket-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "daraxt-kesimi",
+   "code": null,
+   "slug": "daraxt-kesimi",
+   "section": "trotuar",
+   "name": {
+    "uz": "Daraxt kesimi",
+    "ru": "Спил дерева",
+    "en": "Tree slice"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [],
+   "tiles": [],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-daraxt-kesimi-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-daraxt-kesimi-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-daraxt-kesimi-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "oyoq-izi",
+   "code": null,
+   "slug": "oyoq-izi",
+   "section": "trotuar",
+   "name": {
+    "uz": "Oyoq izi (chap + o‘ng)",
+    "ru": "След (левый + правый)",
+    "en": "Footprint (left + right)"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [],
+   "tiles": [],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-oyoq-izi-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-oyoq-izi-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-oyoq-izi-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "naqshli-bordyur",
+   "code": null,
+   "slug": "naqshli-bordyur",
+   "section": "trotuar",
+   "name": {
+    "uz": "Naqshli bordyur",
+    "ru": "Бордюр с орнаментом",
+    "en": "Ornamental curb"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [],
+   "tiles": [],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-naqshli-bordyur-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-naqshli-bordyur-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-naqshli-bordyur-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
    "key": "t70",
    "code": "70",
    "slug": "70-kabanchik-17-5-naqshli",
@@ -12057,649 +12700,6 @@
     "sceneSm": "/catalog/2027/trotuar-travertino-30-40-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-travertino-30-40-mold-a.webp"
-    },
-    "tiles": {}
-   }
-  },
-  {
-   "key": "oltiburchak-galka",
-   "code": null,
-   "slug": "oltiburchak-galka",
-   "section": "trotuar",
-   "name": {
-    "uz": "Oltiburchak «Galka»",
-    "ru": "Шестигранник «Галька»",
-    "en": "Hexagon “Pebble”"
-   },
-   "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
-   },
-   "kg": null,
-   "molds": [],
-   "tiles": [],
-   "specs": [],
-   "sizeEstimated": false,
-   "images": {
-    "scene": "/catalog/2027/trotuar-oltiburchak-galka-scene.webp",
-    "sceneSm": "/catalog/2027/trotuar-oltiburchak-galka-scene-sm.webp",
-    "molds": {
-     "A": "/catalog/2027/trotuar-oltiburchak-galka-mold-a.webp"
-    },
-    "tiles": {}
-   }
-  },
-  {
-   "key": "antara-1",
-   "code": null,
-   "slug": "antara-1",
-   "section": "trotuar",
-   "name": {
-    "uz": "Antara №1",
-    "ru": "Антара №1",
-    "en": "Antara No. 1"
-   },
-   "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
-   },
-   "kg": null,
-   "molds": [
-    {
-     "l": "A",
-     "size": "290×190×45",
-     "depth": "45",
-     "g": null
-    }
-   ],
-   "tiles": [
-    {
-     "l": "A",
-     "size": "290×190×45",
-     "per": null,
-     "cap": null
-    }
-   ],
-   "specs": [],
-   "sizeEstimated": false,
-   "images": {
-    "scene": "/catalog/2027/trotuar-antara-1-scene.webp",
-    "sceneSm": "/catalog/2027/trotuar-antara-1-scene-sm.webp",
-    "molds": {
-     "A": "/catalog/2027/trotuar-antara-1-mold-a.webp"
-    },
-    "tiles": {}
-   }
-  },
-  {
-   "key": "kristall",
-   "code": null,
-   "slug": "kristall",
-   "section": "trotuar",
-   "name": {
-    "uz": "Kristall",
-    "ru": "Кристалл",
-    "en": "Crystal"
-   },
-   "subtitle": {
-    "uz": "3 qolip to‘plami",
-    "ru": "Комплект из 3 форм",
-    "en": "Set of 3 molds"
-   },
-   "kg": null,
-   "molds": [
-    {
-     "l": "A",
-     "size": "300×300×30",
-     "depth": "30",
-     "g": null
-    },
-    {
-     "l": "B",
-     "size": "100×300×30",
-     "depth": "30",
-     "g": null
-    },
-    {
-     "l": "V",
-     "size": "100×100×30",
-     "depth": "30",
-     "g": null
-    }
-   ],
-   "tiles": [
-    {
-     "l": "A",
-     "size": "300×300×30",
-     "per": "6",
-     "cap": null
-    },
-    {
-     "l": "B",
-     "size": "100×300×30",
-     "per": "13",
-     "cap": null
-    },
-    {
-     "l": "V",
-     "size": "100×100×30",
-     "per": "7",
-     "cap": null
-    }
-   ],
-   "specs": [],
-   "sizeEstimated": true,
-   "images": {
-    "scene": "/catalog/2027/trotuar-kristall-scene.webp",
-    "sceneSm": "/catalog/2027/trotuar-kristall-scene-sm.webp",
-    "molds": {
-     "A": "/catalog/2027/trotuar-kristall-mold-a.webp"
-    },
-    "tiles": {}
-   }
-  },
-  {
-   "key": "girih",
-   "code": null,
-   "slug": "girih",
-   "section": "trotuar",
-   "name": {
-    "uz": "Girih",
-    "ru": "Гирих",
-    "en": "Girih"
-   },
-   "subtitle": {
-    "uz": "3 qolip to‘plami",
-    "ru": "Комплект из 3 форм",
-    "en": "Set of 3 molds"
-   },
-   "kg": null,
-   "molds": [
-    {
-     "l": "A",
-     "size": "300×300×30",
-     "depth": "30",
-     "g": null
-    },
-    {
-     "l": "B",
-     "size": "100×300×30",
-     "depth": "30",
-     "g": null
-    },
-    {
-     "l": "V",
-     "size": "100×100×30",
-     "depth": "30",
-     "g": null
-    }
-   ],
-   "tiles": [
-    {
-     "l": "A",
-     "size": "300×300×30",
-     "per": "6",
-     "cap": null
-    },
-    {
-     "l": "B",
-     "size": "100×300×30",
-     "per": "13",
-     "cap": null
-    },
-    {
-     "l": "V",
-     "size": "100×100×30",
-     "per": "7",
-     "cap": null
-    }
-   ],
-   "specs": [],
-   "sizeEstimated": true,
-   "images": {
-    "scene": "/catalog/2027/trotuar-girih-scene.webp",
-    "sceneSm": "/catalog/2027/trotuar-girih-scene-sm.webp",
-    "molds": {
-     "A": "/catalog/2027/trotuar-girih-mold-a.webp"
-    },
-    "tiles": {}
-   }
-  },
-  {
-   "key": "rim-1-2-3",
-   "code": null,
-   "slug": "rim-1-2-3",
-   "section": "trotuar",
-   "name": {
-    "uz": "Rim №1 · №2 · №3",
-    "ru": "Рим №1 · №2 · №3",
-    "en": "Rome No. 1 · 2 · 3"
-   },
-   "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
-   },
-   "kg": null,
-   "molds": [
-    {
-     "l": "A",
-     "size": "200×200×30",
-     "depth": "30",
-     "g": null
-    },
-    {
-     "l": "B",
-     "size": "200×100×30",
-     "depth": "30",
-     "g": null
-    },
-    {
-     "l": "V",
-     "size": "100×100×30",
-     "depth": "30",
-     "g": null
-    }
-   ],
-   "tiles": [
-    {
-     "l": "A",
-     "size": "200×200×30",
-     "per": "25",
-     "cap": null
-    },
-    {
-     "l": "B",
-     "size": "200×100×30",
-     "per": "50",
-     "cap": null
-    },
-    {
-     "l": "V",
-     "size": "100×100×30",
-     "per": "100",
-     "cap": null
-    }
-   ],
-   "specs": [],
-   "sizeEstimated": false,
-   "images": {
-    "scene": "/catalog/2027/trotuar-rim-1-2-3-scene.webp",
-    "sceneSm": "/catalog/2027/trotuar-rim-1-2-3-scene-sm.webp",
-    "molds": {
-     "A": "/catalog/2027/trotuar-rim-1-2-3-mold-a.webp"
-    },
-    "tiles": {}
-   }
-  },
-  {
-   "key": "qrim-valday-sayani",
-   "code": null,
-   "slug": "qrim-valday-sayani",
-   "section": "trotuar",
-   "name": {
-    "uz": "Qrim · Valday · Sayani",
-    "ru": "Крым · Валдай · Саяны",
-    "en": "Crimea · Valdai · Sayany"
-   },
-   "subtitle": {
-    "uz": "3 qolip to‘plami",
-    "ru": "Комплект из 3 форм",
-    "en": "Set of 3 molds"
-   },
-   "kg": null,
-   "molds": [
-    {
-     "l": "A",
-     "size": "400×100×50",
-     "depth": "50",
-     "g": null
-    },
-    {
-     "l": "B",
-     "size": "400×200×50",
-     "depth": "50",
-     "g": null
-    },
-    {
-     "l": "V",
-     "size": "200×200×50",
-     "depth": "50",
-     "g": null
-    }
-   ],
-   "tiles": [
-    {
-     "l": "A",
-     "size": "400×100×50",
-     "per": "25",
-     "cap": null
-    },
-    {
-     "l": "B",
-     "size": "400×200×50",
-     "per": "12,5",
-     "cap": null
-    },
-    {
-     "l": "V",
-     "size": "200×200×50",
-     "per": "25",
-     "cap": null
-    }
-   ],
-   "specs": [],
-   "sizeEstimated": false,
-   "images": {
-    "scene": "/catalog/2027/trotuar-qrim-valday-sayani-scene.webp",
-    "sceneSm": "/catalog/2027/trotuar-qrim-valday-sayani-scene-sm.webp",
-    "molds": {
-     "A": "/catalog/2027/trotuar-qrim-valday-sayani-mold-a.webp"
-    },
-    "tiles": {}
-   }
-  },
-  {
-   "key": "slanets",
-   "code": null,
-   "slug": "slanets",
-   "section": "trotuar",
-   "name": {
-    "uz": "Slanets",
-    "ru": "Сланец",
-    "en": "Slate"
-   },
-   "subtitle": {
-    "uz": "3 qolip to‘plami",
-    "ru": "Комплект из 3 форм",
-    "en": "Set of 3 molds"
-   },
-   "kg": null,
-   "molds": [],
-   "tiles": [],
-   "specs": [],
-   "sizeEstimated": false,
-   "images": {
-    "scene": "/catalog/2027/trotuar-slanets-scene.webp",
-    "sceneSm": "/catalog/2027/trotuar-slanets-scene-sm.webp",
-    "molds": {
-     "A": "/catalog/2027/trotuar-slanets-mold-a.webp"
-    },
-    "tiles": {}
-   }
-  },
-  {
-   "key": "meandr-30-30",
-   "code": null,
-   "slug": "meandr-30-30",
-   "section": "trotuar",
-   "name": {
-    "uz": "Meandr 30×30",
-    "ru": "Меандр 30×30",
-    "en": "Meander 30×30"
-   },
-   "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
-   },
-   "kg": null,
-   "molds": [
-    {
-     "l": "A",
-     "size": "300×300×30",
-     "depth": "30",
-     "g": null
-    }
-   ],
-   "tiles": [
-    {
-     "l": "A",
-     "size": "300×300×30",
-     "per": "11",
-     "cap": null
-    }
-   ],
-   "specs": [],
-   "sizeEstimated": false,
-   "images": {
-    "scene": "/catalog/2027/trotuar-meandr-30-30-scene.webp",
-    "sceneSm": "/catalog/2027/trotuar-meandr-30-30-scene-sm.webp",
-    "molds": {
-     "A": "/catalog/2027/trotuar-meandr-30-30-mold-a.webp"
-    },
-    "tiles": {}
-   }
-  },
-  {
-   "key": "taktil-konus-30-30",
-   "code": null,
-   "slug": "taktil-konus-30-30",
-   "section": "trotuar",
-   "name": {
-    "uz": "Taktil plitka — konuslar 30×30",
-    "ru": "Тактильная плитка — конусы 30×30",
-    "en": "Tactile paving — cones 30×30"
-   },
-   "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
-   },
-   "kg": null,
-   "molds": [
-    {
-     "l": "A",
-     "size": "300×300×30",
-     "depth": "30",
-     "g": null
-    }
-   ],
-   "tiles": [
-    {
-     "l": "A",
-     "size": "300×300×30",
-     "per": "11",
-     "cap": null
-    }
-   ],
-   "specs": [],
-   "sizeEstimated": false,
-   "images": {
-    "scene": "/catalog/2027/trotuar-taktil-konus-30-30-scene.webp",
-    "sceneSm": "/catalog/2027/trotuar-taktil-konus-30-30-scene-sm.webp",
-    "molds": {
-     "A": "/catalog/2027/trotuar-taktil-konus-30-30-mold-a.webp"
-    },
-    "tiles": {}
-   }
-  },
-  {
-   "key": "taktil-chiziq-30-30",
-   "code": null,
-   "slug": "taktil-chiziq-30-30",
-   "section": "trotuar",
-   "name": {
-    "uz": "Taktil plitka — chiziqlar 30×30",
-    "ru": "Тактильная плитка — полосы 30×30",
-    "en": "Tactile paving — bars 30×30"
-   },
-   "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
-   },
-   "kg": null,
-   "molds": [
-    {
-     "l": "A",
-     "size": "300×300×30",
-     "depth": "30",
-     "g": null
-    }
-   ],
-   "tiles": [
-    {
-     "l": "A",
-     "size": "300×300×30",
-     "per": "11",
-     "cap": null
-    }
-   ],
-   "specs": [],
-   "sizeEstimated": false,
-   "images": {
-    "scene": "/catalog/2027/trotuar-taktil-chiziq-30-30-scene.webp",
-    "sceneSm": "/catalog/2027/trotuar-taktil-chiziq-30-30-scene-sm.webp",
-    "molds": {
-     "A": "/catalog/2027/trotuar-taktil-chiziq-30-30-mold-a.webp"
-    },
-    "tiles": {}
-   }
-  },
-  {
-   "key": "pletyonka",
-   "code": null,
-   "slug": "pletyonka",
-   "section": "trotuar",
-   "name": {
-    "uz": "Pletyonka",
-    "ru": "Плетёнка",
-    "en": "Basket weave"
-   },
-   "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
-   },
-   "kg": null,
-   "molds": [],
-   "tiles": [],
-   "specs": [],
-   "sizeEstimated": false,
-   "images": {
-    "scene": "/catalog/2027/trotuar-pletyonka-scene.webp",
-    "sceneSm": "/catalog/2027/trotuar-pletyonka-scene-sm.webp",
-    "molds": {
-     "A": "/catalog/2027/trotuar-pletyonka-mold-a.webp"
-    },
-    "tiles": {}
-   }
-  },
-  {
-   "key": "taxta-parket",
-   "code": null,
-   "slug": "taxta-parket",
-   "section": "trotuar",
-   "name": {
-    "uz": "Taxta ×2 (parket)",
-    "ru": "Доска ×2 (паркет)",
-    "en": "Wood plank ×2 (parquet)"
-   },
-   "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
-   },
-   "kg": null,
-   "molds": [],
-   "tiles": [],
-   "specs": [],
-   "sizeEstimated": false,
-   "images": {
-    "scene": "/catalog/2027/trotuar-taxta-parket-scene.webp",
-    "sceneSm": "/catalog/2027/trotuar-taxta-parket-scene-sm.webp",
-    "molds": {
-     "A": "/catalog/2027/trotuar-taxta-parket-mold-a.webp"
-    },
-    "tiles": {}
-   }
-  },
-  {
-   "key": "daraxt-kesimi",
-   "code": null,
-   "slug": "daraxt-kesimi",
-   "section": "trotuar",
-   "name": {
-    "uz": "Daraxt kesimi",
-    "ru": "Спил дерева",
-    "en": "Tree slice"
-   },
-   "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
-   },
-   "kg": null,
-   "molds": [],
-   "tiles": [],
-   "specs": [],
-   "sizeEstimated": false,
-   "images": {
-    "scene": "/catalog/2027/trotuar-daraxt-kesimi-scene.webp",
-    "sceneSm": "/catalog/2027/trotuar-daraxt-kesimi-scene-sm.webp",
-    "molds": {
-     "A": "/catalog/2027/trotuar-daraxt-kesimi-mold-a.webp"
-    },
-    "tiles": {}
-   }
-  },
-  {
-   "key": "oyoq-izi",
-   "code": null,
-   "slug": "oyoq-izi",
-   "section": "trotuar",
-   "name": {
-    "uz": "Oyoq izi (chap + o‘ng)",
-    "ru": "След (левый + правый)",
-    "en": "Footprint (left + right)"
-   },
-   "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
-   },
-   "kg": null,
-   "molds": [],
-   "tiles": [],
-   "specs": [],
-   "sizeEstimated": false,
-   "images": {
-    "scene": "/catalog/2027/trotuar-oyoq-izi-scene.webp",
-    "sceneSm": "/catalog/2027/trotuar-oyoq-izi-scene-sm.webp",
-    "molds": {
-     "A": "/catalog/2027/trotuar-oyoq-izi-mold-a.webp"
-    },
-    "tiles": {}
-   }
-  },
-  {
-   "key": "naqshli-bordyur",
-   "code": null,
-   "slug": "naqshli-bordyur",
-   "section": "trotuar",
-   "name": {
-    "uz": "Naqshli bordyur",
-    "ru": "Бордюр с орнаментом",
-    "en": "Ornamental curb"
-   },
-   "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
-   },
-   "kg": null,
-   "molds": [],
-   "tiles": [],
-   "specs": [],
-   "sizeEstimated": false,
-   "images": {
-    "scene": "/catalog/2027/trotuar-naqshli-bordyur-scene.webp",
-    "sceneSm": "/catalog/2027/trotuar-naqshli-bordyur-scene-sm.webp",
-    "molds": {
-     "A": "/catalog/2027/trotuar-naqshli-bordyur-mold-a.webp"
     },
     "tiles": {}
    }

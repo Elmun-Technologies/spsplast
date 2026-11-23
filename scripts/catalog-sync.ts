@@ -12,7 +12,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
-import { and, eq, like, max, min, sql } from 'drizzle-orm';
+import { and, eq, inArray, like, max, min, sql } from 'drizzle-orm';
 import { getDb } from '../src/server/db/client.ts';
 import { products } from '../src/server/db/schema.ts';
 
@@ -30,8 +30,21 @@ const [{ m, lo }] = await db
   .from(products)
   .where(eq(products.section, 'trotuar'));
 let sort = (m ?? 1000) + 10;
-const novinkas = (data.add as { novinka?: boolean }[]).filter((x) => x.novinka).length;
-let first = (lo ?? 1000) - novinkas * 10;
+// Novinkalar trotuar boshida: hali bazada yo'qlari soniga mavjud trotuar tartibi suriladi (tartib manfiy
+// bo'lmaydi — admin formasi sort >= 0 talab qiladi). Takror ishga tushirishda yangi novinka yo'q → surilmaydi.
+const novSlugs = (data.add as { slug: string; novinka?: boolean }[]).filter((x) => x.novinka).map((x) => x.slug);
+const existing = novSlugs.length
+  ? await db.select({ slug: products.slug }).from(products).where(inArray(products.slug, novSlugs))
+  : [];
+const missingNov = novSlugs.length - existing.length;
+let first = Math.max(lo ?? 0, 0);
+if (missingNov > 0) {
+  await db
+    .update(products)
+    .set({ sort: sql`${products.sort} + ${missingNov * 10}` })
+    .where(eq(products.section, 'trotuar'));
+  sort += missingNov * 10;
+}
 let added = 0;
 for (const x of data.add) {
   const at = x.novinka ? first : sort;

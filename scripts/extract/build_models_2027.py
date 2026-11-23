@@ -748,6 +748,7 @@ def load_added_models(models, model3d):
                 "specs": x.get("specs", []), "sizeEstimated": bool(x.get("sizeEstimated")),
                 "images": _existing_images(x.get("images")),
                 "_name_norm": None,  # eski 2026 suratlariga nom bo'yicha bog'lanmasin
+                "_novinka": bool(x.get("novinka")),
             })
             tid = (x.get("model3d") or "").strip("/").split("/")[-1]
             e = model3d_entry(tid) if tid else None
@@ -771,9 +772,11 @@ def main():
     models.sort(key=lambda m: (m["_pop"], m["slug"]))
     model3d = load_model3d_map()
     extra = load_added_models(models, model3d)
+    # Novinkalar (sync faylida `novinka: true`) statik katalogda ham birinchi — catalog:sync bilan bir xil tartib.
     for i, m in enumerate(extra):
-        m["_pop"] = 5000 + i
+        m["_pop"] = (-1000 if m.pop("_novinka", False) else 5000) + i
     models += extra
+    models.sort(key=lambda m: m["_pop"])  # barqaror: mavjud tartib o'zgarmaydi, novinkalar boshga
     jobs, stats = load_image_sources(models)
     for m in models:
         r = m.get("_3d")
