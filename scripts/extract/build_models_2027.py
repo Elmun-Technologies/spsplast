@@ -725,7 +725,8 @@ def _existing_images(im):
 
 
 def load_added_models(models, model3d):
-    """Bazaga sync skripti bilan qo'shilgan trotuar modellari (scripts/catalog-add-*.json `add`).
+    """Bazaga sync skripti bilan qo'shilgan mahsulotlar (scripts/catalog-add-*.json `add`): trotuar qoliplari
+    va boshqa bo'limlar, jumladan tayyor mahsulotlar (`section`: tayyor_fasad, tayyor_skameyka …).
 
     Statik katalog ham ularni bilsin: bazasiz build (CI, lokal) prod bilan bir xil bo'ladi, tirik
     suratlar (media-src/live/<3D id yoki slug>-...) va 3D render job'lari ularga ham tushadi.
@@ -744,6 +745,7 @@ def load_added_models(models, model3d):
                 "key": x.get("key") or x["slug"], "code": x.get("code"), "slug": x["slug"],
                 "section": x.get("section", "trotuar"), "name": dict(x["name"]),
                 "subtitle": dict(x.get("subtitle") or {"uz": None, "ru": None, "en": None}),
+                "note": x.get("note"),
                 "kg": x.get("kg"), "molds": x.get("molds", []), "tiles": x.get("tiles", []),
                 "specs": x.get("specs", []), "sizeEstimated": bool(x.get("sizeEstimated")),
                 "images": _existing_images(x.get("images")),
@@ -754,6 +756,13 @@ def load_added_models(models, model3d):
             e = model3d_entry(tid) if tid else None
             if e:
                 model3d[x["slug"]] = e
+    # `moldPer` — bosma qolip katalogidagi "1 m² da" (faqat bo'sh bo'lsa; bazada catalog-sync bilan bir xil qoida).
+    for fn in sorted(os.listdir(os.path.join(ROOT, "scripts"))):
+        if fn.startswith("catalog-add-") and fn.endswith(".json"):
+            per = json.load(open(os.path.join(ROOT, "scripts", fn), encoding="utf-8")).get("moldPer", {})
+            for m in models:
+                if m["slug"] in per and m["tiles"] and not m["tiles"][0].get("per"):
+                    m["tiles"][0]["per"] = per[m["slug"]]
     for slug, tid in EXTRA_3D.items():
         e = model3d_entry(tid)
         if e and slug not in model3d:
