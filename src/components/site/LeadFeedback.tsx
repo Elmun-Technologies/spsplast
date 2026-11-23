@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import type { Locale } from '@/lib/i18n';
-import { getUi } from '@/lib/ui';
+import { useUi } from '@/components/site/UiProvider';
 import { CONTACTS_2027 } from '@/lib/contacts2027';
 import { isValidIntlPhone } from '@/lib/phone';
 
@@ -28,7 +28,7 @@ export function checkLead(name: string, phone: string, dial?: string): LeadError
 const FIXABLE = new Set(['name', 'bad_phone', 'validation']);
 
 export function LeadFormError({ lang, error }: { lang: Locale; error: LeadError }) {
-  const t = getUi(lang).catalog;
+  const t = useUi().catalog;
   // Mobilda xato tugma ostida, ekrandan tashqarida qolmasin.
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {

@@ -5,7 +5,6 @@ import Image from 'next/image';
 import {
   type Model,
   SECTION_SLUGS,
-  getModelBySlug,
   modelImage,
   modelName,
   modelPerM2,
@@ -13,9 +12,11 @@ import {
   moldLetters,
   modelSetSize,
   sectionLabel,
-} from '@/lib/catalog2027';
-import { pluralCategory, type Locale } from '@/lib/i18n';
-import { formatNumber, type UiDictionary } from '@/lib/ui';
+} from '@/lib/catalogCore';
+import { useModelLookup } from '@/lib/useModelLookup';
+
+import { formatNumber, pluralCategory, type Locale } from '@/lib/i18n';
+import type { UiDictionary } from '@/lib/ui';
 import type { PagesDictionary } from '@/lib/pages';
 import { useCompareList, useRequestList } from '@/lib/store/spsLists';
 
@@ -37,10 +38,15 @@ export function CompareClient({
   const request = useRequestList();
   const [onlyDiff, setOnlyDiff] = useState(false);
 
-  const models: Model[] = compare.slugs.flatMap((s) => {
-    const m = getModelBySlug(s);
-    return m ? [m] : [];
-  });
+  // Katalog kechiktirib yuklanadi (useModelLookup): yuklanguncha "ro'yxat bo'sh" ko'rsatilmaydi.
+  const lookup = useModelLookup(compare.slugs.length > 0);
+  const loading = !lookup && compare.slugs.length > 0;
+  const models: Model[] = lookup
+    ? compare.slugs.flatMap((s) => {
+        const m = lookup(s);
+        return m ? [m] : [];
+      })
+    : [];
 
   const value = (m: Model, row: string): string => {
     switch (row) {
@@ -96,6 +102,14 @@ export function CompareClient({
     }
     window.location.href = `/${lang}/request`;
   };
+
+  if (loading) {
+    return (
+      <div className="wrap sec" aria-busy="true">
+        <h1 className="disp-l">{p.compare.title}</h1>
+      </div>
+    );
+  }
 
   if (!models.length) {
     return (

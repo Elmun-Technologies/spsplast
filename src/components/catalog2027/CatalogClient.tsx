@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { getTotalCount, localizedText, type Model } from '@/lib/catalog2027';
+import { localizedText, type Model } from '@/lib/catalogCore';
 import {
   activeFilterCount,
   DEFAULT_FILTERS,
@@ -16,7 +16,8 @@ import {
   type Filters,
 } from '@/lib/catalogFilters';
 import { type Locale } from '@/lib/i18n';
-import { getUi, pluralModels } from '@/lib/ui';
+import { pluralCategory } from '@/lib/i18n';
+import { useUi, type ClientUi } from '@/components/site/UiProvider';
 import dynamic from 'next/dynamic';
 import { ProductCard } from '@/components/catalog2027/ProductCard';
 import { trackEvent } from '@/lib/analytics';
@@ -41,8 +42,7 @@ const QuickViewModal = dynamic(
   { ssr: false },
 );
 
-function filterGroups(filters: Filters, facets: ReturnType<typeof facetCounts>, lang: Locale) {
-  const t = getUi(lang).catalog;
+function filterGroups(filters: Filters, facets: ReturnType<typeof facetCounts>, lang: Locale, t: ClientUi['catalog']) {
   const groups: { title: string; items: { key: string; label: string; note?: string; on: boolean; count: number; patch: Partial<Filters> }[] }[] = [];
   if (USE_VALUES.some((v) => facets.use[v] > 0)) {
     groups.push({
@@ -108,7 +108,8 @@ function FilterGroups({
   lang: Locale;
   onToggle: (patch: Partial<Filters>) => void;
 }) {
-  const visible = filterGroups(filters, facets, lang);
+  const t = useUi().catalog;
+  const visible = filterGroups(filters, facets, lang, t);
   return (
     <>
       {visible.map((g) => (
@@ -137,13 +138,17 @@ export function CatalogClient({
   models,
   initialQuery,
   variant,
+  total,
 }: {
   lang: Locale;
   models: Model[];
   initialQuery?: string;
   variant: 'home' | 'catalog';
+  /** Katalogdagi barcha modellar soni (server beradi — katalog ma'lumoti mijoz bundle'iga kirmasin). */
+  total: number;
 }) {
-  const t = getUi(lang).catalog;
+  const ui = useUi();
+  const t = ui.catalog;
   const router = useRouter();
   const pathname = usePathname();
   const [filters, setFilters] = useState<Filters>(() => parseFilters(new URLSearchParams(initialQuery ?? '')));
@@ -188,8 +193,7 @@ export function CatalogClient({
   }, [filters.q, filtered.length]);
   const facets = useMemo(() => facetCounts(models, filters), [models, filters]);
   // Filtr guruhi bo'lmasa (fasad, zabor, dekor... bo'limlari) — bo'sh yon ustun va "Filtr" tugmasi ko'rsatilmaydi.
-  const hasFilters = filterGroups(filters, facets, lang).length > 0;
-  const total = getTotalCount();
+  const hasFilters = filterGroups(filters, facets, lang, t).length > 0;
   const active = activeFilterCount(filters);
 
   const update = (patch: Partial<Filters>) => {
@@ -298,7 +302,7 @@ export function CatalogClient({
                   {t.emptyReset}
                 </button>
                 <a className="sps-btn sps-btn--primary" href={`/${lang}/request`}>
-                  {getUi(lang).header.cta}
+                  {ui.header.cta}
                 </a>
               </div>
             </div>
@@ -337,7 +341,7 @@ export function CatalogClient({
             ) : null}
             {variant === 'home' ? (
               <a className="sps-btn sps-btn--link" href={`/${lang}/catalog`}>
-                {t.allCatalog} · {total} {pluralModels(lang, total)} →
+                {t.allCatalog} · {total} {pluralCategory(lang, total, ui.models)} →
               </a>
             ) : null}
           </div>
@@ -351,7 +355,7 @@ export function CatalogClient({
           <>
         <div className="fsheet__head">
           <span className="h3">{t.filters}</span>
-          <button type="button" className="sps-iconbtn" aria-label={getUi(lang).a11y.close} onClick={() => setSheetOpen(false)}>
+          <button type="button" className="sps-iconbtn" aria-label={ui.a11y.close} onClick={() => setSheetOpen(false)}>
             <Icon.close width={18} height={18} strokeWidth={1.5} aria-hidden="true" />
           </button>
         </div>

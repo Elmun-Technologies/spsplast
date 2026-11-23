@@ -1,3 +1,4 @@
+import { errorEn } from './error.ts';
 /**
  * Page copy — en. Terms per HANDOFF 4.10: "Request a quote",
  * "Request list", "Wholesale & partners".
@@ -422,13 +423,5 @@ export const pagesEn: PagesDictionary = {
     img: 'Laid Monako tiles',
   },
 
-  error: {
-    title: 'Something went wrong',
-    text: 'The page failed to load. Try again, or contact us and we will submit the request together.',
-    retry: 'Reload',
-    home: 'Home page',
-    catalog: 'Open catalog',
-    call: 'Contact a manager',
-    loading: 'Loading',
-  },
+  error: errorEn,
 };

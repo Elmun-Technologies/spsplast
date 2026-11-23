@@ -1,9 +1,10 @@
 'use client';
 
 import Image from 'next/image';
-import { SECTION_SLUGS, type Model, modelSetSize, modelName, sectionLabel } from '@/lib/catalog2027';
+import { SECTION_SLUGS, type Model, modelSetSize, modelName, sectionLabel } from '@/lib/catalogCore';
 import { type Locale } from '@/lib/i18n';
-import { formatNumber, getUi } from '@/lib/ui';
+import { formatNumber } from '@/lib/i18n';
+import { useUi } from '@/components/site/UiProvider';
 import { useCompareList, useRequestList } from '@/lib/store/spsLists';
 import { Icon } from '@/components/site/icons';
 
@@ -32,7 +33,8 @@ export function ProductCard({
    */
   load?: 'priority' | 'eager' | 'lazy';
 }) {
-  const t = getUi(lang).catalog;
+  const ui = useUi();
+  const t = ui.catalog;
   const compare = useCompareList();
   const request = useRequestList();
   const inList = request.has(model.slug);
@@ -80,7 +82,7 @@ export function ProductCard({
               <Image src={scene} alt="" fill sizes={SCENE_SIZES} style={{ objectFit: 'cover' }} loading="lazy" />
             </span>
             <span className="sps-card__mold sps-card__scene">
-              <Image src={scene} alt={`${modelName(model, lang)} — ${getUi(lang).alt.scene}`} fill sizes={SCENE_SIZES} style={{ objectFit: 'cover' }} {...inset} />
+              <Image src={scene} alt={`${modelName(model, lang)} — ${ui.alt.scene}`} fill sizes={SCENE_SIZES} style={{ objectFit: 'cover' }} {...inset} />
             </span>
           </>
         ) : null}

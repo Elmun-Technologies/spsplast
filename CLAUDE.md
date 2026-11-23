@@ -400,7 +400,8 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     just inlined as plain formatting in `CompareClient.tsx`, removed from the dictionary entirely.
     `home.h1`/`home.seoTitle` are still functions (fine — `getPages()` is never passed to a client
     component from the home page).
-  - **Not done, still open**: "katalog ma'lumotini kartochkaga keraklisigacha qisqartirish" (trim
+  - **Done 2026-11-23 differently** (see "JS hajmi 2026-11-23" below): instead of trimming, client files no longer
+    import the catalog at all. Original note: "katalog ma'lumotini kartochkaga keraklisigacha qisqartirish" (trim
     catalog data to what the card needs) from the same audit item. Investigated: `Model` (
     `catalog2027.ts`) is already fairly lean (no FAQ/long text — that's dictionary-side, per-model
     `name`/`subtitle` carry all 3 locales but are short strings) — lower value, higher risk than the
@@ -532,6 +533,17 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   sahifalar Range bilan bo'laklab, faqat atrofdagilar chiziladi; worker `public/pdfjs/`, `?c=` brauzerda o'qiladi). Sahifa `noindex`.
   PDF yangilansa fayl nomini saqlang (yoki `CATALOG_PDFS` ni o'zgartiring). Katta (≥50 MB) PDF'lar repoga kirmaydi — yengil versiya.
 
+- **JS hajmi 2026-11-23 (213–222 → 167–186 KB, `tests/speed2027.test.js` test 3)** — keep them:
+  - **`'use client'` fayllarda `@/lib/ui`, `@/lib/pages`, `@/lib/catalog2027` va `dictionaries/{ui,pages}/<til>` ni qiymat
+    sifatida import qilmang** (faqat `import type`). Ular uch tilning barcha lug'atini (~30 KB gzip) va modellar ro'yxatini
+    (~15 KB) har sahifa JS'iga olib kirardi — error boundary, header va til almashtirgich layout'da.
+  - O'rniga: UI matnlari — `useUi()` (`UiProvider`, `[lang]/layout.tsx` joriy tilning `catalog/alt/a11y/header/models`
+    bo'limlarini beradi) yoki server ota komponentdan prop (`HeaderClient` `t`, `LangSwitch` `label` majburiy);
+    yordamchilar — `@/lib/catalogCore` (ma'lumotsiz: turlar, bo'limlar, `modelName`, `calcMolds`…), `formatNumber`/
+    `pluralCategory` — `@/lib/i18n`; localStorage ro'yxatidan model topish — `useModelLookup()` (katalog `import()` bilan
+    kechiktirib, yuklanguncha `null` → "ro'yxat bo'sh" emas, yuklanish holati). Katalog soni — server prop (`total`).
+  - `[lang]/error.tsx` matnlari `dictionaries/pages/error.ts` da (pages lug'ati ham shu obyektni ishlatadi; admin
+    override `pages.error.*` ishlaydi). Istisno: `CompareBarPanel` (faqat ro'yxat bo'sh bo'lmasa `dynamic()`).
 - **Bosma katalog 2026 → sayt (2026-11-23)** — keep them:
   - Prod katalog **bazadan** keladi: repodagi rasm/model o'zgarishi bazaga o'zi tushmaydi. Har to'plam uchun
     `scripts/catalog-add-<sana>.json` (`add` — yangi modellar, `novinka: true` trotuar boshida; `refresh` — rasm yo'llari,

@@ -1,9 +1,10 @@
 'use client';
 
 import Image from 'next/image';
-import { type Model, modelName, modelSetSize, sectionLabel } from '@/lib/catalog2027';
+import { type Model, modelName, modelSetSize, sectionLabel } from '@/lib/catalogCore';
 import { type Locale } from '@/lib/i18n';
-import { formatNumber, getUi } from '@/lib/ui';
+import { formatNumber } from '@/lib/i18n';
+import { useUi } from '@/components/site/UiProvider';
 import { useModalShell } from '@/components/site/useModalShell';
 import { Icon } from '@/components/site/icons';
 import { productHref } from '@/components/catalog2027/ProductCard';
@@ -20,7 +21,8 @@ export function QuickViewModal({
   onClose: () => void;
   onRequest: (m: Model) => void;
 }) {
-  const t = getUi(lang).catalog;
+  const ui = useUi();
+  const t = ui.catalog;
   const ref = useModalShell(Boolean(model), onClose);
   if (!model) return null;
 
@@ -45,7 +47,7 @@ export function QuickViewModal({
       <div className="sps-modal" style={{ maxWidth: 760 }} role="dialog" aria-modal="true" aria-label={modelName(model, lang)} ref={ref}>
         <div className="sps-modal__head">
           <h2 className="h2">{modelName(model, lang)}</h2>
-          <button type="button" className="sps-iconbtn" aria-label={getUi(lang).a11y.close} onClick={onClose}>
+          <button type="button" className="sps-iconbtn" aria-label={ui.a11y.close} onClick={onClose}>
             <Icon.close width={18} height={18} strokeWidth={1.5} aria-hidden="true" />
           </button>
         </div>
@@ -53,16 +55,16 @@ export function QuickViewModal({
           <div className="qv-media">
             {model.images.molds.A ? (
               <span className="sps-card__cutout sps-card__cutout--tilt" style={{ position: 'absolute', inset: 0 }}>
-                <Image src={model.images.molds.A} alt={`${modelName(model, lang)} — ${getUi(lang).alt.mold}`} fill sizes="(max-width: 760px) 100vw, 340px" style={{ objectFit: 'contain' }} />
+                <Image src={model.images.molds.A} alt={`${modelName(model, lang)} — ${ui.alt.mold}`} fill sizes="(max-width: 760px) 100vw, 340px" style={{ objectFit: 'contain' }} />
               </span>
             ) : model.images.scene ? (
-              <Image src={model.images.scene} alt={`${modelName(model, lang)} — ${getUi(lang).alt.scene}`} fill sizes="(max-width: 760px) 100vw, 340px" style={{ objectFit: 'cover' }} />
+              <Image src={model.images.scene} alt={`${modelName(model, lang)} — ${ui.alt.scene}`} fill sizes="(max-width: 760px) 100vw, 340px" style={{ objectFit: 'cover' }} />
             ) : (
               <div className="ph" style={{ position: 'absolute', inset: 0 }}>{model.code || '—'}</div>
             )}
             {model.images.molds.A && model.images.scene ? (
               <span className="sps-card__mold sps-card__scene">
-                <Image src={(model.images.sceneSm || model.images.scene) as string} alt={`${modelName(model, lang)} — ${getUi(lang).alt.scene}`} fill sizes="160px" style={{ objectFit: 'cover' }} />
+                <Image src={(model.images.sceneSm || model.images.scene) as string} alt={`${modelName(model, lang)} — ${ui.alt.scene}`} fill sizes="160px" style={{ objectFit: 'cover' }} />
               </span>
             ) : null}
           </div>
