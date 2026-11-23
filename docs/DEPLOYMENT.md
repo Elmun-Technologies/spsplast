@@ -7,7 +7,7 @@ Admin/baza sozlash tafsilotlari: **`docs/ADMIN.md`**.
 
 | Resurs (Coolify → SPS → production) | Nima |
 |---|---|
-| `spsplast` (app) | GitHub `Elmun-Technologies/spsplast`, `main`; build strategiyasi **Nixpacks** (Railpack build paytida bazaga ulana olmaydi — snapshot uchun kerak); build buyrug'i `npm run db:migrate:deploy && npm run build`; port 3000 |
+| `spsplast` (app) | GitHub `Elmun-Technologies/spsplast`, `main`; build strategiyasi **Dockerfile** (2026-11-23; oldin Nixpacks — disk to'lardi, pastda §0.1). Railpack ishlatilmaydi (build paytida bazaga ulana olmaydi — snapshot uchun kerak). Dockerfile ichida `npm run db:migrate:deploy && npm run build`; port 3000 |
 | `sps-postgres` | Postgres 18 (ichki tarmoq). Ma'lumot Neon'dan (`spsplast-db`) to'liq ko'chirilgan, har jadval soni tekshirilgan |
 
 Env (Coolify → spsplast → Environment Variables): `DATABASE_URL` (ichki URL), `NEXT_PUBLIC_SITE_URL`,
@@ -29,6 +29,35 @@ Env (Coolify → spsplast → Environment Variables): `DATABASE_URL` (ichki URL)
   Jonli sayt versiyasini tekshirish: bosh sahifada `class="hm-fork"` bo'lishi kerak (`curl -s https://spsplast.uz/uz | grep -c hm-fork`).
 
 Quyidagi 1–… bo'limlar Vercel davri uchun (zaxira sifatida qoldirildi).
+
+
+### 0.1. Coolify diski to'lmasligi uchun (2026-11-23)
+
+**Sabab:** Nixpacks har deployda butun repo + barcha dev-paketlar (playwright, lighthouse…) + build keshini bitta yangi
+qatlamga yozardi — har deploy bir necha GB; Coolify eski image'larni rollback uchun saqlaydi → disk to'ladi.
+
+**Yechim — `Dockerfile` (multi-stage, Next `output: 'standalone'`):** runtime image ~1.7 GB, shundan `public/3d` (~370 MB)
+va `public/catalog` alohida qatlam — mazmuni o'zgarmasa keyingi deployda **qayta yozilmaydi**. Har deployda yangi
+yoziladigan qism ~0.45 GB (server + oldindan chizilgan sahifalar). Dev-paketlar final image'ga kirmaydi.
+
+Bir martalik sozlash (Coolify UI):
+1. **spsplast → Configuration → General → Build Pack: `Dockerfile`** (Base directory `/`, Dockerfile `/Dockerfile`),
+   Ports Exposes `3000`. Custom build/start buyruqlarini bo'shating (Dockerfile o'zi qiladi).
+2. **Environment Variables:** `DATABASE_URL`, `SNAPSHOT_REQUIRED`, `NEXT_PUBLIC_*` uchun **"Build Variable"** belgilangan
+   bo'lsin (Dockerfile ularni `ARG` sifatida oladi; boshqalar — faqat runtime). `SNAPSHOT_REQUIRED=1` — baza yetib
+   bo'lmasa build to'xtaydi, eski versiya ishlashda qoladi (bo'sh katalog chiqib ketmaydi).
+3. **Servers → (server) → Configuration → Docker Cleanup:** Threshold `75`%, Frequency `0 4 * * *` (har kuni),
+   "Delete unused networks" yoqilgan. **"Delete unused volumes" — YOQMANG** (Postgres ma'lumoti).
+4. Rollback uchun saqlanadigan image soni — 2 (Coolify'dagi "Docker Images to keep" sozlamasi).
+5. Healthcheck (ixtiyoriy): `GET /robots.txt` → 200 (`/api/health` Telegram/bazasiz 503 qaytaradi).
+
+Disk allaqachon to'lgan bo'lsa (serverda, bir marta):
+```bash
+docker image prune -af --filter "until=72h"   # ishlatilmayotgan eski image'lar
+docker builder prune -af --filter "until=72h" # build keshi
+df -h /
+```
+Cleanup lock'i qotib qolsa: `docker exec coolify php artisan cleanup:redis --clear-locks`.
 
 ## 1. Platforma
 
