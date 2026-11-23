@@ -27,6 +27,12 @@ KRN-004-35x120-karniz.jpg  -> bir xil kodli ikki model bo'lsa — slug bilan
 Z03-sahna.jpg       -> Z03 yevrozabor obyektda
 ```
 
+**Bosma katalog 2026 (2026-11-23).** `tNN-qolip.jpg` / `tNN-sahna.jpg` — katalogdagi qolip surati (oq fon)
+va natija (obyektda terilgan, 3:4, 1050×1400). 3D paketida `.glb` yo'q modellar (t93–t112, t33…) va 3D raqami
+yo'q yangi modellar **sayt slugi** bilan nomlangan (`kristall-qolip.jpg`, `afsona-sahna.jpg`). Katalogda sifati
+qoniqarsiz deb belgilangan 26 ta natija (qayta generatsiya ro'yxati) qo'yilmagan — saytda 3D sahna qoladi.
+Bazadagi (prod) rasm yo'llari alohida yangilanadi: `npm run catalog:sync -- scripts/catalog-add-2026-11-23.json`.
+
 Format: `.jpg`, `.jpeg`, `.png`, `.webp`. Katta fayl bo'lsa ham bo'ladi (sayt uchun 800–1400 px
 WebP qilib kichraytiriladi), lekin bitta fayl 20 MB dan oshmasin (GitHub cheklovi 100 MB).
 

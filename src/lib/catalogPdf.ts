@@ -1,12 +1,13 @@
 import type { Locale } from '@/lib/i18n';
 
 /**
- * Saytdagi PDF kataloglar (2026-11-16): A4 yotiq, har modeli alohida sahifada, ruscha.
+ * Saytdagi PDF kataloglar (2026-11-16): yotiq, har modeli alohida sahifada, ruscha. Trotuar — 2026-11-23
+ * bosma katalog (A5, 128 bet, rasmlar 1100 px gacha siqilgan veb nusxa; asl nusxa repoga kirmaydi).
  * Fayllar `public/catalog/pdf/`, varaqlagich — `/{lang}/catalog/flip` (pdf.js + page-flip).
  * Trotuar fayli eski nom bilan qoldi — tashqi havolalar uzilmasin.
  */
 export const CATALOG_PDFS = [
-  { key: 'trotuar', file: '/catalog/pdf/sps-qoliplar-katalogi-2026.pdf?v=20261116' },
+  { key: 'trotuar', file: '/catalog/pdf/sps-qoliplar-katalogi-2026.pdf?v=20261123' },
   { key: 'fasad', file: '/catalog/pdf/sps-katalog-fasad.pdf?v=20261116' },
   { key: 'skameyka', file: '/catalog/pdf/sps-katalog-skameyka.pdf?v=20261116' },
 ] as const;

@@ -1,17 +1,18 @@
 /**
- * 2026-11-16: saytdagi katalogni eski SPS trotuar katalogi bilan tenglashtirish (bir martalik, takror ishga tushirish xavfsiz).
+ * Bazadagi katalogni `scripts/catalog-add-*.json` fayli bilan tenglashtirish (takror ishga tushirish xavfsiz).
  *
- *   DATABASE_URL=postgres://... npm run catalog:sync-2026-11-16
+ *   DATABASE_URL=postgres://... npm run catalog:sync -- scripts/catalog-add-2026-11-23.json
+ *   (fayl berilmasa — scripts/catalog-add-2026-11-16.json, `catalog:sync-2026-11-16` bilan bir xil)
  *
- * - scripts/catalog-add-2026-11-16.json `add`    → saytda yo'q bo'lgan trotuar modellari (nashrda, trotuar oxirida).
- *   Mavjud slug'lar o'zgartirilmaydi.
+ * - `add`    → saytda yo'q bo'lgan trotuar modellari (nashrda). `novinka: true` — trotuar boshida
+ *   (fayldagi tartibda), qolganlari oxirida. Mavjud slug'lar o'zgartirilmaydi.
  * - `images` → rasmsiz turgan modellarga rasm (faqat rasmi bo'sh bo'lsa).
  * - `archive` → D01–D18 dekor panellar arxivga (eski katalogda yo'q, biznes qarori 2026-11-15).
  * Keyin admin → "Nashr qilish" (yoki Coolify Redeploy) — sayt yangi snapshot bilan qayta yig'iladi.
  */
 import fs from 'node:fs';
 import path from 'node:path';
-import { and, eq, like, max, sql } from 'drizzle-orm';
+import { and, eq, inArray, like, max, min, sql } from 'drizzle-orm';
 import { getDb } from '../src/server/db/client.ts';
 import { products } from '../src/server/db/schema.ts';
 
@@ -21,12 +22,32 @@ if (!db) {
   console.error('DATABASE_URL berilmagan.');
   process.exit(1);
 }
-const data = JSON.parse(fs.readFileSync(path.join(ROOT, 'scripts/catalog-add-2026-11-16.json'), 'utf8'));
+const file = process.argv[2] ?? 'scripts/catalog-add-2026-11-16.json';
+const data = JSON.parse(fs.readFileSync(path.resolve(ROOT, file), 'utf8'));
 
-const [{ m }] = await db.select({ m: max(products.sort) }).from(products).where(eq(products.section, 'trotuar'));
+const [{ m, lo }] = await db
+  .select({ m: max(products.sort), lo: min(products.sort) })
+  .from(products)
+  .where(eq(products.section, 'trotuar'));
 let sort = (m ?? 1000) + 10;
+// Novinkalar trotuar boshida: hali bazada yo'qlari soniga mavjud trotuar tartibi suriladi (tartib manfiy
+// bo'lmaydi — admin formasi sort >= 0 talab qiladi). Takror ishga tushirishda yangi novinka yo'q → surilmaydi.
+const novSlugs = (data.add as { slug: string; novinka?: boolean }[]).filter((x) => x.novinka).map((x) => x.slug);
+const existing = novSlugs.length
+  ? await db.select({ slug: products.slug }).from(products).where(inArray(products.slug, novSlugs))
+  : [];
+const missingNov = novSlugs.length - existing.length;
+let first = Math.max(lo ?? 0, 0);
+if (missingNov > 0) {
+  await db
+    .update(products)
+    .set({ sort: sql`${products.sort} + ${missingNov * 10}` })
+    .where(eq(products.section, 'trotuar'));
+  sort += missingNov * 10;
+}
 let added = 0;
 for (const x of data.add) {
+  const at = x.novinka ? first : sort;
   const res = await db
     .insert(products)
     .values({
@@ -35,7 +56,7 @@ for (const x of data.add) {
       code: x.code,
       section: 'trotuar',
       status: 'published',
-      sort,
+      sort: at,
       name: x.name,
       subtitle: x.subtitle,
       note: null,
@@ -43,17 +64,18 @@ for (const x of data.add) {
       molds: x.molds,
       tiles: x.tiles,
       specs: x.specs,
-      sizeEstimated: false,
+      sizeEstimated: Boolean(x.sizeEstimated),
       images: x.images,
     })
     .onConflictDoNothing({ target: products.slug })
     .returning({ id: products.id });
   if (res.length) added += 1;
-  sort += 10;
+  if (x.novinka) first += 10;
+  else sort += 10;
 }
 
 let imaged = 0;
-for (const [slug, images] of Object.entries(data.images)) {
+for (const [slug, images] of Object.entries((data.images ?? {}) as Record<string, unknown>)) {
   const res = await db
     .update(products)
     .set({ images: images as never, updatedAt: new Date() })
@@ -86,7 +108,7 @@ for (const [slug, ru] of Object.entries((data.ruNames ?? {}) as Record<string, s
 }
 
 let archived = 0;
-for (const code of data.archive as string[]) {
+for (const code of (data.archive ?? []) as string[]) {
   const res = await db
     .update(products)
     .set({ status: 'archived', updatedAt: new Date() })

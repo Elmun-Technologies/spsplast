@@ -245,6 +245,15 @@ export const MODEL3D: Record<string, { id: string; have: string[]; poster: boole
     ],
     "poster": false
   },
+  "29-eksklyuziv-30-30-4-sakkiz-qirra": {
+    "id": "t33",
+    "have": [
+      "qolip",
+      "mahsulot",
+      "terilgan"
+    ],
+    "poster": false
+  },
   "30-aleya": {
     "id": "t34",
     "have": [
@@ -1831,6 +1840,15 @@ export const MODEL3D: Record<string, { id: string; have: string[]; poster: boole
   },
   "tp-012-25x50-labirint": {
     "id": "tp-012",
+    "have": [
+      "qolip",
+      "mahsulot",
+      "terilgan"
+    ],
+    "poster": false
+  },
+  "uzor-4-gul-40-40": {
+    "id": "t23",
     "have": [
       "qolip",
       "mahsulot",

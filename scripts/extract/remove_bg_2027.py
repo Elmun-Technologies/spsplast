@@ -54,7 +54,8 @@ def _auto_override(name: str, src: str) -> dict:
     # 2026-11-16: bosma katalogdagi trotuar qoliplari (media-src/live/tNN-qolip.jpg) — to'q qolip
     # bir xil och kulrang fonda. isnet relyefdagi yaltiroq joylarni "fon" deb kesib tashladi
     # (Monako, Rio...), burchakdan floodfill esa toza ajratadi.
-    if re.match(r"media-src/live/t\d+-qolip\.", src):
+    # 2026-11-23: bosma katalog 2026 qolip suratlari (oq fon) — 3D raqami yoki sayt slugi bilan nomlangan.
+    if re.match(r"media-src/live/(t\d+|[a-z][a-z0-9-]*[a-z0-9])-qolip\.", src):
         return {"flood": 14}
     return {}
 

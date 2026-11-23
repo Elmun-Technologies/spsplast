@@ -14,6 +14,649 @@
  ],
  "models": [
   {
+   "key": "oltiburchak-galka",
+   "code": null,
+   "slug": "oltiburchak-galka",
+   "section": "trotuar",
+   "name": {
+    "uz": "Oltiburchak «Galka»",
+    "ru": "Шестигранник «Галька»",
+    "en": "Hexagon “Pebble”"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [],
+   "tiles": [],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-oltiburchak-galka-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-oltiburchak-galka-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-oltiburchak-galka-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "antara-1",
+   "code": null,
+   "slug": "antara-1",
+   "section": "trotuar",
+   "name": {
+    "uz": "Antara №1",
+    "ru": "Антара №1",
+    "en": "Antara No. 1"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "290×190×45",
+     "depth": "45",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "290×190×45",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-antara-1-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-antara-1-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-antara-1-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "kristall",
+   "code": null,
+   "slug": "kristall",
+   "section": "trotuar",
+   "name": {
+    "uz": "Kristall",
+    "ru": "Кристалл",
+    "en": "Crystal"
+   },
+   "subtitle": {
+    "uz": "3 qolip to‘plami",
+    "ru": "Комплект из 3 форм",
+    "en": "Set of 3 molds"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "depth": "30",
+     "g": null
+    },
+    {
+     "l": "B",
+     "size": "100×300×30",
+     "depth": "30",
+     "g": null
+    },
+    {
+     "l": "V",
+     "size": "100×100×30",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "per": "6",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "100×300×30",
+     "per": "13",
+     "cap": null
+    },
+    {
+     "l": "V",
+     "size": "100×100×30",
+     "per": "7",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": true,
+   "images": {
+    "scene": "/catalog/2027/trotuar-kristall-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-kristall-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-kristall-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "girih",
+   "code": null,
+   "slug": "girih",
+   "section": "trotuar",
+   "name": {
+    "uz": "Girih",
+    "ru": "Гирих",
+    "en": "Girih"
+   },
+   "subtitle": {
+    "uz": "3 qolip to‘plami",
+    "ru": "Комплект из 3 форм",
+    "en": "Set of 3 molds"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "depth": "30",
+     "g": null
+    },
+    {
+     "l": "B",
+     "size": "100×300×30",
+     "depth": "30",
+     "g": null
+    },
+    {
+     "l": "V",
+     "size": "100×100×30",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "per": "6",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "100×300×30",
+     "per": "13",
+     "cap": null
+    },
+    {
+     "l": "V",
+     "size": "100×100×30",
+     "per": "7",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": true,
+   "images": {
+    "scene": "/catalog/2027/trotuar-girih-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-girih-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-girih-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "rim-1-2-3",
+   "code": null,
+   "slug": "rim-1-2-3",
+   "section": "trotuar",
+   "name": {
+    "uz": "Rim №1 · №2 · №3",
+    "ru": "Рим №1 · №2 · №3",
+    "en": "Rome No. 1 · 2 · 3"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "200×200×30",
+     "depth": "30",
+     "g": null
+    },
+    {
+     "l": "B",
+     "size": "200×100×30",
+     "depth": "30",
+     "g": null
+    },
+    {
+     "l": "V",
+     "size": "100×100×30",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "200×200×30",
+     "per": "25",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "200×100×30",
+     "per": "50",
+     "cap": null
+    },
+    {
+     "l": "V",
+     "size": "100×100×30",
+     "per": "100",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-rim-1-2-3-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-rim-1-2-3-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-rim-1-2-3-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "qrim-valday-sayani",
+   "code": null,
+   "slug": "qrim-valday-sayani",
+   "section": "trotuar",
+   "name": {
+    "uz": "Qrim · Valday · Sayani",
+    "ru": "Крым · Валдай · Саяны",
+    "en": "Crimea · Valdai · Sayany"
+   },
+   "subtitle": {
+    "uz": "3 qolip to‘plami",
+    "ru": "Комплект из 3 форм",
+    "en": "Set of 3 molds"
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×100×50",
+     "depth": "50",
+     "g": null
+    },
+    {
+     "l": "B",
+     "size": "400×200×50",
+     "depth": "50",
+     "g": null
+    },
+    {
+     "l": "V",
+     "size": "200×200×50",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×100×50",
+     "per": "25",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "400×200×50",
+     "per": "12,5",
+     "cap": null
+    },
+    {
+     "l": "V",
+     "size": "200×200×50",
+     "per": "25",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-qrim-valday-sayani-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-qrim-valday-sayani-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-qrim-valday-sayani-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "slanets",
+   "code": null,
+   "slug": "slanets",
+   "section": "trotuar",
+   "name": {
+    "uz": "Slanets",
+    "ru": "Сланец",
+    "en": "Slate"
+   },
+   "subtitle": {
+    "uz": "3 qolip to‘plami",
+    "ru": "Комплект из 3 форм",
+    "en": "Set of 3 molds"
+   },
+   "kg": null,
+   "molds": [],
+   "tiles": [],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-slanets-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-slanets-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-slanets-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "meandr-30-30",
+   "code": null,
+   "slug": "meandr-30-30",
+   "section": "trotuar",
+   "name": {
+    "uz": "Meandr 30×30",
+    "ru": "Меандр 30×30",
+    "en": "Meander 30×30"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "per": "11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-meandr-30-30-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-meandr-30-30-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-meandr-30-30-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "taktil-konus-30-30",
+   "code": null,
+   "slug": "taktil-konus-30-30",
+   "section": "trotuar",
+   "name": {
+    "uz": "Taktil plitka — konuslar 30×30",
+    "ru": "Тактильная плитка — конусы 30×30",
+    "en": "Tactile paving — cones 30×30"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "per": "11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-taktil-konus-30-30-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-taktil-konus-30-30-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-taktil-konus-30-30-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "taktil-chiziq-30-30",
+   "code": null,
+   "slug": "taktil-chiziq-30-30",
+   "section": "trotuar",
+   "name": {
+    "uz": "Taktil plitka — chiziqlar 30×30",
+    "ru": "Тактильная плитка — полосы 30×30",
+    "en": "Tactile paving — bars 30×30"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300×30",
+     "per": "11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-taktil-chiziq-30-30-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-taktil-chiziq-30-30-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-taktil-chiziq-30-30-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "pletyonka",
+   "code": null,
+   "slug": "pletyonka",
+   "section": "trotuar",
+   "name": {
+    "uz": "Pletyonka",
+    "ru": "Плетёнка",
+    "en": "Basket weave"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [],
+   "tiles": [],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-pletyonka-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-pletyonka-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-pletyonka-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "taxta-parket",
+   "code": null,
+   "slug": "taxta-parket",
+   "section": "trotuar",
+   "name": {
+    "uz": "Taxta ×2 (parket)",
+    "ru": "Доска ×2 (паркет)",
+    "en": "Wood plank ×2 (parquet)"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [],
+   "tiles": [],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-taxta-parket-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-taxta-parket-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-taxta-parket-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "daraxt-kesimi",
+   "code": null,
+   "slug": "daraxt-kesimi",
+   "section": "trotuar",
+   "name": {
+    "uz": "Daraxt kesimi",
+    "ru": "Спил дерева",
+    "en": "Tree slice"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [],
+   "tiles": [],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-daraxt-kesimi-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-daraxt-kesimi-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-daraxt-kesimi-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "oyoq-izi",
+   "code": null,
+   "slug": "oyoq-izi",
+   "section": "trotuar",
+   "name": {
+    "uz": "Oyoq izi (chap + o‘ng)",
+    "ru": "След (левый + правый)",
+    "en": "Footprint (left + right)"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [],
+   "tiles": [],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-oyoq-izi-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-oyoq-izi-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-oyoq-izi-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "naqshli-bordyur",
+   "code": null,
+   "slug": "naqshli-bordyur",
+   "section": "trotuar",
+   "name": {
+    "uz": "Naqshli bordyur",
+    "ru": "Бордюр с орнаментом",
+    "en": "Ornamental curb"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [],
+   "tiles": [],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-naqshli-bordyur-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-naqshli-bordyur-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-naqshli-bordyur-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
    "key": "t70",
    "code": "70",
    "slug": "70-kabanchik-17-5-naqshli",
@@ -48,8 +691,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-70-kabanchik-17-5-naqshli-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-70-kabanchik-17-5-naqshli-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-70-kabanchik-17-5-naqshli-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-70-kabanchik-17-5-naqshli-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-70-kabanchik-17-5-naqshli-mold-a.webp"
     },
@@ -91,8 +734,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-01-monako-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-01-monako-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-01-monako-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-01-monako-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-01-monako-mold-a.webp"
     },
@@ -134,8 +777,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-85-kabanchik-10-10-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-85-kabanchik-10-10-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-85-kabanchik-10-10-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-85-kabanchik-10-10-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-85-kabanchik-10-10-mold-a.webp"
     },
@@ -177,8 +820,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-83-nikolay-2-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-83-nikolay-2-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-83-nikolay-2-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-83-nikolay-2-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-83-nikolay-2-mold-a.webp"
     },
@@ -220,8 +863,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-42-kerpich-10-20-5-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-42-kerpich-10-20-5-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-42-kerpich-10-20-5-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-42-kerpich-10-20-5-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-42-kerpich-10-20-5-mold-a.webp"
     },
@@ -459,8 +1102,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-05-magna-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-05-magna-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-05-magna-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-05-magna-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-05-magna-mold-a.webp"
     },
@@ -502,8 +1145,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-02-ornament-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-02-ornament-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-02-ornament-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-02-ornament-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-02-ornament-mold-a.webp"
     },
@@ -545,8 +1188,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-03-yalta-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-03-yalta-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-03-yalta-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-03-yalta-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-03-yalta-mold-a.webp"
     },
@@ -588,8 +1231,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-04-tsvetok-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-04-tsvetok-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-04-tsvetok-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-04-tsvetok-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-04-tsvetok-mold-a.webp"
     },
@@ -631,8 +1274,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-06-azara-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-06-azara-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-06-azara-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-06-azara-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-06-azara-mold-a.webp"
     },
@@ -674,8 +1317,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-07-parus-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-07-parus-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-07-parus-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-07-parus-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-07-parus-mold-a.webp"
     },
@@ -760,8 +1403,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-09-versache-1-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-09-versache-1-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-09-versache-1-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-09-versache-1-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-09-versache-1-mold-a.webp"
     },
@@ -889,8 +1532,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-12-rio-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-12-rio-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-12-rio-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-12-rio-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-12-rio-mold-a.webp"
     },
@@ -932,8 +1575,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-13-viking-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-13-viking-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-13-viking-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-13-viking-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-13-viking-mold-a.webp"
     },
@@ -975,8 +1618,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-14-shersha-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-14-shersha-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-14-shersha-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-14-shersha-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-14-shersha-mold-a.webp"
     },
@@ -1018,8 +1661,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-15-floriya-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-15-floriya-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-15-floriya-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-15-floriya-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-15-floriya-mold-a.webp"
     },
@@ -1061,8 +1704,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-16-strelka-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-16-strelka-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-16-strelka-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-16-strelka-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-16-strelka-mold-a.webp"
     },
@@ -1104,8 +1747,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-17-versachi-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-17-versachi-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-17-versachi-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-17-versachi-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-17-versachi-mold-a.webp"
     },
@@ -1147,8 +1790,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-18-dubay-40-40-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-18-dubay-40-40-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-18-dubay-40-40-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-18-dubay-40-40-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-18-dubay-40-40-mold-a.webp"
     },
@@ -1233,8 +1876,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-20-travertin-40-40-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-20-travertin-40-40-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-20-travertin-40-40-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-20-travertin-40-40-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-20-travertin-40-40-mold-a.webp"
     },
@@ -1276,8 +1919,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-21-taroq-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-21-taroq-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-21-taroq-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-21-taroq-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-21-taroq-mold-a.webp"
     },
@@ -1374,8 +2017,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-24-guruch-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-24-guruch-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-24-guruch-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-24-guruch-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-24-guruch-mold-a.webp"
     },
@@ -1429,8 +2072,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-25-bodom-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-25-bodom-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-25-bodom-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-25-bodom-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-25-bodom-mold-a.webp"
     },
@@ -1484,8 +2127,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-26-astana-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-26-astana-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-26-astana-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-26-astana-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-26-astana-mold-a.webp"
     },
@@ -1539,8 +2182,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-27-yulduz-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-27-yulduz-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-27-yulduz-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-27-yulduz-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-27-yulduz-mold-a.webp"
     },
@@ -1594,8 +2237,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-28-turkman-guli-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-28-turkman-guli-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-28-turkman-guli-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-28-turkman-guli-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-28-turkman-guli-mold-a.webp"
     },
@@ -1649,9 +2292,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-29-eksklyuziv-30-30-4-sakkiz-qirra-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-29-eksklyuziv-30-30-4-sakkiz-qirra-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-29-eksklyuziv-30-30-4-sakkiz-qirra-mold-a.webp"
+    },
     "tiles": {}
    }
   },
@@ -1745,8 +2390,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-32-tomir-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-32-tomir-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-32-tomir-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-32-tomir-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-32-tomir-mold-a.webp"
     },
@@ -1800,8 +2445,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-33-novvot-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-33-novvot-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-33-novvot-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-33-novvot-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-33-novvot-mold-a.webp"
     },
@@ -1855,8 +2500,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-34-parket-20-20-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-34-parket-20-20-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-34-parket-20-20-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-34-parket-20-20-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-34-parket-20-20-mold-a.webp"
     },
@@ -1910,8 +2555,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-35-uzor-20-20-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-35-uzor-20-20-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-35-uzor-20-20-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-35-uzor-20-20-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-35-uzor-20-20-mold-a.webp"
     },
@@ -1965,8 +2610,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-36-bodom-20-20-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-36-bodom-20-20-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-36-bodom-20-20-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-36-bodom-20-20-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-36-bodom-20-20-mold-a.webp"
     },
@@ -2094,8 +2739,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-39-dubay-toshli-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-39-dubay-toshli-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-39-dubay-toshli-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-39-dubay-toshli-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-39-dubay-toshli-mold-a.webp"
     },
@@ -2137,8 +2782,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-40-dubay-shershaviy-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-40-dubay-shershaviy-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-40-dubay-shershaviy-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-40-dubay-shershaviy-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-40-dubay-shershaviy-mold-a.webp"
     },
@@ -2180,8 +2825,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-41-dubay-yaltiroq-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-41-dubay-yaltiroq-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-41-dubay-yaltiroq-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-41-dubay-yaltiroq-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-41-dubay-yaltiroq-mold-a.webp"
     },
@@ -2223,8 +2868,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-43-kerpich-10-20-7-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-43-kerpich-10-20-7-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-43-kerpich-10-20-7-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-43-kerpich-10-20-7-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-43-kerpich-10-20-7-mold-a.webp"
     },
@@ -2278,8 +2923,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-44-parus-18-36-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-44-parus-18-36-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-44-parus-18-36-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-44-parus-18-36-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-44-parus-18-36-mold-a.webp"
     },
@@ -2333,8 +2978,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-45-gladkiy-18-36-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-45-gladkiy-18-36-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-45-gladkiy-18-36-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-45-gladkiy-18-36-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-45-gladkiy-18-36-mold-a.webp"
     },
@@ -2388,8 +3033,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-46-dojdik-18-36-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-46-dojdik-18-36-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-46-dojdik-18-36-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-46-dojdik-18-36-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-46-dojdik-18-36-mold-a.webp"
     },
@@ -2443,8 +3088,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-47-kabanchik-17-17-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-47-kabanchik-17-17-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-47-kabanchik-17-17-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-47-kabanchik-17-17-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-47-kabanchik-17-17-mold-a.webp"
     },
@@ -2498,8 +3143,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-48-mozaika-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-48-mozaika-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-48-mozaika-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-48-mozaika-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-48-mozaika-mold-a.webp"
     },
@@ -2553,8 +3198,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-50-azaliya-1-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-50-azaliya-1-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-50-azaliya-1-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-50-azaliya-1-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-50-azaliya-1-mold-a.webp"
     },
@@ -2608,8 +3253,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-51-azaliya-2-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-51-azaliya-2-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-51-azaliya-2-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-51-azaliya-2-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-51-azaliya-2-mold-a.webp"
     },
@@ -3079,8 +3724,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-60-3d-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-60-3d-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-60-3d-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-60-3d-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-60-3d-mold-a.webp"
     },
@@ -3134,8 +3779,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-61-4d-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-61-4d-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-61-4d-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-61-4d-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-61-4d-mold-a.webp"
     },
@@ -3201,8 +3846,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-62-vegas-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-62-vegas-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-62-vegas-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-62-vegas-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-62-vegas-mold-a.webp"
     },
@@ -3397,8 +4042,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-67-safir-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-67-safir-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-67-safir-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-67-safir-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-67-safir-mold-a.webp"
     },
@@ -3440,8 +4085,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-68-aleya-uzor-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-68-aleya-uzor-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-68-aleya-uzor-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-68-aleya-uzor-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-68-aleya-uzor-mold-a.webp"
     },
@@ -3483,8 +4128,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-69-kabanchik-15-15-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-69-kabanchik-15-15-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-69-kabanchik-15-15-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-69-kabanchik-15-15-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-69-kabanchik-15-15-mold-a.webp"
     },
@@ -3526,8 +4171,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-71-mumtoz-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-71-mumtoz-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-71-mumtoz-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-71-mumtoz-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-71-mumtoz-mold-a.webp"
     },
@@ -3569,8 +4214,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-72-marokesh-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-72-marokesh-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-72-marokesh-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-72-marokesh-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-72-marokesh-mold-a.webp"
     },
@@ -3655,8 +4300,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-74-nikolay-gladkiy-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-74-nikolay-gladkiy-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-74-nikolay-gladkiy-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-74-nikolay-gladkiy-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-74-nikolay-gladkiy-mold-a.webp"
     },
@@ -3698,8 +4343,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-75-nikolay-shershavoe-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-75-nikolay-shershavoe-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-75-nikolay-shershavoe-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-75-nikolay-shershavoe-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-75-nikolay-shershavoe-mold-a.webp"
     },
@@ -3918,8 +4563,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-79-palma-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-79-palma-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-79-palma-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-79-palma-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-79-palma-mold-a.webp"
     },
@@ -4083,8 +4728,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-82-orxideya-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-82-orxideya-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-82-orxideya-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-82-orxideya-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-82-orxideya-mold-a.webp"
     },
@@ -4126,8 +4771,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-84-vetnam-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-84-vetnam-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-84-vetnam-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-84-vetnam-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-84-vetnam-mold-a.webp"
     },
@@ -4198,8 +4843,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-87-magna-kubik-bilan-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-87-magna-kubik-bilan-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-87-magna-kubik-bilan-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-87-magna-kubik-bilan-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-87-magna-kubik-bilan-mold-a.webp"
     },
@@ -4284,8 +4929,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-polosa-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-polosa-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-polosa-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-polosa-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-polosa-mold-a.webp"
     },
@@ -4327,8 +4972,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-kaliforniya-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-kaliforniya-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-kaliforniya-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-kaliforniya-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-kaliforniya-mold-a.webp"
     },
@@ -4370,8 +5015,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-kaliforniya-g-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-kaliforniya-g-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-kaliforniya-g-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-kaliforniya-g-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-kaliforniya-g-mold-a.webp"
     },
@@ -4413,8 +5058,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/trotuar-shashka-scene-3d.webp",
-    "sceneSm": "/catalog/2027/trotuar-shashka-scene-sm-3d.webp",
+    "scene": "/catalog/2027/trotuar-shashka-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-shashka-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-shashka-mold-a.webp"
     },
@@ -4456,8 +5101,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-bumerang-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-bumerang-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-bumerang-mold-a.webp"
     },
@@ -4523,9 +5168,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-vegas-2-shershaviy-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-vegas-2-shershaviy-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-vegas-2-shershaviy-mold-a.webp"
+    },
     "tiles": {}
    }
   },
@@ -4578,7 +5225,9 @@
    "images": {
     "scene": null,
     "sceneSm": null,
-    "molds": {},
+    "molds": {
+     "A": "/catalog/2027/trotuar-ornament-18-36-mold-a.webp"
+    },
     "tiles": {}
    }
   },
@@ -4629,9 +5278,11 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
-    "molds": {},
+    "scene": "/catalog/2027/trotuar-dubay-aylana-okrujnost-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-dubay-aylana-okrujnost-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-dubay-aylana-okrujnost-mold-a.webp"
+    },
     "tiles": {}
    }
   },
@@ -11114,6 +11765,1149 @@
     "sceneSm": null,
     "molds": {
      "A": "/catalog/2027/fasad_dekor-kapitel-40-tepa-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t92",
+   "code": "92",
+   "slug": "gidroponika-eko-gazon",
+   "section": "trotuar",
+   "name": {
+    "uz": "Gidroponika (eko-gazon)",
+    "ru": "Гидропоника (эко-газон)",
+    "en": "Hydroponic grass paver"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "600×400×80",
+     "depth": "80",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "600×400×80",
+     "per": "4,2",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-gidroponika-eko-gazon-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-gidroponika-eko-gazon-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-gidroponika-eko-gazon-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t97",
+   "code": "97",
+   "slug": "glyanets-15-15",
+   "section": "trotuar",
+   "name": {
+    "uz": "Glyanets 15×15",
+    "ru": "Глянец 15×15",
+    "en": "Gloss 15×15"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,2",
+   "molds": [
+    {
+     "l": "A",
+     "size": "150×150",
+     "depth": "25",
+     "g": null
+    },
+    {
+     "l": "B",
+     "size": "53×53",
+     "depth": "25",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "150×150",
+     "per": "40",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "53×53",
+     "per": "40",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-glyanets-15-15-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-glyanets-15-15-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-glyanets-15-15-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t98",
+   "code": "98",
+   "slug": "tomir-15-15",
+   "section": "trotuar",
+   "name": {
+    "uz": "Tomir 15×15",
+    "ru": "Томир 15×15",
+    "en": "Tomir 15×15"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,3",
+   "molds": [
+    {
+     "l": "A",
+     "size": "150×150",
+     "depth": "25",
+     "g": null
+    },
+    {
+     "l": "B",
+     "size": "53×53",
+     "depth": "25",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "150×150",
+     "per": "40",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "53×53",
+     "per": "40",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-tomir-15-15-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-tomir-15-15-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-tomir-15-15-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t99",
+   "code": "99",
+   "slug": "bodom-15-15",
+   "section": "trotuar",
+   "name": {
+    "uz": "Bodom 15×15",
+    "ru": "Бодом 15×15",
+    "en": "Bodom 15×15"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,4",
+   "molds": [
+    {
+     "l": "A",
+     "size": "150×150",
+     "depth": "25",
+     "g": null
+    },
+    {
+     "l": "B",
+     "size": "53×53",
+     "depth": "25",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "150×150",
+     "per": "40",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "53×53",
+     "per": "40",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-bodom-15-15-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-bodom-15-15-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-bodom-15-15-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t100",
+   "code": "100",
+   "slug": "tomir-20-20-kvadrat",
+   "section": "trotuar",
+   "name": {
+    "uz": "Tomir 20×20 kvadrat",
+    "ru": "Томир 20×20",
+    "en": "Tomir 20×20 square"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,1",
+   "molds": [
+    {
+     "l": "A",
+     "size": "200×200",
+     "depth": "25",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "200×200",
+     "per": "25",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-tomir-20-20-kvadrat-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-tomir-20-20-kvadrat-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-tomir-20-20-kvadrat-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t101",
+   "code": "101",
+   "slug": "zina-1",
+   "section": "trotuar",
+   "name": {
+    "uz": "Zina 1 (zinapoya)",
+    "ru": "Зина 1",
+    "en": "Step 1"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300",
+     "per": "1",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-zina-1-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-zina-1-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-zina-1-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t102",
+   "code": "102",
+   "slug": "zina-2",
+   "section": "trotuar",
+   "name": {
+    "uz": "Zina 2 (zinapoya)",
+    "ru": "Зина 2",
+    "en": "Step 2"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300",
+     "per": "1",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-zina-2-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-zina-2-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-zina-2-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t103",
+   "code": "103",
+   "slug": "yulduz-yulduzsimon",
+   "section": "trotuar",
+   "name": {
+    "uz": "Yulduz (yulduzsimon)",
+    "ru": "Юлдуз (звезда)",
+    "en": "Yulduz star"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,25",
+   "molds": [
+    {
+     "l": "A",
+     "size": "320×320",
+     "depth": "40",
+     "g": null
+    },
+    {
+     "l": "B",
+     "size": "90×160",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "320×320",
+     "per": "14",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "90×160",
+     "per": "15",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-yulduz-yulduzsimon-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-yulduz-yulduzsimon-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-yulduz-yulduzsimon-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t104",
+   "code": "104",
+   "slug": "afsona",
+   "section": "trotuar",
+   "name": {
+    "uz": "Afsona",
+    "ru": "Афсона",
+    "en": "Afsona"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "6,52",
+   "molds": [
+    {
+     "l": "A",
+     "size": "320×320",
+     "depth": "40",
+     "g": null
+    },
+    {
+     "l": "B",
+     "size": "330×195",
+     "depth": "35",
+     "g": null
+    },
+    {
+     "l": "V",
+     "size": "290×170",
+     "depth": "40",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "320×320",
+     "per": "3,5",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "330×195",
+     "per": "20",
+     "cap": null
+    },
+    {
+     "l": "V",
+     "size": "290×170",
+     "per": "11",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-afsona-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-afsona-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-afsona-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t105",
+   "code": "105",
+   "slug": "versal",
+   "section": "trotuar",
+   "name": {
+    "uz": "Versal",
+    "ru": "Версал",
+    "en": "Versailles"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "6,34",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300",
+     "depth": "30",
+     "g": null
+    },
+    {
+     "l": "B",
+     "size": "100×300",
+     "depth": "30",
+     "g": null
+    },
+    {
+     "l": "V",
+     "size": "100×100",
+     "depth": "25",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300",
+     "per": "6",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "100×300",
+     "per": "13",
+     "cap": null
+    },
+    {
+     "l": "V",
+     "size": "100×100",
+     "per": "7",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-versal-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-versal-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-versal-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t106",
+   "code": "106",
+   "slug": "charogon-1",
+   "section": "trotuar",
+   "name": {
+    "uz": "Charog‘on 1",
+    "ru": "Чарогон 1",
+    "en": "Charogon 1"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,35",
+   "molds": [
+    {
+     "l": "A",
+     "size": "360×250",
+     "depth": "40",
+     "g": null
+    },
+    {
+     "l": "B",
+     "size": "175×175",
+     "depth": "25",
+     "g": null
+    },
+    {
+     "l": "V",
+     "size": "110×110",
+     "depth": "40",
+     "g": null
+    },
+    {
+     "l": "G",
+     "size": "100×100",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "360×250",
+     "per": "18",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "175×175",
+     "per": "9",
+     "cap": null
+    },
+    {
+     "l": "V",
+     "size": "110×110",
+     "per": "4,5",
+     "cap": null
+    },
+    {
+     "l": "G",
+     "size": "100×100",
+     "per": "4,5",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-charogon-1-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-charogon-1-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-charogon-1-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t107",
+   "code": "107",
+   "slug": "charogon-2",
+   "section": "trotuar",
+   "name": {
+    "uz": "Charog‘on 2",
+    "ru": "Чарогон 2",
+    "en": "Charogon 2"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,71",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×300",
+     "depth": "30",
+     "g": null
+    },
+    {
+     "l": "B",
+     "size": "100×300",
+     "depth": "30",
+     "g": null
+    },
+    {
+     "l": "V",
+     "size": "135×135",
+     "depth": "35",
+     "g": null
+    },
+    {
+     "l": "G",
+     "size": "175×175",
+     "depth": "25",
+     "g": null
+    },
+    {
+     "l": "D",
+     "size": "150×300",
+     "depth": "35",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×300",
+     "per": null,
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "100×300",
+     "per": null,
+     "cap": null
+    },
+    {
+     "l": "V",
+     "size": "135×135",
+     "per": null,
+     "cap": null
+    },
+    {
+     "l": "G",
+     "size": "175×175",
+     "per": null,
+     "cap": null
+    },
+    {
+     "l": "D",
+     "size": "150×300",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-charogon-2-scene-3d.webp",
+    "sceneSm": "/catalog/2027/trotuar-charogon-2-scene-sm-3d.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-charogon-2-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t108",
+   "code": "108",
+   "slug": "flajok",
+   "section": "trotuar",
+   "name": {
+    "uz": "Flajok",
+    "ru": "Флажок",
+    "en": "Flag"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,04",
+   "molds": [
+    {
+     "l": "A",
+     "size": "295×295",
+     "depth": "45",
+     "g": null
+    },
+    {
+     "l": "B",
+     "size": "100×100",
+     "depth": "30",
+     "g": null
+    },
+    {
+     "l": "V",
+     "size": "135×135",
+     "depth": "45",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "295×295",
+     "per": "12",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "100×100",
+     "per": "12",
+     "cap": null
+    },
+    {
+     "l": "V",
+     "size": "135×135",
+     "per": "12",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-flajok-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-flajok-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-flajok-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t109",
+   "code": "109",
+   "slug": "okean-25-50",
+   "section": "trotuar",
+   "name": {
+    "uz": "Okean 25×50",
+    "ru": "Океан 25×50",
+    "en": "Ocean 25×50"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,76",
+   "molds": [
+    {
+     "l": "A",
+     "size": "500×250",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×250",
+     "per": "8",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-okean-25-50-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-okean-25-50-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-okean-25-50-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t110",
+   "code": "110",
+   "slug": "kubiki-25-50",
+   "section": "trotuar",
+   "name": {
+    "uz": "Kubiklar 25×50",
+    "ru": "Кубики 25×50",
+    "en": "Cubes 25×50"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "6,32",
+   "molds": [
+    {
+     "l": "A",
+     "size": "500×250",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×250",
+     "per": "8",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-kubiki-25-50-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-kubiki-25-50-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-kubiki-25-50-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t111",
+   "code": "111",
+   "slug": "shershaviy-25-50",
+   "section": "trotuar",
+   "name": {
+    "uz": "Shershaviy 25×50",
+    "ru": "Шершавый 25×50",
+    "en": "Rough 25×50"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "6,0",
+   "molds": [
+    {
+     "l": "A",
+     "size": "500×250",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×250",
+     "per": "8",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-shershaviy-25-50-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-shershaviy-25-50-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-shershaviy-25-50-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t112",
+   "code": "112",
+   "slug": "travertino-30-40",
+   "section": "trotuar",
+   "name": {
+    "uz": "Travertino 30×40",
+    "ru": "Травертино 30×40",
+    "en": "Travertino 30×40"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,8",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×400",
+     "depth": "48",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×400",
+     "per": "8,8",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-travertino-30-40-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-travertino-30-40-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-travertino-30-40-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "t23",
+   "code": null,
+   "slug": "uzor-4-gul-40-40",
+   "section": "trotuar",
+   "name": {
+    "uz": "Uzor 4 gul 40×40",
+    "ru": "Узор 4 гул 40×40",
+    "en": "Uzor 4 Gul 40×40"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5,81",
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×400×45",
+     "depth": "45",
+     "g": 930
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×400×45",
+     "per": "6,25",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-uzor-4-gul-40-40-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-uzor-4-gul-40-40-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-uzor-4-gul-40-40-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "tomir-20-20-x1",
+   "code": null,
+   "slug": "tomir-20-20-x1",
+   "section": "trotuar",
+   "name": {
+    "uz": "Tomir 20×20 ×1",
+    "ru": "Томир 20×20 Х1",
+    "en": "Tomir 20×20 ×1"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "4,125",
+   "molds": [
+    {
+     "l": "A",
+     "size": "200×200×25",
+     "depth": "25",
+     "g": 155
+    },
+    {
+     "l": "B",
+     "size": "53×53×25",
+     "depth": "25",
+     "g": 150
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "200×200×25",
+     "per": "25",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "53×53×25",
+     "per": "6,25",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-tomir-20-20-x1-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-tomir-20-20-x1-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-tomir-20-20-x1-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "faiz-20-20-x4",
+   "code": null,
+   "slug": "faiz-20-20-x4",
+   "section": "trotuar",
+   "name": {
+    "uz": "Faiz 20×20 ×4",
+    "ru": "Файз 20×20 Х4",
+    "en": "Faiz 20×20 ×4"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "200×200×25",
+     "depth": "25",
+     "g": null
+    },
+    {
+     "l": "B",
+     "size": "53×53×25",
+     "depth": "25",
+     "g": 150
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "200×200×25",
+     "per": "25",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "53×53×25",
+     "per": "25",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-faiz-20-20-x4-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-faiz-20-20-x4-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-faiz-20-20-x4-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "sahara-aleya",
+   "code": null,
+   "slug": "sahara-aleya",
+   "section": "trotuar",
+   "name": {
+    "uz": "Sahara (Aleya)",
+    "ru": "Сахара (Алея)",
+    "en": "Sahara (Aleya)"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": "5",
+   "molds": [
+    {
+     "l": "A",
+     "size": "275×275×40",
+     "depth": "40",
+     "g": 320
+    },
+    {
+     "l": "B",
+     "size": "100×100×30",
+     "depth": "30",
+     "g": 240
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "275×275×40",
+     "per": "13",
+     "cap": null
+    },
+    {
+     "l": "B",
+     "size": "100×100×30",
+     "per": "13",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-sahara-aleya-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-sahara-aleya-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-sahara-aleya-mold-a.webp"
     },
     "tiles": {}
    }
