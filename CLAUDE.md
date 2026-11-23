@@ -255,7 +255,7 @@ decision 2026-11-01, `docs/SEO-2028-RU.md` §0 — a `.uz` ccTLD geo-targets Uzb
 It is the `SITE_URL` default; `spsplast.com`, `sps.uz` and all `www.*` 301 to it (`next.config.js`).
 Hosting: Hetzner + Coolify (Nixpacks, port 3000) with `sps-postgres`; Vercel is being retired.
 Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
-`NEXT_PUBLIC_GA_MEASUREMENT_ID`, `NEXT_PUBLIC_YANDEX_METRICA_ID`, `NEXT_PUBLIC_META_PIXEL_ID`.
+`NEXT_PUBLIC_GA_MEASUREMENT_ID`, `NEXT_PUBLIC_YANDEX_METRICA_ID`, `NEXT_PUBLIC_YANDEX_VERIFICATION` (Webmaster meta-teg, build-time), `NEXT_PUBLIC_META_PIXEL_ID`.
 `DATABASE_URL` (Postgres) is required in production for lead storage and `/admin`; see `docs/ADMIN.md`.
 
 ## Known Pitfalls
