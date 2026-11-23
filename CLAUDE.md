@@ -258,6 +258,7 @@ Prod analytics (2026-11-23, Coolify env, build-time → needs Redeploy to change
 Webmaster verification meta set (Owner verified). Hetzner firewall `coolify-fw` no longer opens Postgres 5432 — `DATABASE_URL`
 uses the internal Docker host. Yandex Webmaster's sitemap tool was read-only that day; Yandex reads `Sitemap:` from `robots.txt`.
 Admin accounts: `npm run admin:create -- --email E --name "Ism" --role admin` in the Coolify app terminal (prints a temporary password; the user changes it on "Profil").
+Forgotten password: `npm run admin:reset -- --email E` in the same terminal.
 Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
 `NEXT_PUBLIC_GA_MEASUREMENT_ID`, `NEXT_PUBLIC_YANDEX_METRICA_ID`, `NEXT_PUBLIC_YANDEX_VERIFICATION` (Webmaster meta-teg, build-time), `NEXT_PUBLIC_META_PIXEL_ID`.
 `DATABASE_URL` (Postgres) is required in production for lead storage and `/admin`; see `docs/ADMIN.md`.
@@ -566,6 +567,14 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   boshqa sozlama bilan e'lon qiladi, Traefik "middleware defined multiple times" deb uni tashlaydi va http router'lar 503 beradi (2026-11-23 da
   ~12 daqiqa shunday bo'ldi). Traefik 3.x `permanent=true` ni **308** qaytaradi (301 emas) — Google uchun teng, xato emas. Yangi domen qo'shilsa
   `http-N` va `https-N` router label'larini qo'lda qo'shing. Label o'zgarsa Redeploy kerak (build o'tkazib yuboriladi).
+- **Coolify avtomatik deploy (2026-11-23, `deploy-coolify.yml`)**: `checks` main'da yashil bo'lgach workflow
+  `POST $COOLIFY_URL/api/v1/deploy?uuid=…` ni chaqiradi — Coolify 4.7 GET'ga **405** qaytaradi ("changed to a POST request").
+  Secret'lar: `COOLIFY_URL` (hozir `http://<IP>:8000` — token ochiq kanalda ketadi; DNS tayyor bo'lgach Coolify'ni HTTPS domenga
+  ko'chirib secret'ni yangilang), `COOLIFY_APP_UUID`, `COOLIFY_TOKEN` (faqat deploy + read, faqat shu ilova). Secret'lar yo'q bo'lsa
+  workflow jimgina o'tkazib yuboradi va "success" ko'rinadi — haqiqiy natija logdagi `Coolify javobi: HTTP 200` qatorida.
+- **Admin parolini tiklash**: Coolify terminalida `npm run admin:reset -- --email E` (tasodifiy parol bir marta chiqadi, eski
+  sessiyalar yopiladi, shu e-pochtaning login limiti tozalanadi). Coolify terminali har deployda yangi konteynerga ochiladi —
+  `admin:create`/`admin:reset` chiqargan vaqtinchalik parol deploydan keyin terminalda qolmaydi, darhol nusxalang.
 - **Docker image hajmi (2026-11-22, `.dockerignore`)**: Coolify/Nixpacks `COPY . /app/.` butun repo'ni image'ga solardi (5.4 GB:
   `media-src` 111 MB, docs, tests + dev paketlar + playwright apt kutubxonalari 558 MB). `.dockerignore` endi `media-src`, `docs`,
   `tests`, `catalog_build`, `.git` va `*.md` ni chiqarib tashlaydi — build (`models:check` + `next build`) va runtime ularni o'qimaydi.
@@ -702,6 +711,7 @@ npm run models:build && npm run models:images && npm run models:check
 npm run db:generate    # after editing src/server/db/schema.ts → new SQL in drizzle/
 DATABASE_URL=... npm run db:migrate
 DATABASE_URL=... ADMIN_PASSWORD=... npm run admin:create -- --email E --name "Ism" --role admin
+DATABASE_URL=... npm run admin:reset -- --email E   # parolni tiklash (tasodifiy parol chiqadi)
 
 # Stage 6 checks — server must be running (`npm run start` or `npm run dev`)
 npm run audit          # audit:seo + audit:a11y → docs/audits/*.md
