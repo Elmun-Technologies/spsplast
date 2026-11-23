@@ -64,7 +64,7 @@ export default async function ProductEditPage({
       };
 
   const section = sections.find((s) => s.key === row?.section);
-  const liveUrl = row && row.status === 'published' && section ? `${SITE_URL}/uz/catalog/${section.slug}/${row.slug}` : null;
+  const liveUrl = row && row.status === 'published' && section ? `${SITE_URL}/uz/${section.kind === 'ready' ? 'ready' : 'catalog'}/${section.slug}/${row.slug}` : null;
   const c = row ? completeness(row) : null;
 
   return (
@@ -112,7 +112,7 @@ export default async function ProductEditPage({
           </div>
         </div>
       ) : null}
-      <ProductForm productId={productId} initial={initial} sections={sections.map((s) => ({ key: s.key, name: s.name }))} liveUrl={liveUrl} />
+      <ProductForm productId={productId} initial={initial} sections={sections.map((s) => ({ key: s.key, name: s.name, kind: s.kind }))} liveUrl={liveUrl} />
       {row && user.role === 'admin' ? (
         <form action={deleteProductAction} className="adm-card adm-danger">
           <input type="hidden" name="productId" value={row.id} />

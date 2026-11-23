@@ -1,7 +1,14 @@
 /** Admin (baza) → build paytida sayt "surati" (scripts/export-snapshot.mjs). */
 export type SnapshotLocalized = { uz: string | null; ru: string | null; en: string | null };
 
-export type SnapshotSection = { key: string; slug: string; name: SnapshotLocalized; sort: number };
+export type SnapshotSection = {
+  key: string;
+  slug: string;
+  name: SnapshotLocalized;
+  sort: number;
+  /** Qoliplar (`/catalog`) yoki tayyor mahsulotlar (`/ready`). Eski snapshot'larda yo'q — `molds`. */
+  kind?: 'molds' | 'ready';
+};
 
 /** Admin → SEO → Sahifalar (`seo_pages`). */
 export type SnapshotSeoPage = {

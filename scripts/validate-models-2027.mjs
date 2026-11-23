@@ -15,8 +15,15 @@ const ROOT = process.cwd();
 const SNAPSHOT = path.join(ROOT, '.snapshot.json');
 const snapshot = fs.existsSync(SNAPSHOT) ? JSON.parse(fs.readFileSync(SNAPSHOT, 'utf8')) : null;
 const FILE = path.join(ROOT, 'data/models-2027.json');
-const SECTIONS = snapshot?.sections?.map((s) => s.key) ?? ['trotuar', 'fasad', 'termopanel', 'fasad_dekor', 'zabor', 'dekor', 'skameyka'];
+const SECTIONS = snapshot?.sections?.map((s) => s.key) ?? ['trotuar', 'fasad', 'termopanel', 'fasad_dekor', 'zabor', 'dekor', 'skameyka', 'tayyor_termopanel', 'tayyor_bilayn', 'tayyor_dekor', 'tayyor_karniz', 'tayyor_tyaga', 'tayyor_pilyastra', 'tayyor_kapitel', 'tayyor_tsokol', 'tayyor_tosh', 'tayyor_skameyka', 'tayyor_zabor'];
 const LANGS = ['uz', 'ru', 'en'];
+
+// Tayyor mahsulot bo'limlari (qolip emas): snapshot'da `kind`, bazasiz — standart `tayyor_*` kalitlari.
+const READY = new Set(
+  snapshot?.sections?.length
+    ? snapshot.sections.filter((s) => s.kind === 'ready').map((s) => s.key)
+    : SECTIONS.filter((k) => k.startsWith('tayyor_')),
+);
 
 const errors = [];
 const warnings = [];
@@ -46,7 +53,8 @@ for (const m of models) {
     if (!(l in m.name)) errors.push(`${m.slug}: name.${l} maydoni yo'q`);
   }
   if (!m.name.uz) errors.push(`${m.slug}: name.uz bo'sh`);
-  if (!Array.isArray(m.molds) || m.molds.length === 0)
+  // Tayyor mahsulotda qolip qatori bo'lmaydi (qolip emas) — ogohlantirish faqat qoliplarga.
+  if (!READY.has(m.section) && (!Array.isArray(m.molds) || m.molds.length === 0))
     warnings.push(`${m.slug}: qolip qatori yo'q (kalkulyator ishlamaydi)`);
   walkStrings(m, (s, trail) => {
     if (/yarat/i.test(s) && trail.includes('.uz'))

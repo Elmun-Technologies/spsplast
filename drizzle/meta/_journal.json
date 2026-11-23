@@ -29,6 +29,13 @@
       "when": 1794034879127,
       "tag": "0003_abandoned_penance",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1795440365107,
+      "tag": "0004_ready_products",
+      "breakpoints": true
     }
   ]
 }

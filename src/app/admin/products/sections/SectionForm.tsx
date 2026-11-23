@@ -3,7 +3,7 @@
 import { useActionState } from 'react';
 import { saveSectionAction, type ProductFormState } from '../actions';
 
-type S = { key: string; slug: string; name: { uz: string | null; ru: string | null; en: string | null }; sort: number; visible: boolean };
+type S = { key: string; slug: string; name: { uz: string | null; ru: string | null; en: string | null }; sort: number; visible: boolean; kind: 'molds' | 'ready' };
 
 export function SectionForm({ section }: { section?: S }) {
   const [state, action, pending] = useActionState<ProductFormState, FormData>(saveSectionAction, undefined);
@@ -36,7 +36,14 @@ export function SectionForm({ section }: { section?: S }) {
       </div>
       <div className="adm-row3">
         <label className="sps-field">
-          <span>URL (/uz/catalog/…)</span>
+          <span>Yo'nalish</span>
+          <select className="sps-input" aria-label="Yo'nalish" name="kind" defaultValue={section?.kind ?? 'molds'}>
+            <option value="molds">Qoliplar (/catalog)</option>
+            <option value="ready">Tayyor mahsulotlar (/ready)</option>
+          </select>
+        </label>
+        <label className="sps-field">
+          <span>URL slug (/uz/catalog/… yoki /uz/ready/…)</span>
           <input className="sps-input" aria-label="URL slug" name="slug" defaultValue={section?.slug ?? ''} required placeholder="thermal-panels" />
         </label>
         <label className="sps-field">

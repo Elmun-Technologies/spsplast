@@ -91,7 +91,7 @@ const sql = postgres(url, { max: 1, prepare: false, connect_timeout: 15 });
 try {
   const settingsRows = await sql`select key, value from site_settings`;
   const settings = Object.fromEntries(settingsRows.map((r) => [r.key, r.value]));
-  const sectionRows = await sql`select key, slug, name, sort from catalog_sections where visible order by sort, key`;
+  const sectionRows = await sql`select key, slug, name, sort, kind from catalog_sections where visible order by sort, key`;
   const productRows = await sql`
     select p.* from products p join catalog_sections s on s.key = p.section
     where p.status = 'published' and s.visible
@@ -148,7 +148,7 @@ try {
   write({
     generatedAt: new Date().toISOString(),
     settings,
-    sections: hasCatalog ? sectionRows.map((s) => ({ key: s.key, slug: s.slug, name: s.name, sort: s.sort })) : null,
+    sections: hasCatalog ? sectionRows.map((s) => ({ key: s.key, slug: s.slug, name: s.name, sort: s.sort, kind: s.kind })) : null,
     // Modellar src/data/models2027.ts da; bu yerda faqat validator nusxasi (.snapshot.json) uchun.
     models: null,
     seo: seoRows.map((r) => ({ path: r.path, lang: r.lang, title: r.title, description: r.description, h1: r.h1, intro: r.intro, noindex: r.noindex })),
