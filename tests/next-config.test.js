@@ -90,7 +90,8 @@ test('3. Tashqi rasm host‘lari yo‘q — butun media public/ ichida', () => {
 
 test('4. Prisma/S3 konfiguratsiyasi qolmagan', () => {
   assert.strictEqual(config.outputFileTracingIncludes, undefined, 'Prisma tracing bloki olib tashlanishi kerak');
-  assert.strictEqual(config.output, undefined, 'standalone (Docker) rejimi olib tashlanishi kerak');
+  // 2026-11-23: standalone qaytdi — Coolify Dockerfile (tests/docker2027.test.js), Fly.io/Prisma emas.
+  assert.strictEqual(config.output, 'standalone', 'Coolify Dockerfile standalone serverni ishlatadi');
   assert.strictEqual(config.poweredByHeader, false, 'X-Powered-Header yopiq bo‘lishi kerak');
 });
 

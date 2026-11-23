@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // Docker (Dockerfile, Coolify): runtime image faqat `.next/standalone` (kerakli node_modules) +
+  // `.next/static` + `public` dan iborat. `next start` (lokal, CI) ham ishlayveradi.
+  output: 'standalone',
   compress: true,
   poweredByHeader: false,
   /**

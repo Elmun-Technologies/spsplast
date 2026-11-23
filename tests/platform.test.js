@@ -112,9 +112,10 @@ test('6. Ommaviy sayt bazani import qilmaydi (u statik qoladi)', () => {
   assert.deepStrictEqual(offenders, [], `Ommaviy qatlamda baza importi: ${offenders.join(', ')}`);
 });
 
-test('7. Fly.io/Docker konfiguratsiyasi olib tashlangan', () => {
+test('7. Fly.io konfiguratsiyasi olib tashlangan', () => {
   const root = path.join(__dirname, '..');
-  for (const file of ['fly.toml', 'Dockerfile', '.github/workflows/fly-deploy.yml', '.github/workflows/cron-integrations.yml']) {
+  // Dockerfile 2026-11-23 da Coolify uchun qaytdi (tests/docker2027.test.js).
+  for (const file of ['fly.toml', '.github/workflows/fly-deploy.yml', '.github/workflows/cron-integrations.yml']) {
     assert.ok(!fs.existsSync(path.join(root, file)), `${file} hali ham mavjud`);
   }
 });

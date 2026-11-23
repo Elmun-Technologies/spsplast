@@ -253,7 +253,7 @@ Required for lead delivery: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`.
 Canonical domain: **`https://spsplast.uz`** (decision 2026-11-17: official domain; previously `spsplast.com`,
 decision 2026-11-01, `docs/SEO-2028-RU.md` §0 — a `.uz` ccTLD geo-targets Uzbekistan, so RU/KZ rankings rely on hreflang).
 It is the `SITE_URL` default; `spsplast.com`, `sps.uz` and all `www.*` 301 to it (`next.config.js`).
-Hosting: Hetzner + Coolify (Nixpacks, port 3000) with `sps-postgres`; Vercel is being retired.
+Hosting: Hetzner + Coolify (**Dockerfile** build pack since 2026-11-23, port 3000) with `sps-postgres`; Vercel is being retired.
 Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
 `NEXT_PUBLIC_GA_MEASUREMENT_ID`, `NEXT_PUBLIC_YANDEX_METRICA_ID`, `NEXT_PUBLIC_META_PIXEL_ID`.
 `DATABASE_URL` (Postgres) is required in production for lead storage and `/admin`; see `docs/ADMIN.md`.
@@ -535,6 +535,13 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   sahifalar Range bilan bo'laklab, faqat atrofdagilar chiziladi; worker `public/pdfjs/`, `?c=` brauzerda o'qiladi). Sahifa `noindex`.
   PDF yangilansa fayl nomini saqlang (yoki `CATALOG_PDFS` ni o'zgartiring). Katta (≥50 MB) PDF'lar repoga kirmaydi — yengil versiya.
 
+- **Dockerfile + standalone (2026-11-23, `tests/docker2027.test.js`)**: Nixpacks har deployda bir necha GB yangi qatlam yozib
+  Coolify diskini to'ldirardi. Endi multi-stage `Dockerfile` (`output: 'standalone'`, `node server.js`): `public/3d` va
+  `public/catalog` kontekstdan alohida `COPY --link` qatlam (o'zgarmasa qayta ishlatiladi), qolgan `public` builder'dan.
+  Build vaqtidagi env (`DATABASE_URL`, `SNAPSHOT_REQUIRED`, `NEXT_PUBLIC_*`) **`ARG`** bo'lishi shart — e'lon qilinmagan
+  build-arg jimgina tashlanadi va snapshot bo'sh chiqadi (test yangi `NEXT_PUBLIC_*` ni ham tekshiradi). Yangi `public/`
+  papkasi qo'shsangiz — hech narsa qilish kerak emas (builder'dan ko'chadi); yangi katta papka bo'lsa, 3d/catalog kabi alohida
+  qatlamga chiqaring. Coolify sozlamalari: `docs/DEPLOYMENT.md` §0.1. `next start` (lokal/CI) standalone bilan ham ishlaydi.
 - **JS hajmi 2026-11-23 (213–222 → 167–186 KB, `tests/speed2027.test.js` test 3)** — keep them:
   - **`'use client'` fayllarda `@/lib/ui`, `@/lib/pages`, `@/lib/catalog2027` va `dictionaries/{ui,pages}/<til>` ni qiymat
     sifatida import qilmang** (faqat `import type`). Ular uch tilning barcha lug'atini (~30 KB gzip) va modellar ro'yxatini
