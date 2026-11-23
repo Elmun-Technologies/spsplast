@@ -89,6 +89,18 @@ export const pagesEn: PagesDictionary = {
     specsTitle: 'Specifications',
     related: 'More from this section',
     sectionLeadTemplate: '{n} products. Leave a request — the manager will confirm price and lead time.',
+    // Bo'lim matnlari — katalog agenti (SPS_sayt_katalog_1_fasad.zip, sections.json). Admin: pages.ready.sectionIntros.*
+    sectionIntros: {
+      tayyor_termopanel: 'Facade finishing and insulation in one installation: a decorative face layer on an EPS foam or basalt base. Brick and stone textures, smooth and geometric. Use: private houses and cottages, commercial buildings, renovation of old facades.',
+      tayyor_bilayn: 'Large-format 1200 mm panels with horizontal rustication: they quickly cover large surfaces and give the facade a calm rhythm. Use: plain wall areas, floor-line bands, window surrounds.',
+      tayyor_dekor: 'Raised relief for accent areas: wave, diamond, circles, 3D facets. Light and shadow make the facade expressive at any time of day. Use: piers between windows, inserts between pilasters, accent areas above windows and entrances.',
+      tayyor_karniz: 'They finish the facade and divide it by floors. Profile height from 180 to 500 mm, projection up to 135 mm — from a light band to a massive eaves cornice. Use: eaves cornice, floor-line band, window head cornice.',
+      tayyor_tyaga: 'Narrow 150 mm profiles for neat framing and dividing of facade surfaces. Use: window and door surrounds, horizontal and vertical bands.',
+      tayyor_pilyastra: 'Vertical elements 100 to 500 mm wide: they emphasise corners, piers and entrances and give the facade classic rigour. Use: building corners, piers between windows, entrances, window surrounds.',
+      tayyor_kapitel: 'They finish a pilaster at the top and bottom — the pilaster becomes a classic column. Use: tops and bottoms of pilasters, columns and facade projections.',
+      tayyor_tsokol: 'Panels with a framed pattern for the lower part of the facade: they protect and finish the building plinth. Use: plinths of houses and commercial buildings, fences.',
+      tayyor_tosh: 'Thin 15 mm cladding with the texture of natural stone and travertine. Use: cladding of walls, plinths, columns and fences.',
+    } as Record<string, string>,
     waAboutTemplate: 'Hello! I would like the price and lead time for “{name}”.',
     moldsCross: 'Producing yourself? We also sell the molds for these products.',
     priceNote: 'The price depends on volume and delivery address — the manager will calculate it.',

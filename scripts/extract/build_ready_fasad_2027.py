@@ -1,191 +1,180 @@
 #!/usr/bin/env python3
-"""Tayyor fasad mahsulotlari (2026-11-23): bosma katalog "SPS_katalog_FASAD_MAHSULOT_A4" PDF → sayt.
+"""Fasad: tayyor mahsulotlar va qolip rasmlari — katalog agentining manba to'plamidan (2026-11-23).
 
-  python3 scripts/extract/build_ready_fasad_2027.py <MAHSULOT.pdf>
+  python3 scripts/extract/build_ready_fasad_2027.py <ochilgan ZIP papkasi>   # data/fasad.json + images/fasad/
+
+Manba (SPS_sayt_katalog_1_fasad.zip): 80 pozitsiya, har biri uchun <KOD>-mahsulot.png (fonsiz),
+<KOD>-qolip.png (PP + ABS qolip, fonsiz), <KOD>-sahna.jpg; fasad toshida (F23–F26) <KOD>-terilgan.jpg.
 
 Natija:
-  public/catalog/2027/tayyor-<slug>-scene.webp / -scene-sm.webp  — mahsulotning o'zi (katalog sahifasidagi studiya surati)
-  public/catalog/2027/tayyor-<slug>-fasad.webp                   — fasaddagi ko'rinish (o'ng sahifa)
-  scripts/catalog-add-2026-11-23-tayyor-fasad.json               — `add` (80 ta) + `moldPer` (qolip 1 m²),
-                                                                   `npm run catalog:sync -- <fayl>`
+  public/catalog/2027/tayyor-<slug>-scene.webp / -scene-sm.webp   tayyor mahsulot (shaffof, kvadrat)
+  public/catalog/2027/tayyor-<slug>-fasad.webp                     fasaddagi ko'rinish
+  public/catalog/2027/tayyor-<slug>-terilgan.webp                  fasad toshi devorda (F23–F26)
+  public/catalog/2027/<bo'lim>-<qolip slug>-qolip-3d.webp          qolip (PP + ABS) — qolip kartochkasi va sahifasi
+  public/catalog/2027/<bo'lim>-<qolip slug>-mahsulot-3d.webp       shu qolipdan quyilgan mahsulot (qolip sahifasida)
+  scripts/catalog-add-2026-11-23-tayyor-fasad.json  `add` (80 tayyor mahsulot) + `moldPer`
+  scripts/catalog-add-2026-11-24-fasad-qolip.json   `refresh` (80 qolip: yangi qolip/mahsulot rasmi, sahna o'zgarmaydi)
+  scripts/catalog-keep-2026-11-24.txt               eski qolip rasmlari — bazada sync'gacha kerak
+  → bazaga: `npm run catalog:sync -- <fayl>` (ikkala json ham).
 
-Ma'lumot: mundarija (№, nom, kod, sahifa) + har mahsulot sahifasidagi jadval (o'lcham, qalinlik, 1 m², asos, rang).
-Nomlar va uz/ru/en tarjimalari — shu koddagi qolip modelidan (data/models-2027.json), chunki katalogda faqat ruscha.
-Asl fayllar (fonsiz PNG, jadval) kelsa — shu skript o'rniga o'shalardan yasaladi; slug va bo'limlar o'zgarmaydi.
+Qoidalar:
+  - KRN-004 ikki mahsulotda (18×120 va 35×120). Agent 35×120 ga KRN-013 ni taklif qilgan — SPS tasdiqlamaguncha
+    saytda bosma katalogdagi KRN-004 qoladi; farq slug va o'lchamda.
+  - Katalogdagi "Толщина" = qolip chuqurligi, mahsulot qalinligi emas → tayyor mahsulotda ko'rsatilmaydi
+    (faqat fasad toshida 15 mm — u alohida berilgan).
+  - Mahsulot vazni manbada yo'q — bo'sh. 1 m² dagi soni faqat termopanellarda.
 """
 import json
 import os
-import re
 import subprocess
 import sys
-import tempfile
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 OUT_IMG = os.path.join(ROOT, "public", "catalog", "2027")
-OUT_JSON = os.path.join(ROOT, "scripts", "catalog-add-2026-11-23-tayyor-fasad.json")
+OUT_READY = os.path.join(ROOT, "scripts", "catalog-add-2026-11-23-tayyor-fasad.json")
+OUT_MOLDS = os.path.join(ROOT, "scripts", "catalog-add-2026-11-24-fasad-qolip.json")
+OUT_KEEP = os.path.join(ROOT, "scripts", "catalog-keep-2026-11-24.txt")
 
-# Kod prefiksi → tayyor mahsulot bo'limi (migratsiya 0004).
-SECTION_BY_PREFIX = {
-    "TP": "tayyor_termopanel", "BP": "tayyor_bilayn", "FSD": "tayyor_dekor", "KRN": "tayyor_karniz",
-    "NL": "tayyor_tyaga", "PL": "tayyor_pilyastra", "KPL": "tayyor_kapitel", "SL": "tayyor_tsokol", "F": "tayyor_tosh",
+# Agent bo'limi (section_key) → tayyor mahsulot bo'limi (migratsiya 0004).
+READY_SECTION = {
+    "termopanel": "tayyor_termopanel", "bilayn": "tayyor_bilayn", "dekor": "tayyor_dekor", "karniz": "tayyor_karniz",
+    "tyaga": "tayyor_tyaga", "pilyastra": "tayyor_pilyastra", "kapitel": "tayyor_kapitel", "tsokol": "tayyor_tsokol",
+    "tosh": "tayyor_tosh",
 }
-
-WORDS = {  # katalogdagi ruscha qiymat → uz / en
-    "Пенопласт": ("Penoplast", "EPS foam"), "Базальт": ("Bazalt", "Basalt"),
-    "Травертин": ("Travertin", "Travertine"), "Мрамор": ("Marmar", "Marble"), "Бетон": ("Beton", "Concrete"),
-}
+UZ_FIX = {"Mramor": "Marmar", "Penoplast": "Penoplast", "Bazalt": "Bazalt"}
 
 
 def L(uz, ru, en):
     return {"uz": uz, "ru": ru, "en": en}
 
 
-def tr(value):
-    parts = [p.strip() for p in value.split("·")]
-    uz = " · ".join(WORDS.get(p, (p, p))[0] for p in parts)
-    en = " · ".join(WORDS.get(p, (p, p))[1] for p in parts)
-    return L(uz, value, en)
+def dot(s, uz=False):
+    """"Пенопласт / Базальт", "Травертин, Мрамор" → "A · B"."""
+    parts = [p.strip() for p in s.replace("/", ",").split(",") if p.strip()]
+    return " · ".join(UZ_FIX.get(p, p) if uz else p for p in parts)
 
 
-def page_text(pdf, p):
-    return subprocess.run(["pdftotext", "-layout", "-f", str(p), "-l", str(p), pdf, "-"], capture_output=True, text=True).stdout
-
-
-def spaced(word):
-    return r"\s*".join(map(re.escape, word))
-
-
-def toc(pdf):
-    txt = subprocess.run(["pdftotext", "-layout", "-f", "1", "-l", "14", pdf, "-"], capture_output=True, text=True).stdout
-    blk = txt[txt.index("СОДЕРЖАНИЕ"):]
-    out = []
-    for n, name, code, page in re.findall(r"(\d{3})\s+([А-ЯЁA-Z0-9][А-ЯЁA-Z0-9 ×]*?)\s+([A-Z]{1,3}-\d{3}|F2\d)\s+(\d{3})", blk):
-        m = re.match(r"(\d{3})\s+(.*)", name)
-        if m:
-            n, name = m.group(1), m.group(2)
-        name = re.sub(r"^.*\d{3}\s+", "", name).strip()
-        out.append((int(n), name, code, int(page)))
-    return sorted(set(out))
-
-
-def specs(pdf, p):
-    lines = page_text(pdf, p).split("\n")
-    d = {}
-
-    def below(i, col):
-        for k in range(i + 1, min(i + 4, len(lines))):
-            seg = lines[k][col:] if len(lines[k]) > col else ""
-            if seg.strip():
-                return seg.strip()
-        return None
-
-    for i, line in enumerate(lines):
-        m = re.search(spaced("РАЗМЕР,ММ"), line)
-        if m and "size" not in d:
-            row = below(i, max(m.start() - 2, 0)) or ""
-            if (x := re.search(r"(\d{2,4}×\d{2,4}(?:×\d{1,3})?)", row)):
-                d["size"] = x.group(1)
-            if (x := re.search(r"(\d+)\s*мм", row)):
-                d["thickness"] = x.group(1)
-            if (x := re.search(r"([\d,]+)\s*шт", row)):
-                d["per"] = x.group(1)
-            if (x := re.search(r"Бетон", row)):
-                d["material"] = "Бетон"
-        for key, label in (("base", "ОСНОВА"), ("color", "ЦВЕТ")):
-            m = re.search(spaced(label), line)
-            if m and key not in d:
-                v = below(i, max(m.start() - 1, 0))
-                if v:
-                    d[key] = re.split(r"\s{3,}", v)[0]
-    return d
-
-
-def page_images(pdf, p, tmp):
-    prefix = os.path.join(tmp, f"p{p}")
-    subprocess.run(["pdfimages", "-j", "-f", str(p), "-l", str(p), pdf, prefix], check=True)
-    files = sorted(f for f in os.listdir(tmp) if f.startswith(f"p{p}-"))
-    sizes = {}
-    for f in files:
-        w, h = subprocess.run(["identify", "-format", "%w %h", os.path.join(tmp, f)], capture_output=True, text=True).stdout.split()
-        sizes[f] = (int(w), int(h))
-    page_bg = next((f for f, (w, h) in sizes.items() if h > w * 1.3 and w > 2000), None)  # chap sahifa foni (mahsulot shu yerda)
-    # O'ng sahifa: fasaddagi ko'rinish — eng katta qolgan rasm (yotiq 2400×1535 yoki tik 1420×2040; QR 744 va eskiz 900 emas).
-    rest = [(w * h, f) for f, (w, h) in sizes.items() if f != page_bg and min(w, h) >= 1000]
-    scene = max(rest)[1] if rest else None
-    return (os.path.join(tmp, page_bg) if page_bg else None, os.path.join(tmp, scene) if scene else None)
-
-
-def webp(src, dst, width, crop=None, quality=78):
-    cmd = ["convert", src]
-    if crop:
-        cmd += ["-crop", crop, "+repage"]
-    cmd += ["-resize", f"{width}x", "-strip", "-quality", str(quality), "-define", "webp:method=6", dst]
+def run(cmd):
     subprocess.run(cmd, check=True)
 
 
-def main():
-    pdf = sys.argv[1]
-    molds = json.load(open(os.path.join(ROOT, "data", "models-2027.json"), encoding="utf-8"))["models"]
-    by_code = {}
-    for m in molds:
-        if m.get("code"):
-            by_code.setdefault(m["code"], []).append(m)
+def cutout(src, dst, size, pad=0.07, quality=82):
+    """Fonsiz PNG → trim → markazda kvadrat (chetdan `pad`) → WebP (alfa saqlanadi)."""
+    inner = round(size * (1 - 2 * pad))
+    run([
+        "convert", src, "-trim", "+repage", "-filter", "Lanczos", "-resize", f"{inner}x{inner}",
+        "-background", "none", "-gravity", "center", "-extent", f"{size}x{size}",
+        "-strip", "-quality", str(quality), "-define", "webp:alpha-quality=90", "-define", "webp:method=6", dst,
+    ])
 
-    add = []
-    with tempfile.TemporaryDirectory() as tmp:
-        for n, name_ru, code, page in toc(pdf):
-            s = specs(pdf, page)
-            cands = by_code.get(code, [])
-            # KRN-004 katalogda ikki xil mahsulotda (180 va 350 mm) — o'lcham bo'yicha qolipga bog'lanadi.
-            mold = next((m for m in cands if s.get("size") and m["tiles"] and m["tiles"][0]["size"] == s["size"]), cands[0] if cands else None)
-            if not mold:
-                print("qolip topilmadi:", code, name_ru)
-                continue
-            slug = f"{mold['slug']}-tayyor"
-            prefix = re.match(r"[A-Z]+", code).group(0)
-            section = SECTION_BY_PREFIX[prefix]
-            bg, scene = page_images(pdf, page, tmp)
-            images = {"scene": None, "sceneSm": None, "molds": {}, "tiles": {}}
-            if bg:
-                # Chap sahifa 2520×3552: yuqoridagi rangli sarlavha va pastdagi jadvalsiz kvadrat — mahsulot shu oraliqda.
-                webp(bg, os.path.join(OUT_IMG, f"tayyor-{slug}-scene.webp"), 1100, crop="2520x2520+0+430")
-                webp(bg, os.path.join(OUT_IMG, f"tayyor-{slug}-scene-sm.webp"), 600, crop="2520x2520+0+430")
-                images["scene"] = f"/catalog/2027/tayyor-{slug}-scene.webp"
-                images["sceneSm"] = f"/catalog/2027/tayyor-{slug}-scene-sm.webp"
-            if scene:
-                webp(scene, os.path.join(OUT_IMG, f"tayyor-{slug}-fasad.webp"), 1400, quality=72)
-                images["tiles"]["A"] = f"/catalog/2027/tayyor-{slug}-fasad.webp"
-            # Asos jadvalda har doim ham o'qilmaydi (ustun siljiydi): katalogning "Материалы" sahifasi bo'yicha
-            # termopanel — penoplast yoki bazalt, qolgan elementlar — penoplast; fasad toshi — beton (asossiz).
-            if not s.get("base") and section != "tayyor_tosh":
-                s["base"] = "Пенопласт · Базальт" if section == "tayyor_termopanel" else "Пенопласт"
-            spec_rows = []
-            if s.get("thickness"):
-                spec_rows.append({"k": L("Qalinligi", "Толщина", "Thickness"), "v": L(f"{s['thickness']} mm", f"{s['thickness']} мм", f"{s['thickness']} mm")})
-            if s.get("base"):
-                spec_rows.append({"k": L("Asosi", "Основа", "Core"), "v": tr(s["base"])})
-            if s.get("color"):
-                spec_rows.append({"k": L("Rangi", "Цвет", "Colour"), "v": tr(s["color"])})
-            if s.get("material"):
-                spec_rows.append({"k": L("Material", "Материал", "Material"), "v": tr(s["material"])})
-            add.append({
-                "slug": slug,
-                "key": slug,
-                "code": code,
-                "section": section,
-                "name": dict(mold["name"]),
-                "subtitle": dict(mold["subtitle"]),
-                "kg": None,
-                "molds": [],
-                "tiles": [{"l": "A", "size": s.get("size") or (mold["tiles"][0]["size"] if mold["tiles"] else None), "per": s.get("per"), "cap": None}],
-                "specs": spec_rows,
-                "images": images,
-            })
-            print(f"{n:03d} {code:8s} {section:18s} {slug:40s} {s}")
-    # Qolipning 1 m² dagi soni = tayyor mahsulotniki (katalogda ikkalasida bir xil) — qolip sahifasidagi kalkulyator uchun.
-    mold_per = {x["slug"][: -len("-tayyor")]: x["tiles"][0]["per"] for x in add if x["tiles"] and x["tiles"][0].get("per")}
-    json.dump({"source": os.path.basename(pdf), "add": add, "moldPer": mold_per}, open(OUT_JSON, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-    print(f"{len(add)} ta tayyor mahsulot → {os.path.relpath(OUT_JSON, ROOT)}")
+
+def photo(src, dst, width, quality=74):
+    run(["convert", src, "-resize", f"{width}x>", "-strip", "-quality", str(quality), "-define", "webp:method=6", dst])
+
+
+def add_mold_images(r, mold, stem, img, web, old_refresh, refresh, keep):
+    cutout(img(r["img_qolip"]), os.path.join(OUT_IMG, f"{stem}-qolip-3d.webp"), 800)
+    cutout(img(r["img_mahsulot"]), os.path.join(OUT_IMG, f"{stem}-mahsulot-3d.webp"), 800)
+    new_molds = {"A": web(f"{stem}-qolip-3d.webp")}
+    new_tiles = {"A": web(f"{stem}-mahsulot-3d.webp")}
+    prev = old_refresh.get(mold["slug"], {})
+    cur = mold["images"]
+    # bazada hali eski yo'l turgan bo'lishi mumkin — fayl sync'gacha o'chmasin
+    for p in [*cur["molds"].values(), *cur["tiles"].values()]:
+        if p and p not in (new_molds["A"], new_tiles["A"]):
+            keep.add(p)
+    refresh[mold["slug"]] = {
+        "scene": prev.get("scene") or cur["scene"],
+        "sceneSm": prev.get("sceneSm") or cur["sceneSm"],
+        "molds": new_molds,
+        "tiles": new_tiles,
+    }
+
+
+def main():
+    src_dir = os.path.abspath(sys.argv[1])
+    rows = json.load(open(os.path.join(src_dir, "data", "fasad.json"), encoding="utf-8"))
+    models = {m["key"]: m for m in json.load(open(os.path.join(ROOT, "data", "models-2027.json"), encoding="utf-8"))["models"]}
+    old_refresh = {}
+    if os.path.exists(OUT_MOLDS):
+        old_refresh = json.load(open(OUT_MOLDS, encoding="utf-8")).get("refresh", {})
+    keep = set()
+
+    def img(rel):
+        return os.path.join(src_dir, rel)
+
+    def web(name):
+        return f"/catalog/2027/{name}"
+
+    add, refresh, mold_per = [], {}, {}
+    for r in rows:
+        mold = models[r["site_key"]]
+        if mold["section"].startswith("tayyor_"):
+            raise SystemExit(f"{r['site_key']}: qolip emas")
+        slug = f"{mold['slug']}-tayyor"
+        stem = f"{mold['section']}-{mold['slug']}"
+
+        # --- qolip katalogi: PP + ABS qolip va undan quyilgan mahsulot; sahna (3D) o'zgarmaydi.
+        # Tirik surat (nomida `-3d` yo'q) bor qolipga tegilmaydi — u render'dan ustun.
+        cur = mold["images"]
+        live = any(p and not p.endswith("-3d.webp") for p in [*cur["molds"].values(), *cur["tiles"].values()])
+        if not live:
+            add_mold_images(r, mold, stem, img, web, old_refresh, refresh, keep)
+
+        # --- tayyor mahsulot
+        cutout(img(r["img_mahsulot"]), os.path.join(OUT_IMG, f"tayyor-{slug}-scene.webp"), 1100, pad=0.06)
+        cutout(img(r["img_mahsulot"]), os.path.join(OUT_IMG, f"tayyor-{slug}-scene-sm.webp"), 600, pad=0.06)
+        images = {"scene": web(f"tayyor-{slug}-scene.webp"), "sceneSm": web(f"tayyor-{slug}-scene-sm.webp"),
+                  "molds": {}, "tiles": {}}
+        if r.get("img_sahna"):
+            photo(img(r["img_sahna"]), os.path.join(OUT_IMG, f"tayyor-{slug}-fasad.webp"), 1400)
+            images["tiles"]["A"] = web(f"tayyor-{slug}-fasad.webp")
+        if r.get("img_terilgan"):
+            photo(img(r["img_terilgan"]), os.path.join(OUT_IMG, f"tayyor-{slug}-terilgan.webp"), 1000)
+            images["tiles"]["B"] = web(f"tayyor-{slug}-terilgan.webp")
+
+        specs = []
+        stone = r["section_key"] == "tosh"
+        if stone and r.get("thickness_mm"):
+            t = r["thickness_mm"]
+            specs.append({"k": L("Qalinligi", "Толщина", "Thickness"), "v": L(f"{t} mm", f"{t} мм", f"{t} mm")})
+        if r.get("base_ru"):
+            label = L("Material", "Материал", "Material") if stone else L("Asosi", "Основа", "Core")
+            specs.append({"k": label, "v": L(dot(r["base_uz"], True), dot(r["base_ru"]), dot(r["base_en"]))})
+        if r.get("colors_ru"):
+            specs.append({"k": L("Ranglari", "Цвета", "Colours"),
+                          "v": L(dot(r["colors_uz"], True), dot(r["colors_ru"]), dot(r["colors_en"]))})
+
+        per = r.get("per_m2")
+        per_s = f"{per:g}".replace(".", ",") if per else None
+        if per_s:
+            mold_per[mold["slug"]] = per_s
+        desc = L(r.get("description_uz") or None, r.get("description_ru") or None, r.get("description_en") or None)
+        add.append({
+            "slug": slug,
+            "key": slug,
+            "code": mold["code"],
+            "section": READY_SECTION[r["section_key"]],
+            "name": L(r["name_uz"], r["name_ru"], r["name_en"]),
+            "subtitle": dict(mold["subtitle"]),
+            "note": desc if any(desc.values()) else None,
+            "kg": None,
+            "molds": [],
+            "tiles": [{"l": "A", "size": r["size_mm"], "per": per_s, "cap": None}],
+            "specs": specs,
+            "images": images,
+        })
+
+    meta = {"source": "SPS_sayt_katalog_1_fasad.zip (katalog agenti, 2026-11-23)"}
+    json.dump({**meta, "add": add, "moldPer": mold_per}, open(OUT_READY, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    json.dump({**meta, "applyStatic": True, "add": [], "refresh": refresh},
+              open(OUT_MOLDS, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    if os.path.exists(OUT_KEEP):
+        keep |= {x.strip() for x in open(OUT_KEEP, encoding="utf-8") if x.strip().startswith("/")}
+    with open(OUT_KEEP, "w", encoding="utf-8") as f:
+        f.write("# Eski fasad qolip rasmlari: prod baza `catalog-add-2026-11-24-fasad-qolip.json` sync qilinguncha kerak.\n")
+        f.write("".join(p + "\n" for p in sorted(keep)))
+    print(f"{len(add)} tayyor mahsulot, {len(refresh)} qolip rasmi, {len(keep)} eski fayl saqlanadi")
 
 
 if __name__ == "__main__":

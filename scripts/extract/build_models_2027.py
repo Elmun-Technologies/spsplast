@@ -724,6 +724,35 @@ def _existing_images(im):
     return out
 
 
+def apply_refresh(models, jobs):
+    """`refresh` (scripts/catalog-add-*.json, `"applyStatic": true` bo'lsa) statik katalogga ham: qolip/mahsulot rasmlari
+    katalog agentining fonsiz manbasidan (build_ready_fasad_2027.py). Tirik surat (nomida `-3d` yo'q) ustun — tegilmaydi.
+    Almashtirilgan eski render job'lari olib tashlanadi; eski fayl bazadagi yo'l uchun catalog-keep-*.txt da saqlanadi."""
+    by_slug = {m["slug"]: m for m in models}
+    dropped, n = set(), 0
+    for fn in sorted(os.listdir(os.path.join(ROOT, "scripts"))):
+        if not (fn.startswith("catalog-add-") and fn.endswith(".json")):
+            continue
+        data = json.load(open(os.path.join(ROOT, "scripts", fn), encoding="utf-8"))
+        if not data.get("applyStatic"):
+            continue
+        for slug, new in data.get("refresh", {}).items():
+            m = by_slug.get(slug)
+            if not m:
+                continue
+            im = m["images"]
+            old = [*im["molds"].values(), *im["tiles"].values()]
+            if any(p and not p.endswith("-3d.webp") for p in old):
+                continue
+            paths = [*new["molds"].values(), *new["tiles"].values()]
+            if not all(os.path.exists(os.path.join(ROOT, "public", p.lstrip("/"))) for p in paths):
+                continue
+            dropped |= {"public" + p for p in old if p and p not in paths}
+            im["molds"], im["tiles"] = dict(new["molds"]), dict(new["tiles"])
+            n += 1
+    return [j for j in jobs if j["dst"] not in dropped], n
+
+
 def load_added_models(models, model3d):
     """Bazaga sync skripti bilan qo'shilgan mahsulotlar (scripts/catalog-add-*.json `add`): trotuar qoliplari
     va boshqa bo'limlar, jumladan tayyor mahsulotlar (`section`: tayyor_fasad, tayyor_skameyka …).
@@ -800,6 +829,7 @@ def main():
     jobs = [j for j in jobs if j["dst"] not in live_dst] + live_jobs
 
     stats["render"] = attach_renders(models, jobs, model3d)
+    jobs, stats["refresh"] = apply_refresh(models, jobs)
     for m in models:
         im = m["images"]
         if not (im["scene"] or im["molds"] or im["tiles"]):

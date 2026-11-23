@@ -1,5 +1,5 @@
 {
- "source": "SPS_katalog_FASAD_MAHSULOT_A4_1ta__2_.pdf",
+ "source": "SPS_sayt_katalog_1_fasad.zip (katalog agenti, 2026-11-23)",
  "add": [
   {
    "slug": "tp-001-30x60-kirpich-tayyor",
@@ -16,6 +16,7 @@
     "ru": "Термопанель",
     "en": "Thermal panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -27,18 +28,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "30 mm",
-      "ru": "30 мм",
-      "en": "30 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -53,9 +42,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -88,6 +77,7 @@
     "ru": "Термопанель",
     "en": "Thermal panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -99,18 +89,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "30 mm",
-      "ru": "30 мм",
-      "en": "30 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -125,9 +103,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -160,6 +138,7 @@
     "ru": "Термопанель",
     "en": "Thermal panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -171,18 +150,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "30 mm",
-      "ru": "30 мм",
-      "en": "30 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -197,9 +164,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -232,6 +199,7 @@
     "ru": "Термопанель",
     "en": "Thermal panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -243,18 +211,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "30 mm",
-      "ru": "30 мм",
-      "en": "30 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -269,9 +225,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -304,6 +260,7 @@
     "ru": "Термопанель",
     "en": "Thermal panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -315,18 +272,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "35 mm",
-      "ru": "35 мм",
-      "en": "35 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -341,9 +286,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -376,6 +321,7 @@
     "ru": "Термопанель",
     "en": "Thermal panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -387,18 +333,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "35 mm",
-      "ru": "35 мм",
-      "en": "35 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -413,9 +347,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -448,6 +382,7 @@
     "ru": "Термопанель",
     "en": "Thermal panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -459,18 +394,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "35 mm",
-      "ru": "35 мм",
-      "en": "35 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -485,9 +408,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -520,6 +443,7 @@
     "ru": "Термопанель",
     "en": "Thermal panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -531,18 +455,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "35 mm",
-      "ru": "35 мм",
-      "en": "35 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -557,9 +469,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -592,6 +504,7 @@
     "ru": "Термопанель",
     "en": "Thermal panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -603,18 +516,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "35 mm",
-      "ru": "35 мм",
-      "en": "35 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -629,9 +530,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -664,6 +565,7 @@
     "ru": "Термопанель",
     "en": "Thermal panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -675,18 +577,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "30 mm",
-      "ru": "30 мм",
-      "en": "30 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -701,9 +591,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -736,6 +626,7 @@
     "ru": "Термопанель",
     "en": "Thermal panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -747,18 +638,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "35 mm",
-      "ru": "35 мм",
-      "en": "35 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -773,9 +652,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -808,6 +687,7 @@
     "ru": "Термопанель",
     "en": "Thermal panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -819,18 +699,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "35 mm",
-      "ru": "35 мм",
-      "en": "35 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -845,9 +713,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -880,6 +748,7 @@
     "ru": "Панель «Билайн»",
     "en": "Beeline panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -891,18 +760,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "40 mm",
-      "ru": "40 мм",
-      "en": "40 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -917,9 +774,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -952,6 +809,7 @@
     "ru": "Панель «Билайн»",
     "en": "Beeline panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -963,18 +821,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "41 mm",
-      "ru": "41 мм",
-      "en": "41 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -989,9 +835,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -1024,6 +870,7 @@
     "ru": "Панель «Билайн»",
     "en": "Beeline panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -1035,18 +882,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "40 mm",
-      "ru": "40 мм",
-      "en": "40 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -1061,9 +896,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -1096,6 +931,7 @@
     "ru": "Панель «Билайн»",
     "en": "Beeline panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -1107,18 +943,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "40 mm",
-      "ru": "40 мм",
-      "en": "40 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -1133,9 +957,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -1168,6 +992,7 @@
     "ru": "Панель «Билайн»",
     "en": "Beeline panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -1179,18 +1004,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "40 mm",
-      "ru": "40 мм",
-      "en": "40 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -1205,9 +1018,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -1240,6 +1053,7 @@
     "ru": "Декор-панель",
     "en": "Decor panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -1251,18 +1065,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "45 mm",
-      "ru": "45 мм",
-      "en": "45 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -1277,9 +1079,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -1312,6 +1114,7 @@
     "ru": "Декор-панель",
     "en": "Decor panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -1323,18 +1126,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "45 mm",
-      "ru": "45 мм",
-      "en": "45 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -1349,9 +1140,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -1384,6 +1175,7 @@
     "ru": "Декор-панель",
     "en": "Decor panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -1395,18 +1187,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "45 mm",
-      "ru": "45 мм",
-      "en": "45 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -1421,9 +1201,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -1456,6 +1236,7 @@
     "ru": "Декор-панель",
     "en": "Decor panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -1467,18 +1248,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "45 mm",
-      "ru": "45 мм",
-      "en": "45 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -1493,9 +1262,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -1528,6 +1297,7 @@
     "ru": "Декор-панель",
     "en": "Decor panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -1539,18 +1309,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "45 mm",
-      "ru": "45 мм",
-      "en": "45 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -1565,9 +1323,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -1600,6 +1358,7 @@
     "ru": "Декор-панель",
     "en": "Decor panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -1611,18 +1370,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "45 mm",
-      "ru": "45 мм",
-      "en": "45 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -1637,9 +1384,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -1672,6 +1419,7 @@
     "ru": "Декор-панель",
     "en": "Decor panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -1683,18 +1431,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "45 mm",
-      "ru": "45 мм",
-      "en": "45 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -1709,9 +1445,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -1744,6 +1480,7 @@
     "ru": "Декор-панель",
     "en": "Decor panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -1755,18 +1492,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "45 mm",
-      "ru": "45 мм",
-      "en": "45 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -1781,9 +1506,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -1816,6 +1541,7 @@
     "ru": "Декор-панель",
     "en": "Decor panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -1827,18 +1553,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "45 mm",
-      "ru": "45 мм",
-      "en": "45 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -1853,9 +1567,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -1888,6 +1602,7 @@
     "ru": "Декор-панель",
     "en": "Decor panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -1899,18 +1614,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "45 mm",
-      "ru": "45 мм",
-      "en": "45 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -1925,9 +1628,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -1960,6 +1663,7 @@
     "ru": "Декор-панель",
     "en": "Decor panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -1971,18 +1675,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "56 mm",
-      "ru": "56 мм",
-      "en": "56 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -1997,9 +1689,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -2032,6 +1724,7 @@
     "ru": "Декор-панель",
     "en": "Decor panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -2043,18 +1736,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "45 mm",
-      "ru": "45 мм",
-      "en": "45 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -2069,9 +1750,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -2104,6 +1785,7 @@
     "ru": "Декор-панель",
     "en": "Decor panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -2115,18 +1797,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "45 mm",
-      "ru": "45 мм",
-      "en": "45 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -2141,9 +1811,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -2176,6 +1846,7 @@
     "ru": "Декор-панель",
     "en": "Decor panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -2187,18 +1858,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "60 mm",
-      "ru": "60 мм",
-      "en": "60 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -2213,9 +1872,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -2248,6 +1907,7 @@
     "ru": "Декор-панель",
     "en": "Decor panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -2259,18 +1919,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "45 mm",
-      "ru": "45 мм",
-      "en": "45 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -2285,9 +1933,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -2320,6 +1968,7 @@
     "ru": "Декор-панель",
     "en": "Decor panel"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -2331,18 +1980,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "45 mm",
-      "ru": "45 мм",
-      "en": "45 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -2357,9 +1994,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -2392,6 +2029,7 @@
     "ru": "Карниз",
     "en": "Cornice"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -2403,18 +2041,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "65 mm",
-      "ru": "65 мм",
-      "en": "65 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -2429,9 +2055,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -2464,6 +2090,7 @@
     "ru": "Карниз",
     "en": "Cornice"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -2475,18 +2102,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "70 mm",
-      "ru": "70 мм",
-      "en": "70 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -2501,9 +2116,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -2536,6 +2151,7 @@
     "ru": "Карниз",
     "en": "Cornice"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -2547,18 +2163,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "60 mm",
-      "ru": "60 мм",
-      "en": "60 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -2573,9 +2177,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -2608,6 +2212,7 @@
     "ru": "Карниз",
     "en": "Cornice"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -2619,18 +2224,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "55 mm",
-      "ru": "55 мм",
-      "en": "55 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -2645,9 +2238,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -2680,6 +2273,7 @@
     "ru": "Карниз",
     "en": "Cornice"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -2691,18 +2285,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "105 mm",
-      "ru": "105 мм",
-      "en": "105 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -2717,9 +2299,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -2738,9 +2320,9 @@
    }
   },
   {
-   "slug": "krn-007-35x120-karniz-tayyor",
-   "key": "krn-007-35x120-karniz-tayyor",
-   "code": "KRN-007",
+   "slug": "krn-005-35x120-karniz-tayyor",
+   "key": "krn-005-35x120-karniz-tayyor",
+   "code": "KRN-005",
    "section": "tayyor_karniz",
    "name": {
     "uz": "35×120 Karniz",
@@ -2752,6 +2334,7 @@
     "ru": "Карниз",
     "en": "Cornice"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -2763,18 +2346,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "115 mm",
-      "ru": "115 мм",
-      "en": "115 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -2789,9 +2360,70 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-krn-005-35x120-karniz-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-krn-005-35x120-karniz-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-krn-005-35x120-karniz-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "krn-007-35x120-karniz-tayyor",
+   "key": "krn-007-35x120-karniz-tayyor",
+   "code": "KRN-007",
+   "section": "tayyor_karniz",
+   "name": {
+    "uz": "35×120 Karniz",
+    "ru": "35×120 Карниз",
+    "en": "35×120 Cornice"
+   },
+   "subtitle": {
+    "uz": "Karniz",
+    "ru": "Карниз",
+    "en": "Cornice"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "350×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -2824,6 +2456,7 @@
     "ru": "Карниз",
     "en": "Cornice"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -2835,18 +2468,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "135 mm",
-      "ru": "135 мм",
-      "en": "135 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -2861,9 +2482,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -2896,6 +2517,7 @@
     "ru": "Карниз",
     "en": "Cornice"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -2907,18 +2529,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "85 mm",
-      "ru": "85 мм",
-      "en": "85 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -2933,9 +2543,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -2968,6 +2578,7 @@
     "ru": "Карниз",
     "en": "Cornice"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -2979,18 +2590,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "75 mm",
-      "ru": "75 мм",
-      "en": "75 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -3005,9 +2604,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -3040,6 +2639,7 @@
     "ru": "Карниз",
     "en": "Cornice"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -3051,18 +2651,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "70 mm",
-      "ru": "70 мм",
-      "en": "70 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -3077,9 +2665,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -3112,6 +2700,7 @@
     "ru": "Карниз",
     "en": "Cornice"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -3123,18 +2712,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "115 mm",
-      "ru": "115 мм",
-      "en": "115 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -3149,9 +2726,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -3184,6 +2761,7 @@
     "ru": "Карниз",
     "en": "Cornice"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -3195,18 +2773,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "65 mm",
-      "ru": "65 мм",
-      "en": "65 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -3221,9 +2787,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -3256,6 +2822,7 @@
     "ru": "Тяга",
     "en": "Moulding"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -3267,18 +2834,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "60 mm",
-      "ru": "60 мм",
-      "en": "60 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -3293,9 +2848,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -3328,6 +2883,7 @@
     "ru": "Тяга",
     "en": "Moulding"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -3339,18 +2895,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "60 mm",
-      "ru": "60 мм",
-      "en": "60 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -3365,9 +2909,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -3400,6 +2944,7 @@
     "ru": "Тяга",
     "en": "Moulding"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -3411,18 +2956,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "80 mm",
-      "ru": "80 мм",
-      "en": "80 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -3437,9 +2970,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -3472,6 +3005,7 @@
     "ru": "Пилястра",
     "en": "Pilaster"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -3483,18 +3017,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "40 mm",
-      "ru": "40 мм",
-      "en": "40 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -3509,9 +3031,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -3544,6 +3066,7 @@
     "ru": "Пилястра",
     "en": "Pilaster"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -3555,18 +3078,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "40 mm",
-      "ru": "40 мм",
-      "en": "40 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -3581,9 +3092,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -3616,6 +3127,7 @@
     "ru": "Пилястра",
     "en": "Pilaster"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -3627,18 +3139,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "40 mm",
-      "ru": "40 мм",
-      "en": "40 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -3653,9 +3153,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -3688,6 +3188,7 @@
     "ru": "Пилястра",
     "en": "Pilaster"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -3699,18 +3200,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "60 mm",
-      "ru": "60 мм",
-      "en": "60 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -3725,9 +3214,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -3760,6 +3249,7 @@
     "ru": "Пилястра",
     "en": "Pilaster"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -3771,18 +3261,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "60 mm",
-      "ru": "60 мм",
-      "en": "60 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -3797,9 +3275,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -3832,6 +3310,7 @@
     "ru": "Пилястра",
     "en": "Pilaster"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -3843,18 +3322,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "60 mm",
-      "ru": "60 мм",
-      "en": "60 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -3869,9 +3336,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -3904,6 +3371,7 @@
     "ru": "Пилястра",
     "en": "Pilaster"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -3915,18 +3383,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "60 mm",
-      "ru": "60 мм",
-      "en": "60 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -3941,9 +3397,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -3976,6 +3432,7 @@
     "ru": "Пилястра",
     "en": "Pilaster"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -3987,18 +3444,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "60 mm",
-      "ru": "60 мм",
-      "en": "60 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -4013,9 +3458,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -4048,6 +3493,7 @@
     "ru": "Пилястра",
     "en": "Pilaster"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -4059,18 +3505,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "80 mm",
-      "ru": "80 мм",
-      "en": "80 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -4085,9 +3519,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -4120,6 +3554,7 @@
     "ru": "Пилястра",
     "en": "Pilaster"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -4131,18 +3566,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "60 mm",
-      "ru": "60 мм",
-      "en": "60 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -4157,9 +3580,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -4192,6 +3615,7 @@
     "ru": "Пилястра",
     "en": "Pilaster"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -4203,18 +3627,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "40 mm",
-      "ru": "40 мм",
-      "en": "40 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -4229,9 +3641,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -4264,6 +3676,7 @@
     "ru": "Пилястра",
     "en": "Pilaster"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -4275,18 +3688,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "40 mm",
-      "ru": "40 мм",
-      "en": "40 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -4301,9 +3702,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -4336,6 +3737,7 @@
     "ru": "Пилястра",
     "en": "Pilaster"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -4347,18 +3749,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "40 mm",
-      "ru": "40 мм",
-      "en": "40 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -4373,9 +3763,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -4408,6 +3798,7 @@
     "ru": "Пилястра",
     "en": "Pilaster"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -4419,18 +3810,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "40 mm",
-      "ru": "40 мм",
-      "en": "40 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -4445,9 +3824,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -4480,6 +3859,7 @@
     "ru": "Пилястра",
     "en": "Pilaster"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -4491,18 +3871,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "60 mm",
-      "ru": "60 мм",
-      "en": "60 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -4517,9 +3885,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -4552,6 +3920,7 @@
     "ru": "База капители",
     "en": "Capital base"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -4563,18 +3932,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "65 mm",
-      "ru": "65 мм",
-      "en": "65 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -4589,9 +3946,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -4624,6 +3981,7 @@
     "ru": "База капители",
     "en": "Capital base"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -4635,18 +3993,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "65 mm",
-      "ru": "65 мм",
-      "en": "65 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -4661,9 +4007,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -4696,6 +4042,7 @@
     "ru": "База капители",
     "en": "Capital base"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -4707,18 +4054,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "65 mm",
-      "ru": "65 мм",
-      "en": "65 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -4733,9 +4068,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -4768,6 +4103,7 @@
     "ru": "База капители",
     "en": "Capital base"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -4779,18 +4115,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "65 mm",
-      "ru": "65 мм",
-      "en": "65 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -4805,9 +4129,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -4840,6 +4164,7 @@
     "ru": "База капители",
     "en": "Capital base"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -4851,18 +4176,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "85 mm",
-      "ru": "85 мм",
-      "en": "85 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -4877,9 +4190,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -4912,6 +4225,7 @@
     "ru": "База капители",
     "en": "Capital base"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -4923,18 +4237,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "65 mm",
-      "ru": "65 мм",
-      "en": "65 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -4949,9 +4251,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -4984,6 +4286,7 @@
     "ru": "База капители",
     "en": "Capital base"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -4995,18 +4298,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "85 mm",
-      "ru": "85 мм",
-      "en": "85 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -5021,9 +4312,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -5056,6 +4347,7 @@
     "ru": "База капители",
     "en": "Capital base"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -5067,18 +4359,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "85 mm",
-      "ru": "85 мм",
-      "en": "85 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -5093,9 +4373,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -5128,6 +4408,7 @@
     "ru": "Цоколь",
     "en": "Plinth"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -5139,18 +4420,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "40 mm",
-      "ru": "40 мм",
-      "en": "40 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -5165,9 +4434,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -5200,6 +4469,7 @@
     "ru": "Цоколь",
     "en": "Plinth"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -5211,18 +4481,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "40 mm",
-      "ru": "40 мм",
-      "en": "40 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -5237,9 +4495,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -5272,6 +4530,7 @@
     "ru": "Цоколь",
     "en": "Plinth"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -5283,18 +4542,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "40 mm",
-      "ru": "40 мм",
-      "en": "40 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -5309,9 +4556,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -5344,6 +4591,7 @@
     "ru": "Цоколь",
     "en": "Plinth"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
@@ -5355,18 +4603,6 @@
     }
    ],
    "specs": [
-    {
-     "k": {
-      "uz": "Qalinligi",
-      "ru": "Толщина",
-      "en": "Thickness"
-     },
-     "v": {
-      "uz": "42 mm",
-      "ru": "42 мм",
-      "en": "42 mm"
-     }
-    },
     {
      "k": {
       "uz": "Asosi",
@@ -5381,9 +4617,9 @@
     },
     {
      "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
      },
      "v": {
       "uz": "Travertin · Marmar",
@@ -5402,8 +4638,8 @@
    }
   },
   {
-   "slug": "f23-4-tali-travertin-tayyor-tayyor",
-   "key": "f23-4-tali-travertin-tayyor-tayyor",
+   "slug": "f23-4-tali-travertin-tayyor",
+   "key": "f23-4-tali-travertin-tayyor",
    "code": "F23",
    "section": "tayyor_tosh",
    "name": {
@@ -5416,204 +4652,13 @@
     "ru": "Фасадная плитка",
     "en": "Facade tile"
    },
+   "note": null,
    "kg": null,
    "molds": [],
    "tiles": [
     {
      "l": "A",
-     "size": "88×220×15",
-     "per": null,
-     "cap": null
-    }
-   ],
-   "specs": [
-    {
-     "k": {
-      "uz": "Material",
-      "ru": "Материал",
-      "en": "Material"
-     },
-     "v": {
-      "uz": "Beton",
-      "ru": "Бетон",
-      "en": "Concrete"
-     }
-    }
-   ],
-   "images": {
-    "scene": "/catalog/2027/tayyor-f23-4-tali-travertin-tayyor-tayyor-scene.webp",
-    "sceneSm": "/catalog/2027/tayyor-f23-4-tali-travertin-tayyor-tayyor-scene-sm.webp",
-    "molds": {},
-    "tiles": {
-     "A": "/catalog/2027/tayyor-f23-4-tali-travertin-tayyor-tayyor-fasad.webp"
-    }
-   }
-  },
-  {
-   "slug": "f24-4-tali-tosh-tayyor-tayyor",
-   "key": "f24-4-tali-tosh-tayyor-tayyor",
-   "code": "F24",
-   "section": "tayyor_tosh",
-   "name": {
-    "uz": "4 tali tosh",
-    "ru": "4 тали камень",
-    "en": "Stone, 4 pieces"
-   },
-   "subtitle": {
-    "uz": "Fasad plitkasi",
-    "ru": "Фасадная плитка",
-    "en": "Facade tile"
-   },
-   "kg": null,
-   "molds": [],
-   "tiles": [
-    {
-     "l": "A",
-     "size": "88×220×15",
-     "per": null,
-     "cap": null
-    }
-   ],
-   "specs": [
-    {
-     "k": {
-      "uz": "Material",
-      "ru": "Материал",
-      "en": "Material"
-     },
-     "v": {
-      "uz": "Beton",
-      "ru": "Бетон",
-      "en": "Concrete"
-     }
-    }
-   ],
-   "images": {
-    "scene": "/catalog/2027/tayyor-f24-4-tali-tosh-tayyor-tayyor-scene.webp",
-    "sceneSm": "/catalog/2027/tayyor-f24-4-tali-tosh-tayyor-tayyor-scene-sm.webp",
-    "molds": {},
-    "tiles": {
-     "A": "/catalog/2027/tayyor-f24-4-tali-tosh-tayyor-tayyor-fasad.webp"
-    }
-   }
-  },
-  {
-   "slug": "f25-6-tali-tosh-tayyor-tayyor",
-   "key": "f25-6-tali-tosh-tayyor-tayyor",
-   "code": "F25",
-   "section": "tayyor_tosh",
-   "name": {
-    "uz": "6 tali tosh",
-    "ru": "6 тали камень",
-    "en": "Stone, 6 pieces"
-   },
-   "subtitle": {
-    "uz": "Fasad plitkasi",
-    "ru": "Фасадная плитка",
-    "en": "Facade tile"
-   },
-   "kg": null,
-   "molds": [],
-   "tiles": [
-    {
-     "l": "A",
-     "size": "67×165×15",
-     "per": null,
-     "cap": null
-    }
-   ],
-   "specs": [
-    {
-     "k": {
-      "uz": "Material",
-      "ru": "Материал",
-      "en": "Material"
-     },
-     "v": {
-      "uz": "Beton",
-      "ru": "Бетон",
-      "en": "Concrete"
-     }
-    }
-   ],
-   "images": {
-    "scene": "/catalog/2027/tayyor-f25-6-tali-tosh-tayyor-tayyor-scene.webp",
-    "sceneSm": "/catalog/2027/tayyor-f25-6-tali-tosh-tayyor-tayyor-scene-sm.webp",
-    "molds": {},
-    "tiles": {
-     "A": "/catalog/2027/tayyor-f25-6-tali-tosh-tayyor-tayyor-fasad.webp"
-    }
-   }
-  },
-  {
-   "slug": "f26-korka-15-30-tayyor-tayyor",
-   "key": "f26-korka-15-30-tayyor-tayyor",
-   "code": "F26",
-   "section": "tayyor_tosh",
-   "name": {
-    "uz": "Korka 15×30",
-    "ru": "Корка 15×30",
-    "en": "Bark 15×30"
-   },
-   "subtitle": {
-    "uz": "Fasad plitkasi",
-    "ru": "Фасадная плитка",
-    "en": "Facade tile"
-   },
-   "kg": null,
-   "molds": [],
-   "tiles": [
-    {
-     "l": "A",
-     "size": "150×300×15",
-     "per": null,
-     "cap": null
-    }
-   ],
-   "specs": [
-    {
-     "k": {
-      "uz": "Material",
-      "ru": "Материал",
-      "en": "Material"
-     },
-     "v": {
-      "uz": "Beton",
-      "ru": "Бетон",
-      "en": "Concrete"
-     }
-    }
-   ],
-   "images": {
-    "scene": "/catalog/2027/tayyor-f26-korka-15-30-tayyor-tayyor-scene.webp",
-    "sceneSm": "/catalog/2027/tayyor-f26-korka-15-30-tayyor-tayyor-scene-sm.webp",
-    "molds": {},
-    "tiles": {
-     "A": "/catalog/2027/tayyor-f26-korka-15-30-tayyor-tayyor-fasad.webp"
-    }
-   }
-  },
-  {
-   "slug": "krn-005-35x120-karniz-tayyor",
-   "key": "krn-005-35x120-karniz-tayyor",
-   "code": "KRN-005",
-   "section": "tayyor_karniz",
-   "name": {
-    "uz": "35×120 Karniz",
-    "ru": "35×120 Карниз",
-    "en": "35×120 Cornice"
-   },
-   "subtitle": {
-    "uz": "Karniz",
-    "ru": "Карниз",
-    "en": "Cornice"
-   },
-   "kg": null,
-   "molds": [],
-   "tiles": [
-    {
-     "l": "A",
-     "size": "350×1200",
+     "size": "88×220",
      "per": null,
      "cap": null
     }
@@ -5626,42 +4671,217 @@
       "en": "Thickness"
      },
      "v": {
-      "uz": "125 mm",
-      "ru": "125 мм",
-      "en": "125 mm"
+      "uz": "15 mm",
+      "ru": "15 мм",
+      "en": "15 mm"
      }
     },
     {
      "k": {
-      "uz": "Asosi",
-      "ru": "Основа",
-      "en": "Core"
+      "uz": "Material",
+      "ru": "Материал",
+      "en": "Material"
      },
      "v": {
-      "uz": "Penoplast",
-      "ru": "Пенопласт",
-      "en": "EPS foam"
-     }
-    },
-    {
-     "k": {
-      "uz": "Rangi",
-      "ru": "Цвет",
-      "en": "Colour"
-     },
-     "v": {
-      "uz": "Travertin · Marmar",
-      "ru": "Травертин · Мрамор",
-      "en": "Travertine · Marble"
+      "uz": "Beton",
+      "ru": "Бетон",
+      "en": "Concrete"
      }
     }
    ],
    "images": {
-    "scene": "/catalog/2027/tayyor-krn-005-35x120-karniz-tayyor-scene.webp",
-    "sceneSm": "/catalog/2027/tayyor-krn-005-35x120-karniz-tayyor-scene-sm.webp",
+    "scene": "/catalog/2027/tayyor-f23-4-tali-travertin-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-f23-4-tali-travertin-tayyor-scene-sm.webp",
     "molds": {},
     "tiles": {
-     "A": "/catalog/2027/tayyor-krn-005-35x120-karniz-tayyor-fasad.webp"
+     "A": "/catalog/2027/tayyor-f23-4-tali-travertin-tayyor-fasad.webp",
+     "B": "/catalog/2027/tayyor-f23-4-tali-travertin-tayyor-terilgan.webp"
+    }
+   }
+  },
+  {
+   "slug": "f24-4-tali-tosh-tayyor",
+   "key": "f24-4-tali-tosh-tayyor",
+   "code": "F24",
+   "section": "tayyor_tosh",
+   "name": {
+    "uz": "4 tali tosh",
+    "ru": "4 тали камень",
+    "en": "Stone, 4 pieces"
+   },
+   "subtitle": {
+    "uz": "Fasad plitkasi",
+    "ru": "Фасадная плитка",
+    "en": "Facade tile"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "88×220",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Qalinligi",
+      "ru": "Толщина",
+      "en": "Thickness"
+     },
+     "v": {
+      "uz": "15 mm",
+      "ru": "15 мм",
+      "en": "15 mm"
+     }
+    },
+    {
+     "k": {
+      "uz": "Material",
+      "ru": "Материал",
+      "en": "Material"
+     },
+     "v": {
+      "uz": "Beton",
+      "ru": "Бетон",
+      "en": "Concrete"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-f24-4-tali-tosh-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-f24-4-tali-tosh-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-f24-4-tali-tosh-tayyor-fasad.webp",
+     "B": "/catalog/2027/tayyor-f24-4-tali-tosh-tayyor-terilgan.webp"
+    }
+   }
+  },
+  {
+   "slug": "f25-6-tali-tosh-tayyor",
+   "key": "f25-6-tali-tosh-tayyor",
+   "code": "F25",
+   "section": "tayyor_tosh",
+   "name": {
+    "uz": "6 tali tosh",
+    "ru": "6 тали камень",
+    "en": "Stone, 6 pieces"
+   },
+   "subtitle": {
+    "uz": "Fasad plitkasi",
+    "ru": "Фасадная плитка",
+    "en": "Facade tile"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "67×165",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Qalinligi",
+      "ru": "Толщина",
+      "en": "Thickness"
+     },
+     "v": {
+      "uz": "15 mm",
+      "ru": "15 мм",
+      "en": "15 mm"
+     }
+    },
+    {
+     "k": {
+      "uz": "Material",
+      "ru": "Материал",
+      "en": "Material"
+     },
+     "v": {
+      "uz": "Beton",
+      "ru": "Бетон",
+      "en": "Concrete"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-f25-6-tali-tosh-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-f25-6-tali-tosh-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-f25-6-tali-tosh-tayyor-fasad.webp",
+     "B": "/catalog/2027/tayyor-f25-6-tali-tosh-tayyor-terilgan.webp"
+    }
+   }
+  },
+  {
+   "slug": "f26-korka-15-30-tayyor",
+   "key": "f26-korka-15-30-tayyor",
+   "code": "F26",
+   "section": "tayyor_tosh",
+   "name": {
+    "uz": "Korka 15×30",
+    "ru": "Корка 15×30",
+    "en": "Bark 15×30"
+   },
+   "subtitle": {
+    "uz": "Fasad plitkasi",
+    "ru": "Фасадная плитка",
+    "en": "Facade tile"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "150×300",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Qalinligi",
+      "ru": "Толщина",
+      "en": "Thickness"
+     },
+     "v": {
+      "uz": "15 mm",
+      "ru": "15 мм",
+      "en": "15 mm"
+     }
+    },
+    {
+     "k": {
+      "uz": "Material",
+      "ru": "Материал",
+      "en": "Material"
+     },
+     "v": {
+      "uz": "Beton",
+      "ru": "Бетон",
+      "en": "Concrete"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-f26-korka-15-30-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-f26-korka-15-30-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-f26-korka-15-30-tayyor-fasad.webp",
+     "B": "/catalog/2027/tayyor-f26-korka-15-30-tayyor-terilgan.webp"
     }
    }
   }

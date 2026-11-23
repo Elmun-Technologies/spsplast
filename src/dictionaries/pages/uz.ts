@@ -91,6 +91,18 @@ export const pagesUz = {
     specsTitle: 'Xususiyatlari',
     related: 'Shu bo‘limdagi boshqa mahsulotlar',
     sectionLeadTemplate: '{n} ta mahsulot. Zayafka qoldiring — menejer narx va muddatni aytadi.',
+    // Bo'lim matnlari — katalog agenti (SPS_sayt_katalog_1_fasad.zip, sections.json). Admin: pages.ready.sectionIntros.*
+    sectionIntros: {
+      tayyor_termopanel: 'Fasadni pardozlash va isitish — bitta montajda: penoplast yoki bazalt asosdagi dekorativ yuz qatlami. G‘isht, tosh fakturalari, silliq va geometrik turlari. Qo‘llanilishi: xususiy uylar va kottejlar, tijorat binolari, eski fasadlarni yangilash.',
+      tayyor_bilayn: 'Gorizontal rustli, uzunligi 1200 mm bo‘lgan katta formatli panellar: katta tekisliklarni tez yopadi va fasadga sokin ritm beradi. Qo‘llanilishi: devorlarning silliq qismlari, qavatlararo belbog‘lar, deraza atrofi.',
+      tayyor_dekor: 'Urg‘u beriladigan joylar uchun hajmli relyef: to‘lqin, romb, doiralar, 3D qirralar. Yorug‘lik va soya fasadni kunning istalgan vaqtida ifodali qiladi. Qo‘llanilishi: derazalar orasidagi devorlar, pilyastralar orasidagi qo‘shimchalar, deraza va kirish ustidagi urg‘u joylar.',
+      tayyor_karniz: 'Fasadni yakunlaydi va qavatlarga ajratadi. Profil balandligi 180 dan 500 mm gacha, chiqishi 135 mm gacha — yengil belbog‘dan tortib massiv tom osti karnizigacha. Qo‘llanilishi: tom osti karnizi, qavatlararo belbog‘, deraza ustidagi karniz.',
+      tayyor_tyaga: 'Fasad tekisliklarini chiroyli hoshiyalash va ajratish uchun eni 150 mm bo‘lgan ingichka profillar. Qo‘llanilishi: deraza va eshiklar atrofi, gorizontal va vertikal belbog‘lar.',
+      tayyor_pilyastra: 'Eni 100 dan 500 mm gacha bo‘lgan vertikal elementlar: burchaklar, derazalararo devorlar va kirish guruhlarini ajratib ko‘rsatadi, fasadga klassik qat’iylik beradi. Qo‘llanilishi: bino burchaklari, derazalar orasidagi devorlar, kirish guruhlari, deraza atrofi.',
+      tayyor_kapitel: 'Pilyastrani yuqoridan va pastdan yakunlaydi — pilyastra klassik ustunga aylanadi. Qo‘llanilishi: pilyastralar, ustunlar va fasad chiqiqlarining yuqori va pastki qismi.',
+      tayyor_tsokol: 'Fasadning pastki qismi uchun ramkali naqshli panellar: bino tsokolini himoya qiladi va bezaydi. Qo‘llanilishi: uylar va tijorat binolarining tsokoli, to‘siqlar.',
+      tayyor_tosh: 'Tabiiy tosh va travertin fakturasidagi qalinligi 15 mm bo‘lgan yupqa qoplama. Qo‘llanilishi: devorlar, tsokol, ustunlar va to‘siqlarni qoplash.',
+    } as Record<string, string>,
     waAboutTemplate: 'Salom! «{name}» bo‘yicha narx va muddatni bilmoqchiman.',
     moldsCross: 'O‘zingiz ishlab chiqarasizmi? Qoliplarini ham sotamiz.',
     priceNote: 'Narx hajm va yetkazish manziliga bog‘liq — menejer hisoblab aytadi.',
