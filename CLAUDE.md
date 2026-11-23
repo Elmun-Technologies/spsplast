@@ -61,6 +61,8 @@ src/server/                  # DB layer: db/schema.ts, db/client.ts, leads.ts, a
 drizzle/                     # GENERATED SQL migrations (`npm run db:generate`), applied by `npm run db:migrate`
 vercel.json                  # buildCommand: `npm run db:migrate:deploy && npm run build` (overrides the dashboard)
 .nvmrc                       # Node version pin (also package.json `engines`, CI's node-version-file)
+docs/topshirish/             # HANDOVER package (uz): admin guide, launch checklist (Coolify), quality report, access list (no secrets)
+src/lib/patterns.ts          # mold line-ornament backgrounds: PATTERNS, sectionPattern(), patternStyle() → `.pat` CSS mask
 docs/ADMIN.md                # admin setup (Neon/Supabase, migrate, first admin) + security notes
 docs/ROADMAP-2027.md         # gap analysis + stages 7–12
 src/components/site/         # new layer: SiteHeader, HeaderClient, SiteFooter, LangSwitch, icons, MotionLayer
@@ -566,6 +568,21 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   Yangi build-vaqti fayl (masalan `docs/…` dan o'qiydigan skript) qo'shsangiz, uni `.dockerignore` da qoldirmang. Server diski
   to'lib qolsa: Coolify → Server → Docker Cleanup lock'i qotishi mumkin (`docker exec coolify php artisan cleanup:redis --clear-locks`).
 
+- **UX + naqshlar (2026-11-23)** — keep them:
+  - **Patterns** (`src/lib/patterns.ts`, `public/images/site/patterns/<nom>.webp` — 8 line tiles cut from printed-catalog
+    molds, 8-colour lossless, alpha): `<el className="pat [pat--fade-x|pat--fade-y] [pat--ink]" style={patternStyle(name, tone)}>`.
+    Drawn by `.pat::before` as a **CSS mask** (colour = `--pat-c`, fade = second mask layer `--pat-fade`), NOT a
+    `background-image`: a full-width background image became the LCP element (home `hm-fork`, `cat-head`) and cost
+    ~1 s of simulated LCP; masks are not LCP candidates, so no preload is needed. Per-block opacity/size via
+    `--pat-o`/`--pat-size` (`.hm-fork.pat`, `.hm-band.pat`, `.ft.pat`, `.geo-hero.pat`, `.ct-sec.pat`).
+    Placements: home fork (girih) + stats band (yulduz, light), catalog/section head (`sectionPattern(section)`),
+    footer CTA (yulduz, light), export hero (girih, light), `/ready` (charogon). Not on cards, forms or the model page.
+  - **Home** (`[lang]/page.tsx`): fork (two directions) → dark stats band → sections + help card → popular 12
+    (`CatalogClient variant="home"`: cards only — no filters/search/sort/view toggle, `cat--nofilters`) → steps +
+    calculator example (first popular model where `calcMolds()` is not null — "33 + 33" sets are skipped) → factory →
+    testimonials (null when empty) → wholesale.
+  - Header search (`.hd-search`) is hidden on list pages (catalog, section, tag) — they have their own search box.
+  - Card "quick view" button exists only at ≥1101 px (as before); on hover-capable devices it appears on card hover/focus.
 - **Never reintroduce Tailwind.** The database is back (Stage 7, user decision) **only** behind
   `src/server/` — public pages (`[lang]`, `components`, `lib`) must never import it
   (`tests/platform.test.js` test 6), otherwise the storefront stops being static.
