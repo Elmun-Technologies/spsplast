@@ -18,7 +18,7 @@ export const pagesRu: PagesDictionary = {
       { value: '{objects}', unit: '', label: 'Объектов' },
     ],
     sectionTiles: 'Разделы',
-    catalogEyebrow: 'Популярные модели',
+    catalogEyebrow: 'Новинки и популярные модели',
     catalogTitle: 'Выберите форму',
     catalogAll: 'Весь каталог',
     sectionsEyebrow: "Разделы",

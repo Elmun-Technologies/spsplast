@@ -193,7 +193,9 @@ export function CatalogClient({
   }, [filters.q, filtered.length]);
   const facets = useMemo(() => facetCounts(models, filters), [models, filters]);
   // Filtr guruhi bo'lmasa (fasad, zabor, dekor... bo'limlari) — bo'sh yon ustun va "Filtr" tugmasi ko'rsatilmaydi.
-  const hasFilters = filterGroups(filters, facets, lang, t).length > 0;
+  // Bosh sahifadagi blok — vitrina: filtr/qidiruv/saralash yo'q, faqat kartochkalar (to'liq katalog — /catalog).
+  const isHome = variant === 'home';
+  const hasFilters = !isHome && filterGroups(filters, facets, lang, t).length > 0;
   const active = activeFilterCount(filters);
 
   const update = (patch: Partial<Filters>) => {
@@ -235,8 +237,9 @@ export function CatalogClient({
         ) : null}
 
         <div>
+          {isHome ? null : (
           <div className="cat-tools">
-            <label className={`cat-search${variant === 'home' ? ' hide-m' : ''}`}>
+            <label className="cat-search">
               <Icon.search width={18} height={18} strokeWidth={1.5} aria-hidden="true" />
               <input
                 type="search"
@@ -293,6 +296,7 @@ export function CatalogClient({
               </div>
             ) : null}
           </div>
+          )}
 
           {filtered.length === 0 ? (
             <div className="ph" style={{ borderRadius: 'var(--radius-card)', padding: 'var(--space-8)', flexDirection: 'column', gap: 'var(--space-4)' }}>

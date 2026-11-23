@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import type { Locale } from '@/lib/i18n';
 import { getUi } from '@/lib/ui';
 import { flipHref, type CatalogKey } from '@/lib/catalogPdf';
+import { patternStyle, type PatternName } from '@/lib/patterns';
 
 /**
  * Katalog va bo'lim sahifalarining sarlavha bandi (HANDOFF `screens/desktop/02-katalog`):
@@ -15,6 +16,7 @@ export function CatalogHead({
   lead,
   intro,
   catalog,
+  pattern = 'girih',
   children,
 }: {
   lang: Locale;
@@ -24,11 +26,13 @@ export function CatalogHead({
   intro?: string | null;
   /** Qaysi katalog ochilsin (bo'lim sahifasida). */
   catalog?: CatalogKey;
+  /** Bo'limning naqshi (`sectionPattern()`), sarlavhaning o'ng tomonida — bo'limlar bir-biridan ajralib turadi. */
+  pattern?: PatternName;
   children?: ReactNode;
 }) {
   const t = getUi(lang);
   return (
-    <section className="cat-head">
+    <section className="cat-head pat pat--fade-x pat--ink" style={patternStyle(pattern)}>
       <div className="wrap cat-head__in">
         <div className="cat-head__text">
           <nav aria-label="breadcrumb">

@@ -80,6 +80,10 @@ export function HeaderClient({
   const catalogActive = pathname === catalogHref;
   // Bosh sahifa (tanlov ekrani) va /ready da qolip bo'limlari/qidiruvi ko'rsatilmaydi — bu yerda faqat tanlov va tayyor mahsulot.
   const forkView = pathname === `/${lang}` || pathname === `/${lang}/ready` || pathname.startsWith(`/${lang}/ready/`);
+  // Katalog ro'yxati (umumiy, bo'lim, teg) sahifalarida ro'yxat ustida o'z qidiruvi bor — header qidiruvi takrorlanmaydi.
+  const rest = pathname.startsWith(`${catalogHref}/`) ? pathname.slice(catalogHref.length + 1) : null;
+  const listView =
+    pathname === catalogHref || (rest !== null && rest !== 'flip' && (!rest.includes('/') || rest.includes('/tag/')));
   const tabs = [
     { href: catalogHref, label: t.header.catalog, full: t.header.catalog, count: total, active: catalogActive },
     ...sections.map((s) => ({ href: s.href, label: s.label, full: s.full ?? s.label, count: s.count, active: isActive(pathname, s.match) })),
@@ -128,10 +132,12 @@ export function HeaderClient({
             ))}
           </nav>
 
-          <form className="hd-search" role="search" action={catalogHref} method="GET">
-            <Icon.search width={18} height={18} strokeWidth={1.75} aria-hidden="true" />
-            <input type="search" name="q" placeholder={t.header.searchPlaceholder} aria-label={t.header.searchLabel} />
-          </form>
+          {listView ? null : (
+            <form className="hd-search" role="search" action={catalogHref} method="GET">
+              <Icon.search width={18} height={18} strokeWidth={1.75} aria-hidden="true" />
+              <input type="search" name="q" placeholder={t.header.searchPlaceholder} aria-label={t.header.searchLabel} />
+            </form>
+          )}
             </>
           )}
 

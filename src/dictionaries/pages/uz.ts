@@ -20,7 +20,7 @@ export const pagesUz = {
       { value: '{objects}', unit: '', label: 'Obyekt' },
     ],
     sectionTiles: 'Bo‘limlar',
-    catalogEyebrow: "Ko‘p so‘raladigan modellar",
+    catalogEyebrow: "Yangi va ommabop modellar",
     catalogTitle: "Qolipni tanlang",
     catalogAll: 'Butun katalog',
     sectionsEyebrow: "Bo‘limlar",

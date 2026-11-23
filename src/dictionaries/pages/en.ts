@@ -18,7 +18,7 @@ export const pagesEn: PagesDictionary = {
       { value: '{objects}', unit: '', label: 'Projects' },
     ],
     sectionTiles: 'Sections',
-    catalogEyebrow: 'Most requested models',
+    catalogEyebrow: 'New and popular molds',
     catalogTitle: 'Choose a mold',
     catalogAll: 'Full catalog',
     sectionsEyebrow: "Sections",
