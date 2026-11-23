@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useCompareList, useRequestList } from '@/lib/store/spsLists';
-import { getUi } from '@/lib/ui';
+import type { UiDictionary } from '@/lib/ui';
 import { type Locale } from '@/lib/i18n';
 import { CONTACTS_2027 } from '@/lib/contacts2027';
 import { LangSwitch } from '@/components/site/LangSwitch';
@@ -22,15 +22,17 @@ export function HeaderClient({
   total,
   nav,
   pdfHref,
+  t,
 }: {
   lang: Locale;
+  /** Faqat shu tilning kerakli bo'limlari (server beradi) — `getUi()` mijozda 3 tilni bundle'ga olib kirardi. */
+  t: Pick<UiDictionary, 'a11y' | 'header' | 'menu' | 'nav'>;
   sections: NavItem[];
   /** Katalogdagi barcha modellar (yashirin bo'limlar ham) — sarlavhadagi "119 model" bilan bir xil. */
   total: number;
   nav: NavItem[];
   pdfHref: string;
 }) {
-  const t = getUi(lang);
   const pathname = usePathname() || `/${lang}`;
   const request = useRequestList();
   const compare = useCompareList();

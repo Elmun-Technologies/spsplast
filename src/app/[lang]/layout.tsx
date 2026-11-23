@@ -7,6 +7,7 @@ import { SWCleanup } from '@/components/layout/SWCleanup';
 import { HtmlLangSync } from '@/components/layout/HtmlLangSync';
 import { VisitTracker } from '@/components/analytics/VisitTracker';
 import { MotionLayer } from '@/components/site/MotionLayer';
+import { UiProvider } from '@/components/site/UiProvider';
 import { isValidLocale, locales, type Locale } from '@/lib/i18n';
 import { getUi } from '@/lib/ui';
 import { JsonLd } from '@/components/site/JsonLd';
@@ -37,7 +38,7 @@ export default async function LangLayout({
   const t = getUi(lang);
 
   return (
-    <>
+    <UiProvider value={{ catalog: t.catalog, alt: t.alt, a11y: t.a11y, header: t.header, models: t.models }}>
       <HtmlLangSync lang={lang} />
       <a href="#main-content" className="skip-link">
         {t.a11y.skip}
@@ -52,6 +53,6 @@ export default async function LangLayout({
       <main id="main-content">{children}</main>
       <CompareBar lang={lang} />
       <SiteFooter lang={lang} />
-    </>
+    </UiProvider>
   );
 }

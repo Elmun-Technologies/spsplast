@@ -97,7 +97,7 @@ export default async function SectionPage({
       />
       <div className="wrap sec">
         <TagChips lang={lang} section={sec} />
-        <CatalogClient lang={lang} models={models} variant="catalog" />
+        <CatalogClient lang={lang} models={models} variant="catalog" total={getTotalCount()} />
       </div>
       {/* SEO: tanlash qo'llanmasi (asosiy so'rov — trotuar plitkasi) va eksport sahifalariga havolalar */}
       {sec === "trotuar" ? <PavingGuide lang={lang} /> : null}

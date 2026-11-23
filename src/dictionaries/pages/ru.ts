@@ -1,3 +1,4 @@
+import { errorRu } from './error.ts';
 /**
  * Sahifa lug'atlari — ru. Terminlar HANDOFF 4.10 bo'yicha:
  * «Заявка», «Список заявки», «Опт и партнёрство».
@@ -422,13 +423,5 @@ export const pagesRu: PagesDictionary = {
     img: 'Уложенная плитка Monako',
   },
 
-  error: {
-    title: 'Техническая ошибка',
-    text: 'Страница не загрузилась. Попробуйте ещё раз или свяжитесь с нами — оформим заявку вместе.',
-    retry: 'Загрузить снова',
-    home: 'Главная',
-    catalog: 'Открыть каталог',
-    call: 'Связаться с менеджером',
-    loading: 'Загрузка',
-  },
+  error: errorRu,
 };

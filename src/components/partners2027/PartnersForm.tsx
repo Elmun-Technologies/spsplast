@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { getModelBySlug, calcMolds, modelName, sectionLabel } from '@/lib/catalog2027';
+import { calcMolds, modelName, sectionLabel } from '@/lib/catalogCore';
+import { useModelLookup } from '@/lib/useModelLookup';
 import type { Locale } from '@/lib/i18n';
 import type { UiDictionary } from '@/lib/ui';
 import type { PagesDictionary } from '@/lib/pages';
@@ -60,10 +61,14 @@ export function PartnersForm({
   const [error, setError] = useState<LeadError>('');
   const okRef = useRevealOnShow<HTMLDivElement>(state === 'ok');
 
-  const items = list.items.flatMap((i) => {
-    const m = getModelBySlug(i.slug);
-    return m ? [{ item: i, model: m }] : [];
-  });
+  // Katalog kechiktirib yuklanadi (useModelLookup) — hamkorlik sahifasining birinchi JS'iga kirmaydi.
+  const lookup = useModelLookup();
+  const items = lookup
+    ? list.items.flatMap((i) => {
+        const m = lookup(i.slug);
+        return m ? [{ item: i, model: m }] : [];
+      })
+    : [];
 
   // Eksport sahifasida ro'yxatda yo'q davlat ("Boshqa") tanlangan bo'lsa — sahifa davlatining kodi.
   const countryIdx = countryList.indexOf(country);
