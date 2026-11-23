@@ -26,17 +26,15 @@ ishonchli (soxta ko'rinmaydigan) holatga yetkazish**.
 ## 1. Loyiha holati (2026-11-23 holatiga)
 
 **Eng yangi (2026-11-23):**
-- Sayt ikki yo'nalish: **Qoliplar** (`/catalog`, 234 model, 7 bo'lim) va **Tayyor mahsulotlar** (`/ready`, 80 ta fasad
-  mahsuloti, 9 bo'lim — bosma "FASAD MAHSULOT" katalogidan; skameyka va yevrozabor bo'limlari bo'sh, material kutilmoqda).
+- Sayt ikki yo'nalish: **Qoliplar** (`/catalog`, 237 model, 7 bo'lim) va **Tayyor mahsulotlar** (`/ready`, 95 mahsulot,
+  11 bo'lim: 80 fasad elementi + 6 skameyka yon qismi + 9 yevrozabor).
   Arxitektura: `catalog_sections.kind` (migratsiya 0004), CLAUDE.md → "Tayyor mahsulotlar".
-- Prod katalog bazadan: `npm run catalog:sync -- scripts/catalog-add-2026-11-23.json` va
-  `… scripts/catalog-add-2026-11-23-tayyor-fasad.json` (Coolify terminali) → Redeploy.
+- Prod katalog bazadan (Coolify terminali, tartib bilan) → Redeploy: `npm run catalog:sync -- scripts/catalog-add-2026-11-23.json`,
+  `… catalog-add-2026-11-23-tayyor-fasad.json`, `… catalog-add-2026-11-24-fasad-qolip.json`, `… catalog-add-2026-11-24-skameyka-zabor.json`.
 - Hosting: Hetzner + Coolify, Dockerfile (standalone). Vercel ishlatilmaydi ("Account is blocked" statusi — e'tiborsiz).
 - Topshirish paketi: `docs/topshirish/` (admin qo'llanmasi, checklist, sifat hisoboti, kirishlar ro'yxati).
-- Kutilmoqda (katalog agentidan): fonsiz PNG (`<KOD>-mahsulot.png`, `-qolip.png`, `-sahna.jpg`), CSV jadval,
-  skameyka/yevrozabor kataloglari → `scripts/extract/build_ready_fasad_2027.py` o'rniga shulardan rasm yasash
-  (slug'lar o'zgarmaydi). Hozirgi tayyor mahsulot suratlari katalog sahifasidan kesilgan (pushti fon); rembg
-  bu fonda ishonchsiz (termopanel/tosh buziladi) — sinab ko'rilgan, ishlatilmadi.
+- Rasmlar katalog agentining fonsiz manbasidan (ZIP'lar repoda yo'q — ~550 MB): `build_ready_fasad_2027.py <zip papkasi>`
+  va `build_ready_bench_fence_2027.py <zip papkasi>` (slug'lar o'zgarmaydi). Ochiq savollar: `docs/unresolved-questions.md` 1.19.
 
 **Stack:** Next.js 16 (App Router) + React 19 + TypeScript, oddiy CSS (Tailwind taqiqlangan), Onest shrifti
 (self-host), Postgres + Drizzle ORM faqat `src/server/` orqasida, Coolify (Docker standalone).

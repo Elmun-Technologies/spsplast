@@ -71,15 +71,6 @@
   "note": "",
   "sha": "d30e01040c3d4149"
  },
- "skameyka-s02-skameyka-oyogi-2-mold-a-3d": {
-  "src": "media-src/upscaled/s02-qolip.jpg",
-  "status": "ok",
-  "method": "rembg isnet-general-use",
-  "cover": 0.4541,
-  "edge": 0.0,
-  "note": "ichki teshiklar to'ldirildi (3.8%)",
-  "sha": "41e824fec3325d66"
- },
  "skameyka-s03-skameyka-oyogi-3-mold-a-3d": {
   "src": "media-src/upscaled/s03-qolip.jpg",
   "status": "ok",
@@ -88,15 +79,6 @@
   "edge": 0.0,
   "note": "",
   "sha": "ff6ef2472248e6bf"
- },
- "skameyka-s04-skameyka-oyogi-4-mold-a-3d": {
-  "src": "media-src/upscaled/s04-qolip.jpg",
-  "status": "ok",
-  "method": "rembg isnet-general-use",
-  "cover": 0.4493,
-  "edge": 0.0,
-  "note": "",
-  "sha": "2972295938281448"
  },
  "skameyka-s05-skameyka-oyogi-5-mold-a-3d": {
   "src": "media-src/upscaled/s05-qolip.jpg",
@@ -115,15 +97,6 @@
   "edge": 0.0,
   "note": "",
   "sha": "55c4bd59574c085e"
- },
- "skameyka-s07-skameyka-oyogi-7-mold-a-3d": {
-  "src": "media-src/upscaled/s07-qolip.jpg",
-  "status": "ok",
-  "method": "rembg isnet-general-use",
-  "cover": 0.3062,
-  "edge": 0.0,
-  "note": "",
-  "sha": "a5515a1154ad20f6"
  },
  "termopanel-tp-012-25x50-labirint-mold-a": {
   "src": "media-src/factory/DSC03174.JPG_20260927203010.jpg",

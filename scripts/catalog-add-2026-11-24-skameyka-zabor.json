@@ -1,0 +1,1160 @@
+{
+ "source": "SPS_sayt_katalog_2_skameyka_zabor.zip (katalog agenti, 2026-11-23)",
+ "applyStatic": true,
+ "add": [
+  {
+   "slug": "s02-skameyka-oyogi-2-tayyor",
+   "key": "s02-skameyka-oyogi-2-tayyor",
+   "code": "S02",
+   "section": "tayyor_skameyka",
+   "name": {
+    "uz": "Skameyka yon qismi «Klassik»",
+    "ru": "Боковина скамейки «Классик»",
+    "en": "Bench side «Classic»"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "note": {
+    "uz": "Qo‘sh ramkadagi akant naqshi, oyoqlari va suyanchig‘ida rozetkalar. To‘lqinsimon o‘rindiq uchun.",
+    "ru": "Акантовый орнамент в двойной рамке, розетки на ножках и на спинке. Под волнообразное сиденье.",
+    "en": "Acanthus ornament in a double frame, rosettes on the legs and backrest. For a wave-shaped seat."
+   },
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "760×800",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Material",
+      "ru": "Материал",
+      "en": "Material"
+     },
+     "v": {
+      "uz": "Oq beton",
+      "ru": "Белый бетон",
+      "en": "White concrete"
+     }
+    },
+    {
+     "k": {
+      "uz": "Bitta skameykaga",
+      "ru": "На одну скамейку",
+      "en": "Per bench"
+     },
+     "v": {
+      "uz": "2 dona",
+      "ru": "2 шт.",
+      "en": "2 pcs"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-s02-skameyka-oyogi-2-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-s02-skameyka-oyogi-2-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-s02-skameyka-oyogi-2-tayyor-sahna.webp"
+    }
+   }
+  },
+  {
+   "slug": "s04-skameyka-oyogi-4-tayyor",
+   "key": "s04-skameyka-oyogi-4-tayyor",
+   "code": "S04",
+   "section": "tayyor_skameyka",
+   "name": {
+    "uz": "Skameyka yon qismi «O‘simlik»",
+    "ru": "Боковина скамейки «Усимлик»",
+    "en": "Bench side «Floral»"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "note": {
+    "uz": "Butun yon qism bo‘ylab zich o‘simliksimon naqsh, kontur bo‘ylab qo‘sh hoshiya. To‘lqinsimon o‘rindiq uchun.",
+    "ru": "Плотная растительная вязь по всей боковине, двойной кант по контуру. Под волнообразное сиденье.",
+    "en": "Dense floral pattern across the whole side, double edging along the outline. For a wave-shaped seat."
+   },
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "780×800",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Material",
+      "ru": "Материал",
+      "en": "Material"
+     },
+     "v": {
+      "uz": "Oq beton",
+      "ru": "Белый бетон",
+      "en": "White concrete"
+     }
+    },
+    {
+     "k": {
+      "uz": "Bitta skameykaga",
+      "ru": "На одну скамейку",
+      "en": "Per bench"
+     },
+     "v": {
+      "uz": "2 dona",
+      "ru": "2 шт.",
+      "en": "2 pcs"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-s04-skameyka-oyogi-4-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-s04-skameyka-oyogi-4-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-s04-skameyka-oyogi-4-tayyor-sahna.webp"
+    }
+   }
+  },
+  {
+   "slug": "s07-skameyka-oyogi-7-tayyor",
+   "key": "s07-skameyka-oyogi-7-tayyor",
+   "code": "S07",
+   "section": "tayyor_skameyka",
+   "name": {
+    "uz": "Skameyka yon qismi «Panjara»",
+    "ru": "Боковина скамейки «Панжара»",
+    "en": "Bench side «Lattice»"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "note": {
+    "uz": "Markazda romb shaklidagi panjara, oyoqlari va suyanchig‘ida jingalak va volyutalar.",
+    "ru": "Ромбическая решётка в центре, завитки и волюты на ножках и на спинке.",
+    "en": "Diamond lattice in the centre, scrolls and volutes on the legs and backrest."
+   },
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "730×800",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Material",
+      "ru": "Материал",
+      "en": "Material"
+     },
+     "v": {
+      "uz": "Oq beton",
+      "ru": "Белый бетон",
+      "en": "White concrete"
+     }
+    },
+    {
+     "k": {
+      "uz": "Bitta skameykaga",
+      "ru": "На одну скамейку",
+      "en": "Per bench"
+     },
+     "v": {
+      "uz": "2 dona",
+      "ru": "2 шт.",
+      "en": "2 pcs"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-s07-skameyka-oyogi-7-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-s07-skameyka-oyogi-7-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-s07-skameyka-oyogi-7-tayyor-sahna-3d.webp"
+    }
+   }
+  },
+  {
+   "slug": "skameyka-royal",
+   "key": "skameyka-royal",
+   "code": null,
+   "section": "skameyka",
+   "name": {
+    "uz": "Skameyka yon qismi «Royal»",
+    "ru": "Боковина скамейки «Роял»",
+    "en": "Bench side «Royal»"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "note": {
+    "uz": "Baland suyanchiq va qo‘ltiqtayanch bitta quymada. Yirik barg naqshi, chetida marvarid belbog‘.",
+    "ru": "Высокая спинка и подлокотник в одной отливке. Крупный лиственный орнамент, жемчужный пояс по краю.",
+    "en": "High backrest and armrest in a single casting. Large leaf ornament with a beaded band along the edge."
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": null,
+     "depth": null,
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "images": {
+    "scene": "/catalog/2027/skameyka-skameyka-royal-scene.webp",
+    "sceneSm": "/catalog/2027/skameyka-skameyka-royal-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/skameyka-skameyka-royal-qolip.webp"
+    },
+    "tiles": {
+     "A": "/catalog/2027/skameyka-skameyka-royal-mahsulot.webp"
+    }
+   }
+  },
+  {
+   "slug": "skameyka-royal-tayyor",
+   "key": "skameyka-royal-tayyor",
+   "code": null,
+   "section": "tayyor_skameyka",
+   "name": {
+    "uz": "Skameyka yon qismi «Royal»",
+    "ru": "Боковина скамейки «Роял»",
+    "en": "Bench side «Royal»"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "note": {
+    "uz": "Baland suyanchiq va qo‘ltiqtayanch bitta quymada. Yirik barg naqshi, chetida marvarid belbog‘.",
+    "ru": "Высокая спинка и подлокотник в одной отливке. Крупный лиственный орнамент, жемчужный пояс по краю.",
+    "en": "High backrest and armrest in a single casting. Large leaf ornament with a beaded band along the edge."
+   },
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Material",
+      "ru": "Материал",
+      "en": "Material"
+     },
+     "v": {
+      "uz": "Oq beton",
+      "ru": "Белый бетон",
+      "en": "White concrete"
+     }
+    },
+    {
+     "k": {
+      "uz": "Bitta skameykaga",
+      "ru": "На одну скамейку",
+      "en": "Per bench"
+     },
+     "v": {
+      "uz": "2 dona",
+      "ru": "2 шт.",
+      "en": "2 pcs"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-skameyka-royal-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-skameyka-royal-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-skameyka-royal-tayyor-sahna.webp"
+    }
+   }
+  },
+  {
+   "slug": "skameyka-komfort",
+   "key": "skameyka-komfort",
+   "code": null,
+   "section": "skameyka",
+   "name": {
+    "uz": "Skameyka yon qismi «Komfort»",
+    "ru": "Боковина скамейки «Комфорт»",
+    "en": "Bench side «Comfort»"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "note": {
+    "uz": "Qo‘ltiqtayanchli va teshik o‘yiqli yon qism. Oyoqlari va suyanchig‘ining butun konturi bo‘ylab naqsh.",
+    "ru": "Боковина с подлокотником и сквозным проёмом. Орнамент по всему контуру ножек и спинки.",
+    "en": "Side with an armrest and a through opening. Ornament along the whole outline of the legs and backrest."
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": null,
+     "depth": null,
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "images": {
+    "scene": "/catalog/2027/skameyka-skameyka-komfort-scene.webp",
+    "sceneSm": "/catalog/2027/skameyka-skameyka-komfort-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/skameyka-skameyka-komfort-qolip.webp"
+    },
+    "tiles": {
+     "A": "/catalog/2027/skameyka-skameyka-komfort-mahsulot.webp"
+    }
+   }
+  },
+  {
+   "slug": "skameyka-komfort-tayyor",
+   "key": "skameyka-komfort-tayyor",
+   "code": null,
+   "section": "tayyor_skameyka",
+   "name": {
+    "uz": "Skameyka yon qismi «Komfort»",
+    "ru": "Боковина скамейки «Комфорт»",
+    "en": "Bench side «Comfort»"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "note": {
+    "uz": "Qo‘ltiqtayanchli va teshik o‘yiqli yon qism. Oyoqlari va suyanchig‘ining butun konturi bo‘ylab naqsh.",
+    "ru": "Боковина с подлокотником и сквозным проёмом. Орнамент по всему контуру ножек и спинки.",
+    "en": "Side with an armrest and a through opening. Ornament along the whole outline of the legs and backrest."
+   },
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Material",
+      "ru": "Материал",
+      "en": "Material"
+     },
+     "v": {
+      "uz": "Oq beton",
+      "ru": "Белый бетон",
+      "en": "White concrete"
+     }
+    },
+    {
+     "k": {
+      "uz": "Bitta skameykaga",
+      "ru": "На одну скамейку",
+      "en": "Per bench"
+     },
+     "v": {
+      "uz": "2 dona",
+      "ru": "2 шт.",
+      "en": "2 pcs"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-skameyka-komfort-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-skameyka-komfort-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-skameyka-komfort-tayyor-sahna.webp"
+    }
+   }
+  },
+  {
+   "slug": "skameyka-modern",
+   "key": "skameyka-modern",
+   "code": null,
+   "section": "skameyka",
+   "name": {
+    "uz": "Skameyka yon qismi «Modern»",
+    "ru": "Боковина скамейки «Модерн»",
+    "en": "Bench side «Modern»"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "note": {
+    "uz": "Old oyog‘i yo‘q Z shaklidagi yon qism. Kontur bo‘ylab milliy naqsh, markazi silliq.",
+    "ru": "Z-образная боковина без передней ножки. Национальный орнамент по контуру, гладкое поле в центре.",
+    "en": "Z-shaped side without a front leg. National ornament along the outline, smooth field in the centre."
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": null,
+     "depth": null,
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "images": {
+    "scene": "/catalog/2027/skameyka-skameyka-modern-scene.webp",
+    "sceneSm": "/catalog/2027/skameyka-skameyka-modern-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/skameyka-skameyka-modern-qolip.webp"
+    },
+    "tiles": {
+     "A": "/catalog/2027/skameyka-skameyka-modern-mahsulot.webp"
+    }
+   }
+  },
+  {
+   "slug": "skameyka-modern-tayyor",
+   "key": "skameyka-modern-tayyor",
+   "code": null,
+   "section": "tayyor_skameyka",
+   "name": {
+    "uz": "Skameyka yon qismi «Modern»",
+    "ru": "Боковина скамейки «Модерн»",
+    "en": "Bench side «Modern»"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "note": {
+    "uz": "Old oyog‘i yo‘q Z shaklidagi yon qism. Kontur bo‘ylab milliy naqsh, markazi silliq.",
+    "ru": "Z-образная боковина без передней ножки. Национальный орнамент по контуру, гладкое поле в центре.",
+    "en": "Z-shaped side without a front leg. National ornament along the outline, smooth field in the centre."
+   },
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Material",
+      "ru": "Материал",
+      "en": "Material"
+     },
+     "v": {
+      "uz": "Oq beton",
+      "ru": "Белый бетон",
+      "en": "White concrete"
+     }
+    },
+    {
+     "k": {
+      "uz": "Bitta skameykaga",
+      "ru": "На одну скамейку",
+      "en": "Per bench"
+     },
+     "v": {
+      "uz": "2 dona",
+      "ru": "2 шт.",
+      "en": "2 pcs"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-skameyka-modern-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-skameyka-modern-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-skameyka-modern-tayyor-sahna.webp"
+    }
+   }
+  },
+  {
+   "slug": "z01-yevrozabor-okovka-tayyor",
+   "key": "z01-yevrozabor-okovka-tayyor",
+   "code": "Z01",
+   "section": "tayyor_zabor",
+   "name": {
+    "uz": "Yevrozabor «Okovka»",
+    "ru": "Еврозабор «Оковка»",
+    "en": "Euro fence «Wrought»"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "note": {
+    "uz": "Bir-biriga o‘ralgan halqalar ichida ovallar qatori va to‘rtburchak filyonkalardan belbog‘.",
+    "ru": "Ряд овалов в переплетённых кольцах и поясок из прямоугольных филёнок.",
+    "en": "A row of ovals in interlaced rings and a band of rectangular panels."
+   },
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×1900",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Qalinligi",
+      "ru": "Толщина",
+      "en": "Thickness"
+     },
+     "v": {
+      "uz": "50 mm",
+      "ru": "50 мм",
+      "en": "50 mm"
+     }
+    },
+    {
+     "k": {
+      "uz": "Material",
+      "ru": "Материал",
+      "en": "Material"
+     },
+     "v": {
+      "uz": "Beton panel",
+      "ru": "Бетонная панель",
+      "en": "Concrete panel"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-z01-yevrozabor-okovka-tayyor-scene-3d.webp",
+    "sceneSm": "/catalog/2027/tayyor-z01-yevrozabor-okovka-tayyor-scene-sm-3d.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-z01-yevrozabor-okovka-tayyor-sahna-3d.webp"
+    }
+   }
+  },
+  {
+   "slug": "z02-yevrozabor-gunchalar-tayyor",
+   "key": "z02-yevrozabor-gunchalar-tayyor",
+   "code": "Z02",
+   "section": "tayyor_zabor",
+   "name": {
+    "uz": "Yevrozabor «G‘unchalar»",
+    "ru": "Еврозабор «Бутоны»",
+    "en": "Euro fence «Buds»"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "note": {
+    "uz": "Silliq maydonda shaxmat tartibida bo‘rtma g‘unchalar qatorlari.",
+    "ru": "Гладкое поле с рядами выпуклых бутонов в шахматном порядке.",
+    "en": "Smooth field with rows of raised buds in a staggered pattern."
+   },
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×1900",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Qalinligi",
+      "ru": "Толщина",
+      "en": "Thickness"
+     },
+     "v": {
+      "uz": "50 mm",
+      "ru": "50 мм",
+      "en": "50 mm"
+     }
+    },
+    {
+     "k": {
+      "uz": "Material",
+      "ru": "Материал",
+      "en": "Material"
+     },
+     "v": {
+      "uz": "Beton panel",
+      "ru": "Бетонная панель",
+      "en": "Concrete panel"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-z02-yevrozabor-gunchalar-tayyor-scene-3d.webp",
+    "sceneSm": "/catalog/2027/tayyor-z02-yevrozabor-gunchalar-tayyor-scene-sm-3d.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-z02-yevrozabor-gunchalar-tayyor-sahna-3d.webp"
+    }
+   }
+  },
+  {
+   "slug": "z03-yevrozabor-reykalar-tayyor",
+   "key": "z03-yevrozabor-reykalar-tayyor",
+   "code": "Z03",
+   "section": "tayyor_zabor",
+   "name": {
+    "uz": "Yevrozabor «Reykalar»",
+    "ru": "Еврозабор «Рейки»",
+    "en": "Euro fence «Slats»"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "note": {
+    "uz": "Turli uzunlikdagi gorizontal reykalar notekis ritmda — «zinapoyali» terim.",
+    "ru": "Горизонтальные рейки разной длины в рваном ритме — «ступенчатая» кладка.",
+    "en": "Horizontal slats of different lengths in a broken rhythm — a “stepped” bond."
+   },
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×1900",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Qalinligi",
+      "ru": "Толщина",
+      "en": "Thickness"
+     },
+     "v": {
+      "uz": "50 mm",
+      "ru": "50 мм",
+      "en": "50 mm"
+     }
+    },
+    {
+     "k": {
+      "uz": "Material",
+      "ru": "Материал",
+      "en": "Material"
+     },
+     "v": {
+      "uz": "Beton panel",
+      "ru": "Бетонная панель",
+      "en": "Concrete panel"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-z03-yevrozabor-reykalar-tayyor-scene-3d.webp",
+    "sceneSm": "/catalog/2027/tayyor-z03-yevrozabor-reykalar-tayyor-scene-sm-3d.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-z03-yevrozabor-reykalar-tayyor-sahna-3d.webp"
+    }
+   }
+  },
+  {
+   "slug": "z04-yevrozabor-tolqinli-tosh-tayyor",
+   "key": "z04-yevrozabor-tolqinli-tosh-tayyor",
+   "code": "Z04",
+   "section": "tayyor_zabor",
+   "name": {
+    "uz": "Yevrozabor «To‘lqinli tosh»",
+    "ru": "Еврозабор «Камень с волной»",
+    "en": "Euro fence «Wave stone»"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "note": {
+    "uz": "Markazda balyasinalar, chetlarida — ingichka g‘isht to‘ri ichida yirtiq tosh.",
+    "ru": "Балясины по центру, по краям — рваный камень в тонкой кирпичной сетке.",
+    "en": "Balusters in the centre, rough stone in a fine brick grid along the sides."
+   },
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×1900",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Qalinligi",
+      "ru": "Толщина",
+      "en": "Thickness"
+     },
+     "v": {
+      "uz": "50 mm",
+      "ru": "50 мм",
+      "en": "50 mm"
+     }
+    },
+    {
+     "k": {
+      "uz": "Material",
+      "ru": "Материал",
+      "en": "Material"
+     },
+     "v": {
+      "uz": "Beton panel",
+      "ru": "Бетонная панель",
+      "en": "Concrete panel"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-z04-yevrozabor-tolqinli-tosh-tayyor-scene-3d.webp",
+    "sceneSm": "/catalog/2027/tayyor-z04-yevrozabor-tolqinli-tosh-tayyor-scene-sm-3d.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-z04-yevrozabor-tolqinli-tosh-tayyor-sahna-3d.webp"
+    }
+   }
+  },
+  {
+   "slug": "z05-yevrozabor-gul-tayyor",
+   "key": "z05-yevrozabor-gul-tayyor",
+   "code": "Z05",
+   "section": "tayyor_zabor",
+   "name": {
+    "uz": "Yevrozabor «Gul»",
+    "ru": "Еврозабор «Цветок»",
+    "en": "Euro fence «Flower»"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "note": {
+    "uz": "Butun panel bo‘ylab uchburchak qo‘shimchali to‘rt gulbargli gullar.",
+    "ru": "Четырёхлепестковые цветы с треугольными вставками по всей панели.",
+    "en": "Four-petal flowers with triangular inserts across the whole panel."
+   },
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×1900",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Qalinligi",
+      "ru": "Толщина",
+      "en": "Thickness"
+     },
+     "v": {
+      "uz": "50 mm",
+      "ru": "50 мм",
+      "en": "50 mm"
+     }
+    },
+    {
+     "k": {
+      "uz": "Material",
+      "ru": "Материал",
+      "en": "Material"
+     },
+     "v": {
+      "uz": "Beton panel",
+      "ru": "Бетонная панель",
+      "en": "Concrete panel"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-z05-yevrozabor-gul-tayyor-scene-3d.webp",
+    "sceneSm": "/catalog/2027/tayyor-z05-yevrozabor-gul-tayyor-scene-sm-3d.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-z05-yevrozabor-gul-tayyor-sahna-3d.webp"
+    }
+   }
+  },
+  {
+   "slug": "z06-yevrozabor-silliq-tayyor",
+   "key": "z06-yevrozabor-silliq-tayyor",
+   "code": "Z06",
+   "section": "tayyor_zabor",
+   "name": {
+    "uz": "Yevrozabor «Silliq»",
+    "ru": "Еврозабор «Гладкий»",
+    "en": "Euro fence «Smooth»"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "note": {
+    "uz": "Ramkadagi relyefsiz tekis panel — bo‘yash va dekor bilan uyg‘unlashtirish uchun asos.",
+    "ru": "Ровная панель без рельефа в рамке — основа под покраску и сочетание с декором.",
+    "en": "Flat framed panel without relief — a base for painting and combining with decor."
+   },
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×1900",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Qalinligi",
+      "ru": "Толщина",
+      "en": "Thickness"
+     },
+     "v": {
+      "uz": "50 mm",
+      "ru": "50 мм",
+      "en": "50 mm"
+     }
+    },
+    {
+     "k": {
+      "uz": "Material",
+      "ru": "Материал",
+      "en": "Material"
+     },
+     "v": {
+      "uz": "Beton panel",
+      "ru": "Бетонная панель",
+      "en": "Concrete panel"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-z06-yevrozabor-silliq-tayyor-scene-3d.webp",
+    "sceneSm": "/catalog/2027/tayyor-z06-yevrozabor-silliq-tayyor-scene-sm-3d.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-z06-yevrozabor-silliq-tayyor-sahna-3d.webp"
+    }
+   }
+  },
+  {
+   "slug": "z07-yevrozabor-gisht-va-tosh-tayyor",
+   "key": "z07-yevrozabor-gisht-va-tosh-tayyor",
+   "code": "Z07",
+   "section": "tayyor_zabor",
+   "name": {
+    "uz": "Yevrozabor «G‘isht va tosh»",
+    "ru": "Еврозабор «Кирпич с камнем»",
+    "en": "Euro fence «Brick and stone»"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "note": {
+    "uz": "Markazda g‘isht terimi, panel burchaklari va chetlarida yorilgan tosh.",
+    "ru": "Кирпичная кладка в центре, колотый камень по углам и краям панели.",
+    "en": "Brickwork in the centre, split stone in the corners and along the edges."
+   },
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×1900",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Qalinligi",
+      "ru": "Толщина",
+      "en": "Thickness"
+     },
+     "v": {
+      "uz": "50 mm",
+      "ru": "50 мм",
+      "en": "50 mm"
+     }
+    },
+    {
+     "k": {
+      "uz": "Material",
+      "ru": "Материал",
+      "en": "Material"
+     },
+     "v": {
+      "uz": "Beton panel",
+      "ru": "Бетонная панель",
+      "en": "Concrete panel"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-z07-yevrozabor-gisht-va-tosh-tayyor-scene-3d.webp",
+    "sceneSm": "/catalog/2027/tayyor-z07-yevrozabor-gisht-va-tosh-tayyor-scene-sm-3d.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-z07-yevrozabor-gisht-va-tosh-tayyor-sahna-3d.webp"
+    }
+   }
+  },
+  {
+   "slug": "z08-yevrozabor-qoya-tosh-tayyor",
+   "key": "z08-yevrozabor-qoya-tosh-tayyor",
+   "code": "Z08",
+   "section": "tayyor_zabor",
+   "name": {
+    "uz": "Yevrozabor «Qoya tosh»",
+    "ru": "Еврозабор «Камень скала»",
+    "en": "Euro fence «Rock»"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "note": {
+    "uz": "Choklari bor, turli enli yirik yirtiq toshdan ikki qator.",
+    "ru": "Два ряда крупного рваного камня разной ширины со швами.",
+    "en": "Two rows of large rough stone of different widths with joints."
+   },
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×1900",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Qalinligi",
+      "ru": "Толщина",
+      "en": "Thickness"
+     },
+     "v": {
+      "uz": "50 mm",
+      "ru": "50 мм",
+      "en": "50 mm"
+     }
+    },
+    {
+     "k": {
+      "uz": "Material",
+      "ru": "Материал",
+      "en": "Material"
+     },
+     "v": {
+      "uz": "Beton panel",
+      "ru": "Бетонная панель",
+      "en": "Concrete panel"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-z08-yevrozabor-qoya-tosh-tayyor-scene-3d.webp",
+    "sceneSm": "/catalog/2027/tayyor-z08-yevrozabor-qoya-tosh-tayyor-scene-sm-3d.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-z08-yevrozabor-qoya-tosh-tayyor-sahna-3d.webp"
+    }
+   }
+  },
+  {
+   "slug": "z09-yevrozabor-3d-romblar-tayyor",
+   "key": "z09-yevrozabor-3d-romblar-tayyor",
+   "code": "Z09",
+   "section": "tayyor_zabor",
+   "name": {
+    "uz": "Yevrozabor «3D romblar»",
+    "ru": "Еврозабор «Ромбы 3D»",
+    "en": "Euro fence «3D diamonds»"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "note": {
+    "uz": "Ikki qator hajmli romb-piramidalar — yorug‘lik o‘yini bilan chuqur relyef.",
+    "ru": "Объёмные ромбы-пирамиды в два ряда — глубокий рельеф с игрой света.",
+    "en": "Raised diamond pyramids in two rows — deep relief with a play of light."
+   },
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×1900",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Qalinligi",
+      "ru": "Толщина",
+      "en": "Thickness"
+     },
+     "v": {
+      "uz": "50 mm",
+      "ru": "50 мм",
+      "en": "50 mm"
+     }
+    },
+    {
+     "k": {
+      "uz": "Material",
+      "ru": "Материал",
+      "en": "Material"
+     },
+     "v": {
+      "uz": "Beton panel",
+      "ru": "Бетонная панель",
+      "en": "Concrete panel"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-z09-yevrozabor-3d-romblar-tayyor-scene-3d.webp",
+    "sceneSm": "/catalog/2027/tayyor-z09-yevrozabor-3d-romblar-tayyor-scene-sm-3d.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-z09-yevrozabor-3d-romblar-tayyor-sahna-3d.webp"
+    }
+   }
+  }
+ ],
+ "refresh": {
+  "s02-skameyka-oyogi-2": {
+   "scene": "/catalog/2027/skameyka-s02-skameyka-oyogi-2-scene.webp",
+   "sceneSm": "/catalog/2027/skameyka-s02-skameyka-oyogi-2-scene-sm.webp",
+   "molds": {
+    "A": "/catalog/2027/skameyka-s02-skameyka-oyogi-2-qolip.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/skameyka-s02-skameyka-oyogi-2-mahsulot.webp"
+   }
+  },
+  "s04-skameyka-oyogi-4": {
+   "scene": "/catalog/2027/skameyka-s04-skameyka-oyogi-4-scene.webp",
+   "sceneSm": "/catalog/2027/skameyka-s04-skameyka-oyogi-4-scene-sm.webp",
+   "molds": {
+    "A": "/catalog/2027/skameyka-s04-skameyka-oyogi-4-qolip.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/skameyka-s04-skameyka-oyogi-4-mahsulot.webp"
+   }
+  },
+  "s07-skameyka-oyogi-7": {
+   "scene": "/catalog/2027/skameyka-s07-skameyka-oyogi-7-scene-3d.webp",
+   "sceneSm": "/catalog/2027/skameyka-s07-skameyka-oyogi-7-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/skameyka-s07-skameyka-oyogi-7-qolip.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/skameyka-s07-skameyka-oyogi-7-mahsulot-3d.webp"
+   }
+  }
+ }
+}

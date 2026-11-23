@@ -66,6 +66,13 @@
 /catalog/2027/fasad_dekor-sl-002-75x40-sokol-mold-a-3d.webp
 /catalog/2027/fasad_dekor-sl-003-60x40-sokol-mold-a-3d.webp
 /catalog/2027/fasad_dekor-sl-004-80x60-sokol-mold-a-3d.webp
+/catalog/2027/skameyka-s02-skameyka-oyogi-2-mold-a-3d.webp
+/catalog/2027/skameyka-s02-skameyka-oyogi-2-scene-3d.webp
+/catalog/2027/skameyka-s02-skameyka-oyogi-2-scene-sm-3d.webp
+/catalog/2027/skameyka-s04-skameyka-oyogi-4-mold-a-3d.webp
+/catalog/2027/skameyka-s04-skameyka-oyogi-4-scene-3d.webp
+/catalog/2027/skameyka-s04-skameyka-oyogi-4-scene-sm-3d.webp
+/catalog/2027/skameyka-s07-skameyka-oyogi-7-mold-a-3d.webp
 /catalog/2027/termopanel-tp-001-30x60-kirpich-mold-a-3d.webp
 /catalog/2027/termopanel-tp-002-30x60-gladkiy-mold-a-3d.webp
 /catalog/2027/termopanel-tp-003-30x60-beeline-mold-a-3d.webp

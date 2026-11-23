@@ -595,12 +595,18 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     `• TAYYOR: …`. Product page `/ready/{section}/{slug}`: `ReadyGallery` (product shot → facade view → extras),
     spec table (size, 1 m², weight + free `specs`), `ReadyActions` (zayafka / list / WhatsApp), Product JSON-LD
     without price, related items. Mold page shows a "tayyor holda ham bor" link when `<mold-slug>-tayyor` exists.
-  - Data: `scripts/extract/build_ready_fasad_2027.py <MAHSULOT.pdf>` → `scripts/catalog-add-2026-11-23-tayyor-fasad.json`
-    (`add` 80 + `moldPer` for termopanel molds) + `public/catalog/2027/tayyor-<slug>-{scene,scene-sm,fasad}.webp`
-    (product shot = square crop of the left catalog page, facade = right page). Names/translations reuse the mold
-    with the same code (KRN-004 is two products — matched by size). Prod: `npm run catalog:sync -- <that file>`
-    (sync now supports any `section`, `note`, `moldPer`). When the catalog agent delivers original PNG/CSV, rebuild
-    images from those, keep the slugs.
+  - Data (2026-11-23, catalog agent's source ZIPs — not in the repo): `scripts/extract/build_ready_fasad_2027.py <dir>`
+    (`data/fasad.json` + transparent `<KOD>-mahsulot.png`/`-qolip.png`/`-sahna.jpg`) → `catalog-add-2026-11-23-tayyor-fasad.json`
+    (80 ready, slug `<mold slug>-tayyor`) + `catalog-add-2026-11-24-fasad-qolip.json` (`refresh`: PP+ABS mold cutout
+    `-qolip-3d.webp` + cast product `-mahsulot-3d.webp` for 78 molds; molds with a live photo are skipped);
+    `build_ready_bench_fence_2027.py <dir>` → `catalog-add-2026-11-24-skameyka-zabor.json` (KLASSIK/USIMLIK/PANJARA =
+    S02/S04/S07 get the real mold photo; ROYAL/KOMFORT/MODERN are new molds **without a code** — the printed catalog has
+    no S-codes, none invented; 6 ready bench sides + 9 ready euro fences). `"applyStatic": true` makes
+    `build_models_2027.py` (`apply_refresh`) apply a file's `refresh` to the static catalog too; replaced old paths go to
+    `scripts/catalog-keep-2026-11-24.txt` (prod DB still points at them until sync). Catalog "Толщина" = mold depth,
+    so ready facade items show no thickness (only stone 15 mm, fence 50 mm). KRN-013 (agent's proposal for the
+    second KRN-004) is NOT applied until SPS confirms. Section intros: `pages.ready.sectionIntros` (agent's
+    `sections.json`). Prod: `npm run catalog:sync -- <file>` for each file.
   - Admin: section form has "Yo'nalish" (molds/ready; can't change for a section that has products), product form
     groups sections by direction, live URL / auto-301 follow the direction.
 - **Never reintroduce Tailwind.** The database is back (Stage 7, user decision) **only** behind

@@ -3147,24 +3147,6 @@
   "kind": "render"
  },
  {
-  "src": "media-src/upscaled/s02-qolip.jpg",
-  "dst": "public/catalog/2027/skameyka-s02-skameyka-oyogi-2-mold-a-3d.webp",
-  "w": 1200,
-  "kind": "render"
- },
- {
-  "src": "public/3d/s02/r_04.jpg",
-  "dst": "public/catalog/2027/skameyka-s02-skameyka-oyogi-2-scene-3d.webp",
-  "w": 1400,
-  "kind": "render"
- },
- {
-  "src": "public/3d/s02/r_04.jpg",
-  "dst": "public/catalog/2027/skameyka-s02-skameyka-oyogi-2-scene-sm-3d.webp",
-  "w": 720,
-  "kind": "render"
- },
- {
   "src": "media-src/upscaled/s03-qolip.jpg",
   "dst": "public/catalog/2027/skameyka-s03-skameyka-oyogi-3-mold-a-3d.webp",
   "w": 1200,
@@ -3179,24 +3161,6 @@
  {
   "src": "public/3d/s03/r_04.jpg",
   "dst": "public/catalog/2027/skameyka-s03-skameyka-oyogi-3-scene-sm-3d.webp",
-  "w": 720,
-  "kind": "render"
- },
- {
-  "src": "media-src/upscaled/s04-qolip.jpg",
-  "dst": "public/catalog/2027/skameyka-s04-skameyka-oyogi-4-mold-a-3d.webp",
-  "w": 1200,
-  "kind": "render"
- },
- {
-  "src": "public/3d/s04/r_04.jpg",
-  "dst": "public/catalog/2027/skameyka-s04-skameyka-oyogi-4-scene-3d.webp",
-  "w": 1400,
-  "kind": "render"
- },
- {
-  "src": "public/3d/s04/r_04.jpg",
-  "dst": "public/catalog/2027/skameyka-s04-skameyka-oyogi-4-scene-sm-3d.webp",
   "w": 720,
   "kind": "render"
  },
@@ -3234,12 +3198,6 @@
   "src": "public/3d/s06/r_04.jpg",
   "dst": "public/catalog/2027/skameyka-s06-skameyka-oyogi-6-scene-sm-3d.webp",
   "w": 720,
-  "kind": "render"
- },
- {
-  "src": "media-src/upscaled/s07-qolip.jpg",
-  "dst": "public/catalog/2027/skameyka-s07-skameyka-oyogi-7-mold-a-3d.webp",
-  "w": 1200,
   "kind": "render"
  },
  {

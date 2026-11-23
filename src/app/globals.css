@@ -464,6 +464,8 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
 }
 /* RU'da tab nomlari uzun ("Тротуарная плитка", "Оставить заявку"): ichki joy kichikroq (HANDOFF 4.10) */
 @media (min-width: 761px) { .hd-tabs--ru a { padding-inline: 10px; } }
+/* Tayyor mahsulotlar: 12 ta tab (11 bo'lim + umumiy) — 1440 px da RU nomlar sig'sin */
+@media (min-width: 761px) { .hd-tabs--dense a { padding-inline: 8px; font-size: 14px; gap: 4px; } }
 
 .sps-lang { display: inline-flex; border: 1px solid var(--line); border-radius: var(--radius-pill); padding: 2px; }
 .sps-lang a { font: 500 12px/16px var(--font-sans); letter-spacing: .06em; color: var(--ink-muted); text-decoration: none; padding: 6px 10px; border-radius: var(--radius-pill); }

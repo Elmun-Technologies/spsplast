@@ -140,7 +140,7 @@ export default async function ReadyProductPage({ params }: { params: Promise<{ l
         </nav>
         <div className="rd-pdp">
           {images.length ? (
-            <ReadyGallery images={images} label={t.alt.scene} />
+            <ReadyGallery images={images} label={name} />
           ) : (
             <div className="rd-gal__main rd-gal__main--empty">{t.catalog.photoSoon}</div>
           )}
@@ -185,7 +185,7 @@ export default async function ReadyProductPage({ params }: { params: Promise<{ l
                     {img ? (
                       <Image
                         src={img}
-                        alt={`${modelName(x, lang)} — ${t.alt.scene}`}
+                        alt={modelName(x, lang)}
                         width={400}
                         height={300}
                         sizes="(max-width: 640px) 50vw, (max-width: 1100px) 25vw, 300px"

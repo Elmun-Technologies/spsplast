@@ -135,7 +135,7 @@ export function HeaderClient({
 
           {!forkView && (
             <>
-          <nav className={`hd-tabs${lang === 'ru' ? ' hd-tabs--ru' : ''}`} aria-label={t.a11y.sectionsNav}>
+          <nav className={`hd-tabs${lang === 'ru' ? ' hd-tabs--ru' : ''}${tabs.length > 10 ? ' hd-tabs--dense' : ''}`} aria-label={t.a11y.sectionsNav}>
             {tabs.map((tab) => (
               <a key={tab.href} href={tab.href} title={tab.full !== tab.label ? tab.full : undefined} aria-current={tab.active ? 'page' : undefined}>
                 {tab.label}

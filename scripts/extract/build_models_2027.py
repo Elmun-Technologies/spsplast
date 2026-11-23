@@ -741,13 +741,14 @@ def apply_refresh(models, jobs):
             if not m:
                 continue
             im = m["images"]
-            old = [*im["molds"].values(), *im["tiles"].values()]
-            if any(p and not p.endswith("-3d.webp") for p in old):
+            if any(p and not p.endswith("-3d.webp") for p in [*im["molds"].values(), *im["tiles"].values()]):
                 continue
-            paths = [*new["molds"].values(), *new["tiles"].values()]
-            if not all(os.path.exists(os.path.join(ROOT, "public", p.lstrip("/"))) for p in paths):
+            old = [im["scene"], im["sceneSm"], *im["molds"].values(), *im["tiles"].values()]
+            paths = [new["scene"], new["sceneSm"], *new["molds"].values(), *new["tiles"].values()]
+            if not all(p and os.path.exists(os.path.join(ROOT, "public", p.lstrip("/"))) for p in paths):
                 continue
             dropped |= {"public" + p for p in old if p and p not in paths}
+            im["scene"], im["sceneSm"] = new["scene"], new["sceneSm"]
             im["molds"], im["tiles"] = dict(new["molds"]), dict(new["tiles"])
             n += 1
     return [j for j in jobs if j["dst"] not in dropped], n

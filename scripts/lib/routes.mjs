@@ -70,8 +70,9 @@ export const AUDIT_ROUTES = [
   { path: '/en/ready', lang: 'en', expect: { jsonLd: ['BreadcrumbList'] } },
   { path: '/uz/ready/cornices', lang: 'uz', expect: { jsonLd: ['BreadcrumbList'] } },
   { path: '/ru/ready/thermal-panels', lang: 'ru', expect: { jsonLd: ['BreadcrumbList'] } },
-  // Bo'sh tayyor bo'lim (skameyka hali yo'q): sahifa ishlaydi, lekin indekslanmaydi.
-  { path: '/uz/ready/benches', lang: 'uz', expect: { jsonLd: ['BreadcrumbList'], noindex: true } },
+  { path: '/uz/ready/benches', lang: 'uz', expect: { jsonLd: ['BreadcrumbList'] } },
+  { path: '/ru/ready/euro-fence/z01-yevrozabor-okovka-tayyor', lang: 'ru', expect: { jsonLd: ['BreadcrumbList', 'Product'] } },
+  { path: '/en/catalog/bench/skameyka-royal', lang: 'en', expect: { jsonLd: ['BreadcrumbList', 'Product', 'FAQPage'] } },
   { path: '/uz/ready/thermal-panels/tp-001-30x60-kirpich-tayyor', lang: 'uz', expect: { jsonLd: ['BreadcrumbList', 'Product'] } },
   { path: '/en/ready/cornices/krn-006-50x120-karniz-tayyor', lang: 'en', expect: { jsonLd: ['BreadcrumbList', 'Product'] } },
   { path: '/uz/contact', lang: 'uz', expect: { jsonLd: ['BreadcrumbList', 'LocalBusiness'] } },
