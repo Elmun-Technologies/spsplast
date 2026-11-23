@@ -840,163 +840,163 @@
   "src": "media-src/live/t01-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.8032,
+  "cover": 0.8147,
   "edge": 0.0,
   "note": "",
-  "sha": "c06be9cf7e4af56e"
+  "sha": "fb3d785488eef72e"
  },
  "trotuar-02-ornament-mold-a": {
   "src": "media-src/live/t02-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.8021,
+  "cover": 0.8101,
   "edge": 0.0,
   "note": "",
-  "sha": "dfd55a39745cc41c"
+  "sha": "dd721f5e9e02a728"
  },
  "trotuar-03-yalta-mold-a": {
   "src": "media-src/live/t03-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.7928,
+  "cover": 0.7848,
   "edge": 0.0,
   "note": "",
-  "sha": "2ed3b96eccaa544d"
+  "sha": "e527e44fa4c6e769"
  },
  "trotuar-04-tsvetok-mold-a": {
   "src": "media-src/live/t04-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.801,
+  "cover": 0.7988,
   "edge": 0.0,
   "note": "",
-  "sha": "edb98fb18806b529"
+  "sha": "5615f4f4cd4588d2"
  },
  "trotuar-05-magna-mold-a": {
   "src": "media-src/live/t05-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.7917,
+  "cover": 0.796,
   "edge": 0.0,
   "note": "",
-  "sha": "a55d6a5e830aaa9c"
+  "sha": "6c413685980e67e9"
  },
  "trotuar-06-azara-mold-a": {
   "src": "media-src/live/t06-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.7943,
+  "cover": 0.8014,
   "edge": 0.0,
   "note": "",
-  "sha": "ff1360b7e6db976b"
+  "sha": "58222b9f6fd9cdb8"
  },
  "trotuar-07-parus-mold-a": {
   "src": "media-src/live/t07-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.7873,
+  "cover": 0.7978,
   "edge": 0.0,
   "note": "",
-  "sha": "e851d947aebfd19d"
+  "sha": "e561242c7943e178"
  },
  "trotuar-08-travertino-mold-a": {
   "src": "media-src/live/t08-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.7991,
+  "cover": 0.7946,
   "edge": 0.0,
   "note": "",
-  "sha": "41c8263fb3c2f634"
+  "sha": "4a31dc9f9e5aedd5"
  },
  "trotuar-09-versache-1-mold-a": {
   "src": "media-src/live/t09-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.7516,
+  "cover": 0.8017,
   "edge": 0.0,
   "note": "",
-  "sha": "166fb0151adc117b"
+  "sha": "5e74bbeadd3968c5"
  },
  "trotuar-10-zanjir-mold-a": {
   "src": "media-src/live/t10-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.7929,
+  "cover": 0.8052,
   "edge": 0.0,
   "note": "",
-  "sha": "f219e147904bc075"
+  "sha": "117d68e42d2b2ef3"
  },
  "trotuar-11-setka-mold-a": {
   "src": "media-src/live/t11-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.7555,
+  "cover": 0.8072,
   "edge": 0.0,
   "note": "",
-  "sha": "7fc7033d16ab0af9"
+  "sha": "ca62dbbfb6b85757"
  },
  "trotuar-12-rio-mold-a": {
   "src": "media-src/live/t12-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.797,
+  "cover": 0.8175,
   "edge": 0.0,
   "note": "",
-  "sha": "73abb0cc8f45210d"
+  "sha": "3dd55281291e978d"
  },
  "trotuar-13-viking-mold-a": {
   "src": "media-src/live/t13-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.785,
+  "cover": 0.8431,
   "edge": 0.0,
   "note": "",
-  "sha": "4840f1f5769cfabf"
+  "sha": "81e8f01094de6f2e"
  },
  "trotuar-14-shersha-mold-a": {
   "src": "media-src/live/t14-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.768,
+  "cover": 0.8158,
   "edge": 0.0,
   "note": "",
-  "sha": "f48716fb6b580be6"
+  "sha": "f597e3f5a650a303"
  },
  "trotuar-15-floriya-mold-a": {
   "src": "media-src/live/t15-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.794,
+  "cover": 0.8056,
   "edge": 0.0,
   "note": "",
-  "sha": "8cd05258fbeab65d"
+  "sha": "176da2c83ea1e629"
  },
  "trotuar-16-strelka-mold-a": {
   "src": "media-src/live/t16-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.7968,
+  "cover": 0.8047,
   "edge": 0.0,
   "note": "",
-  "sha": "917cd53cf05a0600"
+  "sha": "e6308cbdd8b24cd7"
  },
  "trotuar-17-versachi-mold-a": {
   "src": "media-src/live/t17-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.7943,
+  "cover": 0.7866,
   "edge": 0.0,
   "note": "",
-  "sha": "2e64aac20d134712"
+  "sha": "746027a5ed8e4650"
  },
  "trotuar-18-dubay-40-40-mold-a": {
   "src": "media-src/live/t22-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.7459,
+  "cover": 0.7999,
   "edge": 0.0,
   "note": "",
-  "sha": "d6bc8d343a063412"
+  "sha": "54f49773f67aed61"
  },
  "trotuar-19-eksklyuziv-mold-a": {
   "src": "media-src/studio-2026/G014-mold.jpg",
@@ -1011,19 +1011,19 @@
   "src": "media-src/live/t24-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.7946,
+  "cover": 0.8049,
   "edge": 0.0,
   "note": "",
-  "sha": "07f5ffe6fccd9acb"
+  "sha": "5ae42f7c352c0feb"
  },
  "trotuar-21-taroq-mold-a": {
   "src": "media-src/live/t25-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.6982,
+  "cover": 0.759,
   "edge": 0.0,
   "note": "",
-  "sha": "654da3ed848e0185"
+  "sha": "07e01046813ea355"
  },
  "trotuar-22-uzor-50-25-mold-a": {
   "src": "media-src/live/t26-qolip.jpg",
@@ -1047,55 +1047,64 @@
   "src": "media-src/live/t28-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.7173,
+  "cover": 0.812,
   "edge": 0.0,
   "note": "",
-  "sha": "67a30de301e2861e"
+  "sha": "1c8aea7fe4a41cbc"
  },
  "trotuar-25-bodom-mold-a": {
   "src": "media-src/live/t29-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.7014,
+  "cover": 0.8113,
   "edge": 0.0,
   "note": "",
-  "sha": "4ca38dccf2463b9b"
+  "sha": "c22abb9457bb7f14"
  },
  "trotuar-26-astana-mold-a": {
   "src": "media-src/live/t30-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.6406,
+  "cover": 0.7453,
   "edge": 0.0,
   "note": "",
-  "sha": "f5b80d0c2a02be44"
+  "sha": "72a328a27fa49dde"
  },
  "trotuar-27-yulduz-mold-a": {
   "src": "media-src/live/t31-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.6728,
+  "cover": 0.7431,
   "edge": 0.0,
   "note": "",
-  "sha": "67200b6f8e06b42a"
+  "sha": "2aefdf92de7cbea2"
  },
  "trotuar-28-turkman-guli-mold-a": {
   "src": "media-src/live/t32-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.6812,
+  "cover": 0.7522,
   "edge": 0.0,
   "note": "",
-  "sha": "73d8b4b8ecdc5b52"
+  "sha": "b7384bfdf795f2e8"
+ },
+ "trotuar-29-eksklyuziv-30-30-4-sakkiz-qirra-mold-a": {
+  "src": "media-src/live/t33-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.789,
+  "edge": 0.0,
+  "note": "",
+  "sha": "2f44f81df8acb0ae"
  },
  "trotuar-30-aleya-mold-a": {
   "src": "media-src/live/t34-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.6062,
+  "cover": 0.6146,
   "edge": 0.0,
   "note": "",
-  "sha": "a93f67d270d1a387"
+  "sha": "42705cbfaab41fb3"
  },
  "trotuar-31-aleya-shershavoe-mold-a": {
   "src": "media-src/live/t35-qolip.jpg",
@@ -1110,172 +1119,172 @@
   "src": "media-src/live/t36-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.4983,
+  "cover": 0.8187,
   "edge": 0.0,
   "note": "",
-  "sha": "244e27bebeb7ca06"
+  "sha": "929a23149cdae959"
  },
  "trotuar-33-novvot-mold-a": {
   "src": "media-src/live/t37-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.7115,
+  "cover": 0.8177,
   "edge": 0.0,
   "note": "",
-  "sha": "59671ab92d529be8"
+  "sha": "a1d3cc094668b3e9"
  },
  "trotuar-34-parket-20-20-mold-a": {
   "src": "media-src/live/t38-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.7109,
+  "cover": 0.8136,
   "edge": 0.0,
   "note": "",
-  "sha": "d63f582ca709e0f3"
+  "sha": "1d87ec609edf8efd"
  },
  "trotuar-35-uzor-20-20-mold-a": {
   "src": "media-src/live/t39-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.7215,
+  "cover": 0.8144,
   "edge": 0.0,
   "note": "",
-  "sha": "9a2434c88649198a"
+  "sha": "dedf0555cd04546e"
  },
  "trotuar-36-bodom-20-20-mold-a": {
   "src": "media-src/live/t40-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.7193,
+  "cover": 0.8145,
   "edge": 0.0,
   "note": "",
-  "sha": "f6ff487eb64351ef"
+  "sha": "aa0df5d31c9f4033"
  },
  "trotuar-37-rombik-eski-mold-a": {
   "src": "media-src/live/t41-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.4001,
+  "cover": 0.4462,
   "edge": 0.0,
   "note": "",
-  "sha": "d2faf30e886ca717"
+  "sha": "4a5d0a29e273e02a"
  },
  "trotuar-38-rombik-yangi-mold-a": {
   "src": "media-src/live/t42-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.3969,
+  "cover": 0.4394,
   "edge": 0.0,
   "note": "",
-  "sha": "c69e7783cc182c4e"
+  "sha": "d4b6b426e8a046b3"
  },
  "trotuar-39-dubay-toshli-mold-a": {
   "src": "media-src/live/t43-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.6528,
+  "cover": 0.7325,
   "edge": 0.0,
   "note": "",
-  "sha": "a5618a84878adf92"
+  "sha": "5605f1b5ee328626"
  },
  "trotuar-40-dubay-shershaviy-mold-a": {
   "src": "media-src/live/t44-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.6636,
+  "cover": 0.6971,
   "edge": 0.0,
   "note": "",
-  "sha": "d63cf5d302a5d4f3"
+  "sha": "53656505045e6a96"
  },
  "trotuar-41-dubay-yaltiroq-mold-a": {
   "src": "media-src/live/t45-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.6695,
+  "cover": 0.7377,
   "edge": 0.0,
   "note": "",
-  "sha": "21431053854d4cff"
+  "sha": "db9734902da5c3aa"
  },
  "trotuar-42-kerpich-10-20-5-mold-a": {
   "src": "media-src/live/t46-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.7787,
+  "cover": 0.8113,
   "edge": 0.0,
   "note": "",
-  "sha": "c0ed2207d79f1456"
+  "sha": "56a90d69d7a31d51"
  },
  "trotuar-43-kerpich-10-20-7-mold-a": {
   "src": "media-src/live/t47-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.7227,
+  "cover": 0.7842,
   "edge": 0.0,
   "note": "",
-  "sha": "96625f5226654372"
+  "sha": "0cd1650328481f05"
  },
  "trotuar-44-parus-18-36-mold-a": {
   "src": "media-src/live/t48-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.5458,
+  "cover": 0.6607,
   "edge": 0.0,
   "note": "",
-  "sha": "d621a6d2e635bebe"
+  "sha": "0dfc3901e96aa8f5"
  },
  "trotuar-45-gladkiy-18-36-mold-a": {
   "src": "media-src/live/t49-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.6021,
+  "cover": 0.7567,
   "edge": 0.0,
   "note": "",
-  "sha": "1516181c3e6d36a2"
+  "sha": "37eb103ccf40936e"
  },
  "trotuar-46-dojdik-18-36-mold-a": {
   "src": "media-src/live/t50-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.6314,
+  "cover": 0.7513,
   "edge": 0.0,
   "note": "",
-  "sha": "b93e360daeb4ec4c"
+  "sha": "c54f689c1926ac4c"
  },
  "trotuar-47-kabanchik-17-17-mold-a": {
   "src": "media-src/live/t51-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.7018,
+  "cover": 0.7598,
   "edge": 0.0,
   "note": "",
-  "sha": "e7d383a81a9b7d7a"
+  "sha": "917672b2f888e3df"
  },
  "trotuar-48-mozaika-mold-a": {
   "src": "media-src/live/t52-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.641,
+  "cover": 0.8194,
   "edge": 0.0,
   "note": "",
-  "sha": "2db19ea15abb0a34"
+  "sha": "4f189facc3231d7e"
  },
  "trotuar-50-azaliya-1-mold-a": {
   "src": "media-src/live/t53-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.4454,
+  "cover": 0.5463,
   "edge": 0.0,
   "note": "",
-  "sha": "3e80ceb350f4ddbd"
+  "sha": "1648defbc7d96d83"
  },
  "trotuar-51-azaliya-2-mold-a": {
   "src": "media-src/live/t54-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.446,
+  "cover": 0.5453,
   "edge": 0.0,
   "note": "",
-  "sha": "82f77918450406ce"
+  "sha": "ce93c786ea9662b1"
  },
  "trotuar-52-ona-bola-1-mold-a": {
   "src": "media-src/live/t55-qolip.jpg",
@@ -1290,55 +1299,55 @@
   "src": "media-src/live/t57-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.5645,
+  "cover": 0.6273,
   "edge": 0.0,
   "note": "",
-  "sha": "79d693d5c2a59d69"
+  "sha": "d677ed7a00df6122"
  },
  "trotuar-54-aziya-1-mold-a": {
   "src": "media-src/live/t58-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.614,
+  "cover": 0.7501,
   "edge": 0.0,
   "note": "",
-  "sha": "97bbff76e1fb6a1f"
+  "sha": "8c80a38be092bf65"
  },
  "trotuar-55-aziya-3-mold-a": {
   "src": "media-src/live/t60-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.4716,
+  "cover": 0.4534,
   "edge": 0.0,
   "note": "",
-  "sha": "d9df3bfaf5c9da96"
+  "sha": "be677d5c8375731b"
  },
  "trotuar-56-buxoro-mold-a": {
   "src": "media-src/live/t61-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.4893,
+  "cover": 0.5685,
   "edge": 0.0,
   "note": "",
-  "sha": "f787e21f3beb7659"
+  "sha": "2d67968ff0e72c55"
  },
  "trotuar-57-afina-mold-a": {
   "src": "media-src/live/t62-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.369,
+  "cover": 0.4244,
   "edge": 0.0,
   "note": "",
-  "sha": "dc5edff6bffffe2d"
+  "sha": "576d45c0e70c22b1"
  },
  "trotuar-58-rokki-mold-a": {
   "src": "media-src/live/t63-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.5303,
+  "cover": 0.5807,
   "edge": 0.0,
   "note": "",
-  "sha": "086fe94726620010"
+  "sha": "e7244967d96fccfe"
  },
  "trotuar-59-kostochka-mold-a-3d": {
   "src": "media-src/upscaled/t64-qolip.jpg",
@@ -1353,46 +1362,46 @@
   "src": "media-src/live/t65-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.508,
+  "cover": 0.6571,
   "edge": 0.0,
   "note": "",
-  "sha": "a3dae4fe35683a91"
+  "sha": "53b6c1a0ee916c57"
  },
  "trotuar-61-4d-mold-a": {
   "src": "media-src/live/t66-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.5314,
+  "cover": 0.6945,
   "edge": 0.0,
   "note": "",
-  "sha": "263959b08d01aaf7"
+  "sha": "9e6654f8c2b92e50"
  },
  "trotuar-62-vegas-mold-a": {
   "src": "media-src/live/t67-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.5569,
+  "cover": 0.7184,
   "edge": 0.0,
   "note": "",
-  "sha": "9edf8f5ea7ac3884"
+  "sha": "e70568b8ca2d339f"
  },
  "trotuar-63-royal-1-mold-a": {
   "src": "media-src/live/t68-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.5663,
+  "cover": 0.7273,
   "edge": 0.0,
   "note": "",
-  "sha": "01b41cb383feed94"
+  "sha": "b17c9526b0c3cbc8"
  },
  "trotuar-64-royal-2-mold-a": {
   "src": "media-src/live/t69-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.5516,
+  "cover": 0.6969,
   "edge": 0.0,
   "note": "",
-  "sha": "dbcfcd8e65392c3f"
+  "sha": "4d18959bf6792527"
  },
  "trotuar-65-farovon-mold-a": {
   "src": "media-src/live/t70-qolip.jpg",
@@ -1407,64 +1416,64 @@
   "src": "media-src/live/t71-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.5378,
+  "cover": 0.668,
   "edge": 0.0,
   "note": "",
-  "sha": "e51310396fca1bdd"
+  "sha": "50cc45322a19f660"
  },
  "trotuar-67-safir-mold-a": {
   "src": "media-src/live/t72-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.5304,
+  "cover": 0.6407,
   "edge": 0.0,
   "note": "",
-  "sha": "51f7b498a31d097f"
+  "sha": "0005a7a36096ab61"
  },
  "trotuar-68-aleya-uzor-mold-a": {
   "src": "media-src/live/t73-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.6071,
+  "cover": 0.6457,
   "edge": 0.0,
   "note": "",
-  "sha": "4300dae5aac2ecf1"
+  "sha": "9ffa85a49fe979aa"
  },
  "trotuar-69-kabanchik-15-15-mold-a": {
   "src": "media-src/live/t74-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.656,
+  "cover": 0.7151,
   "edge": 0.0,
   "note": "",
-  "sha": "d5e4a15baeab5ffa"
+  "sha": "473274f4eb5adffa"
  },
  "trotuar-70-kabanchik-17-5-naqshli-mold-a": {
   "src": "media-src/live/t75-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.5799,
+  "cover": 0.7965,
   "edge": 0.0,
   "note": "",
-  "sha": "684c398a53853c64"
+  "sha": "b159ed96c5743335"
  },
  "trotuar-71-mumtoz-mold-a": {
   "src": "media-src/live/t76-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.6063,
+  "cover": 0.6652,
   "edge": 0.0,
   "note": "",
-  "sha": "c557b6bc738a0d05"
+  "sha": "e4b3defb563c5cff"
  },
  "trotuar-72-marokesh-mold-a": {
   "src": "media-src/live/t77-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.6176,
+  "cover": 0.6422,
   "edge": 0.0,
   "note": "",
-  "sha": "09770a98b19b3b18"
+  "sha": "3a436520a66a46ae"
  },
  "trotuar-73-marokesh-2-mold-a": {
   "src": "media-src/live/t78-qolip.jpg",
@@ -1479,19 +1488,19 @@
   "src": "media-src/live/t79-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.5982,
+  "cover": 0.7052,
   "edge": 0.0,
   "note": "",
-  "sha": "bd06b1e49c247f2e"
+  "sha": "758f529681460b11"
  },
  "trotuar-75-nikolay-shershavoe-mold-a": {
   "src": "media-src/live/t80-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.6224,
+  "cover": 0.6926,
   "edge": 0.0,
   "note": "",
-  "sha": "7437ccdf4db85e08"
+  "sha": "b0c2ce03de132169"
  },
  "trotuar-76-ona-bola-2-mold-a": {
   "src": "media-src/live/t56-qolip.jpg",
@@ -1506,100 +1515,100 @@
   "src": "media-src/live/t59-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.5584,
+  "cover": 0.5985,
   "edge": 0.0,
   "note": "",
-  "sha": "b2b10ff1223d3b14"
+  "sha": "3f6012f474f5c4d4"
  },
  "trotuar-78-xokkey-mold-a": {
   "src": "media-src/live/t81-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.4588,
+  "cover": 0.5093,
   "edge": 0.0,
   "note": "",
-  "sha": "5a1e003c3ac0f8db"
+  "sha": "65dd178a5f59e04d"
  },
  "trotuar-79-palma-mold-a": {
   "src": "media-src/live/t82-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.5777,
+  "cover": 0.4276,
   "edge": 0.0,
   "note": "",
-  "sha": "3a5ca96749d28b5b"
+  "sha": "46fd32963a29dbda"
  },
  "trotuar-80-ventilyator-mold-a": {
   "src": "media-src/live/t83-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.4105,
+  "cover": 0.5918,
   "edge": 0.0,
   "note": "",
-  "sha": "55ec9c6b96662699"
+  "sha": "cde96a7556c8c844"
  },
  "trotuar-81-vindovs-mold-a": {
   "src": "media-src/live/t84-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.5304,
+  "cover": 0.5808,
   "edge": 0.0,
   "note": "",
-  "sha": "a4226dece83c8f5e"
+  "sha": "f504c3d88138bed1"
  },
  "trotuar-82-orxideya-mold-a": {
   "src": "media-src/live/t85-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.5163,
+  "cover": 0.5196,
   "edge": 0.0,
   "note": "",
-  "sha": "f369589fb003e523"
+  "sha": "ace513e5fa9d71a6"
  },
  "trotuar-83-nikolay-2-mold-a": {
   "src": "media-src/live/t86-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.5958,
+  "cover": 0.7047,
   "edge": 0.0,
   "note": "",
-  "sha": "5e6202e8e97805f0"
+  "sha": "d1f8582b02d68f25"
  },
  "trotuar-84-vetnam-mold-a": {
   "src": "media-src/live/t87-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.5974,
+  "cover": 0.7034,
   "edge": 0.0,
   "note": "",
-  "sha": "49be527eb5cc0d1e"
+  "sha": "2e6a3452db4bf09b"
  },
  "trotuar-85-kabanchik-10-10-mold-a": {
   "src": "media-src/live/t88-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.789,
+  "cover": 0.8491,
   "edge": 0.0,
   "note": "",
-  "sha": "20d35ed3d1908283"
+  "sha": "7e3693c1655eb1aa"
  },
  "trotuar-86-aleya-3-mold-a": {
   "src": "media-src/live/t89-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.4886,
+  "cover": 0.6741,
   "edge": 0.0,
   "note": "",
-  "sha": "d35a299feaa163bb"
+  "sha": "6de70ea99a948d8f"
  },
  "trotuar-87-magna-kubik-bilan-mold-a": {
   "src": "media-src/live/t90-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.5703,
+  "cover": 0.7411,
   "edge": 0.0,
   "note": "",
-  "sha": "e9d3d7d87aa176ca"
+  "sha": "df66a880e6ab9e2f"
  },
  "trotuar-88-parket-yog-och-naqshli-mold-a": {
   "src": "media-src/live/t91-qolip.jpg",
@@ -1610,50 +1619,392 @@
   "note": "",
   "sha": "4e441abf62b73ab1"
  },
- "trotuar-bumerang-mold-a": {
-  "src": "media-src/studio-2026/G020-mold.jpg",
+ "trotuar-afsona-mold-a": {
+  "src": "media-src/live/afsona-qolip.jpg",
   "status": "fallback",
-  "method": "rang kaliti max(RGB)<110, B>=R",
-  "cover": 0.0787,
+  "method": "floodfill fuzz 14%",
+  "cover": 0.4923,
   "edge": 0.0,
   "note": "",
-  "sha": "a7a7ccaf93c356f8"
+  "sha": "539cfab4546caeb2"
+ },
+ "trotuar-antara-1-mold-a": {
+  "src": "media-src/live/antara-1-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.6509,
+  "edge": 0.0,
+  "note": "",
+  "sha": "ab072f02705e3d57"
+ },
+ "trotuar-bodom-15-15-mold-a": {
+  "src": "media-src/live/bodom-15-15-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.7101,
+  "edge": 0.0,
+  "note": "",
+  "sha": "a2f5324dbd0e4b4c"
+ },
+ "trotuar-bumerang-mold-a": {
+  "src": "media-src/live/bumerang-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.4382,
+  "edge": 0.0,
+  "note": "",
+  "sha": "059aa4b9f59952d6"
+ },
+ "trotuar-charogon-1-mold-a": {
+  "src": "media-src/live/charogon-1-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.6572,
+  "edge": 0.0,
+  "note": "",
+  "sha": "fbaea42328aa604b"
+ },
+ "trotuar-charogon-2-mold-a": {
+  "src": "media-src/live/charogon-2-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.6331,
+  "edge": 0.0,
+  "note": "",
+  "sha": "d5a9013fe7de3c5c"
+ },
+ "trotuar-daraxt-kesimi-mold-a": {
+  "src": "media-src/live/daraxt-kesimi-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.663,
+  "edge": 0.0,
+  "note": "",
+  "sha": "3a63a344448da993"
+ },
+ "trotuar-dubay-aylana-okrujnost-mold-a": {
+  "src": "media-src/live/dubay-aylana-okrujnost-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.6438,
+  "edge": 0.0,
+  "note": "",
+  "sha": "fda5d6dee9a6f1d5"
+ },
+ "trotuar-faiz-20-20-x4-mold-a": {
+  "src": "media-src/live/faiz-20-20-x4-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.8143,
+  "edge": 0.0,
+  "note": "",
+  "sha": "885090f96b50893c"
+ },
+ "trotuar-flajok-mold-a": {
+  "src": "media-src/live/flajok-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.593,
+  "edge": 0.0,
+  "note": "",
+  "sha": "9d3bc983304a5142"
+ },
+ "trotuar-girih-mold-a": {
+  "src": "media-src/live/girih-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.628,
+  "edge": 0.0,
+  "note": "",
+  "sha": "5e1611ceddd96adb"
+ },
+ "trotuar-glyanets-15-15-mold-a": {
+  "src": "media-src/live/glyanets-15-15-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.7192,
+  "edge": 0.0,
+  "note": "",
+  "sha": "1a9e3cebeb9e5f23"
  },
  "trotuar-kaliforniya-g-mold-a": {
   "src": "media-src/live/t20-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.7365,
+  "cover": 0.797,
   "edge": 0.0,
   "note": "",
-  "sha": "f278455c454a056b"
+  "sha": "5959a22f988f6354"
  },
  "trotuar-kaliforniya-mold-a": {
   "src": "media-src/live/t19-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.738,
+  "cover": 0.7941,
   "edge": 0.0,
   "note": "",
-  "sha": "5210d7407be43218"
+  "sha": "4932f0d62919da8f"
+ },
+ "trotuar-kristall-mold-a": {
+  "src": "media-src/live/kristall-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.628,
+  "edge": 0.0,
+  "note": "",
+  "sha": "4464f829174ef3ef"
+ },
+ "trotuar-kubiki-25-50-mold-a": {
+  "src": "media-src/live/kubiki-25-50-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.763,
+  "edge": 0.0,
+  "note": "",
+  "sha": "85f0a91d43e3d90d"
+ },
+ "trotuar-meandr-30-30-mold-a": {
+  "src": "media-src/live/meandr-30-30-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.8726,
+  "edge": 0.0,
+  "note": "",
+  "sha": "9fa5c13e482a2304"
+ },
+ "trotuar-naqshli-bordyur-mold-a": {
+  "src": "media-src/live/naqshli-bordyur-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.6749,
+  "edge": 0.0,
+  "note": "",
+  "sha": "e67765cf64f7ea43"
+ },
+ "trotuar-okean-25-50-mold-a": {
+  "src": "media-src/live/okean-25-50-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.7662,
+  "edge": 0.0,
+  "note": "",
+  "sha": "f0dc4d99ec5cbd6c"
+ },
+ "trotuar-oltiburchak-galka-mold-a": {
+  "src": "media-src/live/oltiburchak-galka-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.664,
+  "edge": 0.0,
+  "note": "",
+  "sha": "bfc34fd79eeb2e5e"
+ },
+ "trotuar-ornament-18-36-mold-a": {
+  "src": "media-src/live/ornament-18-36-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.7551,
+  "edge": 0.0,
+  "note": "",
+  "sha": "9e58e3c307b190d7"
+ },
+ "trotuar-oyoq-izi-mold-a": {
+  "src": "media-src/live/oyoq-izi-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.5482,
+  "edge": 0.0,
+  "note": "",
+  "sha": "38ded8683e1fa60f"
+ },
+ "trotuar-pletyonka-mold-a": {
+  "src": "media-src/live/pletyonka-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.781,
+  "edge": 0.0,
+  "note": "",
+  "sha": "994b428409c7588a"
  },
  "trotuar-polosa-mold-a": {
   "src": "media-src/live/t18-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.7978,
+  "cover": 0.805,
   "edge": 0.0,
   "note": "",
-  "sha": "660668700e894dd1"
+  "sha": "d75f0f5df91a2f05"
+ },
+ "trotuar-qrim-valday-sayani-mold-a": {
+  "src": "media-src/live/qrim-valday-sayani-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.463,
+  "edge": 0.0,
+  "note": "",
+  "sha": "d00121fc28a931f5"
+ },
+ "trotuar-rim-1-2-3-mold-a": {
+  "src": "media-src/live/rim-1-2-3-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.6871,
+  "edge": 0.0,
+  "note": "",
+  "sha": "0f109f508eda3713"
+ },
+ "trotuar-sahara-aleya-mold-a": {
+  "src": "media-src/live/sahara-aleya-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.7138,
+  "edge": 0.0,
+  "note": "",
+  "sha": "bd3d9a362b1f0d97"
  },
  "trotuar-shashka-mold-a": {
   "src": "media-src/live/t21-qolip.jpg",
   "status": "fallback",
   "method": "floodfill fuzz 14%",
-  "cover": 0.7272,
+  "cover": 0.7856,
   "edge": 0.0,
   "note": "",
-  "sha": "5d0bee443c79b457"
+  "sha": "bd81852111ade994"
+ },
+ "trotuar-shershaviy-25-50-mold-a": {
+  "src": "media-src/live/shershaviy-25-50-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.7934,
+  "edge": 0.0,
+  "note": "",
+  "sha": "4d574aeb2e914668"
+ },
+ "trotuar-slanets-mold-a": {
+  "src": "media-src/live/slanets-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.5028,
+  "edge": 0.0,
+  "note": "",
+  "sha": "a6b6cb42e1fba67f"
+ },
+ "trotuar-taktil-chiziq-30-30-mold-a": {
+  "src": "media-src/live/taktil-chiziq-30-30-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.7808,
+  "edge": 0.0,
+  "note": "",
+  "sha": "66a0d2364c061fd5"
+ },
+ "trotuar-taktil-konus-30-30-mold-a": {
+  "src": "media-src/live/taktil-konus-30-30-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.7925,
+  "edge": 0.0,
+  "note": "",
+  "sha": "75651e5193087e20"
+ },
+ "trotuar-taxta-parket-mold-a": {
+  "src": "media-src/live/taxta-parket-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.7626,
+  "edge": 0.0,
+  "note": "",
+  "sha": "49ad85a55f550fd3"
+ },
+ "trotuar-tomir-15-15-mold-a": {
+  "src": "media-src/live/tomir-15-15-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.7217,
+  "edge": 0.0,
+  "note": "",
+  "sha": "7060b052e6fc7305"
+ },
+ "trotuar-tomir-20-20-kvadrat-mold-a": {
+  "src": "media-src/live/tomir-20-20-kvadrat-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.8571,
+  "edge": 0.0,
+  "note": "",
+  "sha": "625e6ad1160958da"
+ },
+ "trotuar-tomir-20-20-x1-mold-a": {
+  "src": "media-src/live/tomir-20-20-x1-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.819,
+  "edge": 0.0,
+  "note": "",
+  "sha": "990a502def5ed2ed"
+ },
+ "trotuar-travertino-30-40-mold-a": {
+  "src": "media-src/live/travertino-30-40-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.7682,
+  "edge": 0.0,
+  "note": "",
+  "sha": "27b36484c458e32a"
+ },
+ "trotuar-uzor-4-gul-40-40-mold-a": {
+  "src": "media-src/live/t23-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.7869,
+  "edge": 0.0,
+  "note": "",
+  "sha": "f849001b6f574a06"
+ },
+ "trotuar-vegas-2-shershaviy-mold-a": {
+  "src": "media-src/live/vegas-2-shershaviy-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.7174,
+  "edge": 0.0,
+  "note": "",
+  "sha": "33bb34facc00f2d0"
+ },
+ "trotuar-versal-mold-a": {
+  "src": "media-src/live/versal-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.7473,
+  "edge": 0.0,
+  "note": "",
+  "sha": "e7979c8ed22189cb"
+ },
+ "trotuar-yulduz-yulduzsimon-mold-a": {
+  "src": "media-src/live/yulduz-yulduzsimon-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.471,
+  "edge": 0.0,
+  "note": "",
+  "sha": "d5f2e3c5d2cb969a"
+ },
+ "trotuar-zina-1-mold-a": {
+  "src": "media-src/live/zina-1-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.7959,
+  "edge": 0.0,
+  "note": "",
+  "sha": "2796a33dfd20b285"
+ },
+ "trotuar-zina-2-mold-a": {
+  "src": "media-src/live/zina-2-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.8078,
+  "edge": 0.0,
+  "note": "",
+  "sha": "f306fa0e97a10714"
  },
  "zabor-z01-yevrozabor-okovka-mold-a": {
   "src": "media-src/live/Z01-qolip.jpg",
