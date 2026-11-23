@@ -15,9 +15,9 @@ import {
   localizedText,
   sectionLabel,
   isRenderImage,
-} from '@/lib/catalog2027';
-import type { Locale } from '@/lib/i18n';
-import { formatNumber, type UiDictionary } from '@/lib/ui';
+} from '@/lib/catalogCore';
+import { formatNumber, type Locale } from '@/lib/i18n';
+import type { UiDictionary } from '@/lib/ui';
 import type { PagesDictionary } from '@/lib/pages';
 import { CONTACTS_2027 } from '@/lib/contacts2027';
 import { useCompareList, useRequestList } from '@/lib/store/spsLists';

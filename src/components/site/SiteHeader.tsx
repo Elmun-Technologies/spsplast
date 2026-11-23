@@ -32,5 +32,14 @@ export function SiteHeader({ lang }: { lang: Locale }) {
     { href: `/${lang}/contact`, match: `/${lang}/contact`, label: t.nav.contact },
   ];
 
-  return <HeaderClient lang={lang} sections={sections} total={getTotalCount()} nav={nav} pdfHref={flipHref(lang)} />;
+  return (
+    <HeaderClient
+      lang={lang}
+      sections={sections}
+      total={getTotalCount()}
+      nav={nav}
+      pdfHref={flipHref(lang)}
+      t={{ a11y: t.a11y, header: t.header, menu: t.menu, nav: t.nav }}
+    />
+  );
 }

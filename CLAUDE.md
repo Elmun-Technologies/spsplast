@@ -61,6 +61,8 @@ src/server/                  # DB layer: db/schema.ts, db/client.ts, leads.ts, a
 drizzle/                     # GENERATED SQL migrations (`npm run db:generate`), applied by `npm run db:migrate`
 vercel.json                  # buildCommand: `npm run db:migrate:deploy && npm run build` (overrides the dashboard)
 .nvmrc                       # Node version pin (also package.json `engines`, CI's node-version-file)
+docs/topshirish/             # HANDOVER package (uz): admin guide, launch checklist (Coolify), quality report, access list (no secrets)
+src/lib/patterns.ts          # mold line-ornament backgrounds: PATTERNS, sectionPattern(), patternStyle() → `.pat` CSS mask
 docs/ADMIN.md                # admin setup (Neon/Supabase, migrate, first admin) + security notes
 docs/ROADMAP-2027.md         # gap analysis + stages 7–12
 src/components/site/         # new layer: SiteHeader, HeaderClient, SiteFooter, LangSwitch, icons, MotionLayer
@@ -400,7 +402,8 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     just inlined as plain formatting in `CompareClient.tsx`, removed from the dictionary entirely.
     `home.h1`/`home.seoTitle` are still functions (fine — `getPages()` is never passed to a client
     component from the home page).
-  - **Not done, still open**: "katalog ma'lumotini kartochkaga keraklisigacha qisqartirish" (trim
+  - **Done 2026-11-23 differently** (see "JS hajmi 2026-11-23" below): instead of trimming, client files no longer
+    import the catalog at all. Original note: "katalog ma'lumotini kartochkaga keraklisigacha qisqartirish" (trim
     catalog data to what the card needs) from the same audit item. Investigated: `Model` (
     `catalog2027.ts`) is already fairly lean (no FAQ/long text — that's dictionary-side, per-model
     `name`/`subtitle` carry all 3 locales but are short strings) — lower value, higher risk than the
@@ -539,6 +542,17 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   build-arg jimgina tashlanadi va snapshot bo'sh chiqadi (test yangi `NEXT_PUBLIC_*` ni ham tekshiradi). Yangi `public/`
   papkasi qo'shsangiz — hech narsa qilish kerak emas (builder'dan ko'chadi); yangi katta papka bo'lsa, 3d/catalog kabi alohida
   qatlamga chiqaring. Coolify sozlamalari: `docs/DEPLOYMENT.md` §0.1. `next start` (lokal/CI) standalone bilan ham ishlaydi.
+- **JS hajmi 2026-11-23 (213–222 → 167–186 KB, `tests/speed2027.test.js` test 3)** — keep them:
+  - **`'use client'` fayllarda `@/lib/ui`, `@/lib/pages`, `@/lib/catalog2027` va `dictionaries/{ui,pages}/<til>` ni qiymat
+    sifatida import qilmang** (faqat `import type`). Ular uch tilning barcha lug'atini (~30 KB gzip) va modellar ro'yxatini
+    (~15 KB) har sahifa JS'iga olib kirardi — error boundary, header va til almashtirgich layout'da.
+  - O'rniga: UI matnlari — `useUi()` (`UiProvider`, `[lang]/layout.tsx` joriy tilning `catalog/alt/a11y/header/models`
+    bo'limlarini beradi) yoki server ota komponentdan prop (`HeaderClient` `t`, `LangSwitch` `label` majburiy);
+    yordamchilar — `@/lib/catalogCore` (ma'lumotsiz: turlar, bo'limlar, `modelName`, `calcMolds`…), `formatNumber`/
+    `pluralCategory` — `@/lib/i18n`; localStorage ro'yxatidan model topish — `useModelLookup()` (katalog `import()` bilan
+    kechiktirib, yuklanguncha `null` → "ro'yxat bo'sh" emas, yuklanish holati). Katalog soni — server prop (`total`).
+  - `[lang]/error.tsx` matnlari `dictionaries/pages/error.ts` da (pages lug'ati ham shu obyektni ishlatadi; admin
+    override `pages.error.*` ishlaydi). Istisno: `CompareBarPanel` (faqat ro'yxat bo'sh bo'lmasa `dynamic()`).
 - **Bosma katalog 2026 → sayt (2026-11-23)** — keep them:
   - Prod katalog **bazadan** keladi: repodagi rasm/model o'zgarishi bazaga o'zi tushmaydi. Har to'plam uchun
     `scripts/catalog-add-<sana>.json` (`add` — yangi modellar, `novinka: true` trotuar boshida; `refresh` — rasm yo'llari,
@@ -561,6 +575,21 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   Yangi build-vaqti fayl (masalan `docs/…` dan o'qiydigan skript) qo'shsangiz, uni `.dockerignore` da qoldirmang. Server diski
   to'lib qolsa: Coolify → Server → Docker Cleanup lock'i qotishi mumkin (`docker exec coolify php artisan cleanup:redis --clear-locks`).
 
+- **UX + naqshlar (2026-11-23)** — keep them:
+  - **Patterns** (`src/lib/patterns.ts`, `public/images/site/patterns/<nom>.webp` — 8 line tiles cut from printed-catalog
+    molds, 8-colour lossless, alpha): `<el className="pat [pat--fade-x|pat--fade-y] [pat--ink]" style={patternStyle(name, tone)}>`.
+    Drawn by `.pat::before` as a **CSS mask** (colour = `--pat-c`, fade = second mask layer `--pat-fade`), NOT a
+    `background-image`: a full-width background image became the LCP element (home `hm-fork`, `cat-head`) and cost
+    ~1 s of simulated LCP; masks are not LCP candidates, so no preload is needed. Per-block opacity/size via
+    `--pat-o`/`--pat-size` (`.hm-fork.pat`, `.hm-band.pat`, `.ft.pat`, `.geo-hero.pat`, `.ct-sec.pat`).
+    Placements: home fork (girih) + stats band (yulduz, light), catalog/section head (`sectionPattern(section)`),
+    footer CTA (yulduz, light), export hero (girih, light), `/ready` (charogon). Not on cards, forms or the model page.
+  - **Home** (`[lang]/page.tsx`): fork (two directions) → dark stats band → sections + help card → popular 12
+    (`CatalogClient variant="home"`: cards only — no filters/search/sort/view toggle, `cat--nofilters`) → steps +
+    calculator example (first popular model where `calcMolds()` is not null — "33 + 33" sets are skipped) → factory →
+    testimonials (null when empty) → wholesale.
+  - Header search (`.hd-search`) is hidden on list pages (catalog, section, tag) — they have their own search box.
+  - Card "quick view" button exists only at ≥1101 px (as before); on hover-capable devices it appears on card hover/focus.
 - **Never reintroduce Tailwind.** The database is back (Stage 7, user decision) **only** behind
   `src/server/` — public pages (`[lang]`, `components`, `lib`) must never import it
   (`tests/platform.test.js` test 6), otherwise the storefront stops being static.

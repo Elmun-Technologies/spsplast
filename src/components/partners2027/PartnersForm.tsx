@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { getModelBySlug, calcMolds, modelName, sectionLabel } from '@/lib/catalog2027';
+import { calcMolds, modelName, sectionLabel } from '@/lib/catalogCore';
+import { useModelLookup } from '@/lib/useModelLookup';
 import type { Locale } from '@/lib/i18n';
 import type { UiDictionary } from '@/lib/ui';
 import type { PagesDictionary } from '@/lib/pages';
@@ -60,10 +61,15 @@ export function PartnersForm({
   const [error, setError] = useState<LeadError>('');
   const okRef = useRevealOnShow<HTMLDivElement>(state === 'ok');
 
-  const items = list.items.flatMap((i) => {
-    const m = getModelBySlug(i.slug);
-    return m ? [{ item: i, model: m }] : [];
-  });
+  // Katalog kechiktirib yuklanadi (useModelLookup) — hamkorlik sahifasining birinchi JS'iga kirmaydi.
+  const lookup = useModelLookup(list.items.length > 0);
+  const loading = !lookup && list.items.length > 0;
+  const items = lookup
+    ? list.items.flatMap((i) => {
+        const m = lookup(i.slug);
+        return m ? [{ item: i, model: m }] : [];
+      })
+    : [];
 
   // Eksport sahifasida ro'yxatda yo'q davlat ("Boshqa") tanlangan bo'lsa — sahifa davlatining kodi.
   const countryIdx = countryList.indexOf(country);
@@ -71,6 +77,8 @@ export function PartnersForm({
 
   const send = async (e: React.FormEvent) => {
     e.preventDefault();
+    // Katalog hali yuklanmagan — ro'yxatsiz zayafka ketib, saqlangan modellar o'chib ketmasin.
+    if (loading) return;
     const invalid = checkLead(name, phone, dial);
     if (invalid) {
       setError(invalid);
@@ -262,7 +270,7 @@ export function PartnersForm({
 
       <div className="row" style={{ justifyContent: 'space-between' }}>
         <span className="sps-help">{p.partners.responseTime}</span>
-        <button className="sps-btn sps-btn--primary sps-btn--lg" type="submit" disabled={state === 'sending'}>
+        <button className="sps-btn sps-btn--primary sps-btn--lg" type="submit" disabled={state === 'sending' || loading}>
           {state === 'sending' ? t.catalog.formSending : p.partners.submit}
         </button>
       </div>

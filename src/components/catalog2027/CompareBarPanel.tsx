@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { getModelBySlug, modelName } from '@/lib/catalog2027';
 import { type Locale } from '@/lib/i18n';
-import { getUi } from '@/lib/ui';
+import { useUi } from '@/components/site/UiProvider';
 import { useCompareList } from '@/lib/store/spsLists';
 
 /**
@@ -13,7 +13,7 @@ import { useCompareList } from '@/lib/store/spsLists';
  * ro'yxat bo'sh bo'lmaganda dinamik yuklaydi.
  */
 export default function CompareBarPanel({ lang }: { lang: Locale }) {
-  const t = getUi(lang).catalog;
+  const t = useUi().catalog;
   const compare = useCompareList();
   // Solishtirish sahifasining o'zida panel ortiqcha (u yerda jadval va "Tozalash" bor).
   const onComparePage = /\/compare\/?$/.test(usePathname() || '');

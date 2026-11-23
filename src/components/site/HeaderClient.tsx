@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useCompareList, useRequestList } from '@/lib/store/spsLists';
-import { getUi } from '@/lib/ui';
+import type { UiDictionary } from '@/lib/ui';
 import { type Locale } from '@/lib/i18n';
 import { CONTACTS_2027 } from '@/lib/contacts2027';
 import { LangSwitch } from '@/components/site/LangSwitch';
@@ -22,15 +22,17 @@ export function HeaderClient({
   total,
   nav,
   pdfHref,
+  t,
 }: {
   lang: Locale;
+  /** Faqat shu tilning kerakli bo'limlari (server beradi) — `getUi()` mijozda 3 tilni bundle'ga olib kirardi. */
+  t: Pick<UiDictionary, 'a11y' | 'header' | 'menu' | 'nav'>;
   sections: NavItem[];
   /** Katalogdagi barcha modellar (yashirin bo'limlar ham) — sarlavhadagi "119 model" bilan bir xil. */
   total: number;
   nav: NavItem[];
   pdfHref: string;
 }) {
-  const t = getUi(lang);
   const pathname = usePathname() || `/${lang}`;
   const request = useRequestList();
   const compare = useCompareList();
@@ -78,6 +80,10 @@ export function HeaderClient({
   const catalogActive = pathname === catalogHref;
   // Bosh sahifa (tanlov ekrani) va /ready da qolip bo'limlari/qidiruvi ko'rsatilmaydi — bu yerda faqat tanlov va tayyor mahsulot.
   const forkView = pathname === `/${lang}` || pathname === `/${lang}/ready` || pathname.startsWith(`/${lang}/ready/`);
+  // Katalog ro'yxati (umumiy, bo'lim, teg) sahifalarida ro'yxat ustida o'z qidiruvi bor — header qidiruvi takrorlanmaydi.
+  const rest = pathname.startsWith(`${catalogHref}/`) ? pathname.slice(catalogHref.length + 1) : null;
+  const listView =
+    pathname === catalogHref || (rest !== null && rest !== 'flip' && (!rest.includes('/') || rest.includes('/tag/')));
   const tabs = [
     { href: catalogHref, label: t.header.catalog, full: t.header.catalog, count: total, active: catalogActive },
     ...sections.map((s) => ({ href: s.href, label: s.label, full: s.full ?? s.label, count: s.count, active: isActive(pathname, s.match) })),
@@ -126,10 +132,12 @@ export function HeaderClient({
             ))}
           </nav>
 
-          <form className="hd-search" role="search" action={catalogHref} method="GET">
-            <Icon.search width={18} height={18} strokeWidth={1.75} aria-hidden="true" />
-            <input type="search" name="q" placeholder={t.header.searchPlaceholder} aria-label={t.header.searchLabel} />
-          </form>
+          {listView ? null : (
+            <form className="hd-search" role="search" action={catalogHref} method="GET">
+              <Icon.search width={18} height={18} strokeWidth={1.75} aria-hidden="true" />
+              <input type="search" name="q" placeholder={t.header.searchPlaceholder} aria-label={t.header.searchLabel} />
+            </form>
+          )}
             </>
           )}
 

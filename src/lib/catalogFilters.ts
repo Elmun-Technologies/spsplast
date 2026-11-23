@@ -7,7 +7,7 @@ import {
   modelUse,
   modelSetSize,
   modelName,
-} from './catalog2027.ts';
+} from './catalogCore.ts';
 
 /** Katalog holati (URL searchParams bilan sinxron, HANDOFF 3-bo'lim). */
 export type Filters = {

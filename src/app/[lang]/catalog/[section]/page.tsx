@@ -1,3 +1,4 @@
+import { sectionPattern } from '@/lib/patterns';
 import { notFound } from "next/navigation";
 import { sectionSeoTitle } from '@/lib/seoTitles';
 import {
@@ -93,11 +94,12 @@ export default async function SectionPage({
         title={o?.h1 || sectionLabel(sec, lang)}
         intro={o?.intro}
         catalog={catalogKeyForSection(sec)}
+        pattern={sectionPattern(sec)}
         lead={`${models.length} ${pluralModels(lang, models.length)} · ${t.header.catalog} ${getTotalCount()}. ${t.seo.leadCta}`}
       />
       <div className="wrap sec">
         <TagChips lang={lang} section={sec} />
-        <CatalogClient lang={lang} models={models} variant="catalog" />
+        <CatalogClient lang={lang} models={models} variant="catalog" total={getTotalCount()} />
       </div>
       {/* SEO: tanlash qo'llanmasi (asosiy so'rov — trotuar plitkasi) va eksport sahifalariga havolalar */}
       {sec === "trotuar" ? <PavingGuide lang={lang} /> : null}
