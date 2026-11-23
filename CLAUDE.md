@@ -253,7 +253,11 @@ Required for lead delivery: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`.
 Canonical domain: **`https://spsplast.uz`** (decision 2026-11-17: official domain; previously `spsplast.com`,
 decision 2026-11-01, `docs/SEO-2028-RU.md` §0 — a `.uz` ccTLD geo-targets Uzbekistan, so RU/KZ rankings rely on hreflang).
 It is the `SITE_URL` default; `spsplast.com`, `sps.uz` and all `www.*` 301 to it (`next.config.js`).
-Hosting: Hetzner + Coolify (Nixpacks, port 3000) with `sps-postgres`; Vercel is being retired.
+Hosting: Hetzner + Coolify (Nixpacks, port 3000) with `sps-postgres`; Vercel project `spsplast` was deleted (2026-11-23).
+Prod analytics (2026-11-23, Coolify env, build-time → needs Redeploy to change): GA4 `G-9EMS6FEXHF`, Metrica `114622159`,
+Webmaster verification meta set (Owner verified). Hetzner firewall `coolify-fw` no longer opens Postgres 5432 — `DATABASE_URL`
+uses the internal Docker host. Yandex Webmaster's sitemap tool was read-only that day; Yandex reads `Sitemap:` from `robots.txt`.
+Admin accounts: `npm run admin:create` in the Coolify app terminal (prints a temporary password; the user changes it on "Profil").
 Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
 `NEXT_PUBLIC_GA_MEASUREMENT_ID`, `NEXT_PUBLIC_YANDEX_METRICA_ID`, `NEXT_PUBLIC_YANDEX_VERIFICATION` (Webmaster meta-teg, build-time), `NEXT_PUBLIC_META_PIXEL_ID`.
 `DATABASE_URL` (Postgres) is required in production for lead storage and `/admin`; see `docs/ADMIN.md`.
