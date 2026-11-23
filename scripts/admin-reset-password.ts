@@ -11,7 +11,7 @@ import { randomBytes } from 'node:crypto';
 import { parseArgs } from 'node:util';
 import { eq } from 'drizzle-orm';
 import { normalizeEmail, setUserPassword } from '../src/server/auth.ts';
-import { getDb } from '../src/server/db/client.ts';
+import { getDb, type Db } from '../src/server/db/client.ts';
 import { adminUsers, rateHits } from '../src/server/db/schema.ts';
 import { ipKey } from '../src/server/privacy.ts';
 
@@ -44,13 +44,17 @@ const generated = !process.env.ADMIN_PASSWORD;
 const password = process.env.ADMIN_PASSWORD || randomBytes(12).toString('base64url');
 
 try {
-  await setUserPassword(db, user.id, password);
-  await db.delete(rateHits).where(eq(rateHits.key, ipKey('login_email', email)));
+  // Bitta tranzaksiya: parol, sessiyalarni yopish va login limitini tozalash yo hammasi saqlanadi, yo hech biri —
+  // aks holda parol yangilanib, xato tufayli chop etilmay qolishi (akkaunt noma'lum parol bilan qolishi) mumkin edi.
+  await db.transaction(async (tx) => {
+    await setUserPassword(tx as unknown as Db, user.id, password);
+    await tx.delete(rateHits).where(eq(rateHits.key, ipKey('login_email', email)));
+  });
   console.log(`Xodim #${user.id} (${email}) paroli yangilandi, eski sessiyalar yopildi.`);
   if (!user.active) console.log('DIQQAT: xodim nofaol — admin panelda "Xodimlar" sahifasidan faollashtiring.');
   if (generated) console.log(`Vaqtinchalik parol: ${password}\nKirgandan keyin "Profil" sahifasida almashtiring.`);
   process.exit(0);
 } catch (error) {
-  console.error(`Saqlanmadi: ${error instanceof Error ? error.message : 'baza xatosi'}`);
+  console.error(`Saqlanmadi (parol o'zgarmadi): ${error instanceof Error ? error.message : 'baza xatosi'}`);
   process.exit(1);
 }
