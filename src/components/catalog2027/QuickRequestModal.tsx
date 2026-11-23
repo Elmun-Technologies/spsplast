@@ -35,6 +35,9 @@ export function QuickRequestModal({
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [volume, setVolume] = useState(initialVolume ? String(initialVolume) : ready ? '' : '100');
+  // Tayyor mahsulot m² da ham, donada ham sotiladi — birlik tanlanadi va zayafkaga matn bo'lib ketadi
+  // (`volumeM2`/`items.m2` faqat qolip uchun: u yerda "m²/kun" deb ko'rsatiladi va qolip soni hisoblanadi).
+  const [unit, setUnit] = useState<'m2' | 'pcs'>('m2');
   const [city, setCity] = useState('');
   const [message, setMessage] = useState('');
   const [state, setState] = useState<'idle' | 'sending' | 'ok' | 'error'>('idle');
@@ -95,15 +98,17 @@ export function QuickRequestModal({
               }
               setError('');
               setState('sending');
+              const qty = Number(String(volume).replace(',', '.')) || 0;
+              const qtyLine = ready && qty ? `${t.formQty}: ${volume} ${unit === 'pcs' ? t.unitPcs : t.unitM2}` : '';
               const res = await submitLead({
                 type: 'quick',
                 name,
                 phone,
                 city: city || undefined,
-                volumeM2: Number(volume) || undefined,
-                message: message || undefined,
+                volumeM2: ready ? undefined : qty || undefined,
+                message: [qtyLine, message].filter(Boolean).join('\n') || undefined,
                 lang,
-                items: [{ slug: model.slug, code: model.code, m2: Number(volume) || undefined }],
+                items: [{ slug: model.slug, code: model.code, m2: ready ? undefined : qty || undefined }],
               });
               if (res.ok) {
                 setRequestId(res.requestId || '');
@@ -124,10 +129,23 @@ export function QuickRequestModal({
               <input className="sps-input ym-disable-keys" value={phone} aria-label={t.formPhone} onChange={(e) => setPhone(e.target.value)} required minLength={7} maxLength={32} type="tel" inputMode="tel" autoComplete="tel" placeholder="+998" aria-invalid={error === 'bad_phone' || undefined} />
             </label>
             <div className="sps-form__row">
-              <label className="sps-field">
-                <span className="sps-label">{ready ? t.formQty : t.formVolume}</span>
-                <input className="sps-input ym-disable-keys" type="number" min={1} max={100000} value={volume} aria-label={ready ? t.formQty : t.formVolume} onChange={(e) => setVolume(e.target.value)} />
-              </label>
+              {ready ? (
+                <div className="sps-field">
+                  <span className="sps-label">{t.formQty}</span>
+                  <span className="qr-qty">
+                    <input className="sps-input ym-disable-keys" type="number" min={1} max={100000} value={volume} aria-label={t.formQty} onChange={(e) => setVolume(e.target.value)} />
+                    <select className="sps-select" value={unit} aria-label={t.unitA11y} onChange={(e) => setUnit(e.target.value as 'm2' | 'pcs')}>
+                      <option value="m2">{t.unitM2}</option>
+                      <option value="pcs">{t.unitPcs}</option>
+                    </select>
+                  </span>
+                </div>
+              ) : (
+                <label className="sps-field">
+                  <span className="sps-label">{t.formVolume}</span>
+                  <input className="sps-input ym-disable-keys" type="number" min={1} max={100000} value={volume} aria-label={t.formVolume} onChange={(e) => setVolume(e.target.value)} />
+                </label>
+              )}
               <label className="sps-field">
                 <span className="sps-label">{t.formCity}</span>
                 <input className="sps-input ym-disable-keys" value={city} aria-label={t.formCity} onChange={(e) => setCity(e.target.value)} maxLength={120} autoComplete="address-level2" />

@@ -1536,3 +1536,4 @@ html { scroll-padding-top: 164px; }
 /* Bosh sahifa: mobilda mashhur modellardan 6 tasi (12 ta kartochka 390 px da ~4 ekran edi). */
 @media (max-width: 760px) { .hm-popular .cat-grid > :nth-child(n+7) { display: none; } }
 .rd-cross { padding-top: 0; }
+.qr-qty { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }

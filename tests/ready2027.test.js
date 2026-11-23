@@ -83,3 +83,13 @@ test('7. sitemap manbasi tayyor sahifalarni biladi, admin bo\'lim formasi yo\'na
   assert.match(read('src/app/admin/products/sections/SectionForm.tsx'), /name="kind"/);
   assert.match(read('src/server/catalog.ts'), /yo'nalishini o'zgartirib bo'lmaydi/);
 });
+
+test('8. tayyor mahsulot miqdori birligi bilan (m² / dona) matnga yoziladi, qolip "m²/kun" maydoniga emas', () => {
+  const modal = read('src/components/catalog2027/QuickRequestModal.tsx');
+  assert.match(modal, /volumeM2: ready \? undefined/);
+  assert.match(modal, /m2: ready \? undefined/);
+  assert.match(modal, /t\.unitPcs/);
+  const list = read('src/components/request2027/RequestClient.tsx');
+  assert.match(list, /m2: isReady\(model\) \? undefined/);
+  assert.match(list, /const molds = ready \? null : calcMolds/);
+});
