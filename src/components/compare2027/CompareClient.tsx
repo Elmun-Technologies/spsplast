@@ -39,7 +39,7 @@ export function CompareClient({
   const [onlyDiff, setOnlyDiff] = useState(false);
 
   // Katalog kechiktirib yuklanadi (useModelLookup): yuklanguncha "ro'yxat bo'sh" ko'rsatilmaydi.
-  const lookup = useModelLookup();
+  const lookup = useModelLookup(compare.slugs.length > 0);
   const loading = !lookup && compare.slugs.length > 0;
   const models: Model[] = lookup
     ? compare.slugs.flatMap((s) => {

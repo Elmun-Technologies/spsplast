@@ -53,7 +53,7 @@ export function RequestClient({
   const okRef = useRevealOnShow<HTMLDivElement>(state === 'ok');
 
   // Katalog kechiktirib yuklanadi (useModelLookup): yuklanguncha "ro'yxat bo'sh" ko'rsatilmaydi.
-  const lookup = useModelLookup();
+  const lookup = useModelLookup(list.items.length > 0);
   const loading = !lookup && list.items.length > 0;
   const rows = lookup
     ? list.items.flatMap((item) => {
@@ -77,6 +77,8 @@ export function RequestClient({
 
   const send = async (e: React.FormEvent) => {
     e.preventDefault();
+    // Katalog hali yuklanmagan — ro'yxatsiz zayafka ketib, list.clear() saqlangan modellarni o'chirib yubormasin.
+    if (loading) return;
     const invalid = checkLead(name, phone);
     if (invalid) {
       setError(invalid);
@@ -342,7 +344,7 @@ export function RequestClient({
 
                 <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" value="" onChange={() => {}} style={{ position: 'absolute', left: '-9999px', width: 1, height: 1 }} />
 
-                <button className="sps-btn sps-btn--primary sps-btn--lg" type="submit" disabled={state === 'sending'}>
+                <button className="sps-btn sps-btn--primary sps-btn--lg" type="submit" disabled={state === 'sending' || loading}>
                   {state === 'sending' ? t.catalog.formSending : p.request.submit}
                 </button>
                 {state === 'error' && error ? <LeadFormError lang={lang} error={error} /> : null}
