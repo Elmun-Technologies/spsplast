@@ -15,7 +15,9 @@ const MODEL3D = JSON.parse(ts.slice(ts.indexOf('= {') + 2, ts.lastIndexOf('}') +
 const bare = (u) => (u || '').split('?')[0];
 const modelOfDst = (dst) => {
   const url = '/' + dst.replace(/^public\//, '');
-  return models.find((m) => Object.values(m.images.molds).map(bare).includes(url) || bare(m.images.scene) === url);
+  return models.find(
+    (m) => Object.values(m.images.molds).map(bare).includes(url) || [m.images.scene, m.images.sceneSm].map(bare).includes(url),
+  );
 };
 
 test("tNN-*.jpg surati aynan 3D tNN modeliga tushadi (sayt №NN ga emas)", () => {
@@ -34,7 +36,11 @@ test("tNN-*.jpg surati aynan 3D tNN modeliga tushadi (sayt №NN ga emas)", () =
 
 test('sayt kodi bilan nomlangan surat o\'sha kodli modelga tushadi', () => {
   for (const j of jobs.filter((x) => x.kind === 'live')) {
-    const code = path.basename(j.src).split('-')[0].toUpperCase();
+    // Nom: <KOD|slug>[-qolip|-plitka|-sahna][-2] — slug ichida ham chiziqcha bor (vegas-2-shershaviy).
+    const code = path
+      .basename(j.src, path.extname(j.src))
+      .replace(/-(qolip|mold|plitka|tile|sahna|obyekt|scene)(-\d+)?$/i, '')
+      .toUpperCase();
     if (/^T\d+$/.test(code)) continue;
     const m = modelOfDst(j.dst);
     assert.ok(m, `${j.src}: model topilmadi`);

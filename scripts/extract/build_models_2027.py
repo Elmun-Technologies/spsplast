@@ -695,6 +695,71 @@ def load_image_sources(models):
     return jobs, stats
 
 
+# 3D raqami bosma katalog (2026-11-23) bo'yicha ko'z bilan tasdiqlangan, lekin trotuar xaritasida
+# (PR #42) yo'q bo'lgan statik modellar.
+EXTRA_3D = {
+    "vegas-2-shershaviy": "t93",
+    "ornament-18-36": "t94",
+    "dubay-aylana-okrujnost": "t95",
+    "bumerang": "t96",
+    "29-eksklyuziv-30-30-4-sakkiz-qirra": "t33",
+}
+
+
+def model3d_entry(tid):
+    have = [k for k in ("qolip", "mahsulot", "terilgan")
+            if os.path.exists(os.path.join(ROOT, "public/3d", tid, f"{k}.glb"))]
+    return {"id": tid, "have": have, "poster": False} if have else None
+
+
+def _existing_images(im):
+    """sync faylidagi rasm yo'llari (repoda mavjud fayllar) — tirik surat/render bo'lmasa shular qoladi."""
+    ok = lambda u: u if u and os.path.exists(os.path.join(ROOT, "public" + u.split("?")[0])) else None
+    im = im or {}
+    out = {"scene": ok(im.get("scene")), "sceneSm": ok(im.get("sceneSm")),
+           "molds": {k: v for k, v in (im.get("molds") or {}).items() if ok(v)},
+           "tiles": {k: v for k, v in (im.get("tiles") or {}).items() if ok(v)}}
+    if not (out["scene"] and out["sceneSm"]):
+        out["scene"] = out["sceneSm"] = None
+    return out
+
+
+def load_added_models(models, model3d):
+    """Bazaga sync skripti bilan qo'shilgan trotuar modellari (scripts/catalog-add-*.json `add`).
+
+    Statik katalog ham ularni bilsin: bazasiz build (CI, lokal) prod bilan bir xil bo'ladi, tirik
+    suratlar (media-src/live/<3D id yoki slug>-...) va 3D render job'lari ularga ham tushadi.
+    Mavjud slug o'zgartirilmaydi. `model3d` maydoni ("/3d/t98/") 3D xaritaga yoziladi.
+    """
+    have = {m["slug"] for m in models}
+    added = []
+    for fn in sorted(os.listdir(os.path.join(ROOT, "scripts"))):
+        if not (fn.startswith("catalog-add-") and fn.endswith(".json")):
+            continue
+        for x in json.load(open(os.path.join(ROOT, "scripts", fn), encoding="utf-8")).get("add", []):
+            if x["slug"] in have:
+                continue
+            have.add(x["slug"])
+            added.append({
+                "key": x.get("key") or x["slug"], "code": x.get("code"), "slug": x["slug"],
+                "section": x.get("section", "trotuar"), "name": dict(x["name"]),
+                "subtitle": dict(x.get("subtitle") or {"uz": None, "ru": None, "en": None}),
+                "kg": x.get("kg"), "molds": x.get("molds", []), "tiles": x.get("tiles", []),
+                "specs": x.get("specs", []), "sizeEstimated": bool(x.get("sizeEstimated")),
+                "images": _existing_images(x.get("images")),
+                "_name_norm": None,  # eski 2026 suratlariga nom bo'yicha bog'lanmasin
+            })
+            tid = (x.get("model3d") or "").strip("/").split("/")[-1]
+            e = model3d_entry(tid) if tid else None
+            if e:
+                model3d[x["slug"]] = e
+    for slug, tid in EXTRA_3D.items():
+        e = model3d_entry(tid)
+        if e and slug not in model3d:
+            model3d[slug] = e
+    return added
+
+
 def main():
     other, moved = load_3d_sections(load_other_sections())
     models = load_trotuar() + other
@@ -704,8 +769,12 @@ def main():
         else:
             m["_pop"] = 1000 + i
     models.sort(key=lambda m: (m["_pop"], m["slug"]))
-    jobs, stats = load_image_sources(models)
     model3d = load_model3d_map()
+    extra = load_added_models(models, model3d)
+    for i, m in enumerate(extra):
+        m["_pop"] = 5000 + i
+    models += extra
+    jobs, stats = load_image_sources(models)
     for m in models:
         r = m.get("_3d")
         if r:

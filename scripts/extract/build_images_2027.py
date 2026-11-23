@@ -134,9 +134,10 @@ def main():
             src_text += open(os.path.join(ROOT, "scripts", fn), encoding="utf-8").read()
     # Bazada hozir yozilgan eski yo'llar (2026 plitka/sahna, D-dekor, eski 3D qolip) — sync skripti
     # bazani yangilaguncha uzilmasin: ro'yxat scripts/catalog-keep-2026-11-16.txt.
-    keep_list = os.path.join(ROOT, "scripts/catalog-keep-2026-11-16.txt")
-    if os.path.exists(keep_list):
-        src_text += open(keep_list, encoding="utf-8").read()
+    # 2026-11-23: har bir sync uchun alohida ro'yxat (scripts/catalog-keep-*.txt) — hammasi o'qiladi.
+    for fn in sorted(os.listdir(os.path.join(ROOT, "scripts"))):
+        if fn.startswith("catalog-keep-") and fn.endswith(".txt"):
+            src_text += open(os.path.join(ROOT, "scripts", fn), encoding="utf-8").read()
     pruned = 0
     cat_dir = os.path.join(ROOT, "public/catalog/2027")
     for f in os.listdir(cat_dir):
