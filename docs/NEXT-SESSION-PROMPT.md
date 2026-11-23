@@ -21,12 +21,25 @@ ishonchli (soxta ko'rinmaydigan) holatga yetkazish**.
 3. **Katta generatsiya qilingan fayllarni o'qima**: `src/data/models2027.ts`, `data/*.json`,
    `scripts/redirects-2027.json`, `drizzle/meta/*`, `public/admin-ai/*`, `media-src/*`. Kerak bo'lsa `grep`/`jq` bilan.
 4. Muhitni tekshir: `npm ci && npm test && npm run typecheck && npm run lint` — hammasi yashil bo'lishi kerak
-   (188 test). Yashil bo'lmasa, avval sababini top.
+   (205+ test). Yashil bo'lmasa, avval sababini top.
 
-## 1. Loyiha holati (2026-11-12 holatiga)
+## 1. Loyiha holati (2026-11-23 holatiga)
 
-**Stack:** Next.js 15 (App Router) + React 19 + TypeScript, oddiy CSS (Tailwind taqiqlangan), Onest shrifti
-(self-host), Postgres (Neon/Supabase) + Drizzle ORM faqat `src/server/` orqasida, Vercel.
+**Eng yangi (2026-11-23):**
+- Sayt ikki yo'nalish: **Qoliplar** (`/catalog`, 234 model, 7 bo'lim) va **Tayyor mahsulotlar** (`/ready`, 80 ta fasad
+  mahsuloti, 9 bo'lim — bosma "FASAD MAHSULOT" katalogidan; skameyka va yevrozabor bo'limlari bo'sh, material kutilmoqda).
+  Arxitektura: `catalog_sections.kind` (migratsiya 0004), CLAUDE.md → "Tayyor mahsulotlar".
+- Prod katalog bazadan: `npm run catalog:sync -- scripts/catalog-add-2026-11-23.json` va
+  `… scripts/catalog-add-2026-11-23-tayyor-fasad.json` (Coolify terminali) → Redeploy.
+- Hosting: Hetzner + Coolify, Dockerfile (standalone). Vercel ishlatilmaydi ("Account is blocked" statusi — e'tiborsiz).
+- Topshirish paketi: `docs/topshirish/` (admin qo'llanmasi, checklist, sifat hisoboti, kirishlar ro'yxati).
+- Kutilmoqda (katalog agentidan): fonsiz PNG (`<KOD>-mahsulot.png`, `-qolip.png`, `-sahna.jpg`), CSV jadval,
+  skameyka/yevrozabor kataloglari → `scripts/extract/build_ready_fasad_2027.py` o'rniga shulardan rasm yasash
+  (slug'lar o'zgarmaydi). Hozirgi tayyor mahsulot suratlari katalog sahifasidan kesilgan (pushti fon); rembg
+  bu fonda ishonchsiz (termopanel/tosh buziladi) — sinab ko'rilgan, ishlatilmadi.
+
+**Stack:** Next.js 16 (App Router) + React 19 + TypeScript, oddiy CSS (Tailwind taqiqlangan), Onest shrifti
+(self-host), Postgres + Drizzle ORM faqat `src/server/` orqasida, Coolify (Docker standalone).
 
 **Ommaviy sayt** (`src/app/[lang]/*`): statik prerender (~740 sahifa). Bosh sahifa, katalog/bo'lim/model
 (filtr, qidiruv, solishtirish, zayafka ro'yxati, qolip kalkulyatori), ulgurji, ishlab chiqarish, kontakt,

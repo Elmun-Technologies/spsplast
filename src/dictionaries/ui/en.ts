@@ -42,7 +42,7 @@ export const en: UiDictionary = {
     productionExport: 'Production & export',
   },
   footer: {
-    ctaTitle: 'A manager will calculate the mold count and price',
+    ctaTitle: 'A manager will calculate the quantity and price',
     about: 'Plastic molds for paving slabs, facade, fence and decor elements. Tashkent, Uzbekistan.',
     catalog: 'Catalog',
     company: 'Company',

@@ -44,7 +44,7 @@ export const uz = {
     productionExport: 'Ishlab chiqarish va eksport',
   },
   footer: {
-    ctaTitle: 'Qolip soni va narxini menejer hisoblab beradi',
+    ctaTitle: 'Miqdor va narxni menejer hisoblab beradi',
     about: "Trotuar plitkasi, fasad, zabor va dekor elementlari uchun plastik qoliplar. Toshkent, O‘zbekiston.",
     catalog: 'Katalog',
     company: 'Kompaniya',

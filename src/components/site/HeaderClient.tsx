@@ -20,6 +20,8 @@ export function HeaderClient({
   lang,
   sections,
   total,
+  readySections = [],
+  readyTotal = 0,
   nav,
   pdfHref,
   t,
@@ -30,6 +32,9 @@ export function HeaderClient({
   sections: NavItem[];
   /** Katalogdagi barcha modellar (yashirin bo'limlar ham) — sarlavhadagi "119 model" bilan bir xil. */
   total: number;
+  /** Tayyor mahsulot bo'limlari (/ready da shu tablar ko'rinadi, qolip bo'limlari emas). */
+  readySections?: NavItem[];
+  readyTotal?: number;
   nav: NavItem[];
   pdfHref: string;
 }) {
@@ -78,16 +83,23 @@ export function HeaderClient({
   const catalogHref = `/${lang}/catalog`;
   // "Katalog" tabi faqat umumiy katalogda faol; bo'lim sahifasida bo'lim tabi faol.
   const catalogActive = pathname === catalogHref;
-  // Bosh sahifa (tanlov ekrani) va /ready da qolip bo'limlari/qidiruvi ko'rsatilmaydi — bu yerda faqat tanlov va tayyor mahsulot.
-  const forkView = pathname === `/${lang}` || pathname === `/${lang}/ready` || pathname.startsWith(`/${lang}/ready/`);
+  // Bosh sahifa (tanlov ekrani) — tablar yo'q. /ready da qolip emas, tayyor mahsulot bo'limlari tab bo'ladi (2026-11-23).
+  const readyHref = `/${lang}/ready`;
+  const readyView = pathname === readyHref || pathname.startsWith(`${readyHref}/`);
+  const forkView = pathname === `/${lang}` || (readyView && readySections.length === 0);
   // Katalog ro'yxati (umumiy, bo'lim, teg) sahifalarida ro'yxat ustida o'z qidiruvi bor — header qidiruvi takrorlanmaydi.
   const rest = pathname.startsWith(`${catalogHref}/`) ? pathname.slice(catalogHref.length + 1) : null;
   const listView =
     pathname === catalogHref || (rest !== null && rest !== 'flip' && (!rest.includes('/') || rest.includes('/tag/')));
-  const tabs = [
-    { href: catalogHref, label: t.header.catalog, full: t.header.catalog, count: total, active: catalogActive },
-    ...sections.map((s) => ({ href: s.href, label: s.label, full: s.full ?? s.label, count: s.count, active: isActive(pathname, s.match) })),
-  ];
+  const tabs = readyView
+    ? [
+        { href: readyHref, label: t.nav.ready, full: t.nav.ready, count: readyTotal, active: pathname === readyHref },
+        ...readySections.map((s) => ({ href: s.href, label: s.label, full: s.full ?? s.label, count: s.count, active: isActive(pathname, s.match) })),
+      ]
+    : [
+        { href: catalogHref, label: t.header.catalog, full: t.header.catalog, count: total, active: catalogActive },
+        ...sections.map((s) => ({ href: s.href, label: s.label, full: s.full ?? s.label, count: s.count, active: isActive(pathname, s.match) })),
+      ];
 
   return (
     <>
@@ -132,7 +144,7 @@ export function HeaderClient({
             ))}
           </nav>
 
-          {listView ? null : (
+          {listView || readyView ? null : (
             <form className="hd-search" role="search" action={catalogHref} method="GET">
               <Icon.search width={18} height={18} strokeWidth={1.75} aria-hidden="true" />
               <input type="search" name="q" placeholder={t.header.searchPlaceholder} aria-label={t.header.searchLabel} />

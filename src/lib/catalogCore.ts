@@ -130,6 +130,18 @@ const SECTION_SHORT: Record<string, Record<Locale, string>> = {
   zabor: { uz: 'Zabor', ru: 'Заборы', en: 'Fences' },
   dekor: { uz: 'Dekor', ru: 'Декор', en: 'Decor' },
   skameyka: { uz: 'Skameyka', ru: 'Скамейки', en: 'Benches' },
+  // Tayyor mahsulotlar (header tablari /ready da)
+  tayyor_termopanel: { uz: 'Termopanel', ru: 'Термопанели', en: 'Thermal panels' },
+  tayyor_bilayn: { uz: 'Bilayn', ru: 'Билайн', en: 'Beeline' },
+  tayyor_dekor: { uz: 'Dekor', ru: 'Декор', en: 'Decor' },
+  tayyor_karniz: { uz: 'Karniz', ru: 'Карнизы', en: 'Cornices' },
+  tayyor_tyaga: { uz: 'Tyaga', ru: 'Тяги', en: 'Mouldings' },
+  tayyor_pilyastra: { uz: 'Pilyastra', ru: 'Пилястры', en: 'Pilasters' },
+  tayyor_kapitel: { uz: 'Kapitel', ru: 'Капители', en: 'Capitals' },
+  tayyor_tsokol: { uz: 'Sokol', ru: 'Цоколь', en: 'Plinth' },
+  tayyor_tosh: { uz: 'Tosh', ru: 'Камень', en: 'Stone' },
+  tayyor_skameyka: { uz: 'Skameyka', ru: 'Скамейки', en: 'Benches' },
+  tayyor_zabor: { uz: 'Yevrozabor', ru: 'Еврозаборы', en: 'Euro fences' },
 };
 
 export function sectionShortLabel(section: Section, lang: Locale): string {

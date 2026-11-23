@@ -1,4 +1,15 @@
-import { getSectionCounts, getTotalCount, SECTION_SLUGS, sectionLabel, sectionShortLabel, getActiveSections } from '@/lib/catalog2027';
+import {
+  getActiveReadySections,
+  getActiveSections,
+  getReadyCounts,
+  getReadyModels,
+  getSectionCounts,
+  getTotalCount,
+  SECTION_SLUGS,
+  sectionLabel,
+  sectionPath,
+  sectionShortLabel,
+} from '@/lib/catalog2027';
 import { type Locale } from '@/lib/i18n';
 import { getUi } from '@/lib/ui';
 import { flipHref } from '@/lib/catalogPdf';
@@ -23,6 +34,12 @@ export function SiteHeader({ lang }: { lang: Locale }) {
     return { href, match: href, label: sectionShortLabel(s, lang), full: sectionLabel(s, lang), count: counts[s] };
   });
 
+  const readyCounts = getReadyCounts();
+  const readySections = getActiveReadySections().map((s) => {
+    const href = `/${lang}${sectionPath(s)}`;
+    return { href, match: href, label: sectionShortLabel(s, lang), full: sectionLabel(s, lang), count: readyCounts[s] };
+  });
+
   const nav = [
     { href: `/${lang}/ready`, match: `/${lang}/ready`, label: t.nav.ready },
     { href: `/${lang}/partners`, match: `/${lang}/partners`, label: t.nav.partners },
@@ -37,6 +54,8 @@ export function SiteHeader({ lang }: { lang: Locale }) {
       lang={lang}
       sections={sections}
       total={getTotalCount()}
+      readySections={readySections}
+      readyTotal={getReadyModels().length}
       nav={nav}
       pdfHref={flipHref(lang)}
       t={{ a11y: t.a11y, header: t.header, menu: t.menu, nav: t.nav }}

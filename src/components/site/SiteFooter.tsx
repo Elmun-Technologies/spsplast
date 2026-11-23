@@ -1,6 +1,14 @@
 import { patternStyle } from '@/lib/patterns';
 import Image from 'next/image';
-import { getSectionCounts, SECTION_SLUGS, sectionLabel, getActiveSections } from '@/lib/catalog2027';
+import {
+  getActiveReadySections,
+  getActiveSections,
+  getReadyCounts,
+  getSectionCounts,
+  SECTION_SLUGS,
+  sectionLabel,
+  sectionPath,
+} from '@/lib/catalog2027';
 import { CONTACTS_2027 } from '@/lib/contacts2027';
 import { type Locale } from '@/lib/i18n';
 import { getUi } from '@/lib/ui';
@@ -15,6 +23,8 @@ import { EXPORT_COUNTRIES } from '@/lib/seoPages';
 export function SiteFooter({ lang }: { lang: Locale }) {
   const t = getUi(lang);
   const counts = getSectionCounts();
+  const readyCounts = getReadyCounts();
+  const readySections = getActiveReadySections();
   const [mainPhone, ...otherPhones] = CONTACTS_2027.sales;
   const geo = getSitePages(lang).seo.geo;
 
@@ -51,6 +61,17 @@ export function SiteFooter({ lang }: { lang: Locale }) {
               </a>
             ))}
           </div>
+          {readySections.length ? (
+            // Tayyor mahsulot bo'limlari — har sahifadan ichki havola (2026-11-23).
+            <div className="ft-col">
+              <span className="sps-eyebrow">{t.nav.ready}</span>
+              {readySections.map((s) => (
+                <a key={s} href={`/${lang}${sectionPath(s)}`}>
+                  {sectionLabel(s, lang)} · {readyCounts[s]}
+                </a>
+              ))}
+            </div>
+          ) : null}
           <div className="ft-col">
             <span className="sps-eyebrow">{t.footer.company}</span>
             <a href={`/${lang}/production`}>{t.footer.production}</a>
