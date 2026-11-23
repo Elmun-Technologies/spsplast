@@ -1,3 +1,4 @@
+import { patternStyle } from '@/lib/patterns';
 import Image from 'next/image';
 import { getSectionCounts, SECTION_SLUGS, sectionLabel, getActiveSections } from '@/lib/catalog2027';
 import { CONTACTS_2027 } from '@/lib/contacts2027';
@@ -18,7 +19,7 @@ export function SiteFooter({ lang }: { lang: Locale }) {
   const geo = getSitePages(lang).seo.geo;
 
   return (
-    <footer className="ft">
+    <footer className="ft pat pat--fade-y" style={patternStyle('yulduz', 'light')}>
       <div className="wrap" style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
         <div className="ft-cta">
           <p className="ft-cta__title">{t.footer.ctaTitle}</p>

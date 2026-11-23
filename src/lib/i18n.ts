@@ -34,3 +34,10 @@ export function pluralCategory<T extends string>(lang: Locale, n: number, forms:
   if (category === 'few') return forms.few;
   return forms.many;
 }
+
+/** Raqamni tilga qarab formatlash: uz/ru vergul, en nuqta (ds/README). */
+export function formatNumber(lang: Locale, value: string | number | null): string {
+  if (value === null || value === undefined || value === '') return '—';
+  const text = String(value);
+  return lang === 'en' ? text.replace(',', '.') : text.replace('.', ',');
+}

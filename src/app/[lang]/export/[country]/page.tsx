@@ -1,3 +1,4 @@
+import { patternStyle } from '@/lib/patterns';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { SECTION_SLUGS, getPopular, getTotalCount, modelImage, modelName, modelPerM2, modelThickness } from '@/lib/catalog2027';
@@ -86,7 +87,7 @@ export default async function ExportCountryPage({ params }: { params: Promise<Pa
       />
 
       {/* Hero (qorong'i): matn + eksport xaritasi */}
-      <section className="sec-ink geo-hero">
+      <section className="sec-ink geo-hero pat" style={patternStyle('girih', 'light')}>
         <div className="wrap geo-hero__grid">
           <div className="geo-hero__text">
             <nav aria-label="breadcrumb">

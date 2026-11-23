@@ -1,5 +1,7 @@
 # SPS Plast — bosqichma-bosqich ishga tushirish (2027)
 
+> **Eskirgan (Vercel davri).** Amaldagi checklist (Coolify, 2026-11-23): `docs/topshirish/ISHGA-TUSHIRISH.md`.
+
 **Yangilangan:** 2026-10-18 · Admin sozlash tafsilotlari: `docs/ADMIN.md`
 
 Tartib muhim: avval yopiq (preview) muhitda hammasi sinaladi, keyin domen ulanadi.

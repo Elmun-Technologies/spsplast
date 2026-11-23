@@ -57,7 +57,7 @@ export default async function CatalogPage({ params }: { params: Promise<{ lang: 
         lead={lead}
       />
       <div className="wrap sec">
-        <CatalogClient lang={lang} models={getModels()} variant="catalog" />
+        <CatalogClient lang={lang} models={getModels()} variant="catalog" total={getTotalCount()} />
       </div>
     </>
   );

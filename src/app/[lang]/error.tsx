@@ -4,7 +4,9 @@ import { usePathname } from 'next/navigation';
 import { Icon } from '@/components/site/icons';
 import { CONTACTS_2027 } from '@/lib/contacts2027';
 import { isValidLocale, type Locale } from '@/lib/i18n';
-import { getPages } from '@/lib/pages';
+import { errorEn, errorRu, errorUz } from '@/dictionaries/pages/error';
+import { applyTextOverrides } from '@/lib/textOverrides';
+import { siteSnapshot } from '@/data/site.generated';
 
 /**
  * Xatolik chegarasi (error boundary).
@@ -26,7 +28,8 @@ export default function Error({
   const pathname = usePathname();
   const segment = pathname?.split('/')[1] ?? '';
   const lang: Locale = isValidLocale(segment) ? segment : 'uz';
-  const p = getPages(lang).error;
+  // Admin → Matnlar (`pages.error.*`) almashtirishlari ham ishlaydi; butun pages lug'ati yuklanmaydi.
+  const p = applyTextOverrides({ uz: errorUz, ru: errorRu, en: errorEn }[lang], siteSnapshot?.texts?.[lang], 'pages.error');
 
   const isDev = process.env.NODE_ENV !== 'production';
   const Alert = Icon.alert;

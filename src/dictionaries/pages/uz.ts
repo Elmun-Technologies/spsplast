@@ -1,3 +1,4 @@
+import { errorUz } from './error.ts';
 /**
  * Sahifa lug‘atlari — uz (asosiy).
  * Matnlar source/*.dc.html va HANDOFF.md 4-bo‘limidan; "yaratish" yo‘q,
@@ -19,7 +20,7 @@ export const pagesUz = {
       { value: '{objects}', unit: '', label: 'Obyekt' },
     ],
     sectionTiles: 'Bo‘limlar',
-    catalogEyebrow: "Ko‘p so‘raladigan modellar",
+    catalogEyebrow: "Yangi va ommabop modellar",
     catalogTitle: "Qolipni tanlang",
     catalogAll: 'Butun katalog',
     sectionsEyebrow: "Bo‘limlar",
@@ -447,15 +448,7 @@ export const pagesUz = {
     img: 'Monako plitkasi terilgan',
   },
 
-  error: {
-    title: 'Texnik xatolik',
-    text: "Sahifa yuklanmadi. Qayta urinib ko‘ring yoki biz bilan bog‘laning — zayafka qoldirishda yordam beramiz.",
-    retry: 'Qayta yuklash',
-    home: 'Bosh sahifa',
-    catalog: 'Katalogni ochish',
-    call: 'Menejer bilan bog‘lanish',
-    loading: 'Yuklanmoqda',
-  },
+  error: errorUz,
 };
 
 export type PagesDictionary = typeof pagesUz;

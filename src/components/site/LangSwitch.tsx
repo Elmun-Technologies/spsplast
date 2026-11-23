@@ -2,7 +2,6 @@
 
 import { usePathname } from 'next/navigation';
 import { locales, type Locale } from '@/lib/i18n';
-import { getUi } from '@/lib/ui';
 
 /**
  * Til almashtirgich: joriy manzilning faqat birinchi segmentini almashtiradi
@@ -22,7 +21,8 @@ export function LangSwitch({
   lang: Locale;
   dark?: boolean;
   className?: string;
-  label?: string;
+  /** Majburiy: lug'atdan (server/ota komponent) — `getUi()` mijozda 3 tilni bundle'ga olib kirardi. */
+  label: string;
 }) {
   const pathname = usePathname() || `/${lang}`;
   const rest = pathname.replace(/^\/(uz|ru|en)/, '') || '';
@@ -30,7 +30,7 @@ export function LangSwitch({
   return (
     <nav
       className={['sps-lang', className].filter(Boolean).join(' ')}
-      aria-label={label || getUi(lang).a11y.langNavHeader}
+      aria-label={label}
       style={dark ? { borderColor: 'rgba(255,255,255,.2)' } : undefined}
     >
       {locales.map((l) => (

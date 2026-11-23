@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { SECTION_SLUGS, modelImage, modelName, sectionFromSlug, sectionLabel } from '@/lib/catalog2027';
+import { SECTION_SLUGS, modelImage, modelName, sectionFromSlug, sectionLabel, getTotalCount } from '@/lib/catalog2027';
 import { isValidLocale, locales, type Locale } from '@/lib/i18n';
 import { getUi, pluralModels } from '@/lib/ui';
 import { getSitePages } from '@/lib/pagesServer';
@@ -99,7 +99,7 @@ export default async function TagPage({ params }: { params: Promise<Params> }) {
           </div>
         </div>
         <TagChips lang={lang} section={sec} current={tag} />
-        <CatalogClient lang={lang} models={models} variant="catalog" />
+        <CatalogClient lang={lang} models={models} variant="catalog" total={getTotalCount()} />
       </div>
       {sec === 'trotuar' ? <PavingGuide lang={lang} /> : null}
       <CountriesStrip lang={lang} />

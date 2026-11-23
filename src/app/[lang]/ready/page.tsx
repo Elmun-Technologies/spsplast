@@ -1,3 +1,4 @@
+import { patternStyle } from '@/lib/patterns';
 import { notFound } from 'next/navigation';
 import { isValidLocale, locales, type Locale } from '@/lib/i18n';
 import { getPages } from '@/lib/pages';
@@ -19,7 +20,7 @@ export default async function ReadyPage({ params }: { params: Promise<{ lang: st
   const r = p.ready;
 
   return (
-    <section className="ct-sec">
+    <section className="ct-sec pat pat--fade-x pat--ink" style={patternStyle('charogon')}>
       <JsonLd
         data={jsonLdBreadcrumb(lang, [
           { name: 'SPS', path: '' },

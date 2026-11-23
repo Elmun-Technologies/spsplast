@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { type Model, modelName, modelSetSize, sectionLabel } from '@/lib/catalog2027';
+import { type Model, modelName, modelSetSize, sectionLabel } from '@/lib/catalogCore';
 import { type Locale } from '@/lib/i18n';
-import { getUi } from '@/lib/ui';
+import { useUi } from '@/components/site/UiProvider';
 import { submitLead } from '@/lib/leadSubmit';
 import { useRequestList } from '@/lib/store/spsLists';
 import { useModalShell } from '@/components/site/useModalShell';
@@ -27,7 +27,8 @@ export function QuickRequestModal({
   /** Model sahifasidagi kalkulyatorda kiritilgan hajm (m²/kun) — formaga o'tadi. */
   initialVolume?: number;
 }) {
-  const t = getUi(lang).catalog;
+  const ui = useUi();
+  const t = ui.catalog;
   const request = useRequestList();
   const ref = useModalShell(Boolean(model), onClose);
   const [name, setName] = useState('');
@@ -55,7 +56,7 @@ export function QuickRequestModal({
         <div className="sps-sheet__head">
           <div className="qr-head">
             {model.images.sceneSm || model.images.scene ? (
-              <Image src={(model.images.sceneSm || model.images.scene) as string} alt={`${modelName(model, lang)} — ${getUi(lang).alt.scene}`} width={88} height={88} style={{ objectFit: 'cover', borderRadius: 'var(--radius-mini)' }} />
+              <Image src={(model.images.sceneSm || model.images.scene) as string} alt={`${modelName(model, lang)} — ${ui.alt.scene}`} width={88} height={88} style={{ objectFit: 'cover', borderRadius: 'var(--radius-mini)' }} />
             ) : null}
             <div>
               <span className="sps-card__code">{model.code ? `№ ${model.code}` : sectionLabel(model.section, lang)}</span>
@@ -63,7 +64,7 @@ export function QuickRequestModal({
               <span className="sps-help">{size || '—'}</span>
             </div>
           </div>
-          <button type="button" className="sps-iconbtn" aria-label={getUi(lang).a11y.close} onClick={onClose}>
+          <button type="button" className="sps-iconbtn" aria-label={ui.a11y.close} onClick={onClose}>
             <Icon.close width={18} height={18} strokeWidth={1.5} aria-hidden="true" />
           </button>
         </div>

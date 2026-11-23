@@ -5,16 +5,17 @@ import Image from 'next/image';
 import {
   SECTION_SLUGS,
   calcMolds,
-  getModelBySlug,
   modelImage,
   modelName,
   modelSetSize,
   moldLetters,
   modelTileSize,
   sectionLabel,
-} from '@/lib/catalog2027';
-import type { Locale } from '@/lib/i18n';
-import { formatNumber, type UiDictionary } from '@/lib/ui';
+} from '@/lib/catalogCore';
+import { useModelLookup } from '@/lib/useModelLookup';
+
+import { formatNumber, type Locale } from '@/lib/i18n';
+import type { UiDictionary } from '@/lib/ui';
 import type { PagesDictionary } from '@/lib/pages';
 import { CONTACTS_2027 } from '@/lib/contacts2027';
 import { submitLead } from '@/lib/leadSubmit';
@@ -51,10 +52,15 @@ export function RequestClient({
   const [error, setError] = useState<LeadError>('');
   const okRef = useRevealOnShow<HTMLDivElement>(state === 'ok');
 
-  const rows = list.items.flatMap((item) => {
-    const m = getModelBySlug(item.slug);
-    return m ? [{ item, model: m }] : [];
-  });
+  // Katalog kechiktirib yuklanadi (useModelLookup): yuklanguncha "ro'yxat bo'sh" ko'rsatilmaydi.
+  const lookup = useModelLookup(list.items.length > 0);
+  const loading = !lookup && list.items.length > 0;
+  const rows = lookup
+    ? list.items.flatMap((item) => {
+        const m = lookup(item.slug);
+        return m ? [{ item, model: m }] : [];
+      })
+    : [];
 
   const volumeOf = (slug: string, fallback?: number) => {
     const raw = volumes[slug] ?? (fallback ? String(fallback) : '100');
@@ -71,6 +77,8 @@ export function RequestClient({
 
   const send = async (e: React.FormEvent) => {
     e.preventDefault();
+    // Katalog hali yuklanmagan — ro'yxatsiz zayafka ketib, list.clear() saqlangan modellarni o'chirib yubormasin.
+    if (loading) return;
     const invalid = checkLead(name, phone);
     if (invalid) {
       setError(invalid);
@@ -117,7 +125,7 @@ export function RequestClient({
           <p className="body muted">{p.request.note}</p>
         </div>
 
-        <div className={rows.length ? 'rl' : 'rl rl--empty'}>
+        <div className={rows.length || loading ? 'rl' : 'rl rl--empty'} aria-busy={loading || undefined}>
           <div>
             <div className="rl-head">
               <span className="sps-label">{p.request.colModel}</span>
@@ -183,7 +191,7 @@ export function RequestClient({
               );
             })}
 
-            {!rows.length ? (
+            {loading ? null : !rows.length ? (
               <div style={{ padding: '48px 0', display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'flex-start' }}>
                 <b style={{ font: '600 22px/28px var(--font-sans)' }}>{p.request.emptyTitle}</b>
                 <p className="body muted" style={{ margin: 0 }}>
@@ -336,7 +344,7 @@ export function RequestClient({
 
                 <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" value="" onChange={() => {}} style={{ position: 'absolute', left: '-9999px', width: 1, height: 1 }} />
 
-                <button className="sps-btn sps-btn--primary sps-btn--lg" type="submit" disabled={state === 'sending'}>
+                <button className="sps-btn sps-btn--primary sps-btn--lg" type="submit" disabled={state === 'sending' || loading}>
                   {state === 'sending' ? t.catalog.formSending : p.request.submit}
                 </button>
                 {state === 'error' && error ? <LeadFormError lang={lang} error={error} /> : null}
