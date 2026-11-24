@@ -18132,12 +18132,10 @@
    ],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/tayyor-s02-skameyka-oyogi-2-tayyor-scene.webp",
-    "sceneSm": "/catalog/2027/tayyor-s02-skameyka-oyogi-2-tayyor-scene-sm.webp",
+    "scene": "/catalog/2027/tayyor-s02-skameyka-oyogi-2-tayyor-foto.webp",
+    "sceneSm": "/catalog/2027/tayyor-s02-skameyka-oyogi-2-tayyor-foto-sm.webp",
     "molds": {},
-    "tiles": {
-     "A": "/catalog/2027/tayyor-s02-skameyka-oyogi-2-tayyor-sahna.webp"
-    }
+    "tiles": {}
    }
   },
   {
@@ -18198,12 +18196,10 @@
    ],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/tayyor-s04-skameyka-oyogi-4-tayyor-scene.webp",
-    "sceneSm": "/catalog/2027/tayyor-s04-skameyka-oyogi-4-tayyor-scene-sm.webp",
+    "scene": "/catalog/2027/tayyor-s04-skameyka-oyogi-4-tayyor-foto.webp",
+    "sceneSm": "/catalog/2027/tayyor-s04-skameyka-oyogi-4-tayyor-foto-sm.webp",
     "molds": {},
-    "tiles": {
-     "A": "/catalog/2027/tayyor-s04-skameyka-oyogi-4-tayyor-sahna.webp"
-    }
+    "tiles": {}
    }
   },
   {
@@ -18264,12 +18260,10 @@
    ],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/tayyor-s07-skameyka-oyogi-7-tayyor-scene.webp",
-    "sceneSm": "/catalog/2027/tayyor-s07-skameyka-oyogi-7-tayyor-scene-sm.webp",
+    "scene": "/catalog/2027/tayyor-s07-skameyka-oyogi-7-tayyor-foto-3d.webp",
+    "sceneSm": "/catalog/2027/tayyor-s07-skameyka-oyogi-7-tayyor-foto-sm-3d.webp",
     "molds": {},
-    "tiles": {
-     "A": "/catalog/2027/tayyor-s07-skameyka-oyogi-7-tayyor-sahna-3d.webp"
-    }
+    "tiles": {}
    }
   },
   {
@@ -18380,12 +18374,10 @@
    ],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/tayyor-skameyka-royal-tayyor-scene.webp",
-    "sceneSm": "/catalog/2027/tayyor-skameyka-royal-tayyor-scene-sm.webp",
+    "scene": "/catalog/2027/tayyor-skameyka-royal-tayyor-foto.webp",
+    "sceneSm": "/catalog/2027/tayyor-skameyka-royal-tayyor-foto-sm.webp",
     "molds": {},
-    "tiles": {
-     "A": "/catalog/2027/tayyor-skameyka-royal-tayyor-sahna.webp"
-    }
+    "tiles": {}
    }
   },
   {
@@ -18496,12 +18488,10 @@
    ],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/tayyor-skameyka-komfort-tayyor-scene.webp",
-    "sceneSm": "/catalog/2027/tayyor-skameyka-komfort-tayyor-scene-sm.webp",
+    "scene": "/catalog/2027/tayyor-skameyka-komfort-tayyor-foto.webp",
+    "sceneSm": "/catalog/2027/tayyor-skameyka-komfort-tayyor-foto-sm.webp",
     "molds": {},
-    "tiles": {
-     "A": "/catalog/2027/tayyor-skameyka-komfort-tayyor-sahna.webp"
-    }
+    "tiles": {}
    }
   },
   {
@@ -18612,12 +18602,10 @@
    ],
    "sizeEstimated": false,
    "images": {
-    "scene": "/catalog/2027/tayyor-skameyka-modern-tayyor-scene.webp",
-    "sceneSm": "/catalog/2027/tayyor-skameyka-modern-tayyor-scene-sm.webp",
+    "scene": "/catalog/2027/tayyor-skameyka-modern-tayyor-foto.webp",
+    "sceneSm": "/catalog/2027/tayyor-skameyka-modern-tayyor-foto-sm.webp",
     "molds": {},
-    "tiles": {
-     "A": "/catalog/2027/tayyor-skameyka-modern-tayyor-sahna.webp"
-    }
+    "tiles": {}
    }
   },
   {

@@ -10,6 +10,7 @@ import {
   getMoldBySlug,
   getReadyModels,
   hasAnyImage,
+  isPhotoImage,
   localizedText,
   modelImage,
   modelName,
@@ -43,15 +44,16 @@ function find(section: string, slug: string): Model | undefined {
  * Rasmlar tartibi: mahsulotning o'zi (`images.scene`) → fasaddagi ko'rinish va variantlar (`images.tiles`) →
  * qo'shimcha suratlar (`images.molds`; tayyor mahsulotda bu maydon qolip emas, oddiy qo'shimcha surat).
  */
-function gallery(m: Model, lang: Locale, facadeAlt: string): { src: string; alt: string }[] {
+function gallery(m: Model, lang: Locale, facadeAlt: string): { src: string; alt: string; cover: boolean }[] {
   const name = modelName(m, lang);
-  const out: { src: string; alt: string }[] = [];
-  const push = (src: string | null | undefined, alt: string) => {
-    if (src && !out.some((x) => x.src === src)) out.push({ src, alt });
+  const out: { src: string; alt: string; cover: boolean }[] = [];
+  const push = (src: string | null | undefined, alt: string, cover: boolean) => {
+    if (src && !out.some((x) => x.src === src)) out.push({ src, alt, cover });
   };
-  push(m.images.scene || m.images.sceneSm, name);
-  for (const src of Object.values(m.images.tiles)) push(src, `${name} — ${facadeAlt}`);
-  for (const src of Object.values(m.images.molds)) push(src, name);
+  const main = m.images.scene || m.images.sceneSm;
+  push(main, name, isPhotoImage(main));
+  for (const src of Object.values(m.images.tiles)) push(src, `${name} — ${facadeAlt}`, true);
+  for (const src of Object.values(m.images.molds)) push(src, name, false);
   return out;
 }
 
@@ -187,6 +189,7 @@ export default async function ReadyProductPage({ params }: { params: Promise<{ l
                       <Image
                         src={img}
                         alt={modelName(x, lang)}
+                        className={isPhotoImage(img) ? 'is-photo' : undefined}
                         width={400}
                         height={300}
                         sizes="(max-width: 640px) 50vw, (max-width: 1100px) 25vw, 300px"

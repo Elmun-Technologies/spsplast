@@ -151,6 +151,8 @@ export const en: UiDictionary = {
     cardCompare: 'Compare',
     photoSoon: 'Photo coming soon',
     cardQuick: 'Quick view',
+    cardResult: 'Result',
+    cardOnSite: 'On site',
     cardRequest: 'Request',
     cardAdd: 'Add to request list',
     cardInList: 'In list',

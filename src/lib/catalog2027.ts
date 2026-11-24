@@ -3,6 +3,8 @@ import {
   READY_SECTIONS,
   SECTIONS,
   hasAnyImage,
+  isPhotoImage,
+  isReadySection,
   modelImage,
   modelSizeGroup,
   type Model,
@@ -115,7 +117,11 @@ export function getPopular(limit = 12): Model[] {
 export function sectionCoverImage(section: Section): { src: string; fit: 'cover' | 'contain' } {
   const inSection = all.filter((m) => m.section === section);
   const scene = inSection.find((m) => m.images.scene || m.images.sceneSm);
-  if (scene) return { src: (scene.images.scene || scene.images.sceneSm) as string, fit: 'cover' };
+  if (scene) {
+    const src = (scene.images.scene || scene.images.sceneSm) as string;
+    // Tayyor mahsulotning asosiy rasmi odatda fonsiz kesma (studiya fonida, contain); haqiqiy surat — cover.
+    return { src, fit: isReadySection(section) && !isPhotoImage(src) ? 'contain' : 'cover' };
+  }
   const cut = inSection.find((m) => m.images.molds.A || m.images.tiles.A);
   if (cut) return { src: (cut.images.molds.A || cut.images.tiles.A) as string, fit: 'contain' };
   return { src: '/images/site/factory.webp', fit: 'cover' };

@@ -1,15 +1,16 @@
 'use client';
 
 import Image from 'next/image';
-import { type Model, isReadySection, modelPath, modelSetSize, modelName, sectionLabel } from '@/lib/catalogCore';
+import { type Model, isPhotoImage, isReadySection, modelPath, modelSetSize, modelName, sectionLabel } from '@/lib/catalogCore';
 import { type Locale } from '@/lib/i18n';
 import { formatNumber } from '@/lib/i18n';
 import { useUi } from '@/components/site/UiProvider';
 import { useCompareList, useRequestList } from '@/lib/store/spsLists';
 import { Icon } from '@/components/site/icons';
 
-/** Sahna rasmi (kichik oyna va hover qatlami) — bitta `sizes`, brauzer bir xil faylni oladi. */
-const SCENE_SIZES = '(max-width: 640px) 50vw, (max-width: 1100px) 33vw, 25vw';
+/** Asosiy rasm (qolip / mahsulot) va yon oyna (natija) o'lchamlari — retina'da ham tiniq chiqishi uchun. */
+const STAGE_SIZES = '(max-width: 760px) 50vw, (max-width: 1100px) 34vw, 320px';
+const PANE_SIZES = '(max-width: 760px) 50vw, (max-width: 1100px) 20vw, 200px';
 
 export function productHref(lang: Locale, m: Model): string {
   return `/${lang}${modelPath(m)}`;
@@ -62,24 +63,28 @@ export function ProductCard({
   const inset = { loading: load === 'lazy' ? 'lazy' : 'eager' } as const;
   const mold = model.images.molds.A || null;
   const scene = (model.images.sceneSm || model.images.scene || null) as string | null;
+  // Studiya sahnasi (2026-11-24): chapda asosiy buyum — qolip yoki tayyor mahsulot (fonsiz, studiya fonida),
+  // o'ngda (mobilda pastda) natija surati: terilgan ko'rinish / obyektdagi ko'rinish. Ikkalasi ham yirik va aniq.
+  const stage = ready ? scene : mold;
+  const stageCover = ready ? isPhotoImage(scene) : false;
+  const pane = ready ? (stage && !stageCover ? model.images.tiles.A || null : null) : mold ? scene : null;
+  const fallback = !stage ? (ready ? cutout : scene) : null;
 
   return (
-    <article className={`sps-card${mold && scene ? ' sps-card--inset' : ''}${ready ? ' sps-card--ready' : ''}`}>
-      <div className="sps-card__media">
-        {mold ? (
-          // 2026-11-16: asosiy fokus — qolip (biz qolip sotamiz). Qolip katta, bosma katalogdagidek
-          // biroz qiya; natija (sahna) pastda kichik, desktopda kursor kelganda butun rasmga chiqadi.
-          <a href={href} tabIndex={-1} aria-hidden="true" className="sps-card__cutout sps-card__cutout--tilt">
-            <Image src={mold} alt="" fill sizes="(max-width: 640px) 50vw, (max-width: 1100px) 33vw, 25vw" style={{ objectFit: 'contain' }} {...main} />
+    <article className={`sps-card${ready ? ' sps-card--ready' : ''}`}>
+      <div className={`sps-card__media${pane ? ' sps-card__media--duo' : ''}`}>
+        {stage ? (
+          <a href={href} tabIndex={-1} aria-hidden="true" className={stageCover ? 'sps-card__photo' : 'sps-card__cutout'}>
+            <Image src={stage} alt="" fill sizes={STAGE_SIZES} style={{ objectFit: stageCover ? 'cover' : 'contain' }} {...main} />
           </a>
-        ) : scene ? (
-          <a href={href} tabIndex={-1} aria-hidden="true">
-            <Image src={scene} alt="" fill sizes={SCENE_SIZES} style={{ objectFit: 'cover' }} {...main} />
+        ) : fallback ? (
+          <a href={href} tabIndex={-1} aria-hidden="true" className="sps-card__photo">
+            <Image src={fallback} alt="" fill sizes={STAGE_SIZES} style={{ objectFit: 'cover' }} {...main} />
           </a>
         ) : cutout ? (
           // Sahna va qolip rasmi yo'q — mahsulot suratining o'zi (fonsiz) asosiy rasm bo'ladi.
           <a href={href} tabIndex={-1} aria-hidden="true" className="sps-card__cutout">
-            <Image src={cutout} alt="" fill sizes="(max-width: 640px) 50vw, (max-width: 1100px) 33vw, 25vw" style={{ objectFit: 'contain' }} {...main} />
+            <Image src={cutout} alt="" fill sizes={STAGE_SIZES} style={{ objectFit: 'contain' }} {...main} />
           </a>
         ) : (
           <a href={href} tabIndex={-1} aria-hidden="true" className="sps-card__nophoto">
@@ -87,15 +92,13 @@ export function ProductCard({
             <span>{t.photoSoon}</span>
           </a>
         )}
-        {mold && scene ? (
-          <>
-            <span className="sps-card__hover" aria-hidden="true">
-              <Image src={scene} alt="" fill sizes={SCENE_SIZES} style={{ objectFit: 'cover' }} loading="lazy" />
+        {pane ? (
+          <a href={href} tabIndex={-1} className="sps-card__pane">
+            <Image src={pane} alt={`${modelName(model, lang)} — ${ready ? t.cardOnSite : ui.alt.scene}`} fill sizes={PANE_SIZES} style={{ objectFit: 'cover' }} {...inset} />
+            <span className="sps-card__panechip" aria-hidden="true">
+              {ready ? t.cardOnSite : t.cardResult}
             </span>
-            <span className="sps-card__mold sps-card__scene">
-              <Image src={scene} alt={`${modelName(model, lang)} — ${ui.alt.scene}`} fill sizes={SCENE_SIZES} style={{ objectFit: 'cover' }} {...inset} />
-            </span>
-          </>
+          </a>
         ) : null}
         {model.code ? (
           <span className="sps-card__no" aria-hidden="true">
@@ -108,6 +111,7 @@ export function ProductCard({
           type="button"
           className={`sps-card__cmp sps-iconbtn${inCompare ? ' sps-iconbtn--on' : ''}`}
           aria-label={t.cardCompare}
+          title={t.cardCompare}
           aria-pressed={inCompare}
           onClick={() => compare.toggle(model.slug)}
         >

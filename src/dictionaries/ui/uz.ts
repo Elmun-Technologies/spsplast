@@ -155,6 +155,8 @@ export const uz = {
     cardCompare: 'Solishtirish',
     photoSoon: 'Foto tayyorlanmoqda',
     cardQuick: 'Tez ko‘rish',
+    cardResult: 'Natija',
+    cardOnSite: 'Obyektda',
     cardRequest: 'Zayafka',
     cardAdd: "Zayafka ro‘yxatiga qo‘shish",
     cardInList: "Ro‘yxatda",

@@ -59,12 +59,10 @@
     }
    ],
    "images": {
-    "scene": "/catalog/2027/tayyor-s02-skameyka-oyogi-2-tayyor-scene.webp",
-    "sceneSm": "/catalog/2027/tayyor-s02-skameyka-oyogi-2-tayyor-scene-sm.webp",
+    "scene": "/catalog/2027/tayyor-s02-skameyka-oyogi-2-tayyor-foto.webp",
+    "sceneSm": "/catalog/2027/tayyor-s02-skameyka-oyogi-2-tayyor-foto-sm.webp",
     "molds": {},
-    "tiles": {
-     "A": "/catalog/2027/tayyor-s02-skameyka-oyogi-2-tayyor-sahna.webp"
-    }
+    "tiles": {}
    }
   },
   {
@@ -124,12 +122,10 @@
     }
    ],
    "images": {
-    "scene": "/catalog/2027/tayyor-s04-skameyka-oyogi-4-tayyor-scene.webp",
-    "sceneSm": "/catalog/2027/tayyor-s04-skameyka-oyogi-4-tayyor-scene-sm.webp",
+    "scene": "/catalog/2027/tayyor-s04-skameyka-oyogi-4-tayyor-foto.webp",
+    "sceneSm": "/catalog/2027/tayyor-s04-skameyka-oyogi-4-tayyor-foto-sm.webp",
     "molds": {},
-    "tiles": {
-     "A": "/catalog/2027/tayyor-s04-skameyka-oyogi-4-tayyor-sahna.webp"
-    }
+    "tiles": {}
    }
   },
   {
@@ -189,12 +185,10 @@
     }
    ],
    "images": {
-    "scene": "/catalog/2027/tayyor-s07-skameyka-oyogi-7-tayyor-scene.webp",
-    "sceneSm": "/catalog/2027/tayyor-s07-skameyka-oyogi-7-tayyor-scene-sm.webp",
+    "scene": "/catalog/2027/tayyor-s07-skameyka-oyogi-7-tayyor-foto-3d.webp",
+    "sceneSm": "/catalog/2027/tayyor-s07-skameyka-oyogi-7-tayyor-foto-sm-3d.webp",
     "molds": {},
-    "tiles": {
-     "A": "/catalog/2027/tayyor-s07-skameyka-oyogi-7-tayyor-sahna-3d.webp"
-    }
+    "tiles": {}
    }
   },
   {
@@ -303,12 +297,10 @@
     }
    ],
    "images": {
-    "scene": "/catalog/2027/tayyor-skameyka-royal-tayyor-scene.webp",
-    "sceneSm": "/catalog/2027/tayyor-skameyka-royal-tayyor-scene-sm.webp",
+    "scene": "/catalog/2027/tayyor-skameyka-royal-tayyor-foto.webp",
+    "sceneSm": "/catalog/2027/tayyor-skameyka-royal-tayyor-foto-sm.webp",
     "molds": {},
-    "tiles": {
-     "A": "/catalog/2027/tayyor-skameyka-royal-tayyor-sahna.webp"
-    }
+    "tiles": {}
    }
   },
   {
@@ -417,12 +409,10 @@
     }
    ],
    "images": {
-    "scene": "/catalog/2027/tayyor-skameyka-komfort-tayyor-scene.webp",
-    "sceneSm": "/catalog/2027/tayyor-skameyka-komfort-tayyor-scene-sm.webp",
+    "scene": "/catalog/2027/tayyor-skameyka-komfort-tayyor-foto.webp",
+    "sceneSm": "/catalog/2027/tayyor-skameyka-komfort-tayyor-foto-sm.webp",
     "molds": {},
-    "tiles": {
-     "A": "/catalog/2027/tayyor-skameyka-komfort-tayyor-sahna.webp"
-    }
+    "tiles": {}
    }
   },
   {
@@ -531,12 +521,10 @@
     }
    ],
    "images": {
-    "scene": "/catalog/2027/tayyor-skameyka-modern-tayyor-scene.webp",
-    "sceneSm": "/catalog/2027/tayyor-skameyka-modern-tayyor-scene-sm.webp",
+    "scene": "/catalog/2027/tayyor-skameyka-modern-tayyor-foto.webp",
+    "sceneSm": "/catalog/2027/tayyor-skameyka-modern-tayyor-foto-sm.webp",
     "molds": {},
-    "tiles": {
-     "A": "/catalog/2027/tayyor-skameyka-modern-tayyor-sahna.webp"
-    }
+    "tiles": {}
    }
   },
   {
@@ -1136,6 +1124,12 @@
     "A": "/catalog/2027/skameyka-s02-skameyka-oyogi-2-mahsulot.webp"
    }
   },
+  "s02-skameyka-oyogi-2-tayyor": {
+   "scene": "/catalog/2027/tayyor-s02-skameyka-oyogi-2-tayyor-foto.webp",
+   "sceneSm": "/catalog/2027/tayyor-s02-skameyka-oyogi-2-tayyor-foto-sm.webp",
+   "molds": {},
+   "tiles": {}
+  },
   "s04-skameyka-oyogi-4": {
    "scene": "/catalog/2027/skameyka-s04-skameyka-oyogi-4-scene.webp",
    "sceneSm": "/catalog/2027/skameyka-s04-skameyka-oyogi-4-scene-sm.webp",
@@ -1146,6 +1140,12 @@
     "A": "/catalog/2027/skameyka-s04-skameyka-oyogi-4-mahsulot.webp"
    }
   },
+  "s04-skameyka-oyogi-4-tayyor": {
+   "scene": "/catalog/2027/tayyor-s04-skameyka-oyogi-4-tayyor-foto.webp",
+   "sceneSm": "/catalog/2027/tayyor-s04-skameyka-oyogi-4-tayyor-foto-sm.webp",
+   "molds": {},
+   "tiles": {}
+  },
   "s07-skameyka-oyogi-7": {
    "scene": "/catalog/2027/skameyka-s07-skameyka-oyogi-7-scene-3d.webp",
    "sceneSm": "/catalog/2027/skameyka-s07-skameyka-oyogi-7-scene-sm-3d.webp",
@@ -1155,6 +1155,30 @@
    "tiles": {
     "A": "/catalog/2027/skameyka-s07-skameyka-oyogi-7-mahsulot-3d.webp"
    }
+  },
+  "s07-skameyka-oyogi-7-tayyor": {
+   "scene": "/catalog/2027/tayyor-s07-skameyka-oyogi-7-tayyor-foto-3d.webp",
+   "sceneSm": "/catalog/2027/tayyor-s07-skameyka-oyogi-7-tayyor-foto-sm-3d.webp",
+   "molds": {},
+   "tiles": {}
+  },
+  "skameyka-royal-tayyor": {
+   "scene": "/catalog/2027/tayyor-skameyka-royal-tayyor-foto.webp",
+   "sceneSm": "/catalog/2027/tayyor-skameyka-royal-tayyor-foto-sm.webp",
+   "molds": {},
+   "tiles": {}
+  },
+  "skameyka-komfort-tayyor": {
+   "scene": "/catalog/2027/tayyor-skameyka-komfort-tayyor-foto.webp",
+   "sceneSm": "/catalog/2027/tayyor-skameyka-komfort-tayyor-foto-sm.webp",
+   "molds": {},
+   "tiles": {}
+  },
+  "skameyka-modern-tayyor": {
+   "scene": "/catalog/2027/tayyor-skameyka-modern-tayyor-foto.webp",
+   "sceneSm": "/catalog/2027/tayyor-skameyka-modern-tayyor-foto-sm.webp",
+   "molds": {},
+   "tiles": {}
   }
  }
 }
