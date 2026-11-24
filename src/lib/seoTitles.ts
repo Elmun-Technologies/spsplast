@@ -43,3 +43,24 @@ export function modelSeoTitle(model: Model, lang: Locale): string {
   ].map((parts) => parts.filter(Boolean).join(' '));
   return candidates.find((c) => c.length <= MAX) ?? candidates[candidates.length - 1];
 }
+
+/**
+ * Tayyor mahsulot sarlavhasi (2026-11-24). Ba'zi nomlarda turi yo'q ("30×60 Кирпич", "120×40 Билайн 1") —
+ * qidiruvdagi so'z ("термопанель", "панель") sarlavhaga kirmasdi. Subtitle'ning qo'shtirnoqdan tashqaridagi
+ * so'zlari (4+ harf) — turi; nomda yo'qlari oldinga qo'shiladi ("Панель 120×40 Билайн 1"). Nom turi bilan
+ * boshlansa ("Еврозабор «Оковка»", "Bench side «Classic»") yoki hammasi bor bo'lsa ("45×120 Карниз") — o'zgarmaydi.
+ */
+export function readySeoTitle(name: string, subtitle: string, size?: string | null): string {
+  const lower = name.toLowerCase();
+  const words = subtitle
+    .replace(/«[^»]*»/g, ' ')
+    .split(/[^\p{L}]+/u)
+    .filter((w) => w.length >= 4);
+  const stem = (w: string) => w.toLowerCase().slice(0, 5);
+  const startsWithType = words.some((w) => lower.startsWith(stem(w)));
+  const missing = startsWithType ? [] : words.filter((w) => !lower.includes(stem(w)));
+  const prefix = missing.join(' ');
+  const base = prefix ? `${prefix.charAt(0).toUpperCase()}${prefix.slice(1)} ${name}` : name;
+  const withSize = size ? `${base} ${size}` : base;
+  return withSize.length <= MAX ? withSize : base;
+}

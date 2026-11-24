@@ -79,7 +79,7 @@ src/lib/contacts2027.ts      # contacts per HANDOFF §1 (single source for new l
 src/lib/store/spsLists.ts    # request list + compare list (localStorage)
 src/lib/ui.ts                # getUi(lang), pluralModels(), formatNumber()
 src/lib/seo.ts               # metadata + hreflang + JSON-LD builders (uz/ru/en, no price)
-src/app/sitemap.ts           # 711 URLs: (6 fixed + 7 non-empty sections + 7 tags + 8 export countries + 209 models WITH an image) × 3 langs
+src/app/sitemap.ts           # 1110 URLs (2026-11-24): molds (6 fixed + sections + tags + 8 export + models WITH an image) + ready products (`/ready`), × 3 langs
 src/lib/seoPages.ts          # SEO landing logic: TAG_DEFS (MIN_TAG_MODELS=6), EXPORT_COUNTRIES (8)
 src/components/seo2028/SeoBlocks.tsx  # TagChips, CountriesStrip, PavingGuide (server components)
 src/app/robots.ts            # allow all; disallow /api/, /*/compare, /*/request
@@ -129,7 +129,7 @@ Everything a visitor could still hit is answered by a 301 (`scripts/redirects-20
 | Home | `/{lang}` |
 | Catalog / section | `/{lang}/catalog`, `/{lang}/catalog/{section}` |
 | Model | `/{lang}/catalog/{section}/{slug}` |
-| Ready products (zayafka only) | `/{lang}/ready`, `/{lang}/ready/{section}`, `/{lang}/ready/{section}/{slug}` (noindex while empty) |
+| Ready products (zayafka only) | `/{lang}/ready`, `/{lang}/ready/{section}`, `/{lang}/ready/{section}/{slug}` (indexed + in sitemap; product `<title>` via `readySeoTitle()` adds the type when the name lacks it) |
 | Compare | `/{lang}/compare` |
 | Request list | `/{lang}/request` |
 | Wholesale & partners | `/{lang}/partners` |
