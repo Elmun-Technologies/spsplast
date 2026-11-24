@@ -281,7 +281,7 @@
  {
   "src": "media-src/live/oyoq-izi-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-oyoq-izi-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {
@@ -335,13 +335,13 @@
  {
   "src": "media-src/live/terratsso-1-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-terratsso-1-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {
   "src": "media-src/live/terratsso-2-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-terratsso-2-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {
@@ -359,7 +359,7 @@
  {
   "src": "media-src/live/terratsso-3-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-terratsso-3-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {
@@ -467,7 +467,7 @@
  {
   "src": "media-src/live/t26-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-22-uzor-50-25-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {
@@ -785,7 +785,7 @@
  {
   "src": "media-src/live/t27-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-23-parket-12-36-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {
@@ -899,7 +899,7 @@
  {
   "src": "media-src/live/t35-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-31-aleya-shershavoe-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {
@@ -1205,7 +1205,7 @@
  {
   "src": "media-src/live/t55-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-52-ona-bola-1-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {
@@ -1307,7 +1307,7 @@
  {
   "src": "media-src/live/t70-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-65-farovon-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {
@@ -1409,7 +1409,7 @@
  {
   "src": "media-src/live/t78-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-73-marokesh-2-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {
@@ -1451,7 +1451,7 @@
  {
   "src": "media-src/live/t56-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-76-ona-bola-2-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {
@@ -1559,7 +1559,7 @@
  {
   "src": "media-src/live/t91-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-88-parket-yog-och-naqshli-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {

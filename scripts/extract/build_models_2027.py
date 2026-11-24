@@ -591,13 +591,8 @@ def apply_live(models, jobs, live):
         target = f"{m['section']}-{m['slug']}"
         if "mold" in got:
             dst = f"public/catalog/2027/{target}-mold-a.webp"
-            # Manba kattaroq (≥1300 px, masalan zabor 1400×1000) bo'lsa 800 px'ga siqmaymiz — sahifada ~1150 px ko'rsatiladi.
-            try:
-                from PIL import Image
-                with Image.open(os.path.join(ROOT, got["mold"])) as _im:
-                    mw = 1200 if max(_im.size) >= 1300 else 800
-            except Exception:
-                mw = 800
+            # Manba kichik bo'lsa ham 1200: kesma baribir kvadratga cho'ziladi, 800 da esa mavjud detal ham yo'qolardi.
+            mw = CUT_W
             jobs.append({"src": got["mold"], "dst": dst, "w": mw, "kind": "live"})
             m["images"]["molds"]["A"] = "/" + dst[len("public/"):]
         if "tile" in got:
