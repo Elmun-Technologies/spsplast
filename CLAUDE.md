@@ -538,6 +538,15 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   uzun tomoni 1500 px, JPEG q72, SMask saqlanadi, `qpdf --linearize`). Fasad qolip 96 bet → 35 MB, FASAD MAHSULOT 108 bet → 24 MB.
 - **"Соберите сами" ranglari (2026-11-24)**: plitka katakdan `SEAM`=0.955 kichik (orada qora chok — bir rangli qo'shni plitkalar
   bitta dog'ga qo'shilmaydi), bo'sh katak ko'kish (`GHOST_WHITE` 0x8fb6e0 — palitradagi kulrang/grafitdan farqli), asos 0x1c1d1f.
+- **Studiya kartochkalari (2026-11-24, PR "ui-studio")** — keep them:
+  - Fonsiz buyum (qolip) hamma joyda bir xil o'rta-to'q `--studio` fonida: oq ABS ham, qora PP ham aniq ko'rinadi (och bej
+    fonda oq qoliplar yo'qolardi). Tayyor mahsulot — `--studio-deep`. Qiya (tilt) olib tashlangan.
+  - Kartochka sahnasi ikki oynali (`.sps-card__media--duo`): buyum + natija surati (`.sps-card__pane`, chip "Natija" /
+    "Obyektda"); mobilda natija buyum ostida tasma. Hover'dagi to'liq sahna qatlami va kichik inset yo'q.
+  - Tayyor mahsulotning fonli haqiqiy surati `…-foto[-sm][-3d].webp` deb nomlanadi (`isPhotoImage()`): cover, kesilmaydi.
+    Skameykalar shunday (avtomatik fonsiz kesmada skameykaning yarmi kesilgan edi) — `refresh` orqali baza ham yangilanadi.
+  - Bosh sahifa hero: `public/images/site/home/{molds,ready}-hero.webp` (kesmalardan yig'ilgan kompozitsiya, pastki rangi
+    panel foni bilan bir xil: `#e2ddd3` / `#1f2125`). Qayta yig'ish kerak bo'lsa — panel rangini ham moslang.
 - **Tayyor mahsulot rasmi grafit fonda** (`.sps-card--ready`, `.hm-secs--ready`, `.rd-gal__*`, `.rc--ready`): mahsulotlar och
   (krem, oq beton) — och fonda ko'rinmay qolardi; rasm `contain` (kesilmaydi).
 - **PDF kataloglar + varaqlagich (2026-11-16)**: `public/catalog/pdf/` — 3 ta ruscha yotiq PDF (trotuar 2026-11-23 dan — A5 bosma katalog 128 bet, veb nusxa ~39 MB; fayli eski nom

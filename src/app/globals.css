@@ -1386,52 +1386,47 @@ html { scroll-padding-top: 164px; }
 .flip__dl{margin-left:auto}
 .flip__hint{margin-top:10px;font-size:13px}
 
-/* Bosh sahifa: ikki yo'nalish paneli (qoliplar / tayyor mahsulotlar) */
+/* Bosh sahifa: ikki yo'nalish paneli (qoliplar / tayyor mahsulotlar) — 2026-11-24 qayta ishlangan:
+   ikkala panel bir xil kompozitsiya (studiya fonidagi haqiqiy buyumlar), rasm pastki rangi = panel foni, chegara yo'q. */
 .hm-fork { padding-block: var(--space-6) var(--space-7); }
-.hm-fork__h { margin: 0 0 var(--space-4); font: 600 clamp(22px, 4.6vw, 30px)/1.15 var(--font-sans); letter-spacing: -0.03em; max-width: 30ch; }
-@media (min-width: 761px) { .hm-fork__h { max-width: none; } }
+.hm-fork__eyebrow { margin: 0 0 var(--space-2); }
+.hm-fork__h { margin: 0 0 var(--space-5); font: 600 clamp(28px, 6.4vw, 48px)/1.08 var(--font-sans); letter-spacing: -0.035em; max-width: 22ch; text-wrap: balance; }
 .hm-split { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-4); }
-.hm-panel { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-card); overflow: hidden; color: var(--ink); text-decoration: none; transition: border-color .2s, box-shadow .2s; }
-.hm-panel:hover { border-color: var(--line-strong); box-shadow: var(--shadow-raise); }
-.hm-panel--ready { background: var(--surface-ink); color: var(--on-ink); border-color: var(--surface-ink); }
-.hm-panel__media { position: relative; display: block; aspect-ratio: 16 / 9; background: var(--surface-alt); }
-.hm-panel__media img { object-fit: cover; }
-.hm-panel__media--cutout img { object-fit: contain; padding: 8%; }
-.hm-panel__body { display: flex; flex-direction: column; gap: var(--space-3); padding: var(--space-5); flex: 1; }
-.hm-panel__label { font: 600 12px/16px var(--font-sans); letter-spacing: .08em; color: var(--red-text, #b51e25); }
+.hm-panel {
+  --panel-bg: #e2ddd3; position: relative; display: flex; flex-direction: column; overflow: hidden;
+  background: var(--panel-bg); color: var(--ink); border-radius: 16px; text-decoration: none;
+  transition: transform .25s ease-out, box-shadow .25s ease-out;
+}
+.hm-panel--ready { --panel-bg: #1f2125; color: var(--on-ink); }
+.hm-panel:hover { transform: translateY(-3px); box-shadow: 0 18px 40px -18px rgba(21, 23, 26, .45); }
+.hm-panel__media { position: relative; display: block; aspect-ratio: 1440 / 680; }
+.hm-panel__media img { object-fit: cover; transition: transform .6s ease-out; }
+.hm-panel:hover .hm-panel__media img { transform: scale(1.025); }
+.hm-panel__body { display: flex; flex-direction: column; gap: var(--space-2); padding: 0 var(--space-5) var(--space-5); margin-top: calc(var(--space-6) * -1); position: relative; flex: 1; }
+.hm-panel__label { font: 600 12px/16px var(--font-sans); letter-spacing: .08em; text-transform: uppercase; color: var(--red-text, #b51e25); }
 .hm-panel--ready .hm-panel__label { color: var(--red-on-ink, #ff6b72); }
-.hm-panel__title { margin: 0; font: 600 28px/32px var(--font-sans); letter-spacing: -0.03em; }
-.hm-panel__text { font: 400 16px/24px var(--font-sans); color: var(--ink-muted); }
-.hm-panel--ready .hm-panel__text, .hm-panel--ready .hm-panel__list { color: var(--on-ink-muted); }
-.hm-panel__list { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; font: 400 15px/22px var(--font-sans); color: var(--ink-muted); }
-.hm-panel__cta { align-self: flex-start; margin-top: auto; }
-/* Qoliplar paneli: katalogdagidek — och studiya foni, toza qolip fotolari (trotuar + fasad) */
-.hm-panel__media--molds { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); background: radial-gradient(110% 120% at 50% 20%, #f4f1ec 0%, #e6e1da 100%); overflow: hidden; }
-.hm-mold { position: relative; display: block; }
-.hm-mold img { object-fit: contain; padding: 5% 6% 15%; filter: drop-shadow(0 14px 12px rgba(21, 23, 26, .28)); }
-.hm-duo__chip { position: absolute; left: 50%; bottom: 10px; transform: translateX(-50%); background: var(--surface-ink); color: var(--on-ink); font: 600 12px/16px var(--font-sans); padding: 4px 12px; border-radius: 999px; white-space: nowrap; }
-/* Tayyor mahsulotlar paneli: fasad mahsulotlarining tayyor ko'rinishi, uch ustun */
-.hm-panel__media--ready { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3px; background: var(--surface-ink); overflow: hidden; }
-.hm-ready { position: relative; display: block; }
-.hm-ready img { object-fit: cover; }
+.hm-panel__title { margin: 0; font: 600 30px/34px var(--font-sans); letter-spacing: -0.03em; }
+.hm-panel__text { font: 400 16px/24px var(--font-sans); color: #5c5850; max-width: 46ch; }
+.hm-panel--ready .hm-panel__text { color: var(--on-ink-muted); }
+.hm-panel__list { display: none; }
+.hm-panel__cta { align-self: flex-start; margin-top: var(--space-3); }
+.hm-panel--molds .hm-panel__cta { background: var(--ink); border-color: var(--ink); color: var(--surface); }
+.hm-panel__cta svg { transition: transform .2s ease-out; }
+.hm-panel:hover .hm-panel__cta svg { transform: translateX(3px); }
 @media (max-width: 760px) {
-  /* Mobil: ikkala panel birinchi ekranga sig'sin (390×844) — matn va ro'yxat yashirin, sarlavha + tugma qoladi */
+  .hm-fork { padding-block: var(--space-4) var(--space-6); }
+  .hm-fork__h { margin-bottom: var(--space-4); }
   .hm-split { gap: var(--space-3); }
-  .hm-panel__media { aspect-ratio: auto; height: 124px; overflow: hidden; }
-  .hm-panel__body { padding: var(--space-4); gap: var(--space-2); }
+  .hm-panel__body { padding: 0 var(--space-4) var(--space-4); margin-top: calc(var(--space-4) * -1); }
   .hm-panel__title { font-size: 24px; line-height: 28px; }
-  .hm-panel__text, .hm-panel__list { display: none; }
+  .hm-panel__text { display: none; }
+  .hm-panel__cta { margin-top: var(--space-2); }
 }
 @media (min-width: 761px) {
-  /* Birinchi ekranga sig'sin: sarlavha + ikki panel (1440×900 da skroll kerak emas) */
-  .hm-split-sec { padding-top: var(--space-4); }
   .hm-split { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-5); }
-  .hm-panel__media { aspect-ratio: auto; height: clamp(200px, 32vh, 300px); }
-  .hm-panel__media { overflow: hidden; }
-  .hm-panel__title { font-size: 34px; line-height: 38px; }
-  .hm-panel__body { padding: var(--space-5); gap: var(--space-2); }
-  .hm-panel__list { display: none; }
+  .hm-panel__title { font-size: 36px; line-height: 40px; }
 }
+@media (prefers-reduced-motion: reduce) { .hm-panel, .hm-panel__media img, .hm-panel__cta svg { transition: none; } .hm-panel:hover { transform: none; } }
 
 /* Tayyor mahsulot sahifasi (/ready/{bo'lim}/{slug}): galereya + xususiyatlar + zayafka. Narx yo'q. */
 .rd-all { padding-top: 0; }
@@ -1457,17 +1452,15 @@ html { scroll-padding-top: 164px; }
   .rd-actions .sps-btn--primary { flex: 1 1 100%; }
   .rd-actions .sps-btn--outline { flex: 1 1 0; justify-content: center; }
 }
-/* Tayyor mahsulotlar och (krem, oq beton): och fonda qo'shilib ketmasin — grafit "studiya" foni
-   (bosh sahifadagi qorong'i "Tayyor mahsulotlar" paneli bilan bir xil til). */
-.sps-card--ready .sps-card__media,
+/* Tayyor mahsulotlar och (krem, oq beton): och fonda qo'shilib ketmasin — grafit "studiya" foni. */
 .hm-secs--ready .hm-sec__media,
 .rd-gal__main,
 .rd-gal__thumb,
-.rc--ready img { background: radial-gradient(120% 95% at 50% 38%, #3c3e43 0%, #202226 78%); }
+.rc--ready img { background: var(--studio-deep); }
 .rc--ready img { object-fit: contain; padding: 6%; }
-/* shaffof mahsulot surati — kesilmasin, to'liq ko'rinsin */
-.sps-card--ready .sps-card__media img,
-.hm-secs--ready .hm-sec__media img { object-fit: contain !important; padding: 7%; }
+.rc--ready img.is-photo { object-fit: cover; padding: 0; }
+.hm-secs--ready .hm-sec__media--cutout img { object-fit: contain; padding: 7%; }
+.hm-secs--ready .hm-sec__media--cutout { background-image: var(--studio-deep); background-size: auto; }
 .rd-gal__thumb.is-on { border-color: var(--red); }
 .ct-note a:not(.sps-btn) { color: var(--on-ink); text-decoration: underline; }
 
@@ -1549,10 +1542,85 @@ html { scroll-padding-top: 164px; }
 @media (prefers-reduced-motion: reduce) { .sps-card__quick { transition: none; } }
 .ft.pat { --pat-o: .07; --pat-size: 130px; }
 .hm-band.pat { --pat-o: .08; --pat-size: 120px; }
-.hm-fork.pat { --pat-o: .05; --pat-size: 170px; }
+.hm-fork.pat { --pat-o: .035; --pat-size: 170px; }
 .geo-hero.pat { --pat-o: .06; --pat-size: 160px; }
 .ct-sec.pat { --pat-o: .07; --pat-size: 140px; }
 /* Bosh sahifa: mobilda mashhur modellardan 6 tasi (12 ta kartochka 390 px da ~4 ekran edi). */
 @media (max-width: 760px) { .hm-popular .cat-grid > :nth-child(n+7) { display: none; } }
 .rd-cross { padding-top: 0; }
 .qr-qty { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+
+
+/* ==========================================================================================
+   STUDIYA (2026-11-24) — kartochka va model sahifasi rasmlari.
+   Muammo: oq ABS qoliplar (skameyka, yevrozabor) och bej fonda yo'qolardi, natija surati juda kichik edi.
+   Yechim: hamma fonsiz buyum bir xil o'rta-to'q "studiya" fonida (oq ham, qora qolip ham aniq ko'rinadi),
+   natija surati kartochkaning yarmiga yaqin joyni oladi. Tayyor mahsulot — chuqurroq grafit fon.
+   ========================================================================================== */
+:root {
+  --studio: radial-gradient(125% 100% at 50% 28%, #8d9095 0%, #686b70 55%, #515459 100%);
+  --studio-deep: radial-gradient(120% 95% at 50% 36%, #3f4146 0%, #212327 80%);
+}
+.sps-card { border-color: #d6d2c9; box-shadow: 0 1px 2px rgba(21, 23, 26, .06); }
+.sps-card:hover { transform: translateY(-3px); border-color: var(--ink); box-shadow: 0 20px 40px -16px rgba(21, 23, 26, .38); }
+.sps-card__media { aspect-ratio: 1 / 1; background: var(--studio); overflow: hidden; }
+.sps-card--ready .sps-card__media { background: var(--studio-deep); }
+.sps-card__cutout { background: none; }
+.sps-card__cutout img { padding: 7%; filter: drop-shadow(0 12px 12px rgba(0, 0, 0, .42)) drop-shadow(0 2px 3px rgba(0, 0, 0, .3)); transition: transform .35s ease-out; }
+.sps-card__cutout--tilt img { padding: 7%; transform: none; }
+.sps-card:hover .sps-card__cutout img, .sps-card:hover .sps-card__cutout--tilt img { transform: scale(1.045); }
+.sps-card__photo img { transition: transform .5s ease-out; }
+.sps-card:hover .sps-card__photo img { transform: scale(1.03); }
+.sps-card__nophoto { background: var(--surface-alt); }
+/* Ikki oynali sahna: buyum + natija */
+.sps-card__media--duo { aspect-ratio: auto; display: grid; grid-template-columns: minmax(0, 1fr); }
+.sps-card__media--duo > a { position: relative; inset: auto; display: block; overflow: hidden; }
+.sps-card__media--duo > a:first-child { aspect-ratio: 1 / 1; }
+.sps-card__pane { aspect-ratio: 16 / 7; border-top: 2px solid var(--surface); }
+.sps-card__pane img { transition: transform .5s ease-out; }
+.sps-card:hover .sps-card__pane img { transform: scale(1.04); }
+.sps-card__panechip {
+  position: absolute; left: 8px; bottom: 8px; padding: 3px 8px; border-radius: 999px;
+  background: rgba(21, 23, 26, .78); color: #fff; font: 600 11px/14px var(--font-sans); letter-spacing: .02em;
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+}
+.sps-card__no { background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, .25); font-weight: 700; }
+.sps-card__cmp.sps-iconbtn { background: rgba(255, 255, 255, .94); border-color: transparent; box-shadow: 0 1px 3px rgba(0, 0, 0, .25); }
+.sps-card__cmp.sps-iconbtn--on { background: var(--ink); color: #fff; }
+.sps-card__quick { right: auto; left: var(--space-3); bottom: var(--space-3); opacity: 0; transform: translateY(6px); transition: opacity .2s, transform .2s; }
+.sps-card:hover .sps-card__quick, .sps-card__quick:focus-visible { opacity: 1; transform: none; }
+.sps-card__name { font-weight: 700; letter-spacing: -0.01em; }
+.sps-card__spec dd { font-weight: 700; }
+@media (min-width: 761px) {
+  .sps-card__media { aspect-ratio: 4 / 3; }
+  .sps-card__media--duo { aspect-ratio: 3 / 2; grid-template-columns: minmax(0, 61fr) minmax(0, 39fr); }
+  .sps-card__media--duo > a:first-child { aspect-ratio: auto; }
+  .sps-card__pane { aspect-ratio: auto; border-top: 0; border-left: 3px solid var(--surface); }
+  .sps-card__panechip { left: 10px; bottom: 10px; font-size: 12px; line-height: 16px; padding: 4px 10px; }
+  .sps-card__name { font-size: 20px; line-height: 25px; }
+  .sps-card__quick { left: var(--space-3); }
+}
+/* Ro'yxat ko'rinishi: ixcham — faqat buyum */
+.cat-grid--list .sps-card__media--duo { display: block; aspect-ratio: 1 / 1; }
+.cat-grid--list .sps-card__media--duo > a:first-child { position: absolute; inset: 0; aspect-ratio: auto; }
+.cat-grid--list .sps-card__pane { display: none; }
+@media (max-width: 640px) { .cat-grid--list .sps-card__media--duo { aspect-ratio: auto; } }
+
+/* Model sahifasi: fonsiz qolip — studiya foni (chizma to'ri och chiziqlar bilan), o'lcham chizig'i oq */
+.stage--drawing {
+  background-color: #63666b;
+  background-image: linear-gradient(rgba(255, 255, 255, .055) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .055) 1px, transparent 1px), var(--studio);
+  background-size: 24px 24px, 24px 24px, auto;
+}
+.stage img.stage-tilt { transform: none; filter: drop-shadow(0 26px 24px rgba(0, 0, 0, .45)) drop-shadow(0 4px 6px rgba(0, 0, 0, .3)); }
+.stage--drawing .dimline { color: rgba(255, 255, 255, .82); }
+.stage .sps-tag { background: rgba(255, 255, 255, .94); color: var(--ink); font-weight: 600; }
+.th button.contain { background: var(--studio); }
+.th button.on { border-color: var(--red); box-shadow: 0 0 0 1px var(--red); }
+.qv-media { background: var(--studio); }
+@media (prefers-reduced-motion: reduce) { .sps-card__cutout img, .sps-card__pane img, .sps-card__photo img, .sps-card__quick { transition: none; } }
+/* Solishtirish: faqat ikon (yozuv natija suratini to'sardi); ikki oynali sahnada — buyum oynasining burchagida */
+.sps-card__cmp .hide-m { display: none; }
+.sps-card__cmp.sps-iconbtn { width: 36px; height: 36px; padding: 0; border-radius: 999px; }
+@media (min-width: 761px) { .sps-card__media--duo .sps-card__cmp { right: calc(39% + 10px); } }
+.cat-grid--list .sps-card__media--duo .sps-card__cmp { right: 6px; }

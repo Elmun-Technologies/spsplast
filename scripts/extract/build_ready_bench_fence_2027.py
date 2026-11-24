@@ -97,9 +97,16 @@ def main():
                     keep.add(p)
 
         slug = f"{mold['slug']}-tayyor"
-        cutout(img(r["img_mahsulot"]), out(f"tayyor-{slug}-scene.webp"), 1100, pad=0.05)
-        cutout(img(r["img_mahsulot"]), out(f"tayyor-{slug}-scene-sm.webp"), 600, pad=0.05)
-        photo(img(r["img_sahna"]), out(f"tayyor-{slug}-sahna{r3d}.webp"), 1400, quality=72)
+        # Asosiy rasm — tayyor skameykaning to'liq surati (`-foto`: sayt uni kesmasdan, fonli surat sifatida ko'rsatadi).
+        # Avtomatik fonsiz kesmalar (`-mahsulot.png`) ishlatilmaydi: Klassik/Modernda skameykaning yarmi kesilgan edi.
+        photo(img(r["img_sahna"]), out(f"tayyor-{slug}-foto{r3d}.webp"), 1400, quality=76)
+        photo(img(r["img_sahna"]), out(f"tayyor-{slug}-foto-sm{r3d}.webp"), 720, quality=76)
+        ready_images = {"scene": web(f"tayyor-{slug}-foto{r3d}.webp"), "sceneSm": web(f"tayyor-{slug}-foto-sm{r3d}.webp"),
+                        "molds": {}, "tiles": {}}
+        refresh[slug] = ready_images  # bazada eski (kesma) rasm bilan turgan qatorlar ham yangilansin
+        for old in (f"tayyor-{slug}-scene.webp", f"tayyor-{slug}-scene-sm.webp", f"tayyor-{slug}-sahna{r3d}.webp"):
+            if os.path.exists(out(old)):
+                keep.add(web(old))
         n = r.get("per_bench")
         specs = [{"k": L("Material", "Материал", "Material"), "v": text(r, "product_material")}]
         if n:
@@ -111,8 +118,7 @@ def main():
             "kg": None, "molds": [],
             "tiles": [{"l": "A", "size": r.get("size_mm"), "per": None, "cap": None}],
             "specs": specs,
-            "images": {"scene": web(f"tayyor-{slug}-scene.webp"), "sceneSm": web(f"tayyor-{slug}-scene-sm.webp"),
-                       "molds": {}, "tiles": {"A": web(f"tayyor-{slug}-sahna{r3d}.webp")}},
+            "images": ready_images,
         })
 
     # ---------------- yevrozabor (faqat tayyor panel; qolip surati saytda bor)

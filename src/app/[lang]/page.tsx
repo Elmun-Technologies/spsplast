@@ -8,7 +8,6 @@ import {
   calcMolds,
   calcWeight,
   getActiveSections,
-  getModelBySlug,
   getReadyModels,
   getPopular,
   getSectionCounts,
@@ -17,7 +16,6 @@ import {
   modelPerM2,
   sectionCoverImage,
   sectionLabel,
-  sectionShortLabel,
 } from '@/lib/catalog2027';
 import { CatalogClient } from '@/components/catalog2027/CatalogClient';
 import { Icon } from '@/components/site/icons';
@@ -99,27 +97,8 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   const exWeight = featured ? calcWeight(featured, CALC_EXAMPLE_M2) : null;
   const testimonials = getTestimonials();
 
-  // Qoliplar paneli: katalogdagi kabi — toza qolip fotosi (trotuar + fasad). Slug bo'yicha olinadi: rasm fayli
-  // (jonli foto / 3D render) almashsa ham yo'l o'zgarmaydi. Bo'sh bo'lsa bo'lim muqovasiga qaytadi.
-  const moldShots = (
-    [
-      ['04-tsvetok', 'trotuar'],
-      ['tp-001-30x60-kirpich', 'fasad'],
-    ] as const
-  )
-    .map(([slug, sec]) => ({
-      src: getModelBySlug(slug)?.images.molds.A ?? null,
-      label: sectionShortLabel(sec, lang),
-    }))
-    .filter((x): x is { src: string; label: string } => Boolean(x.src));
-  // Tayyor mahsulotlar paneli: fasad mahsulotlarining tayyor ko'rinishi (g'isht, termopanel, dekorativ panel).
-  const readyShots = ['f25-6-tali-tosh', 'tp-004-30x60-kuba', 'fsd-004-120x40-dekor-4']
-    .map((slug) => {
-      const m = getModelBySlug(slug);
-      return m?.images.sceneSm ?? m?.images.scene ?? null;
-    })
-    .filter((x): x is string => Boolean(x));
-
+  // Ikki yo'nalish paneli: bir xil kompozitsiya — studiya fonida haqiqiy qolip (och) va tayyor mahsulot (grafit).
+  // Rasmlar `public/images/site/home/*-hero.webp` (qolip/mahsulot kesmalaridan yig'ilgan, pastki qismi panel rangida).
   const readyCount = getReadyModels().length;
   const panels = [
     {
@@ -130,9 +109,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       text: p.home.split.moldsText,
       points: p.home.split.moldsPoints,
       cta: p.home.split.moldsCta,
-      cover: sectionCoverImage('trotuar'),
-      molds: moldShots.length ? moldShots : null,
-      ready: null as string[] | null,
+      img: '/images/site/home/molds-hero.webp',
       meta: `${total} ${pluralModels(lang, total)}`,
     },
     {
@@ -143,9 +120,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       text: p.home.split.readyText,
       points: p.home.split.readyPoints,
       cta: p.home.split.readyCta,
-      cover: sectionCoverImage('fasad'),
-      molds: null,
-      ready: readyShots.length ? readyShots : null,
+      img: '/images/site/home/ready-hero.webp',
       meta: readyCount ? `${readyCount} ${pluralCategory(lang, readyCount, p.ready.productForms)}` : '',
     },
   ];
@@ -166,32 +141,14 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       {/* 1. Tanlov bloki: Qoliplar / Tayyor mahsulotlar (girih naqshi fonida) */}
       <section className="hm-fork pat" style={patternStyle('girih')} aria-label={p.home.split.eyebrow}>
         <div className="wrap">
+          <p className="sps-eyebrow hm-fork__eyebrow">{p.home.split.eyebrow}</p>
           <h1 className="hm-fork__h">{p.home.h1(total)}</h1>
           <div className="hm-split">
             {panels.map((c) => (
               <a key={c.key} className={`hm-panel hm-panel--${c.key}`} href={c.href}>
-                {c.molds ? (
-                  <span className="hm-panel__media hm-panel__media--molds">
-                    {c.molds.map((d, i) => (
-                      <span key={d.src} className="hm-mold">
-                        <Image src={d.src} alt="" fill sizes="(max-width: 760px) 45vw, 260px" priority={i === 0} />
-                        <span className="hm-duo__chip">{d.label}</span>
-                      </span>
-                    ))}
-                  </span>
-                ) : c.ready ? (
-                  <span className="hm-panel__media hm-panel__media--ready">
-                    {c.ready.map((src) => (
-                      <span key={src} className="hm-ready">
-                        <Image src={src} alt="" fill sizes="(max-width: 760px) 34vw, 210px" />
-                      </span>
-                    ))}
-                  </span>
-                ) : (
-                  <span className={`hm-panel__media${c.cover.fit === 'contain' ? ' hm-panel__media--cutout' : ''}`}>
-                    <Image src={c.cover.src} alt="" fill sizes="(max-width: 760px) 100vw, 600px" />
-                  </span>
-                )}
+                <span className="hm-panel__media">
+                  <Image src={c.img} alt="" fill sizes="(max-width: 760px) 100vw, 640px" priority={c.key === 'molds'} />
+                </span>
                 <span className="hm-panel__body">
                   <span className="hm-panel__label">
                     {c.label}

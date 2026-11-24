@@ -151,6 +151,8 @@ export const ru: UiDictionary = {
     cardCompare: 'Сравнить',
     photoSoon: 'Фото готовится',
     cardQuick: 'Быстрый просмотр',
+    cardResult: 'Результат',
+    cardOnSite: 'На объекте',
     cardRequest: 'Заявка',
     cardAdd: 'Добавить в список заявки',
     cardInList: 'В списке',

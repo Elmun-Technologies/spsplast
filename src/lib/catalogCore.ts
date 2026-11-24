@@ -51,6 +51,14 @@ export function isRenderImage(src: string | null | undefined): boolean {
   return !!src && /-3d\.webp(?:\?|$)/.test(src);
 }
 
+/**
+ * Tayyor mahsulotning asosiy rasmi fonli haqiqiy surat (`…-foto.webp` / `-foto-sm.webp`, masalan skameykalar) —
+ * kartochka va galereyada to'liq (cover) ko'rsatiladi; qolganlari fonsiz kesma (studiya fonida, contain).
+ */
+export function isPhotoImage(src: string | null | undefined): boolean {
+  return !!src && /-foto(?:-sm)?(?:-3d)?\.webp(?:\?|$)/.test(src);
+}
+
 export type SectionKind = 'molds' | 'ready';
 type SectionMeta = { key: Section; slug: string; name: Localized; kind: SectionKind };
 
