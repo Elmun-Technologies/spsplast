@@ -565,9 +565,10 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   Dasturdan: `window.dispatchEvent(new CustomEvent('sps:zoom', { detail: { items } }))` — PDF varaqlagich ochiq sahifani ~2400 px da qayta chizib beradi.
   Yangi rasm bloki qo'shsangiz — `data-zoom` + `ZoomButton` qo'ying, alohida modal yozmang.
 - **Trotuar PDF (veb nusxa) qo'lda yangilangan (2026-11-24)**: 7-bet (№004 Girih) — qolip va sahna rasmlari PDF ichida almashtirilgan (pikepdf,
-  obyektlar 93/100; qolip `Multiply` bilan qo'yiladi — oq fonli JPEG kerak); 19-bet — yangi "Терраццо №2 · №3" (№121, novinkalar bo'limi oxirida,
-  HTML → Chromium PDF, Inter). Undan keyingi 105 betning bet raqami +1 ga to'g'rilangan (ustiga fon rangidagi yamoq + yangi raqam, `add_overlay`;
-  matn qatlamida eski raqam qolgan). Model raqamlari (№016…№120) o'zgarmagan — shuning uchun Terratsso №121. Jami 129 bet. Bosma (150–200 MB) asl fayl repoda yo'q — u alohida yangilanishi kerak, aks holda bosma va veb nusxa farq qiladi.
+  obyektlar 93/100; qolip `Multiply` bilan qo'yiladi — oq fonli JPEG kerak); 19-bet — yangi "Терраццо №2 · №3" (**№016**, novinkalar bo'limi oxirida, HTML → Chromium PDF, Inter).
+  Undan keyingi 105 model **qayta raqamlangan** (Монако №016 → №017 … Вегас 2 №120 → №121) va bet raqamlari +1: eski raqam matni kontent oqimidan
+  olib tashlangan (`26.66 Tf` = model raqami, `6 Tf` = bet raqami; glif → raqam xaritasi bet raqamlaridan tekshirilgan), yangisi shaffof qatlam
+  (`add_overlay`) bilan qo'yilgan. Sayt kodlari bu raqamlarga bog'liq emas. Avval bosilgan nusxalarda raqamlar bittaga farq qiladi. Jami 129 bet. Bosma (150–200 MB) asl fayl repoda yo'q — u alohida yangilanishi kerak, aks holda bosma va veb nusxa farq qiladi.
 - **Tayyor mahsulot rasmi grafit fonda** (`.sps-card--ready`, `.hm-secs--ready`, `.rd-gal__*`, `.rc--ready`): mahsulotlar och
   (krem, oq beton) — och fonda ko'rinmay qolardi; rasm `contain` (kesilmaydi).
 - **PDF kataloglar + varaqlagich (2026-11-16)**: `public/catalog/pdf/` — 3 ta ruscha yotiq PDF (trotuar 2026-11-23 dan — A5 bosma katalog 128 bet, veb nusxa ~39 MB; fayli eski nom
