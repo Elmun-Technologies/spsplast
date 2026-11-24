@@ -85,6 +85,7 @@ export const INTEGRATION_FIELDS: IntegrationField[] = [
     key: 'yandex_verification',
     label: 'Yandex Webmaster',
     group: 'verification',
+    env: 'NEXT_PUBLIC_YANDEX_VERIFICATION',
     pattern: /^[a-f0-9]{8,40}$/i,
     placeholder: '1a2b3c4d5e6f7a8b',
     help: '<meta name="yandex-verification" content="…"> dagi qiymat.',

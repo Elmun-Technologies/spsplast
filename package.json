@@ -32,6 +32,7 @@
     "db:migrate": "node scripts/db-migrate.mjs",
     "db:migrate:deploy": "node scripts/db-migrate.mjs --deploy",
     "admin:create": "node --experimental-strip-types scripts/admin-create.ts",
+    "admin:reset": "node --experimental-strip-types scripts/admin-reset-password.ts",
     "snapshot": "node scripts/export-snapshot.mjs",
     "catalog:import": "node --experimental-strip-types scripts/catalog-import.ts",
     "catalog:sync": "node --experimental-strip-types scripts/catalog-sync.ts",

@@ -37,7 +37,7 @@ jobs:
             echo "::notice::COOLIFY_URL / COOLIFY_TOKEN / COOLIFY_APP_UUID secret'lari berilmagan — deploy o'tkazib yuborildi"
             exit 0
           fi
-          code=$(curl -sS -m 60 -o /tmp/resp.txt -w '%{http_code}' \
+          code=$(curl -sS -X POST -m 60 -o /tmp/resp.txt -w '%{http_code}' \
             -H "Authorization: Bearer $COOLIFY_TOKEN" \
             "$COOLIFY_URL/api/v1/deploy?uuid=$COOLIFY_APP_UUID&force=false" || true)
           echo "Coolify javobi: HTTP $code"

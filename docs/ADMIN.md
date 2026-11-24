@@ -46,6 +46,8 @@ Zayafka oqimi: sayt formasi → **avval bazaga** (ketma-ket raqam `SPS-YYMM-NNNN
      npm run admin:create -- --email boss@sps.uz --name "Rahbar" --role admin
    ```
    `ADMIN_PASSWORD` berilmasa vaqtinchalik parol chiqariladi. Qolgan xodimlar — admin'dagi "Xodimlar" sahifasidan.
+   Parol unutilsa (Coolify → ilova → Terminal): `npm run admin:reset -- --email boss@sps.uz` — yangi
+   vaqtinchalik parol chiqadi, eski sessiyalar yopiladi.
 5. Tekshirish: `https://sps.uz/api/health` → `"database": "connected"`.
 
 ## Nashr qilish (mahsulotlar va integratsiyalar saytga qanday chiqadi)
