@@ -198,6 +198,11 @@ def make_mask(job, model_override=None):
     a, hole_ratio = _clean(m, fill_holes="-tile-" not in name)
     cover, edge = _stats(a)
     Image.fromarray(a).save(out_png, optimize=True)
+    if method.startswith("floodfill"):
+        # oq fon + soya: to'q fonda oq hoshiya bo'lib ko'rinmasin (soya -> qora shaffof)
+        from defringe_2027 import defringe
+        if defringe(src_abs, out_png) == "ok":
+            entry["defringe"] = "soya→alfa"
     notes = []
     if cover < 0.02:
         notes.append(f"obyekt juda kichik ({cover:.1%})")

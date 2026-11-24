@@ -15,6 +15,8 @@ const nextConfig = {
     // oygacha ko'rinmasdi. ETag bor — muddat o'tgach brauzer arzon 304 bilan tekshiradi.
     minimumCacheTTL: 60 * 60,
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
+    // 90 — model sahifasining asosiy rasmi (naqsh tiniq ko'rinsin); qolganlari 75.
+    qualities: [75, 90],
   },
   experimental: {
     // Admin: mahsulot rasmlari server action orqali yuklanadi (15 MB gacha, src/server/media.ts).

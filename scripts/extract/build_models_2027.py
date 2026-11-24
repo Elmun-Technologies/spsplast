@@ -518,7 +518,7 @@ def attach_renders(models, jobs, model3d):
             if os.path.exists(os.path.join(ROOT, up_src)):
                 jobs.append({"src": up_src, "dst": dst, "w": 1200, "kind": "render"})
             else:
-                jobs.append({"src": f"{base}/qolip_tik.jpg", "dst": dst, "w": 800, "kind": "render"})
+                jobs.append({"src": f"{base}/qolip_tik.jpg", "dst": dst, "w": CUT_W, "kind": "render"})
             m["images"]["molds"]["A"] = "/" + dst[len("public/"):]
             stats["mold"] += 1
         if not m["images"]["scene"]:
@@ -602,7 +602,7 @@ def apply_live(models, jobs, live):
             m["images"]["molds"]["A"] = "/" + dst[len("public/"):]
         if "tile" in got:
             dst = f"public/catalog/2027/{target}-tile-a.webp"
-            jobs.append({"src": got["tile"], "dst": dst, "w": 800, "kind": "live"})
+            jobs.append({"src": got["tile"], "dst": dst, "w": CUT_W, "kind": "live"})
             m["images"]["tiles"]["A"] = "/" + dst[len("public/"):]
         if "scene" in got:
             for suffix, w in (("scene", 1400), ("scene-sm", 720)):
@@ -660,14 +660,14 @@ def load_image_sources(models):
             media = {x["type"]: x["url"] for x in p["media"]}
             mold = media.get("MAIN")
             if mold:
-                jobs.append({"src": f"public{mold}", "dst": f"public/catalog/2027/{m['section']}-{target}-mold-a.webp", "w": 800})
+                jobs.append({"src": f"public{mold}", "dst": f"public/catalog/2027/{m['section']}-{target}-mold-a.webp", "w": CUT_W})
                 m["images"]["molds"]["A"] = f"/catalog/2027/{m['section']}-{target}-mold-a.webp"
             # 2026-11-16: trotuarda 2026 studiya plitka/sahna suratlari juda kichik (obyekt ~190 px,
             # 9–17 KB) — saytda xira. Bosma katalog kabi: qolip (tirik surat) + sahna (3D r_04).
             sharp_only = m["section"] == "trotuar"
             tile = None if sharp_only else media.get("FINISHED_RESULT")
             if tile:
-                jobs.append({"src": f"public{tile}", "dst": f"public/catalog/2027/{m['section']}-{target}-tile-a.webp", "w": 800})
+                jobs.append({"src": f"public{tile}", "dst": f"public/catalog/2027/{m['section']}-{target}-tile-a.webp", "w": CUT_W})
                 m["images"]["tiles"]["A"] = f"/catalog/2027/{m['section']}-{target}-tile-a.webp"
             env = None if sharp_only else media.get("USAGE")
             if env:
@@ -687,7 +687,7 @@ def load_image_sources(models):
                     or next((s for s in sheet5 if s[0] == "taxminiy" and n in s[3]), None)
         if hit and hit[2] not in used_dsc:
             used_dsc.add(hit[2])
-            jobs.append({"src": f"media-src/factory/{hit[2]}", "dst": f"public/catalog/2027/{m['section']}-{target}-mold-a.webp", "w": 800})
+            jobs.append({"src": f"media-src/factory/{hit[2]}", "dst": f"public/catalog/2027/{m['section']}-{target}-mold-a.webp", "w": CUT_W})
             m["images"]["molds"]["A"] = f"/catalog/2027/{m['section']}-{target}-mold-a.webp"
             stats["dsc"] += 1
         else:
@@ -753,6 +753,10 @@ def apply_refresh(models, jobs):
             n += 1
     return [j for j in jobs if j["dst"] not in dropped], n
 
+
+# Fonsiz qolip/plitka kesmasi kengligi. 2026-11-24: 800 -> 1200 — model sahifasidagi sahna retina ekranda
+# ~1400 qurilma pikseli; 800 px fayl cho'zilib xiralashardi (tirik suratlar 1400, 3D renderlar 1000x1400).
+CUT_W = 1200
 
 PATCHABLE = ("name", "subtitle", "note", "kg", "molds", "tiles", "sizeEstimated")
 

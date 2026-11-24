@@ -246,7 +246,8 @@ export function ModelClient({
                   src={hero.src}
                   alt={`${modelName(model, lang)} — ${hero.label}`}
                   fill
-                  sizes="(max-width: 1100px) 100vw, 640px"
+                  sizes="(max-width: 1100px) 100vw, 760px"
+                  quality={90}
                   priority
                   fetchPriority="high"
                   // Fonsiz qolip/mahsulot surati markazda, chetlardan joy bilan (avval chap-yuqoriga siqilib qolardi).

@@ -108,7 +108,7 @@ screens-actual/              # GENERATED screenshots from `npm run shots` (gitig
 media-src/                   # SOURCE photos the image pipeline reads (factory/, studio/, pdf/ — 86 MB)
 media-src/studio-2026/       # 44 archived 2026 studio JPGs (mold + quyma) for jobs that say public/catalog/2026/
 media-src/clean/             # bg-removal masks (PNG) + manifest.json — committed, see images:bg
-public/catalog/2027/         # generated WebP (scene 1400/720w, mold/tile 800w)
+public/catalog/2027/         # generated WebP (scene 1400/720w, mold/tile 1200w)
 public/catalog/pdf/          # PDF catalog (2026, uz) — header download link
 public/fonts/                # onest-latin/cyrillic-wght-normal.woff2
 ```
@@ -197,7 +197,7 @@ source swap) and writes the image with its background instead — run `npm run i
 written by `build_models_2027.py` (paving map from PR #42 preserved + every non-paving 3D product).
 
 **Background removal (mold/tile cutouts).** Every `*-mold-*.webp` / `*-tile-*.webp` is a
-transparent square WebP (object trimmed, centred, 7% padding, 800px, q82, alpha eroded 1px +
+transparent square WebP (object trimmed, centred, 7% padding, 1200px, q82, alpha eroded 1px +
 feathered). The masks live in `media-src/clean/<dst-name>.png` (+ `manifest.json`: method,
 status, notes) and are **committed**, so `npm run models:images` rebuilds the cutouts with
 ImageMagick only — rembg is needed only to regenerate a mask
@@ -570,6 +570,23 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   (`media-src/live/<slug>-qolip.jpg` / `-sahna.jpg`) — haqiqiy qolip suratlari (`media-src/ref/bordyur/`) bo'yicha chizilgan naqshli three.js 3D
   vizualizatsiya (generator repoda yo'q, bir martalik); niqob = render alfa kanali (manifestda `method: render alpha` + sha). O'lchamlari hali
   noma'lum ("уточняется"); renderdagi nisbatlar (500×129×64, faska 45°) suratdan chamalangan — o'lcham kelganda `patch` bilan yozing.
+- **Kesmalar: oq hoshiya va tiniqlik (2026-11-24, kechki tuzatish)** — keep them:
+  - **Sabab**: "studiya" dizayni (to'q `--studio` fon) chiqqach, oq fonli bosma katalog suratlaridan kesilgan qoliplar atrofida oq hoshiya
+    ko'rindi — floodfill niqobi soyani (och kulrang) kesma ichida qoldirgan, och fonda bilinmasdi. Fonni o'zgartirsangiz kesmalarni
+    HAR DOIM to'q va och fonda ko'rib chiqing (kontakt varaq: eski | yangi).
+  - **`scripts/extract/defringe_2027.py`** (PIL + numpy + scipy; `remove_bg_2027.py` floodfill niqobidan keyin o'zi chaqiradi; hammasi uchun:
+    `python3 scripts/extract/defringe_2027.py`): TO'Q obyektlarda tashqi chetdan ichkariga soyaga o'xshash piksellar (rangsiz, och, silliq,
+    ichkariga tomon faqat to'qlashadigan) topiladi va "oq ustidagi soya" deb qayta yoziladi — rang qora, alfa = 1 − yorqinlik; obyekt bilan
+    soya orasidagi oq tirqish ham olinadi. To'siqlar: keskin chet/faktura (DoG), ichkariga tomon ochroq gardish (monoton qoida), masofa
+    chegarasi. Och obyektlarga (oq ABS, beton plitka) tegilmaydi. 129 floodfill niqobidan 115 tasi tozalangan (manifestda `defringe`).
+  - Niqob formati: **RGB PNG — R = alfa, G = rang ko'paytiruvchisi** (0 = qora soya); kulrang niqob avvalgidek faqat alfa.
+    `compose_cutout` ikkalasini ham o'qiydi (ImageMagick `%[channels]`).
+  - **Kesma kengligi 800 → 1200** (`CUT_W` — `build_models_2027.py`; `MOLD_W` — `build_ready_fasad_2027.py`; `PIPELINE_VERSION = "2"`):
+    model sahifasi sahnasi retina ekranda ~1400 qurilma pikseli, 800 px fayl cho'zilib xiralashardi. Sahna rasmi `sizes` 760px,
+    `quality={90}` (`next.config.js` → `images.qualities: [75, 90]` — ro'yxatda bo'lmagan sifat Next 16 da xato beradi).
+  - **Manba chegarasi**: fasad dekor / termopanel qolip renderlari (katalog agenti ZIP'i) atigi 600–1100 px — Lanczos + yengil unsharp
+    bilan 1200 ga chiqarilgan, lekin haqiqiy detal qo'shilmaydi. Tiniqroq kerak bo'lsa ≥ 1600 px asl renderlar so'ralsin
+    (bosma PDF'da qolip yarim betlik fon rasmiga quyilgan — alohida ajratib bo'lmaydi). Terratsso qoliplari ham ~450 px manbadan.
 - **Rasmni katta ko'rish — lupa (2026-11-24)**: `ZoomLayer` (`[lang]/layout.tsx`, kichik qobiq) hujjat darajasida `data-zoom="<src>"`
   li elementga bosishni ushlaydi (`data-zoom-alt`, `data-zoom-bg="studio|deep"` — fonsiz kesma uchun fon; galereya: `data-zoom-list` JSON +
   `data-zoom-index`) va `ZoomPanel` ni birinchi bosishda `dynamic()` bilan yuklaydi: bosish = 250%, tortish = surish, g'ildirak / ikki barmoq =
