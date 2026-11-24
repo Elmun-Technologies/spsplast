@@ -553,9 +553,21 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   vektorga aylanadi, shundan normal/rang teksturasi va three.js sahnasi. Generator repoda yo'q (bir martalik); niqob
   `media-src/clean/trotuar-girih-mold-a.png` = render alfa kanali (manifestda `method: render alpha`, sha bilan — `images:bg` qayta yasamaydi).
   Fayl nomi o'zgarmagan → bazaga sync kerak emas. Ochiq: sayt yorlig'i bu rasmni "haqiqiy surat" deydi (bosma katalog renderlari bilan bir xil holat).
-- **Terratsso №2 / №3 (2026-11-24, novinka)**: `scripts/catalog-add-2026-11-24-terratsso.json` (`add`, deploy'da o'zi tushadi). Qolip surati
-  mijoz kartochkasidan kesilgan (~450 px, 2× kattalashtirilgan — xiraroq; asl surat kelsa `media-src/live/terratsso-N-qolip.jpg` ni almashtiring).
-  №3 uchun terilgan surat yo'q; №1 bor-yo'qligi so'ralgan.
+- **Terratsso №1 / №2 / №3 (2026-11-24, novinka)**: `scripts/catalog-add-2026-11-24-terratsso.json` (`add`, deploy'da o'zi tushadi). Chuqurlik
+  uchalasida **50 mm** (egasi; kartochkadagi 45 xato edi). Qolip suratlari mijoz kartochkalaridan kesilgan (~450 px, 2× kattalashtirilgan — xiraroq;
+  asl surat kelsa `media-src/live/terratsso-N-qolip.jpg` ni almashtiring). Terilgan surat faqat №2 da.
+- **Novinkalar nomi/o'lchami (2026-11-24, `tests/catalogPatch2027.test.js`)**: egasining ro'yxati — `scripts/catalog-add-2026-11-24-z-nomlar.json`
+  ning **`patch`** kaliti: mavjud mahsulotning `name/subtitle/note/kg/molds/tiles/sizeEstimated` maydonlarini USTIDAN yozadi (bazada `catalog-sync.ts`,
+  statik katalogda `apply_patches()` — ikkalasidagi `PATCHABLE` bir xil bo'lishi shart). `add` mavjud slug'ni o'tkazib yuboradi, shuning uchun
+  nom/o'lcham tuzatishi faqat `patch` bilan. Fayl nomidagi `z-` — `add` fayllaridan KEYIN qo'llanishi uchun (fayllar nom bo'yicha tartibda).
+  **Slug (URL) o'zgarmagan** — nomi boshqa: `oltiburchak-galka` = Антара, `antara-1` = Антара 2, `kristall` = Национал 1, `girih` = Национал 4,
+  `meandr-30-30` = Лабиринт (400×400×50!), `taktil-konus-30-30` / `taktil-chiziq-30-30` = Дорожка круглая / полоса, `taxta-parket` = Паркет,
+  `oyoq-izi` = Кадам, `naqshli-bordyur` = Бордюр Версаче. `kg` = 1 m² ga ketadigan qoliplar to'plami vazni. Fayl mazmuni (sha) o'zgarsa `patch`
+  qayta qo'llanadi va admin shu maydonlarga kiritgan tuzatishni bosib ketadi — tuzatishni adminda emas, shu faylda qiling.
+- **Bordyur qoliplari va sahnasi (2026-11-24)**: `naqshli-bordyur` — IKKI qolip bitta rasmda (A: Versache — tubida romb to'r, faskada meandr; B: tubida
+  yurakcha tasmasi, faskada zanjir). `media-src/live/naqshli-bordyur-qolip.jpg` / `-sahna.jpg` — haqiqiy qolip suratlari (`media-src/ref/bordyur/`) bo'yicha
+  chizilgan naqshli three.js 3D vizualizatsiya (generator repoda yo'q, bir martalik); niqob = render alfa kanali (manifestda `method: render alpha` + sha).
+  O'lchami hali noma'lum ("уточняется"); renderdagi nisbatlar (500×129×64, faska 45°) suratdan chamalangan — o'lcham kelganda saytga `patch` bilan yozing.
 - **Rasmni katta ko'rish — lupa (2026-11-24)**: `ZoomLayer` (`[lang]/layout.tsx`, kichik qobiq) hujjat darajasida `data-zoom="<src>"`
   li elementga bosishni ushlaydi (`data-zoom-alt`, `data-zoom-bg="studio|deep"` — fonsiz kesma uchun fon; galereya: `data-zoom-list` JSON +
   `data-zoom-index`) va `ZoomPanel` ni birinchi bosishda `dynamic()` bilan yuklaydi: bosish = 250%, tortish = surish, g'ildirak / ikki barmoq =
@@ -569,6 +581,12 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   Undan keyingi 105 model **qayta raqamlangan** (Монако №016 → №017 … Вегас 2 №120 → №121) va bet raqamlari +1: eski raqam matni kontent oqimidan
   olib tashlangan (`26.66 Tf` = model raqami, `6 Tf` = bet raqami; glif → raqam xaritasi bet raqamlaridan tekshirilgan), yangisi shaffof qatlam
   (`add_overlay`) bilan qo'yilgan. Sayt kodlari bu raqamlarga bog'liq emas. Avval bosilgan nusxalarda raqamlar bittaga farq qiladi. Jami 129 bet. Bosma (150–200 MB) asl fayl repoda yo'q — u alohida yangilanishi kerak, aks holda bosma va veb nusxa farq qiladi.
+  **2-tahrir (o'sha kuni)**: 4–19-betlar (№001–016) yangi nomlar/o'lchamlar bilan. Usul: chap yarim forma oqimidan sarlavha guruhi (15.33 px nom,
+  "НОВИНКА" belgisi, ost yozuv) va tana (eskiz + jadval: fon naqshidan keyingi `q…` dan sarlavha to'rtburchagigacha) kesib olinadi, o'ng yarimdagi
+  yorliq (`… 18 re f` + `6 Tf` matni) olib tashlanadi, ustiga Chromium'da px-aniq terilgan shaffof qatlam qo'yiladi (forma XObject, `cm 1.00053792 0 0
+  0.99888095` — asl PDF ham shunday cho'zilgan; px o'lchamlar: yorliq 5.46/ls 1.088, qiymat 8.39, nom 15.33/ls 1.992, Inter SemiBold; satr asosi =
+  `top + 0.86378·fs`). Ikki qatorli sarlavha bir qatorga tushsa sarlavha balandligi 82 → 64 px (№001, №015). №016 Terratsso beti to'liq qayta terilgan
+  (3 qolip, h 50), №015 da qolip va sahna rasmi almashtirilgan. Matn qatlami toza (pdftotext eski nomlarni ko'rsatmaydi). 129 bet, 41.5 MB.
 - **Tayyor mahsulot rasmi grafit fonda** (`.sps-card--ready`, `.hm-secs--ready`, `.rd-gal__*`, `.rc--ready`): mahsulotlar och
   (krem, oq beton) — och fonda ko'rinmay qolardi; rasm `contain` (kesilmaydi).
 - **PDF kataloglar + varaqlagich (2026-11-16)**: `public/catalog/pdf/` — 3 ta ruscha yotiq PDF (trotuar 2026-11-23 dan — A5 bosma katalog 128 bet, veb nusxa ~39 MB; fayli eski nom
