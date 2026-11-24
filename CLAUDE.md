@@ -108,7 +108,7 @@ screens-actual/              # GENERATED screenshots from `npm run shots` (gitig
 media-src/                   # SOURCE photos the image pipeline reads (factory/, studio/, pdf/ — 86 MB)
 media-src/studio-2026/       # 44 archived 2026 studio JPGs (mold + quyma) for jobs that say public/catalog/2026/
 media-src/clean/             # bg-removal masks (PNG) + manifest.json — committed, see images:bg
-public/catalog/2027/         # generated WebP (scene 1400/720w, mold/tile 800w)
+public/catalog/2027/         # generated WebP (scene 1400/720w, mold/tile 1200w)
 public/catalog/pdf/          # PDF catalog (2026, uz) — header download link
 public/fonts/                # onest-latin/cyrillic-wght-normal.woff2
 ```
@@ -197,7 +197,7 @@ source swap) and writes the image with its background instead — run `npm run i
 written by `build_models_2027.py` (paving map from PR #42 preserved + every non-paving 3D product).
 
 **Background removal (mold/tile cutouts).** Every `*-mold-*.webp` / `*-tile-*.webp` is a
-transparent square WebP (object trimmed, centred, 7% padding, 800px, q82, alpha eroded 1px +
+transparent square WebP (object trimmed, centred, 7% padding, 1200px, q82, alpha eroded 1px +
 feathered). The masks live in `media-src/clean/<dst-name>.png` (+ `manifest.json`: method,
 status, notes) and are **committed**, so `npm run models:images` rebuilds the cutouts with
 ImageMagick only — rembg is needed only to regenerate a mask
@@ -564,10 +564,29 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   `meandr-30-30` = Лабиринт (400×400×50!), `taktil-konus-30-30` / `taktil-chiziq-30-30` = Дорожка круглая / полоса, `taxta-parket` = Паркет,
   `oyoq-izi` = Кадам, `naqshli-bordyur` = Бордюр Версаче. `kg` = 1 m² ga ketadigan qoliplar to'plami vazni. Fayl mazmuni (sha) o'zgarsa `patch`
   qayta qo'llanadi va admin shu maydonlarga kiritgan tuzatishni bosib ketadi — tuzatishni adminda emas, shu faylda qiling.
-- **Bordyur qoliplari va sahnasi (2026-11-24)**: `naqshli-bordyur` — IKKI qolip bitta rasmda (A: Versache — tubida romb to'r, faskada meandr; B: tubida
-  yurakcha tasmasi, faskada zanjir). `media-src/live/naqshli-bordyur-qolip.jpg` / `-sahna.jpg` — haqiqiy qolip suratlari (`media-src/ref/bordyur/`) bo'yicha
-  chizilgan naqshli three.js 3D vizualizatsiya (generator repoda yo'q, bir martalik); niqob = render alfa kanali (manifestda `method: render alpha` + sha).
-  O'lchami hali noma'lum ("уточняется"); renderdagi nisbatlar (500×129×64, faska 45°) suratdan chamalangan — o'lcham kelganda saytga `patch` bilan yozing.
+- **Bordyurlar — IKKI alohida model (2026-11-24, egasi)**: `naqshli-bordyur` = **Бордюр Версаче** (bosma №015; tubida yurakcha tasmasi, faskada zanjir)
+  va `versache-setka-bordyur` = **Бордюр Версаче сетка** (№016; tubida romb to'r, faskada meandr; `scripts/catalog-add-2026-11-24-bordyur-setka.json`,
+  `add` + **`after: "naqshli-bordyur"`** — tartibda shu modeldan keyin: bazada `sort + 5`, statik katalogda `_pop + 0.5`). Rasmlar
+  (`media-src/live/<slug>-qolip.jpg` / `-sahna.jpg`) — haqiqiy qolip suratlari (`media-src/ref/bordyur/`) bo'yicha chizilgan naqshli three.js 3D
+  vizualizatsiya (generator repoda yo'q, bir martalik); niqob = render alfa kanali (manifestda `method: render alpha` + sha). O'lchamlari hali
+  noma'lum ("уточняется"); renderdagi nisbatlar (500×129×64, faska 45°) suratdan chamalangan — o'lcham kelganda `patch` bilan yozing.
+- **Kesmalar: oq hoshiya va tiniqlik (2026-11-24, kechki tuzatish)** — keep them:
+  - **Sabab**: "studiya" dizayni (to'q `--studio` fon) chiqqach, oq fonli bosma katalog suratlaridan kesilgan qoliplar atrofida oq hoshiya
+    ko'rindi — floodfill niqobi soyani (och kulrang) kesma ichida qoldirgan, och fonda bilinmasdi. Fonni o'zgartirsangiz kesmalarni
+    HAR DOIM to'q va och fonda ko'rib chiqing (kontakt varaq: eski | yangi).
+  - **`scripts/extract/defringe_2027.py`** (PIL + numpy + scipy; `remove_bg_2027.py` floodfill niqobidan keyin o'zi chaqiradi; hammasi uchun:
+    `python3 scripts/extract/defringe_2027.py`): TO'Q obyektlarda tashqi chetdan ichkariga soyaga o'xshash piksellar (rangsiz, och, silliq,
+    ichkariga tomon faqat to'qlashadigan) topiladi va "oq ustidagi soya" deb qayta yoziladi — rang qora, alfa = 1 − yorqinlik; obyekt bilan
+    soya orasidagi oq tirqish ham olinadi. To'siqlar: keskin chet/faktura (DoG), ichkariga tomon ochroq gardish (monoton qoida), masofa
+    chegarasi. Och obyektlarga (oq ABS, beton plitka) tegilmaydi. 129 floodfill niqobidan 115 tasi tozalangan (manifestda `defringe`).
+  - Niqob formati: **RGB PNG — R = alfa, G = rang ko'paytiruvchisi** (0 = qora soya); kulrang niqob avvalgidek faqat alfa.
+    `compose_cutout` ikkalasini ham o'qiydi (ImageMagick `%[channels]`).
+  - **Kesma kengligi 800 → 1200** (`CUT_W` — `build_models_2027.py`; `MOLD_W` — `build_ready_fasad_2027.py`; `PIPELINE_VERSION = "2"`):
+    model sahifasi sahnasi retina ekranda ~1400 qurilma pikseli, 800 px fayl cho'zilib xiralashardi. Sahna rasmi `sizes` 760px,
+    `quality={90}` (`next.config.js` → `images.qualities: [75, 90]` — ro'yxatda bo'lmagan sifat Next 16 da xato beradi).
+  - **Manba chegarasi**: fasad dekor / termopanel qolip renderlari (katalog agenti ZIP'i) atigi 600–1100 px — Lanczos + yengil unsharp
+    bilan 1200 ga chiqarilgan, lekin haqiqiy detal qo'shilmaydi. Tiniqroq kerak bo'lsa ≥ 1600 px asl renderlar so'ralsin
+    (bosma PDF'da qolip yarim betlik fon rasmiga quyilgan — alohida ajratib bo'lmaydi). Terratsso qoliplari ham ~450 px manbadan.
 - **Rasmni katta ko'rish — lupa (2026-11-24)**: `ZoomLayer` (`[lang]/layout.tsx`, kichik qobiq) hujjat darajasida `data-zoom="<src>"`
   li elementga bosishni ushlaydi (`data-zoom-alt`, `data-zoom-bg="studio|deep"` — fonsiz kesma uchun fon; galereya: `data-zoom-list` JSON +
   `data-zoom-index`) va `ZoomPanel` ni birinchi bosishda `dynamic()` bilan yuklaydi: bosish = 250%, tortish = surish, g'ildirak / ikki barmoq =
@@ -586,7 +605,10 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   yorliq (`… 18 re f` + `6 Tf` matni) olib tashlanadi, ustiga Chromium'da px-aniq terilgan shaffof qatlam qo'yiladi (forma XObject, `cm 1.00053792 0 0
   0.99888095` — asl PDF ham shunday cho'zilgan; px o'lchamlar: yorliq 5.46/ls 1.088, qiymat 8.39, nom 15.33/ls 1.992, Inter SemiBold; satr asosi =
   `top + 0.86378·fs`). Ikki qatorli sarlavha bir qatorga tushsa sarlavha balandligi 82 → 64 px (№001, №015). №016 Terratsso beti to'liq qayta terilgan
-  (3 qolip, h 50), №015 da qolip va sahna rasmi almashtirilgan. Matn qatlami toza (pdftotext eski nomlarni ko'rsatmaydi). 129 bet, 41.5 MB.
+  (3 qolip, h 50), №015 da qolip va sahna rasmi almashtirilgan. Matn qatlami toza (pdftotext eski nomlarni ko'rsatmaydi).
+  **3-tahrir (o'sha kuni)**: bordyurlar ikki betga ajratildi — 18-bet №015 Бордюр Версаче, 19-bet **№016 Бордюр Версаче сетка** (to'liq yangi bet);
+  Terratsso **№017** (20-bet), undan keyingi 105 model yana +1 (Монако №018 … Вегас 2 №122), bet raqamlari +2. Jami **130 bet**, 42.6 MB.
+  Bosilgan nusxalarda №016 dan boshlab raqamlar ikkitaga farq qiladi.
 - **Tayyor mahsulot rasmi grafit fonda** (`.sps-card--ready`, `.hm-secs--ready`, `.rd-gal__*`, `.rc--ready`): mahsulotlar och
   (krem, oq beton) — och fonda ko'rinmay qolardi; rasm `contain` (kesilmaydi).
 - **PDF kataloglar + varaqlagich (2026-11-16)**: `public/catalog/pdf/` — 3 ta ruscha yotiq PDF (trotuar 2026-11-23 dan — A5 bosma katalog 128 bet, veb nusxa ~39 MB; fayli eski nom

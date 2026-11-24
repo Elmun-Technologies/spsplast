@@ -2,7 +2,7 @@
 """SPS Plast — `public/catalog/2027/*.webp` generator (bosqich 0).
 
 `data/image-jobs-2027.json` dagi har bir manba rasmini WebP ga o'tkazadi:
-  sahna 1400w / 720w, qolip va plitka 800w (HANDOFF.md 6-bo'lim).
+  sahna 1400w / 720w, qolip va plitka 1200w (HANDOFF.md 6-bo'lim).
 Konvertatsiya qilinmagan (manba fayl yo'q / xato) ishlardan keyin
 `models-2027.json` dagi mos rasm maydoni `null` ga qaytariladi — sayt
 hech qachon mavjud bo'lmagan faylga havola bermaydi.
@@ -40,7 +40,7 @@ def convert(src: str, dst: str, width: int) -> bool:
 
 
 ENCODED = os.path.join(ROOT, "media-src/clean/encoded.json")
-PIPELINE_VERSION = "1"  # kodlash sozlamasi (o'lcham, sifat, kesish) o'zgarsa oshiring — hammasi qayta yoziladi
+PIPELINE_VERSION = "2"  # kodlash sozlamasi (o'lcham, sifat, kesish) o'zgarsa oshiring — hammasi qayta yoziladi
 
 
 def _sha(path):

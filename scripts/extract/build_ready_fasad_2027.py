@@ -54,15 +54,24 @@ def dot(s, uz=False):
     return " · ".join(UZ_FIX.get(p, p) if uz else p for p in parts)
 
 
+MOLD_W = 1200   # qolip sahifasidagi kesmalar (2026-11-24: 800 -> 1200, retina ekranda xira edi)
+
+
 def run(cmd):
     subprocess.run(cmd, check=True)
 
 
 def cutout(src, dst, size, pad=0.07, quality=82):
-    """Fonsiz PNG → trim → markazda kvadrat (chetdan `pad`) → WebP (alfa saqlanadi)."""
+    """Fonsiz PNG → trim → markazda kvadrat (chetdan `pad`) → WebP (alfa saqlanadi).
+
+    Manba kichik bo'lsa (agent qolip kesmalari 600–1100 px) Lanczos bilan kattalashtiriladi va yengil
+    o'tkirlashtiriladi: brauzerning o'zi cho'zganidan tiniqroq chiqadi (model sahifasi sahnasi ~1400 qurilma pikseli)."""
     inner = round(size * (1 - 2 * pad))
+    dims = subprocess.run(["convert", src, "-trim", "-format", "%w %h", "info:"], capture_output=True, text=True).stdout.split()
+    up = max(int(dims[0]), int(dims[1])) < inner if len(dims) == 2 else False
     run([
         "convert", src, "-trim", "+repage", "-filter", "Lanczos", "-resize", f"{inner}x{inner}",
+        *(["-unsharp", "0x0.75+0.55+0.008"] if up else []),
         "-background", "none", "-gravity", "center", "-extent", f"{size}x{size}",
         "-strip", "-quality", str(quality), "-define", "webp:alpha-quality=90", "-define", "webp:method=6", dst,
     ])
@@ -73,8 +82,8 @@ def photo(src, dst, width, quality=74):
 
 
 def add_mold_images(r, mold, stem, img, web, old_refresh, refresh, keep):
-    cutout(img(r["img_qolip"]), os.path.join(OUT_IMG, f"{stem}-qolip-3d.webp"), 800)
-    cutout(img(r["img_mahsulot"]), os.path.join(OUT_IMG, f"{stem}-mahsulot-3d.webp"), 800)
+    cutout(img(r["img_qolip"]), os.path.join(OUT_IMG, f"{stem}-qolip-3d.webp"), MOLD_W)
+    cutout(img(r["img_mahsulot"]), os.path.join(OUT_IMG, f"{stem}-mahsulot-3d.webp"), MOLD_W)
     new_molds = {"A": web(f"{stem}-qolip-3d.webp")}
     new_tiles = {"A": web(f"{stem}-mahsulot-3d.webp")}
     prev = old_refresh.get(mold["slug"], {})

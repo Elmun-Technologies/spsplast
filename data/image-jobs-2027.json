@@ -2,47 +2,47 @@
  {
   "src": "public/catalog/2026/G014-mold.jpg",
   "dst": "public/catalog/2027/trotuar-19-eksklyuziv-mold-a.webp",
-  "w": 800
+  "w": 1200
  },
  {
   "src": "media-src/factory/DSC03250.JPG_20260927203222.jpg",
   "dst": "public/catalog/2027/fasad_dekor-bp-003-120x40-beeline-3-mold-a.webp",
-  "w": 800
+  "w": 1200
  },
  {
   "src": "media-src/factory/DSC03174.JPG_20260927203010.jpg",
   "dst": "public/catalog/2027/termopanel-tp-012-25x50-labirint-mold-a.webp",
-  "w": 800
+  "w": 1200
  },
  {
   "src": "media-src/factory/DSC03167.JPG_20260927203018.jpg",
   "dst": "public/catalog/2027/fasad-rus-2-2-mold-a.webp",
-  "w": 800
+  "w": 1200
  },
  {
   "src": "media-src/factory/DSC03163.JPG_20260927202820.jpg",
   "dst": "public/catalog/2027/fasad-rus-2-mold-a.webp",
-  "w": 800
+  "w": 1200
  },
  {
   "src": "media-src/factory/DSC03177.JPG_20260927203012.jpg",
   "dst": "public/catalog/2027/fasad-rus-3-mold-a.webp",
-  "w": 800
+  "w": 1200
  },
  {
   "src": "media-src/factory/DSC03253.JPG_20260927203235.jpg",
   "dst": "public/catalog/2027/fasad_dekor-zina-30-120-gladkiy-mold-a.webp",
-  "w": 800
+  "w": 1200
  },
  {
   "src": "media-src/factory/DSC03257.JPG_20260927203208.jpg",
   "dst": "public/catalog/2027/fasad_dekor-sokol-mold-a.webp",
-  "w": 800
+  "w": 1200
  },
  {
   "src": "media-src/factory/DSC03273.JPG_20260927202736.jpg",
   "dst": "public/catalog/2027/fasad_dekor-kapitel-40-tepa-mold-a.webp",
-  "w": 800
+  "w": 1200
  },
  {
   "src": "media-src/live/oltiburchak-galka-qolip.jpg",
@@ -281,7 +281,7 @@
  {
   "src": "media-src/live/oyoq-izi-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-oyoq-izi-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {
@@ -315,15 +315,33 @@
   "kind": "live"
  },
  {
+  "src": "media-src/live/versache-setka-bordyur-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-versache-setka-bordyur-mold-a.webp",
+  "w": 1200,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/versache-setka-bordyur-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-versache-setka-bordyur-scene.webp",
+  "w": 1400,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/versache-setka-bordyur-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-versache-setka-bordyur-scene-sm.webp",
+  "w": 720,
+  "kind": "live"
+ },
+ {
   "src": "media-src/live/terratsso-1-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-terratsso-1-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {
   "src": "media-src/live/terratsso-2-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-terratsso-2-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {
@@ -341,7 +359,7 @@
  {
   "src": "media-src/live/terratsso-3-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-terratsso-3-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {
@@ -449,7 +467,7 @@
  {
   "src": "media-src/live/t26-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-22-uzor-50-25-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {
@@ -767,7 +785,7 @@
  {
   "src": "media-src/live/t27-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-23-parket-12-36-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {
@@ -881,7 +899,7 @@
  {
   "src": "media-src/live/t35-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-31-aleya-shershavoe-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {
@@ -1187,7 +1205,7 @@
  {
   "src": "media-src/live/t55-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-52-ona-bola-1-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {
@@ -1289,7 +1307,7 @@
  {
   "src": "media-src/live/t70-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-65-farovon-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {
@@ -1391,7 +1409,7 @@
  {
   "src": "media-src/live/t78-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-73-marokesh-2-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {
@@ -1433,7 +1451,7 @@
  {
   "src": "media-src/live/t56-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-76-ona-bola-2-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {
@@ -1541,7 +1559,7 @@
  {
   "src": "media-src/live/t91-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-88-parket-yog-och-naqshli-mold-a.webp",
-  "w": 800,
+  "w": 1200,
   "kind": "live"
  },
  {

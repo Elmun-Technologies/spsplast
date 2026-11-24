@@ -518,7 +518,7 @@ def attach_renders(models, jobs, model3d):
             if os.path.exists(os.path.join(ROOT, up_src)):
                 jobs.append({"src": up_src, "dst": dst, "w": 1200, "kind": "render"})
             else:
-                jobs.append({"src": f"{base}/qolip_tik.jpg", "dst": dst, "w": 800, "kind": "render"})
+                jobs.append({"src": f"{base}/qolip_tik.jpg", "dst": dst, "w": CUT_W, "kind": "render"})
             m["images"]["molds"]["A"] = "/" + dst[len("public/"):]
             stats["mold"] += 1
         if not m["images"]["scene"]:
@@ -591,18 +591,13 @@ def apply_live(models, jobs, live):
         target = f"{m['section']}-{m['slug']}"
         if "mold" in got:
             dst = f"public/catalog/2027/{target}-mold-a.webp"
-            # Manba kattaroq (≥1300 px, masalan zabor 1400×1000) bo'lsa 800 px'ga siqmaymiz — sahifada ~1150 px ko'rsatiladi.
-            try:
-                from PIL import Image
-                with Image.open(os.path.join(ROOT, got["mold"])) as _im:
-                    mw = 1200 if max(_im.size) >= 1300 else 800
-            except Exception:
-                mw = 800
+            # Manba kichik bo'lsa ham 1200: kesma baribir kvadratga cho'ziladi, 800 da esa mavjud detal ham yo'qolardi.
+            mw = CUT_W
             jobs.append({"src": got["mold"], "dst": dst, "w": mw, "kind": "live"})
             m["images"]["molds"]["A"] = "/" + dst[len("public/"):]
         if "tile" in got:
             dst = f"public/catalog/2027/{target}-tile-a.webp"
-            jobs.append({"src": got["tile"], "dst": dst, "w": 800, "kind": "live"})
+            jobs.append({"src": got["tile"], "dst": dst, "w": CUT_W, "kind": "live"})
             m["images"]["tiles"]["A"] = "/" + dst[len("public/"):]
         if "scene" in got:
             for suffix, w in (("scene", 1400), ("scene-sm", 720)):
@@ -660,14 +655,14 @@ def load_image_sources(models):
             media = {x["type"]: x["url"] for x in p["media"]}
             mold = media.get("MAIN")
             if mold:
-                jobs.append({"src": f"public{mold}", "dst": f"public/catalog/2027/{m['section']}-{target}-mold-a.webp", "w": 800})
+                jobs.append({"src": f"public{mold}", "dst": f"public/catalog/2027/{m['section']}-{target}-mold-a.webp", "w": CUT_W})
                 m["images"]["molds"]["A"] = f"/catalog/2027/{m['section']}-{target}-mold-a.webp"
             # 2026-11-16: trotuarda 2026 studiya plitka/sahna suratlari juda kichik (obyekt ~190 px,
             # 9–17 KB) — saytda xira. Bosma katalog kabi: qolip (tirik surat) + sahna (3D r_04).
             sharp_only = m["section"] == "trotuar"
             tile = None if sharp_only else media.get("FINISHED_RESULT")
             if tile:
-                jobs.append({"src": f"public{tile}", "dst": f"public/catalog/2027/{m['section']}-{target}-tile-a.webp", "w": 800})
+                jobs.append({"src": f"public{tile}", "dst": f"public/catalog/2027/{m['section']}-{target}-tile-a.webp", "w": CUT_W})
                 m["images"]["tiles"]["A"] = f"/catalog/2027/{m['section']}-{target}-tile-a.webp"
             env = None if sharp_only else media.get("USAGE")
             if env:
@@ -687,7 +682,7 @@ def load_image_sources(models):
                     or next((s for s in sheet5 if s[0] == "taxminiy" and n in s[3]), None)
         if hit and hit[2] not in used_dsc:
             used_dsc.add(hit[2])
-            jobs.append({"src": f"media-src/factory/{hit[2]}", "dst": f"public/catalog/2027/{m['section']}-{target}-mold-a.webp", "w": 800})
+            jobs.append({"src": f"media-src/factory/{hit[2]}", "dst": f"public/catalog/2027/{m['section']}-{target}-mold-a.webp", "w": CUT_W})
             m["images"]["molds"]["A"] = f"/catalog/2027/{m['section']}-{target}-mold-a.webp"
             stats["dsc"] += 1
         else:
@@ -754,6 +749,10 @@ def apply_refresh(models, jobs):
     return [j for j in jobs if j["dst"] not in dropped], n
 
 
+# Fonsiz qolip/plitka kesmasi kengligi. 2026-11-24: 800 -> 1200 — model sahifasidagi sahna retina ekranda
+# ~1400 qurilma pikseli; 800 px fayl cho'zilib xiralashardi (tirik suratlar 1400, 3D renderlar 1000x1400).
+CUT_W = 1200
+
 PATCHABLE = ("name", "subtitle", "note", "kg", "molds", "tiles", "sizeEstimated")
 
 
@@ -803,6 +802,7 @@ def load_added_models(models, model3d):
                 "images": _existing_images(x.get("images")),
                 "_name_norm": None,  # eski 2026 suratlariga nom bo'yicha bog'lanmasin
                 "_novinka": bool(x.get("novinka")),
+                "_after": x.get("after"),
             })
             tid = (x.get("model3d") or "").strip("/").split("/")[-1]
             e = model3d_entry(tid) if tid else None
@@ -837,6 +837,12 @@ def main():
     for i, m in enumerate(extra):
         m["_pop"] = (-1000 if m.pop("_novinka", False) else 5000) + i
     models += extra
+    # `after: <slug>` — shu modeldan keyin (sync skripti bazada ham shunday joylaydi).
+    pop = {m["slug"]: m["_pop"] for m in models}
+    for m in extra:
+        a = m.pop("_after", None)
+        if a in pop:
+            m["_pop"] = pop[a] + 0.5
     apply_patches(models)
     models.sort(key=lambda m: m["_pop"])  # barqaror: mavjud tartib o'zgarmaydi, novinkalar boshga
     jobs, stats = load_image_sources(models)

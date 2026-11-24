@@ -8,6 +8,7 @@
  *   (fayldagi tartibda), qolganlari oxirida. Boshqa bo'lim (masalan `tayyor_fasad`) — o'z bo'limining oxiriga.
  *   Mavjud slug'lar o'zgartirilmaydi.
  * - `images` → rasmsiz turgan modellarga rasm (faqat rasmi bo'sh bo'lsa).
+ *   `after: "<slug>"` — tartibda shu mahsulotdan keyin (novinka surilishisiz).
  * - `patch`  → mavjud mahsulotning nomi/o'lchami ustidan yozadi (name, subtitle, note, kg, molds, tiles, sizeEstimated) —
  *   egasi tasdiqlagan tuzatishlar; slug va rasmlar o'zgarmaydi.
  * - `moldPer` → qolipning 1 m² dagi soni (slug → "5,5"), faqat bo'sh bo'lsa.
@@ -67,7 +68,13 @@ async function syncFile(db: Db, data: SyncData): Promise<string> {
   for (const x of data.add ?? []) {
     const section: string = x.section ?? 'trotuar';
     const isPaving = section === 'trotuar';
-    const at = !isPaving ? await nextSort(section) : x.novinka ? first : sort;
+    // `after: <slug>` — shu mahsulotdan keyin (tartiblar 10 qadam bilan: +5 orasiga tushadi).
+    let afterAt: number | null = null;
+    if (x.after) {
+      const [a] = await db.select({ s: products.sort }).from(products).where(eq(products.slug, x.after));
+      if (a) afterAt = a.s + 5;
+    }
+    const at = afterAt !== null ? afterAt : !isPaving ? await nextSort(section) : x.novinka ? first : sort;
     const res = await db
       .insert(products)
       .values({
@@ -90,7 +97,7 @@ async function syncFile(db: Db, data: SyncData): Promise<string> {
       .onConflictDoNothing({ target: products.slug })
       .returning({ id: products.id });
     if (res.length) added += 1;
-    if (!isPaving) continue;
+    if (!isPaving || afterAt !== null) continue;
     if (x.novinka) first += 10;
     else sort += 10;
   }

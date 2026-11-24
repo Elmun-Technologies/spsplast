@@ -1,0 +1,35 @@
+{
+ "comment": "2026-11-24: ikkinchi bordyur — «Versache setka» (tubida romb to'r, faskada meandr). Egasi: bordyurlar ikkita alohida model (bosma katalog №015 Versache, №016 Versache setka). `after` — tartibda shu modeldan keyin turadi. O'lchami hali noma'lum.",
+ "add": [
+  {
+   "key": "versache-setka-bordyur",
+   "code": null,
+   "slug": "versache-setka-bordyur",
+   "section": "trotuar",
+   "after": "naqshli-bordyur",
+   "name": {
+    "uz": "Versache setka bordyur",
+    "ru": "Бордюр Версаче сетка",
+    "en": "Versace mesh kerb"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [],
+   "tiles": [],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-versache-setka-bordyur-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-versache-setka-bordyur-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-versache-setka-bordyur-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  }
+ ]
+}

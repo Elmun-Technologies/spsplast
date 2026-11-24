@@ -2,12 +2,12 @@ import type { Locale } from '@/lib/i18n';
 
 /**
  * Saytdagi PDF kataloglar (2026-11-16): yotiq, har modeli alohida sahifada, ruscha. Trotuar — 2026-11-23
- * bosma katalog (A5, 129 bet — 2026-11-24: Girih rasmlari yangilandi, Terratsso sahifasi qo'shildi; rasmlar 1100 px gacha siqilgan veb nusxa; asl nusxa repoga kirmaydi).
+ * bosma katalog (A5, 130 bet — 2026-11-24: Girih rasmlari yangilandi, №016 Versache setka bordyur va №017 Terratsso sahifalari qo'shildi; rasmlar 1100 px gacha siqilgan veb nusxa; asl nusxa repoga kirmaydi).
  * Fayllar `public/catalog/pdf/`, varaqlagich — `/{lang}/catalog/flip` (pdf.js + page-flip).
  * Trotuar fayli eski nom bilan qoldi — tashqi havolalar uzilmasin.
  */
 export const CATALOG_PDFS = [
-  { key: 'trotuar', file: '/catalog/pdf/sps-qoliplar-katalogi-2026.pdf?v=20261123' },
+  { key: 'trotuar', file: '/catalog/pdf/sps-qoliplar-katalogi-2026.pdf?v=20261124b' },
   { key: 'fasad', file: '/catalog/pdf/sps-katalog-fasad.pdf?v=20261124' },
   // Tayyor fasad mahsulotlari (bosma "FASAD MAHSULOT" 2027, 108 bet) — faqat /ready sahifalarida
   { key: 'fasad-mahsulot', file: '/catalog/pdf/sps-katalog-fasad-mahsulot.pdf?v=20261124' },

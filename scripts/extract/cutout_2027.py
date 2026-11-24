@@ -9,7 +9,7 @@
   dasturchilarga rembg kerak emas, faqat ImageMagick.
 * `compose_cutout()` — manba + niqob -> shaffof WebP: alfa 1px qisqartiriladi va
   yumshatiladi (fon "halo"si qolmasin), obyekt chegarasiga kesiladi, kvadrat
-  kanvas markaziga ~7% chekka bilan joylanadi, eng uzun tomon 800px, sifat 82.
+  kanvas markaziga ~7% chekka bilan joylanadi, eng uzun tomon 1200px, sifat 82.
 """
 import os
 import subprocess
@@ -57,7 +57,7 @@ def _bbox(mask: str):
     return (w, h, x, y) if w > 4 and h > 4 else None
 
 
-def compose_cutout(src: str, mask: str, dst: str, size: int = 800) -> bool:
+def compose_cutout(src: str, mask: str, dst: str, size: int = 1200) -> bool:
     """`src` (repo nisbiy) + `mask` (mutlaq) -> `dst` (mutlaq) shaffof kvadrat WebP."""
     src_abs = os.path.join(ROOT, src)
     box = _bbox(mask)
@@ -66,9 +66,14 @@ def compose_cutout(src: str, mask: str, dst: str, size: int = 800) -> bool:
     w, h, x, y = box
     inner = round(size * (1 - 2 * PAD))
     os.makedirs(os.path.dirname(dst), exist_ok=True)
+    # RGB niqob (defringe_2027.py): R = alfa, G = rang ko'paytiruvchisi (0 — qora soya). Kulrang niqob — faqat alfa.
+    cs = subprocess.run(["identify", "-format", "%[channels]", mask], capture_output=True, text=True).stdout.lower()
+    rgb_mask = cs.startswith("srgb") or cs.startswith("rgb")
+    darken = ["(", mask, "-channel", "G", "-separate", "+channel", ")", "-compose", "Multiply", "-composite"] if rgb_mask else []
+    alpha = ["-channel", "R", "-separate", "+channel"] if rgb_mask else ["-colorspace", "gray"]
     cmd = [
-        "convert", src_abs, "-auto-orient", "-alpha", "off",
-        "(", mask, "-colorspace", "gray", "-alpha", "off",
+        "convert", src_abs, "-auto-orient", "-alpha", "off", *darken,
+        "(", mask, *alpha, "-alpha", "off",
         "-morphology", "Erode", "Disk:1", "-blur", "0x0.6", ")",
         "-compose", "CopyOpacity", "-composite", "-compose", "Over",
         "-crop", f"{w}x{h}+{x}+{y}", "+repage",
