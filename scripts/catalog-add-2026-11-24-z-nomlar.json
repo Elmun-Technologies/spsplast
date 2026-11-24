@@ -1,0 +1,239 @@
+{
+ "comment": "2026-11-24: novinkalar nomi va o'lchamlari — egasining ro'yxati bo'yicha (bosma katalog raqamlari 001–016). `patch` — mavjud mahsulotning ko'rsatilgan maydonlarini USTIDAN yozadi (name, subtitle, kg, molds, tiles, sizeEstimated). Slug (URL) o'zgarmaydi.",
+ "patch": {
+  "oltiburchak-galka": {
+   "name": {
+    "uz": "Antara",
+    "ru": "Антара",
+    "en": "Antara"
+   }
+  },
+  "antara-1": {
+   "name": {
+    "uz": "Antara 2",
+    "ru": "Антара 2",
+    "en": "Antara 2"
+   }
+  },
+  "kristall": {
+   "name": {
+    "uz": "Natsional 1",
+    "ru": "Национал 1",
+    "en": "Natsional 1"
+   }
+  },
+  "girih": {
+   "name": {
+    "uz": "Natsional 4",
+    "ru": "Национал 4",
+    "en": "Natsional 4"
+   }
+  },
+  "meandr-30-30": {
+   "name": {
+    "uz": "Labirint",
+    "ru": "Лабиринт",
+    "en": "Labyrinth"
+   },
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×400×50",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×400×50",
+     "per": "6,25",
+     "cap": null
+    }
+   ],
+   "kg": "6,5",
+   "sizeEstimated": false
+  },
+  "taktil-konus-30-30": {
+   "name": {
+    "uz": "Dorojka dumaloq",
+    "ru": "Дорожка круглая",
+    "en": "Tactile path — domes"
+   },
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×400×50",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×400×50",
+     "per": "6,25",
+     "cap": null
+    }
+   ],
+   "kg": "6",
+   "sizeEstimated": false
+  },
+  "taktil-chiziq-30-30": {
+   "name": {
+    "uz": "Dorojka polosa",
+    "ru": "Дорожка полоса",
+    "en": "Tactile path — bars"
+   },
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×400×50",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×400×50",
+     "per": "6,25",
+     "cap": null
+    }
+   ],
+   "kg": "6",
+   "sizeEstimated": false
+  },
+  "pletyonka": {
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×400×50",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×400×50",
+     "per": "6,25",
+     "cap": null
+    }
+   ],
+   "kg": "6,9",
+   "sizeEstimated": false
+  },
+  "taxta-parket": {
+   "name": {
+    "uz": "Parket",
+    "ru": "Паркет",
+    "en": "Parquet"
+   },
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×600×50",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×600×50",
+     "per": "5,5",
+     "cap": null
+    }
+   ],
+   "kg": "7,3",
+   "sizeEstimated": false
+  },
+  "daraxt-kesimi": {
+   "molds": [
+    {
+     "l": "A",
+     "size": "360×360×30",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "360×360×30",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "sizeEstimated": false
+  },
+  "oyoq-izi": {
+   "name": {
+    "uz": "Qadam (chap + o‘ng)",
+    "ru": "Кадам (левый + правый)",
+    "en": "Qadam footprint (left + right)"
+   },
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×550×30",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×550×30",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "sizeEstimated": false
+  },
+  "naqshli-bordyur": {
+   "name": {
+    "uz": "Versache bordyur",
+    "ru": "Бордюр Версаче",
+    "en": "Versace kerb"
+   }
+  },
+  "terratsso-2": {
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×200×50",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×200×50",
+     "per": "12,5",
+     "cap": null
+    }
+   ]
+  },
+  "terratsso-3": {
+   "molds": [
+    {
+     "l": "A",
+     "size": "200×200×50",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "200×200×50",
+     "per": "25",
+     "cap": null
+    }
+   ]
+  }
+ }
+}

@@ -754,6 +754,28 @@ def apply_refresh(models, jobs):
     return [j for j in jobs if j["dst"] not in dropped], n
 
 
+PATCHABLE = ("name", "subtitle", "note", "kg", "molds", "tiles", "sizeEstimated")
+
+
+def apply_patches(models):
+    """`patch` (scripts/catalog-add-*.json) — egasi tasdiqlagan nom/o'lcham tuzatishlari statik katalogga ham
+    (bazada catalog-sync.ts xuddi shu maydonlarni ustidan yozadi). Slug (URL) o'zgarmaydi."""
+    by_slug = {m["slug"]: m for m in models}
+    n = 0
+    for fn in sorted(os.listdir(os.path.join(ROOT, "scripts"))):
+        if not (fn.startswith("catalog-add-") and fn.endswith(".json")):
+            continue
+        for slug, raw in json.load(open(os.path.join(ROOT, "scripts", fn), encoding="utf-8")).get("patch", {}).items():
+            m = by_slug.get(slug)
+            if not m:
+                continue
+            for k in PATCHABLE:
+                if k in raw:
+                    m[k] = raw[k]
+            n += 1
+    return n
+
+
 def load_added_models(models, model3d):
     """Bazaga sync skripti bilan qo'shilgan mahsulotlar (scripts/catalog-add-*.json `add`): trotuar qoliplari
     va boshqa bo'limlar, jumladan tayyor mahsulotlar (`section`: tayyor_fasad, tayyor_skameyka …).
@@ -815,6 +837,7 @@ def main():
     for i, m in enumerate(extra):
         m["_pop"] = (-1000 if m.pop("_novinka", False) else 5000) + i
     models += extra
+    apply_patches(models)
     models.sort(key=lambda m: m["_pop"])  # barqaror: mavjud tartib o'zgarmaydi, novinkalar boshga
     jobs, stats = load_image_sources(models)
     for m in models:

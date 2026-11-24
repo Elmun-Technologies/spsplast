@@ -8,6 +8,8 @@
  *   (fayldagi tartibda), qolganlari oxirida. Boshqa bo'lim (masalan `tayyor_fasad`) — o'z bo'limining oxiriga.
  *   Mavjud slug'lar o'zgartirilmaydi.
  * - `images` → rasmsiz turgan modellarga rasm (faqat rasmi bo'sh bo'lsa).
+ * - `patch`  → mavjud mahsulotning nomi/o'lchami ustidan yozadi (name, subtitle, note, kg, molds, tiles, sizeEstimated) —
+ *   egasi tasdiqlagan tuzatishlar; slug va rasmlar o'zgarmaydi.
  * - `moldPer` → qolipning 1 m² dagi soni (slug → "5,5"), faqat bo'sh bo'lsa.
  * - `archive` → D01–D18 dekor panellar arxivga (eski katalogda yo'q, biznes qarori 2026-11-15).
  * Keyin admin → "Nashr qilish" (yoki Coolify Redeploy) — sayt yangi snapshot bilan qayta yig'iladi.
@@ -115,6 +117,22 @@ async function syncFile(db: Db, data: SyncData): Promise<string> {
     refreshed += res.length;
   }
 
+  // `patch` — egasi tasdiqlagan nom/o'lcham tuzatishlari: ko'rsatilgan maydonlar USTIDAN yoziladi (fayl sha'si
+  // o'zgarmaguncha bir marta). Faqat ruxsat etilgan maydonlar; slug (URL) va rasmlar bu yerda o'zgarmaydi.
+  let patched = 0;
+  const PATCHABLE = ['name', 'subtitle', 'note', 'kg', 'molds', 'tiles', 'sizeEstimated'] as const;
+  for (const [slug, raw] of Object.entries((data.patch ?? {}) as Record<string, Record<string, unknown>>)) {
+    const set: Record<string, unknown> = {};
+    for (const k of PATCHABLE) if (k in raw) set[k] = raw[k];
+    if (!Object.keys(set).length) continue;
+    const res = await db
+      .update(products)
+      .set({ ...(set as object), updatedAt: new Date() })
+      .where(eq(products.slug, slug))
+      .returning({ id: products.id });
+    patched += res.length;
+  }
+
   // Ruscha nomlar bosma katalogdan — faqat bo'sh bo'lsa (admin yozgan nom saqlanadi).
   let named = 0;
   for (const [slug, ru] of Object.entries((data.ruNames ?? {}) as Record<string, string>)) {
@@ -152,7 +170,7 @@ async function syncFile(db: Db, data: SyncData): Promise<string> {
       .returning({ id: products.id });
     archived += res.length;
   }
-  return `Qo'shildi: ${added} / ${(data.add ?? []).length}; rasm qo'yildi: ${imaged}; rasm yangilandi: ${refreshed}; ruscha nom: ${named}; 1 m²: ${perFilled}; arxivga: ${archived}.`;
+  return `Qo'shildi: ${added} / ${(data.add ?? []).length}; rasm qo'yildi: ${imaged}; rasm yangilandi: ${refreshed}; ruscha nom: ${named}; tuzatildi: ${patched}; 1 m²: ${perFilled}; arxivga: ${archived}.`;
 }
 
 async function pending(db: Db): Promise<void> {
