@@ -126,7 +126,7 @@ export const INTEGRATION_FIELDS: IntegrationField[] = [
   { key: 'telegram_handle', label: 'Telegram', group: 'contacts', pattern: /^@?[A-Za-z0-9_]{5,32}$/, placeholder: '@spsplastuz', fallback: '@spsplastuz', help: 'Kanal yoki menejer akkaunti.', where: '@username' },
   { key: 'instagram_handle', label: 'Instagram', group: 'contacts', pattern: /^@?[A-Za-z0-9_.]{2,30}$/, placeholder: '@spsplast.uz', fallback: '@spsplast.uz', help: 'Footer va kontakt sahifasi.', where: '@username' },
   { key: 'email', label: 'E-pochta', group: 'contacts', pattern: /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]{2,}$/, placeholder: 'sales@sps.uz', help: "Kiritilsa kontakt sahifasi, footer va maxfiylik siyosatida ko'rinadi.", where: 'ixtiyoriy' },
-  { key: 'address_uz', label: 'Manzil (UZ)', group: 'contacts', pattern: SAFE_TEXT, placeholder: "Toshkent, Uchtepa tumani, Xalqa yo'li ko'chasi, 7A", fallback: "Toshkent, Uchtepa tumani, Xalqa yo'li ko'chasi, 7A", help: '', where: '' },
+  { key: 'address_uz', label: 'Manzil (UZ)', group: 'contacts', pattern: SAFE_TEXT, placeholder: "Toshkent, Uchtepa tumani, Xalqa yo‘li ko‘chasi, 7A", fallback: "Toshkent, Uchtepa tumani, Xalqa yo‘li ko‘chasi, 7A", help: '', where: '' },
   { key: 'address_ru', label: 'Manzil (RU)', group: 'contacts', pattern: SAFE_TEXT, placeholder: 'Ташкент, Учтепинский район, ул. Халка йули, 7A', fallback: 'Ташкент, Учтепинский район, ул. Халка йули, 7A', help: '', where: '' },
   { key: 'address_en', label: 'Manzil (EN)', group: 'contacts', pattern: SAFE_TEXT, placeholder: '7A Khalqa yoli street, Uchtepa district, Tashkent', fallback: '7A Khalqa yoli street, Uchtepa district, Tashkent', help: '', where: '' },
   // --- Saytdagi raqamlar (bosh sahifa, ishlab chiqarish, ulgurji, FAQ — 3 tilda) ---

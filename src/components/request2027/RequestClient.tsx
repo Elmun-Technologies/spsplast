@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import {
-  SECTION_SLUGS,
+  modelPath,
+  isReadySection,
   calcMolds,
   modelImage,
   modelName,
@@ -42,6 +43,8 @@ export function RequestClient({
 }) {
   const list = useRequestList();
   const [volumes, setVolumes] = useState<Record<string, string>>({});
+  // Tayyor mahsulot qatorlari: miqdor birligi (m² yoki dona) — qolip soni hisoblanmaydi.
+  const [units, setUnits] = useState<Record<string, 'm2' | 'pcs'>>({});
   const [clientType, setClientType] = useState<ClientType>('workshop');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -62,14 +65,18 @@ export function RequestClient({
       })
     : [];
 
-  const volumeOf = (slug: string, fallback?: number) => {
-    const raw = volumes[slug] ?? (fallback ? String(fallback) : '100');
+  const isReady = (model: { section: string }) => isReadySection(model.section);
+  const volumeOf = (slug: string, fallback?: number, ready = false) => {
+    const raw = volumes[slug] ?? (fallback ? String(fallback) : ready ? '' : '100');
     return Math.max(0, Number(String(raw).replace(',', '.')) || 0);
   };
 
   let total = 0;
   let hasUnknown = false;
+  // Faqat tayyor mahsulot bo'lsa — "kunlik hajm" va "qoliplar soni" ma'nosiz: miqdor ustuni, qolip qatori yo'q.
+  const hasMolds = rows.some(({ model }) => !isReady(model));
   for (const { item, model } of rows) {
+    if (isReady(model)) continue;
     const molds = calcMolds(model, volumeOf(item.slug, item.m2));
     if (molds === null) hasUnknown = true;
     else total += molds;
@@ -93,12 +100,27 @@ export function RequestClient({
       name,
       phone,
       city: city || undefined,
-      message: message || undefined,
+      // Tayyor mahsulot miqdori birligi bilan matnga yoziladi (`m2` maydoni qolip uchun "m²/kun").
+      message:
+        [
+          ...rows
+            .filter(({ model }) => isReady(model))
+            .map(({ item, model }) => {
+              const q = volumes[item.slug];
+              return q
+                ? `${model.code ? `№ ${model.code} ` : ''}${modelName(model, lang)}: ${q} ${units[item.slug] === 'pcs' ? t.catalog.unitPcs : t.catalog.unitM2}`
+                : null;
+            })
+            .filter(Boolean),
+          message,
+        ]
+          .filter(Boolean)
+          .join('\n') || undefined,
       lang,
       items: rows.map(({ item, model }) => ({
         slug: item.slug,
         code: model.code,
-        m2: volumeOf(item.slug, item.m2) || undefined,
+        m2: isReady(model) ? undefined : volumeOf(item.slug, item.m2) || undefined,
       })),
     });
     if (res.ok) {
@@ -129,12 +151,13 @@ export function RequestClient({
           <div>
             <div className="rl-head">
               <span className="sps-label">{p.request.colModel}</span>
-              <span className="sps-label">{p.request.colVolume}</span>
+              <span className="sps-label">{hasMolds || !rows.length ? p.request.colVolume : p.request.colQty}</span>
             </div>
 
             {rows.map(({ item, model }) => {
-              const v = volumeOf(item.slug, item.m2);
-              const molds = calcMolds(model, v);
+              const ready = isReady(model);
+              const v = volumeOf(item.slug, item.m2, ready);
+              const molds = ready ? null : calcMolds(model, v);
               const meta = [
                 modelTileSize(model) || model.molds[0]?.size,
                 modelSetSize(model) > 1 ? `${modelSetSize(model)} · ${moldLetters(model)}` : null,
@@ -156,7 +179,7 @@ export function RequestClient({
                       {sectionLabel(model.section, lang)}
                     </span>
                     <a
-                      href={`/${lang}/catalog/${SECTION_SLUGS[model.section]}/${model.slug}`}
+                      href={`/${lang}${modelPath(model)}`}
                       style={{ font: '600 18px/22px var(--font-sans)', color: 'var(--ink)', textDecoration: 'none' }}
                     >
                       {modelName(model, lang)}
@@ -170,14 +193,27 @@ export function RequestClient({
                       className="sps-input mono ym-disable-keys"
                       inputMode="decimal"
                       aria-label={`${p.request.volumeA11y}: ${modelName(model, lang)}`}
-                      value={volumes[item.slug] ?? (item.m2 ? String(item.m2) : '100')}
+                      value={volumes[item.slug] ?? (item.m2 && !ready ? String(item.m2) : ready ? '' : '100')}
+                      placeholder={ready ? t.catalog.formQty : undefined}
                       onChange={(e) =>
                         setVolumes((prev) => ({ ...prev, [item.slug]: e.target.value.replace(/[^\d.,]/g, '') }))
                       }
                     />
-                    <span className="small muted">
-                      {molds === null ? p.request.managerCounts : p.request.approxTemplate.replace('{n}', num(lang, molds))}
-                    </span>
+                    {ready ? (
+                      <select
+                        className="sps-select"
+                        value={units[item.slug] ?? 'm2'}
+                        aria-label={`${t.catalog.unitA11y}: ${modelName(model, lang)}`}
+                        onChange={(e) => setUnits((prev) => ({ ...prev, [item.slug]: e.target.value as 'm2' | 'pcs' }))}
+                      >
+                        <option value="m2">{t.catalog.unitM2}</option>
+                        <option value="pcs">{t.catalog.unitPcs}</option>
+                      </select>
+                    ) : (
+                      <span className="small muted">
+                        {molds === null ? p.request.managerCounts : p.request.approxTemplate.replace('{n}', num(lang, molds))}
+                      </span>
+                    )}
                   </div>
                   <button
                     type="button"
@@ -255,13 +291,15 @@ export function RequestClient({
                   <span>{p.request.modelsLabel}</span>
                   <b>{rows.length}</b>
                 </div>
-                <div
-                  className="mono"
-                  style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: 14, borderBottom: '1px solid var(--line)' }}
-                >
-                  <span>{p.request.moldsLabel}</span>
-                  <b>{total ? `${num(lang, total)}${hasUnknown ? p.request.totalPlus : ''}` : '—'}</b>
-                </div>
+                {hasMolds ? (
+                  <div
+                    className="mono"
+                    style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: 14, borderBottom: '1px solid var(--line)' }}
+                  >
+                    <span>{p.request.moldsLabel}</span>
+                    <b>{total ? `${num(lang, total)}${hasUnknown ? p.request.totalPlus : ''}` : '—'}</b>
+                  </div>
+                ) : null}
 
                 <fieldset style={{ border: 0, padding: 0, margin: 0 }}>
                   <legend className="sps-label">{p.request.whoLegend}</legend>

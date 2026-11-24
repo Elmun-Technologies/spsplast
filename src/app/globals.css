@@ -464,6 +464,8 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
 }
 /* RU'da tab nomlari uzun ("Тротуарная плитка", "Оставить заявку"): ichki joy kichikroq (HANDOFF 4.10) */
 @media (min-width: 761px) { .hd-tabs--ru a { padding-inline: 10px; } }
+/* Tayyor mahsulotlar: 12 ta tab (11 bo'lim + umumiy) — 1440 px da RU nomlar sig'sin */
+@media (min-width: 761px) { .hd-tabs--dense a { padding-inline: 8px; font-size: 14px; gap: 4px; } }
 
 .sps-lang { display: inline-flex; border: 1px solid var(--line); border-radius: var(--radius-pill); padding: 2px; }
 .sps-lang a { font: 500 12px/16px var(--font-sans); letter-spacing: .06em; color: var(--ink-muted); text-decoration: none; padding: 6px 10px; border-radius: var(--radius-pill); }
@@ -518,6 +520,8 @@ ol.crumbs > li + li::before { content: '/'; margin-right: var(--space-2); color:
 @media (min-width: 521px) { .ft-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 901px) { .ft-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; } }
 @media (min-width: 1181px) { .ft-grid { grid-template-columns: minmax(0, 1.3fr) repeat(4, minmax(0, 1fr)); gap: 40px; } }
+/* 6 ustun (brend + katalog + tayyor + kompaniya + eksport + aloqa): tayyor mahsulot bo'limlari bo'lsa */
+@media (min-width: 1181px) { .ft-grid:has(> .ft-col:nth-child(6)) { grid-template-columns: minmax(0, 1.15fr) repeat(5, minmax(0, 1fr)); gap: 28px; } }
 .ft-about { display: flex; flex-direction: column; gap: 20px; }
 /*
  * `align-self: flex-start`: ustun flex konteyneri (`align-items: stretch`) logoni
@@ -1429,13 +1433,43 @@ html { scroll-padding-top: 164px; }
   .hm-panel__list { display: none; }
 }
 
-/* /ready: tayyor mahsulotlar kartochkalari (rasmlar `public/ready/`, ma'lumot `src/lib/ready2027.ts`) */
-.rd-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-4); }
-.rd-card { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-card); overflow: hidden; }
-.rd-card__img { position: relative; display: block; aspect-ratio: 4 / 3; background: var(--surface-alt); }
-.rd-card__img img { object-fit: cover; }
-.rd-card__body { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-4); }
-.rd-card__body .sps-btn { align-self: flex-start; margin-top: var(--space-2); }
+/* Tayyor mahsulot sahifasi (/ready/{bo'lim}/{slug}): galereya + xususiyatlar + zayafka. Narx yo'q. */
+.rd-all { padding-top: 0; }
+.rd-page { display: flex; flex-direction: column; gap: var(--space-6); }
+.rd-pdp { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-5); align-items: start; }
+@media (min-width: 900px) { .rd-pdp { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: var(--space-7); } }
+.rd-gal { display: flex; flex-direction: column; gap: var(--space-3); }
+.rd-gal__main { position: relative; aspect-ratio: 1 / 1; border-radius: var(--radius-card); overflow: hidden; background: var(--surface-alt); }
+.rd-gal__main--empty { display: grid; place-items: center; color: var(--ink-muted); font: 500 15px/22px var(--font-sans); }
+.rd-gal__thumbs { display: flex; gap: var(--space-2); overflow-x: auto; }
+.rd-gal__thumb { position: relative; flex: 0 0 72px; height: 72px; padding: 0; border: 2px solid transparent; border-radius: var(--radius-mini); overflow: hidden; background: var(--surface-alt); cursor: pointer; }
+.rd-gal__thumb.is-on { border-color: var(--ink); }
+.rd-info { display: flex; flex-direction: column; gap: var(--space-4); }
+.rd-info h1 { margin: 0; }
+.rd-spec { margin: var(--space-3) 0 0; display: grid; border-top: 1px solid var(--line); }
+.rd-spec > div { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: var(--space-3); padding-block: 10px; border-bottom: 1px solid var(--line); }
+.rd-spec dt { color: var(--ink-muted); font: 400 14px/20px var(--font-sans); }
+.rd-spec dd { margin: 0; font: 500 15px/20px var(--font-sans); }
+.rd-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+.rd-actions .sps-btn { gap: 8px; }
+.rd-actions .sps-btn.is-on { border-color: var(--ink); background: var(--surface-alt); }
+@media (max-width: 640px) {
+  .rd-actions .sps-btn--primary { flex: 1 1 100%; }
+  .rd-actions .sps-btn--outline { flex: 1 1 0; justify-content: center; }
+}
+/* Tayyor mahsulotlar och (krem, oq beton): och fonda qo'shilib ketmasin — grafit "studiya" foni
+   (bosh sahifadagi qorong'i "Tayyor mahsulotlar" paneli bilan bir xil til). */
+.sps-card--ready .sps-card__media,
+.hm-secs--ready .hm-sec__media,
+.rd-gal__main,
+.rd-gal__thumb,
+.rc--ready img { background: radial-gradient(120% 95% at 50% 38%, #3c3e43 0%, #202226 78%); }
+.rc--ready img { object-fit: contain; padding: 6%; }
+/* shaffof mahsulot surati — kesilmasin, to'liq ko'rinsin */
+.sps-card--ready .sps-card__media img,
+.hm-secs--ready .hm-sec__media img { object-fit: contain !important; padding: 7%; }
+.rd-gal__thumb.is-on { border-color: var(--red); }
+.ct-note a:not(.sps-btn) { color: var(--on-ink); text-decoration: underline; }
 
 /* /ready bo'sh holati: qora blok ichida kontur tugmalar ko'rinsin */
 .ct-note .sps-btn--outline { color: var(--on-ink); border-color: rgba(255, 255, 255, .4); }
@@ -1520,3 +1554,5 @@ html { scroll-padding-top: 164px; }
 .ct-sec.pat { --pat-o: .07; --pat-size: 140px; }
 /* Bosh sahifa: mobilda mashhur modellardan 6 tasi (12 ta kartochka 390 px da ~4 ekran edi). */
 @media (max-width: 760px) { .hm-popular .cat-grid > :nth-child(n+7) { display: none; } }
+.rd-cross { padding-top: 0; }
+.qr-qty { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }

@@ -129,7 +129,7 @@ Everything a visitor could still hit is answered by a 301 (`scripts/redirects-20
 | Home | `/{lang}` |
 | Catalog / section | `/{lang}/catalog`, `/{lang}/catalog/{section}` |
 | Model | `/{lang}/catalog/{section}/{slug}` |
-| Ready products (fasad, termopanel; zayafka only) | `/{lang}/ready` (noindex + not in sitemap until products exist; layout.tsx) |
+| Ready products (zayafka only) | `/{lang}/ready`, `/{lang}/ready/{section}`, `/{lang}/ready/{section}/{slug}` (noindex while empty) |
 | Compare | `/{lang}/compare` |
 | Request list | `/{lang}/request` |
 | Wholesale & partners | `/{lang}/partners` |
@@ -153,7 +153,7 @@ content should not be indexed (since 2026-11-12 all 7 sections have models).
 
 ## Business Rules (never break)
 
-0. **Two directions (decision 2026-11-17)**: *Qoliplar* (molds, `/catalog`) and *Tayyor mahsulotlar* (ready facade/thermal panels, `/ready`). Home shows two big panels. Ready products are also **zayafka only, no prices**. Product data comes from the business later; `/ready` is an honest empty-state skeleton until then.
+0. **Two directions (decision 2026-11-17)**: *Qoliplar* (molds, `/catalog`) and *Tayyor mahsulotlar* (ready products, `/ready`). Home shows two big panels. Ready products are also **zayafka only, no prices**. Since 2026-11-24 `/ready` has 95 products: 80 facade items of the printed "FASAD MAHSULOT" catalog (9 sections), 6 bench sides, 9 euro fences. `/ready` links its own PDF (`fasad-mahsulot`), molds keep the mold catalogs.
 
 1. **No prices, no cart, no checkout.** Only "zayafka". Terms: "Zayafka",
    "Zayafka qoldirish", "Zayafka ro'yxati", "Ulgurji va hamkorlik".
@@ -534,6 +534,12 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     check `/3d/t12/#tering` in a browser.
   - Tap vs orbit: a pointer that moved > 8 px, lasted > 650 ms or had a second finger is never a tap.
     Rendering is on-demand (no idle rAF loop); `prefers-reduced-motion` = no drop animation, no damping.
+- **PDF veb nusxa (2026-11-24)**: bosma katalog (150–200 MB) → `python3 scripts/pdf/compress_catalog.py <in> <out>` (pikepdf: rasm
+  uzun tomoni 1500 px, JPEG q72, SMask saqlanadi, `qpdf --linearize`). Fasad qolip 96 bet → 35 MB, FASAD MAHSULOT 108 bet → 24 MB.
+- **"Соберите сами" ranglari (2026-11-24)**: plitka katakdan `SEAM`=0.955 kichik (orada qora chok — bir rangli qo'shni plitkalar
+  bitta dog'ga qo'shilmaydi), bo'sh katak ko'kish (`GHOST_WHITE` 0x8fb6e0 — palitradagi kulrang/grafitdan farqli), asos 0x1c1d1f.
+- **Tayyor mahsulot rasmi grafit fonda** (`.sps-card--ready`, `.hm-secs--ready`, `.rd-gal__*`, `.rc--ready`): mahsulotlar och
+  (krem, oq beton) — och fonda ko'rinmay qolardi; rasm `contain` (kesilmaydi).
 - **PDF kataloglar + varaqlagich (2026-11-16)**: `public/catalog/pdf/` — 3 ta ruscha yotiq PDF (trotuar 2026-11-23 dan — A5 bosma katalog 128 bet, veb nusxa ~39 MB; fayli eski nom
   `sps-qoliplar-katalogi-2026.pdf` bilan, fasad, skameyka+yevrozabor; ~26 MB, linearized). Barcha "PDF katalog" havolalari
   `flipHref()` (`src/lib/catalogPdf.ts`) orqali `/{lang}/catalog/flip[?c=fasad]` ga boradi — `FlipBook.tsx` (pdf.js legacy + page-flip,
@@ -552,9 +558,12 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   - `[lang]/error.tsx` matnlari `dictionaries/pages/error.ts` da (pages lug'ati ham shu obyektni ishlatadi; admin
     override `pages.error.*` ishlaydi). Istisno: `CompareBarPanel` (faqat ro'yxat bo'sh bo'lmasa `dynamic()`).
 - **Bosma katalog 2026 → sayt (2026-11-23)** — keep them:
-  - Prod katalog **bazadan** keladi: repodagi rasm/model o'zgarishi bazaga o'zi tushmaydi. Har to'plam uchun
-    `scripts/catalog-add-<sana>.json` (`add` — yangi modellar, `novinka: true` trotuar boshida; `refresh` — rasm yo'llari,
-    `/media/` admin rasmiga tegilmaydi) + `npm run catalog:sync -- <fayl>` (Coolify terminalida), keyin Redeploy.
+  - Prod katalog **bazadan** keladi. Har to'plam — `scripts/catalog-add-<sana>.json` (`add` — yangi modellar, `novinka: true`
+    trotuar boshida; `refresh` — rasm yo'llari, `/media/` admin rasmiga tegilmaydi). **2026-11-24 dan deploy'da o'zi qo'llanadi**:
+    `db:migrate:deploy` = migratsiya + `catalog-sync.ts --pending` — har fayl `catalog_sync_log` (migratsiya 0005) da sha bilan
+    bir marta yoziladi, keyingi deploy'larda admin o'zgarishlari ustidan yozilmaydi; xato deploy'ni to'xtatmaydi (keyingisi qayta
+    uradi). Fayl mazmuni o'zgarsa (sha) — qayta qo'llanadi. Qo'lda: `npm run catalog:sync -- <fayl>`. Muammo: 2026-11-23 gacha
+    sync qo'lda edi va hech kim ishga tushirmagani uchun prod eski rasmlarda qolgan edi.
   - Extractor `catalog-add-*.json` dagi `add` modellarni statik katalogga ham qo'shadi (bazasiz build = prod), `model3d`
     maydoni `.glb` bo'lsa 3D xaritaga yoziladi; `EXTRA_3D` — ko'z bilan tasdiqlangan qo'shimcha 3D raqamlar.
   - `.glb` siz 3D paketlar (t93–t112) xaritada yo'q → ularning tirik suratlari **slug** bilan nomlanadi.
@@ -596,6 +605,32 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     testimonials (null when empty) → wholesale.
   - Header search (`.hd-search`) is hidden on list pages (catalog, section, tag) — they have their own search box.
   - Card "quick view" button exists only at ≥1101 px (as before); on hover-capable devices it appears on card hover/focus.
+- **Tayyor mahsulotlar (2026-11-23, `tests/ready2027.test.js`)** — keep them:
+  - **One products table, two directions**: `catalog_sections.kind` (`molds` | `ready`, migration `0004` — also seeds the 11
+    ready sections `tayyor_*`; slug unique per kind, so `/catalog/thermal-panels` and `/ready/thermal-panels` coexist).
+    Snapshot exports `kind`. `catalogCore`: `SECTIONS` = molds only (header tabs, filters, /catalog routes, sitemap
+    /catalog paths stay mold-only), `READY_SECTIONS`, `sectionPath()`/`modelPath()` (**build product links with
+    `modelPath`** — a ready product under /catalog 404s), `readySectionFromSlug()`. `catalog2027`: `getModels()`/
+    `getPopular()`/counts = molds only; `getReady*()`; `getModelBySlug()` finds BOTH (request list, Telegram message).
+  - Ready card: no compare / quick view (mold fields), 3rd column = 1 m² or weight, never "PP / ABS". Quick-request
+    form asks "Kerakli miqdor (m² yoki dona)"; `/api/leads` does not compute molds for ready items; Telegram line
+    `• TAYYOR: …`. Product page `/ready/{section}/{slug}`: `ReadyGallery` (product shot → facade view → extras),
+    spec table (size, 1 m², weight + free `specs`), `ReadyActions` (zayafka / list / WhatsApp), Product JSON-LD
+    without price, related items. Mold page shows a "tayyor holda ham bor" link when `<mold-slug>-tayyor` exists.
+  - Data (2026-11-23, catalog agent's source ZIPs — not in the repo): `scripts/extract/build_ready_fasad_2027.py <dir>`
+    (`data/fasad.json` + transparent `<KOD>-mahsulot.png`/`-qolip.png`/`-sahna.jpg`) → `catalog-add-2026-11-23-tayyor-fasad.json`
+    (80 ready, slug `<mold slug>-tayyor`) + `catalog-add-2026-11-24-fasad-qolip.json` (`refresh`: PP+ABS mold cutout
+    `-qolip-3d.webp` + cast product `-mahsulot-3d.webp` for 78 molds; molds with a live photo are skipped);
+    `build_ready_bench_fence_2027.py <dir>` → `catalog-add-2026-11-24-skameyka-zabor.json` (KLASSIK/USIMLIK/PANJARA =
+    S02/S04/S07 get the real mold photo; ROYAL/KOMFORT/MODERN are new molds **without a code** — the printed catalog has
+    no S-codes, none invented; 6 ready bench sides + 9 ready euro fences). `"applyStatic": true` makes
+    `build_models_2027.py` (`apply_refresh`) apply a file's `refresh` to the static catalog too; replaced old paths go to
+    `scripts/catalog-keep-2026-11-24.txt` (prod DB still points at them until sync). Catalog "Толщина" = mold depth,
+    so ready facade items show no thickness (only stone 15 mm, fence 50 mm). KRN-013 (agent's proposal for the
+    second KRN-004) is NOT applied until SPS confirms. Section intros: `pages.ready.sectionIntros` (agent's
+    `sections.json`). Prod: `npm run catalog:sync -- <file>` for each file.
+  - Admin: section form has "Yo'nalish" (molds/ready; can't change for a section that has products), product form
+    groups sections by direction, live URL / auto-301 follow the direction.
 - **Never reintroduce Tailwind.** The database is back (Stage 7, user decision) **only** behind
   `src/server/` — public pages (`[lang]`, `components`, `lib`) must never import it
   (`tests/platform.test.js` test 6), otherwise the storefront stops being static.

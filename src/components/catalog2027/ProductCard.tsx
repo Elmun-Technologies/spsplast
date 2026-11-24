@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { SECTION_SLUGS, type Model, modelSetSize, modelName, sectionLabel } from '@/lib/catalogCore';
+import { type Model, isReadySection, modelPath, modelSetSize, modelName, sectionLabel } from '@/lib/catalogCore';
 import { type Locale } from '@/lib/i18n';
 import { formatNumber } from '@/lib/i18n';
 import { useUi } from '@/components/site/UiProvider';
@@ -12,7 +12,7 @@ import { Icon } from '@/components/site/icons';
 const SCENE_SIZES = '(max-width: 640px) 50vw, (max-width: 1100px) 33vw, 25vw';
 
 export function productHref(lang: Locale, m: Model): string {
-  return `/${lang}/catalog/${SECTION_SLUGS[m.section]}/${m.slug}`;
+  return `/${lang}${modelPath(m)}`;
 }
 
 export function ProductCard({
@@ -45,7 +45,18 @@ export function ProductCard({
   const per = model.tiles[0]?.per;
   const set = modelSetSize(model);
   const cutout = model.images.molds.A || Object.values(model.images.molds)[0] || model.images.tiles.A || Object.values(model.images.tiles)[0] || null;
-  const third = set > 1 ? `${set} ${t.molds}` : per ? `${formatNumber(lang, per)} ${t.dona}` : 'PP / ABS';
+  // Tayyor mahsulot (beton, qolip emas): material "PP / ABS" emas; 1 m² dagi soni yoki og'irligi, bo'lmasa ustun yo'q.
+  const ready = isReadySection(model.section);
+  const third: { dt: string; dd: string } | null = ready
+    ? per
+      ? { dt: t.mPer, dd: `${formatNumber(lang, per)} ${t.dona}` }
+      : model.kg
+        ? { dt: t.mWeight, dd: `${model.kg} kg` }
+        : null
+    : {
+        dt: set > 1 ? t.mSet : per ? t.mPer : t.mMaterial,
+        dd: set > 1 ? `${set} ${t.molds}` : per ? `${formatNumber(lang, per)} ${t.dona}` : 'PP / ABS',
+      };
   const href = productHref(lang, model);
   const main = load === 'priority' ? ({ priority: true, fetchPriority: 'high' } as const) : ({ loading: load } as const);
   const inset = { loading: load === 'lazy' ? 'lazy' : 'eager' } as const;
@@ -53,7 +64,7 @@ export function ProductCard({
   const scene = (model.images.sceneSm || model.images.scene || null) as string | null;
 
   return (
-    <article className={`sps-card${mold && scene ? ' sps-card--inset' : ''}`}>
+    <article className={`sps-card${mold && scene ? ' sps-card--inset' : ''}${ready ? ' sps-card--ready' : ''}`}>
       <div className="sps-card__media">
         {mold ? (
           // 2026-11-16: asosiy fokus — qolip (biz qolip sotamiz). Qolip katta, bosma katalogdagidek
@@ -91,6 +102,8 @@ export function ProductCard({
             № {model.code}
           </span>
         ) : null}
+        {/* Solishtirish va tez ko'rish — qolip xususiyatlari (qolip soni, qalinlik, 1 m²) uchun; tayyor mahsulotda yo'q. */}
+        {ready ? null : (
         <button
           type="button"
           className={`sps-card__cmp sps-iconbtn${inCompare ? ' sps-iconbtn--on' : ''}`}
@@ -103,9 +116,12 @@ export function ProductCard({
             {t.cardCompare}
           </span>
         </button>
-        <button type="button" className="sps-card__quick sps-btn sps-btn--dark sps-btn--sm" onClick={() => onQuick(model)}>
-          {t.cardQuick}
-        </button>
+        )}
+        {ready ? null : (
+          <button type="button" className="sps-card__quick sps-btn sps-btn--dark sps-btn--sm" onClick={() => onQuick(model)}>
+            {t.cardQuick}
+          </button>
+        )}
       </div>
       <div className="sps-card__body">
         <span className="sps-card__code">
@@ -129,10 +145,12 @@ export function ProductCard({
               <dd>{`${depth} ${t.mm}`}</dd>
             </div>
           ) : null}
-          <div>
-            <dt>{set > 1 ? t.mSet : per ? t.mPer : t.mMaterial}</dt>
-            <dd>{third}</dd>
-          </div>
+          {third ? (
+            <div>
+              <dt>{third.dt}</dt>
+              <dd>{third.dd}</dd>
+            </div>
+          ) : null}
         </dl>
       </div>
       <div className="sps-card__foot">

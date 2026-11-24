@@ -27,7 +27,7 @@ const TABS = [
   { key: 'health', label: 'Salomatlik' },
 ] as const;
 
-const KIND_LABEL: Record<PathKind, string> = { page: 'Asosiy', section: "Bo'lim", tag: 'Teg (SEO)', export: 'Eksport (SEO)', model: 'Model' };
+const KIND_LABEL: Record<PathKind, string> = { page: 'Asosiy', section: "Bo'lim", tag: 'Teg (SEO)', export: 'Eksport (SEO)', model: 'Model', ready: 'Tayyor mahsulot' };
 
 type Search = { tab?: string; k?: string; q?: string };
 

@@ -62,6 +62,15 @@ HANDOFF §7: *"barcha tugma va linklar ≥ 44px"*, lekin HANDOFF'ning o'z CSS'i
 Qaror qilinmaguncha kod A variantda qoldi. `npm run shots` hisoboti aniq ro'yxatni
 (qaysi element, necha px) beradi.
 
+### 1.19 Katalog agenti manbalari (2026-11-23) — SPS tasdiqlashi kerak
+- **KRN-004 takrori**: 18×120 va 35×120 karnizga bir xil kod. Agent 35×120 ga **KRN-013** ni taklif qilgan; saytda hozircha
+  ikkalasi ham KRN-004 (slug va o'lcham bilan farqlanadi). Tasdiqlansa — `code` ni ikki joyda (qolip + tayyor) o'zgartirish.
+- **Tayyor fasad qalinligi**: katalogdagi "Толщина" = qolip chuqurligi; haqiqiy mahsulot qalinligi (asos bilan) yo'q — saytda ko'rsatilmaydi.
+- **Mahsulot vazni** hech bir manbada yo'q.
+- **Skameyka Royal / Komfort / Modern**: o'lchami va kodi yo'q (saytda kodsiz). KLASSIK=S02, USIMLIK=S04, PANJARA=S07 mosligi agentniki.
+  Komfort surati fonsiz qilinganda urna qolgan; O'simlik suratida reykalar cheti kesilgan — studiya surati kerak.
+- **Z10** ("Sharqona aylana zabor") bosma katalogda yo'q — qolip saytda qoladi, tayyor panel sifatida qo'shilmadi.
+
 ## B. Qabul qilingan qarorlar va og'ishlar (sababi bilan)
 
 | # | Qaror / og'ish | Sabab |

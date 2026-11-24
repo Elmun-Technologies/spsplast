@@ -31,7 +31,10 @@ export default async function SectionsPage() {
         {sections.map((s) => (
           <section key={s.key} className="adm-card">
             <h2>
-              {s.name.uz} <small className="adm-empty">· {s.key} · {s.published} nashrda / {s.total} jami</small>
+              {s.name.uz}{' '}
+              <small className="adm-empty">
+                · {s.kind === 'ready' ? 'Tayyor mahsulot' : 'Qolip'} · {s.key} · {s.published} nashrda / {s.total} jami
+              </small>
             </h2>
             <SectionForm section={s} />
             {s.total === 0 ? (

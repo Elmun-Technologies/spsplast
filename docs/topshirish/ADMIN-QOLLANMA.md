@@ -21,7 +21,7 @@ Zayafka turlari: **Tez zayafka** (model kartochkasidan), **Zayafka ro'yxati** (b
 
 **Excel kerak bo'lsa:** Zayafkalar → filtr (sana, holat, mas'ul) → **CSV** → Excel'da ochiladi.
 
-## 2. Mahsulotlar (qoliplar)
+## 2. Mahsulotlar (qoliplar va tayyor mahsulotlar)
 
 **Mahsulotlar** sahifasi: qidiruv (kod yoki nom), bo'lim va holat filtri, tayyor filtrlar **"Rasmsiz"**,
 **"Ruscha nomsiz"**, **"Inglizcha nomsiz"** — to'ldirish kerak bo'lganlarini tez topish uchun.
@@ -42,7 +42,15 @@ Yangi qolip qo'shish:
 Rasmsiz model saytda ko'rinadi, lekin Google'ga yuborilmaydi va sahifasida "WhatsApp'da so'rash" tugmasi chiqadi —
 rasm qo'shilgach o'zi indekslanadi.
 
-**Bo'limlar** (faqat administrator): yangi bo'lim (masalan, stul oyoqlari) — nom 3 tilda, URL, tartib.
+**Ikki yo'nalish.** Sayt ikki qismdan iborat: **Qoliplar** (`/catalog`) va **Tayyor mahsulotlar** (`/ready` —
+termopanel, karniz, pilyastra, fasad toshi, skameyka, yevrozabor…). Ikkalasi ham shu "Mahsulotlar" sahifasida
+boshqariladi: mahsulot qaysi yo'nalishda ekanini uning **bo'limi** belgilaydi (bo'lim ro'yxatida "Qoliplar" va
+"Tayyor mahsulotlar" guruhlari bor). Tayyor mahsulotda qolip qatori to'ldirilmaydi; o'lcham, 1 m² dagi soni va
+"Texnik jadval" (qalinlik, asos, rang) yetarli. Rasmlar: asosiy — mahsulotning o'zi, qo'shimcha — fasaddagi ko'rinishi.
+
+**Bo'limlar** (faqat administrator): yangi bo'lim — nom 3 tilda, URL, tartib va **yo'nalish** (qoliplar / tayyor
+mahsulot). Mahsuloti bor bo'limning yo'nalishini o'zgartirib bo'lmaydi (saytdagi manzillar buziladi). Mahsulotsiz
+bo'lim saytda ko'rinmaydi va Google'ga yuborilmaydi.
 
 ## 3. Sayt matnlari, raqamlar, kontaktlar
 

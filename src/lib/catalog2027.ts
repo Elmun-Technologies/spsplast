@@ -1,5 +1,6 @@
 import { models2027 } from '../data/models2027.ts';
 import {
+  READY_SECTIONS,
   SECTIONS,
   hasAnyImage,
   modelImage,
@@ -19,10 +20,18 @@ export * from './catalogCore.ts';
  * Tartib: "ko'p so'raladigan" (manba tartibi), lekin rasmli modellar oldinda —
  * katalog va bosh sahifa rasmsiz kartochka bilan boshlanmasin (UI audit P0-1/P0-2).
  */
-const models = (models2027 as unknown as Model[])
+const all = (models2027 as unknown as Model[])
   .map((m, i) => ({ m, i, img: hasAnyImage(m) ? 0 : 1 }))
   .sort((a, b) => a.img - b.img || a.i - b.i)
   .map((x) => x.m);
+
+/**
+ * Ikki yo'nalish (2026-11-23): qoliplar va tayyor mahsulotlar bitta jadvaldan keladi, bo'lim turi bilan ajratiladi.
+ * Quyidagi `getModels`/`getPopular`/hisoblagichlar — faqat QOLIPLAR (eski API o'zgarmaydi); tayyor mahsulotlar —
+ * `getReady*`. `getModelBySlug` ikkalasini ham topadi: zayafka ro'yxati va Telegram xabari aralash bo'lishi mumkin.
+ */
+const models = all.filter((m) => SECTIONS.includes(m.section));
+const ready = all.filter((m) => READY_SECTIONS.includes(m.section));
 
 export function getModels(): Model[] {
   return models;
@@ -52,7 +61,43 @@ export function getModelsBySection(section: Section): Model[] {
 }
 
 export function getModelBySlug(slug: string): Model | undefined {
+  return all.find((m) => m.slug === slug);
+}
+
+/** Qolip (tayyor mahsulot emas) — qolip sahifalari va statik parametrlar uchun. */
+export function getMoldBySlug(slug: string): Model | undefined {
   return models.find((m) => m.slug === slug);
+}
+
+/* --- Tayyor mahsulotlar (/ready) ------------------------------------------------- */
+
+export function getReadyModels(): Model[] {
+  return ready;
+}
+
+export function getReadyBySection(section: Section): Model[] {
+  return ready.filter((m) => m.section === section);
+}
+
+export function getReadyBySlug(slug: string): Model | undefined {
+  return ready.find((m) => m.slug === slug);
+}
+
+/** Saytda ko'rinadigan tayyor mahsulot bo'limlari: kamida bitta rasmli mahsuloti borlari. */
+export function getActiveReadySections(): Section[] {
+  return READY_SECTIONS.filter((x) => ready.some((m) => m.section === x && hasAnyImage(m)));
+}
+
+export function getReadyCounts(): Record<Section, number> {
+  const counts: Record<Section, number> = Object.fromEntries(READY_SECTIONS.map((x) => [x, 0]));
+  for (const m of ready) counts[m.section] = (counts[m.section] ?? 0) + 1;
+  return counts;
+}
+
+/** Shu bo'limdagi boshqa tayyor mahsulotlar (rasmlilari oldin). */
+export function relatedReady(m: Model, limit = 4): Model[] {
+  const same = ready.filter((x) => x.slug !== m.slug && x.section === m.section);
+  return [...same.filter((x) => modelImage(x)), ...same.filter((x) => !modelImage(x))].slice(0, limit);
 }
 
 /* --- Sahifalar uchun yordamchilar (bosqich 3) -------------------------------- */
@@ -68,7 +113,7 @@ export function getPopular(limit = 12): Model[] {
  * ishlatilmaydi (UI audit P0-4).
  */
 export function sectionCoverImage(section: Section): { src: string; fit: 'cover' | 'contain' } {
-  const inSection = models.filter((m) => m.section === section);
+  const inSection = all.filter((m) => m.section === section);
   const scene = inSection.find((m) => m.images.scene || m.images.sceneSm);
   if (scene) return { src: (scene.images.scene || scene.images.sceneSm) as string, fit: 'cover' };
   const cut = inSection.find((m) => m.images.molds.A || m.images.tiles.A);

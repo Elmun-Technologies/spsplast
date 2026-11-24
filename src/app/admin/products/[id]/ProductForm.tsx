@@ -6,7 +6,7 @@ import { saveProductAction, uploadImageAction, type ProductFormState } from '../
 import { shrinkForUpload } from './shrinkImage';
 import { PRODUCT_STATUS_LABEL } from '../labels';
 
-type Section = { key: string; name: LocalizedText };
+type Section = { key: string; name: LocalizedText; kind: 'molds' | 'ready' };
 
 export type ProductDraft = {
   status: ProductStatus;
@@ -261,10 +261,16 @@ export function ProductForm({
                 <span>Bo'lim *</span>
                 <select className="sps-select" aria-label="Bo'lim" value={p.section} onChange={(e) => set('section', e.target.value)} required>
                   <option value="">— tanlang —</option>
-                  {sections.map((s) => (
-                    <option key={s.key} value={s.key}>
-                      {s.name.uz}
-                    </option>
+                  {(['molds', 'ready'] as const).map((kind) => (
+                    <optgroup key={kind} label={kind === 'ready' ? 'Tayyor mahsulotlar' : 'Qoliplar'}>
+                      {sections
+                        .filter((s) => s.kind === kind)
+                        .map((s) => (
+                          <option key={s.key} value={s.key}>
+                            {s.name.uz}
+                          </option>
+                        ))}
+                    </optgroup>
                   ))}
                 </select>
               </label>

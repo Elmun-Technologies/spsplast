@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { isValidLocale, locales, type Locale } from '@/lib/i18n';
+import { isValidLocale, locales, pluralCategory, type Locale } from '@/lib/i18n';
 import { getUi, pluralModels } from '@/lib/ui';
 import { getPages } from '@/lib/pages';
 import { CONTACTS_2027 } from '@/lib/contacts2027';
@@ -9,6 +9,7 @@ import {
   calcWeight,
   getActiveSections,
   getModelBySlug,
+  getReadyModels,
   getPopular,
   getSectionCounts,
   getTotalCount,
@@ -119,6 +120,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
     })
     .filter((x): x is string => Boolean(x));
 
+  const readyCount = getReadyModels().length;
   const panels = [
     {
       key: 'molds',
@@ -144,7 +146,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       cover: sectionCoverImage('fasad'),
       molds: null,
       ready: readyShots.length ? readyShots : null,
-      meta: '',
+      meta: readyCount ? `${readyCount} ${pluralCategory(lang, readyCount, p.ready.productForms)}` : '',
     },
   ];
 

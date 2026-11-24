@@ -57,7 +57,7 @@ const SWATCHES = [
   ['#a64b3c', 'Красный'],
   ['#d2ae5f', 'Жёлтый'],
   ['#7b5640', 'Коричневый'],
-  ['#47474b', 'Графит'],
+  ['#5b5c61', 'Графит'],
 ];
 const PANEL =
   '<div id="b" class="bd" hidden><div class="bv" role="img" aria-label="3D: уложите плитку сами">' +

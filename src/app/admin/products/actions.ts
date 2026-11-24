@@ -134,6 +134,7 @@ export async function saveSectionAction(_prev: ProductFormState, fd: FormData): 
       name: { uz: s('name_uz') || null, ru: s('name_ru') || null, en: s('name_en') || null },
       sort: Number(s('sort')) || 0,
       visible: fd.get('visible') === 'on',
+      kind: s('kind') === 'ready' ? 'ready' : 'molds',
     },
     fd.get('isNew') === '1',
   );

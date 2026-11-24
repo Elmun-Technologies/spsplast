@@ -11,6 +11,7 @@ import {
   text,
   timestamp,
   primaryKey,
+  unique,
 } from 'drizzle-orm/pg-core';
 
 /**
@@ -207,16 +208,25 @@ export type LocalizedText = { uz: string | null; ru: string | null; en: string |
 export const PRODUCT_STATUSES = ['published', 'draft', 'archived'] as const;
 export type ProductStatus = (typeof PRODUCT_STATUSES)[number];
 
-export const catalogSections = pgTable('catalog_sections', {
-  /** Ichki kalit (trotuar, fasad, termopanel …) — mahsulot shu bilan bog'lanadi. */
-  key: text('key').primaryKey(),
-  /** URL: /{lang}/catalog/{slug} */
-  slug: text('slug').notNull().unique(),
-  name: jsonb('name').$type<LocalizedText>().notNull(),
-  sort: integer('sort').notNull().default(0),
-  visible: boolean('visible').notNull().default(true),
-  updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
-});
+/** Sayt ikki yo'nalishdan iborat (qaror 2026-11-17): qoliplar (`/catalog`) va tayyor mahsulotlar (`/ready`). */
+export const SECTION_KINDS = ['molds', 'ready'] as const;
+export type SectionKind = (typeof SECTION_KINDS)[number];
+
+export const catalogSections = pgTable(
+  'catalog_sections',
+  {
+    /** Ichki kalit (trotuar, fasad, tayyor_fasad …) — mahsulot shu bilan bog'lanadi. */
+    key: text('key').primaryKey(),
+    /** URL: qoliplar — /{lang}/catalog/{slug}, tayyor mahsulotlar — /{lang}/ready/{slug}. Yo'nalish ichida unikal. */
+    slug: text('slug').notNull(),
+    name: jsonb('name').$type<LocalizedText>().notNull(),
+    sort: integer('sort').notNull().default(0),
+    visible: boolean('visible').notNull().default(true),
+    kind: text('kind', { enum: SECTION_KINDS }).notNull().default('molds'),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [unique('catalog_sections_kind_slug_unique').on(t.kind, t.slug)],
+);
 
 export type ProductMold = { l: string; size: string | null; depth: string | null; g: number | null };
 export type ProductTile = { l: string; size: string | null; per: string | null };
@@ -293,6 +303,17 @@ export const publishes = pgTable('publishes', {
   status: text('status').notNull(),
   message: text('message'),
   createdAt: createdAt(),
+});
+
+/**
+ * `scripts/catalog-add-*.json` fayllari bazaga qachon qo'llangani (2026-11-24). Deploy'da
+ * (`db:migrate:deploy`) yangi yoki o'zgargan fayl bir marta qo'llanadi — terminalda `catalog:sync` shart emas.
+ */
+export const catalogSyncLog = pgTable('catalog_sync_log', {
+  file: text('file').primaryKey(),
+  sha: text('sha').notNull(),
+  result: text('result'),
+  appliedAt: createdAt(),
 });
 
 // --- SEO, matnlar (CMS) va hisobot ulanishlari (2028): admin → "Nashr qilish" bilan saytga ---

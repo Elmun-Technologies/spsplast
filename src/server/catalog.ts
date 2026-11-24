@@ -5,6 +5,8 @@ import {
   products,
   redirects,
   PRODUCT_STATUSES,
+  SECTION_KINDS,
+  type SectionKind,
   type LocalizedText,
   type ProductImages,
   type ProductMold,
@@ -21,13 +23,25 @@ import {
 export const EMPTY_IMAGES: ProductImages = { scene: null, sceneSm: null, molds: {}, tiles: {} };
 
 export const DEFAULT_SECTIONS = [
-  { key: 'trotuar', slug: 'paving', name: { uz: 'Trotuar plitkasi', ru: 'Тротуарная плитка', en: 'Paving tiles' }, sort: 10 },
-  { key: 'fasad', slug: 'facade', name: { uz: 'Fasad plitkasi', ru: 'Фасадная плитка', en: 'Facade tiles' }, sort: 20 },
-  { key: 'termopanel', slug: 'thermal-panels', name: { uz: 'Fasad termopanellari', ru: 'Фасадные термопанели', en: 'Facade thermal panels' }, sort: 30 },
-  { key: 'fasad_dekor', slug: 'facade-decor', name: { uz: 'Fasad dekor elementlari', ru: 'Фасадный декор', en: 'Facade decor elements' }, sort: 40 },
-  { key: 'zabor', slug: 'fence', name: { uz: 'Zabor panellari', ru: 'Заборные панели', en: 'Fence panels' }, sort: 50 },
-  { key: 'dekor', slug: 'decor', name: { uz: 'Dekor panellar', ru: 'Декор-панели', en: 'Decor panels' }, sort: 60 },
-  { key: 'skameyka', slug: 'bench', name: { uz: 'Skameyka oyoqlari', ru: 'Ножки скамеек', en: 'Bench legs' }, sort: 70 },
+  { key: 'trotuar', slug: 'paving', name: { uz: 'Trotuar plitkasi', ru: 'Тротуарная плитка', en: 'Paving tiles' }, sort: 10, kind: 'molds' as const },
+  { key: 'fasad', slug: 'facade', name: { uz: 'Fasad plitkasi', ru: 'Фасадная плитка', en: 'Facade tiles' }, sort: 20, kind: 'molds' as const },
+  { key: 'termopanel', slug: 'thermal-panels', name: { uz: 'Fasad termopanellari', ru: 'Фасадные термопанели', en: 'Facade thermal panels' }, sort: 30, kind: 'molds' as const },
+  { key: 'fasad_dekor', slug: 'facade-decor', name: { uz: 'Fasad dekor elementlari', ru: 'Фасадный декор', en: 'Facade decor elements' }, sort: 40, kind: 'molds' as const },
+  { key: 'zabor', slug: 'fence', name: { uz: 'Zabor panellari', ru: 'Заборные панели', en: 'Fence panels' }, sort: 50, kind: 'molds' as const },
+  { key: 'dekor', slug: 'decor', name: { uz: 'Dekor panellar', ru: 'Декор-панели', en: 'Decor panels' }, sort: 60, kind: 'molds' as const },
+  { key: 'skameyka', slug: 'bench', name: { uz: 'Skameyka oyoqlari', ru: 'Ножки скамеек', en: 'Bench legs' }, sort: 70, kind: 'molds' as const },
+  // Tayyor mahsulotlar (/ready) — migratsiya 0004 ham shularni qo'shadi; bo'sh bo'lim saytda ko'rinmaydi.
+  { key: 'tayyor_termopanel', slug: 'thermal-panels', name: { uz: 'Termopanellar', ru: 'Термопанели', en: 'Thermal panels' }, sort: 110, kind: 'ready' as const },
+  { key: 'tayyor_bilayn', slug: 'beeline-panels', name: { uz: 'Bilayn panellari', ru: 'Панели «Билайн»', en: 'Beeline panels' }, sort: 120, kind: 'ready' as const },
+  { key: 'tayyor_dekor', slug: 'decor-panels', name: { uz: 'Dekorativ panellar', ru: 'Декоративные панели', en: 'Decorative panels' }, sort: 130, kind: 'ready' as const },
+  { key: 'tayyor_karniz', slug: 'cornices', name: { uz: 'Karnizlar', ru: 'Карнизы', en: 'Cornices' }, sort: 140, kind: 'ready' as const },
+  { key: 'tayyor_tyaga', slug: 'mouldings', name: { uz: 'Tyagalar', ru: 'Тяги', en: 'Mouldings' }, sort: 150, kind: 'ready' as const },
+  { key: 'tayyor_pilyastra', slug: 'pilasters', name: { uz: 'Pilyastra va nalichniklar', ru: 'Пилястры и наличники', en: 'Pilasters and window trims' }, sort: 160, kind: 'ready' as const },
+  { key: 'tayyor_kapitel', slug: 'capitals', name: { uz: 'Kapitel va bazalar', ru: 'Капители и базы', en: 'Capitals and bases' }, sort: 170, kind: 'ready' as const },
+  { key: 'tayyor_tsokol', slug: 'plinth', name: { uz: 'Sokol elementlari', ru: 'Цоколь', en: 'Plinth elements' }, sort: 180, kind: 'ready' as const },
+  { key: 'tayyor_tosh', slug: 'facade-stone', name: { uz: 'Fasad toshi', ru: 'Фасадный камень', en: 'Facade stone' }, sort: 190, kind: 'ready' as const },
+  { key: 'tayyor_skameyka', slug: 'benches', name: { uz: 'Beton skameykalar', ru: 'Бетонные скамейки', en: 'Concrete benches' }, sort: 200, kind: 'ready' as const },
+  { key: 'tayyor_zabor', slug: 'euro-fence', name: { uz: 'Yevrozaborlar', ru: 'Еврозаборы', en: 'Euro fences' }, sort: 210, kind: 'ready' as const },
 ];
 
 export const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -69,18 +83,35 @@ export async function listSections(db: Db) {
 
 export async function saveSection(
   db: Db,
-  input: { key: string; slug: string; name: LocalizedText; sort: number; visible: boolean },
+  input: { key: string; slug: string; name: LocalizedText; sort: number; visible: boolean; kind?: SectionKind },
   isNew: boolean,
 ): Promise<string | null> {
   if (!/^[a-z][a-z0-9_]{1,30}$/.test(input.key)) return "Kalit: lotin kichik harflar, raqam, '_' (masalan termopanel).";
   if (!SLUG_RE.test(input.slug)) return "URL slug: lotin kichik harflar, raqam va '-' (masalan thermal-panels).";
   if (!input.name.uz?.trim()) return "O'zbekcha nom majburiy.";
-  const values = { slug: input.slug, name: input.name, sort: input.sort, visible: input.visible, updatedAt: new Date() };
+  if (input.kind !== undefined && !(SECTION_KINDS as readonly string[]).includes(input.kind)) return "Yo'nalish: qoliplar yoki tayyor mahsulot.";
+  // `kind` berilmasa: yangi bo'lim — qoliplar (standart), mavjud bo'lim — o'zgarmaydi.
+  const values = {
+    slug: input.slug,
+    name: input.name,
+    sort: input.sort,
+    visible: input.visible,
+    ...(input.kind ? { kind: input.kind } : {}),
+    updatedAt: new Date(),
+  };
+  if (!isNew && input.kind) {
+    // Mahsulotli bo'limning yo'nalishi o'zgarsa, nashrdagi URL'lar /catalog ↔ /ready ko'chadi — buni jim qilmaymiz.
+    const [cur] = await db.select({ kind: catalogSections.kind }).from(catalogSections).where(eq(catalogSections.key, input.key)).limit(1);
+    if (cur && cur.kind !== input.kind) {
+      const [{ n }] = await db.select({ n: count() }).from(products).where(eq(products.section, input.key));
+      if (n > 0) return `Bo'limda ${n} ta mahsulot bor — yo'nalishini o'zgartirib bo'lmaydi (yangi bo'lim oching va mahsulotlarni ko'chiring).`;
+    }
+  }
   try {
     if (isNew) await db.insert(catalogSections).values({ key: input.key, ...values });
     else await db.update(catalogSections).set(values).where(eq(catalogSections.key, input.key));
   } catch (error) {
-    if (isUnique(error)) return 'Bu kalit yoki slug band.';
+    if (isUnique(error)) return "Bu kalit yoki shu yo'nalishda bu slug band.";
     throw error;
   }
   return null;
@@ -211,16 +242,20 @@ export async function redirectMovedProduct(
   from: { slug: string; section: string },
   to: { slug: string; section: string },
 ): Promise<number> {
-  const secs = await db.select({ key: catalogSections.key, slug: catalogSections.slug }).from(catalogSections);
-  const secSlug = (key: string) => secs.find((s) => s.key === key)?.slug;
-  const fromSec = secSlug(from.section);
-  const toSec = secSlug(to.section);
+  const secs = await db.select({ key: catalogSections.key, slug: catalogSections.slug, kind: catalogSections.kind }).from(catalogSections);
+  // Qoliplar — /catalog/<bo'lim>, tayyor mahsulotlar — /ready/<bo'lim>.
+  const secPath = (key: string) => {
+    const x = secs.find((s) => s.key === key);
+    return x ? `${x.kind === 'ready' ? 'ready' : 'catalog'}/${x.slug}` : undefined;
+  };
+  const fromSec = secPath(from.section);
+  const toSec = secPath(to.section);
   if (!fromSec || !toSec) return 0;
   const now = new Date();
   let n = 0;
   for (const lang of ['uz', 'ru', 'en']) {
-    const source = `/${lang}/catalog/${fromSec}/${from.slug}`;
-    const destination = `/${lang}/catalog/${toSec}/${to.slug}`;
+    const source = `/${lang}/${fromSec}/${from.slug}`;
+    const destination = `/${lang}/${toSec}/${to.slug}`;
     if (source === destination) continue;
     await db.delete(redirects).where(eq(redirects.source, destination));
     await db.update(redirects).set({ destination, updatedAt: now }).where(eq(redirects.destination, source));

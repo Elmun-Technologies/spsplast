@@ -20,6 +20,8 @@ export function HeaderClient({
   lang,
   sections,
   total,
+  readySections = [],
+  readyTotal = 0,
   nav,
   pdfHref,
   t,
@@ -30,6 +32,9 @@ export function HeaderClient({
   sections: NavItem[];
   /** Katalogdagi barcha modellar (yashirin bo'limlar ham) — sarlavhadagi "119 model" bilan bir xil. */
   total: number;
+  /** Tayyor mahsulot bo'limlari (/ready da shu tablar ko'rinadi, qolip bo'limlari emas). */
+  readySections?: NavItem[];
+  readyTotal?: number;
   nav: NavItem[];
   pdfHref: string;
 }) {
@@ -78,16 +83,23 @@ export function HeaderClient({
   const catalogHref = `/${lang}/catalog`;
   // "Katalog" tabi faqat umumiy katalogda faol; bo'lim sahifasida bo'lim tabi faol.
   const catalogActive = pathname === catalogHref;
-  // Bosh sahifa (tanlov ekrani) va /ready da qolip bo'limlari/qidiruvi ko'rsatilmaydi — bu yerda faqat tanlov va tayyor mahsulot.
-  const forkView = pathname === `/${lang}` || pathname === `/${lang}/ready` || pathname.startsWith(`/${lang}/ready/`);
+  // Bosh sahifa (tanlov ekrani) — tablar yo'q. /ready da qolip emas, tayyor mahsulot bo'limlari tab bo'ladi (2026-11-23).
+  const readyHref = `/${lang}/ready`;
+  const readyView = pathname === readyHref || pathname.startsWith(`${readyHref}/`);
+  const forkView = pathname === `/${lang}` || (readyView && readySections.length === 0);
   // Katalog ro'yxati (umumiy, bo'lim, teg) sahifalarida ro'yxat ustida o'z qidiruvi bor — header qidiruvi takrorlanmaydi.
   const rest = pathname.startsWith(`${catalogHref}/`) ? pathname.slice(catalogHref.length + 1) : null;
   const listView =
     pathname === catalogHref || (rest !== null && rest !== 'flip' && (!rest.includes('/') || rest.includes('/tag/')));
-  const tabs = [
-    { href: catalogHref, label: t.header.catalog, full: t.header.catalog, count: total, active: catalogActive },
-    ...sections.map((s) => ({ href: s.href, label: s.label, full: s.full ?? s.label, count: s.count, active: isActive(pathname, s.match) })),
-  ];
+  const tabs = readyView
+    ? [
+        { href: readyHref, label: t.nav.ready, full: t.nav.ready, count: readyTotal, active: pathname === readyHref },
+        ...readySections.map((s) => ({ href: s.href, label: s.label, full: s.full ?? s.label, count: s.count, active: isActive(pathname, s.match) })),
+      ]
+    : [
+        { href: catalogHref, label: t.header.catalog, full: t.header.catalog, count: total, active: catalogActive },
+        ...sections.map((s) => ({ href: s.href, label: s.label, full: s.full ?? s.label, count: s.count, active: isActive(pathname, s.match) })),
+      ];
 
   return (
     <>
@@ -96,6 +108,8 @@ export function HeaderClient({
         <div className="hd-util">
           <div className="wrap hd-util__in">
             <nav className="hd-util__nav" aria-label={t.a11y.companyNav}>
+              {/* Tayyor mahsulotlarda tablar tayyor bo'limlar — qoliplarga qaytish yo'li shu yerda */}
+              {readyView ? <a href={catalogHref}>{t.nav.molds}</a> : null}
               {nav.map((n) => (
                 <a key={n.href} href={n.href} aria-current={isActive(pathname, n.match) ? 'page' : undefined}>
                   {n.label}
@@ -107,7 +121,7 @@ export function HeaderClient({
                 {CONTACTS_2027.mainPhone}
               </a>
               <span className="hd-util__hours">{t.header.hours}</span>
-              <a className="hd-util__pdf" href={pdfHref}>
+              <a className="hd-util__pdf" href={readyView ? `${pdfHref.split('?')[0]}?c=fasad-mahsulot` : pdfHref}>
                 <Icon.download width={14} height={14} strokeWidth={2} aria-hidden="true" />
                 {t.menu.pdf}
               </a>
@@ -123,7 +137,7 @@ export function HeaderClient({
 
           {!forkView && (
             <>
-          <nav className={`hd-tabs${lang === 'ru' ? ' hd-tabs--ru' : ''}`} aria-label={t.a11y.sectionsNav}>
+          <nav className={`hd-tabs${lang === 'ru' ? ' hd-tabs--ru' : ''}${tabs.length > 10 ? ' hd-tabs--dense' : ''}`} aria-label={t.a11y.sectionsNav}>
             {tabs.map((tab) => (
               <a key={tab.href} href={tab.href} title={tab.full !== tab.label ? tab.full : undefined} aria-current={tab.active ? 'page' : undefined}>
                 {tab.label}
@@ -132,7 +146,7 @@ export function HeaderClient({
             ))}
           </nav>
 
-          {listView ? null : (
+          {listView || readyView ? null : (
             <form className="hd-search" role="search" action={catalogHref} method="GET">
               <Icon.search width={18} height={18} strokeWidth={1.75} aria-hidden="true" />
               <input type="search" name="q" placeholder={t.header.searchPlaceholder} aria-label={t.header.searchLabel} />
@@ -223,11 +237,11 @@ export function HeaderClient({
                     {compare.count}
                   </b>
                 </a>
-                <a href={`/${lang}/ready`}>{t.nav.ready}</a>
+                {readyView ? <a href={catalogHref}>{t.nav.molds}</a> : <a href={`/${lang}/ready`}>{t.nav.ready}</a>}
                 <a href={`/${lang}/partners`}>{t.nav.partners}</a>
                 <a href={`/${lang}/production`}>{t.menu.productionExport}</a>
                 <a href={`/${lang}/contact`}>{t.nav.contact}</a>
-                <a href={pdfHref}>{t.menu.pdf}</a>
+                <a href={readyView ? `${pdfHref.split('?')[0]}?c=fasad-mahsulot` : pdfHref}>{t.menu.pdf}</a>
               </div>
             </nav>
             <div className="mm-foot">

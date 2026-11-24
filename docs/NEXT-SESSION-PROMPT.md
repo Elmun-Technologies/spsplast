@@ -30,12 +30,22 @@ ishonchli (soxta ko'rinmaydigan) holatga yetkazish**.
 3. **Katta generatsiya qilingan fayllarni o'qima**: `src/data/models2027.ts`, `data/*.json`,
    `scripts/redirects-2027.json`, `drizzle/meta/*`, `public/admin-ai/*`, `media-src/*`. Kerak bo'lsa `grep`/`jq` bilan.
 4. Muhitni tekshir: `npm ci && npm test && npm run typecheck && npm run lint` — hammasi yashil bo'lishi kerak
-   (188 test). Yashil bo'lmasa, avval sababini top.
+   (205+ test). Yashil bo'lmasa, avval sababini top.
 
-## 1. Loyiha holati (2026-11-12 holatiga)
+## 1. Loyiha holati (2026-11-23 holatiga)
 
-**Stack:** Next.js 15 (App Router) + React 19 + TypeScript, oddiy CSS (Tailwind taqiqlangan), Onest shrifti
-(self-host), Postgres (Neon/Supabase) + Drizzle ORM faqat `src/server/` orqasida, Vercel.
+**Eng yangi (2026-11-23):**
+- Sayt ikki yo'nalish: **Qoliplar** (`/catalog`, 237 model, 7 bo'lim) va **Tayyor mahsulotlar** (`/ready`, 95 mahsulot,
+  11 bo'lim: 80 fasad elementi + 6 skameyka yon qismi + 9 yevrozabor).
+  Arxitektura: `catalog_sections.kind` (migratsiya 0004), CLAUDE.md → "Tayyor mahsulotlar".
+- Prod katalog bazadan; `scripts/catalog-add-*.json` deploy'da o'zi qo'llanadi (`catalog_sync_log`, migratsiya 0005).
+- Hosting: Hetzner + Coolify, Dockerfile (standalone). Vercel ishlatilmaydi ("Account is blocked" statusi — e'tiborsiz).
+- Topshirish paketi: `docs/topshirish/` (admin qo'llanmasi, checklist, sifat hisoboti, kirishlar ro'yxati).
+- Rasmlar katalog agentining fonsiz manbasidan (ZIP'lar repoda yo'q — ~550 MB): `build_ready_fasad_2027.py <zip papkasi>`
+  va `build_ready_bench_fence_2027.py <zip papkasi>` (slug'lar o'zgarmaydi). Ochiq savollar: `docs/unresolved-questions.md` 1.19.
+
+**Stack:** Next.js 16 (App Router) + React 19 + TypeScript, oddiy CSS (Tailwind taqiqlangan), Onest shrifti
+(self-host), Postgres + Drizzle ORM faqat `src/server/` orqasida, Coolify (Docker standalone).
 
 **Ommaviy sayt** (`src/app/[lang]/*`): statik prerender (~740 sahifa). Bosh sahifa, katalog/bo'lim/model
 (filtr, qidiruv, solishtirish, zayafka ro'yxati, qolip kalkulyatori), ulgurji, ishlab chiqarish, kontakt,

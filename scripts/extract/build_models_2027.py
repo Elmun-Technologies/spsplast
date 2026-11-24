@@ -724,8 +724,39 @@ def _existing_images(im):
     return out
 
 
+def apply_refresh(models, jobs):
+    """`refresh` (scripts/catalog-add-*.json, `"applyStatic": true` bo'lsa) statik katalogga ham: qolip/mahsulot rasmlari
+    katalog agentining fonsiz manbasidan (build_ready_fasad_2027.py). Tirik surat (nomida `-3d` yo'q) ustun — tegilmaydi.
+    Almashtirilgan eski render job'lari olib tashlanadi; eski fayl bazadagi yo'l uchun catalog-keep-*.txt da saqlanadi."""
+    by_slug = {m["slug"]: m for m in models}
+    dropped, n = set(), 0
+    for fn in sorted(os.listdir(os.path.join(ROOT, "scripts"))):
+        if not (fn.startswith("catalog-add-") and fn.endswith(".json")):
+            continue
+        data = json.load(open(os.path.join(ROOT, "scripts", fn), encoding="utf-8"))
+        if not data.get("applyStatic"):
+            continue
+        for slug, new in data.get("refresh", {}).items():
+            m = by_slug.get(slug)
+            if not m:
+                continue
+            im = m["images"]
+            if any(p and not p.endswith("-3d.webp") for p in [*im["molds"].values(), *im["tiles"].values()]):
+                continue
+            old = [im["scene"], im["sceneSm"], *im["molds"].values(), *im["tiles"].values()]
+            paths = [new["scene"], new["sceneSm"], *new["molds"].values(), *new["tiles"].values()]
+            if not all(p and os.path.exists(os.path.join(ROOT, "public", p.lstrip("/"))) for p in paths):
+                continue
+            dropped |= {"public" + p for p in old if p and p not in paths}
+            im["scene"], im["sceneSm"] = new["scene"], new["sceneSm"]
+            im["molds"], im["tiles"] = dict(new["molds"]), dict(new["tiles"])
+            n += 1
+    return [j for j in jobs if j["dst"] not in dropped], n
+
+
 def load_added_models(models, model3d):
-    """Bazaga sync skripti bilan qo'shilgan trotuar modellari (scripts/catalog-add-*.json `add`).
+    """Bazaga sync skripti bilan qo'shilgan mahsulotlar (scripts/catalog-add-*.json `add`): trotuar qoliplari
+    va boshqa bo'limlar, jumladan tayyor mahsulotlar (`section`: tayyor_fasad, tayyor_skameyka …).
 
     Statik katalog ham ularni bilsin: bazasiz build (CI, lokal) prod bilan bir xil bo'ladi, tirik
     suratlar (media-src/live/<3D id yoki slug>-...) va 3D render job'lari ularga ham tushadi.
@@ -744,6 +775,7 @@ def load_added_models(models, model3d):
                 "key": x.get("key") or x["slug"], "code": x.get("code"), "slug": x["slug"],
                 "section": x.get("section", "trotuar"), "name": dict(x["name"]),
                 "subtitle": dict(x.get("subtitle") or {"uz": None, "ru": None, "en": None}),
+                "note": x.get("note"),
                 "kg": x.get("kg"), "molds": x.get("molds", []), "tiles": x.get("tiles", []),
                 "specs": x.get("specs", []), "sizeEstimated": bool(x.get("sizeEstimated")),
                 "images": _existing_images(x.get("images")),
@@ -754,6 +786,13 @@ def load_added_models(models, model3d):
             e = model3d_entry(tid) if tid else None
             if e:
                 model3d[x["slug"]] = e
+    # `moldPer` — bosma qolip katalogidagi "1 m² da" (faqat bo'sh bo'lsa; bazada catalog-sync bilan bir xil qoida).
+    for fn in sorted(os.listdir(os.path.join(ROOT, "scripts"))):
+        if fn.startswith("catalog-add-") and fn.endswith(".json"):
+            per = json.load(open(os.path.join(ROOT, "scripts", fn), encoding="utf-8")).get("moldPer", {})
+            for m in models:
+                if m["slug"] in per and m["tiles"] and not m["tiles"][0].get("per"):
+                    m["tiles"][0]["per"] = per[m["slug"]]
     for slug, tid in EXTRA_3D.items():
         e = model3d_entry(tid)
         if e and slug not in model3d:
@@ -791,6 +830,7 @@ def main():
     jobs = [j for j in jobs if j["dst"] not in live_dst] + live_jobs
 
     stats["render"] = attach_renders(models, jobs, model3d)
+    jobs, stats["refresh"] = apply_refresh(models, jobs)
     for m in models:
         im = m["images"]
         if not (im["scene"] or im["molds"] or im["tiles"]):

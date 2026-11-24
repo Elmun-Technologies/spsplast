@@ -1,0 +1,4903 @@
+{
+ "source": "SPS_sayt_katalog_1_fasad.zip (katalog agenti, 2026-11-23)",
+ "add": [
+  {
+   "slug": "tp-001-30x60-kirpich-tayyor",
+   "key": "tp-001-30x60-kirpich-tayyor",
+   "code": "TP-001",
+   "section": "tayyor_termopanel",
+   "name": {
+    "uz": "30×60 Kirpich",
+    "ru": "30×60 Кирпич",
+    "en": "30×60 Brick"
+   },
+   "subtitle": {
+    "uz": "Termopanel",
+    "ru": "Термопанель",
+    "en": "Thermal panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×600",
+     "per": "5,5",
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast · Bazalt",
+      "ru": "Пенопласт · Базальт",
+      "en": "EPS foam · Basalt"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-tp-001-30x60-kirpich-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-tp-001-30x60-kirpich-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-tp-001-30x60-kirpich-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "tp-003-30x60-beeline-tayyor",
+   "key": "tp-003-30x60-beeline-tayyor",
+   "code": "TP-003",
+   "section": "tayyor_termopanel",
+   "name": {
+    "uz": "30×60 Beeline",
+    "ru": "30×60 Билайн",
+    "en": "30×60 Beeline"
+   },
+   "subtitle": {
+    "uz": "Termopanel",
+    "ru": "Термопанель",
+    "en": "Thermal panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×600",
+     "per": "5,5",
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast · Bazalt",
+      "ru": "Пенопласт · Базальт",
+      "en": "EPS foam · Basalt"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-tp-003-30x60-beeline-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-tp-003-30x60-beeline-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-tp-003-30x60-beeline-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "tp-002-30x60-gladkiy-tayyor",
+   "key": "tp-002-30x60-gladkiy-tayyor",
+   "code": "TP-002",
+   "section": "tayyor_termopanel",
+   "name": {
+    "uz": "30×60 Gladkiy",
+    "ru": "30×60 Гладкий",
+    "en": "30×60 Smooth"
+   },
+   "subtitle": {
+    "uz": "Termopanel",
+    "ru": "Термопанель",
+    "en": "Thermal panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×600",
+     "per": "5,5",
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast · Bazalt",
+      "ru": "Пенопласт · Базальт",
+      "en": "EPS foam · Basalt"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-tp-002-30x60-gladkiy-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-tp-002-30x60-gladkiy-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-tp-002-30x60-gladkiy-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "tp-004-30x60-kuba-tayyor",
+   "key": "tp-004-30x60-kuba-tayyor",
+   "code": "TP-004",
+   "section": "tayyor_termopanel",
+   "name": {
+    "uz": "30×60 Kuba",
+    "ru": "30×60 Куба",
+    "en": "30×60 Cuba"
+   },
+   "subtitle": {
+    "uz": "Termopanel",
+    "ru": "Термопанель",
+    "en": "Thermal panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×600",
+     "per": "5,5",
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast · Bazalt",
+      "ru": "Пенопласт · Базальт",
+      "en": "EPS foam · Basalt"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-tp-004-30x60-kuba-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-tp-004-30x60-kuba-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-tp-004-30x60-kuba-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "tp-005-25x50-pryamaya-tayyor",
+   "key": "tp-005-25x50-pryamaya-tayyor",
+   "code": "TP-005",
+   "section": "tayyor_termopanel",
+   "name": {
+    "uz": "25×50 Pryamaya",
+    "ru": "25×50 Прямая",
+    "en": "25×50 Straight"
+   },
+   "subtitle": {
+    "uz": "Termopanel",
+    "ru": "Термопанель",
+    "en": "Thermal panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "250×500",
+     "per": "8",
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast · Bazalt",
+      "ru": "Пенопласт · Базальт",
+      "en": "EPS foam · Basalt"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-tp-005-25x50-pryamaya-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-tp-005-25x50-pryamaya-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-tp-005-25x50-pryamaya-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "tp-007-25x50-kirpich-tayyor",
+   "key": "tp-007-25x50-kirpich-tayyor",
+   "code": "TP-007",
+   "section": "tayyor_termopanel",
+   "name": {
+    "uz": "25×50 Kirpich",
+    "ru": "25×50 Кирпич",
+    "en": "25×50 Brick"
+   },
+   "subtitle": {
+    "uz": "Termopanel",
+    "ru": "Термопанель",
+    "en": "Thermal panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "250×500",
+     "per": "8",
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast · Bazalt",
+      "ru": "Пенопласт · Базальт",
+      "en": "EPS foam · Basalt"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-tp-007-25x50-kirpich-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-tp-007-25x50-kirpich-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-tp-007-25x50-kirpich-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "tp-006-25x50-kruglaya-tayyor",
+   "key": "tp-006-25x50-kruglaya-tayyor",
+   "code": "TP-006",
+   "section": "tayyor_termopanel",
+   "name": {
+    "uz": "25×50 Kruglaya",
+    "ru": "25×50 Круглая",
+    "en": "25×50 Round"
+   },
+   "subtitle": {
+    "uz": "Termopanel",
+    "ru": "Термопанель",
+    "en": "Thermal panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "250×500",
+     "per": "8",
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast · Bazalt",
+      "ru": "Пенопласт · Базальт",
+      "en": "EPS foam · Basalt"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-tp-006-25x50-kruglaya-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-tp-006-25x50-kruglaya-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-tp-006-25x50-kruglaya-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "tp-008-25x50-3d-tayyor",
+   "key": "tp-008-25x50-3d-tayyor",
+   "code": "TP-008",
+   "section": "tayyor_termopanel",
+   "name": {
+    "uz": "25×50 3D",
+    "ru": "25×50 3D",
+    "en": "25×50 3D"
+   },
+   "subtitle": {
+    "uz": "Termopanel",
+    "ru": "Термопанель",
+    "en": "Thermal panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "250×500",
+     "per": "8",
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast · Bazalt",
+      "ru": "Пенопласт · Базальт",
+      "en": "EPS foam · Basalt"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-tp-008-25x50-3d-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-tp-008-25x50-3d-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-tp-008-25x50-3d-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "tp-009-25x50-brilliant-tayyor",
+   "key": "tp-009-25x50-brilliant-tayyor",
+   "code": "TP-009",
+   "section": "tayyor_termopanel",
+   "name": {
+    "uz": "25×50 Brilliant",
+    "ru": "25×50 Бриллиант",
+    "en": "25×50 Brilliant"
+   },
+   "subtitle": {
+    "uz": "Termopanel",
+    "ru": "Термопанель",
+    "en": "Thermal panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "250×500",
+     "per": "8",
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast · Bazalt",
+      "ru": "Пенопласт · Базальт",
+      "en": "EPS foam · Basalt"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-tp-009-25x50-brilliant-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-tp-009-25x50-brilliant-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-tp-009-25x50-brilliant-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "tp-011-20x40-pryamaya-tayyor",
+   "key": "tp-011-20x40-pryamaya-tayyor",
+   "code": "TP-011",
+   "section": "tayyor_termopanel",
+   "name": {
+    "uz": "20×40 Pryamaya",
+    "ru": "20×40 Прямая",
+    "en": "20×40 Straight"
+   },
+   "subtitle": {
+    "uz": "Termopanel",
+    "ru": "Термопанель",
+    "en": "Thermal panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "200×400",
+     "per": "12,5",
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast · Bazalt",
+      "ru": "Пенопласт · Базальт",
+      "en": "EPS foam · Basalt"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-tp-011-20x40-pryamaya-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-tp-011-20x40-pryamaya-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-tp-011-20x40-pryamaya-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "tp-010-25x50-beeline-tayyor",
+   "key": "tp-010-25x50-beeline-tayyor",
+   "code": "TP-010",
+   "section": "tayyor_termopanel",
+   "name": {
+    "uz": "25×50 Beeline",
+    "ru": "25×50 Билайн",
+    "en": "25×50 Beeline"
+   },
+   "subtitle": {
+    "uz": "Termopanel",
+    "ru": "Термопанель",
+    "en": "Thermal panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "250×500",
+     "per": "8",
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast · Bazalt",
+      "ru": "Пенопласт · Базальт",
+      "en": "EPS foam · Basalt"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-tp-010-25x50-beeline-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-tp-010-25x50-beeline-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-tp-010-25x50-beeline-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "tp-012-25x50-labirint-tayyor",
+   "key": "tp-012-25x50-labirint-tayyor",
+   "code": "TP-012",
+   "section": "tayyor_termopanel",
+   "name": {
+    "uz": "25×50 Labirint",
+    "ru": "25×50 Лабиринт",
+    "en": "25×50 Labyrinth"
+   },
+   "subtitle": {
+    "uz": "Termopanel",
+    "ru": "Термопанель",
+    "en": "Thermal panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "250×500",
+     "per": "8",
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast · Bazalt",
+      "ru": "Пенопласт · Базальт",
+      "en": "EPS foam · Basalt"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-tp-012-25x50-labirint-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-tp-012-25x50-labirint-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-tp-012-25x50-labirint-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "bp-001-120x40-beeline-1-tayyor",
+   "key": "bp-001-120x40-beeline-1-tayyor",
+   "code": "BP-001",
+   "section": "tayyor_bilayn",
+   "name": {
+    "uz": "120×40 Beeline 1",
+    "ru": "120×40 Билайн 1",
+    "en": "120×40 Beeline 1"
+   },
+   "subtitle": {
+    "uz": "Beeline panel",
+    "ru": "Панель «Билайн»",
+    "en": "Beeline panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-bp-001-120x40-beeline-1-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-bp-001-120x40-beeline-1-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-bp-001-120x40-beeline-1-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "bp-003-120x40-beeline-3-tayyor",
+   "key": "bp-003-120x40-beeline-3-tayyor",
+   "code": "BP-003",
+   "section": "tayyor_bilayn",
+   "name": {
+    "uz": "120×40 Beeline 3",
+    "ru": "120×40 Билайн 3",
+    "en": "120×40 Beeline 3"
+   },
+   "subtitle": {
+    "uz": "Beeline panel",
+    "ru": "Панель «Билайн»",
+    "en": "Beeline panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-bp-003-120x40-beeline-3-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-bp-003-120x40-beeline-3-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-bp-003-120x40-beeline-3-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "bp-002-120x40-beeline-2-tayyor",
+   "key": "bp-002-120x40-beeline-2-tayyor",
+   "code": "BP-002",
+   "section": "tayyor_bilayn",
+   "name": {
+    "uz": "120×40 Beeline 2",
+    "ru": "120×40 Билайн 2",
+    "en": "120×40 Beeline 2"
+   },
+   "subtitle": {
+    "uz": "Beeline panel",
+    "ru": "Панель «Билайн»",
+    "en": "Beeline panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-bp-002-120x40-beeline-2-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-bp-002-120x40-beeline-2-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-bp-002-120x40-beeline-2-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "bp-004-120x40-beeline-4-tayyor",
+   "key": "bp-004-120x40-beeline-4-tayyor",
+   "code": "BP-004",
+   "section": "tayyor_bilayn",
+   "name": {
+    "uz": "120×40 Beeline 4",
+    "ru": "120×40 Билайн 4",
+    "en": "120×40 Beeline 4"
+   },
+   "subtitle": {
+    "uz": "Beeline panel",
+    "ru": "Панель «Билайн»",
+    "en": "Beeline panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-bp-004-120x40-beeline-4-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-bp-004-120x40-beeline-4-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-bp-004-120x40-beeline-4-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "bp-005-30x120-beeline-tayyor",
+   "key": "bp-005-30x120-beeline-tayyor",
+   "code": "BP-005",
+   "section": "tayyor_bilayn",
+   "name": {
+    "uz": "30×120 Beeline",
+    "ru": "30×120 Билайн",
+    "en": "30×120 Beeline"
+   },
+   "subtitle": {
+    "uz": "Beeline panel",
+    "ru": "Панель «Билайн»",
+    "en": "Beeline panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-bp-005-30x120-beeline-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-bp-005-30x120-beeline-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-bp-005-30x120-beeline-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "fsd-001-120x40-dekor-1-tayyor",
+   "key": "fsd-001-120x40-dekor-1-tayyor",
+   "code": "FSD-001",
+   "section": "tayyor_dekor",
+   "name": {
+    "uz": "120×40 Dekor 1",
+    "ru": "120×40 Декор 1",
+    "en": "120×40 Decor 1"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-fsd-001-120x40-dekor-1-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-fsd-001-120x40-dekor-1-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-fsd-001-120x40-dekor-1-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "fsd-003-120x40-dekor-3-tayyor",
+   "key": "fsd-003-120x40-dekor-3-tayyor",
+   "code": "FSD-003",
+   "section": "tayyor_dekor",
+   "name": {
+    "uz": "120×40 Dekor 3",
+    "ru": "120×40 Декор 3",
+    "en": "120×40 Decor 3"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-fsd-003-120x40-dekor-3-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-fsd-003-120x40-dekor-3-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-fsd-003-120x40-dekor-3-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "fsd-002-120x40-dekor-2-tayyor",
+   "key": "fsd-002-120x40-dekor-2-tayyor",
+   "code": "FSD-002",
+   "section": "tayyor_dekor",
+   "name": {
+    "uz": "120×40 Dekor 2",
+    "ru": "120×40 Декор 2",
+    "en": "120×40 Decor 2"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-fsd-002-120x40-dekor-2-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-fsd-002-120x40-dekor-2-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-fsd-002-120x40-dekor-2-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "fsd-004-120x40-dekor-4-tayyor",
+   "key": "fsd-004-120x40-dekor-4-tayyor",
+   "code": "FSD-004",
+   "section": "tayyor_dekor",
+   "name": {
+    "uz": "120×40 Dekor 4",
+    "ru": "120×40 Декор 4",
+    "en": "120×40 Decor 4"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-fsd-004-120x40-dekor-4-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-fsd-004-120x40-dekor-4-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-fsd-004-120x40-dekor-4-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "fsd-005-120x40-dekor-5-tayyor",
+   "key": "fsd-005-120x40-dekor-5-tayyor",
+   "code": "FSD-005",
+   "section": "tayyor_dekor",
+   "name": {
+    "uz": "120×40 Dekor 5",
+    "ru": "120×40 Декор 5",
+    "en": "120×40 Decor 5"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-fsd-005-120x40-dekor-5-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-fsd-005-120x40-dekor-5-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-fsd-005-120x40-dekor-5-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "fsd-007-120x40-dekor-7-tayyor",
+   "key": "fsd-007-120x40-dekor-7-tayyor",
+   "code": "FSD-007",
+   "section": "tayyor_dekor",
+   "name": {
+    "uz": "120×40 Dekor 7",
+    "ru": "120×40 Декор 7",
+    "en": "120×40 Decor 7"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-fsd-007-120x40-dekor-7-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-fsd-007-120x40-dekor-7-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-fsd-007-120x40-dekor-7-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "fsd-006-120x40-dekor-6-tayyor",
+   "key": "fsd-006-120x40-dekor-6-tayyor",
+   "code": "FSD-006",
+   "section": "tayyor_dekor",
+   "name": {
+    "uz": "120×40 Dekor 6",
+    "ru": "120×40 Декор 6",
+    "en": "120×40 Decor 6"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-fsd-006-120x40-dekor-6-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-fsd-006-120x40-dekor-6-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-fsd-006-120x40-dekor-6-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "fsd-008-120x40-dekor-8-tayyor",
+   "key": "fsd-008-120x40-dekor-8-tayyor",
+   "code": "FSD-008",
+   "section": "tayyor_dekor",
+   "name": {
+    "uz": "120×40 Dekor 8",
+    "ru": "120×40 Декор 8",
+    "en": "120×40 Decor 8"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-fsd-008-120x40-dekor-8-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-fsd-008-120x40-dekor-8-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-fsd-008-120x40-dekor-8-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "fsd-009-100x50-dekor-1-tayyor",
+   "key": "fsd-009-100x50-dekor-1-tayyor",
+   "code": "FSD-009",
+   "section": "tayyor_dekor",
+   "name": {
+    "uz": "100×50 Dekor 1",
+    "ru": "100×50 Декор 1",
+    "en": "100×50 Decor 1"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×1000",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-fsd-009-100x50-dekor-1-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-fsd-009-100x50-dekor-1-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-fsd-009-100x50-dekor-1-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "fsd-011-100x50-dekor-3-tayyor",
+   "key": "fsd-011-100x50-dekor-3-tayyor",
+   "code": "FSD-011",
+   "section": "tayyor_dekor",
+   "name": {
+    "uz": "100×50 Dekor 3",
+    "ru": "100×50 Декор 3",
+    "en": "100×50 Decor 3"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×1000",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-fsd-011-100x50-dekor-3-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-fsd-011-100x50-dekor-3-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-fsd-011-100x50-dekor-3-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "fsd-010-100x50-dekor-2-tayyor",
+   "key": "fsd-010-100x50-dekor-2-tayyor",
+   "code": "FSD-010",
+   "section": "tayyor_dekor",
+   "name": {
+    "uz": "100×50 Dekor 2",
+    "ru": "100×50 Декор 2",
+    "en": "100×50 Decor 2"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×1000",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-fsd-010-100x50-dekor-2-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-fsd-010-100x50-dekor-2-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-fsd-010-100x50-dekor-2-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "fsd-012-80x40-dekor-1-tayyor",
+   "key": "fsd-012-80x40-dekor-1-tayyor",
+   "code": "FSD-012",
+   "section": "tayyor_dekor",
+   "name": {
+    "uz": "80×40 Dekor 1",
+    "ru": "80×40 Декор 1",
+    "en": "80×40 Decor 1"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×800",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-fsd-012-80x40-dekor-1-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-fsd-012-80x40-dekor-1-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-fsd-012-80x40-dekor-1-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "fsd-013-80x40-dekor-2-tayyor",
+   "key": "fsd-013-80x40-dekor-2-tayyor",
+   "code": "FSD-013",
+   "section": "tayyor_dekor",
+   "name": {
+    "uz": "80×40 Dekor 2",
+    "ru": "80×40 Декор 2",
+    "en": "80×40 Decor 2"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×800",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-fsd-013-80x40-dekor-2-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-fsd-013-80x40-dekor-2-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-fsd-013-80x40-dekor-2-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "fsd-015-50x50-dekor-1-tayyor",
+   "key": "fsd-015-50x50-dekor-1-tayyor",
+   "code": "FSD-015",
+   "section": "tayyor_dekor",
+   "name": {
+    "uz": "50×50 Dekor 1",
+    "ru": "50×50 Декор 1",
+    "en": "50×50 Decor 1"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×500",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-fsd-015-50x50-dekor-1-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-fsd-015-50x50-dekor-1-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-fsd-015-50x50-dekor-1-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "fsd-014-80x40-dekor-3-tayyor",
+   "key": "fsd-014-80x40-dekor-3-tayyor",
+   "code": "FSD-014",
+   "section": "tayyor_dekor",
+   "name": {
+    "uz": "80×40 Dekor 3",
+    "ru": "80×40 Декор 3",
+    "en": "80×40 Decor 3"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×800",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-fsd-014-80x40-dekor-3-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-fsd-014-80x40-dekor-3-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-fsd-014-80x40-dekor-3-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "fsd-016-50x50-dekor-2-tayyor",
+   "key": "fsd-016-50x50-dekor-2-tayyor",
+   "code": "FSD-016",
+   "section": "tayyor_dekor",
+   "name": {
+    "uz": "50×50 Dekor 2",
+    "ru": "50×50 Декор 2",
+    "en": "50×50 Decor 2"
+   },
+   "subtitle": {
+    "uz": "Dekor panel",
+    "ru": "Декор-панель",
+    "en": "Decor panel"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×500",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-fsd-016-50x50-dekor-2-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-fsd-016-50x50-dekor-2-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-fsd-016-50x50-dekor-2-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "krn-004-18x120-karniz-tayyor",
+   "key": "krn-004-18x120-karniz-tayyor",
+   "code": "KRN-004",
+   "section": "tayyor_karniz",
+   "name": {
+    "uz": "18×120 Karniz",
+    "ru": "18×120 Карниз",
+    "en": "18×120 Cornice"
+   },
+   "subtitle": {
+    "uz": "Karniz",
+    "ru": "Карниз",
+    "en": "Cornice"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "180×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-krn-004-18x120-karniz-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-krn-004-18x120-karniz-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-krn-004-18x120-karniz-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "krn-001-18x120-karniz-tayyor",
+   "key": "krn-001-18x120-karniz-tayyor",
+   "code": "KRN-001",
+   "section": "tayyor_karniz",
+   "name": {
+    "uz": "18×120 Karniz",
+    "ru": "18×120 Карниз",
+    "en": "18×120 Cornice"
+   },
+   "subtitle": {
+    "uz": "Karniz",
+    "ru": "Карниз",
+    "en": "Cornice"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "180×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-krn-001-18x120-karniz-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-krn-001-18x120-karniz-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-krn-001-18x120-karniz-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "krn-003-18x120-karniz-tayyor",
+   "key": "krn-003-18x120-karniz-tayyor",
+   "code": "KRN-003",
+   "section": "tayyor_karniz",
+   "name": {
+    "uz": "18×120 Karniz",
+    "ru": "18×120 Карниз",
+    "en": "18×120 Cornice"
+   },
+   "subtitle": {
+    "uz": "Karniz",
+    "ru": "Карниз",
+    "en": "Cornice"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "180×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-krn-003-18x120-karniz-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-krn-003-18x120-karniz-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-krn-003-18x120-karniz-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "krn-002-18x120-karniz-tayyor",
+   "key": "krn-002-18x120-karniz-tayyor",
+   "code": "KRN-002",
+   "section": "tayyor_karniz",
+   "name": {
+    "uz": "18×120 Karniz",
+    "ru": "18×120 Карниз",
+    "en": "18×120 Cornice"
+   },
+   "subtitle": {
+    "uz": "Karniz",
+    "ru": "Карниз",
+    "en": "Cornice"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "180×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-krn-002-18x120-karniz-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-krn-002-18x120-karniz-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-krn-002-18x120-karniz-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "krn-004-35x120-karniz-tayyor",
+   "key": "krn-004-35x120-karniz-tayyor",
+   "code": "KRN-004",
+   "section": "tayyor_karniz",
+   "name": {
+    "uz": "35×120 Karniz",
+    "ru": "35×120 Карниз",
+    "en": "35×120 Cornice"
+   },
+   "subtitle": {
+    "uz": "Karniz",
+    "ru": "Карниз",
+    "en": "Cornice"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "350×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-krn-004-35x120-karniz-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-krn-004-35x120-karniz-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-krn-004-35x120-karniz-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "krn-005-35x120-karniz-tayyor",
+   "key": "krn-005-35x120-karniz-tayyor",
+   "code": "KRN-005",
+   "section": "tayyor_karniz",
+   "name": {
+    "uz": "35×120 Karniz",
+    "ru": "35×120 Карниз",
+    "en": "35×120 Cornice"
+   },
+   "subtitle": {
+    "uz": "Karniz",
+    "ru": "Карниз",
+    "en": "Cornice"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "350×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-krn-005-35x120-karniz-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-krn-005-35x120-karniz-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-krn-005-35x120-karniz-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "krn-007-35x120-karniz-tayyor",
+   "key": "krn-007-35x120-karniz-tayyor",
+   "code": "KRN-007",
+   "section": "tayyor_karniz",
+   "name": {
+    "uz": "35×120 Karniz",
+    "ru": "35×120 Карниз",
+    "en": "35×120 Cornice"
+   },
+   "subtitle": {
+    "uz": "Karniz",
+    "ru": "Карниз",
+    "en": "Cornice"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "350×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-krn-007-35x120-karniz-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-krn-007-35x120-karniz-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-krn-007-35x120-karniz-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "krn-006-50x120-karniz-tayyor",
+   "key": "krn-006-50x120-karniz-tayyor",
+   "code": "KRN-006",
+   "section": "tayyor_karniz",
+   "name": {
+    "uz": "50×120 Karniz",
+    "ru": "50×120 Карниз",
+    "en": "50×120 Cornice"
+   },
+   "subtitle": {
+    "uz": "Karniz",
+    "ru": "Карниз",
+    "en": "Cornice"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-krn-006-50x120-karniz-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-krn-006-50x120-karniz-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-krn-006-50x120-karniz-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "krn-008-30x120-karniz-tayyor",
+   "key": "krn-008-30x120-karniz-tayyor",
+   "code": "KRN-008",
+   "section": "tayyor_karniz",
+   "name": {
+    "uz": "30×120 Karniz",
+    "ru": "30×120 Карниз",
+    "en": "30×120 Cornice"
+   },
+   "subtitle": {
+    "uz": "Karniz",
+    "ru": "Карниз",
+    "en": "Cornice"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-krn-008-30x120-karniz-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-krn-008-30x120-karniz-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-krn-008-30x120-karniz-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "krn-009-25x120-karniz-tayyor",
+   "key": "krn-009-25x120-karniz-tayyor",
+   "code": "KRN-009",
+   "section": "tayyor_karniz",
+   "name": {
+    "uz": "25×120 Karniz",
+    "ru": "25×120 Карниз",
+    "en": "25×120 Cornice"
+   },
+   "subtitle": {
+    "uz": "Karniz",
+    "ru": "Карниз",
+    "en": "Cornice"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "250×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-krn-009-25x120-karniz-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-krn-009-25x120-karniz-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-krn-009-25x120-karniz-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "krn-010-20x120-karniz-tayyor",
+   "key": "krn-010-20x120-karniz-tayyor",
+   "code": "KRN-010",
+   "section": "tayyor_karniz",
+   "name": {
+    "uz": "20×120 Karniz",
+    "ru": "20×120 Карниз",
+    "en": "20×120 Cornice"
+   },
+   "subtitle": {
+    "uz": "Karniz",
+    "ru": "Карниз",
+    "en": "Cornice"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "200×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-krn-010-20x120-karniz-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-krn-010-20x120-karniz-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-krn-010-20x120-karniz-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "krn-011-45x120-karniz-tayyor",
+   "key": "krn-011-45x120-karniz-tayyor",
+   "code": "KRN-011",
+   "section": "tayyor_karniz",
+   "name": {
+    "uz": "45×120 Karniz",
+    "ru": "45×120 Карниз",
+    "en": "45×120 Cornice"
+   },
+   "subtitle": {
+    "uz": "Karniz",
+    "ru": "Карниз",
+    "en": "Cornice"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "450×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-krn-011-45x120-karniz-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-krn-011-45x120-karniz-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-krn-011-45x120-karniz-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "krn-012-18x120-karniz-tayyor",
+   "key": "krn-012-18x120-karniz-tayyor",
+   "code": "KRN-012",
+   "section": "tayyor_karniz",
+   "name": {
+    "uz": "18×120 Karniz",
+    "ru": "18×120 Карниз",
+    "en": "18×120 Cornice"
+   },
+   "subtitle": {
+    "uz": "Karniz",
+    "ru": "Карниз",
+    "en": "Cornice"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "180×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-krn-012-18x120-karniz-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-krn-012-18x120-karniz-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-krn-012-18x120-karniz-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "nl-001-15x120-tyaga-tayyor",
+   "key": "nl-001-15x120-tyaga-tayyor",
+   "code": "NL-001",
+   "section": "tayyor_tyaga",
+   "name": {
+    "uz": "15×120 Tyaga",
+    "ru": "15×120 Тяга",
+    "en": "15×120 Moulding"
+   },
+   "subtitle": {
+    "uz": "Tyaga",
+    "ru": "Тяга",
+    "en": "Moulding"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "150×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-nl-001-15x120-tyaga-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-nl-001-15x120-tyaga-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-nl-001-15x120-tyaga-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "nl-003-15x120-tyaga-tayyor",
+   "key": "nl-003-15x120-tyaga-tayyor",
+   "code": "NL-003",
+   "section": "tayyor_tyaga",
+   "name": {
+    "uz": "15×120 Tyaga",
+    "ru": "15×120 Тяга",
+    "en": "15×120 Moulding"
+   },
+   "subtitle": {
+    "uz": "Tyaga",
+    "ru": "Тяга",
+    "en": "Moulding"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "150×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-nl-003-15x120-tyaga-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-nl-003-15x120-tyaga-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-nl-003-15x120-tyaga-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "nl-002-15x120-tyaga-tayyor",
+   "key": "nl-002-15x120-tyaga-tayyor",
+   "code": "NL-002",
+   "section": "tayyor_tyaga",
+   "name": {
+    "uz": "15×120 Tyaga",
+    "ru": "15×120 Тяга",
+    "en": "15×120 Moulding"
+   },
+   "subtitle": {
+    "uz": "Tyaga",
+    "ru": "Тяга",
+    "en": "Moulding"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "150×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-nl-002-15x120-tyaga-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-nl-002-15x120-tyaga-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-nl-002-15x120-tyaga-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "pl-002-40x120-pilyastra-tayyor",
+   "key": "pl-002-40x120-pilyastra-tayyor",
+   "code": "PL-002",
+   "section": "tayyor_pilyastra",
+   "name": {
+    "uz": "40×120 Pilyastra",
+    "ru": "40×120 Пилястра",
+    "en": "40×120 Pilaster"
+   },
+   "subtitle": {
+    "uz": "Pilyastra",
+    "ru": "Пилястра",
+    "en": "Pilaster"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-pl-002-40x120-pilyastra-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-pl-002-40x120-pilyastra-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-pl-002-40x120-pilyastra-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "pl-003-40x120-pilyastra-tayyor",
+   "key": "pl-003-40x120-pilyastra-tayyor",
+   "code": "PL-003",
+   "section": "tayyor_pilyastra",
+   "name": {
+    "uz": "40×120 Pilyastra",
+    "ru": "40×120 Пилястра",
+    "en": "40×120 Pilaster"
+   },
+   "subtitle": {
+    "uz": "Pilyastra",
+    "ru": "Пилястра",
+    "en": "Pilaster"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-pl-003-40x120-pilyastra-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-pl-003-40x120-pilyastra-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-pl-003-40x120-pilyastra-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "pl-004-40x120-riflyoniy-tayyor",
+   "key": "pl-004-40x120-riflyoniy-tayyor",
+   "code": "PL-004",
+   "section": "tayyor_pilyastra",
+   "name": {
+    "uz": "40×120 Riflyoniy",
+    "ru": "40×120 Рифленый",
+    "en": "40×120 Fluted"
+   },
+   "subtitle": {
+    "uz": "Pilyastra",
+    "ru": "Пилястра",
+    "en": "Pilaster"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-pl-004-40x120-riflyoniy-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-pl-004-40x120-riflyoniy-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-pl-004-40x120-riflyoniy-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "pl-006-10x120-pilyastra-tayyor",
+   "key": "pl-006-10x120-pilyastra-tayyor",
+   "code": "PL-006",
+   "section": "tayyor_pilyastra",
+   "name": {
+    "uz": "10×120 Pilyastra",
+    "ru": "10×120 Пилястра",
+    "en": "10×120 Pilaster"
+   },
+   "subtitle": {
+    "uz": "Pilyastra",
+    "ru": "Пилястра",
+    "en": "Pilaster"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "100×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-pl-006-10x120-pilyastra-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-pl-006-10x120-pilyastra-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-pl-006-10x120-pilyastra-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "pl-005-30x120-pilyastra-tayyor",
+   "key": "pl-005-30x120-pilyastra-tayyor",
+   "code": "PL-005",
+   "section": "tayyor_pilyastra",
+   "name": {
+    "uz": "30×120 Pilyastra",
+    "ru": "30×120 Пилястра",
+    "en": "30×120 Pilaster"
+   },
+   "subtitle": {
+    "uz": "Pilyastra",
+    "ru": "Пилястра",
+    "en": "Pilaster"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-pl-005-30x120-pilyastra-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-pl-005-30x120-pilyastra-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-pl-005-30x120-pilyastra-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "pl-007-20x120-pilyastra-tayyor",
+   "key": "pl-007-20x120-pilyastra-tayyor",
+   "code": "PL-007",
+   "section": "tayyor_pilyastra",
+   "name": {
+    "uz": "20×120 Pilyastra",
+    "ru": "20×120 Пилястра",
+    "en": "20×120 Pilaster"
+   },
+   "subtitle": {
+    "uz": "Pilyastra",
+    "ru": "Пилястра",
+    "en": "Pilaster"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "200×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-pl-007-20x120-pilyastra-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-pl-007-20x120-pilyastra-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-pl-007-20x120-pilyastra-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "pl-008-30x120-pilyastra-tayyor",
+   "key": "pl-008-30x120-pilyastra-tayyor",
+   "code": "PL-008",
+   "section": "tayyor_pilyastra",
+   "name": {
+    "uz": "30×120 Pilyastra",
+    "ru": "30×120 Пилястра",
+    "en": "30×120 Pilaster"
+   },
+   "subtitle": {
+    "uz": "Pilyastra",
+    "ru": "Пилястра",
+    "en": "Pilaster"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-pl-008-30x120-pilyastra-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-pl-008-30x120-pilyastra-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-pl-008-30x120-pilyastra-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "pl-010-25x120-pilyastra-tayyor",
+   "key": "pl-010-25x120-pilyastra-tayyor",
+   "code": "PL-010",
+   "section": "tayyor_pilyastra",
+   "name": {
+    "uz": "25×120 Pilyastra",
+    "ru": "25×120 Пилястра",
+    "en": "25×120 Pilaster"
+   },
+   "subtitle": {
+    "uz": "Pilyastra",
+    "ru": "Пилястра",
+    "en": "Pilaster"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "250×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-pl-010-25x120-pilyastra-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-pl-010-25x120-pilyastra-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-pl-010-25x120-pilyastra-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "pl-009-18x120-nalichnik-tayyor",
+   "key": "pl-009-18x120-nalichnik-tayyor",
+   "code": "PL-009",
+   "section": "tayyor_pilyastra",
+   "name": {
+    "uz": "18×120 Nalichnik",
+    "ru": "18×120 Наличник",
+    "en": "18×120 Window trim"
+   },
+   "subtitle": {
+    "uz": "Pilyastra",
+    "ru": "Пилястра",
+    "en": "Pilaster"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "180×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-pl-009-18x120-nalichnik-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-pl-009-18x120-nalichnik-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-pl-009-18x120-nalichnik-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "pl-011-30x120-pilyastra-tayyor",
+   "key": "pl-011-30x120-pilyastra-tayyor",
+   "code": "PL-011",
+   "section": "tayyor_pilyastra",
+   "name": {
+    "uz": "30×120 Pilyastra",
+    "ru": "30×120 Пилястра",
+    "en": "30×120 Pilaster"
+   },
+   "subtitle": {
+    "uz": "Pilyastra",
+    "ru": "Пилястра",
+    "en": "Pilaster"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-pl-011-30x120-pilyastra-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-pl-011-30x120-pilyastra-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-pl-011-30x120-pilyastra-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "pl-012-40x120-pilyastra-tayyor",
+   "key": "pl-012-40x120-pilyastra-tayyor",
+   "code": "PL-012",
+   "section": "tayyor_pilyastra",
+   "name": {
+    "uz": "40×120 Pilyastra",
+    "ru": "40×120 Пилястра",
+    "en": "40×120 Pilaster"
+   },
+   "subtitle": {
+    "uz": "Pilyastra",
+    "ru": "Пилястра",
+    "en": "Pilaster"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-pl-012-40x120-pilyastra-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-pl-012-40x120-pilyastra-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-pl-012-40x120-pilyastra-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "pl-014-40x120-pilyastra-tayyor",
+   "key": "pl-014-40x120-pilyastra-tayyor",
+   "code": "PL-014",
+   "section": "tayyor_pilyastra",
+   "name": {
+    "uz": "40×120 Pilyastra",
+    "ru": "40×120 Пилястра",
+    "en": "40×120 Pilaster"
+   },
+   "subtitle": {
+    "uz": "Pilyastra",
+    "ru": "Пилястра",
+    "en": "Pilaster"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-pl-014-40x120-pilyastra-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-pl-014-40x120-pilyastra-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-pl-014-40x120-pilyastra-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "pl-013-50x120-pilyastra-tayyor",
+   "key": "pl-013-50x120-pilyastra-tayyor",
+   "code": "PL-013",
+   "section": "tayyor_pilyastra",
+   "name": {
+    "uz": "50×120 Pilyastra",
+    "ru": "50×120 Пилястра",
+    "en": "50×120 Pilaster"
+   },
+   "subtitle": {
+    "uz": "Pilyastra",
+    "ru": "Пилястра",
+    "en": "Pilaster"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-pl-013-50x120-pilyastra-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-pl-013-50x120-pilyastra-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-pl-013-50x120-pilyastra-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "pl-015-50x120-pilyastra-tayyor",
+   "key": "pl-015-50x120-pilyastra-tayyor",
+   "code": "PL-015",
+   "section": "tayyor_pilyastra",
+   "name": {
+    "uz": "50×120 Pilyastra",
+    "ru": "50×120 Пилястра",
+    "en": "50×120 Pilaster"
+   },
+   "subtitle": {
+    "uz": "Pilyastra",
+    "ru": "Пилястра",
+    "en": "Pilaster"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-pl-015-50x120-pilyastra-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-pl-015-50x120-pilyastra-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-pl-015-50x120-pilyastra-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "pl-016-30x120-pilyastra-tayyor",
+   "key": "pl-016-30x120-pilyastra-tayyor",
+   "code": "PL-016",
+   "section": "tayyor_pilyastra",
+   "name": {
+    "uz": "30×120 Pilyastra",
+    "ru": "30×120 Пилястра",
+    "en": "30×120 Pilaster"
+   },
+   "subtitle": {
+    "uz": "Pilyastra",
+    "ru": "Пилястра",
+    "en": "Pilaster"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-pl-016-30x120-pilyastra-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-pl-016-30x120-pilyastra-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-pl-016-30x120-pilyastra-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "kpl-001-15-kapitel-baza-tayyor",
+   "key": "kpl-001-15-kapitel-baza-tayyor",
+   "code": "KPL-001",
+   "section": "tayyor_kapitel",
+   "name": {
+    "uz": "15 Kapitel baza",
+    "ru": "15 Капитель база",
+    "en": "15 Capital base"
+   },
+   "subtitle": {
+    "uz": "Kapitel baza",
+    "ru": "База капители",
+    "en": "Capital base"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "125×200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-kpl-001-15-kapitel-baza-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-kpl-001-15-kapitel-baza-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-kpl-001-15-kapitel-baza-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "kpl-003-25-kapitel-baza-tayyor",
+   "key": "kpl-003-25-kapitel-baza-tayyor",
+   "code": "KPL-003",
+   "section": "tayyor_kapitel",
+   "name": {
+    "uz": "25 Kapitel baza",
+    "ru": "25 Капитель база",
+    "en": "25 Capital base"
+   },
+   "subtitle": {
+    "uz": "Kapitel baza",
+    "ru": "База капители",
+    "en": "Capital base"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "125×300",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-kpl-003-25-kapitel-baza-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-kpl-003-25-kapitel-baza-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-kpl-003-25-kapitel-baza-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "kpl-002-20-kapitel-baza-tayyor",
+   "key": "kpl-002-20-kapitel-baza-tayyor",
+   "code": "KPL-002",
+   "section": "tayyor_kapitel",
+   "name": {
+    "uz": "20 Kapitel baza",
+    "ru": "20 Капитель база",
+    "en": "20 Capital base"
+   },
+   "subtitle": {
+    "uz": "Kapitel baza",
+    "ru": "База капители",
+    "en": "Capital base"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "125×250",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-kpl-002-20-kapitel-baza-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-kpl-002-20-kapitel-baza-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-kpl-002-20-kapitel-baza-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "kpl-004-30-kapitel-baza-tayyor",
+   "key": "kpl-004-30-kapitel-baza-tayyor",
+   "code": "KPL-004",
+   "section": "tayyor_kapitel",
+   "name": {
+    "uz": "30 Kapitel baza",
+    "ru": "30 Капитель база",
+    "en": "30 Capital base"
+   },
+   "subtitle": {
+    "uz": "Kapitel baza",
+    "ru": "База капители",
+    "en": "Capital base"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "125×350",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-kpl-004-30-kapitel-baza-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-kpl-004-30-kapitel-baza-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-kpl-004-30-kapitel-baza-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "kpl-005-40-kapitel-baza-tayyor",
+   "key": "kpl-005-40-kapitel-baza-tayyor",
+   "code": "KPL-005",
+   "section": "tayyor_kapitel",
+   "name": {
+    "uz": "40 Kapitel baza",
+    "ru": "40 Капитель база",
+    "en": "40 Capital base"
+   },
+   "subtitle": {
+    "uz": "Kapitel baza",
+    "ru": "База капители",
+    "en": "Capital base"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "125×450",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-kpl-005-40-kapitel-baza-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-kpl-005-40-kapitel-baza-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-kpl-005-40-kapitel-baza-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "kpl-007-15-kapitel-baza-tayyor",
+   "key": "kpl-007-15-kapitel-baza-tayyor",
+   "code": "KPL-007",
+   "section": "tayyor_kapitel",
+   "name": {
+    "uz": "15 Kapitel baza",
+    "ru": "15 Капитель база",
+    "en": "15 Capital base"
+   },
+   "subtitle": {
+    "uz": "Kapitel baza",
+    "ru": "База капители",
+    "en": "Capital base"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-kpl-007-15-kapitel-baza-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-kpl-007-15-kapitel-baza-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-kpl-007-15-kapitel-baza-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "kpl-006-50-kapitel-baza-tayyor",
+   "key": "kpl-006-50-kapitel-baza-tayyor",
+   "code": "KPL-006",
+   "section": "tayyor_kapitel",
+   "name": {
+    "uz": "50 Kapitel baza",
+    "ru": "50 Капитель база",
+    "en": "50 Capital base"
+   },
+   "subtitle": {
+    "uz": "Kapitel baza",
+    "ru": "База капители",
+    "en": "Capital base"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "125×550",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-kpl-006-50-kapitel-baza-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-kpl-006-50-kapitel-baza-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-kpl-006-50-kapitel-baza-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "kpl-008-30-kapitel-baza-tayyor",
+   "key": "kpl-008-30-kapitel-baza-tayyor",
+   "code": "KPL-008",
+   "section": "tayyor_kapitel",
+   "name": {
+    "uz": "30 Kapitel baza",
+    "ru": "30 Капитель база",
+    "en": "30 Capital base"
+   },
+   "subtitle": {
+    "uz": "Kapitel baza",
+    "ru": "База капители",
+    "en": "Capital base"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "500×1200",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-kpl-008-30-kapitel-baza-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-kpl-008-30-kapitel-baza-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-kpl-008-30-kapitel-baza-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "sl-001-75x50-sokol-tayyor",
+   "key": "sl-001-75x50-sokol-tayyor",
+   "code": "SL-001",
+   "section": "tayyor_tsokol",
+   "name": {
+    "uz": "75×50 Sokol",
+    "ru": "75×50 Цоколь",
+    "en": "75×50 Plinth"
+   },
+   "subtitle": {
+    "uz": "Sokol",
+    "ru": "Цоколь",
+    "en": "Plinth"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "750×500",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-sl-001-75x50-sokol-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-sl-001-75x50-sokol-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-sl-001-75x50-sokol-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "sl-003-60x40-sokol-tayyor",
+   "key": "sl-003-60x40-sokol-tayyor",
+   "code": "SL-003",
+   "section": "tayyor_tsokol",
+   "name": {
+    "uz": "60×40 Sokol",
+    "ru": "60×40 Цоколь",
+    "en": "60×40 Plinth"
+   },
+   "subtitle": {
+    "uz": "Sokol",
+    "ru": "Цоколь",
+    "en": "Plinth"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "600×400",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-sl-003-60x40-sokol-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-sl-003-60x40-sokol-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-sl-003-60x40-sokol-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "sl-002-75x40-sokol-tayyor",
+   "key": "sl-002-75x40-sokol-tayyor",
+   "code": "SL-002",
+   "section": "tayyor_tsokol",
+   "name": {
+    "uz": "75×40 Sokol",
+    "ru": "75×40 Цоколь",
+    "en": "75×40 Plinth"
+   },
+   "subtitle": {
+    "uz": "Sokol",
+    "ru": "Цоколь",
+    "en": "Plinth"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "750×400",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-sl-002-75x40-sokol-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-sl-002-75x40-sokol-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-sl-002-75x40-sokol-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "sl-004-80x60-sokol-tayyor",
+   "key": "sl-004-80x60-sokol-tayyor",
+   "code": "SL-004",
+   "section": "tayyor_tsokol",
+   "name": {
+    "uz": "80×60 Sokol",
+    "ru": "80×60 Цоколь",
+    "en": "80×60 Plinth"
+   },
+   "subtitle": {
+    "uz": "Sokol",
+    "ru": "Цоколь",
+    "en": "Plinth"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "800×600",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Asosi",
+      "ru": "Основа",
+      "en": "Core"
+     },
+     "v": {
+      "uz": "Penoplast",
+      "ru": "Пенопласт",
+      "en": "EPS foam"
+     }
+    },
+    {
+     "k": {
+      "uz": "Ranglari",
+      "ru": "Цвета",
+      "en": "Colours"
+     },
+     "v": {
+      "uz": "Travertin · Marmar",
+      "ru": "Травертин · Мрамор",
+      "en": "Travertine · Marble"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-sl-004-80x60-sokol-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-sl-004-80x60-sokol-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-sl-004-80x60-sokol-tayyor-fasad.webp"
+    }
+   }
+  },
+  {
+   "slug": "f23-4-tali-travertin-tayyor",
+   "key": "f23-4-tali-travertin-tayyor",
+   "code": "F23",
+   "section": "tayyor_tosh",
+   "name": {
+    "uz": "4 tali travertin",
+    "ru": "4 тали травертин",
+    "en": "Travertine, 4 pieces"
+   },
+   "subtitle": {
+    "uz": "Fasad plitkasi",
+    "ru": "Фасадная плитка",
+    "en": "Facade tile"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "88×220",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Qalinligi",
+      "ru": "Толщина",
+      "en": "Thickness"
+     },
+     "v": {
+      "uz": "15 mm",
+      "ru": "15 мм",
+      "en": "15 mm"
+     }
+    },
+    {
+     "k": {
+      "uz": "Material",
+      "ru": "Материал",
+      "en": "Material"
+     },
+     "v": {
+      "uz": "Beton",
+      "ru": "Бетон",
+      "en": "Concrete"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-f23-4-tali-travertin-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-f23-4-tali-travertin-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-f23-4-tali-travertin-tayyor-fasad.webp",
+     "B": "/catalog/2027/tayyor-f23-4-tali-travertin-tayyor-terilgan.webp"
+    }
+   }
+  },
+  {
+   "slug": "f24-4-tali-tosh-tayyor",
+   "key": "f24-4-tali-tosh-tayyor",
+   "code": "F24",
+   "section": "tayyor_tosh",
+   "name": {
+    "uz": "4 tali tosh",
+    "ru": "4 тали камень",
+    "en": "Stone, 4 pieces"
+   },
+   "subtitle": {
+    "uz": "Fasad plitkasi",
+    "ru": "Фасадная плитка",
+    "en": "Facade tile"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "88×220",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Qalinligi",
+      "ru": "Толщина",
+      "en": "Thickness"
+     },
+     "v": {
+      "uz": "15 mm",
+      "ru": "15 мм",
+      "en": "15 mm"
+     }
+    },
+    {
+     "k": {
+      "uz": "Material",
+      "ru": "Материал",
+      "en": "Material"
+     },
+     "v": {
+      "uz": "Beton",
+      "ru": "Бетон",
+      "en": "Concrete"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-f24-4-tali-tosh-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-f24-4-tali-tosh-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-f24-4-tali-tosh-tayyor-fasad.webp",
+     "B": "/catalog/2027/tayyor-f24-4-tali-tosh-tayyor-terilgan.webp"
+    }
+   }
+  },
+  {
+   "slug": "f25-6-tali-tosh-tayyor",
+   "key": "f25-6-tali-tosh-tayyor",
+   "code": "F25",
+   "section": "tayyor_tosh",
+   "name": {
+    "uz": "6 tali tosh",
+    "ru": "6 тали камень",
+    "en": "Stone, 6 pieces"
+   },
+   "subtitle": {
+    "uz": "Fasad plitkasi",
+    "ru": "Фасадная плитка",
+    "en": "Facade tile"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "67×165",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Qalinligi",
+      "ru": "Толщина",
+      "en": "Thickness"
+     },
+     "v": {
+      "uz": "15 mm",
+      "ru": "15 мм",
+      "en": "15 mm"
+     }
+    },
+    {
+     "k": {
+      "uz": "Material",
+      "ru": "Материал",
+      "en": "Material"
+     },
+     "v": {
+      "uz": "Beton",
+      "ru": "Бетон",
+      "en": "Concrete"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-f25-6-tali-tosh-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-f25-6-tali-tosh-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-f25-6-tali-tosh-tayyor-fasad.webp",
+     "B": "/catalog/2027/tayyor-f25-6-tali-tosh-tayyor-terilgan.webp"
+    }
+   }
+  },
+  {
+   "slug": "f26-korka-15-30-tayyor",
+   "key": "f26-korka-15-30-tayyor",
+   "code": "F26",
+   "section": "tayyor_tosh",
+   "name": {
+    "uz": "Korka 15×30",
+    "ru": "Корка 15×30",
+    "en": "Bark 15×30"
+   },
+   "subtitle": {
+    "uz": "Fasad plitkasi",
+    "ru": "Фасадная плитка",
+    "en": "Facade tile"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "150×300",
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [
+    {
+     "k": {
+      "uz": "Qalinligi",
+      "ru": "Толщина",
+      "en": "Thickness"
+     },
+     "v": {
+      "uz": "15 mm",
+      "ru": "15 мм",
+      "en": "15 mm"
+     }
+    },
+    {
+     "k": {
+      "uz": "Material",
+      "ru": "Материал",
+      "en": "Material"
+     },
+     "v": {
+      "uz": "Beton",
+      "ru": "Бетон",
+      "en": "Concrete"
+     }
+    }
+   ],
+   "images": {
+    "scene": "/catalog/2027/tayyor-f26-korka-15-30-tayyor-scene.webp",
+    "sceneSm": "/catalog/2027/tayyor-f26-korka-15-30-tayyor-scene-sm.webp",
+    "molds": {},
+    "tiles": {
+     "A": "/catalog/2027/tayyor-f26-korka-15-30-tayyor-fasad.webp",
+     "B": "/catalog/2027/tayyor-f26-korka-15-30-tayyor-terilgan.webp"
+    }
+   }
+  }
+ ],
+ "moldPer": {
+  "tp-001-30x60-kirpich": "5,5",
+  "tp-003-30x60-beeline": "5,5",
+  "tp-002-30x60-gladkiy": "5,5",
+  "tp-004-30x60-kuba": "5,5",
+  "tp-005-25x50-pryamaya": "8",
+  "tp-007-25x50-kirpich": "8",
+  "tp-006-25x50-kruglaya": "8",
+  "tp-008-25x50-3d": "8",
+  "tp-009-25x50-brilliant": "8",
+  "tp-011-20x40-pryamaya": "12,5",
+  "tp-010-25x50-beeline": "8",
+  "tp-012-25x50-labirint": "8"
+ }
+}

@@ -1,0 +1,787 @@
+{
+ "source": "SPS_sayt_katalog_1_fasad.zip (katalog agenti, 2026-11-23)",
+ "applyStatic": true,
+ "add": [],
+ "refresh": {
+  "tp-001-30x60-kirpich": {
+   "scene": "/catalog/2027/termopanel-tp-001-30x60-kirpich-scene-3d.webp",
+   "sceneSm": "/catalog/2027/termopanel-tp-001-30x60-kirpich-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/termopanel-tp-001-30x60-kirpich-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/termopanel-tp-001-30x60-kirpich-mahsulot-3d.webp"
+   }
+  },
+  "tp-003-30x60-beeline": {
+   "scene": "/catalog/2027/termopanel-tp-003-30x60-beeline-scene-3d.webp",
+   "sceneSm": "/catalog/2027/termopanel-tp-003-30x60-beeline-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/termopanel-tp-003-30x60-beeline-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/termopanel-tp-003-30x60-beeline-mahsulot-3d.webp"
+   }
+  },
+  "tp-002-30x60-gladkiy": {
+   "scene": "/catalog/2027/termopanel-tp-002-30x60-gladkiy-scene-3d.webp",
+   "sceneSm": "/catalog/2027/termopanel-tp-002-30x60-gladkiy-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/termopanel-tp-002-30x60-gladkiy-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/termopanel-tp-002-30x60-gladkiy-mahsulot-3d.webp"
+   }
+  },
+  "tp-004-30x60-kuba": {
+   "scene": "/catalog/2027/termopanel-tp-004-30x60-kuba-scene-3d.webp",
+   "sceneSm": "/catalog/2027/termopanel-tp-004-30x60-kuba-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/termopanel-tp-004-30x60-kuba-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/termopanel-tp-004-30x60-kuba-mahsulot-3d.webp"
+   }
+  },
+  "tp-005-25x50-pryamaya": {
+   "scene": "/catalog/2027/termopanel-tp-005-25x50-pryamaya-scene-3d.webp",
+   "sceneSm": "/catalog/2027/termopanel-tp-005-25x50-pryamaya-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/termopanel-tp-005-25x50-pryamaya-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/termopanel-tp-005-25x50-pryamaya-mahsulot-3d.webp"
+   }
+  },
+  "tp-007-25x50-kirpich": {
+   "scene": "/catalog/2027/termopanel-tp-007-25x50-kirpich-scene-3d.webp",
+   "sceneSm": "/catalog/2027/termopanel-tp-007-25x50-kirpich-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/termopanel-tp-007-25x50-kirpich-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/termopanel-tp-007-25x50-kirpich-mahsulot-3d.webp"
+   }
+  },
+  "tp-006-25x50-kruglaya": {
+   "scene": "/catalog/2027/termopanel-tp-006-25x50-kruglaya-scene-3d.webp",
+   "sceneSm": "/catalog/2027/termopanel-tp-006-25x50-kruglaya-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/termopanel-tp-006-25x50-kruglaya-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/termopanel-tp-006-25x50-kruglaya-mahsulot-3d.webp"
+   }
+  },
+  "tp-008-25x50-3d": {
+   "scene": "/catalog/2027/termopanel-tp-008-25x50-3d-scene-3d.webp",
+   "sceneSm": "/catalog/2027/termopanel-tp-008-25x50-3d-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/termopanel-tp-008-25x50-3d-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/termopanel-tp-008-25x50-3d-mahsulot-3d.webp"
+   }
+  },
+  "tp-009-25x50-brilliant": {
+   "scene": "/catalog/2027/termopanel-tp-009-25x50-brilliant-scene-3d.webp",
+   "sceneSm": "/catalog/2027/termopanel-tp-009-25x50-brilliant-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/termopanel-tp-009-25x50-brilliant-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/termopanel-tp-009-25x50-brilliant-mahsulot-3d.webp"
+   }
+  },
+  "tp-011-20x40-pryamaya": {
+   "scene": "/catalog/2027/termopanel-tp-011-20x40-pryamaya-scene-3d.webp",
+   "sceneSm": "/catalog/2027/termopanel-tp-011-20x40-pryamaya-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/termopanel-tp-011-20x40-pryamaya-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/termopanel-tp-011-20x40-pryamaya-mahsulot-3d.webp"
+   }
+  },
+  "tp-010-25x50-beeline": {
+   "scene": "/catalog/2027/termopanel-tp-010-25x50-beeline-scene-3d.webp",
+   "sceneSm": "/catalog/2027/termopanel-tp-010-25x50-beeline-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/termopanel-tp-010-25x50-beeline-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/termopanel-tp-010-25x50-beeline-mahsulot-3d.webp"
+   }
+  },
+  "bp-001-120x40-beeline-1": {
+   "scene": "/catalog/2027/fasad_dekor-bp-001-120x40-beeline-1-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-bp-001-120x40-beeline-1-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-bp-001-120x40-beeline-1-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-bp-001-120x40-beeline-1-mahsulot-3d.webp"
+   }
+  },
+  "bp-002-120x40-beeline-2": {
+   "scene": "/catalog/2027/fasad_dekor-bp-002-120x40-beeline-2-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-bp-002-120x40-beeline-2-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-bp-002-120x40-beeline-2-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-bp-002-120x40-beeline-2-mahsulot-3d.webp"
+   }
+  },
+  "bp-004-120x40-beeline-4": {
+   "scene": "/catalog/2027/fasad_dekor-bp-004-120x40-beeline-4-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-bp-004-120x40-beeline-4-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-bp-004-120x40-beeline-4-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-bp-004-120x40-beeline-4-mahsulot-3d.webp"
+   }
+  },
+  "bp-005-30x120-beeline": {
+   "scene": "/catalog/2027/fasad_dekor-bp-005-30x120-beeline-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-bp-005-30x120-beeline-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-bp-005-30x120-beeline-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-bp-005-30x120-beeline-mahsulot-3d.webp"
+   }
+  },
+  "fsd-001-120x40-dekor-1": {
+   "scene": "/catalog/2027/fasad_dekor-fsd-001-120x40-dekor-1-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-fsd-001-120x40-dekor-1-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-fsd-001-120x40-dekor-1-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-fsd-001-120x40-dekor-1-mahsulot-3d.webp"
+   }
+  },
+  "fsd-003-120x40-dekor-3": {
+   "scene": "/catalog/2027/fasad_dekor-fsd-003-120x40-dekor-3-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-fsd-003-120x40-dekor-3-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-fsd-003-120x40-dekor-3-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-fsd-003-120x40-dekor-3-mahsulot-3d.webp"
+   }
+  },
+  "fsd-002-120x40-dekor-2": {
+   "scene": "/catalog/2027/fasad_dekor-fsd-002-120x40-dekor-2-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-fsd-002-120x40-dekor-2-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-fsd-002-120x40-dekor-2-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-fsd-002-120x40-dekor-2-mahsulot-3d.webp"
+   }
+  },
+  "fsd-004-120x40-dekor-4": {
+   "scene": "/catalog/2027/fasad_dekor-fsd-004-120x40-dekor-4-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-fsd-004-120x40-dekor-4-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-fsd-004-120x40-dekor-4-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-fsd-004-120x40-dekor-4-mahsulot-3d.webp"
+   }
+  },
+  "fsd-005-120x40-dekor-5": {
+   "scene": "/catalog/2027/fasad_dekor-fsd-005-120x40-dekor-5-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-fsd-005-120x40-dekor-5-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-fsd-005-120x40-dekor-5-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-fsd-005-120x40-dekor-5-mahsulot-3d.webp"
+   }
+  },
+  "fsd-007-120x40-dekor-7": {
+   "scene": "/catalog/2027/fasad_dekor-fsd-007-120x40-dekor-7-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-fsd-007-120x40-dekor-7-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-fsd-007-120x40-dekor-7-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-fsd-007-120x40-dekor-7-mahsulot-3d.webp"
+   }
+  },
+  "fsd-006-120x40-dekor-6": {
+   "scene": "/catalog/2027/fasad_dekor-fsd-006-120x40-dekor-6-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-fsd-006-120x40-dekor-6-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-fsd-006-120x40-dekor-6-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-fsd-006-120x40-dekor-6-mahsulot-3d.webp"
+   }
+  },
+  "fsd-008-120x40-dekor-8": {
+   "scene": "/catalog/2027/fasad_dekor-fsd-008-120x40-dekor-8-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-fsd-008-120x40-dekor-8-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-fsd-008-120x40-dekor-8-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-fsd-008-120x40-dekor-8-mahsulot-3d.webp"
+   }
+  },
+  "fsd-009-100x50-dekor-1": {
+   "scene": "/catalog/2027/fasad_dekor-fsd-009-100x50-dekor-1-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-fsd-009-100x50-dekor-1-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-fsd-009-100x50-dekor-1-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-fsd-009-100x50-dekor-1-mahsulot-3d.webp"
+   }
+  },
+  "fsd-011-100x50-dekor-3": {
+   "scene": "/catalog/2027/fasad_dekor-fsd-011-100x50-dekor-3-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-fsd-011-100x50-dekor-3-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-fsd-011-100x50-dekor-3-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-fsd-011-100x50-dekor-3-mahsulot-3d.webp"
+   }
+  },
+  "fsd-010-100x50-dekor-2": {
+   "scene": "/catalog/2027/fasad_dekor-fsd-010-100x50-dekor-2-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-fsd-010-100x50-dekor-2-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-fsd-010-100x50-dekor-2-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-fsd-010-100x50-dekor-2-mahsulot-3d.webp"
+   }
+  },
+  "fsd-012-80x40-dekor-1": {
+   "scene": "/catalog/2027/fasad_dekor-fsd-012-80x40-dekor-1-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-fsd-012-80x40-dekor-1-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-fsd-012-80x40-dekor-1-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-fsd-012-80x40-dekor-1-mahsulot-3d.webp"
+   }
+  },
+  "fsd-013-80x40-dekor-2": {
+   "scene": "/catalog/2027/fasad_dekor-fsd-013-80x40-dekor-2-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-fsd-013-80x40-dekor-2-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-fsd-013-80x40-dekor-2-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-fsd-013-80x40-dekor-2-mahsulot-3d.webp"
+   }
+  },
+  "fsd-015-50x50-dekor-1": {
+   "scene": "/catalog/2027/fasad_dekor-fsd-015-50x50-dekor-1-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-fsd-015-50x50-dekor-1-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-fsd-015-50x50-dekor-1-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-fsd-015-50x50-dekor-1-mahsulot-3d.webp"
+   }
+  },
+  "fsd-014-80x40-dekor-3": {
+   "scene": "/catalog/2027/fasad_dekor-fsd-014-80x40-dekor-3-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-fsd-014-80x40-dekor-3-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-fsd-014-80x40-dekor-3-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-fsd-014-80x40-dekor-3-mahsulot-3d.webp"
+   }
+  },
+  "fsd-016-50x50-dekor-2": {
+   "scene": "/catalog/2027/fasad_dekor-fsd-016-50x50-dekor-2-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-fsd-016-50x50-dekor-2-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-fsd-016-50x50-dekor-2-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-fsd-016-50x50-dekor-2-mahsulot-3d.webp"
+   }
+  },
+  "krn-004-18x120-karniz": {
+   "scene": "/catalog/2027/fasad_dekor-krn-004-18x120-karniz-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-krn-004-18x120-karniz-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-krn-004-18x120-karniz-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-krn-004-18x120-karniz-mahsulot-3d.webp"
+   }
+  },
+  "krn-001-18x120-karniz": {
+   "scene": "/catalog/2027/fasad_dekor-krn-001-18x120-karniz-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-krn-001-18x120-karniz-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-krn-001-18x120-karniz-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-krn-001-18x120-karniz-mahsulot-3d.webp"
+   }
+  },
+  "krn-003-18x120-karniz": {
+   "scene": "/catalog/2027/fasad_dekor-krn-003-18x120-karniz-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-krn-003-18x120-karniz-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-krn-003-18x120-karniz-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-krn-003-18x120-karniz-mahsulot-3d.webp"
+   }
+  },
+  "krn-002-18x120-karniz": {
+   "scene": "/catalog/2027/fasad_dekor-krn-002-18x120-karniz-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-krn-002-18x120-karniz-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-krn-002-18x120-karniz-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-krn-002-18x120-karniz-mahsulot-3d.webp"
+   }
+  },
+  "krn-004-35x120-karniz": {
+   "scene": "/catalog/2027/fasad_dekor-krn-004-35x120-karniz-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-krn-004-35x120-karniz-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-krn-004-35x120-karniz-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-krn-004-35x120-karniz-mahsulot-3d.webp"
+   }
+  },
+  "krn-005-35x120-karniz": {
+   "scene": "/catalog/2027/fasad_dekor-krn-005-35x120-karniz-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-krn-005-35x120-karniz-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-krn-005-35x120-karniz-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-krn-005-35x120-karniz-mahsulot-3d.webp"
+   }
+  },
+  "krn-007-35x120-karniz": {
+   "scene": "/catalog/2027/fasad_dekor-krn-007-35x120-karniz-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-krn-007-35x120-karniz-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-krn-007-35x120-karniz-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-krn-007-35x120-karniz-mahsulot-3d.webp"
+   }
+  },
+  "krn-006-50x120-karniz": {
+   "scene": "/catalog/2027/fasad_dekor-krn-006-50x120-karniz-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-krn-006-50x120-karniz-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-krn-006-50x120-karniz-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-krn-006-50x120-karniz-mahsulot-3d.webp"
+   }
+  },
+  "krn-008-30x120-karniz": {
+   "scene": "/catalog/2027/fasad_dekor-krn-008-30x120-karniz-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-krn-008-30x120-karniz-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-krn-008-30x120-karniz-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-krn-008-30x120-karniz-mahsulot-3d.webp"
+   }
+  },
+  "krn-009-25x120-karniz": {
+   "scene": "/catalog/2027/fasad_dekor-krn-009-25x120-karniz-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-krn-009-25x120-karniz-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-krn-009-25x120-karniz-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-krn-009-25x120-karniz-mahsulot-3d.webp"
+   }
+  },
+  "krn-010-20x120-karniz": {
+   "scene": "/catalog/2027/fasad_dekor-krn-010-20x120-karniz-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-krn-010-20x120-karniz-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-krn-010-20x120-karniz-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-krn-010-20x120-karniz-mahsulot-3d.webp"
+   }
+  },
+  "krn-011-45x120-karniz": {
+   "scene": "/catalog/2027/fasad_dekor-krn-011-45x120-karniz-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-krn-011-45x120-karniz-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-krn-011-45x120-karniz-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-krn-011-45x120-karniz-mahsulot-3d.webp"
+   }
+  },
+  "krn-012-18x120-karniz": {
+   "scene": "/catalog/2027/fasad_dekor-krn-012-18x120-karniz-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-krn-012-18x120-karniz-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-krn-012-18x120-karniz-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-krn-012-18x120-karniz-mahsulot-3d.webp"
+   }
+  },
+  "nl-001-15x120-tyaga": {
+   "scene": "/catalog/2027/fasad_dekor-nl-001-15x120-tyaga-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-nl-001-15x120-tyaga-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-nl-001-15x120-tyaga-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-nl-001-15x120-tyaga-mahsulot-3d.webp"
+   }
+  },
+  "nl-003-15x120-tyaga": {
+   "scene": "/catalog/2027/fasad_dekor-nl-003-15x120-tyaga-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-nl-003-15x120-tyaga-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-nl-003-15x120-tyaga-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-nl-003-15x120-tyaga-mahsulot-3d.webp"
+   }
+  },
+  "nl-002-15x120-tyaga": {
+   "scene": "/catalog/2027/fasad_dekor-nl-002-15x120-tyaga-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-nl-002-15x120-tyaga-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-nl-002-15x120-tyaga-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-nl-002-15x120-tyaga-mahsulot-3d.webp"
+   }
+  },
+  "pl-002-40x120-pilyastra": {
+   "scene": "/catalog/2027/fasad_dekor-pl-002-40x120-pilyastra-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-pl-002-40x120-pilyastra-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-pl-002-40x120-pilyastra-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-pl-002-40x120-pilyastra-mahsulot-3d.webp"
+   }
+  },
+  "pl-003-40x120-pilyastra": {
+   "scene": "/catalog/2027/fasad_dekor-pl-003-40x120-pilyastra-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-pl-003-40x120-pilyastra-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-pl-003-40x120-pilyastra-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-pl-003-40x120-pilyastra-mahsulot-3d.webp"
+   }
+  },
+  "pl-004-40x120-riflyoniy": {
+   "scene": "/catalog/2027/fasad_dekor-pl-004-40x120-riflyoniy-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-pl-004-40x120-riflyoniy-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-pl-004-40x120-riflyoniy-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-pl-004-40x120-riflyoniy-mahsulot-3d.webp"
+   }
+  },
+  "pl-006-10x120-pilyastra": {
+   "scene": "/catalog/2027/fasad_dekor-pl-006-10x120-pilyastra-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-pl-006-10x120-pilyastra-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-pl-006-10x120-pilyastra-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-pl-006-10x120-pilyastra-mahsulot-3d.webp"
+   }
+  },
+  "pl-005-30x120-pilyastra": {
+   "scene": "/catalog/2027/fasad_dekor-pl-005-30x120-pilyastra-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-pl-005-30x120-pilyastra-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-pl-005-30x120-pilyastra-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-pl-005-30x120-pilyastra-mahsulot-3d.webp"
+   }
+  },
+  "pl-007-20x120-pilyastra": {
+   "scene": "/catalog/2027/fasad_dekor-pl-007-20x120-pilyastra-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-pl-007-20x120-pilyastra-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-pl-007-20x120-pilyastra-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-pl-007-20x120-pilyastra-mahsulot-3d.webp"
+   }
+  },
+  "pl-008-30x120-pilyastra": {
+   "scene": "/catalog/2027/fasad_dekor-pl-008-30x120-pilyastra-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-pl-008-30x120-pilyastra-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-pl-008-30x120-pilyastra-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-pl-008-30x120-pilyastra-mahsulot-3d.webp"
+   }
+  },
+  "pl-010-25x120-pilyastra": {
+   "scene": "/catalog/2027/fasad_dekor-pl-010-25x120-pilyastra-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-pl-010-25x120-pilyastra-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-pl-010-25x120-pilyastra-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-pl-010-25x120-pilyastra-mahsulot-3d.webp"
+   }
+  },
+  "pl-009-18x120-nalichnik": {
+   "scene": "/catalog/2027/fasad_dekor-pl-009-18x120-nalichnik-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-pl-009-18x120-nalichnik-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-pl-009-18x120-nalichnik-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-pl-009-18x120-nalichnik-mahsulot-3d.webp"
+   }
+  },
+  "pl-011-30x120-pilyastra": {
+   "scene": "/catalog/2027/fasad_dekor-pl-011-30x120-pilyastra-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-pl-011-30x120-pilyastra-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-pl-011-30x120-pilyastra-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-pl-011-30x120-pilyastra-mahsulot-3d.webp"
+   }
+  },
+  "pl-012-40x120-pilyastra": {
+   "scene": "/catalog/2027/fasad_dekor-pl-012-40x120-pilyastra-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-pl-012-40x120-pilyastra-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-pl-012-40x120-pilyastra-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-pl-012-40x120-pilyastra-mahsulot-3d.webp"
+   }
+  },
+  "pl-014-40x120-pilyastra": {
+   "scene": "/catalog/2027/fasad_dekor-pl-014-40x120-pilyastra-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-pl-014-40x120-pilyastra-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-pl-014-40x120-pilyastra-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-pl-014-40x120-pilyastra-mahsulot-3d.webp"
+   }
+  },
+  "pl-013-50x120-pilyastra": {
+   "scene": "/catalog/2027/fasad_dekor-pl-013-50x120-pilyastra-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-pl-013-50x120-pilyastra-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-pl-013-50x120-pilyastra-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-pl-013-50x120-pilyastra-mahsulot-3d.webp"
+   }
+  },
+  "pl-015-50x120-pilyastra": {
+   "scene": "/catalog/2027/fasad_dekor-pl-015-50x120-pilyastra-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-pl-015-50x120-pilyastra-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-pl-015-50x120-pilyastra-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-pl-015-50x120-pilyastra-mahsulot-3d.webp"
+   }
+  },
+  "pl-016-30x120-pilyastra": {
+   "scene": "/catalog/2027/fasad_dekor-pl-016-30x120-pilyastra-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-pl-016-30x120-pilyastra-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-pl-016-30x120-pilyastra-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-pl-016-30x120-pilyastra-mahsulot-3d.webp"
+   }
+  },
+  "kpl-001-15-kapitel-baza": {
+   "scene": "/catalog/2027/fasad_dekor-kpl-001-15-kapitel-baza-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-kpl-001-15-kapitel-baza-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-kpl-001-15-kapitel-baza-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-kpl-001-15-kapitel-baza-mahsulot-3d.webp"
+   }
+  },
+  "kpl-003-25-kapitel-baza": {
+   "scene": "/catalog/2027/fasad_dekor-kpl-003-25-kapitel-baza-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-kpl-003-25-kapitel-baza-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-kpl-003-25-kapitel-baza-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-kpl-003-25-kapitel-baza-mahsulot-3d.webp"
+   }
+  },
+  "kpl-002-20-kapitel-baza": {
+   "scene": "/catalog/2027/fasad_dekor-kpl-002-20-kapitel-baza-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-kpl-002-20-kapitel-baza-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-kpl-002-20-kapitel-baza-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-kpl-002-20-kapitel-baza-mahsulot-3d.webp"
+   }
+  },
+  "kpl-004-30-kapitel-baza": {
+   "scene": "/catalog/2027/fasad_dekor-kpl-004-30-kapitel-baza-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-kpl-004-30-kapitel-baza-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-kpl-004-30-kapitel-baza-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-kpl-004-30-kapitel-baza-mahsulot-3d.webp"
+   }
+  },
+  "kpl-005-40-kapitel-baza": {
+   "scene": "/catalog/2027/fasad_dekor-kpl-005-40-kapitel-baza-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-kpl-005-40-kapitel-baza-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-kpl-005-40-kapitel-baza-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-kpl-005-40-kapitel-baza-mahsulot-3d.webp"
+   }
+  },
+  "kpl-007-15-kapitel-baza": {
+   "scene": "/catalog/2027/fasad_dekor-kpl-007-15-kapitel-baza-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-kpl-007-15-kapitel-baza-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-kpl-007-15-kapitel-baza-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-kpl-007-15-kapitel-baza-mahsulot-3d.webp"
+   }
+  },
+  "kpl-006-50-kapitel-baza": {
+   "scene": "/catalog/2027/fasad_dekor-kpl-006-50-kapitel-baza-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-kpl-006-50-kapitel-baza-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-kpl-006-50-kapitel-baza-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-kpl-006-50-kapitel-baza-mahsulot-3d.webp"
+   }
+  },
+  "kpl-008-30-kapitel-baza": {
+   "scene": "/catalog/2027/fasad_dekor-kpl-008-30-kapitel-baza-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-kpl-008-30-kapitel-baza-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-kpl-008-30-kapitel-baza-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-kpl-008-30-kapitel-baza-mahsulot-3d.webp"
+   }
+  },
+  "sl-001-75x50-sokol": {
+   "scene": "/catalog/2027/fasad_dekor-sl-001-75x50-sokol-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-sl-001-75x50-sokol-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-sl-001-75x50-sokol-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-sl-001-75x50-sokol-mahsulot-3d.webp"
+   }
+  },
+  "sl-003-60x40-sokol": {
+   "scene": "/catalog/2027/fasad_dekor-sl-003-60x40-sokol-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-sl-003-60x40-sokol-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-sl-003-60x40-sokol-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-sl-003-60x40-sokol-mahsulot-3d.webp"
+   }
+  },
+  "sl-002-75x40-sokol": {
+   "scene": "/catalog/2027/fasad_dekor-sl-002-75x40-sokol-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-sl-002-75x40-sokol-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-sl-002-75x40-sokol-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-sl-002-75x40-sokol-mahsulot-3d.webp"
+   }
+  },
+  "sl-004-80x60-sokol": {
+   "scene": "/catalog/2027/fasad_dekor-sl-004-80x60-sokol-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad_dekor-sl-004-80x60-sokol-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad_dekor-sl-004-80x60-sokol-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad_dekor-sl-004-80x60-sokol-mahsulot-3d.webp"
+   }
+  },
+  "f23-4-tali-travertin": {
+   "scene": "/catalog/2027/fasad-f23-4-tali-travertin-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad-f23-4-tali-travertin-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad-f23-4-tali-travertin-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad-f23-4-tali-travertin-mahsulot-3d.webp"
+   }
+  },
+  "f24-4-tali-tosh": {
+   "scene": "/catalog/2027/fasad-f24-4-tali-tosh-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad-f24-4-tali-tosh-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad-f24-4-tali-tosh-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad-f24-4-tali-tosh-mahsulot-3d.webp"
+   }
+  },
+  "f25-6-tali-tosh": {
+   "scene": "/catalog/2027/fasad-f25-6-tali-tosh-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad-f25-6-tali-tosh-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad-f25-6-tali-tosh-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad-f25-6-tali-tosh-mahsulot-3d.webp"
+   }
+  },
+  "f26-korka-15-30": {
+   "scene": "/catalog/2027/fasad-f26-korka-15-30-scene-3d.webp",
+   "sceneSm": "/catalog/2027/fasad-f26-korka-15-30-scene-sm-3d.webp",
+   "molds": {
+    "A": "/catalog/2027/fasad-f26-korka-15-30-qolip-3d.webp"
+   },
+   "tiles": {
+    "A": "/catalog/2027/fasad-f26-korka-15-30-mahsulot-3d.webp"
+   }
+  }
+ }
+}
