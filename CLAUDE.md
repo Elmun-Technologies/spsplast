@@ -556,6 +556,17 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
 - **Terratsso №2 / №3 (2026-11-24, novinka)**: `scripts/catalog-add-2026-11-24-terratsso.json` (`add`, deploy'da o'zi tushadi). Qolip surati
   mijoz kartochkasidan kesilgan (~450 px, 2× kattalashtirilgan — xiraroq; asl surat kelsa `media-src/live/terratsso-N-qolip.jpg` ni almashtiring).
   №3 uchun terilgan surat yo'q; №1 bor-yo'qligi so'ralgan.
+- **Rasmni katta ko'rish — lupa (2026-11-24)**: `ZoomLayer` (`[lang]/layout.tsx`, kichik qobiq) hujjat darajasida `data-zoom="<src>"`
+  li elementga bosishni ushlaydi (`data-zoom-alt`, `data-zoom-bg="studio|deep"` — fonsiz kesma uchun fon; galereya: `data-zoom-list` JSON +
+  `data-zoom-index`) va `ZoomPanel` ni birinchi bosishda `dynamic()` bilan yuklaydi: bosish = 250%, tortish = surish, g'ildirak / ikki barmoq =
+  masshtab (5× gacha), ← → / yon surish = keyingi rasm, Esc. Rasm asl fayldan (`<img>`, optimizatsiyasiz) — kattalashganda tiniq.
+  Ko'zga ko'rinadigan belgi va klaviatura uchun `ZoomButton` (o'zi hech narsa qilmaydi, bosish otaga ko'tariladi; server komponentda ham ishlaydi).
+  Ulangan: model sahifasi (asosiy rasm + tablar), tayyor mahsulot galereyasi, tez ko'rish oynasi. Kartochka rasmi havola bo'lib qoladi.
+  Dasturdan: `window.dispatchEvent(new CustomEvent('sps:zoom', { detail: { items } }))` — PDF varaqlagich ochiq sahifani ~2400 px da qayta chizib beradi.
+  Yangi rasm bloki qo'shsangiz — `data-zoom` + `ZoomButton` qo'ying, alohida modal yozmang.
+- **Trotuar PDF (veb nusxa) qo'lda yangilangan (2026-11-24)**: 7-bet (№004 Girih) — qolip va sahna rasmlari PDF ichida almashtirilgan (pikepdf,
+  obyektlar 93/100; qolip `Multiply` bilan qo'yiladi — oq fonli JPEG kerak); 125-bet — yangi "Терраццо №2 · №3" (№121, HTML → Chromium PDF, Inter).
+  Jami 129 bet. Bosma (150–200 MB) asl fayl repoda yo'q — u alohida yangilanishi kerak, aks holda bosma va veb nusxa farq qiladi.
 - **Tayyor mahsulot rasmi grafit fonda** (`.sps-card--ready`, `.hm-secs--ready`, `.rd-gal__*`, `.rc--ready`): mahsulotlar och
   (krem, oq beton) — och fonda ko'rinmay qolardi; rasm `contain` (kesilmaydi).
 - **PDF kataloglar + varaqlagich (2026-11-16)**: `public/catalog/pdf/` — 3 ta ruscha yotiq PDF (trotuar 2026-11-23 dan — A5 bosma katalog 128 bet, veb nusxa ~39 MB; fayli eski nom

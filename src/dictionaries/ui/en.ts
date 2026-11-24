@@ -11,6 +11,11 @@ export const en: UiDictionary = {
     sectionsNav: 'Sections',
     close: 'Close',
     companyNav: 'Company',
+    zoom: 'Enlarge image',
+    zoomPrev: 'Previous image',
+    zoomNext: 'Next image',
+    zoomIn: 'Zoom in',
+    zoomOut: 'Zoom out',
   },
   header: {
     catalog: 'Catalog',

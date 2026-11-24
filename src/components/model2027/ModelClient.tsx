@@ -23,6 +23,7 @@ import { CONTACTS_2027 } from '@/lib/contacts2027';
 import { useCompareList, useRequestList } from '@/lib/store/spsLists';
 import dynamic from 'next/dynamic';
 import { Icon } from '@/components/site/icons';
+import { ZoomButton } from '@/components/site/ZoomButton';
 import { trackEvent } from '@/lib/analytics';
 import { Model3D } from './Model3D';
 
@@ -225,7 +226,19 @@ export function ModelClient({
               ))}
             </div>
 
-            <div className={`stage${hero && !hero.cover ? ' stage--drawing' : ''}`}>
+            <div
+              className={`stage${hero && !hero.cover ? ' stage--drawing' : ''}`}
+              {...(hero
+                ? {
+                    'data-zoom': hero.src,
+                    'data-zoom-index': Math.max(0, gallery.indexOf(hero)),
+                    'data-zoom-list': JSON.stringify(
+                      gallery.map((g) => ({ src: g.src, alt: `${modelName(model, lang)} — ${g.label}`, ...(g.cover ? {} : { bg: 'studio' }) })),
+                    ),
+                  }
+                : {})}
+            >
+              {hero ? <ZoomButton label={t.a11y.zoom} /> : null}
               {hero ? (
                 <Image
                   key={hero.src}
@@ -428,7 +441,13 @@ export function ModelClient({
               </table>
               {model.images.tiles.A || model.images.scene ? (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                  <div style={{ background: 'var(--surface-alt)', aspectRatio: '4 / 3', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
+                  <div
+                    className="zoomable"
+                    data-zoom={(model.images.tiles.A || model.images.scene) as string}
+                    data-zoom-alt={`${modelName(model, lang)} — ${p.model.spec.tile}`}
+                    style={{ background: 'var(--surface-alt)', aspectRatio: '4 / 3', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}
+                  >
+                    <ZoomButton label={t.a11y.zoom} />
                     <Image
                       src={(model.images.tiles.A || model.images.scene) as string}
                       alt={`${modelName(model, lang)} — ${p.model.spec.tile}`}
@@ -455,7 +474,13 @@ export function ModelClient({
                 <p className="body muted">{p.model.use.laying}</p>
               </div>
               {model.images.scene ? (
-                <div style={{ aspectRatio: '4 / 3', overflow: 'hidden', position: 'relative', borderRadius: 'var(--radius-card)' }}>
+                <div
+                  className="zoomable"
+                  data-zoom={model.images.scene}
+                  data-zoom-alt={`${modelName(model, lang)} — ${t.alt.scene}`}
+                  style={{ aspectRatio: '4 / 3', overflow: 'hidden', position: 'relative', borderRadius: 'var(--radius-card)' }}
+                >
+                  <ZoomButton label={t.a11y.zoom} />
                   <Image src={model.images.scene} alt={`${modelName(model, lang)} — ${t.alt.scene}`} fill sizes="(max-width: 1100px) 100vw, 520px" style={{ objectFit: 'cover' }} loading="lazy" />
                 </div>
               ) : (

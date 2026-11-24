@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import { useUi } from '@/components/site/UiProvider';
+import { ZoomButton } from '@/components/site/ZoomButton';
 
 /**
  * Tayyor mahsulot galereyasi: katta rasm + kichik rasmlar (asosiy surat, rang/tekstura variantlari, obyektdagi surat).
@@ -9,11 +11,18 @@ import Image from 'next/image';
  */
 export function ReadyGallery({ images, label }: { images: { src: string; alt: string; cover?: boolean }[]; label: string }) {
   const [i, setI] = useState(0);
+  const zoomLabel = useUi().a11y.zoom;
   const cur = images[i] ?? images[0];
   if (!cur) return null;
   return (
     <div className="rd-gal">
-      <div className="rd-gal__main">
+      <div
+        className="rd-gal__main zoomable"
+        data-zoom={cur.src}
+        data-zoom-index={Math.max(0, images.indexOf(cur))}
+        data-zoom-list={JSON.stringify(images.map((x) => ({ src: x.src, alt: x.alt, ...(x.cover ? {} : { bg: 'deep' }) })))}
+      >
+        <ZoomButton label={zoomLabel} />
         <Image src={cur.src} alt={cur.alt} fill sizes="(max-width: 900px) 100vw, 640px" priority style={{ objectFit: cur.cover ? 'cover' : 'contain', padding: cur.cover ? 0 : '6%' }} />
       </div>
       {images.length > 1 ? (
