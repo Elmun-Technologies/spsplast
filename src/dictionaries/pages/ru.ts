@@ -243,6 +243,7 @@ export const pagesRu: PagesDictionary = {
     note: 'Это не корзина — оплаты нет. Вы отправляете список, менеджер рассчитывает количество форм, вес и цену.',
     colModel: 'Модель',
     colVolume: 'Суточный объём, м²',
+    colQty: 'Нужное количество',
     volumeA11y: 'Суточный объём, м²',
     removeA11y: 'Убрать',
     approxTemplate: '≈ {n} форм',

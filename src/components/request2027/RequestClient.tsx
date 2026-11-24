@@ -73,6 +73,8 @@ export function RequestClient({
 
   let total = 0;
   let hasUnknown = false;
+  // Faqat tayyor mahsulot bo'lsa — "kunlik hajm" va "qoliplar soni" ma'nosiz: miqdor ustuni, qolip qatori yo'q.
+  const hasMolds = rows.some(({ model }) => !isReady(model));
   for (const { item, model } of rows) {
     if (isReady(model)) continue;
     const molds = calcMolds(model, volumeOf(item.slug, item.m2));
@@ -149,7 +151,7 @@ export function RequestClient({
           <div>
             <div className="rl-head">
               <span className="sps-label">{p.request.colModel}</span>
-              <span className="sps-label">{p.request.colVolume}</span>
+              <span className="sps-label">{hasMolds || !rows.length ? p.request.colVolume : p.request.colQty}</span>
             </div>
 
             {rows.map(({ item, model }) => {
@@ -289,13 +291,15 @@ export function RequestClient({
                   <span>{p.request.modelsLabel}</span>
                   <b>{rows.length}</b>
                 </div>
-                <div
-                  className="mono"
-                  style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: 14, borderBottom: '1px solid var(--line)' }}
-                >
-                  <span>{p.request.moldsLabel}</span>
-                  <b>{total ? `${num(lang, total)}${hasUnknown ? p.request.totalPlus : ''}` : '—'}</b>
-                </div>
+                {hasMolds ? (
+                  <div
+                    className="mono"
+                    style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: 14, borderBottom: '1px solid var(--line)' }}
+                  >
+                    <span>{p.request.moldsLabel}</span>
+                    <b>{total ? `${num(lang, total)}${hasUnknown ? p.request.totalPlus : ''}` : '—'}</b>
+                  </div>
+                ) : null}
 
                 <fieldset style={{ border: 0, padding: 0, margin: 0 }}>
                   <legend className="sps-label">{p.request.whoLegend}</legend>

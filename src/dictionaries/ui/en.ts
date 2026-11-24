@@ -27,6 +27,7 @@ export const en: UiDictionary = {
   },
   nav: {
     ready: 'Ready products',
+    molds: 'Molds catalog',
     partners: 'Wholesale & partners',
     production: 'Production',
     export: 'Export',

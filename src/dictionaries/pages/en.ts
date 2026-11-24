@@ -243,6 +243,7 @@ export const pagesEn: PagesDictionary = {
     note: "This is not a cart — there is no payment. You send the list and the manager calculates mold count, weight and price.",
     colModel: 'Model',
     colVolume: 'Daily volume, m²',
+    colQty: 'Quantity needed',
     volumeA11y: 'Daily volume, m²',
     removeA11y: 'Remove',
     approxTemplate: '≈ {n} molds',

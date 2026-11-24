@@ -255,6 +255,7 @@ export const pagesUz = {
     note: "Bu savat emas — to‘lov yo‘q. Ro‘yxatni yuborasiz, menejer qolip soni, vazni va narxini hisoblab aytadi.",
     colModel: 'Model',
     colVolume: 'Kunlik hajm, m²',
+    colQty: 'Kerakli miqdor',
     volumeA11y: 'Kunlik hajm, m²',
     removeA11y: 'Olib tashlash',
     /** `{n}` o‘rniga son klient tomonda qo‘yiladi (audit 2026-11-02, 3.4-band). */

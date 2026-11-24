@@ -108,6 +108,8 @@ export function HeaderClient({
         <div className="hd-util">
           <div className="wrap hd-util__in">
             <nav className="hd-util__nav" aria-label={t.a11y.companyNav}>
+              {/* Tayyor mahsulotlarda tablar tayyor bo'limlar — qoliplarga qaytish yo'li shu yerda */}
+              {readyView ? <a href={catalogHref}>{t.nav.molds}</a> : null}
               {nav.map((n) => (
                 <a key={n.href} href={n.href} aria-current={isActive(pathname, n.match) ? 'page' : undefined}>
                   {n.label}
@@ -119,7 +121,7 @@ export function HeaderClient({
                 {CONTACTS_2027.mainPhone}
               </a>
               <span className="hd-util__hours">{t.header.hours}</span>
-              <a className="hd-util__pdf" href={pdfHref}>
+              <a className="hd-util__pdf" href={readyView ? `${pdfHref.split('?')[0]}?c=fasad-mahsulot` : pdfHref}>
                 <Icon.download width={14} height={14} strokeWidth={2} aria-hidden="true" />
                 {t.menu.pdf}
               </a>
@@ -235,11 +237,11 @@ export function HeaderClient({
                     {compare.count}
                   </b>
                 </a>
-                <a href={`/${lang}/ready`}>{t.nav.ready}</a>
+                {readyView ? <a href={catalogHref}>{t.nav.molds}</a> : <a href={`/${lang}/ready`}>{t.nav.ready}</a>}
                 <a href={`/${lang}/partners`}>{t.nav.partners}</a>
                 <a href={`/${lang}/production`}>{t.menu.productionExport}</a>
                 <a href={`/${lang}/contact`}>{t.nav.contact}</a>
-                <a href={pdfHref}>{t.menu.pdf}</a>
+                <a href={readyView ? `${pdfHref.split('?')[0]}?c=fasad-mahsulot` : pdfHref}>{t.menu.pdf}</a>
               </div>
             </nav>
             <div className="mm-foot">

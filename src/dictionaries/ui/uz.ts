@@ -28,6 +28,7 @@ export const uz = {
   },
   nav: {
     ready: 'Tayyor mahsulotlar',
+    molds: 'Qoliplar katalogi',
     partners: 'Ulgurji va hamkorlik',
     production: 'Ishlab chiqarish',
     export: 'Eksport',

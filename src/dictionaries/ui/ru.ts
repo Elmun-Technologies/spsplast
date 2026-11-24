@@ -27,6 +27,7 @@ export const ru: UiDictionary = {
   },
   nav: {
     ready: 'Готовая продукция',
+    molds: 'Каталог форм',
     partners: 'Опт и партнёрство',
     production: 'Производство',
     export: 'Экспорт',
