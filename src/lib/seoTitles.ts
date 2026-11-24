@@ -45,18 +45,22 @@ export function modelSeoTitle(model: Model, lang: Locale): string {
 }
 
 /**
- * Tayyor mahsulot sarlavhasi (2026-11-24). Ba'zi nomlarda turi yo'q ("30×60 Кирпич", "4 тали травертин") —
- * qidiruvdagi so'z ("термопанель", "фасадная плитка") sarlavhaga kirmasdi. Nomda subtitle'ning biror so'zi
- * (o'zagi, 4+ harf) bo'lmasa, subtitle oldinga qo'shiladi; bo'lsa ("45×120 Карниз") — takrorlanmaydi.
+ * Tayyor mahsulot sarlavhasi (2026-11-24). Ba'zi nomlarda turi yo'q ("30×60 Кирпич", "120×40 Билайн 1") —
+ * qidiruvdagi so'z ("термопанель", "панель") sarlavhaga kirmasdi. Subtitle'ning qo'shtirnoqdan tashqaridagi
+ * so'zlari (4+ harf) — turi; nomda yo'qlari oldinga qo'shiladi ("Панель 120×40 Билайн 1"). Nom turi bilan
+ * boshlansa ("Еврозабор «Оковка»", "Bench side «Classic»") yoki hammasi bor bo'lsa ("45×120 Карниз") — o'zgarmaydi.
  */
 export function readySeoTitle(name: string, subtitle: string, size?: string | null): string {
   const lower = name.toLowerCase();
-  const stems = subtitle
-    .toLowerCase()
+  const words = subtitle
+    .replace(/«[^»]*»/g, ' ')
     .split(/[^\p{L}]+/u)
-    .filter((w) => w.length >= 4)
-    .map((w) => w.slice(0, 5));
-  const base = !subtitle || stems.some((s) => lower.includes(s)) ? name : `${subtitle} ${name}`;
+    .filter((w) => w.length >= 4);
+  const stem = (w: string) => w.toLowerCase().slice(0, 5);
+  const startsWithType = words.some((w) => lower.startsWith(stem(w)));
+  const missing = startsWithType ? [] : words.filter((w) => !lower.includes(stem(w)));
+  const prefix = missing.join(' ');
+  const base = prefix ? `${prefix.charAt(0).toUpperCase()}${prefix.slice(1)} ${name}` : name;
   const withSize = size ? `${base} ${size}` : base;
   return withSize.length <= MAX ? withSize : base;
 }
