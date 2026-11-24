@@ -67,6 +67,7 @@ export const en: UiDictionary = {
     offerService: 'Mold calculation and delivery',
     priceRange: 'On request',
     leadCta: 'Submit a request — the manager will calculate the mold count and the price.',
+    sectionOrigin: 'Plastic molds direct from the factory in Uzbekistan.',
     sectionMolds: {
       trotuar: 'Paving tile molds',
       fasad: 'Facade tile molds',

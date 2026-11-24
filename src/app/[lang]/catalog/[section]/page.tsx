@@ -52,7 +52,7 @@ export async function generateMetadata({
     lang: locale,
     path: `/catalog/${section}`,
     title: sectionSeoTitle(sec, locale, count),
-    description: `${sectionLabel(sec, locale)} — ${count} ${pluralModels(locale, count)}. ${getUi(locale).seo.leadCta}`,
+    description: `${sectionLabel(sec, locale)} — ${count} ${pluralModels(locale, count)}. ${getUi(locale).seo.sectionOrigin} ${getUi(locale).seo.leadCta}`,
     image: cover,
   });
 }
