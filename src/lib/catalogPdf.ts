@@ -2,7 +2,7 @@ import type { Locale } from '@/lib/i18n';
 
 /**
  * Saytdagi PDF kataloglar (2026-11-16): yotiq, har modeli alohida sahifada, ruscha. Trotuar — 2026-11-23
- * bosma katalog (A5, 128 bet, rasmlar 1100 px gacha siqilgan veb nusxa; asl nusxa repoga kirmaydi).
+ * bosma katalog (A5, 129 bet — 2026-11-24: Girih rasmlari yangilandi, Terratsso sahifasi qo'shildi; rasmlar 1100 px gacha siqilgan veb nusxa; asl nusxa repoga kirmaydi).
  * Fayllar `public/catalog/pdf/`, varaqlagich — `/{lang}/catalog/flip` (pdf.js + page-flip).
  * Trotuar fayli eski nom bilan qoldi — tashqi havolalar uzilmasin.
  */

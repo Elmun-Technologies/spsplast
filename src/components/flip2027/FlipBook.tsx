@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useUi } from '@/components/site/UiProvider';
 
 type Cat = { key: string; label: string; file: string };
 type Txt = { pdf: string; prev: string; next: string; page: string; of: string; loading: string; error: string; hint: string };
@@ -12,7 +13,9 @@ export function FlipBook({ cats, initial, t }: { cats: Cat[]; initial: string; t
   const [cur, setCur] = useState(0);
   const [total, setTotal] = useState(0);
   const host = useRef<HTMLDivElement>(null);
-  const flipRef = useRef<{ next: () => void; prev: () => void } | null>(null);
+  const flipRef = useRef<{ next: () => void; prev: () => void; shots: () => Promise<{ src: string; alt: string }[]> } | null>(null);
+  const [busy, setBusy] = useState(false);
+  const zoomLabel = useUi().a11y.zoomIn;
   const cat = cats.find((c) => c.key === key) ?? cats[0];
 
   // Statik sahifa: ?c=fasad ni brauzerda o'qiymiz (server searchParams o'qimaydi).
@@ -98,7 +101,27 @@ export function FlipBook({ cats, initial, t }: { cats: Cat[]; initial: string; t
           setCur(i);
           around(i);
         });
-        flipRef.current = { next: () => pf.flipNext(), prev: () => pf.flipPrev() };
+        // Lupa: ochiq turgan sahifa(lar) yuqori aniqlikda (uzun tomoni ~2400 px) qayta chiziladi — naqshlar tiniq ko'rinadi.
+        const shot = async (i: number) => {
+          const page = await pdf.getPage(i + 1);
+          const v = page.getViewport({ scale: Math.min(2400 / Math.max(vp.width, vp.height), 4.5) });
+          const c = document.createElement('canvas');
+          c.width = Math.round(v.width);
+          c.height = Math.round(v.height);
+          await page.render({ canvasContext: c.getContext('2d')!, viewport: v }).promise;
+          const src = c.toDataURL('image/jpeg', 0.9);
+          c.width = c.height = 0;
+          return { src, alt: `${cat.label} — ${t.page} ${i + 1}` };
+        };
+        const shots = async () => {
+          const i = pf.getCurrentPageIndex();
+          // Yoyilgan (ikki sahifali) ko'rinish: kitob eni bitta sahifadan ancha keng.
+          const pair = book.clientWidth > pages[i].clientWidth * 1.5 && i > 0 && i + 1 < n - 1;
+          const out = [await shot(i)];
+          if (pair) out.push(await shot(i + 1));
+          return out;
+        };
+        flipRef.current = { next: () => pf.flipNext(), prev: () => pf.flipPrev(), shots };
         setTotal(n);
         setStatus('ready');
         around(0);
@@ -115,7 +138,22 @@ export function FlipBook({ cats, initial, t }: { cats: Cat[]; initial: string; t
       } catch {}
       void doc?.destroy();
     };
+    // `t.page` / `cat.label` faqat lupa sarlavhasi uchun — PDF qayta yuklanmasin.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cat.file, key]);
+
+  const zoom = useCallback(async () => {
+    if (!flipRef.current || busy) return;
+    setBusy(true);
+    try {
+      const items = await flipRef.current.shots();
+      window.dispatchEvent(new CustomEvent('sps:zoom', { detail: { items, index: 0 } }));
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setBusy(false);
+    }
+  }, [busy]);
 
   const onKey = useCallback((e: React.KeyboardEvent) => {
     if (e.key === 'ArrowRight') flipRef.current?.next();
@@ -144,6 +182,13 @@ export function FlipBook({ cats, initial, t }: { cats: Cat[]; initial: string; t
         <button className="sps-btn sps-btn--outline" onClick={() => flipRef.current?.prev()} aria-label={t.prev} disabled={status !== 'ready'}>←</button>
         <span className="flip__count">{status === 'ready' ? `${t.page} ${cur + 1} ${t.of} ${total}` : ''}</span>
         <button className="sps-btn sps-btn--outline" onClick={() => flipRef.current?.next()} aria-label={t.next} disabled={status !== 'ready'}>→</button>
+        <button className="sps-btn sps-btn--dark flip__zoom" onClick={zoom} disabled={status !== 'ready' || busy} aria-busy={busy}>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="6.5" />
+            <path d="M16 16l4.5 4.5M11 8.5v5M8.5 11h5" />
+          </svg>
+          {zoomLabel}
+        </button>
         <a className="sps-btn sps-btn--primary flip__dl" href={cat.file} download>{t.pdf} ↓</a>
       </div>
       <p className="flip__hint muted">{t.hint}</p>

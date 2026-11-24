@@ -8,6 +8,7 @@ import { HtmlLangSync } from '@/components/layout/HtmlLangSync';
 import { VisitTracker } from '@/components/analytics/VisitTracker';
 import { MotionLayer } from '@/components/site/MotionLayer';
 import { UiProvider } from '@/components/site/UiProvider';
+import { ZoomLayer } from '@/components/site/ZoomLayer';
 import { isValidLocale, locales, type Locale } from '@/lib/i18n';
 import { getUi } from '@/lib/ui';
 import { JsonLd } from '@/components/site/JsonLd';
@@ -53,6 +54,7 @@ export default async function LangLayout({
       <main id="main-content">{children}</main>
       <CompareBar lang={lang} />
       <SiteFooter lang={lang} />
+      <ZoomLayer />
     </UiProvider>
   );
 }

@@ -1384,6 +1384,7 @@ html { scroll-padding-top: 164px; }
 .flip__bar .sps-btn{min-width:48px}
 .flip__count{font:600 14px/1 inherit;min-width:110px;text-align:center}
 .flip__dl{margin-left:auto}
+.flip__zoom{display:inline-flex;align-items:center;gap:8px}
 .flip__hint{margin-top:10px;font-size:13px}
 
 /* Bosh sahifa: ikki yo'nalish paneli (qoliplar / tayyor mahsulotlar) — 2026-11-24 qayta ishlangan:
@@ -1624,3 +1625,62 @@ html { scroll-padding-top: 164px; }
 .sps-card__cmp.sps-iconbtn { width: 36px; height: 36px; padding: 0; border-radius: 999px; }
 @media (min-width: 761px) { .sps-card__media--duo .sps-card__cmp { right: calc(39% + 10px); } }
 .cat-grid--list .sps-card__media--duo .sps-card__cmp { right: 6px; }
+
+/* === RASMNI KATTA KO'RISH (lupa, 2026-11-24) ===========================================
+   `data-zoom` li istalgan rasm bosilganda to'liq ekranda ochiladi (ZoomLayer / ZoomPanel). */
+[data-zoom] { cursor: zoom-in; }
+.zoom-btn {
+  position: absolute; right: 12px; bottom: 12px; z-index: 3; width: 44px; height: 44px; display: grid; place-items: center;
+  border: 0; border-radius: 50%; background: rgba(255, 255, 255, .94); color: var(--ink); cursor: zoom-in;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .22); transition: transform .15s ease, background-color .15s ease;
+}
+.zoom-btn:hover { background: #fff; transform: scale(1.06); }
+.zoom-btn:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+.stage .zoom-btn { bottom: auto; top: 12px; }
+
+.zm {
+  position: fixed; inset: 0; z-index: 2000; display: flex; flex-direction: column; color: #fff;
+  background: #101113; animation: zm-in .16s ease-out; overscroll-behavior: contain;
+}
+.zm--studio { background: radial-gradient(120% 95% at 50% 40%, #8d9095 0%, #63666b 55%, #46494e 100%); }
+.zm--deep { background: radial-gradient(120% 95% at 50% 40%, #44464b 0%, #1d1f22 80%); }
+@keyframes zm-in { from { opacity: 0; } to { opacity: 1; } }
+.zm__box {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; overflow: hidden;
+  touch-action: none; user-select: none; -webkit-user-select: none; cursor: zoom-in; padding: 64px 12px 84px;
+}
+.zm__box.is-zoomed { cursor: grab; }
+.zm__box.is-zoomed.is-drag { cursor: grabbing; }
+.zm__box img {
+  max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; will-change: transform;
+  transition: transform .18s ease-out; -webkit-user-drag: none; pointer-events: none;
+}
+.zm__box.is-drag img { transition: none; }
+.zm--studio .zm__box img { filter: drop-shadow(0 24px 26px rgba(0, 0, 0, .4)); }
+.zm__top {
+  position: absolute; left: 0; right: 0; top: 0; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 10px 12px 10px 16px; pointer-events: none; background: linear-gradient(rgba(0, 0, 0, .5), transparent);
+}
+.zm__cap { font: 500 14px/20px var(--font-sans); display: flex; gap: 10px; align-items: baseline; min-width: 0; text-shadow: 0 1px 2px rgba(0, 0, 0, .5); }
+.zm__cap b { font-weight: 600; opacity: .8; white-space: nowrap; }
+.zm__btn {
+  pointer-events: auto; flex: none; width: 44px; height: 44px; display: grid; place-items: center; border: 0; border-radius: 50%;
+  background: rgba(20, 21, 23, .66); color: #fff; cursor: pointer; backdrop-filter: blur(6px); transition: background-color .15s ease;
+}
+.zm__btn:hover { background: rgba(20, 21, 23, .9); }
+.zm__btn:disabled { opacity: .4; cursor: default; }
+.zm__btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.zm__nav { position: absolute; top: 50%; transform: translateY(-50%); width: 48px; height: 48px; }
+.zm__nav--prev { left: 12px; }
+.zm__nav--next { right: 12px; }
+.zm__bar {
+  position: absolute; left: 50%; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%);
+  display: flex; align-items: center; gap: 6px; padding: 4px; border-radius: 999px; background: rgba(20, 21, 23, .5); backdrop-filter: blur(6px);
+}
+.zm__bar .zm__btn { background: transparent; }
+.zm__bar .zm__btn:hover:not(:disabled) { background: rgba(255, 255, 255, .14); }
+.zm__pct { min-width: 54px; text-align: center; font: 600 14px/20px var(--font-sans); font-variant-numeric: tabular-nums; }
+@media (max-width: 640px) {
+  .zm__box { padding: 56px 0 80px; }
+  .zm__nav { top: auto; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); transform: none; }
+}

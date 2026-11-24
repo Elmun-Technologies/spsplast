@@ -11,6 +11,11 @@ export const ru: UiDictionary = {
     sectionsNav: 'Разделы',
     close: 'Закрыть',
     companyNav: 'Компания',
+    zoom: 'Увеличить изображение',
+    zoomPrev: 'Предыдущее изображение',
+    zoomNext: 'Следующее изображение',
+    zoomIn: 'Увеличить',
+    zoomOut: 'Уменьшить',
   },
   header: {
     catalog: 'Каталог',

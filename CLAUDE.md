@@ -547,6 +547,28 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     Skameykalar shunday (avtomatik fonsiz kesmada skameykaning yarmi kesilgan edi) — `refresh` orqali baza ham yangilanadi.
   - Bosh sahifa hero: `public/images/site/home/{molds,ready}-hero.webp` (kesmalardan yig'ilgan kompozitsiya, pastki rangi
     panel foni bilan bir xil: `#e2ddd3` / `#1f2125`). Qayta yig'ish kerak bo'lsa — panel rangini ham moslang.
+- **Girih qolipi va sahnasi (2026-11-24)**: bosma katalogdagi №004 Girih rasmlari haqiqiy qolipga MOS EMAS edi (boshqa naqsh).
+  `media-src/live/girih-qolip.jpg` / `girih-sahna.jpg` endi haqiqiy qolip suratlaridan (`media-src/ref/girih/` — 30×30 o'n qirrali
+  yulduz, 10×30, 10×10) chiqarilgan naqsh bilan qilingan 3D vizualizatsiya: surat to'g'rilanadi (gomografiya + simmetriya), kataklar
+  vektorga aylanadi, shundan normal/rang teksturasi va three.js sahnasi. Generator repoda yo'q (bir martalik); niqob
+  `media-src/clean/trotuar-girih-mold-a.png` = render alfa kanali (manifestda `method: render alpha`, sha bilan — `images:bg` qayta yasamaydi).
+  Fayl nomi o'zgarmagan → bazaga sync kerak emas. Ochiq: sayt yorlig'i bu rasmni "haqiqiy surat" deydi (bosma katalog renderlari bilan bir xil holat).
+- **Terratsso №2 / №3 (2026-11-24, novinka)**: `scripts/catalog-add-2026-11-24-terratsso.json` (`add`, deploy'da o'zi tushadi). Qolip surati
+  mijoz kartochkasidan kesilgan (~450 px, 2× kattalashtirilgan — xiraroq; asl surat kelsa `media-src/live/terratsso-N-qolip.jpg` ni almashtiring).
+  №3 uchun terilgan surat yo'q; №1 bor-yo'qligi so'ralgan.
+- **Rasmni katta ko'rish — lupa (2026-11-24)**: `ZoomLayer` (`[lang]/layout.tsx`, kichik qobiq) hujjat darajasida `data-zoom="<src>"`
+  li elementga bosishni ushlaydi (`data-zoom-alt`, `data-zoom-bg="studio|deep"` — fonsiz kesma uchun fon; galereya: `data-zoom-list` JSON +
+  `data-zoom-index`) va `ZoomPanel` ni birinchi bosishda `dynamic()` bilan yuklaydi: bosish = 250%, tortish = surish, g'ildirak / ikki barmoq =
+  masshtab (5× gacha), ← → / yon surish = keyingi rasm, Esc. Rasm asl fayldan (`<img>`, optimizatsiyasiz) — kattalashganda tiniq.
+  Ko'zga ko'rinadigan belgi va klaviatura uchun `ZoomButton` (o'zi hech narsa qilmaydi, bosish otaga ko'tariladi; server komponentda ham ishlaydi).
+  Ulangan: model sahifasi (asosiy rasm + tablar), tayyor mahsulot galereyasi, tez ko'rish oynasi. Kartochka rasmi havola bo'lib qoladi.
+  Dasturdan: `window.dispatchEvent(new CustomEvent('sps:zoom', { detail: { items } }))` — PDF varaqlagich ochiq sahifani ~2400 px da qayta chizib beradi.
+  Yangi rasm bloki qo'shsangiz — `data-zoom` + `ZoomButton` qo'ying, alohida modal yozmang.
+- **Trotuar PDF (veb nusxa) qo'lda yangilangan (2026-11-24)**: 7-bet (№004 Girih) — qolip va sahna rasmlari PDF ichida almashtirilgan (pikepdf,
+  obyektlar 93/100; qolip `Multiply` bilan qo'yiladi — oq fonli JPEG kerak); 19-bet — yangi "Терраццо №2 · №3" (**№016**, novinkalar bo'limi oxirida, HTML → Chromium PDF, Inter).
+  Undan keyingi 105 model **qayta raqamlangan** (Монако №016 → №017 … Вегас 2 №120 → №121) va bet raqamlari +1: eski raqam matni kontent oqimidan
+  olib tashlangan (`26.66 Tf` = model raqami, `6 Tf` = bet raqami; glif → raqam xaritasi bet raqamlaridan tekshirilgan), yangisi shaffof qatlam
+  (`add_overlay`) bilan qo'yilgan. Sayt kodlari bu raqamlarga bog'liq emas. Avval bosilgan nusxalarda raqamlar bittaga farq qiladi. Jami 129 bet. Bosma (150–200 MB) asl fayl repoda yo'q — u alohida yangilanishi kerak, aks holda bosma va veb nusxa farq qiladi.
 - **Tayyor mahsulot rasmi grafit fonda** (`.sps-card--ready`, `.hm-secs--ready`, `.rd-gal__*`, `.rc--ready`): mahsulotlar och
   (krem, oq beton) — och fonda ko'rinmay qolardi; rasm `contain` (kesilmaydi).
 - **PDF kataloglar + varaqlagich (2026-11-16)**: `public/catalog/pdf/` — 3 ta ruscha yotiq PDF (trotuar 2026-11-23 dan — A5 bosma katalog 128 bet, veb nusxa ~39 MB; fayli eski nom

@@ -7,6 +7,7 @@ import { formatNumber } from '@/lib/i18n';
 import { useUi } from '@/components/site/UiProvider';
 import { useModalShell } from '@/components/site/useModalShell';
 import { Icon } from '@/components/site/icons';
+import { ZoomButton } from '@/components/site/ZoomButton';
 import { productHref } from '@/components/catalog2027/ProductCard';
 
 /** Tez ko'rish: 2 ustunli modal (rasm + qolip | kod, nom, 4 qatorli jadval, CTA). */
@@ -52,7 +53,21 @@ export function QuickViewModal({
           </button>
         </div>
         <div className="qv-grid">
-          <div className="qv-media">
+          <div
+            className="qv-media zoomable"
+            {...(model.images.molds.A || model.images.scene
+              ? {
+                  'data-zoom': (model.images.molds.A || model.images.scene) as string,
+                  'data-zoom-list': JSON.stringify(
+                    [
+                      model.images.molds.A ? { src: model.images.molds.A, alt: `${modelName(model, lang)} — ${ui.alt.mold}`, bg: 'studio' } : null,
+                      model.images.scene ? { src: model.images.scene, alt: `${modelName(model, lang)} — ${ui.alt.scene}` } : null,
+                    ].filter(Boolean),
+                  ),
+                }
+              : {})}
+          >
+            {model.images.molds.A || model.images.scene ? <ZoomButton label={ui.a11y.zoom} /> : null}
             {model.images.molds.A ? (
               <span className="sps-card__cutout sps-card__cutout--tilt" style={{ position: 'absolute', inset: 0 }}>
                 <Image src={model.images.molds.A} alt={`${modelName(model, lang)} — ${ui.alt.mold}`} fill sizes="(max-width: 760px) 100vw, 340px" style={{ objectFit: 'contain' }} />

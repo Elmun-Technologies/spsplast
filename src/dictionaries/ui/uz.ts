@@ -12,6 +12,11 @@ export const uz = {
     sectionsNav: "Bo‘limlar",
     close: 'Yopish',
     companyNav: 'Kompaniya',
+    zoom: 'Rasmni kattalashtirish',
+    zoomPrev: 'Oldingi rasm',
+    zoomNext: 'Keyingi rasm',
+    zoomIn: 'Kattalashtirish',
+    zoomOut: 'Kichraytirish',
   },
   header: {
     catalog: 'Katalog',
