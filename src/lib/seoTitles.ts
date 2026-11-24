@@ -43,3 +43,20 @@ export function modelSeoTitle(model: Model, lang: Locale): string {
   ].map((parts) => parts.filter(Boolean).join(' '));
   return candidates.find((c) => c.length <= MAX) ?? candidates[candidates.length - 1];
 }
+
+/**
+ * Tayyor mahsulot sarlavhasi (2026-11-24). Ba'zi nomlarda turi yo'q ("30×60 Кирпич", "4 тали травертин") —
+ * qidiruvdagi so'z ("термопанель", "фасадная плитка") sarlavhaga kirmasdi. Nomda subtitle'ning biror so'zi
+ * (o'zagi, 4+ harf) bo'lmasa, subtitle oldinga qo'shiladi; bo'lsa ("45×120 Карниз") — takrorlanmaydi.
+ */
+export function readySeoTitle(name: string, subtitle: string, size?: string | null): string {
+  const lower = name.toLowerCase();
+  const stems = subtitle
+    .toLowerCase()
+    .split(/[^\p{L}]+/u)
+    .filter((w) => w.length >= 4)
+    .map((w) => w.slice(0, 5));
+  const base = !subtitle || stems.some((s) => lower.includes(s)) ? name : `${subtitle} ${name}`;
+  const withSize = size ? `${base} ${size}` : base;
+  return withSize.length <= MAX ? withSize : base;
+}

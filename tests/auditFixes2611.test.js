@@ -86,6 +86,16 @@ test('5. RU/EN/UZ sarlavhalarda asosiy so\'rov: формы / molds / qoliplari',
       // " · SPS Plast" (12) bilan 65 dan oshmasin.
       for (const lang of ['uz', 'ru', 'en']) assert.ok(t.modelSeoTitle(m, lang).length <= 53, `${lang} ${m.slug}: uzun`);
     }
+    // Tayyor mahsulot: turi nomda bo'lmasa oldinga qo'shiladi, bo'lsa takrorlanmaydi; 53 belgidan oshmaydi.
+    assert.equal(t.readySeoTitle('30×60 Кирпич', 'Термопанель', '300×600'), 'Термопанель 30×60 Кирпич 300×600');
+    assert.equal(t.readySeoTitle('45×120 Карниз', 'Карниз', '450×1200'), '45×120 Карниз 450×1200');
+    assert.equal(t.readySeoTitle('Еврозабор «Оковка»', 'Панель еврозабора', null), 'Еврозабор «Оковка»');
+    for (const m of c.getReadyModels()) {
+      for (const lang of ['uz', 'ru', 'en']) {
+        const title = t.readySeoTitle(c.modelName(m, lang), c.localizedText(m.subtitle, lang) ?? '', m.tiles[0]?.size);
+        assert.ok(title.length <= 53, `${lang} ${m.slug}: ${title}`);
+      }
+    }
   } finally {
     cleanupTmp();
   }

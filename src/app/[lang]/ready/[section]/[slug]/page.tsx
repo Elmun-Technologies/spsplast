@@ -24,6 +24,7 @@ import { JsonLd } from '@/components/site/JsonLd';
 import { ReadyGallery } from '@/components/ready2027/ReadyGallery';
 import { ReadyActions } from '@/components/ready2027/ReadyActions';
 import { jsonLdBreadcrumb, jsonLdProduct, pageMetadata } from '@/lib/seo';
+import { readySeoTitle } from '@/lib/seoTitles';
 
 export const dynamicParams = false;
 
@@ -67,7 +68,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   return pageMetadata({
     lang: locale,
     path: modelPath(m),
-    title: [name, size].filter(Boolean).join(' '),
+    title: readySeoTitle(name, localizedText(m.subtitle, locale) ?? '', size),
     description: `${name}${size ? ` ${size}` : ''} — ${sub}. ${r.priceNote}`,
     image: modelImage(m) ?? undefined,
     // Rasmsiz mahsulot indekslanmaydi (qoliplardagi kabi `autoNoindex`) — rasm qo'shilgach o'zi ochiladi.
