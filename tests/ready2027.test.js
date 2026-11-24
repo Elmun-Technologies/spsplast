@@ -93,3 +93,22 @@ test('8. tayyor mahsulot miqdori birligi bilan (m² / dona) matnga yoziladi, qol
   assert.match(list, /m2: isReady\(model\) \? undefined/);
   assert.match(list, /const molds = ready \? null : calcMolds/);
 });
+
+test('9. katalog to\'plamlari deploy\'da bazaga o\'zi tushadi (catalog_sync_log, bir marta)', () => {
+  const pkg = JSON.parse(read('package.json'));
+  assert.match(pkg.scripts['db:migrate:deploy'], /catalog-sync\.ts --pending/);
+  const sync = read('scripts/catalog-sync.ts');
+  assert.match(sync, /catalogSyncLog/);
+  assert.match(sync, /done\.get\(f\) === sha\) continue/);
+  assert.match(read('src/server/db/schema.ts'), /pgTable\('catalog_sync_log'/);
+  // Har bir to'plam bazaga tushishi uchun o'zi bilan birga keladigan rasmlar repoda bo'lishi shart.
+  for (const f of fs.readdirSync(path.join(ROOT, 'scripts')).filter((x) => /^catalog-add-.*\.json$/.test(x))) {
+    const d = JSON.parse(read(`scripts/${f}`));
+    const imgs = [...(d.add ?? []).map((x) => x.images), ...Object.values(d.refresh ?? {})];
+    for (const im of imgs) {
+      for (const p of [im.scene, im.sceneSm, ...Object.values(im.molds ?? {}), ...Object.values(im.tiles ?? {})]) {
+        if (p && p.startsWith('/catalog/')) assert.ok(fs.existsSync(path.join(ROOT, 'public', p)), `${f}: ${p} yo'q`);
+      }
+    }
+  }
+});

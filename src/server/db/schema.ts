@@ -305,6 +305,17 @@ export const publishes = pgTable('publishes', {
   createdAt: createdAt(),
 });
 
+/**
+ * `scripts/catalog-add-*.json` fayllari bazaga qachon qo'llangani (2026-11-24). Deploy'da
+ * (`db:migrate:deploy`) yangi yoki o'zgargan fayl bir marta qo'llanadi — terminalda `catalog:sync` shart emas.
+ */
+export const catalogSyncLog = pgTable('catalog_sync_log', {
+  file: text('file').primaryKey(),
+  sha: text('sha').notNull(),
+  result: text('result'),
+  appliedAt: createdAt(),
+});
+
 // --- SEO, matnlar (CMS) va hisobot ulanishlari (2028): admin → "Nashr qilish" bilan saytga ---
 
 export const CONTENT_LANGS = ['uz', 'ru', 'en'] as const;

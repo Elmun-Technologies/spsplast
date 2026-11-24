@@ -341,7 +341,7 @@ test('13. Vercel build: migratsiya build oldidan, Preview va bazasiz holatda o\'
   const vercel = JSON.parse(read('vercel.json'));
   assert.strictEqual(vercel.buildCommand, 'npm run db:migrate:deploy && npm run build', 'migratsiya buildʼdan oldin');
   const pkg = JSON.parse(read('package.json'));
-  assert.strictEqual(pkg.scripts['db:migrate:deploy'], 'node scripts/db-migrate.mjs --deploy');
+  assert.strictEqual(pkg.scripts['db:migrate:deploy'], 'node scripts/db-migrate.mjs --deploy && node --experimental-strip-types scripts/catalog-sync.ts --pending');
   const run = (env) => {
     const clean = { ...process.env };
     delete clean.DATABASE_URL;
