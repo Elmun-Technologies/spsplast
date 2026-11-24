@@ -70,7 +70,7 @@ export const uz = {
     priceRange: 'Zayafka bo‘yicha',
     leadCta: "Zayafka qoldiring — menejer qolip soni va narxini hisoblab beradi.",
     /** Bo‘lim description: kalit so‘z + manba (zavoddan, O‘zbekiston). */
-    sectionOrigin: 'Plastik qoliplar zavoddan to‘g‘ridan-to‘g‘ri, O‘zbekiston.',
+    sectionOrigin: 'O‘zbekistondagi zavoddan to‘g‘ridan-to‘g‘ri plastik qoliplar.',
     /** Sarlavhalardagi asosiy so‘rov (audit 2026-11-02): bo‘lim → "… qoliplari", model → "… qolipi". */
     sectionMolds: {
       trotuar: 'Trotuar plitkasi qoliplari',
