@@ -1,5 +1,14 @@
 # Keyingi Claude Code sessiyasi uchun topshiriq (copy-paste)
 
+> **Joriy holat (2026-11-23) — quyidagi promptdagi 2026-11-12 ma'lumotidan ustun turadi:**
+> - Sayt jonli: https://spsplast.uz, Hetzner + Coolify (Vercel o'chirilgan). `main`ga merge → `checks` yashil →
+>   `deploy-coolify` workflow Coolify API'ni chaqiradi (avtomatik deploy, logda `Coolify javobi: HTTP 200`).
+> - GA4 `G-9EMS6FEXHF`, Yandex Metrica `114622159`, Yandex Webmaster tasdiqlangan; Search Console domen property, sitemap 711 URL.
+> - Admin: 2 ta admin akkaunt; parol unutilsa `npm run admin:reset -- --email E` (Coolify terminali).
+> - Ochiq: Coolify paneli HTTP'da (`COOLIFY_URL`) — DNS'da `coolify.spsplast.uz` tayyor bo'lgach HTTPS'ga ko'chirish;
+>   PR #81 (tayyor mahsulotlar) va #78 (Dockerfile/standalone, konflikt bor) egasi qarorini kutmoqda; `dekor` bo'limida 0 model.
+> - SEO monitoring: kuniga 2 marta scheduled task (bulutda, Search Console'siz); GSC'ni egasining suhbati Chrome orqali tekshiradi.
+
 > Quyidagi `---` dan keyingi hamma matnni yangi Claude Code sessiyasiga (repo: `Elmun-Technologies/spsplast`)
 > birinchi xabar qilib bering. Prompt o'zi yetarli — oldingi suhbatni bilish shart emas.
 
