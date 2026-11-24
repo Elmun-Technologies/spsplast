@@ -1453,7 +1453,22 @@ html { scroll-padding-top: 164px; }
 .rd-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
 .rd-actions .sps-btn { gap: 8px; }
 .rd-actions .sps-btn.is-on { border-color: var(--ink); background: var(--surface-alt); }
-@media (max-width: 640px) { .rd-actions .sps-btn--primary { flex: 1 1 100%; } }
+@media (max-width: 640px) {
+  .rd-actions .sps-btn--primary { flex: 1 1 100%; }
+  .rd-actions .sps-btn--outline { flex: 1 1 0; justify-content: center; }
+}
+/* Tayyor mahsulotlar och (krem, oq beton): och fonda qo'shilib ketmasin — grafit "studiya" foni
+   (bosh sahifadagi qorong'i "Tayyor mahsulotlar" paneli bilan bir xil til). */
+.sps-card--ready .sps-card__media,
+.hm-secs--ready .hm-sec__media,
+.rd-gal__main,
+.rd-gal__thumb,
+.rc--ready img { background: radial-gradient(120% 95% at 50% 38%, #3c3e43 0%, #202226 78%); }
+.rc--ready img { object-fit: contain; padding: 6%; }
+/* shaffof mahsulot surati — kesilmasin, to'liq ko'rinsin */
+.sps-card--ready .sps-card__media img,
+.hm-secs--ready .hm-sec__media img { object-fit: contain !important; padding: 7%; }
+.rd-gal__thumb.is-on { border-color: var(--red); }
 .ct-note a:not(.sps-btn) { color: var(--on-ink); text-decoration: underline; }
 
 /* /ready bo'sh holati: qora blok ichida kontur tugmalar ko'rinsin */

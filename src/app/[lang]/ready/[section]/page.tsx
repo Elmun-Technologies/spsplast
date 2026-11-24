@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { readyCatalogKey } from '@/lib/catalogPdf';
 import { isValidLocale, locales, type Locale } from '@/lib/i18n';
 import { getPages } from '@/lib/pages';
 import { CONTACTS_2027 } from '@/lib/contacts2027';
@@ -85,7 +86,7 @@ export default async function ReadySectionPage({ params }: { params: Promise<{ l
         title={o?.h1 || sectionLabel(sec, lang)}
         intro={o?.intro || r.sectionIntros[sec]}
         lead={r.sectionLeadTemplate.replace('{n}', String(models.length))}
-        catalog={null}
+        catalog={readyCatalogKey(sec)}
         pattern="charogon"
       />
       <div className="wrap sec">

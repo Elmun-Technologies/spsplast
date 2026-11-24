@@ -13,9 +13,9 @@
     "en": "Bench side «Classic»"
    },
    "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
+    "uz": "Skameyka yon qismi",
+    "ru": "Боковина скамейки",
+    "en": "Bench side"
    },
    "note": {
     "uz": "Qo‘sh ramkadagi akant naqshi, oyoqlari va suyanchig‘ida rozetkalar. To‘lqinsimon o‘rindiq uchun.",
@@ -78,9 +78,9 @@
     "en": "Bench side «Floral»"
    },
    "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
+    "uz": "Skameyka yon qismi",
+    "ru": "Боковина скамейки",
+    "en": "Bench side"
    },
    "note": {
     "uz": "Butun yon qism bo‘ylab zich o‘simliksimon naqsh, kontur bo‘ylab qo‘sh hoshiya. To‘lqinsimon o‘rindiq uchun.",
@@ -143,9 +143,9 @@
     "en": "Bench side «Lattice»"
    },
    "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
+    "uz": "Skameyka yon qismi",
+    "ru": "Боковина скамейки",
+    "en": "Bench side"
    },
    "note": {
     "uz": "Markazda romb shaklidagi panjara, oyoqlari va suyanchig‘ida jingalak va volyutalar.",
@@ -257,9 +257,9 @@
     "en": "Bench side «Royal»"
    },
    "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
+    "uz": "Skameyka yon qismi",
+    "ru": "Боковина скамейки",
+    "en": "Bench side"
    },
    "note": {
     "uz": "Baland suyanchiq va qo‘ltiqtayanch bitta quymada. Yirik barg naqshi, chetida marvarid belbog‘.",
@@ -371,9 +371,9 @@
     "en": "Bench side «Comfort»"
    },
    "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
+    "uz": "Skameyka yon qismi",
+    "ru": "Боковина скамейки",
+    "en": "Bench side"
    },
    "note": {
     "uz": "Qo‘ltiqtayanchli va teshik o‘yiqli yon qism. Oyoqlari va suyanchig‘ining butun konturi bo‘ylab naqsh.",
@@ -485,9 +485,9 @@
     "en": "Bench side «Modern»"
    },
    "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
+    "uz": "Skameyka yon qismi",
+    "ru": "Боковина скамейки",
+    "en": "Bench side"
    },
    "note": {
     "uz": "Old oyog‘i yo‘q Z shaklidagi yon qism. Kontur bo‘ylab milliy naqsh, markazi silliq.",
@@ -550,9 +550,9 @@
     "en": "Euro fence «Wrought»"
    },
    "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
+    "uz": "Yevrozabor paneli",
+    "ru": "Панель еврозабора",
+    "en": "Euro fence panel"
    },
    "note": {
     "uz": "Bir-biriga o‘ralgan halqalar ichida ovallar qatori va to‘rtburchak filyonkalardan belbog‘.",
@@ -615,9 +615,9 @@
     "en": "Euro fence «Buds»"
    },
    "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
+    "uz": "Yevrozabor paneli",
+    "ru": "Панель еврозабора",
+    "en": "Euro fence panel"
    },
    "note": {
     "uz": "Silliq maydonda shaxmat tartibida bo‘rtma g‘unchalar qatorlari.",
@@ -680,9 +680,9 @@
     "en": "Euro fence «Slats»"
    },
    "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
+    "uz": "Yevrozabor paneli",
+    "ru": "Панель еврозабора",
+    "en": "Euro fence panel"
    },
    "note": {
     "uz": "Turli uzunlikdagi gorizontal reykalar notekis ritmda — «zinapoyali» terim.",
@@ -745,9 +745,9 @@
     "en": "Euro fence «Wave stone»"
    },
    "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
+    "uz": "Yevrozabor paneli",
+    "ru": "Панель еврозабора",
+    "en": "Euro fence panel"
    },
    "note": {
     "uz": "Markazda balyasinalar, chetlarida — ingichka g‘isht to‘ri ichida yirtiq tosh.",
@@ -810,9 +810,9 @@
     "en": "Euro fence «Flower»"
    },
    "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
+    "uz": "Yevrozabor paneli",
+    "ru": "Панель еврозабора",
+    "en": "Euro fence panel"
    },
    "note": {
     "uz": "Butun panel bo‘ylab uchburchak qo‘shimchali to‘rt gulbargli gullar.",
@@ -875,9 +875,9 @@
     "en": "Euro fence «Smooth»"
    },
    "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
+    "uz": "Yevrozabor paneli",
+    "ru": "Панель еврозабора",
+    "en": "Euro fence panel"
    },
    "note": {
     "uz": "Ramkadagi relyefsiz tekis panel — bo‘yash va dekor bilan uyg‘unlashtirish uchun asos.",
@@ -940,9 +940,9 @@
     "en": "Euro fence «Brick and stone»"
    },
    "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
+    "uz": "Yevrozabor paneli",
+    "ru": "Панель еврозабора",
+    "en": "Euro fence panel"
    },
    "note": {
     "uz": "Markazda g‘isht terimi, panel burchaklari va chetlarida yorilgan tosh.",
@@ -1005,9 +1005,9 @@
     "en": "Euro fence «Rock»"
    },
    "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
+    "uz": "Yevrozabor paneli",
+    "ru": "Панель еврозабора",
+    "en": "Euro fence panel"
    },
    "note": {
     "uz": "Choklari bor, turli enli yirik yirtiq toshdan ikki qator.",
@@ -1070,9 +1070,9 @@
     "en": "Euro fence «3D diamonds»"
    },
    "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
+    "uz": "Yevrozabor paneli",
+    "ru": "Панель еврозабора",
+    "en": "Euro fence panel"
    },
    "note": {
     "uz": "Ikki qator hajmli romb-piramidalar — yorug‘lik o‘yini bilan chuqur relyef.",

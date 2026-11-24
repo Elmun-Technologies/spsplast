@@ -107,7 +107,7 @@ def main():
                           "v": L(f"{n} dona", f"{n} шт.", f"{n} pcs")})
         add.append({
             "slug": slug, "key": slug, "code": mold.get("code"), "section": "tayyor_skameyka",
-            "name": text(r, "name"), "subtitle": L(None, None, None), "note": text(r, "description"),
+            "name": text(r, "name"), "subtitle": L("Skameyka yon qismi", "Боковина скамейки", "Bench side"), "note": text(r, "description"),
             "kg": None, "molds": [],
             "tiles": [{"l": "A", "size": r.get("size_mm"), "per": None, "cap": None}],
             "specs": specs,
@@ -129,7 +129,7 @@ def main():
         specs.append({"k": L("Material", "Материал", "Material"), "v": text(r, "product_material")})
         add.append({
             "slug": slug, "key": slug, "code": mold["code"], "section": "tayyor_zabor",
-            "name": text(r, "name"), "subtitle": L(None, None, None), "note": text(r, "description"),
+            "name": text(r, "name"), "subtitle": L("Yevrozabor paneli", "Панель еврозабора", "Euro fence panel"), "note": text(r, "description"),
             "kg": None, "molds": [],
             "tiles": [{"l": "A", "size": r.get("size_mm"), "per": None, "cap": None}],
             "specs": specs,

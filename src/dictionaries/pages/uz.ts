@@ -85,6 +85,7 @@ export const pagesUz = {
     cta: 'Zayafka qoldirish',
     ctaTelegram: 'Telegram orqali yozish',
     moldsLink: 'Qoliplar katalogi',
+    moldTwinLink: 'Shu mahsulotning qolipi',
     waText: 'Salom! Tayyor mahsulotlar (fasad, skameyka, yevrozabor) bo‘yicha savolim bor.',
     sectionsTitle: 'Bo‘limlar',
     allTitle: 'Barcha tayyor mahsulotlar',
@@ -126,7 +127,7 @@ export const pagesUz = {
      * emas, oddiy satr, aks holda klient komponentga uzatilganda RSC serializatsiyasi buziladi). */
     photoAskMessageTemplate: 'Salom! {label} qolipining suratini yuborsangiz.',
     materialTag: 'PP / ABS',
-    keyTile: 'Tayyor plitka',
+    keyTile: 'Tayyor mahsulot',
     keyPer: '1 m² ga',
     keyMoldWeight: 'Qolip vazni',
     keyKgM2: 'Qoliplar / 1 m²',

@@ -7,6 +7,7 @@ import { CONTACTS_2027 } from '@/lib/contacts2027';
 import {
   SECTION_SLUGS,
   getReadyBySlug,
+  getMoldBySlug,
   getReadyModels,
   hasAnyImage,
   localizedText,
@@ -181,7 +182,7 @@ export default async function ReadyProductPage({ params }: { params: Promise<{ l
               {related.map((x) => {
                 const img = x.images.sceneSm || modelImage(x);
                 return (
-                  <a className="rc" key={x.slug} href={`/${lang}${modelPath(x)}`}>
+                  <a className="rc rc--ready" key={x.slug} href={`/${lang}${modelPath(x)}`}>
                     {img ? (
                       <Image
                         src={img}
@@ -206,7 +207,15 @@ export default async function ReadyProductPage({ params }: { params: Promise<{ l
 
         <p className="body muted">
           {r.moldsCross}{' '}
-          <a href={`/${lang}/catalog`}>{r.moldsLink}</a>
+          {(() => {
+            // Shu mahsulot quyiladigan qolip (slug: `<qolip>-tayyor`) — to'g'ridan-to'g'ri uning sahifasiga
+            const twin = getMoldBySlug(m.slug.replace(/-tayyor$/, ''));
+            return twin ? (
+              <a href={`/${lang}${modelPath(twin)}`}>{r.moldTwinLink}</a>
+            ) : (
+              <a href={`/${lang}/catalog`}>{r.moldsLink}</a>
+            );
+          })()}
         </p>
       </div>
     </>

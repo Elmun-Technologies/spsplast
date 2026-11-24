@@ -109,7 +109,7 @@ export const uz = {
     error: 'Varaqlagich ochilmadi. PDF’ni yuklab oling:',
     hint: 'Burchakdan torting yoki o‘q tugmalarini bosing',
     note: 'Kataloglar rus tilida.',
-    tabs: { trotuar: 'Trotuar plitkasi', fasad: 'Fasad plitkasi', skameyka: 'Skameyka va yevrozabor' },
+    tabs: { trotuar: 'Trotuar plitkasi', fasad: 'Fasad qoliplari', 'fasad-mahsulot': 'Tayyor fasad mahsulotlari', skameyka: 'Skameyka va yevrozabor' },
   },
   catalog: {
     found: 'ta model topildi',

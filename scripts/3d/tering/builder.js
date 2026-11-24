@@ -57,7 +57,11 @@ const LIFT_MS = 170;
 const TURN_MS = 220;
 const GHOST_S = 0.08; // bo'sh slot soyasining qalinligi (plitka qalinligiga nisbatan)
 
-const GHOST_WHITE = new Color(0xffffff);
+// Bo'sh katak — sovuq "chizma" rangi: palitradagi hech bir plitka rangiga (kulrang/grafit ham) o'xshamaydi
+const GHOST_WHITE = new Color(0x8fb6e0);
+// Plitka katakdan biroz kichik chiziladi: orada qora "chok" ko'rinadi (Lego kabi) — bir xil rangli qo'shni
+// plitkalar bitta dog'ga qo'shilib ketmaydi
+const SEAM = 0.955;
 const GHOST_HOT = new Color(0xffc857); // sudralayotgan plitka sig'adigan bo'sh kataklar
 const GHOST_SNAP = new Color(0x4ade80); // qo'yib yuborilsa shu katakka tushadi
 
@@ -204,7 +208,7 @@ export function mount(root, opts) {
     if (tileOn) {
       _p.copy(slot.pos);
       _p.y += dy;
-      _s.set(sc, sc, sc);
+      _s.set(sc * SEAM, sc, sc * SEAM);
       _m.compose(_p, _q, _s);
     }
     for (const im of t.tiles) im.setMatrixAt(slot.i, tileOn ? _m : HIDE);
@@ -524,7 +528,7 @@ export function mount(root, opts) {
           m.receiveShadow = true;
           // qora asos: och plitkalar oq-bej fonda qo'shilib ketmasin
           m.material = m.material.clone();
-          m.material.color.set(0x2a2b2d);
+          m.material.color.set(0x1c1d1f);
         });
         scene.add(node);
         frameBox.expandByObject(node);
@@ -572,7 +576,7 @@ export function mount(root, opts) {
 
     // Materiallar (rang almashtirish uchun nusxa, asl rang saqlanadi)
     const matCopy = new Map();
-    const ghostMat = new MeshBasicMaterial({ color: 0xfffaf0, transparent: true, opacity: 0.55, depthWrite: false });
+    const ghostMat = new MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.42, depthWrite: false });
     const center = bounds.getCenter(new Vector3());
     const size = bounds.getSize(new Vector3());
     const radius = Math.max(size.x, size.z) / 2 + 0.3;

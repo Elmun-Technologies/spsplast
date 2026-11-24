@@ -106,7 +106,7 @@ export const en: UiDictionary = {
     error: 'Could not open the flipbook. Download the PDF instead:',
     hint: 'Drag a corner or use the arrow keys',
     note: 'Catalogues are in Russian.',
-    tabs: { trotuar: 'Paving tiles', fasad: 'Facade tiles', skameyka: 'Benches and fence' },
+    tabs: { trotuar: 'Paving tiles', fasad: 'Facade molds', 'fasad-mahsulot': 'Ready facade products', skameyka: 'Benches and fence' },
   },
   catalog: {
     found: 'models found',

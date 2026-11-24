@@ -64,7 +64,7 @@ export function ProductCard({
   const scene = (model.images.sceneSm || model.images.scene || null) as string | null;
 
   return (
-    <article className={`sps-card${mold && scene ? ' sps-card--inset' : ''}`}>
+    <article className={`sps-card${mold && scene ? ' sps-card--inset' : ''}${ready ? ' sps-card--ready' : ''}`}>
       <div className="sps-card__media">
         {mold ? (
           // 2026-11-16: asosiy fokus — qolip (biz qolip sotamiz). Qolip katta, bosma katalogdagidek

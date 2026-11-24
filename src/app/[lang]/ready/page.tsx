@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { readyCatalogKey } from '@/lib/catalogPdf';
 import { notFound } from 'next/navigation';
 import { patternStyle } from '@/lib/patterns';
 import { isValidLocale, locales, pluralCategory, type Locale } from '@/lib/i18n';
@@ -114,7 +115,7 @@ export default async function ReadyPage({ params }: { params: Promise<{ lang: st
         crumbs={[{ href: `/${lang}`, label: p.model.breadcrumbHome }, { label: r.title }]}
         title={r.title}
         lead={r.lead}
-        catalog={null}
+        catalog={readyCatalogKey()}
         pattern="charogon"
       />
       {sections.length > 1 ? (
@@ -123,7 +124,7 @@ export default async function ReadyPage({ params }: { params: Promise<{ lang: st
             <h2 className="h2" id="rd-secs">
               {r.sectionsTitle}
             </h2>
-            <div className="hm-secs">
+            <div className="hm-secs hm-secs--ready">
               {sections.map((s, i) => {
                 const cover = sectionCoverImage(s);
                 return (
