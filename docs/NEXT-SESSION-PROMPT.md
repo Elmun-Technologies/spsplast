@@ -38,8 +38,7 @@ ishonchli (soxta ko'rinmaydigan) holatga yetkazish**.
 - Sayt ikki yo'nalish: **Qoliplar** (`/catalog`, 237 model, 7 bo'lim) va **Tayyor mahsulotlar** (`/ready`, 95 mahsulot,
   11 bo'lim: 80 fasad elementi + 6 skameyka yon qismi + 9 yevrozabor).
   Arxitektura: `catalog_sections.kind` (migratsiya 0004), CLAUDE.md → "Tayyor mahsulotlar".
-- Prod katalog bazadan (Coolify terminali, tartib bilan) → Redeploy: `npm run catalog:sync -- scripts/catalog-add-2026-11-23.json`,
-  `… catalog-add-2026-11-23-tayyor-fasad.json`, `… catalog-add-2026-11-24-fasad-qolip.json`, `… catalog-add-2026-11-24-skameyka-zabor.json`.
+- Prod katalog bazadan; `scripts/catalog-add-*.json` deploy'da o'zi qo'llanadi (`catalog_sync_log`, migratsiya 0005).
 - Hosting: Hetzner + Coolify, Dockerfile (standalone). Vercel ishlatilmaydi ("Account is blocked" statusi — e'tiborsiz).
 - Topshirish paketi: `docs/topshirish/` (admin qo'llanmasi, checklist, sifat hisoboti, kirishlar ro'yxati).
 - Rasmlar katalog agentining fonsiz manbasidan (ZIP'lar repoda yo'q — ~550 MB): `build_ready_fasad_2027.py <zip papkasi>`

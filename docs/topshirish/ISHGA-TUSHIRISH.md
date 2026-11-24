@@ -29,13 +29,9 @@ Har bo'lim oxiridagi **Tekshiruv** bajarilmaguncha keyingisiga o'tilmaydi. `[D]`
       **"Delete unused volumes" YOQILMAYDI** (Postgres ma'lumotlari volume'da).
 - [ ] Traefik label'lari: http→https middleware nomi **`redirect-to-https-sps`** (umumiy nom boshqa ilovalar bilan
       to'qnashadi — CLAUDE.md "Traefik"). Har domen uchun `http-N` va `https-N` router'lari bor.
-- [ ] Katalogni bazaga sinxronlash (Coolify terminali, bir marta, tartib bilan):
-      `npm run catalog:sync -- scripts/catalog-add-2026-11-23.json` (yangi trotuar qoliplari),
-      `npm run catalog:sync -- scripts/catalog-add-2026-11-23-tayyor-fasad.json` (80 ta tayyor fasad mahsuloti),
-      `npm run catalog:sync -- scripts/catalog-add-2026-11-24-fasad-qolip.json` (fasad qoliplarining yangi rasmlari),
-      `npm run catalog:sync -- scripts/catalog-add-2026-11-24-skameyka-zabor.json` (3 yangi skameyka qolipi, 6 tayyor
-      skameyka yon qismi, 9 tayyor yevrozabor) → **Redeploy**. Tekshiruv: `/uz/ready` da 11 bo'lim va 95 mahsulot,
-      `/uz/catalog/bench` da 10 qolip.
+- [ ] Katalog bazaga **deploy'da o'zi tushadi** (`db:migrate:deploy` → `catalog-sync.ts --pending`, 2026-11-24 dan).
+      Deploy logida `[catalog-sync] catalog-add-….json: Qo'shildi …` qatorlari chiqadi. Tekshiruv: `/uz/ready` da 11 bo'lim va
+      95 mahsulot, `/uz/catalog/bench` da 10 qolip. Qo'lda kerak bo'lsa: `npm run catalog:sync -- <fayl>`.
 - [ ] **Tekshiruv:** `https://spsplast.uz/api/health` → `"status": "ok"`, baza `connected`, Telegram `configured`.
       Server diskida build'dan keyin bo'sh joy ≥ 25%.
 

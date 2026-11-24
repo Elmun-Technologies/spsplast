@@ -153,7 +153,7 @@ content should not be indexed (since 2026-11-12 all 7 sections have models).
 
 ## Business Rules (never break)
 
-0. **Two directions (decision 2026-11-17)**: *Qoliplar* (molds, `/catalog`) and *Tayyor mahsulotlar* (ready products, `/ready`). Home shows two big panels. Ready products are also **zayafka only, no prices**. Since 2026-11-23 `/ready` has the 80 facade products of the printed "FASAD MAHSULOT" catalog (9 sections); benches and euro fences come next (sections exist, empty = hidden + noindex).
+0. **Two directions (decision 2026-11-17)**: *Qoliplar* (molds, `/catalog`) and *Tayyor mahsulotlar* (ready products, `/ready`). Home shows two big panels. Ready products are also **zayafka only, no prices**. Since 2026-11-24 `/ready` has 95 products: 80 facade items of the printed "FASAD MAHSULOT" catalog (9 sections), 6 bench sides, 9 euro fences. `/ready` links its own PDF (`fasad-mahsulot`), molds keep the mold catalogs.
 
 1. **No prices, no cart, no checkout.** Only "zayafka". Terms: "Zayafka",
    "Zayafka qoldirish", "Zayafka ro'yxati", "Ulgurji va hamkorlik".
@@ -534,6 +534,12 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     check `/3d/t12/#tering` in a browser.
   - Tap vs orbit: a pointer that moved > 8 px, lasted > 650 ms or had a second finger is never a tap.
     Rendering is on-demand (no idle rAF loop); `prefers-reduced-motion` = no drop animation, no damping.
+- **PDF veb nusxa (2026-11-24)**: bosma katalog (150–200 MB) → `python3 scripts/pdf/compress_catalog.py <in> <out>` (pikepdf: rasm
+  uzun tomoni 1500 px, JPEG q72, SMask saqlanadi, `qpdf --linearize`). Fasad qolip 96 bet → 35 MB, FASAD MAHSULOT 108 bet → 24 MB.
+- **"Соберите сами" ranglari (2026-11-24)**: plitka katakdan `SEAM`=0.955 kichik (orada qora chok — bir rangli qo'shni plitkalar
+  bitta dog'ga qo'shilmaydi), bo'sh katak ko'kish (`GHOST_WHITE` 0x8fb6e0 — palitradagi kulrang/grafitdan farqli), asos 0x1c1d1f.
+- **Tayyor mahsulot rasmi grafit fonda** (`.sps-card--ready`, `.hm-secs--ready`, `.rd-gal__*`, `.rc--ready`): mahsulotlar och
+  (krem, oq beton) — och fonda ko'rinmay qolardi; rasm `contain` (kesilmaydi).
 - **PDF kataloglar + varaqlagich (2026-11-16)**: `public/catalog/pdf/` — 3 ta ruscha yotiq PDF (trotuar 2026-11-23 dan — A5 bosma katalog 128 bet, veb nusxa ~39 MB; fayli eski nom
   `sps-qoliplar-katalogi-2026.pdf` bilan, fasad, skameyka+yevrozabor; ~26 MB, linearized). Barcha "PDF katalog" havolalari
   `flipHref()` (`src/lib/catalogPdf.ts`) orqali `/{lang}/catalog/flip[?c=fasad]` ga boradi — `FlipBook.tsx` (pdf.js legacy + page-flip,
@@ -552,9 +558,12 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   - `[lang]/error.tsx` matnlari `dictionaries/pages/error.ts` da (pages lug'ati ham shu obyektni ishlatadi; admin
     override `pages.error.*` ishlaydi). Istisno: `CompareBarPanel` (faqat ro'yxat bo'sh bo'lmasa `dynamic()`).
 - **Bosma katalog 2026 → sayt (2026-11-23)** — keep them:
-  - Prod katalog **bazadan** keladi: repodagi rasm/model o'zgarishi bazaga o'zi tushmaydi. Har to'plam uchun
-    `scripts/catalog-add-<sana>.json` (`add` — yangi modellar, `novinka: true` trotuar boshida; `refresh` — rasm yo'llari,
-    `/media/` admin rasmiga tegilmaydi) + `npm run catalog:sync -- <fayl>` (Coolify terminalida), keyin Redeploy.
+  - Prod katalog **bazadan** keladi. Har to'plam — `scripts/catalog-add-<sana>.json` (`add` — yangi modellar, `novinka: true`
+    trotuar boshida; `refresh` — rasm yo'llari, `/media/` admin rasmiga tegilmaydi). **2026-11-24 dan deploy'da o'zi qo'llanadi**:
+    `db:migrate:deploy` = migratsiya + `catalog-sync.ts --pending` — har fayl `catalog_sync_log` (migratsiya 0005) da sha bilan
+    bir marta yoziladi, keyingi deploy'larda admin o'zgarishlari ustidan yozilmaydi; xato deploy'ni to'xtatmaydi (keyingisi qayta
+    uradi). Fayl mazmuni o'zgarsa (sha) — qayta qo'llanadi. Qo'lda: `npm run catalog:sync -- <fayl>`. Muammo: 2026-11-23 gacha
+    sync qo'lda edi va hech kim ishga tushirmagani uchun prod eski rasmlarda qolgan edi.
   - Extractor `catalog-add-*.json` dagi `add` modellarni statik katalogga ham qo'shadi (bazasiz build = prod), `model3d`
     maydoni `.glb` bo'lsa 3D xaritaga yoziladi; `EXTRA_3D` — ko'z bilan tasdiqlangan qo'shimcha 3D raqamlar.
   - `.glb` siz 3D paketlar (t93–t112) xaritada yo'q → ularning tirik suratlari **slug** bilan nomlanadi.
