@@ -315,6 +315,24 @@
   "kind": "live"
  },
  {
+  "src": "media-src/live/versache-setka-bordyur-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-versache-setka-bordyur-mold-a.webp",
+  "w": 1200,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/versache-setka-bordyur-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-versache-setka-bordyur-scene.webp",
+  "w": 1400,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/versache-setka-bordyur-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-versache-setka-bordyur-scene-sm.webp",
+  "w": 720,
+  "kind": "live"
+ },
+ {
   "src": "media-src/live/terratsso-1-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-terratsso-1-mold-a.webp",
   "w": 800,

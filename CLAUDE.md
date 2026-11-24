@@ -564,10 +564,12 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   `meandr-30-30` = Лабиринт (400×400×50!), `taktil-konus-30-30` / `taktil-chiziq-30-30` = Дорожка круглая / полоса, `taxta-parket` = Паркет,
   `oyoq-izi` = Кадам, `naqshli-bordyur` = Бордюр Версаче. `kg` = 1 m² ga ketadigan qoliplar to'plami vazni. Fayl mazmuni (sha) o'zgarsa `patch`
   qayta qo'llanadi va admin shu maydonlarga kiritgan tuzatishni bosib ketadi — tuzatishni adminda emas, shu faylda qiling.
-- **Bordyur qoliplari va sahnasi (2026-11-24)**: `naqshli-bordyur` — IKKI qolip bitta rasmda (A: Versache — tubida romb to'r, faskada meandr; B: tubida
-  yurakcha tasmasi, faskada zanjir). `media-src/live/naqshli-bordyur-qolip.jpg` / `-sahna.jpg` — haqiqiy qolip suratlari (`media-src/ref/bordyur/`) bo'yicha
-  chizilgan naqshli three.js 3D vizualizatsiya (generator repoda yo'q, bir martalik); niqob = render alfa kanali (manifestda `method: render alpha` + sha).
-  O'lchami hali noma'lum ("уточняется"); renderdagi nisbatlar (500×129×64, faska 45°) suratdan chamalangan — o'lcham kelganda saytga `patch` bilan yozing.
+- **Bordyurlar — IKKI alohida model (2026-11-24, egasi)**: `naqshli-bordyur` = **Бордюр Версаче** (bosma №015; tubida yurakcha tasmasi, faskada zanjir)
+  va `versache-setka-bordyur` = **Бордюр Версаче сетка** (№016; tubida romb to'r, faskada meandr; `scripts/catalog-add-2026-11-24-bordyur-setka.json`,
+  `add` + **`after: "naqshli-bordyur"`** — tartibda shu modeldan keyin: bazada `sort + 5`, statik katalogda `_pop + 0.5`). Rasmlar
+  (`media-src/live/<slug>-qolip.jpg` / `-sahna.jpg`) — haqiqiy qolip suratlari (`media-src/ref/bordyur/`) bo'yicha chizilgan naqshli three.js 3D
+  vizualizatsiya (generator repoda yo'q, bir martalik); niqob = render alfa kanali (manifestda `method: render alpha` + sha). O'lchamlari hali
+  noma'lum ("уточняется"); renderdagi nisbatlar (500×129×64, faska 45°) suratdan chamalangan — o'lcham kelganda `patch` bilan yozing.
 - **Rasmni katta ko'rish — lupa (2026-11-24)**: `ZoomLayer` (`[lang]/layout.tsx`, kichik qobiq) hujjat darajasida `data-zoom="<src>"`
   li elementga bosishni ushlaydi (`data-zoom-alt`, `data-zoom-bg="studio|deep"` — fonsiz kesma uchun fon; galereya: `data-zoom-list` JSON +
   `data-zoom-index`) va `ZoomPanel` ni birinchi bosishda `dynamic()` bilan yuklaydi: bosish = 250%, tortish = surish, g'ildirak / ikki barmoq =
@@ -586,7 +588,10 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   yorliq (`… 18 re f` + `6 Tf` matni) olib tashlanadi, ustiga Chromium'da px-aniq terilgan shaffof qatlam qo'yiladi (forma XObject, `cm 1.00053792 0 0
   0.99888095` — asl PDF ham shunday cho'zilgan; px o'lchamlar: yorliq 5.46/ls 1.088, qiymat 8.39, nom 15.33/ls 1.992, Inter SemiBold; satr asosi =
   `top + 0.86378·fs`). Ikki qatorli sarlavha bir qatorga tushsa sarlavha balandligi 82 → 64 px (№001, №015). №016 Terratsso beti to'liq qayta terilgan
-  (3 qolip, h 50), №015 da qolip va sahna rasmi almashtirilgan. Matn qatlami toza (pdftotext eski nomlarni ko'rsatmaydi). 129 bet, 41.5 MB.
+  (3 qolip, h 50), №015 da qolip va sahna rasmi almashtirilgan. Matn qatlami toza (pdftotext eski nomlarni ko'rsatmaydi).
+  **3-tahrir (o'sha kuni)**: bordyurlar ikki betga ajratildi — 18-bet №015 Бордюр Версаче, 19-bet **№016 Бордюр Версаче сетка** (to'liq yangi bet);
+  Terratsso **№017** (20-bet), undan keyingi 105 model yana +1 (Монако №018 … Вегас 2 №122), bet raqamlari +2. Jami **130 bet**, 42.6 MB.
+  Bosilgan nusxalarda №016 dan boshlab raqamlar ikkitaga farq qiladi.
 - **Tayyor mahsulot rasmi grafit fonda** (`.sps-card--ready`, `.hm-secs--ready`, `.rd-gal__*`, `.rc--ready`): mahsulotlar och
   (krem, oq beton) — och fonda ko'rinmay qolardi; rasm `contain` (kesilmaydi).
 - **PDF kataloglar + varaqlagich (2026-11-16)**: `public/catalog/pdf/` — 3 ta ruscha yotiq PDF (trotuar 2026-11-23 dan — A5 bosma katalog 128 bet, veb nusxa ~39 MB; fayli eski nom

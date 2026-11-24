@@ -1047,10 +1047,10 @@
   "src": "media-src/live/naqshli-bordyur-qolip.jpg",
   "status": "ok",
   "method": "render alpha",
-  "cover": 0.7691,
+  "cover": 0.7922,
   "edge": 0.0,
-  "note": "3D render: ikki bordyur qolipi (Versache — meandr + romb; yurakcha + zanjir), naqsh haqiqiy qolip suratlari bo'yicha chizilgan; niqob = render alfa kanali",
-  "sha": "68c74c1d9b0bfa4e"
+  "note": "3D render: Versache bordyur qolipi (tubida yurakcha tasmasi, faskada zanjir) — naqsh haqiqiy qolip surati bo'yicha; niqob = render alfa kanali",
+  "sha": "f746423edddd55d3"
  },
  "trotuar-okean-25-50-mold-a": {
   "src": "media-src/live/okean-25-50-qolip.jpg",
@@ -1267,6 +1267,15 @@
   "edge": 0.0,
   "note": "",
   "sha": "33bb34facc00f2d0"
+ },
+ "trotuar-versache-setka-bordyur-mold-a": {
+  "src": "media-src/live/versache-setka-bordyur-qolip.jpg",
+  "status": "ok",
+  "method": "render alpha",
+  "cover": 0.7922,
+  "edge": 0.0,
+  "note": "3D render: Versache setka bordyur qolipi (tubida romb to'r, faskada meandr) — naqsh haqiqiy qolip surati bo'yicha; niqob = render alfa kanali",
+  "sha": "b0aa44cad4ebec09"
  },
  "trotuar-versal-mold-a": {
   "src": "media-src/live/versal-qolip.jpg",

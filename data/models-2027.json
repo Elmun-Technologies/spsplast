@@ -728,6 +728,36 @@
    }
   },
   {
+   "key": "versache-setka-bordyur",
+   "code": null,
+   "slug": "versache-setka-bordyur",
+   "section": "trotuar",
+   "name": {
+    "uz": "Versache setka bordyur",
+    "ru": "Бордюр Версаче сетка",
+    "en": "Versace mesh kerb"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "note": null,
+   "kg": null,
+   "molds": [],
+   "tiles": [],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-versache-setka-bordyur-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-versache-setka-bordyur-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-versache-setka-bordyur-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
    "key": "terratsso-1",
    "code": null,
    "slug": "terratsso-1",

@@ -803,6 +803,7 @@ def load_added_models(models, model3d):
                 "images": _existing_images(x.get("images")),
                 "_name_norm": None,  # eski 2026 suratlariga nom bo'yicha bog'lanmasin
                 "_novinka": bool(x.get("novinka")),
+                "_after": x.get("after"),
             })
             tid = (x.get("model3d") or "").strip("/").split("/")[-1]
             e = model3d_entry(tid) if tid else None
@@ -837,6 +838,12 @@ def main():
     for i, m in enumerate(extra):
         m["_pop"] = (-1000 if m.pop("_novinka", False) else 5000) + i
     models += extra
+    # `after: <slug>` — shu modeldan keyin (sync skripti bazada ham shunday joylaydi).
+    pop = {m["slug"]: m["_pop"] for m in models}
+    for m in extra:
+        a = m.pop("_after", None)
+        if a in pop:
+            m["_pop"] = pop[a] + 0.5
     apply_patches(models)
     models.sort(key=lambda m: m["_pop"])  # barqaror: mavjud tartib o'zgarmaydi, novinkalar boshga
     jobs, stats = load_image_sources(models)
