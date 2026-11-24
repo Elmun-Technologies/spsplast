@@ -1,0 +1,93 @@
+{
+ "comment": "2026-11-24: Terratsso (novinka) — foydalanuvchi yuborgan kartochkalar: №2 (400×200×45, 2 uya), №3 (200×200×45, 4 uya). Qolip suratlari va terilgan ko'rinish media-src/live/terratsso-*. Kod bosma katalogda yo'q — o'ylab topilmagan. Bazaga deploy'da o'zi tushadi (catalog-sync --pending).",
+ "add": [
+  {
+   "key": "terratsso-2",
+   "code": null,
+   "slug": "terratsso-2",
+   "section": "trotuar",
+   "name": {
+    "uz": "Terratsso №2",
+    "ru": "Терраццо №2",
+    "en": "Terrazzo No. 2"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×200×45",
+     "depth": "45",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×200×45",
+     "per": "12,5",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "novinka": true,
+   "images": {
+    "scene": "/catalog/2027/trotuar-terratsso-2-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-terratsso-2-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-terratsso-2-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "terratsso-3",
+   "code": null,
+   "slug": "terratsso-3",
+   "section": "trotuar",
+   "name": {
+    "uz": "Terratsso №3",
+    "ru": "Терраццо №3",
+    "en": "Terrazzo No. 3"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "200×200×45",
+     "depth": "45",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "200×200×45",
+     "per": "25",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "novinka": true,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-terratsso-3-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  }
+ ]
+}

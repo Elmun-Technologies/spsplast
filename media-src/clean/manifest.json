@@ -982,12 +982,12 @@
  },
  "trotuar-girih-mold-a": {
   "src": "media-src/live/girih-qolip.jpg",
-  "status": "fallback",
-  "method": "floodfill fuzz 14%",
-  "cover": 0.628,
+  "status": "ok",
+  "method": "render alpha",
+  "cover": 0.621,
   "edge": 0.0,
-  "note": "",
-  "sha": "5e1611ceddd96adb"
+  "note": "3D render (haqiqiy qolip suratlaridan olingan naqsh), niqob = render alfa kanali",
+  "sha": "f532371578504397"
  },
  "trotuar-glyanets-15-15-mold-a": {
   "src": "media-src/live/glyanets-15-15-qolip.jpg",
@@ -1186,6 +1186,24 @@
   "edge": 0.0,
   "note": "",
   "sha": "49ad85a55f550fd3"
+ },
+ "trotuar-terratsso-2-mold-a": {
+  "src": "media-src/live/terratsso-2-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.6285,
+  "edge": 0.0,
+  "note": "",
+  "sha": "770b79e33d5c0fd1"
+ },
+ "trotuar-terratsso-3-mold-a": {
+  "src": "media-src/live/terratsso-3-qolip.jpg",
+  "status": "fallback",
+  "method": "floodfill fuzz 14%",
+  "cover": 0.6675,
+  "edge": 0.0,
+  "note": "",
+  "sha": "d541c8fc48a95da0"
  },
  "trotuar-tomir-15-15-mold-a": {
   "src": "media-src/live/tomir-15-15-qolip.jpg",

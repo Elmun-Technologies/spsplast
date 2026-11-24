@@ -315,6 +315,30 @@
   "kind": "live"
  },
  {
+  "src": "media-src/live/terratsso-2-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-terratsso-2-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/terratsso-2-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-terratsso-2-scene.webp",
+  "w": 1400,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/terratsso-2-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-terratsso-2-scene-sm.webp",
+  "w": 720,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/terratsso-3-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-terratsso-3-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
   "src": "media-src/live/t75-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-70-kabanchik-17-5-naqshli-mold-a.webp",
   "w": 1200,

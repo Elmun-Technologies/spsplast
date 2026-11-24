@@ -547,6 +547,15 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     Skameykalar shunday (avtomatik fonsiz kesmada skameykaning yarmi kesilgan edi) — `refresh` orqali baza ham yangilanadi.
   - Bosh sahifa hero: `public/images/site/home/{molds,ready}-hero.webp` (kesmalardan yig'ilgan kompozitsiya, pastki rangi
     panel foni bilan bir xil: `#e2ddd3` / `#1f2125`). Qayta yig'ish kerak bo'lsa — panel rangini ham moslang.
+- **Girih qolipi va sahnasi (2026-11-24)**: bosma katalogdagi №004 Girih rasmlari haqiqiy qolipga MOS EMAS edi (boshqa naqsh).
+  `media-src/live/girih-qolip.jpg` / `girih-sahna.jpg` endi haqiqiy qolip suratlaridan (`media-src/ref/girih/` — 30×30 o'n qirrali
+  yulduz, 10×30, 10×10) chiqarilgan naqsh bilan qilingan 3D vizualizatsiya: surat to'g'rilanadi (gomografiya + simmetriya), kataklar
+  vektorga aylanadi, shundan normal/rang teksturasi va three.js sahnasi. Generator repoda yo'q (bir martalik); niqob
+  `media-src/clean/trotuar-girih-mold-a.png` = render alfa kanali (manifestda `method: render alpha`, sha bilan — `images:bg` qayta yasamaydi).
+  Fayl nomi o'zgarmagan → bazaga sync kerak emas. Ochiq: sayt yorlig'i bu rasmni "haqiqiy surat" deydi (bosma katalog renderlari bilan bir xil holat).
+- **Terratsso №2 / №3 (2026-11-24, novinka)**: `scripts/catalog-add-2026-11-24-terratsso.json` (`add`, deploy'da o'zi tushadi). Qolip surati
+  mijoz kartochkasidan kesilgan (~450 px, 2× kattalashtirilgan — xiraroq; asl surat kelsa `media-src/live/terratsso-N-qolip.jpg` ni almashtiring).
+  №3 uchun terilgan surat yo'q; №1 bor-yo'qligi so'ralgan.
 - **Tayyor mahsulot rasmi grafit fonda** (`.sps-card--ready`, `.hm-secs--ready`, `.rd-gal__*`, `.rc--ready`): mahsulotlar och
   (krem, oq beton) — och fonda ko'rinmay qolardi; rasm `contain` (kesilmaydi).
 - **PDF kataloglar + varaqlagich (2026-11-16)**: `public/catalog/pdf/` — 3 ta ruscha yotiq PDF (trotuar 2026-11-23 dan — A5 bosma katalog 128 bet, veb nusxa ~39 MB; fayli eski nom
