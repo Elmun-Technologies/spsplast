@@ -7,6 +7,9 @@
 > - Admin: 2 ta admin akkaunt; parol unutilsa `npm run admin:reset -- --email E` (Coolify terminali).
 > - Ochiq: Coolify paneli HTTP'da (`COOLIFY_URL`) — DNS'da `coolify.spsplast.uz` tayyor bo'lgach HTTPS'ga ko'chirish;
 >   PR #81 (tayyor mahsulotlar) va #78 (Dockerfile/standalone, konflikt bor) egasi qarorini kutmoqda; `dekor` bo'limida 0 model.
+> - **2026-11-24**: bosma katalog novinkalari (№001–016) qayta nomlangan (Антара, Национал 1/4, Лабиринт, Дорожка, Паркет, Кадам,
+>   Бордюр Версаче; Terratsso №1–3, h 50) — sayt (`patch`, slug o'zgarmagan) va veb PDF (129 bet) bir xil. Tafsilot: `CLAUDE.md` → "Novinkalar nomi/o'lchami".
+>   Ochiq: bordyur va №001/007/013–015 o'lchamlari; bosma (150–200 MB) asl PDF alohida yangilanishi kerak.
 > - SEO monitoring: kuniga 2 marta scheduled task (bulutda, Search Console'siz); GSC'ni egasining suhbati Chrome orqali tekshiradi.
 
 > Quyidagi `---` dan keyingi hamma matnni yangi Claude Code sessiyasiga (repo: `Elmun-Technologies/spsplast`)

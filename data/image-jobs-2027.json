@@ -315,6 +315,12 @@
   "kind": "live"
  },
  {
+  "src": "media-src/live/terratsso-1-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-terratsso-1-mold-a.webp",
+  "w": 800,
+  "kind": "live"
+ },
+ {
   "src": "media-src/live/terratsso-2-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-terratsso-2-mold-a.webp",
   "w": 800,

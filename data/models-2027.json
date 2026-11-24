@@ -19,9 +19,9 @@
    "slug": "oltiburchak-galka",
    "section": "trotuar",
    "name": {
-    "uz": "Oltiburchak «Galka»",
-    "ru": "Шестигранник «Галька»",
-    "en": "Hexagon “Pebble”"
+    "uz": "Antara",
+    "ru": "Антара",
+    "en": "Antara"
    },
    "subtitle": {
     "uz": null,
@@ -49,9 +49,9 @@
    "slug": "antara-1",
    "section": "trotuar",
    "name": {
-    "uz": "Antara №1",
-    "ru": "Антара №1",
-    "en": "Antara No. 1"
+    "uz": "Antara 2",
+    "ru": "Антара 2",
+    "en": "Antara 2"
    },
    "subtitle": {
     "uz": null,
@@ -93,9 +93,9 @@
    "slug": "kristall",
    "section": "trotuar",
    "name": {
-    "uz": "Kristall",
-    "ru": "Кристалл",
-    "en": "Crystal"
+    "uz": "Natsional 1",
+    "ru": "Национал 1",
+    "en": "Natsional 1"
    },
    "subtitle": {
     "uz": "3 qolip to‘plami",
@@ -161,9 +161,9 @@
    "slug": "girih",
    "section": "trotuar",
    "name": {
-    "uz": "Girih",
-    "ru": "Гирих",
-    "en": "Girih"
+    "uz": "Natsional 4",
+    "ru": "Национал 4",
+    "en": "Natsional 4"
    },
    "subtitle": {
     "uz": "3 qolip to‘plami",
@@ -395,9 +395,9 @@
    "slug": "meandr-30-30",
    "section": "trotuar",
    "name": {
-    "uz": "Meandr 30×30",
-    "ru": "Меандр 30×30",
-    "en": "Meander 30×30"
+    "uz": "Labirint",
+    "ru": "Лабиринт",
+    "en": "Labyrinth"
    },
    "subtitle": {
     "uz": null,
@@ -405,20 +405,20 @@
     "en": null
    },
    "note": null,
-   "kg": null,
+   "kg": "6,5",
    "molds": [
     {
      "l": "A",
-     "size": "300×300×30",
-     "depth": "30",
+     "size": "400×400×50",
+     "depth": "50",
      "g": null
     }
    ],
    "tiles": [
     {
      "l": "A",
-     "size": "300×300×30",
-     "per": "11",
+     "size": "400×400×50",
+     "per": "6,25",
      "cap": null
     }
    ],
@@ -439,9 +439,9 @@
    "slug": "taktil-konus-30-30",
    "section": "trotuar",
    "name": {
-    "uz": "Taktil plitka — konuslar 30×30",
-    "ru": "Тактильная плитка — конусы 30×30",
-    "en": "Tactile paving — cones 30×30"
+    "uz": "Dorojka dumaloq",
+    "ru": "Дорожка круглая",
+    "en": "Tactile path — domes"
    },
    "subtitle": {
     "uz": null,
@@ -449,20 +449,20 @@
     "en": null
    },
    "note": null,
-   "kg": null,
+   "kg": "6",
    "molds": [
     {
      "l": "A",
-     "size": "300×300×30",
-     "depth": "30",
+     "size": "400×400×50",
+     "depth": "50",
      "g": null
     }
    ],
    "tiles": [
     {
      "l": "A",
-     "size": "300×300×30",
-     "per": "11",
+     "size": "400×400×50",
+     "per": "6,25",
      "cap": null
     }
    ],
@@ -483,9 +483,9 @@
    "slug": "taktil-chiziq-30-30",
    "section": "trotuar",
    "name": {
-    "uz": "Taktil plitka — chiziqlar 30×30",
-    "ru": "Тактильная плитка — полосы 30×30",
-    "en": "Tactile paving — bars 30×30"
+    "uz": "Dorojka polosa",
+    "ru": "Дорожка полоса",
+    "en": "Tactile path — bars"
    },
    "subtitle": {
     "uz": null,
@@ -493,20 +493,20 @@
     "en": null
    },
    "note": null,
-   "kg": null,
+   "kg": "6",
    "molds": [
     {
      "l": "A",
-     "size": "300×300×30",
-     "depth": "30",
+     "size": "400×400×50",
+     "depth": "50",
      "g": null
     }
    ],
    "tiles": [
     {
      "l": "A",
-     "size": "300×300×30",
-     "per": "11",
+     "size": "400×400×50",
+     "per": "6,25",
      "cap": null
     }
    ],
@@ -537,9 +537,23 @@
     "en": null
    },
    "note": null,
-   "kg": null,
-   "molds": [],
-   "tiles": [],
+   "kg": "6,9",
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×400×50",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×400×50",
+     "per": "6,25",
+     "cap": null
+    }
+   ],
    "specs": [],
    "sizeEstimated": false,
    "images": {
@@ -557,9 +571,9 @@
    "slug": "taxta-parket",
    "section": "trotuar",
    "name": {
-    "uz": "Taxta ×2 (parket)",
-    "ru": "Доска ×2 (паркет)",
-    "en": "Wood plank ×2 (parquet)"
+    "uz": "Parket",
+    "ru": "Паркет",
+    "en": "Parquet"
    },
    "subtitle": {
     "uz": null,
@@ -567,9 +581,23 @@
     "en": null
    },
    "note": null,
-   "kg": null,
-   "molds": [],
-   "tiles": [],
+   "kg": "7,3",
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×600×50",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×600×50",
+     "per": "5,5",
+     "cap": null
+    }
+   ],
    "specs": [],
    "sizeEstimated": false,
    "images": {
@@ -598,8 +626,22 @@
    },
    "note": null,
    "kg": null,
-   "molds": [],
-   "tiles": [],
+   "molds": [
+    {
+     "l": "A",
+     "size": "360×360×30",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "360×360×30",
+     "per": null,
+     "cap": null
+    }
+   ],
    "specs": [],
    "sizeEstimated": false,
    "images": {
@@ -617,9 +659,9 @@
    "slug": "oyoq-izi",
    "section": "trotuar",
    "name": {
-    "uz": "Oyoq izi (chap + o‘ng)",
-    "ru": "След (левый + правый)",
-    "en": "Footprint (left + right)"
+    "uz": "Qadam (chap + o‘ng)",
+    "ru": "Кадам (левый + правый)",
+    "en": "Qadam footprint (left + right)"
    },
    "subtitle": {
     "uz": null,
@@ -628,8 +670,22 @@
    },
    "note": null,
    "kg": null,
-   "molds": [],
-   "tiles": [],
+   "molds": [
+    {
+     "l": "A",
+     "size": "300×550×30",
+     "depth": "30",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "300×550×30",
+     "per": null,
+     "cap": null
+    }
+   ],
    "specs": [],
    "sizeEstimated": false,
    "images": {
@@ -647,9 +703,9 @@
    "slug": "naqshli-bordyur",
    "section": "trotuar",
    "name": {
-    "uz": "Naqshli bordyur",
-    "ru": "Бордюр с орнаментом",
-    "en": "Ornamental curb"
+    "uz": "Versache bordyur",
+    "ru": "Бордюр Версаче",
+    "en": "Versace kerb"
    },
    "subtitle": {
     "uz": null,
@@ -667,6 +723,50 @@
     "sceneSm": "/catalog/2027/trotuar-naqshli-bordyur-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-naqshli-bordyur-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "terratsso-1",
+   "code": null,
+   "slug": "terratsso-1",
+   "section": "trotuar",
+   "name": {
+    "uz": "Terratsso №1",
+    "ru": "Терраццо №1",
+    "en": "Terrazzo No. 1"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "note": null,
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×400×50",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×400×50",
+     "per": "6,25",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-terratsso-1-mold-a.webp"
     },
     "tiles": {}
    }
@@ -691,15 +791,15 @@
    "molds": [
     {
      "l": "A",
-     "size": "400×200×45",
-     "depth": "45",
+     "size": "400×200×50",
+     "depth": "50",
      "g": null
     }
    ],
    "tiles": [
     {
      "l": "A",
-     "size": "400×200×45",
+     "size": "400×200×50",
      "per": "12,5",
      "cap": null
     }
@@ -735,15 +835,15 @@
    "molds": [
     {
      "l": "A",
-     "size": "200×200×45",
-     "depth": "45",
+     "size": "200×200×50",
+     "depth": "50",
      "g": null
     }
    ],
    "tiles": [
     {
      "l": "A",
-     "size": "200×200×45",
+     "size": "200×200×50",
      "per": "25",
      "cap": null
     }

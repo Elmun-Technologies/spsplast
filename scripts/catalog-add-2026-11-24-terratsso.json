@@ -1,6 +1,50 @@
 {
- "comment": "2026-11-24: Terratsso (novinka) — foydalanuvchi yuborgan kartochkalar: №2 (400×200×45, 2 uya), №3 (200×200×45, 4 uya). Qolip suratlari va terilgan ko'rinish media-src/live/terratsso-*. Kod bosma katalogda yo'q — o'ylab topilmagan. Bazaga deploy'da o'zi tushadi (catalog-sync --pending).",
+ "comment": "2026-11-24: Terratsso (novinka) — №1 (400×400×50), №2 (400×200×50, 2 uya), №3 (200×200×50, 4 uya). Chuqurlik uchalasida 50 mm (egasi tasdiqlagan; kartochkadagi 45 xato edi). Qolip suratlari media-src/live/terratsso-*. Bazaga deploy'da o'zi tushadi.",
  "add": [
+  {
+   "key": "terratsso-1",
+   "code": null,
+   "slug": "terratsso-1",
+   "section": "trotuar",
+   "name": {
+    "uz": "Terratsso №1",
+    "ru": "Терраццо №1",
+    "en": "Terrazzo No. 1"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": "400×400×50",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "400×400×50",
+     "per": "6,25",
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "novinka": true,
+   "images": {
+    "scene": null,
+    "sceneSm": null,
+    "molds": {
+     "A": "/catalog/2027/trotuar-terratsso-1-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
   {
    "key": "terratsso-2",
    "code": null,
@@ -20,15 +64,15 @@
    "molds": [
     {
      "l": "A",
-     "size": "400×200×45",
-     "depth": "45",
+     "size": "400×200×50",
+     "depth": "50",
      "g": null
     }
    ],
    "tiles": [
     {
      "l": "A",
-     "size": "400×200×45",
+     "size": "400×200×50",
      "per": "12,5",
      "cap": null
     }
@@ -64,15 +108,15 @@
    "molds": [
     {
      "l": "A",
-     "size": "200×200×45",
-     "depth": "45",
+     "size": "200×200×50",
+     "depth": "50",
      "g": null
     }
    ],
    "tiles": [
     {
      "l": "A",
-     "size": "200×200×45",
+     "size": "200×200×50",
      "per": "25",
      "cap": null
     }
