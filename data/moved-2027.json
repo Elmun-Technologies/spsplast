@@ -231,6 +231,17 @@
     "kapitel-40-tepa"
    ],
    "name": "Kapitel 40 — tepa"
+  },
+  {
+   "from": [
+    "trotuar",
+    "kaliforniya"
+   ],
+   "to": [
+    "trotuar",
+    "kaliforniya-g"
+   ],
+   "name": "Kaliforniya"
   }
  ]
 }

@@ -50,3 +50,23 @@ test('patch 2026-11-24: novinkalar nomi va Terratsso chuqurligi', () => {
   }
   assert.equal(bySlug.get('meandr-30-30').kg, '6,5');
 });
+
+test('2026-11-25: Национал 2, Antara o‘lchami, raqamlangan nomlar va `retire` (takror Kaliforniya → 301)', () => {
+  const ru = (s) => bySlug.get(s).name.ru;
+  assert.equal(ru('girih'), 'Национал 2');
+  assert.deepEqual(bySlug.get('oltiburchak-galka').molds, bySlug.get('antara-1').molds);
+  assert.deepEqual(['tomir-20-20-kvadrat', 'tomir-20-20-x1', '32-tomir', 'tomir-15-15'].map(ru), ['Томир 1', 'Томир 2', 'Томир 3', 'Томир 4']);
+  assert.deepEqual(['36-bodom-20-20', '25-bodom', 'bodom-15-15'].map(ru), ['Бодом 1', 'Бодом 2', 'Бодом 3']);
+  // `retire`: statik katalogdan chiqadi, sahifasi qoladigan modelga 301 bo'ladi, bazada arxivga o'tadi
+  assert.ok(!bySlug.has('kaliforniya') && bySlug.has('kaliforniya-g'));
+  const redirects = JSON.parse(fs.readFileSync(path.join(root, 'scripts/redirects-2027.json'), 'utf8'));
+  const list = Array.isArray(redirects) ? redirects : Object.values(redirects).flat();
+  for (const lang of ['uz', 'ru', 'en']) {
+    const r = list.find((x) => x.source === `/${lang}/catalog/paving/kaliforniya`);
+    assert.equal(r?.destination, `/${lang}/catalog/paving/kaliforniya-g`);
+    assert.equal(r?.statusCode, 301);
+  }
+  const sync = fs.readFileSync(path.join(root, 'scripts/catalog-sync.ts'), 'utf8');
+  assert.match(sync, /data\.retire/);
+  assert.match(fs.readFileSync(path.join(root, 'scripts/extract/build_models_2027.py'), 'utf8'), /def apply_retire/);
+});

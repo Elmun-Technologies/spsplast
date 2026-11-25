@@ -1092,16 +1092,6 @@
   "note": "",
   "sha": "5959a22f988f6354"
  },
- "trotuar-kaliforniya-mold-a": {
-  "src": "media-src/live/t19-qolip.jpg",
-  "status": "fallback",
-  "method": "floodfill fuzz 14%",
-  "cover": 0.7941,
-  "edge": 0.0,
-  "note": "",
-  "sha": "4932f0d62919da8f",
-  "defringe": "soya→alfa"
- },
  "trotuar-kristall-mold-a": {
   "src": "media-src/live/kristall-qolip.jpg",
   "status": "fallback",

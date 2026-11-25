@@ -1581,24 +1581,6 @@
   "kind": "live"
  },
  {
-  "src": "media-src/live/t19-qolip.jpg",
-  "dst": "public/catalog/2027/trotuar-kaliforniya-mold-a.webp",
-  "w": 1200,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/t19-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-kaliforniya-scene.webp",
-  "w": 1400,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/t19-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-kaliforniya-scene-sm.webp",
-  "w": 720,
-  "kind": "live"
- },
- {
   "src": "media-src/live/t20-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-kaliforniya-g-mold-a.webp",
   "w": 1200,
