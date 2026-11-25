@@ -85,7 +85,7 @@ for k, e in enumerate(items, 1):
     m = re.search(r'/3d/(t\d+)/', e.get('qr', ''))
     if m: ID2K[m.group(1)] = k
 SCENES = {}
-for tid in ['t08', 't11', 't49', 't75', 't79', 't85']:   # 2026-11-25: t54 t57-t61 t63, Аллея t34 t71 t89 t73 egasi so'rovi bilan asl holatida
+for tid in ['t08', 't11', 't49', 't85']:   # 2026-11-25: t54 t57-t61 t63, Аллея t34 t71 t89 t73, Кабанчик t75, Николай t79 egasi so'rovi bilan asl holatida
     if os.path.exists(S_(tid)): SCENES[page_of(ID2K[tid]) - 1] = S_(tid)
     else: print('YO\'Q', tid)
 for idx, nm in ((3, 'nv_antara'), (5, 'nv_nat1'), (6, 'nv_nat2'), (10, 'nv_labirint')):   # Antara: izlar qo'shni plitkada to'g'ri davom etadi (egasi tasdiqladi 2026-11-25)
