@@ -613,7 +613,7 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     Qolganlari GLB'dagi dizayner ranglari. Bordyur bo'yalmadi (dunyo amaliyotida tabiiy kulrang beton).
   - **Nomlar** (`scripts/catalog-add-2026-11-25-nomlar.json`): №004 = **Национал 2** (4 emas); Antara = 290×190×45 (Antara 2 bilan bir xil);
     bir xil nomli har xil qoliplar raqamlandi — Томир 1–4 (`tomir-20-20-kvadrat`, `tomir-20-20-x1`, `32-tomir`, `tomir-15-15`),
-    Бодом 1–3 (`36-bodom-20-20`, `25-bodom`, `bodom-15-15`); PDF'da yana Шерша 1/2 (saytda Шерша 2 = `69-kabanchik-15-15`, nomi o'zgartirilmadi — egasidan so'ralgan).
+    Бодом 1–3 (`36-bodom-20-20`, `25-bodom`, `bodom-15-15`); PDF'da yana Шерша 1/2; saytda `69-kabanchik-15-15` = **Шерша 2** (egasi, 2026-11-25: `scripts/catalog-add-2026-11-25-z-shersha.json`, slug o'zgarmagan).
   - **`retire`** (yangi kalit): `{"eski-slug": "qoladigan-slug"}` — takror kiritilgan qolip statik katalogdan chiqadi (`apply_retire`), bazada
     `archived`, sahifasi 301 (`data/moved-2027.json` → `redirects:build`). Birinchi qo'llanishi: `kaliforniya` → `kaliforniya-g` (qoliplari bir xil).
   - **PDF**: `scripts/pdf/build7-2026-11-25.py <web|max>` (ma'lumot uchun nusxa — kirish fayllari repoda emas; 2026-11-24 dagi usulning davomi): eski 38-bet (Kaliforniya) o'chadi, undan keyingi
