@@ -13,6 +13,7 @@
  *   egasi tasdiqlagan tuzatishlar; slug va rasmlar o'zgarmaydi.
  * - `moldPer` → qolipning 1 m² dagi soni (slug → "5,5"), faqat bo'sh bo'lsa.
  * - `archive` → D01–D18 dekor panellar arxivga (eski katalogda yo'q, biznes qarori 2026-11-15).
+ * - `retire`  → {"eski-slug": "qoladigan-slug"}: takror kiritilgan qolip arxivga, sahifasi qoladiganiga 301 (statik xarita).
  * Keyin admin → "Nashr qilish" (yoki Coolify Redeploy) — sayt yangi snapshot bilan qayta yig'iladi.
  *
  * `--pending` (deploy'da, `db:migrate:deploy` dan keyin): barcha `scripts/catalog-add-*.json` nom tartibida; bazadagi
@@ -168,6 +169,18 @@ async function syncFile(db: Db, data: SyncData): Promise<string> {
     perFilled += res.length;
   }
 
+  // `retire` — {"eski-slug": "qoladigan-slug"}: bir xil qolip ikki marta kiritilgan bo'lsa bittasi arxivga
+  // (301 statik xaritada: build_redirects_2027.py, data/moved-2027.json orqali).
+  let retired = 0;
+  for (const slug of Object.keys((data.retire ?? {}) as Record<string, string>)) {
+    const res = await db
+      .update(products)
+      .set({ status: 'archived', updatedAt: new Date() })
+      .where(eq(products.slug, slug))
+      .returning({ id: products.id });
+    retired += res.length;
+  }
+
   let archived = 0;
   for (const code of (data.archive ?? []) as string[]) {
     const res = await db
@@ -177,7 +190,7 @@ async function syncFile(db: Db, data: SyncData): Promise<string> {
       .returning({ id: products.id });
     archived += res.length;
   }
-  return `Qo'shildi: ${added} / ${(data.add ?? []).length}; rasm qo'yildi: ${imaged}; rasm yangilandi: ${refreshed}; ruscha nom: ${named}; tuzatildi: ${patched}; 1 m²: ${perFilled}; arxivga: ${archived}.`;
+  return `Qo'shildi: ${added} / ${(data.add ?? []).length}; rasm qo'yildi: ${imaged}; rasm yangilandi: ${refreshed}; ruscha nom: ${named}; tuzatildi: ${patched}; 1 m²: ${perFilled}; arxivga: ${archived + retired}.`;
 }
 
 async function pending(db: Db): Promise<void> {

@@ -3,7 +3,7 @@
 > Bu fayl `scripts/extract/build_models_2027.py` tomonidan qayta yoziladi.
 > Har bir savol manba fayl va katakka ishora qiladi. Javob kelgacha qiymat `null`; saytda neytral matn chiqadi (`[...]` hech qachon ko'rsatilmaydi).
 
-Jami model: **336** (HANDOFF dastlabki rejasi: 152; 3D katalog bilan to'ldirildi). Bo'limlar: trotuar 135, zabor 10, fasad_dekor 67, fasad 7, skameyka 10, termopanel 12, tayyor_termopanel 12, tayyor_bilayn 5, tayyor_dekor 16, tayyor_karniz 13, tayyor_tyaga 3, tayyor_pilyastra 15, tayyor_kapitel 8, tayyor_tsokol 4, tayyor_tosh 4, tayyor_skameyka 6, tayyor_zabor 9
+Jami model: **335** (HANDOFF dastlabki rejasi: 152; 3D katalog bilan to'ldirildi). Bo'limlar: trotuar 134, zabor 10, fasad_dekor 67, fasad 7, skameyka 10, termopanel 12, tayyor_termopanel 12, tayyor_bilayn 5, tayyor_dekor 16, tayyor_karniz 13, tayyor_tyaga 3, tayyor_pilyastra 15, tayyor_kapitel 8, tayyor_tsokol 4, tayyor_tosh 4, tayyor_skameyka 6, tayyor_zabor 9
 
 ## Manbalar holati
 
@@ -33,8 +33,10 @@ Jami model: **336** (HANDOFF dastlabki rejasi: 152; 3D katalog bilan to'ldirildi
 18. `Vegas 2 (shershaviy)` modeli yangi qo'shilmoqchi, lekin katalog kodi berilmagan (yakuniy jadval, bet —). Kodni biznes bersin.
 19. `Ornament 18×36` modeli yangi qo'shilmoqchi, lekin katalog kodi berilmagan (yakuniy jadval, bet —). Kodni biznes bersin.
 20. `Dubay aylana (okrujnost)` modeli yangi qo'shilmoqchi, lekin katalog kodi berilmagan (yakuniy jadval, bet —). Kodni biznes bersin.
-21. `Sharqona aylana zabor` (zabor) uchun rasm yo'q: na surat, na 3D render. Sayt `noindex` qiladi va WhatsApp orqali surat so'rashni taklif qiladi.
-22. Kontakt handledari zid: eski saytda Telegram @sps_stone va Instagram sps.stone, HANDOFF 1-bo'limda @spsplastuz va @spsplast.uz. Qaysi biri to'g'ri?
-23. PDF katalog: sayt hozircha 2026 (uz, 130 model) PDF'ga havola beradi. 2027 uch tilli PDF qachon tayyor bo'ladi va qayerga joylanadi?
-24. Bo'lim nomlari RU/EN (hozir: Тротуарная плитка / Paving slabs ...) — yakuniy PDF'dagi rasmiy nomlar bilan almashtirilishi kerak.
-25. E-pochta: HANDOFF'da [E-POCHTA] placeholder, eski saytda stoneprofyservise@mail.ru edi. Yangi saytda ko'rsatiladimi?
+21. Tirik surat `media-src/live/t19-qolip.jpg` hech bir model kodiga mos kelmadi — fayl nomini tekshiring.
+22. Tirik surat `media-src/live/t19-sahna.jpg` hech bir model kodiga mos kelmadi — fayl nomini tekshiring.
+23. `Sharqona aylana zabor` (zabor) uchun rasm yo'q: na surat, na 3D render. Sayt `noindex` qiladi va WhatsApp orqali surat so'rashni taklif qiladi.
+24. Kontakt handledari zid: eski saytda Telegram @sps_stone va Instagram sps.stone, HANDOFF 1-bo'limda @spsplastuz va @spsplast.uz. Qaysi biri to'g'ri?
+25. PDF katalog: sayt hozircha 2026 (uz, 130 model) PDF'ga havola beradi. 2027 uch tilli PDF qachon tayyor bo'ladi va qayerga joylanadi?
+26. Bo'lim nomlari RU/EN (hozir: Тротуарная плитка / Paving slabs ...) — yakuniy PDF'dagi rasmiy nomlar bilan almashtirilishi kerak.
+27. E-pochta: HANDOFF'da [E-POCHTA] placeholder, eski saytda stoneprofyservise@mail.ru edi. Yangi saytda ko'rsatiladimi?

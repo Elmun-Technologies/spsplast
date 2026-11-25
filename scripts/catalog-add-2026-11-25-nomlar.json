@@ -1,0 +1,82 @@
+{
+ "comment": "2026-11-25, egasining bosma katalog bo'yicha izohlari: №004 = Национал 2 (4 emas); Antara o'lchamlari Antara 2 bilan bir xil (290×190×45); bir xil nomli har xil qoliplar raqamlandi (Томир 1–4, Бодом 1–3 — bosma katalogdagi tartibda); Kaliforniya va Kaliforniya G bir xil qolip — Kaliforniya olib tashlandi (301 → Kaliforniya G).",
+ "patch": {
+  "girih": {
+   "name": {
+    "uz": "Natsional 2",
+    "ru": "Национал 2",
+    "en": "Natsional 2"
+   }
+  },
+  "oltiburchak-galka": {
+   "molds": [
+    {
+     "l": "A",
+     "size": "290×190×45",
+     "depth": "45",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "290×190×45",
+     "per": null,
+     "cap": null
+    }
+   ]
+  },
+  "tomir-20-20-kvadrat": {
+   "name": {
+    "uz": "Tomir 1",
+    "ru": "Томир 1",
+    "en": "Tomir 1"
+   }
+  },
+  "tomir-20-20-x1": {
+   "name": {
+    "uz": "Tomir 2",
+    "ru": "Томир 2",
+    "en": "Tomir 2"
+   }
+  },
+  "32-tomir": {
+   "name": {
+    "uz": "Tomir 3",
+    "ru": "Томир 3",
+    "en": "Tomir 3"
+   }
+  },
+  "tomir-15-15": {
+   "name": {
+    "uz": "Tomir 4",
+    "ru": "Томир 4",
+    "en": "Tomir 4"
+   }
+  },
+  "36-bodom-20-20": {
+   "name": {
+    "uz": "Bodom 1",
+    "ru": "Бодом 1",
+    "en": "Bodom 1"
+   }
+  },
+  "25-bodom": {
+   "name": {
+    "uz": "Bodom 2",
+    "ru": "Бодом 2",
+    "en": "Bodom 2"
+   }
+  },
+  "bodom-15-15": {
+   "name": {
+    "uz": "Bodom 3",
+    "ru": "Бодом 3",
+    "en": "Bodom 3"
+   }
+  }
+ },
+ "retire": {
+  "kaliforniya": "kaliforniya-g"
+ }
+}

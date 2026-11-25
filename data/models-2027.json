@@ -30,8 +30,22 @@
    },
    "note": null,
    "kg": null,
-   "molds": [],
-   "tiles": [],
+   "molds": [
+    {
+     "l": "A",
+     "size": "290×190×45",
+     "depth": "45",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "290×190×45",
+     "per": null,
+     "cap": null
+    }
+   ],
    "specs": [],
    "sizeEstimated": false,
    "images": {
@@ -161,9 +175,9 @@
    "slug": "girih",
    "section": "trotuar",
    "name": {
-    "uz": "Natsional 4",
-    "ru": "Национал 4",
-    "en": "Natsional 4"
+    "uz": "Natsional 2",
+    "ru": "Национал 2",
+    "en": "Natsional 2"
    },
    "subtitle": {
     "uz": "3 qolip to‘plami",
@@ -2264,9 +2278,9 @@
    "slug": "25-bodom",
    "section": "trotuar",
    "name": {
-    "uz": "Bodom",
-    "ru": null,
-    "en": null
+    "uz": "Bodom 2",
+    "ru": "Бодом 2",
+    "en": "Bodom 2"
    },
    "subtitle": {
     "uz": null,
@@ -2582,9 +2596,9 @@
    "slug": "32-tomir",
    "section": "trotuar",
    "name": {
-    "uz": "Tomir",
-    "ru": null,
-    "en": null
+    "uz": "Tomir 3",
+    "ru": "Томир 3",
+    "en": "Tomir 3"
    },
    "subtitle": {
     "uz": null,
@@ -2802,9 +2816,9 @@
    "slug": "36-bodom-20-20",
    "section": "trotuar",
    "name": {
-    "uz": "Bodom 20×20",
-    "ru": null,
-    "en": null
+    "uz": "Bodom 1",
+    "ru": "Бодом 1",
+    "en": "Bodom 1"
    },
    "subtitle": {
     "uz": null,
@@ -5166,49 +5180,6 @@
     "sceneSm": "/catalog/2027/trotuar-polosa-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-polosa-mold-a.webp"
-    },
-    "tiles": {}
-   }
-  },
-  {
-   "key": "tkaliforniya",
-   "code": null,
-   "slug": "kaliforniya",
-   "section": "trotuar",
-   "name": {
-    "uz": "Kaliforniya",
-    "ru": null,
-    "en": null
-   },
-   "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
-   },
-   "kg": "4,125",
-   "molds": [
-    {
-     "l": "A",
-     "size": "300×300×30",
-     "depth": "30",
-     "g": 375
-    }
-   ],
-   "tiles": [
-    {
-     "l": "A",
-     "size": "300×300×30",
-     "per": "11",
-     "cap": null
-    }
-   ],
-   "specs": [],
-   "sizeEstimated": false,
-   "images": {
-    "scene": "/catalog/2027/trotuar-kaliforniya-scene.webp",
-    "sceneSm": "/catalog/2027/trotuar-kaliforniya-scene-sm.webp",
-    "molds": {
-     "A": "/catalog/2027/trotuar-kaliforniya-mold-a.webp"
     },
     "tiles": {}
    }
@@ -12270,9 +12241,9 @@
    "slug": "tomir-15-15",
    "section": "trotuar",
    "name": {
-    "uz": "Tomir 15×15",
-    "ru": "Томир 15×15",
-    "en": "Tomir 15×15"
+    "uz": "Tomir 4",
+    "ru": "Томир 4",
+    "en": "Tomir 4"
    },
    "subtitle": {
     "uz": null,
@@ -12326,9 +12297,9 @@
    "slug": "bodom-15-15",
    "section": "trotuar",
    "name": {
-    "uz": "Bodom 15×15",
-    "ru": "Бодом 15×15",
-    "en": "Bodom 15×15"
+    "uz": "Bodom 3",
+    "ru": "Бодом 3",
+    "en": "Bodom 3"
    },
    "subtitle": {
     "uz": null,
@@ -12382,9 +12353,9 @@
    "slug": "tomir-20-20-kvadrat",
    "section": "trotuar",
    "name": {
-    "uz": "Tomir 20×20 kvadrat",
-    "ru": "Томир 20×20",
-    "en": "Tomir 20×20 square"
+    "uz": "Tomir 1",
+    "ru": "Томир 1",
+    "en": "Tomir 1"
    },
    "subtitle": {
     "uz": null,
@@ -18130,9 +18101,9 @@
    "slug": "tomir-20-20-x1",
    "section": "trotuar",
    "name": {
-    "uz": "Tomir 20×20 ×1",
-    "ru": "Томир 20×20 Х1",
-    "en": "Tomir 20×20 ×1"
+    "uz": "Tomir 2",
+    "ru": "Томир 2",
+    "en": "Tomir 2"
    },
    "subtitle": {
     "uz": null,

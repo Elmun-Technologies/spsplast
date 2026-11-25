@@ -317,6 +317,21 @@
    "statusCode": 301
   },
   {
+   "source": "/uz/catalog/paving/kaliforniya",
+   "destination": "/uz/catalog/paving/kaliforniya-g",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/catalog/paving/kaliforniya",
+   "destination": "/ru/catalog/paving/kaliforniya-g",
+   "statusCode": 301
+  },
+  {
+   "source": "/en/catalog/paving/kaliforniya",
+   "destination": "/en/catalog/paving/kaliforniya-g",
+   "statusCode": 301
+  },
+  {
    "source": "/uz/product/g001-floriya",
    "destination": "/uz/catalog/paving/15-floriya",
    "statusCode": 301
@@ -2068,12 +2083,12 @@
   },
   {
    "source": "/uz/product/plitka-qolipi-kaliforniya",
-   "destination": "/uz/catalog/paving/kaliforniya",
+   "destination": "/uz/catalog/paving/kaliforniya-g",
    "statusCode": 301
   },
   {
    "source": "/ru/product/forma-plitki-kaliforniya",
-   "destination": "/ru/catalog/paving/kaliforniya",
+   "destination": "/ru/catalog/paving/kaliforniya-g",
    "statusCode": 301
   },
   {

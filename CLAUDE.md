@@ -68,6 +68,7 @@ docs/ROADMAP-2027.md         # gap analysis + stages 7–12
 src/components/site/         # new layer: SiteHeader, HeaderClient, SiteFooter, LangSwitch, icons, MotionLayer
 src/lib/siteContent.ts       # admin numbers/contacts → `{years}` `{countries}` `{contactLine}`… tokens in getPages()
 src/lib/integrations.ts      # admin settings fields (integrations, contacts, stats) + validation regexes
+scripts/3d/sahna/            # "natija" sahnasini 3D modeldan render (three.js + HDRI): run.mjs, glb.js, kerb.js — README.md
 scripts/3d/build-tering.mjs  # QR 3D sahifalariga "Соберите сами" tabi: bundle + sahifalarni yangilash (`npm run 3d:tering`)
 scripts/3d/tering/builder.js # o'sha rejim manbasi (three.js, terilgan.glb dan slotlar); glb-layout.mjs — ko'tarilgan plitka teshigi
 public/3d/assets/tering-<hash>.js  # GENERATED bundle (three 0.186.1 + builder, ~162 KB gzip), faqat tab ochilganda import qilinadi
@@ -595,6 +596,29 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   Ulangan: model sahifasi (asosiy rasm + tablar), tayyor mahsulot galereyasi, tez ko'rish oynasi. Kartochka rasmi havola bo'lib qoladi.
   Dasturdan: `window.dispatchEvent(new CustomEvent('sps:zoom', { detail: { items } }))` — PDF varaqlagich ochiq sahifani ~2400 px da qayta chizib beradi.
   Yangi rasm bloki qo'shsangiz — `data-zoom` + `ZoomButton` qo'ying, alohida modal yozmang.
+- **Natija renderlari (2026-11-25, egasining katalog bo'yicha izohlari)** — keep them:
+  - **Sabab**: "natija" (terilgan plitka) rasmlari AI generatsiya edi — naqsh taxminiy ("izlar mos emas / ko'rinmaydi", boshqa qolipning
+    naqshi). Endi `scripts/3d/sahna/` (README.md): `public/3d/<id>/terilgan.glb` → davr avtomatik → katta maydon → HDRI (Poly Haven, CC0) +
+    tuvak/stol → 1700×2400. GLB'siz novinkalar (Antara, Natsional 1/2, Labirint) — qolip suratidan olingan relyef + JSON tartib; bordyurlar —
+    `kerb.html` (sun'iy shar butalar olib tashlandi, fon — HDRI). Resurslar repoda emas (`$SAHNA_ASSETS`), qayta yuklash README'da.
+  - **15 ta** sahna almashtirildi (sayt + veb PDF + MAX PDF). Egasi so'rovi bilan **asl holatida qoldirilgan** (render ularni buzdi, 2026-11-25 07:17):
+    Азалия 2 (t54), Азия / 1 / 2 / 3 (t57–t60), Бухоро (t61), Рокки (t63) — bu modellar sahnasini 3D renderga almashtirmang.
+    **Антара** — egasining yagona talabi: qo'shni plitkalardagi izlar bir-biriga to'g'ri kelsin, "kamon emas, to'g'ri chiziq". Yangi sahna
+    (`scripts/3d/sahna/antara-2026-11-25.py`, egasi tasdiqladi): ranglar/faktura/kamera eskisidek, iz chet nuqtasi = C1 → qo'shni plitka C2
+    chizig'ining qirra bilan kesishishi (0.892·W, 0.23·H) — shunda iz qo'shni plitkada bukilmay davom etadi. Boshqa narsasini o'zgartirmang. Saytda fayl NOMI o'zgarmasin (baza sync kerak bo'lmasligi uchun): tirik sahnasi
+    borlarga `media-src/live/<id|slug>-sahna.jpg`, 3D render ko'rsatiladiganlarga **`public/3d/<id>/r_04.jpg`** almashtirildi (QR 3D sahifada ham shu).
+  - Ranglar egasi aytgandek: Natsional 1/2 — katta kvadrat + kubik bir xil, uzunchoq boshqa rang; Labirint — shaxmat (terrakota + bej).
+    Qolganlari GLB'dagi dizayner ranglari. Bordyur bo'yalmadi (dunyo amaliyotida tabiiy kulrang beton).
+  - **Nomlar** (`scripts/catalog-add-2026-11-25-nomlar.json`): №004 = **Национал 2** (4 emas); Antara = 290×190×45 (Antara 2 bilan bir xil);
+    bir xil nomli har xil qoliplar raqamlandi — Томир 1–4 (`tomir-20-20-kvadrat`, `tomir-20-20-x1`, `32-tomir`, `tomir-15-15`),
+    Бодом 1–3 (`36-bodom-20-20`, `25-bodom`, `bodom-15-15`); PDF'da yana Шерша 1/2 (saytda Шерша 2 = `69-kabanchik-15-15`, nomi o'zgartirilmadi — egasidan so'ralgan).
+  - **`retire`** (yangi kalit): `{"eski-slug": "qoladigan-slug"}` — takror kiritilgan qolip statik katalogdan chiqadi (`apply_retire`), bazada
+    `archived`, sahifasi 301 (`data/moved-2027.json` → `redirects:build`). Birinchi qo'llanishi: `kaliforniya` → `kaliforniya-g` (qoliplari bir xil).
+  - **PDF**: `scripts/pdf/build7-2026-11-25.py <web|max>` (ma'lumot uchun nusxa — kirish fayllari repoda emas; 2026-11-24 dagi usulning davomi): eski 38-bet (Kaliforniya) o'chadi, undan keyingi
+    raqamlar −1 (Вегас 2 = №121, 129 bet); katalog betlarida nom = 15.33 Tf matn bloki olinib, ustiga shaffof qatlam; sahna = betdagi yagona
+    Image XObject almashtiriladi (nisbat 0.708). Bosilgan nusxalarda №036 dan keyin raqamlar farq qiladi.
+  - Antara eskizi PDF'da TIK olti burchak (190 eni × 290 bo'yi, tekis tepa/past) — qolip shunday; Antara 2 esa yotiq.
+  - Ochiq: Цветок (egasi yangi rasm beradi); Сланец o'lchamlari; Николай nomlari; Эксклюзив (qolip surati ≠ 3D model); Zina 1, Ornament 18×36 (GLB yo'q).
 - **Trotuar PDF (veb nusxa) qo'lda yangilangan (2026-11-24)**: 7-bet (№004 Girih) — qolip va sahna rasmlari PDF ichida almashtirilgan (pikepdf,
   obyektlar 93/100; qolip `Multiply` bilan qo'yiladi — oq fonli JPEG kerak); 19-bet — yangi "Терраццо №2 · №3" (**№016**, novinkalar bo'limi oxirida, HTML → Chromium PDF, Inter).
   Undan keyingi 105 model **qayta raqamlangan** (Монако №016 → №017 … Вегас 2 №120 → №121) va bet raqamlari +1: eski raqam matni kontent oqimidan
@@ -812,7 +836,7 @@ npm run dev            # local dev server
 npm run build          # models:check + next build (~740 static HTML pages)
 npm run typecheck      # tsc --noEmit
 npm run lint           # eslint . (next lint Next 16 da olib tashlangan)
-npm test               # node --test --experimental-strip-types tests/*.test.js (194 tests)
+npm test               # node --test --experimental-strip-types tests/*.test.js (210 tests)
 npm run models:build && npm run models:images && npm run models:check
 npm run db:generate    # after editing src/server/db/schema.ts → new SQL in drizzle/
 DATABASE_URL=... npm run db:migrate
