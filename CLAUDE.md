@@ -601,8 +601,10 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     naqshi). Endi `scripts/3d/sahna/` (README.md): `public/3d/<id>/terilgan.glb` → davr avtomatik → katta maydon → HDRI (Poly Haven, CC0) +
     tuvak/stol → 1700×2400. GLB'siz novinkalar (Antara, Natsional 1/2, Labirint) — qolip suratidan olingan relyef + JSON tartib; bordyurlar —
     `kerb.html` (sun'iy shar butalar olib tashlandi, fon — HDRI). Resurslar repoda emas (`$SAHNA_ASSETS`), qayta yuklash README'da.
-  - **15 ta** sahna almashtirildi (sayt + veb PDF + MAX PDF). Egasi so'rovi bilan **asl holatida qoldirilgan** (render ularni buzdi, 2026-11-25 07:17):
-    Азалия 2 (t54), Азия / 1 / 2 / 3 (t57–t60), Бухоро (t61), Рокки (t63) — bu modellar sahnasini 3D renderga almashtirmang.
+  - **11 ta** sahna almashtirildi (sayt + veb PDF + MAX PDF). Egasi so'rovi bilan **asl holatida qoldirilgan** (render ularni buzdi, 2026-11-25 07:17):
+    Азалия 2 (t54), Азия / 1 / 2 / 3 (t57–t60), Бухоро (t61), Рокки (t63), **Аллея 1 / 2 / 3 / узор** (t34, t71, t89, t73 — 2026-11-25 kechki: GLB'da
+    relyef faqat normal xaritada, render izni bermadi; chuqurcha-soya varianti ham, Азия 1 qayta renderi ham rad etildi) — bu modellar sahnasini 3D renderga almashtirmang.
+    Madani katalogida bu modellarning aynan o'zi yo'q (eng yaqini: Беш панжа ≈ Азия 1, lekin boshqa qolip); ularning rasmlari ishlatilmaydi (logotip, suv belgisi).
     **Антара** — egasining yagona talabi: qo'shni plitkalardagi izlar bir-biriga to'g'ri kelsin, "kamon emas, to'g'ri chiziq". Yangi sahna
     (`scripts/3d/sahna/antara-2026-11-25.py`, egasi tasdiqladi): ranglar/faktura/kamera eskisidek, iz chet nuqtasi = C1 → qo'shni plitka C2
     chizig'ining qirra bilan kesishishi (0.892·W, 0.23·H) — shunda iz qo'shni plitkada bukilmay davom etadi. Boshqa narsasini o'zgartirmang. Saytda fayl NOMI o'zgarmasin (baza sync kerak bo'lmasligi uchun): tirik sahnasi

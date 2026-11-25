@@ -10,8 +10,8 @@
 > - **2026-11-24**: bosma katalog novinkalari (№001–016) qayta nomlangan (Антара, Национал 1/4, Лабиринт, Дорожка, Паркет, Кадам,
 >   Бордюр Версаче + Бордюр Версаче сетка (№016, alohida model); Terratsso №1–3 = №017, h 50) — sayt (`patch`, slug o'zgarmagan) va veb PDF (130 bet) bir xil. Tafsilot: `CLAUDE.md` → "Novinkalar nomi/o'lchami".
 >   Ochiq: bordyur va №001/007/013–015 o'lchamlari; bosma (150–200 MB) asl PDF alohida yangilanishi kerak.
-> - **2026-11-25**: egasining bosma katalog bo'yicha izohlari — 15 ta "natija" rasmi AI generatsiya o'rniga qolipning 3D modelidan
->   render qilindi (`scripts/3d/sahna/`, sayt + veb PDF + MAX PDF; Азалия 2, Азия×4, Бухоро, Рокки, Антара — egasi so'rovi bilan ASL holatida); №004 = Национал 2; Antara o'lchami 290×190×45; Томир 1–4, Бодом 1–3;
+> - **2026-11-25**: egasining bosma katalog bo'yicha izohlari — 11 ta "natija" rasmi AI generatsiya o'rniga qolipning 3D modelidan
+>   render qilindi (`scripts/3d/sahna/`, sayt + veb PDF + MAX PDF; Азалия 2, Азия×4, Бухоро, Рокки, Аллея 1–3 + узор — egasi so‘rovi bilan ASL holatida; Антара — egasi tasdiqlagan yangi sahna); №004 = Национал 2; Antara o'lchami 290×190×45; Томир 1–4, Бодом 1–3;
 >   takror Kaliforniya olib tashlandi (`retire`, 301 → Kaliforniya G; PDF 129 bet, №036 dan raqamlar −1). Tafsilot: `CLAUDE.md` → "Natija renderlari".
 >   Ochiq (egasidan): Цветок uchun yangi natija rasmi; Сланец o'lchamlari; Николай (№084–086) nomlari; Эксклюзив — qolip surati (uchburchak) va
 >   3D model (rozetka) mos emas, qaysi biri hozirgi; Zina 1 / Ornament 18×36 — 3D model yo'q, render qilinmadi; Shersha 15×15 saytda "Kabanchik 15×15".
