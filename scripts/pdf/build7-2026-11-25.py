@@ -90,7 +90,7 @@ SCENES = {}
 for tid in ['t08', 't11', 't49', 't75', 't79', 't34', 't71', 't89', 't73', 't85']:   # 2026-11-25: t54 t57-t61 t63 egasi so'rovi bilan asl holatida
     if os.path.exists(S_(tid)): SCENES[page_of(ID2K[tid]) - 1] = S_(tid)
     else: print('YO\'Q', tid)
-for idx, nm in ((5, 'nv_nat1'), (6, 'nv_nat2'), (10, 'nv_labirint')):   # Antara — asl sahna
+for idx, nm in ((3, 'nv_antara'), (5, 'nv_nat1'), (6, 'nv_nat2'), (10, 'nv_labirint')):   # Antara: izlar qo'shni plitkada to'g'ri davom etadi (egasi tasdiqladi 2026-11-25)
     if os.path.exists(S_(nm)): SCENES[idx] = S_(nm)
     else: print('YO\'Q', nm)
 SCN = {'bordA': S_('bordA') if os.path.exists(S_('bordA')) else 'bord_scene_A.jpg', 'bordB': S_('bordB') if os.path.exists(S_('bordB')) else 'bord_scene_B.jpg'}
