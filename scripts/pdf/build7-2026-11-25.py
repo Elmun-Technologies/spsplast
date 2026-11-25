@@ -87,10 +87,10 @@ for k, e in enumerate(items, 1):
     m = re.search(r'/3d/(t\d+)/', e.get('qr', ''))
     if m: ID2K[m.group(1)] = k
 SCENES = {}
-for tid in ['t08', 't11', 't49', 't75', 't79', 't34', 't71', 't89', 't73', 't54', 't57', 't58', 't59', 't60', 't61', 't63', 't85']:
+for tid in ['t08', 't11', 't49', 't75', 't79', 't34', 't71', 't89', 't73', 't85']:   # 2026-11-25: t54 t57-t61 t63 egasi so'rovi bilan asl holatida
     if os.path.exists(S_(tid)): SCENES[page_of(ID2K[tid]) - 1] = S_(tid)
     else: print('YO\'Q', tid)
-for idx, nm in ((3, 'nv_antara'), (5, 'nv_nat1'), (6, 'nv_nat2'), (10, 'nv_labirint')):
+for idx, nm in ((5, 'nv_nat1'), (6, 'nv_nat2'), (10, 'nv_labirint')):   # Antara — asl sahna
     if os.path.exists(S_(nm)): SCENES[idx] = S_(nm)
     else: print('YO\'Q', nm)
 SCN = {'bordA': S_('bordA') if os.path.exists(S_('bordA')) else 'bord_scene_A.jpg', 'bordB': S_('bordB') if os.path.exists(S_('bordB')) else 'bord_scene_B.jpg'}
@@ -124,7 +124,7 @@ def sketch(shape, x0, y0, w, h, wl, hl, color, cells=(1, 1)):
         cx, cy, r = x0 + w / 2, y0 + h / 2, w / 2
         s += f'<circle cx="{cx}" cy="{cy}" r="{r+4.83}" stroke="{INK}" stroke-width=".49"/><circle cx="{cx}" cy="{cy}" r="{r}" stroke="{INK}" stroke-width=".98"/>'
     elif shape == 'hex':
-        P = lambda e: ' '.join(f'{x:.2f},{y:.2f}' for x, y in ((x0 - e, y0 + .2 * h - e * .35), (x0 + w / 2, y0 - e * 1.12), (x0 + w + e, y0 + .2 * h - e * .35), (x0 + w + e, y0 + .8 * h + e * .35), (x0 + w / 2, y0 + h + e * 1.12), (x0 - e, y0 + .8 * h + e * .35)))
+        P = lambda e: ' '.join(f'{x:.2f},{y:.2f}' for x, y in ((x0 + .2 * w - e * .55, y0 - e), (x0 + .8 * w + e * .55, y0 - e), (x0 + w + e * 1.15, y0 + h / 2), (x0 + .8 * w + e * .55, y0 + h + e), (x0 + .2 * w - e * .55, y0 + h + e), (x0 - e * 1.15, y0 + h / 2)))
         s += f'<polygon points="{P(4.83)}" stroke="{INK}" stroke-width=".49"/><polygon points="{P(0)}" stroke="{INK}" stroke-width=".98"/>'
     else:
         s += f'<rect x="{x0-4.83}" y="{y0-4.83}" width="{w+9.66}" height="{h+9.66}" stroke="{INK}" stroke-width=".49"/>'
@@ -160,7 +160,7 @@ def body(b, color):
     return o
 SQ = dict(shape='rect', px=(65.9, 65.9), wl='400', hl='400', d=50, size='400×400×50', per='6,25 шт')
 PAGES = {
-    3:  dict(title='АНТАРА', tab='АНТАРА', shrink=True, body=dict(shape='hex', px=(72, 47.2), wl='290', hl='190', d=45, size='290×190×45')),
+    3:  dict(title='АНТАРА', tab='АНТАРА', shrink=True, body=dict(shape='hex', px=(47.2, 72), wl='190', hl='290', d=45, size='290×190×45')),
     4:  dict(title='АНТАРА 2', tab='АНТАРА 2'),
     5:  dict(title='НАЦИОНАЛ 1', sub='КОМПЛЕКТ ИЗ 3 ФОРМ', tab='НАЦИОНАЛ 1'),
     6:  dict(title='НАЦИОНАЛ 2', sub='КОМПЛЕКТ ИЗ 3 ФОРМ', tab='НАЦИОНАЛ 2'),

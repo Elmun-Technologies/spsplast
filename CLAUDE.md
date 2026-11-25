@@ -601,7 +601,8 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     naqshi). Endi `scripts/3d/sahna/` (README.md): `public/3d/<id>/terilgan.glb` → davr avtomatik → katta maydon → HDRI (Poly Haven, CC0) +
     tuvak/stol → 1700×2400. GLB'siz novinkalar (Antara, Natsional 1/2, Labirint) — qolip suratidan olingan relyef + JSON tartib; bordyurlar —
     `kerb.html` (sun'iy shar butalar olib tashlandi, fon — HDRI). Resurslar repoda emas (`$SAHNA_ASSETS`), qayta yuklash README'da.
-  - 23 ta sahna almashtirildi: sayt + veb PDF + MAX PDF. Saytda fayl NOMI o'zgarmasin (baza sync kerak bo'lmasligi uchun): tirik sahnasi
+  - **15 ta** sahna almashtirildi (sayt + veb PDF + MAX PDF). Egasi so'rovi bilan **asl holatida qoldirilgan** (render ularni buzdi, 2026-11-25 07:17):
+    Азалия 2 (t54), Азия / 1 / 2 / 3 (t57–t60), Бухоро (t61), Рокки (t63) va Антара (`oltiburchak-galka`) — bu modellar sahnasini 3D renderga almashtirmang. Saytda fayl NOMI o'zgarmasin (baza sync kerak bo'lmasligi uchun): tirik sahnasi
     borlarga `media-src/live/<id|slug>-sahna.jpg`, 3D render ko'rsatiladiganlarga **`public/3d/<id>/r_04.jpg`** almashtirildi (QR 3D sahifada ham shu).
   - Ranglar egasi aytgandek: Natsional 1/2 — katta kvadrat + kubik bir xil, uzunchoq boshqa rang; Labirint — shaxmat (terrakota + bej).
     Qolganlari GLB'dagi dizayner ranglari. Bordyur bo'yalmadi (dunyo amaliyotida tabiiy kulrang beton).
@@ -613,6 +614,7 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   - **PDF**: `scripts/pdf/build7-2026-11-25.py <web|max>` (ma'lumot uchun nusxa — kirish fayllari repoda emas; 2026-11-24 dagi usulning davomi): eski 38-bet (Kaliforniya) o'chadi, undan keyingi
     raqamlar −1 (Вегас 2 = №121, 129 bet); katalog betlarida nom = 15.33 Tf matn bloki olinib, ustiga shaffof qatlam; sahna = betdagi yagona
     Image XObject almashtiriladi (nisbat 0.708). Bosilgan nusxalarda №036 dan keyin raqamlar farq qiladi.
+  - Antara eskizi PDF'da TIK olti burchak (190 eni × 290 bo'yi, tekis tepa/past) — qolip shunday; Antara 2 esa yotiq.
   - Ochiq: Цветок (egasi yangi rasm beradi); Сланец o'lchamlari; Николай nomlari; Эксклюзив (qolip surati ≠ 3D model); Zina 1, Ornament 18×36 (GLB yo'q).
 - **Trotuar PDF (veb nusxa) qo'lda yangilangan (2026-11-24)**: 7-bet (№004 Girih) — qolip va sahna rasmlari PDF ichida almashtirilgan (pikepdf,
   obyektlar 93/100; qolip `Multiply` bilan qo'yiladi — oq fonli JPEG kerak); 19-bet — yangi "Терраццо №2 · №3" (**№016**, novinkalar bo'limi oxirida, HTML → Chromium PDF, Inter).
