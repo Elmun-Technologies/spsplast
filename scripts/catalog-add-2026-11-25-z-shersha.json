@@ -1,0 +1,8 @@
+{
+  "comment": "2026-11-25, egasi: bosma katalogdagi «Шерша 2» saytda ham shu nom bilan (avval «Kabanchik 15×15»). Slug (URL) o'zgarmaydi.",
+  "patch": {
+    "69-kabanchik-15-15": {
+      "name": { "uz": "Shersha 2", "ru": "Шерша 2", "en": "Shersha 2" }
+    }
+  }
+}
