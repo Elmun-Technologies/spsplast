@@ -3,8 +3,6 @@ import Image from 'next/image';
 import {
   getActiveReadySections,
   getActiveSections,
-  getReadyCounts,
-  getSectionCounts,
   SECTION_SLUGS,
   sectionLabel,
   sectionPath,
@@ -22,8 +20,6 @@ import { EXPORT_COUNTRIES } from '@/lib/seoPages';
 /** Footer (Redesign 2028): CTA band (zayafka + Telegram) → 4 ustun → pastki qator. */
 export function SiteFooter({ lang }: { lang: Locale }) {
   const t = getUi(lang);
-  const counts = getSectionCounts();
-  const readyCounts = getReadyCounts();
   const readySections = getActiveReadySections();
   const [mainPhone, ...otherPhones] = CONTACTS_2027.sales;
   const geo = getSitePages(lang).seo.geo;
@@ -57,7 +53,7 @@ export function SiteFooter({ lang }: { lang: Locale }) {
             <span className="sps-eyebrow">{t.footer.catalog}</span>
             {getActiveSections().map((s) => (
               <a key={s} href={`/${lang}/catalog/${SECTION_SLUGS[s]}`}>
-                {sectionLabel(s, lang)} · {counts[s]}
+                {sectionLabel(s, lang)}
               </a>
             ))}
           </div>
@@ -67,7 +63,7 @@ export function SiteFooter({ lang }: { lang: Locale }) {
               <span className="sps-eyebrow">{t.nav.ready}</span>
               {readySections.map((s) => (
                 <a key={s} href={`/${lang}${sectionPath(s)}`}>
-                  {sectionLabel(s, lang)} · {readyCounts[s]}
+                  {sectionLabel(s, lang)}
                 </a>
               ))}
             </div>

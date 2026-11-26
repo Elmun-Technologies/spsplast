@@ -1,4 +1,4 @@
-import { getModels, getTotalCount, getActiveSections, sectionLabel, sectionShortLabel } from '@/lib/catalog2027';
+import { getModels, getTotalCount, getActiveSections, sectionShortLabel } from '@/lib/catalog2027';
 import { catalogSeoTitle } from '@/lib/seoTitles';
 import { isValidLocale, type Locale } from '@/lib/i18n';
 import { getUi, pluralModels } from '@/lib/ui';
@@ -36,11 +36,7 @@ export default async function CatalogPage({ params }: { params: Promise<{ lang: 
   const lang = langParam as Locale;
 
   const t = getUi(lang);
-  const total = getTotalCount();
-  const lead = t.catalog.headLead
-    .replace('{n}', String(total))
-    .replace('{models}', pluralModels(lang, total))
-    .replace('{s}', String(getActiveSections().length));
+  const lead = t.catalog.headLead;
 
   return (
     <>

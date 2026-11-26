@@ -130,7 +130,7 @@ export const ru: UiDictionary = {
     clear: 'Сбросить',
     show: 'показать моделей',
     /** Katalog sahifasi sarlavha bandi: {n} model soni, {models} — ko'plik shakli, {s} — bo'limlar soni. */
-    headLead: '{n} {models} · разделов: {s}. Цен на сайте нет — оставьте заявку, менеджер рассчитает количество форм и стоимость.',
+    headLead: 'Цен на сайте нет — оставьте заявку, менеджер рассчитает количество форм и стоимость.',
     groupKind: 'Тип изделия',
     groupUse: 'Применение',
     groupSize: 'Размер плитки',

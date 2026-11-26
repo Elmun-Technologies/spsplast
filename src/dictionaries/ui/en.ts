@@ -130,7 +130,7 @@ export const en: UiDictionary = {
     clear: 'Clear',
     show: 'show models',
     /** Katalog sahifasi sarlavha bandi: {n} model soni, {models} — ko'plik shakli, {s} — bo'limlar soni. */
-    headLead: '{n} {models} · {s} sections. No prices on the site — leave a request and a manager will calculate mold count and cost.',
+    headLead: 'No prices on the site — leave a request and a manager will calculate mold count and cost.',
     groupKind: 'Product type',
     groupUse: 'Application',
     groupSize: 'Slab size',

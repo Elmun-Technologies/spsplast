@@ -8,7 +8,7 @@ import type { PagesDictionary } from './uz';
 export const pagesEn: PagesDictionary = {
   home: {
     eyebrow: 'Mold plant · Tashkent',
-    h1: (n: number) => `Plastic molds for concrete paving and facades — ${n} models.`,
+    h1: (_n: number) => `Plastic molds for concrete paving and facades.`,
     seoTitle: (n: number) => `Plastic molds for paving slabs — ${n} models`,
     lead: 'Pick a model and request a quote — your manager will calculate the mold count and price. Direct from the plant, we ship to {countries} countries.',
     stats: [
@@ -89,7 +89,7 @@ export const pagesEn: PagesDictionary = {
     allTitle: 'All ready products',
     specsTitle: 'Specifications',
     related: 'More from this section',
-    sectionLeadTemplate: '{n} products. Leave a request — the manager will confirm price and lead time.',
+    sectionLeadTemplate: 'Leave a request — the manager will confirm price and lead time.',
     // Bo'lim matnlari — katalog agenti (SPS_sayt_katalog_1_fasad.zip, sections.json). Admin: pages.ready.sectionIntros.*
     sectionIntros: {
       tayyor_termopanel: 'Facade finishing and insulation in one installation: a decorative face layer on an EPS foam or basalt base. Brick and stone textures, smooth and geometric. Use: private houses and cottages, commercial buildings, renovation of old facades.',
