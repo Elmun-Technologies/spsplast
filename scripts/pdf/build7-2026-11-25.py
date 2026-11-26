@@ -98,6 +98,13 @@ for tid, pgno in NEWSC.items():
     assert os.path.exists(pth), pth
     assert page_of(ID2K[tid]) == pgno, (tid, page_of(ID2K[tid]), pgno)
     SCENES[pgno - 1] = pth
+# 2026-11-26: egasining ZIP'i (Qolip_va_terim_13_model) — terilgan rasmlar, /tmp/nw2/<kalit>_<web|max>.jpg, kalit -> katalog beti
+NEWSC2 = {'t08': 29, 't10': 32, 'versal': 44, 'charogon-1': 45, 'charogon-2': 46, 't49': 60, 'ornament-18-36': 62, 't30': 74, 't31': 75,
+          'tomir-15-15': 79, 'bodom-15-15': 80, 't74': 81, 't75': 84}
+for key, pgno in NEWSC2.items():
+    pth = f'/tmp/nw2/{key}_{VAR}.jpg'; assert os.path.exists(pth), pth
+    if key in ID2K: assert page_of(ID2K[key]) == pgno, (key, page_of(ID2K[key]), pgno)
+    SCENES[pgno - 1] = pth
 SCN = {'bordA': S_('bordA') if os.path.exists(S_('bordA')) else 'bord_scene_A.jpg', 'bordB': S_('bordB') if os.path.exists(S_('bordB')) else 'bord_scene_B.jpg'}
 def kpage(title, sub): return [page_of(k) - 1 for k, e in enumerate(items, 1) if e['title'] == title and (e.get('sub') or '') == sub][0]
 CATPAGES = {kpage('ТОМИР', '20×20'): 'ТОМИР 1', kpage('ТОМИР', '20×20 Х1'): 'ТОМИР 2', kpage('ТОМИР', '20×20 Х2'): 'ТОМИР 3', kpage('ТОМИР', '15×15'): 'ТОМИР 4',

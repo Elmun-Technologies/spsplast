@@ -1659,6 +1659,18 @@
   "kind": "live"
  },
  {
+  "src": "media-src/live/ornament-18-36-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-ornament-18-36-scene.webp",
+  "w": 1400,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/ornament-18-36-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-ornament-18-36-scene-sm.webp",
+  "w": 720,
+  "kind": "live"
+ },
+ {
   "src": "media-src/live/dubay-aylana-okrujnost-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-dubay-aylana-okrujnost-mold-a.webp",
   "w": 1200,

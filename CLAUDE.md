@@ -608,6 +608,10 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     **2026-11-26: egasi bergan terilgan rasmlar** (asl ~1000×1400, katalog nisbati 0.708 ga markazdan kesilgan; `r_04.jpg` = 1700×2400 Lanczos, q95;
     PDF MAX = shu, veb PDF = asl o'lchamda q90) qo'yildi — Аллея 1/2/3 (t34 t71 t89), Азия / 1 / 2 (t57 t58 t59), Бухоро (t61), Афина (t62), Рокки (t63),
     Рояль 1 (t68), Вентилятор (t83), Виндовс (t84), Ромбик новый (t42). Bular eng ustun manba — 3D render bilan almashtirmang. Sahna WebP'lari
+    **2-to'plam (egasining ZIP'i "Qolip_va_terim_13_model")**: Травертино №025 (t08), Занжир (t10), Версал, Чорогон 1/2, Гладкий 18×36 (t49), Орнамент 18×36
+    (yangi sahna — `scripts/catalog-add-2026-11-26-sahna.json` refresh), Астана (t30), Юлдуз (t31), Томир 4, Бодом 3, Шерша 2 (t74), Кабанчик 17,5 (t75).
+    Versal/Chorog'on sahnasining manbasi yo'q (fayl `catalog-add` da) — WebP to'g'ridan-to'g'ri qayta yozilgan, `public/3d/t105–t107/sahna.jpg` ham.
+    ZIP'dagi `*_qolip.jpg` = katalogdagi qolip bilan bir xil (ma'lumot uchun), almashtirilmadi. Sahna WebP'lari
     endi **q92** (`SCENE_QUALITY` — `build_images_2027.py`; imzoga qo'shilgan, qolip/plitka q80 da qoladi).
     Madani katalogida bu modellarning aynan o'zi yo'q (eng yaqini: Беш панжа ≈ Азия 1, lekin boshqa qolip); ularning rasmlari ishlatilmaydi (logotip, suv belgisi).
     **Антара** — egasining yagona talabi: qo'shni plitkalardagi izlar bir-biriga to'g'ri kelsin, "kamon emas, to'g'ri chiziq". Yangi sahna

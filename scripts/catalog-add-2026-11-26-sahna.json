@@ -1,0 +1,12 @@
+{
+  "comment": "2026-11-26, egasi: Орнамент 18×36 (№058) uchun terilgan (natija) rasm — avval sahnasi yo'q edi. Rasm media-src/live/ornament-18-36-sahna.jpg dan.",
+  "add": [],
+  "refresh": {
+    "ornament-18-36": {
+      "scene": "/catalog/2027/trotuar-ornament-18-36-scene.webp",
+      "sceneSm": "/catalog/2027/trotuar-ornament-18-36-scene-sm.webp",
+      "molds": { "A": "/catalog/2027/trotuar-ornament-18-36-mold-a.webp" },
+      "tiles": {}
+    }
+  }
+}
