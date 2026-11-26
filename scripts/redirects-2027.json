@@ -332,6 +332,21 @@
    "statusCode": 301
   },
   {
+   "source": "/uz/catalog/paving/rim-1-2-3",
+   "destination": "/uz/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/ru/catalog/paving/rim-1-2-3",
+   "destination": "/ru/catalog/paving",
+   "statusCode": 301
+  },
+  {
+   "source": "/en/catalog/paving/rim-1-2-3",
+   "destination": "/en/catalog/paving",
+   "statusCode": 301
+  },
+  {
    "source": "/uz/product/g001-floriya",
    "destination": "/uz/catalog/paving/15-floriya",
    "statusCode": 301

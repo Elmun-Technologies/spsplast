@@ -1,0 +1,37 @@
+{
+  "comment": "2026-11-26, SPS vakili bilan katalogni model-ma-model ko'rib chiqish uchrashuvi: Antara 1/2 — 23 dona/m², 6,8 va 7 kg; Versache 2 — og'irlik 3 960 g (Versache 1 bilan bir xil, 11 dona × 360 g); Astana — 30×30 (bosma katalog: A 298×298×38 + B 72×72×30); Bordyur Versache — 60×16, h 5 sm. Rim — SPS ishlab chiqarmaydi, katalogdan olib tashlandi (301 → trotuar bo'limi). Vetnam/Nikolay/Natsional 1 og'irliklari mijozdan aniqlanmaguncha o'zgartirilmadi.",
+  "patch": {
+    "oltiburchak-galka": {
+      "tiles": [{ "l": "A", "size": "290×190×45", "per": "23", "cap": null }],
+      "kg": "6,8"
+    },
+    "antara-1": {
+      "tiles": [{ "l": "A", "size": "290×190×45", "per": "23", "cap": null }],
+      "kg": "7"
+    },
+    "17-versachi": {
+      "name": { "uz": "Versache 2", "ru": "Версаче 2", "en": "Versace 2" },
+      "molds": [{ "l": "A", "size": "300×300×30", "depth": "30", "g": 360 }],
+      "tiles": [{ "l": "A", "size": "300×300×30", "per": "11", "cap": null }],
+      "kg": "3,96"
+    },
+    "26-astana": {
+      "molds": [
+        { "l": "A", "size": "300×300×38", "depth": "38", "g": 330 },
+        { "l": "B", "size": "72×72×30", "depth": "30", "g": 150 }
+      ],
+      "tiles": [
+        { "l": "A", "size": "300×300×38", "per": "11", "cap": null },
+        { "l": "B", "size": "72×72×30", "per": "11", "cap": null }
+      ],
+      "kg": "3,995"
+    },
+    "naqshli-bordyur": {
+      "molds": [{ "l": "A", "size": "600×160×50", "depth": "50", "g": null }],
+      "tiles": [{ "l": "A", "size": "600×160×50", "per": null, "cap": null }]
+    }
+  },
+  "retire": {
+    "rim-1-2-3": null
+  }
+}

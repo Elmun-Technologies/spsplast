@@ -131,8 +131,8 @@ export const pagesServerEn: PagesServerDictionary = {
       countTitle: '2. How many molds you need',
       countText: (name: string, per: string, m2: number, molds: string) =>
         `Multiply your daily volume by the number of slabs per 1 m². For ${name} (${per} pcs per 1 m²) at ${m2} m² a day you need about ${molds} molds at one cycle per day. Every model page has a calculator.`,
-      materialTitle: '3. Material: PP or ABS',
-      materialText: 'Every model is made in both materials. A manager recommends the right one for your production based on volume and workshop schedule.',
+      materialTitle: '3. Material: polypropylene (PP)',
+      materialText: 'All paving molds are made of polypropylene: impact- and frost-resistant, built for repeated casting. A manager calculates the quantity you need from your volume and workshop schedule.',
     },
     geo: {
       crumb: 'Export',

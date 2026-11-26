@@ -117,24 +117,6 @@
   "kind": "live"
  },
  {
-  "src": "media-src/live/rim-1-2-3-qolip.jpg",
-  "dst": "public/catalog/2027/trotuar-rim-1-2-3-mold-a.webp",
-  "w": 1200,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/rim-1-2-3-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-rim-1-2-3-scene.webp",
-  "w": 1400,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/rim-1-2-3-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-rim-1-2-3-scene-sm.webp",
-  "w": 720,
-  "kind": "live"
- },
- {
   "src": "media-src/live/qrim-valday-sayani-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-qrim-valday-sayani-mold-a.webp",
   "w": 1200,
