@@ -776,19 +776,21 @@ def apply_patches(models):
 
 
 def apply_retire(models):
-    """`retire` (scripts/catalog-add-*.json): {"eski-slug": "qoladigan-slug"} — bir xil qolip ikki marta kiritilgan
-    bo'lsa bittasi katalogdan olinadi va sahifasi qoladiganiga 301 bo'ladi (bazada catalog-sync.ts `archived` qiladi)."""
+    """`retire` (scripts/catalog-add-*.json): {"eski-slug": "qoladigan-slug" | null} — bir xil qolip ikki marta kiritilgan
+    bo'lsa bittasi katalogdan olinadi va sahifasi qoladiganiga 301 bo'ladi; `null` — bo'lim sahifasiga 301
+    (bazada catalog-sync.ts `archived` qiladi)."""
     by_slug = {m["slug"]: m for m in models}
     gone, moved = set(), []
     for fn in sorted(os.listdir(os.path.join(ROOT, "scripts"))):
         if not (fn.startswith("catalog-add-") and fn.endswith(".json")):
             continue
         for slug, to in json.load(open(os.path.join(ROOT, "scripts", fn), encoding="utf-8")).get("retire", {}).items():
-            m, t = by_slug.get(slug), by_slug.get(to)
-            if not m or not t or slug in gone:
+            m, t = by_slug.get(slug), by_slug.get(to) if to else None
+            if not m or (to and not t) or slug in gone:
                 continue
             gone.add(slug)
-            moved.append({"from": [m["section"], slug], "to": [t["section"], to], "name": m["name"]["uz"]})
+            # `to: null` — o'rnini bosadigan model yo'q (SPS ishlab chiqarmaydi): 301 bo'lim sahifasiga.
+            moved.append({"from": [m["section"], slug], "to": [t["section"], to] if t else [m["section"], None], "name": m["name"]["uz"]})
     return [m for m in models if m["slug"] not in gone], moved
 
 

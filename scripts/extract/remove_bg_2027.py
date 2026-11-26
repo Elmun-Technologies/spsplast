@@ -42,6 +42,13 @@ DEFAULT_MODEL = "isnet-general-use"
 OVERRIDES: dict = {
     # ikki bo'lak orasidagi tirqish 220..232 kulrang — pastroq chegara kerak
     "trotuar-bumerang-tile-a": {"white": 212},
+    # 2026-11-27: egasining yangi qoliplari — floodfill qolip ostidagi soyani (bej / oq) qoldirdi, isnet toza ajratadi
+    **{f"{n}-mold-a": {"model": "isnet-general-use"} for n in (
+        "trotuar-gidroponika-patnisi", "zabor-silliq-ustun-qopqogi", "zabor-naqshli-ustun-qopqogi", "fasad-qoya-relyefli-gisht",
+        "fasad-qatlamli-relyefli-gisht", "fasad-chuqur-silliq-gisht")},
+    # 3D render: isnet panel ichida yarim shaffof dog'lar qoldirdi, floodfill — uyalarda oq fon. `solid`: alfa>=N bo'lgan
+    # yaxlit soha ichi (chetdan 3 px ichkari) to'liq 255
+    "fasad-pogonali-gisht-paneli-mold-a": {"model": "isnet-general-use", "solid": 24},
 }
 
 
@@ -196,6 +203,10 @@ def make_mask(job, model_override=None):
         method = f"rembg {model}"
         status = "ok" if model == DEFAULT_MODEL else "fallback"
     a, hole_ratio = _clean(m, fill_holes="-tile-" not in name)
+    if ov.get("solid"):
+        from scipy import ndimage
+        body = ndimage.binary_erosion(ndimage.binary_fill_holes(a >= ov["solid"]), iterations=3)
+        a[body] = 255
     cover, edge = _stats(a)
     Image.fromarray(a).save(out_png, optimize=True)
     if method.startswith("floodfill"):

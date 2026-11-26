@@ -56,7 +56,7 @@ export function ProductCard({
         : null
     : {
         dt: set > 1 ? t.mSet : per ? t.mPer : t.mMaterial,
-        dd: set > 1 ? `${set} ${t.molds}` : per ? `${formatNumber(lang, per)} ${t.dona}` : 'PP / ABS',
+        dd: set > 1 ? `${set} ${t.molds}` : per ? `${formatNumber(lang, per)} ${t.dona}` : model.section === 'trotuar' ? 'PP' : 'PP / ABS',
       };
   const href = productHref(lang, model);
   const main = load === 'priority' ? ({ priority: true, fetchPriority: 'high' } as const) : ({ loading: load } as const);

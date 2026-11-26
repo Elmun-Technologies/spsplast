@@ -641,6 +641,26 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     Model SONI hech qayerda yozilmaydi (egasi: sonlar kerak emas) — saytda ham footer/menyu/bosh sahifa/katalog sarlavhalaridan olib tashlangan (meta title/description'da qolgan).
   - Antara eskizi PDF'da TIK olti burchak (190 eni × 290 bo'yi, tekis tepa/past) — qolip shunday; Antara 2 esa yotiq.
   - Ochiq: Цветок (egasi yangi rasm beradi); Сланец o'lchamlari; Николай nomlari; Эксклюзив (qolip surati ≠ 3D model); Zina 1, Ornament 18×36 (GLB yo'q).
+- **Mijoz bilan katalog uchrashuvi (2026-11-26, `scripts/catalog-add-2026-11-26-z-uchrashuv.json`)** — keep them:
+  - **Trotuar qoliplari faqat PP** (mijoz: «ABS emas»): `materialTagPaving` / `spec.materialValuePaving` (lug'at), `ProductCard`,
+    `ModelClient`, `CompareClient` bo'limga qarab tanlaydi; fasad/zabor/dekor `PP / ABS` bo'lib qoladi. PavingGuide matni ham PP.
+  - **Rim** — SPS ishlab chiqarmaydi: `retire: {"rim-1-2-3": null}` — `null` = o'rnini bosuvchi model yo'q, 301 bo'lim sahifasiga.
+  - Raqamlar: Antara 1/2 — 23 dona/m², 6,8 / 7 kg; `17-versachi` = **Версаче 2** (3,96 kg); Astana 30×30 (bosma katalog: 298→300);
+    Bordyur Versache (oddiy + setka) 600×160×50. Vetnam (155 g?), Nikolay (125 g?), Natsional 1 (~5,8 kg) — qaysi qolipga tegishliligi aniqlanmaguncha yozilmagan.
+  - **PDF** (`scripts/pdf/build8-2026-11-26.py` + `fix8-2026-11-26.py`, kirish fayllari repoda emas): Rim beti o'chirildi — Krym №005 dan
+    boshlab barcha model va bet raqamlari −1 (Вегас 2 = №120, 128 bet; novinkalar 16 ta, «Коллекция 2027» katakchalari ham); hamma betda
+    «Полипропилен» (asl matn bloklarida glif darajasida kesilgan), «Материал» beti — faqat PP; Antara 1/2 jadvali, Astana 300, Bordyur
+    600×160×50, Versache 2 jadvali (Versache 1 betidan ko'chirilgan). Glif tahriri: Inter gid'lari subset'da asl raqamida, ToUnicode bor.
+  - **Sayt ≠ PDF**: statik katalogdagi 37 trotuar modelining o'lcham/dona/og'irligi bosma katalogdan (`/home/claude/cat2/items6.json`) farq
+    qiladi (masalan Tomir/Parket B qolipi 2,08 vs 12,5 dona). Ikkalasida ham xato bor (PDF'dagi 12,5 jami kg bilan mos kelmaydi) —
+    ommaviy sinxronlash qilinmadi, mijoz birka bo'yicha tasdiqlashi kerak.
+- **Yangi qoliplar: g‘isht, ustun qopqog‘i, gidroponika (2026-11-27, `scripts/catalog-add-2026-11-27-gisht-gidroponika.json`)**:
+  `gidroponika-patnisi` (trotuar, `after: gidroponika-eko-gazon`; **boshqa mahsulot** — eko-gazon panjarasi SPS katalogida «Гидропоника (эко-газон)»
+  deb nomlangan, u o'zgarmadi), `silliq-ustun-qopqogi` / `naqshli-ustun-qopqogi` (zabor, subtitle «Ustun qopqog‘i» → zabor'da «Turi» filtri chiqadi),
+  4 ta g‘isht (fasad, subtitle «G‘isht»): `qoya-relyefli-gisht` (egasining kartochkasi = ZIP'dagi 02), `qatlamli-relyefli-gisht`, `chuqur-silliq-gisht`,
+  `pogonali-gisht-paneli` (ZIP «G‘isht va bruschatka 4 model» 3D renderlari; `-plitka` = quyma). O'lchamlar yo'q (ZIP'dagi 100 mm taxminiy) — `patch` bilan.
+  Niqob: yangi qoliplar `OVERRIDES` da isnet (floodfill soyani qoldirdi); panelda `solid: 24` — yaxlit soha ichi 255 (isnet yarim shaffof dog' qoldirgan).
+  `tests/livePhotos2027.test.js` endi `images.tiles` ni ham ko'radi (`-plitka` birinchi marta ishlatildi).
 - **Trotuar PDF (veb nusxa) qo'lda yangilangan (2026-11-24)**: 7-bet (№004 Girih) — qolip va sahna rasmlari PDF ichida almashtirilgan (pikepdf,
   obyektlar 93/100; qolip `Multiply` bilan qo'yiladi — oq fonli JPEG kerak); 19-bet — yangi "Терраццо №2 · №3" (**№016**, novinkalar bo'limi oxirida, HTML → Chromium PDF, Inter).
   Undan keyingi 105 model **qayta raqamlangan** (Монако №016 → №017 … Вегас 2 №120 → №121) va bet raqamlari +1: eski raqam matni kontent oqimidan

@@ -117,24 +117,6 @@
   "kind": "live"
  },
  {
-  "src": "media-src/live/rim-1-2-3-qolip.jpg",
-  "dst": "public/catalog/2027/trotuar-rim-1-2-3-mold-a.webp",
-  "w": 1200,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/rim-1-2-3-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-rim-1-2-3-scene.webp",
-  "w": 1400,
-  "kind": "live"
- },
- {
-  "src": "media-src/live/rim-1-2-3-sahna.jpg",
-  "dst": "public/catalog/2027/trotuar-rim-1-2-3-scene-sm.webp",
-  "w": 720,
-  "kind": "live"
- },
- {
   "src": "media-src/live/qrim-valday-sayani-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-qrim-valday-sayani-mold-a.webp",
   "w": 1200,
@@ -1737,6 +1719,24 @@
   "kind": "live"
  },
  {
+  "src": "media-src/live/gidroponika-patnisi-qolip.jpg",
+  "dst": "public/catalog/2027/trotuar-gidroponika-patnisi-mold-a.webp",
+  "w": 1200,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/gidroponika-patnisi-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-gidroponika-patnisi-scene.webp",
+  "w": 1400,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/gidroponika-patnisi-sahna.jpg",
+  "dst": "public/catalog/2027/trotuar-gidroponika-patnisi-scene-sm.webp",
+  "w": 720,
+  "kind": "live"
+ },
+ {
   "src": "media-src/live/glyanets-15-15-qolip.jpg",
   "dst": "public/catalog/2027/trotuar-glyanets-15-15-mold-a.webp",
   "w": 1200,
@@ -2033,6 +2033,138 @@
  {
   "src": "media-src/live/sahara-aleya-sahna.jpg",
   "dst": "public/catalog/2027/trotuar-sahara-aleya-scene-sm.webp",
+  "w": 720,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/silliq-ustun-qopqogi-qolip.jpg",
+  "dst": "public/catalog/2027/zabor-silliq-ustun-qopqogi-mold-a.webp",
+  "w": 1200,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/silliq-ustun-qopqogi-sahna.jpg",
+  "dst": "public/catalog/2027/zabor-silliq-ustun-qopqogi-scene.webp",
+  "w": 1400,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/silliq-ustun-qopqogi-sahna.jpg",
+  "dst": "public/catalog/2027/zabor-silliq-ustun-qopqogi-scene-sm.webp",
+  "w": 720,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/naqshli-ustun-qopqogi-qolip.jpg",
+  "dst": "public/catalog/2027/zabor-naqshli-ustun-qopqogi-mold-a.webp",
+  "w": 1200,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/naqshli-ustun-qopqogi-sahna.jpg",
+  "dst": "public/catalog/2027/zabor-naqshli-ustun-qopqogi-scene.webp",
+  "w": 1400,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/naqshli-ustun-qopqogi-sahna.jpg",
+  "dst": "public/catalog/2027/zabor-naqshli-ustun-qopqogi-scene-sm.webp",
+  "w": 720,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/qoya-relyefli-gisht-qolip.jpg",
+  "dst": "public/catalog/2027/fasad-qoya-relyefli-gisht-mold-a.webp",
+  "w": 1200,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/qoya-relyefli-gisht-plitka.jpg",
+  "dst": "public/catalog/2027/fasad-qoya-relyefli-gisht-tile-a.webp",
+  "w": 1200,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/qoya-relyefli-gisht-sahna.jpg",
+  "dst": "public/catalog/2027/fasad-qoya-relyefli-gisht-scene.webp",
+  "w": 1400,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/qoya-relyefli-gisht-sahna.jpg",
+  "dst": "public/catalog/2027/fasad-qoya-relyefli-gisht-scene-sm.webp",
+  "w": 720,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/qatlamli-relyefli-gisht-qolip.jpg",
+  "dst": "public/catalog/2027/fasad-qatlamli-relyefli-gisht-mold-a.webp",
+  "w": 1200,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/qatlamli-relyefli-gisht-plitka.jpg",
+  "dst": "public/catalog/2027/fasad-qatlamli-relyefli-gisht-tile-a.webp",
+  "w": 1200,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/qatlamli-relyefli-gisht-sahna.jpg",
+  "dst": "public/catalog/2027/fasad-qatlamli-relyefli-gisht-scene.webp",
+  "w": 1400,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/qatlamli-relyefli-gisht-sahna.jpg",
+  "dst": "public/catalog/2027/fasad-qatlamli-relyefli-gisht-scene-sm.webp",
+  "w": 720,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/chuqur-silliq-gisht-qolip.jpg",
+  "dst": "public/catalog/2027/fasad-chuqur-silliq-gisht-mold-a.webp",
+  "w": 1200,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/chuqur-silliq-gisht-plitka.jpg",
+  "dst": "public/catalog/2027/fasad-chuqur-silliq-gisht-tile-a.webp",
+  "w": 1200,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/chuqur-silliq-gisht-sahna.jpg",
+  "dst": "public/catalog/2027/fasad-chuqur-silliq-gisht-scene.webp",
+  "w": 1400,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/chuqur-silliq-gisht-sahna.jpg",
+  "dst": "public/catalog/2027/fasad-chuqur-silliq-gisht-scene-sm.webp",
+  "w": 720,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/pogonali-gisht-paneli-qolip.jpg",
+  "dst": "public/catalog/2027/fasad-pogonali-gisht-paneli-mold-a.webp",
+  "w": 1200,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/pogonali-gisht-paneli-plitka.jpg",
+  "dst": "public/catalog/2027/fasad-pogonali-gisht-paneli-tile-a.webp",
+  "w": 1200,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/pogonali-gisht-paneli-sahna.jpg",
+  "dst": "public/catalog/2027/fasad-pogonali-gisht-paneli-scene.webp",
+  "w": 1400,
+  "kind": "live"
+ },
+ {
+  "src": "media-src/live/pogonali-gisht-paneli-sahna.jpg",
+  "dst": "public/catalog/2027/fasad-pogonali-gisht-paneli-scene-sm.webp",
   "w": 720,
   "kind": "live"
  },

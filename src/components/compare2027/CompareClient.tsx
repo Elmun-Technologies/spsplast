@@ -79,7 +79,7 @@ export function CompareClient({
         return p.compare.useCar;
       }
       default:
-        return p.model.materialTag;
+        return m.section === 'trotuar' ? p.model.materialTagPaving : p.model.materialTag;
     }
   };
 

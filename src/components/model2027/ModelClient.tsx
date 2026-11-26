@@ -155,7 +155,7 @@ export function ModelClient({
             : '—',
         },
         { k: p.model.spec.kgM2, v: model.kg ? `${formatNumber(lang, model.kg)} ${p.model.keyKg}` : '—' },
-        { k: p.model.spec.material, v: p.model.spec.materialValue },
+        { k: p.model.spec.material, v: model.section === 'trotuar' ? p.model.spec.materialValuePaving : p.model.spec.materialValue },
       ];
 
   const useText =
@@ -293,7 +293,7 @@ export function ModelClient({
                     {model.code ? `№ ${model.code} · ` : ''}
                     {sectionLabel(model.section, lang)}
                   </span>
-                  {isMold ? <span className="sps-tag">{p.model.materialTag}</span> : null}
+                  {isMold ? <span className="sps-tag">{model.section === 'trotuar' ? p.model.materialTagPaving : p.model.materialTag}</span> : null}
                 </div>
                 <h1 className="disp-l">{modelName(model, lang)}</h1>
                 {subtitle ? <p className="body muted">{subtitle}</p> : null}

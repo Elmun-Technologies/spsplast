@@ -169,10 +169,10 @@ async function syncFile(db: Db, data: SyncData): Promise<string> {
     perFilled += res.length;
   }
 
-  // `retire` — {"eski-slug": "qoladigan-slug"}: bir xil qolip ikki marta kiritilgan bo'lsa bittasi arxivga
+  // `retire` — {"eski-slug": "qoladigan-slug" | null}: bir xil qolip ikki marta kiritilgan (yoki SPS ishlab chiqarmaydigan) bo'lsa arxivga
   // (301 statik xaritada: build_redirects_2027.py, data/moved-2027.json orqali).
   let retired = 0;
-  for (const slug of Object.keys((data.retire ?? {}) as Record<string, string>)) {
+  for (const slug of Object.keys((data.retire ?? {}) as Record<string, string | null>)) {
     const res = await db
       .update(products)
       .set({ status: 'archived', updatedAt: new Date() })
