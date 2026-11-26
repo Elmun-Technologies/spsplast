@@ -631,6 +631,11 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   - **PDF**: `scripts/pdf/build7-2026-11-25.py <web|max>` (ma'lumot uchun nusxa — kirish fayllari repoda emas; 2026-11-24 dagi usulning davomi): eski 38-bet (Kaliforniya) o'chadi, undan keyingi
     raqamlar −1 (Вегас 2 = №121, 129 bet); katalog betlarida nom = 15.33 Tf matn bloki olinib, ustiga shaffof qatlam; sahna = betdagi yagona
     Image XObject almashtiriladi (nisbat 0.708). Bosilgan nusxalarda №036 dan keyin raqamlar farq qiladi.
+  - **Old/oxirgi betlar + «Коллекция 2027» (2026-11-26, egasi)**: 1–3 (muqova — Афсона sahnasi + yulduz qolipi; «Завод в Ташкенте» — saytdagi haqiqiy
+    zavod surati; «Коллекция 2027» — to'q bet, 17 novinka sahnasi katakchalarda) va 127–129 (buyurtma, kontaktlar — WhatsApp/Telegram/sayt QR, orqa muqova)
+    qayta terildi: `scripts/pdf/pages9-2026-11-26.py` (+ `pages9-assets-…py`; HTML → Chromium, Inter woff2 — tizim OTF'i Type 3 bo'lib tushadi). Novinka
+    betlariga (4–20) osma qizil «НОВИНКА · 2027 · КОЛЛЕКЦИЯ» belgisi shaffof qatlam bilan qo'yiladi. Yangi novinka qo'shilsa `NV` ro'yxati va qatlamlar soni (17) yangilansin.
+    Model SONI hech qayerda yozilmaydi (egasi: sonlar kerak emas) — saytda ham footer/menyu/bosh sahifa/katalog sarlavhalaridan olib tashlangan (meta title/description'da qolgan).
   - Antara eskizi PDF'da TIK olti burchak (190 eni × 290 bo'yi, tekis tepa/past) — qolip shunday; Antara 2 esa yotiq.
   - Ochiq: Цветок (egasi yangi rasm beradi); Сланец o'lchamlari; Николай nomlari; Эксклюзив (qolip surati ≠ 3D model); Zina 1, Ornament 18×36 (GLB yo'q).
 - **Trotuar PDF (veb nusxa) qo'lda yangilangan (2026-11-24)**: 7-bet (№004 Girih) — qolip va sahna rasmlari PDF ichida almashtirilgan (pikepdf,

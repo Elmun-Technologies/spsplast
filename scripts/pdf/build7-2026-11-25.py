@@ -340,5 +340,11 @@ hh, ww = cv2.imread('bord_mold_B.jpg').shape[:2]; setimg(img, 'bord_mold_B.jpg',
 sc = [v for k, v in bp.Resources.XObject.items() if v.get('/Subtype') == '/Image'][0]; setscene(17, SCN['bordB'])
 for idx, path in sorted(SCENES.items()):
     setscene(idx, path); print('sahna', idx + 1, path.split('/')[-1])
+# 2026-11-26 (egasi): boshidagi 3 va oxirgi 3 bet qayta terildi (p9/build.py), novinka betlariga (4..20) osma «2027» belgisi
+subprocess.run(['python3', '/tmp/pdfw/p9/build.py', VAR], check=True)
+p9 = pikepdf.open(f'/tmp/pdfw/p9/pages9_{VAR}.pdf'); assert len(p9.pages) == 23
+_n = len(pdf.pages)
+for _s, _d in ((0, 0), (1, 1), (2, 2), (3, _n - 3), (4, _n - 2), (5, _n - 1)): pdf.pages[_d] = p9.pages[_s]
+for _k in range(17): pdf.pages[3 + _k].add_overlay(p9.pages[6 + _k])
 pdf.save(f'out7_{VAR}.pdf', linearize=True, object_stream_mode=pikepdf.ObjectStreamMode.generate)
 print('betlar', len(pdf.pages))
