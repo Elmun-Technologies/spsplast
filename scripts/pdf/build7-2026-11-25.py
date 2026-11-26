@@ -85,14 +85,15 @@ for k, e in enumerate(items, 1):
     m = re.search(r'/3d/(t\d+)/', e.get('qr', ''))
     if m: ID2K[m.group(1)] = k
 SCENES = {}
-for tid in ['t08', 't11', 't49', 't85']:   # 2026-11-25: t54 t57-t61 t63, Аллея t34 t71 t89 t73, Кабанчик t75, Николай t79 egasi so'rovi bilan asl holatida
+for tid in ['t08', 't49']:   # 2026-11-26: Сетка t11 / Орхидея t85 — egasi: eski katalog rasmi (render olib tashlandi)
+      # 2026-11-25: t54 t57-t61 t63, Аллея t34 t71 t89 t73, Кабанчик t75, Николай t79 egasi so'rovi bilan asl holatida
     if os.path.exists(S_(tid)): SCENES[page_of(ID2K[tid]) - 1] = S_(tid)
     else: print('YO\'Q', tid)
 for idx, nm in ((3, 'nv_antara'), (5, 'nv_nat1'), (6, 'nv_nat2'), (10, 'nv_labirint')):   # Antara: izlar qo'shni plitkada to'g'ri davom etadi (egasi tasdiqladi 2026-11-25)
     if os.path.exists(S_(nm)): SCENES[idx] = S_(nm)
     else: print('YO\'Q', nm)
 # 2026-11-25 kechki: egasi bergan yangi terilgan rasmlar (asl sifat, /tmp/nw/<tid>_<web|max>.jpg) — bet = katalog beti
-NEWSC = {'t34': 91, 't71': 92, 't89': 93, 't57': 98, 't58': 99, 't59': 100, 't61': 102, 't62': 103, 't63': 104, 't68': 105, 't83': 111, 't84': 112}
+NEWSC = {'t34': 91, 't71': 92, 't89': 93, 't57': 98, 't58': 99, 't59': 100, 't61': 102, 't62': 103, 't68': 105, 't83': 111, 't84': 112}
 for tid, pgno in NEWSC.items():
     pth = f'/tmp/nw/{tid}_{VAR}.jpg'
     assert os.path.exists(pth), pth
@@ -106,7 +107,7 @@ for key, pgno in NEWSC2.items():
     if key in ID2K: assert page_of(ID2K[key]) == pgno, (key, page_of(ID2K[key]), pgno)
     SCENES[pgno - 1] = pth
 # 2026-11-26 (3-to'plam): egasining yana 7 ta terilgan rasmi, /tmp/nw3/<tid>_<web|max>.jpg (t42 — avvalgi rasm o'rniga "New diamond")
-NEWSC3 = {'t41': 115, 't42': 116, 't53': 96, 't54': 97, 't69': 106, 't81': 109, 't104': 118}
+NEWSC3 = {'t41': 115, 't42': 116, 't53': 96, 't54': 97, 't69': 106, 't81': 109, 't104': 118, 't63': 104}   # t63 Рокки — egasi taupe rasmini tanladi
 for tid, pgno in NEWSC3.items():
     pth = f'/tmp/nw3/{tid}_{VAR}.jpg'; assert os.path.exists(pth), pth
     assert page_of(ID2K[tid]) == pgno, (tid, page_of(ID2K[tid]), pgno)

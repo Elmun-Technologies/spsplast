@@ -613,6 +613,7 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     Versal/Chorog'on sahnasining manbasi yo'q (fayl `catalog-add` da) — WebP to'g'ridan-to'g'ri qayta yozilgan, `public/3d/t105–t107/sahna.jpg` ham.
     **3-to'plam (2026-11-26)**: Ромбик старый (t41), Ромбик новый (t42 — oldingi qizil yulduzli rasm o'rniga egasining "New diamond"i), Азалия 1 (t53),
     Азалия 2 (t54; egasi 3 variant berdi, "quatrefoil-2" tanlandi), Рояль 2 (t69), Хоккей (t81), Афсона (t104 — WebP to'g'ridan-to'g'ri + `public/3d/t104/sahna.jpg`).
+    Egasi qarori (2026-11-26): **Рокки (t63)** — "Limestone and taupe" rasmi (oldingi o'rniga); **Сетка (t11)** va **Орхидея (t85)** — render olib tashlandi, eski katalog rasmi qaytarildi (PDF'da ham).
     ZIP'dagi `*_qolip.jpg` = katalogdagi qolip bilan bir xil (ma'lumot uchun), almashtirilmadi. Sahna WebP'lari
     endi **q92** (`SCENE_QUALITY` — `build_images_2027.py`; imzoga qo'shilgan, qolip/plitka q80 da qoladi).
     Madani katalogida bu modellarning aynan o'zi yo'q (eng yaqini: Беш панжа ≈ Азия 1, lekin boshqa qolip); ularning rasmlari ishlatilmaydi (logotip, suv belgisi).
