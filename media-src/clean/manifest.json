@@ -1,4 +1,76 @@
 {
+ "fasad-chuqur-silliq-gisht-mold-a": {
+  "src": "media-src/live/chuqur-silliq-gisht-qolip.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.5684,
+  "edge": 0.0,
+  "note": "",
+  "sha": "17879c2817cca5ae"
+ },
+ "fasad-chuqur-silliq-gisht-tile-a": {
+  "src": "media-src/live/chuqur-silliq-gisht-plitka.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.6447,
+  "edge": 0.0,
+  "note": "",
+  "sha": "bbde615cc0ce14a7"
+ },
+ "fasad-pogonali-gisht-paneli-mold-a": {
+  "src": "media-src/live/pogonali-gisht-paneli-qolip.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4792,
+  "edge": 0.0,
+  "note": "ichki teshiklar to'ldirildi (3.0%)",
+  "sha": "f98ae0572fef3c73"
+ },
+ "fasad-pogonali-gisht-paneli-tile-a": {
+  "src": "media-src/live/pogonali-gisht-paneli-plitka.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4864,
+  "edge": 0.0,
+  "note": "",
+  "sha": "05015419f4dce9a4"
+ },
+ "fasad-qatlamli-relyefli-gisht-mold-a": {
+  "src": "media-src/live/qatlamli-relyefli-gisht-qolip.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.347,
+  "edge": 0.0,
+  "note": "",
+  "sha": "9867e5805e54b8a3"
+ },
+ "fasad-qatlamli-relyefli-gisht-tile-a": {
+  "src": "media-src/live/qatlamli-relyefli-gisht-plitka.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2835,
+  "edge": 0.0,
+  "note": "",
+  "sha": "c5fea855f3fe09e0"
+ },
+ "fasad-qoya-relyefli-gisht-mold-a": {
+  "src": "media-src/live/qoya-relyefli-gisht-qolip.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4967,
+  "edge": 0.0,
+  "note": "",
+  "sha": "342f61f3475487e9"
+ },
+ "fasad-qoya-relyefli-gisht-tile-a": {
+  "src": "media-src/live/qoya-relyefli-gisht-plitka.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.2825,
+  "edge": 0.0,
+  "note": "",
+  "sha": "04dbff3edbeb8a53"
+ },
  "fasad-rus-2-2-mold-a": {
   "src": "media-src/factory/DSC03167.JPG_20260927203018.jpg",
   "status": "ok",
@@ -1064,6 +1136,15 @@
   "sha": "9d3bc983304a5142",
   "defringe": "soya→alfa"
  },
+ "trotuar-gidroponika-patnisi-mold-a": {
+  "src": "media-src/live/gidroponika-patnisi-qolip.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.494,
+  "edge": 0.0,
+  "note": "",
+  "sha": "15be5e9cb7adedd2"
+ },
  "trotuar-girih-mold-a": {
   "src": "media-src/live/girih-qolip.jpg",
   "status": "ok",
@@ -1199,16 +1280,6 @@
   "edge": 0.0,
   "note": "",
   "sha": "d00121fc28a931f5",
-  "defringe": "soya→alfa"
- },
- "trotuar-rim-1-2-3-mold-a": {
-  "src": "media-src/live/rim-1-2-3-qolip.jpg",
-  "status": "fallback",
-  "method": "floodfill fuzz 14%",
-  "cover": 0.6871,
-  "edge": 0.0,
-  "note": "",
-  "sha": "0f109f508eda3713",
   "defringe": "soya→alfa"
  },
  "trotuar-sahara-aleya-mold-a": {
@@ -1417,6 +1488,24 @@
   "note": "",
   "sha": "f306fa0e97a10714",
   "defringe": "soya→alfa"
+ },
+ "zabor-naqshli-ustun-qopqogi-mold-a": {
+  "src": "media-src/live/naqshli-ustun-qopqogi-qolip.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.5452,
+  "edge": 0.01,
+  "note": "",
+  "sha": "403bbcb2c525de1f"
+ },
+ "zabor-silliq-ustun-qopqogi-mold-a": {
+  "src": "media-src/live/silliq-ustun-qopqogi-qolip.jpg",
+  "status": "ok",
+  "method": "rembg isnet-general-use",
+  "cover": 0.4398,
+  "edge": 0.001,
+  "note": "",
+  "sha": "638417acf9efcfc4"
  },
  "zabor-z01-yevrozabor-okovka-mold-a": {
   "src": "media-src/live/Z01-qolip.jpg",

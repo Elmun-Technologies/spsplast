@@ -12140,6 +12140,50 @@
    }
   },
   {
+   "key": "gidroponika-patnisi",
+   "code": null,
+   "slug": "gidroponika-patnisi",
+   "section": "trotuar",
+   "name": {
+    "uz": "Gidroponika patnisi",
+    "ru": "Лоток для гидропоники",
+    "en": "Hydroponic tray"
+   },
+   "subtitle": {
+    "uz": null,
+    "ru": null,
+    "en": null
+   },
+   "note": null,
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": null,
+     "depth": null,
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/trotuar-gidroponika-patnisi-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-gidroponika-patnisi-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/trotuar-gidroponika-patnisi-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
    "key": "t97",
    "code": "97",
    "slug": "glyanets-15-15",
@@ -19348,6 +19392,278 @@
     "molds": {},
     "tiles": {
      "A": "/catalog/2027/tayyor-z09-yevrozabor-3d-romblar-tayyor-sahna-3d.webp"
+    }
+   }
+  },
+  {
+   "key": "silliq-ustun-qopqogi",
+   "code": null,
+   "slug": "silliq-ustun-qopqogi",
+   "section": "zabor",
+   "name": {
+    "uz": "Silliq ustun qopqog‘i",
+    "ru": "Колпак на столб гладкий",
+    "en": "Smooth post cap"
+   },
+   "subtitle": {
+    "uz": "Ustun qopqog‘i",
+    "ru": "Колпак на столб",
+    "en": "Post cap"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": null,
+     "depth": null,
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/zabor-silliq-ustun-qopqogi-scene.webp",
+    "sceneSm": "/catalog/2027/zabor-silliq-ustun-qopqogi-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/zabor-silliq-ustun-qopqogi-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "naqshli-ustun-qopqogi",
+   "code": null,
+   "slug": "naqshli-ustun-qopqogi",
+   "section": "zabor",
+   "name": {
+    "uz": "Naqshli ustun qopqog‘i",
+    "ru": "Колпак на столб с узором",
+    "en": "Patterned post cap"
+   },
+   "subtitle": {
+    "uz": "Ustun qopqog‘i",
+    "ru": "Колпак на столб",
+    "en": "Post cap"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": null,
+     "depth": null,
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/zabor-naqshli-ustun-qopqogi-scene.webp",
+    "sceneSm": "/catalog/2027/zabor-naqshli-ustun-qopqogi-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/zabor-naqshli-ustun-qopqogi-mold-a.webp"
+    },
+    "tiles": {}
+   }
+  },
+  {
+   "key": "qoya-relyefli-gisht",
+   "code": null,
+   "slug": "qoya-relyefli-gisht",
+   "section": "fasad",
+   "name": {
+    "uz": "Qoya relyefli devor g‘ishti",
+    "ru": "Кирпич «Скала»",
+    "en": "Rock-face wall brick"
+   },
+   "subtitle": {
+    "uz": "G‘isht",
+    "ru": "Кирпич",
+    "en": "Brick"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": null,
+     "depth": null,
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad-qoya-relyefli-gisht-scene.webp",
+    "sceneSm": "/catalog/2027/fasad-qoya-relyefli-gisht-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad-qoya-relyefli-gisht-mold-a.webp"
+    },
+    "tiles": {
+     "A": "/catalog/2027/fasad-qoya-relyefli-gisht-tile-a.webp"
+    }
+   }
+  },
+  {
+   "key": "qatlamli-relyefli-gisht",
+   "code": null,
+   "slug": "qatlamli-relyefli-gisht",
+   "section": "fasad",
+   "name": {
+    "uz": "Qatlamli relyefli g‘isht",
+    "ru": "Кирпич «Слоистый»",
+    "en": "Layered-relief brick"
+   },
+   "subtitle": {
+    "uz": "G‘isht",
+    "ru": "Кирпич",
+    "en": "Brick"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": null,
+     "depth": null,
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad-qatlamli-relyefli-gisht-scene.webp",
+    "sceneSm": "/catalog/2027/fasad-qatlamli-relyefli-gisht-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad-qatlamli-relyefli-gisht-mold-a.webp"
+    },
+    "tiles": {
+     "A": "/catalog/2027/fasad-qatlamli-relyefli-gisht-tile-a.webp"
+    }
+   }
+  },
+  {
+   "key": "chuqur-silliq-gisht",
+   "code": null,
+   "slug": "chuqur-silliq-gisht",
+   "section": "fasad",
+   "name": {
+    "uz": "Chuqur silliq g‘isht",
+    "ru": "Кирпич гладкий",
+    "en": "Smooth brick"
+   },
+   "subtitle": {
+    "uz": "G‘isht",
+    "ru": "Кирпич",
+    "en": "Brick"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": null,
+     "depth": null,
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad-chuqur-silliq-gisht-scene.webp",
+    "sceneSm": "/catalog/2027/fasad-chuqur-silliq-gisht-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad-chuqur-silliq-gisht-mold-a.webp"
+    },
+    "tiles": {
+     "A": "/catalog/2027/fasad-chuqur-silliq-gisht-tile-a.webp"
+    }
+   }
+  },
+  {
+   "key": "pogonali-gisht-paneli",
+   "code": null,
+   "slug": "pogonali-gisht-paneli",
+   "section": "fasad",
+   "name": {
+    "uz": "Pog‘onali g‘isht paneli",
+    "ru": "Панель «Кирпичная кладка»",
+    "en": "Staggered brick panel"
+   },
+   "subtitle": {
+    "uz": "G‘isht",
+    "ru": "Кирпич",
+    "en": "Brick"
+   },
+   "note": null,
+   "kg": null,
+   "molds": [
+    {
+     "l": "A",
+     "size": null,
+     "depth": null,
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": null,
+     "per": null,
+     "cap": null
+    }
+   ],
+   "specs": [],
+   "sizeEstimated": false,
+   "images": {
+    "scene": "/catalog/2027/fasad-pogonali-gisht-paneli-scene.webp",
+    "sceneSm": "/catalog/2027/fasad-pogonali-gisht-paneli-scene-sm.webp",
+    "molds": {
+     "A": "/catalog/2027/fasad-pogonali-gisht-paneli-mold-a.webp"
+    },
+    "tiles": {
+     "A": "/catalog/2027/fasad-pogonali-gisht-paneli-tile-a.webp"
     }
    }
   }

@@ -16,7 +16,9 @@ const bare = (u) => (u || '').split('?')[0];
 const modelOfDst = (dst) => {
   const url = '/' + dst.replace(/^public\//, '');
   return models.find(
-    (m) => Object.values(m.images.molds).map(bare).includes(url) || [m.images.scene, m.images.sceneSm].map(bare).includes(url),
+    (m) =>
+      [...Object.values(m.images.molds), ...Object.values(m.images.tiles ?? {})].map(bare).includes(url) ||
+      [m.images.scene, m.images.sceneSm].map(bare).includes(url),
   );
 };
 

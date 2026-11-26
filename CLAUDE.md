@@ -654,6 +654,13 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   - **Sayt ≠ PDF**: statik katalogdagi 37 trotuar modelining o'lcham/dona/og'irligi bosma katalogdan (`/home/claude/cat2/items6.json`) farq
     qiladi (masalan Tomir/Parket B qolipi 2,08 vs 12,5 dona). Ikkalasida ham xato bor (PDF'dagi 12,5 jami kg bilan mos kelmaydi) —
     ommaviy sinxronlash qilinmadi, mijoz birka bo'yicha tasdiqlashi kerak.
+- **Yangi qoliplar: g‘isht, ustun qopqog‘i, gidroponika (2026-11-27, `scripts/catalog-add-2026-11-27-gisht-gidroponika.json`)**:
+  `gidroponika-patnisi` (trotuar, `after: gidroponika-eko-gazon`; **boshqa mahsulot** — eko-gazon panjarasi SPS katalogida «Гидропоника (эко-газон)»
+  deb nomlangan, u o'zgarmadi), `silliq-ustun-qopqogi` / `naqshli-ustun-qopqogi` (zabor, subtitle «Ustun qopqog‘i» → zabor'da «Turi» filtri chiqadi),
+  4 ta g‘isht (fasad, subtitle «G‘isht»): `qoya-relyefli-gisht` (egasining kartochkasi = ZIP'dagi 02), `qatlamli-relyefli-gisht`, `chuqur-silliq-gisht`,
+  `pogonali-gisht-paneli` (ZIP «G‘isht va bruschatka 4 model» 3D renderlari; `-plitka` = quyma). O'lchamlar yo'q (ZIP'dagi 100 mm taxminiy) — `patch` bilan.
+  Niqob: yangi qoliplar `OVERRIDES` da isnet (floodfill soyani qoldirdi); panelda `solid: 24` — yaxlit soha ichi 255 (isnet yarim shaffof dog' qoldirgan).
+  `tests/livePhotos2027.test.js` endi `images.tiles` ni ham ko'radi (`-plitka` birinchi marta ishlatildi).
 - **Trotuar PDF (veb nusxa) qo'lda yangilangan (2026-11-24)**: 7-bet (№004 Girih) — qolip va sahna rasmlari PDF ichida almashtirilgan (pikepdf,
   obyektlar 93/100; qolip `Multiply` bilan qo'yiladi — oq fonli JPEG kerak); 19-bet — yangi "Терраццо №2 · №3" (**№016**, novinkalar bo'limi oxirida, HTML → Chromium PDF, Inter).
   Undan keyingi 105 model **qayta raqamlangan** (Монако №016 → №017 … Вегас 2 №120 → №121) va bet raqamlari +1: eski raqam matni kontent oqimidan
