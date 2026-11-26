@@ -605,6 +605,10 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     Азалия 2 (t54), Азия / 1 / 2 / 3 (t57–t60), Бухоро (t61), Рокки (t63), **Кабанчик 17,5 naqshli** (t75 — renderda naqsh uzoqdan ko'rinmadi), **Николай 3 гладкий** (t79 — `terilgan.glb` da 175×175 naqshli
     kvadrat yo'q, render qolipga mos kelmadi), **Аллея 1 / 2 / 3 / узор** (t34, t71, t89, t73 — 2026-11-25 kechki: GLB'da
     relyef faqat normal xaritada, render izni bermadi; chuqurcha-soya varianti ham, Азия 1 qayta renderi ham rad etildi) — bu modellar sahnasini 3D renderga almashtirmang.
+    **2026-11-26: egasi bergan terilgan rasmlar** (asl ~1000×1400, katalog nisbati 0.708 ga markazdan kesilgan; `r_04.jpg` = 1700×2400 Lanczos, q95;
+    PDF MAX = shu, veb PDF = asl o'lchamda q90) qo'yildi — Аллея 1/2/3 (t34 t71 t89), Азия / 1 / 2 (t57 t58 t59), Бухоро (t61), Афина (t62), Рокки (t63),
+    Рояль 1 (t68), Вентилятор (t83), Виндовс (t84), Ромбик новый (t42). Bular eng ustun manba — 3D render bilan almashtirmang. Sahna WebP'lari
+    endi **q92** (`SCENE_QUALITY` — `build_images_2027.py`; imzoga qo'shilgan, qolip/plitka q80 da qoladi).
     Madani katalogida bu modellarning aynan o'zi yo'q (eng yaqini: Беш панжа ≈ Азия 1, lekin boshqa qolip); ularning rasmlari ishlatilmaydi (logotip, suv belgisi).
     **Антара** — egasining yagona talabi: qo'shni plitkalardagi izlar bir-biriga to'g'ri kelsin, "kamon emas, to'g'ri chiziq". Yangi sahna
     (`scripts/3d/sahna/antara-2026-11-25.py`, egasi tasdiqladi): ranglar/faktura/kamera eskisidek, iz chet nuqtasi = C1 → qo'shni plitka C2

@@ -7,7 +7,7 @@ import type { Locale } from '@/lib/i18n';
  * Trotuar fayli eski nom bilan qoldi — tashqi havolalar uzilmasin.
  */
 export const CATALOG_PDFS = [
-  { key: 'trotuar', file: '/catalog/pdf/sps-qoliplar-katalogi-2026.pdf?v=20261125e' },
+  { key: 'trotuar', file: '/catalog/pdf/sps-qoliplar-katalogi-2026.pdf?v=20261126a' },
   { key: 'fasad', file: '/catalog/pdf/sps-katalog-fasad.pdf?v=20261124' },
   // Tayyor fasad mahsulotlari (bosma "FASAD MAHSULOT" 2027, 108 bet) — faqat /ready sahifalarida
   { key: 'fasad-mahsulot', file: '/catalog/pdf/sps-katalog-fasad-mahsulot.pdf?v=20261124' },
