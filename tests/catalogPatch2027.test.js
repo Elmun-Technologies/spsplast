@@ -70,3 +70,23 @@ test('2026-11-25: Национал 2, Antara o‘lchami, raqamlangan nomlar va `
   assert.match(sync, /data\.retire/);
   assert.match(fs.readFileSync(path.join(root, 'scripts/extract/build_models_2027.py'), 'utf8'), /def apply_retire/);
 });
+
+test('2026-11-26 uchrashuv: Rim chiqarildi (301 → bo‘lim), Antara/Versache 2/Astana raqamlari, trotuar = faqat PP', () => {
+  assert.ok(!bySlug.has('rim-1-2-3'), 'Rim — SPS ishlab chiqarmaydi');
+  const redirects = JSON.parse(read('scripts/redirects-2027.json'));
+  const list = Array.isArray(redirects) ? redirects : Object.values(redirects).flat();
+  for (const lang of ['uz', 'ru', 'en']) {
+    const r = list.find((x) => x.source === `/${lang}/catalog/paving/rim-1-2-3`);
+    assert.equal(r?.destination, `/${lang}/catalog/paving`);
+  }
+  assert.equal(bySlug.get('oltiburchak-galka').tiles[0].per, '23');
+  assert.equal(bySlug.get('oltiburchak-galka').kg, '6,8');
+  assert.equal(bySlug.get('antara-1').kg, '7');
+  assert.equal(bySlug.get('17-versachi').name.ru, 'Версаче 2');
+  assert.equal(bySlug.get('17-versachi').kg, '3,96');
+  assert.match(bySlug.get('26-astana').molds[0].size, /^300×300/);
+  // Material: trotuar qoliplari faqat polipropilen (ABS — faqat fasad va boshqalar)
+  for (const l of ['uz', 'ru', 'en']) assert.match(read(`src/dictionaries/pages/${l}.ts`), /materialTagPaving: 'PP',/);
+  assert.match(read('src/components/catalog2027/ProductCard.tsx'), /section === 'trotuar' \? 'PP' : 'PP \/ ABS'/);
+  assert.match(read('src/components/model2027/ModelClient.tsx'), /materialValuePaving/);
+});

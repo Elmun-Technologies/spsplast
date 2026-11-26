@@ -10,6 +10,11 @@
 > - **2026-11-24**: bosma katalog novinkalari (№001–016) qayta nomlangan (Антара, Национал 1/4, Лабиринт, Дорожка, Паркет, Кадам,
 >   Бордюр Версаче + Бордюр Версаче сетка (№016, alohida model); Terratsso №1–3 = №017, h 50) — sayt (`patch`, slug o'zgarmagan) va veb PDF (130 bet) bir xil. Tafsilot: `CLAUDE.md` → "Novinkalar nomi/o'lchami".
 >   Ochiq: bordyur va №001/007/013–015 o'lchamlari; bosma (150–200 MB) asl PDF alohida yangilanishi kerak.
+> - **2026-11-26 (tun) — mijoz bilan katalog uchrashuvi**: trotuar qoliplari faqat PP (sayt + PDF), Rim olib tashlandi (301 → bo'lim; PDF 128 bet,
+>   Krym №005 dan raqamlar −1), Antara 1/2, Versache 2, Astana 30×30, Bordyur 600×160×50. Tafsilot: `CLAUDE.md` → "Mijoz bilan katalog uchrashuvi".
+>   Navbatda (vizual): Natsional 1/2, Eksklyuziv, Vetnam, Aziya 2/3, Ostana, Azaliya 1/2, Dubay shershaviy, Labirint, Parus, Gladkiy qoliplar/natijalar;
+>   4D/Marokash/Shashka ranglari; Rokki↔Farovon rasmi; Royal 2 + Windows kubigi (egasining suratlari). Egasidan: Vetnam 155 g va Nikolay 125 g qaysi
+>   qolipga; Natsional 1 og'irligi; «nomi noma'lum model», Plyotyonka/Dorojka elementlari; Arxideya kvadraturasi; Million/Altay/gazon/so'kildar.
 > - **2026-11-26 (kechki)**: egasining 3-to'plami (7 model) + Рокки yangi rasm; Сетка/Орхидея eski katalog rasmida. Saytdan model SONLARI olib tashlandi
 >   (footer, menyu, bosh sahifa, katalog sarlavhalari; meta'da qolgan). Trotuar PDF: 1–3 va 127–129-betlar qayta terildi, novinkalar = «Коллекция 2027»
 >   (osma belgi, 4–20-betlar). Tafsilot: `CLAUDE.md` → "Old/oxirgi betlar + «Коллекция 2027»". Ochiq: saytda ham «2027 kolleksiyasi» belgisi/bloki (so'ralmagan — egasi javobini kuting);

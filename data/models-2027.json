@@ -29,7 +29,7 @@
     "en": null
    },
    "note": null,
-   "kg": null,
+   "kg": "6,8",
    "molds": [
     {
      "l": "A",
@@ -42,7 +42,7 @@
     {
      "l": "A",
      "size": "290×190×45",
-     "per": null,
+     "per": "23",
      "cap": null
     }
    ],
@@ -73,7 +73,7 @@
     "en": null
    },
    "note": null,
-   "kg": null,
+   "kg": "7",
    "molds": [
     {
      "l": "A",
@@ -86,7 +86,7 @@
     {
      "l": "A",
      "size": "290×190×45",
-     "per": null,
+     "per": "23",
      "cap": null
     }
    ],
@@ -233,74 +233,6 @@
     "sceneSm": "/catalog/2027/trotuar-girih-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-girih-mold-a.webp"
-    },
-    "tiles": {}
-   }
-  },
-  {
-   "key": "rim-1-2-3",
-   "code": null,
-   "slug": "rim-1-2-3",
-   "section": "trotuar",
-   "name": {
-    "uz": "Rim №1 · №2 · №3",
-    "ru": "Рим №1 · №2 · №3",
-    "en": "Rome No. 1 · 2 · 3"
-   },
-   "subtitle": {
-    "uz": null,
-    "ru": null,
-    "en": null
-   },
-   "note": null,
-   "kg": null,
-   "molds": [
-    {
-     "l": "A",
-     "size": "200×200×30",
-     "depth": "30",
-     "g": null
-    },
-    {
-     "l": "B",
-     "size": "200×100×30",
-     "depth": "30",
-     "g": null
-    },
-    {
-     "l": "V",
-     "size": "100×100×30",
-     "depth": "30",
-     "g": null
-    }
-   ],
-   "tiles": [
-    {
-     "l": "A",
-     "size": "200×200×30",
-     "per": "25",
-     "cap": null
-    },
-    {
-     "l": "B",
-     "size": "200×100×30",
-     "per": "50",
-     "cap": null
-    },
-    {
-     "l": "V",
-     "size": "100×100×30",
-     "per": "100",
-     "cap": null
-    }
-   ],
-   "specs": [],
-   "sizeEstimated": false,
-   "images": {
-    "scene": "/catalog/2027/trotuar-rim-1-2-3-scene.webp",
-    "sceneSm": "/catalog/2027/trotuar-rim-1-2-3-scene-sm.webp",
-    "molds": {
-     "A": "/catalog/2027/trotuar-rim-1-2-3-mold-a.webp"
     },
     "tiles": {}
    }
@@ -728,8 +660,22 @@
    },
    "note": null,
    "kg": null,
-   "molds": [],
-   "tiles": [],
+   "molds": [
+    {
+     "l": "A",
+     "size": "600×160×50",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "600×160×50",
+     "per": null,
+     "cap": null
+    }
+   ],
    "specs": [],
    "sizeEstimated": false,
    "images": {
@@ -758,8 +704,22 @@
    },
    "note": null,
    "kg": null,
-   "molds": [],
-   "tiles": [],
+   "molds": [
+    {
+     "l": "A",
+     "size": "600×160×50",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "600×160×50",
+     "per": null,
+     "cap": null
+    }
+   ],
    "specs": [],
    "sizeEstimated": false,
    "images": {
@@ -1965,28 +1925,28 @@
    "slug": "17-versachi",
    "section": "trotuar",
    "name": {
-    "uz": "Versachi",
-    "ru": null,
-    "en": null
+    "uz": "Versache 2",
+    "ru": "Версаче 2",
+    "en": "Versace 2"
    },
    "subtitle": {
     "uz": null,
     "ru": null,
     "en": null
    },
-   "kg": "3,6",
+   "kg": "3,96",
    "molds": [
     {
      "l": "A",
-     "size": null,
-     "depth": null,
-     "g": null
+     "size": "300×300×30",
+     "depth": "30",
+     "g": 360
     }
    ],
    "tiles": [
     {
      "l": "A",
-     "size": null,
+     "size": "300×300×30",
      "per": "11",
      "cap": null
     }
@@ -2342,32 +2302,32 @@
     "ru": null,
     "en": null
    },
-   "kg": "4,375",
+   "kg": "3,995",
    "molds": [
     {
      "l": "A",
-     "size": "200×200×25",
-     "depth": "25",
+     "size": "300×300×38",
+     "depth": "38",
      "g": 330
     },
     {
      "l": "B",
-     "size": "53×53×25",
-     "depth": "25",
+     "size": "72×72×30",
+     "depth": "30",
      "g": 150
     }
    ],
    "tiles": [
     {
      "l": "A",
-     "size": "200×200×25",
-     "per": "25",
+     "size": "300×300×38",
+     "per": "11",
      "cap": null
     },
     {
      "l": "B",
-     "size": "53×53×25",
-     "per": "4,16",
+     "size": "72×72×30",
+     "per": "11",
      "cap": null
     }
    ],

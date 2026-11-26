@@ -242,6 +242,17 @@
     "kaliforniya-g"
    ],
    "name": "Kaliforniya"
+  },
+  {
+   "from": [
+    "trotuar",
+    "rim-1-2-3"
+   ],
+   "to": [
+    "trotuar",
+    null
+   ],
+   "name": "Rim №1 · №2 · №3"
   }
  ]
 }

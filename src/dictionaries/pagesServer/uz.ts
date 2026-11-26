@@ -145,8 +145,8 @@ export const pagesServerUz = {
       countTitle: '2. Nechta qolip kerak',
       countText: (name: string, per: string, m2: number, molds: string) =>
         `Kunlik hajmni 1 m² dagi plitka soniga ko‘paytiring. ${name} (1 m² ga ${per} dona) uchun kuniga ${m2} m² — taxminan ${molds} qolip, kuniga bitta aylanmada. Har bir model sahifasida kalkulyator bor.`,
-      materialTitle: '3. Material: PP yoki ABS',
-      materialText: "Har bir model ikkala materialda ishlab chiqariladi. Qaysi biri ishlab chiqarishingizga mosligini menejer hajm va sex rejimiga qarab tavsiya qiladi.",
+      materialTitle: '3. Material: polipropilen (PP)',
+      materialText: "Trotuar qoliplarining hammasi polipropilendan ishlab chiqariladi: zarbaga va sovuqqa chidamli, ko‘p martalik quyishga mo‘ljallangan. Kerakli miqdorni menejer hajm va sex rejimiga qarab hisoblab beradi.",
     },
     geo: {
       crumb: 'Eksport',

@@ -127,6 +127,7 @@ export const pagesUz = {
      * emas, oddiy satr, aks holda klient komponentga uzatilganda RSC serializatsiyasi buziladi). */
     photoAskMessageTemplate: 'Salom! {label} qolipining suratini yuborsangiz.',
     materialTag: 'PP / ABS',
+    materialTagPaving: 'PP',
     keyTile: 'Tayyor mahsulot',
     keyPer: '1 m² ga',
     keyMoldWeight: 'Qolip vazni',
@@ -173,6 +174,7 @@ export const pagesUz = {
       kgM2: '1 m² uchun qoliplar',
       material: 'Material',
       materialValue: 'Polipropilen (qora) / ABS (oq)',
+      materialValuePaving: 'Polipropilen (PP)',
       mold: 'Qolip',
       setNote: "To‘plam",
       tileNote: 'Tayyor plitka, rang betonga qo‘shiladigan pigmentga bog‘liq.',
@@ -420,7 +422,7 @@ export const pagesUz = {
     factoryVideoTitle: 'SPS zavodi videosi',
     materialEyebrow: 'MATERIAL',
     materialTitle: "Ikki material — har biri o‘z vazifasiga.",
-    materialLead: "Trotuar qoliplari polipropilen yoki ABS’dan ishlab chiqariladi. Fasad, zabor va dekor qoliplari ikkala variantda bor.",
+    materialLead: "Trotuar qoliplari polipropilendan (PP) ishlab chiqariladi. Fasad, zabor va dekor qoliplari ikkala variantda bor.",
     materialHead: ['Xususiyat', 'Polipropilen (PP)', 'ABS'],
     materialRows: [
       { k: 'Rangi', pp: 'Qora', abs: 'Oq' },
