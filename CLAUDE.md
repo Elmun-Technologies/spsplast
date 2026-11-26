@@ -646,7 +646,11 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     `ModelClient`, `CompareClient` bo'limga qarab tanlaydi; fasad/zabor/dekor `PP / ABS` bo'lib qoladi. PavingGuide matni ham PP.
   - **Rim** — SPS ishlab chiqarmaydi: `retire: {"rim-1-2-3": null}` — `null` = o'rnini bosuvchi model yo'q, 301 bo'lim sahifasiga.
   - Raqamlar: Antara 1/2 — 23 dona/m², 6,8 / 7 kg; `17-versachi` = **Версаче 2** (3,96 kg); Astana 30×30 (bosma katalog: 298→300);
-    Bordyur Versache 600×160×50. Vetnam (155 g?), Nikolay (125 g?), Natsional 1 (~5,8 kg) — qaysi qolipga tegishliligi aniqlanmaguncha yozilmagan.
+    Bordyur Versache (oddiy + setka) 600×160×50. Vetnam (155 g?), Nikolay (125 g?), Natsional 1 (~5,8 kg) — qaysi qolipga tegishliligi aniqlanmaguncha yozilmagan.
+  - **PDF** (`scripts/pdf/build8-2026-11-26.py` + `fix8-2026-11-26.py`, kirish fayllari repoda emas): Rim beti o'chirildi — Krym №005 dan
+    boshlab barcha model va bet raqamlari −1 (Вегас 2 = №120, 128 bet; novinkalar 16 ta, «Коллекция 2027» katakchalari ham); hamma betda
+    «Полипропилен» (asl matn bloklarida glif darajasida kesilgan), «Материал» beti — faqat PP; Antara 1/2 jadvali, Astana 300, Bordyur
+    600×160×50, Versache 2 jadvali (Versache 1 betidan ko'chirilgan). Glif tahriri: Inter gid'lari subset'da asl raqamida, ToUnicode bor.
   - **Sayt ≠ PDF**: statik katalogdagi 37 trotuar modelining o'lcham/dona/og'irligi bosma katalogdan (`/home/claude/cat2/items6.json`) farq
     qiladi (masalan Tomir/Parket B qolipi 2,08 vs 12,5 dona). Ikkalasida ham xato bor (PDF'dagi 12,5 jami kg bilan mos kelmaydi) —
     ommaviy sinxronlash qilinmadi, mijoz birka bo'yicha tasdiqlashi kerak.

@@ -704,8 +704,22 @@
    },
    "note": null,
    "kg": null,
-   "molds": [],
-   "tiles": [],
+   "molds": [
+    {
+     "l": "A",
+     "size": "600×160×50",
+     "depth": "50",
+     "g": null
+    }
+   ],
+   "tiles": [
+    {
+     "l": "A",
+     "size": "600×160×50",
+     "per": null,
+     "cap": null
+    }
+   ],
    "specs": [],
    "sizeEstimated": false,
    "images": {

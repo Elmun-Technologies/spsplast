@@ -4,7 +4,7 @@
 import sys, os, subprocess
 VAR = sys.argv[1]
 SITE = 'spsplast.uz'
-NV = ['АНТАРА', 'АНТАРА 2', 'НАЦИОНАЛ 1', 'НАЦИОНАЛ 2', 'РИМ', 'КРЫМ · ВАЛДАЙ · САЯНЫ', 'СЛАНЕЦ', 'ЛАБИРИНТ', 'ДОРОЖКА КРУГЛАЯ',
+NV = ['АНТАРА', 'АНТАРА 2', 'НАЦИОНАЛ 1', 'НАЦИОНАЛ 2', 'КРЫМ · ВАЛДАЙ · САЯНЫ', 'СЛАНЕЦ', 'ЛАБИРИНТ', 'ДОРОЖКА КРУГЛАЯ',
       'ДОРОЖКА ПОЛОСА', 'ПЛЕТЁНКА', 'ПАРКЕТ', 'СПИЛ ДЕРЕВА', 'КАДАМ', 'БОРДЮР ВЕРСАЧЕ', 'БОРДЮР ВЕРСАЧЕ СЕТКА', 'ТЕРРАЦЦО']
 TAB = '<div class="nt{c}"><s>{a}</s><b>2027</b><u>КОЛЛЕКЦИЯ</u></div>'
 
@@ -15,7 +15,7 @@ def cover_html(theme):
     return f"""<section class="pg cv cv-{theme}"><img class="bg" src="{VAR}/covbg-{theme}.jpg">{TAB.format(c=' nt-cv', a='НОВИНКИ')}
 <img class="cv-logo" src="{VAR}/{logo}.png">
 <div class="cv-mid"><div class="kick">ФОРМЫ ДЛЯ ТРОТУАРНОЙ ПЛИТКИ</div><h1>КАТАЛОГ</h1>
-<p>Пластиковые формы из ABS и полипропилена —<br>напрямую с завода в Ташкенте.</p></div>
+<p>Пластиковые формы из полипропилена —<br>напрямую с завода в Ташкенте.</p></div>
 <div class="cv-b"><div class="cv-facts"><div><b>20<em>лет</em></b><span>ОПЫТА</span></div><div><b>18 000<em>м²</em></b><span>В МЕСЯЦ</span></div>
 <div><b>740+</b><span>ОБЪЕКТОВ</span></div><div><b>8<em>стран</em></b><span>ЭКСПОРТ</span></div></div>
 <div class="cv-ex"><span>ЭКСПОРТ</span>{EXPORT}</div></div><div class="cv-site">{SITE}</div></section>"""
@@ -31,7 +31,8 @@ about = f'''<section class="pg ab"><div class="ab-l"><div class="kick">О КОМ
 <div><i>03</i><b>Под ваш проект</b><p>Изготовим форму по вашему образцу или чертежу.</p></div></div>
 <div class="ab-ex"><span>ЭКСПОРТ В 8 СТРАН</span>{EXPORT}</div></div></section>'''
 
-cells = ''.join(f'<div class="cc"><img src="{VAR}/nv{i:02d}.jpg"><em>№ {i:03d}</em><b>{n}</b></div>' for i, n in enumerate(NV, 1))
+NVIMG = [1, 2, 3, 4] + list(range(6, 18))   # nvNN.jpg — eski tartib (05 = Rim, olib tashlandi 2026-11-26)
+cells = ''.join(f'<div class="cc"><img src="{VAR}/nv{NVIMG[i - 1]:02d}.jpg"><em>№ {i:03d}</em><b>{n}</b></div>' for i, n in enumerate(NV, 1))
 coll = f'''<section class="pg co"><div class="co-l"><div class="kick">НОВИНКИ</div><h2 class="co-h">Коллекция<br><span>2027</span></h2>
 <p class="co-p">Новые формы сезона — в начале каталога: национальные орнаменты, плиты крупного формата, тактильная плитка и бордюры.</p>
 <div class="co-key">{TAB.format(c=' nt-key', a='НОВИНКА')}<p>Страницы новинок отмечены<br>этим знаком.</p></div>
@@ -142,7 +143,7 @@ img{display:block}
 .cc img{width:100%;height:29.5mm;object-fit:cover}
 .cc em{display:block;line-height:1;font-style:normal;font-size:4.1pt;font-weight:700;letter-spacing:.12em;color:#E5262A;margin-top:1.5mm}
 .cc b{display:block;font-size:4.6pt;line-height:1.25;font-weight:700;letter-spacing:.06em;margin-top:.6mm;height:4.2mm}
-.cc-r{background:#E5262A;height:29.5mm;padding:3mm 2.4mm;position:relative}
+.cc-r{background:#E5262A;height:29.5mm;padding:3mm 2.4mm;position:relative;grid-column:span 2}
 .cc-r b{font-size:6.6pt;line-height:1.18;letter-spacing:0;font-weight:800;margin:0;height:auto}
 .cc-r span{position:absolute;left:2.4mm;bottom:1.6mm;font-size:11pt;font-weight:600}
 /* buyurtma */
