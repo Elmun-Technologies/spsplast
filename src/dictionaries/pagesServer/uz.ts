@@ -156,8 +156,8 @@ export const pagesServerUz = {
       h1: (to: string) => `${to} yetkazib berish bilan trotuar plitkasi qoliplari`,
       description: (to: string, count: number) =>
         `${count} ta plastik qolip modeli Toshkentdagi zavoddan ${to} yetkaziladi. Eksport hujjatlari va qadoqlash bizda, narxni menejer hisoblaydi.`,
-      lead: (to: string, count: number) =>
-        `Trotuar plitkasi, fasad va dekor uchun ${count} ta plastik qolip modeli — to‘g‘ridan-to‘g‘ri Toshkentdagi zavoddan. ${to} jo‘natamiz: eksport hujjatlari va qadoqlashni o‘zimiz tayyorlaymiz, yetkazish bilan birga qolip soni va narxini menejer hisoblaydi.`,
+      lead: (to: string, _count: number) =>
+        `Trotuar plitkasi, fasad va dekor uchun plastik qoliplar — to‘g‘ridan-to‘g‘ri Toshkentdagi zavoddan. ${to} jo‘natamiz: eksport hujjatlari va qadoqlashni o‘zimiz tayyorlaymiz, yetkazish bilan birga qolip soni va narxini menejer hisoblaydi.`,
       ctaLead: 'Yetkazish bilan hisoblash',
       ctaWhatsapp: "WhatsApp’da yozish",
       stepsTitle: 'Qanday ishlaymiz',

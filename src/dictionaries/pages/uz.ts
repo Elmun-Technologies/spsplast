@@ -8,7 +8,7 @@ import { errorUz } from './error.ts';
 export const pagesUz = {
   home: {
     eyebrow: "Qoliplar zavodi · Toshkent",
-    h1: (n: number) => `Beton plitka va fasad uchun plastik qoliplar — ${n} model.`,
+    h1: (_n: number) => `Beton plitka va fasad uchun plastik qoliplar.`,
     // SERP sarlavhasi: H1 maketdagi matn bilan qoladi, <title> esa 65 belgigacha
     // sig‘adigan qisqa variant (brand qo‘shimchasi bilan) — aks holda kesiladi.
     seoTitle: (n: number) => `Beton plitka qoliplari — ${n} model, Toshkent`,
@@ -91,7 +91,7 @@ export const pagesUz = {
     allTitle: 'Barcha tayyor mahsulotlar',
     specsTitle: 'Xususiyatlari',
     related: 'Shu bo‘limdagi boshqa mahsulotlar',
-    sectionLeadTemplate: '{n} ta mahsulot. Zayafka qoldiring — menejer narx va muddatni aytadi.',
+    sectionLeadTemplate: 'Zayafka qoldiring — menejer narx va muddatni aytadi.',
     // Bo'lim matnlari — katalog agenti (SPS_sayt_katalog_1_fasad.zip, sections.json). Admin: pages.ready.sectionIntros.*
     sectionIntros: {
       tayyor_termopanel: 'Fasadni pardozlash va isitish — bitta montajda: penoplast yoki bazalt asosdagi dekorativ yuz qatlami. G‘isht, tosh fakturalari, silliq va geometrik turlari. Qo‘llanilishi: xususiy uylar va kottejlar, tijorat binolari, eski fasadlarni yangilash.',

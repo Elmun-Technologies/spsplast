@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import { isValidLocale, locales, pluralCategory, type Locale } from '@/lib/i18n';
-import { getUi, pluralModels } from '@/lib/ui';
+import { isValidLocale, locales, type Locale } from '@/lib/i18n';
+import { getUi } from '@/lib/ui';
 import { getPages } from '@/lib/pages';
 import { CONTACTS_2027 } from '@/lib/contacts2027';
 import {
@@ -8,9 +8,7 @@ import {
   calcMolds,
   calcWeight,
   getActiveSections,
-  getReadyModels,
   getPopular,
-  getSectionCounts,
   getTotalCount,
   modelName,
   modelPerM2,
@@ -80,7 +78,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   const lang = langParam as Locale;
   const t = getUi(lang);
   const p = getPages(lang);
-  const counts = getSectionCounts();
   const total = getTotalCount();
   const sections = getActiveSections();
   const popular = getPopular(12);
@@ -99,7 +96,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
 
   // Ikki yo'nalish paneli: bir xil kompozitsiya — studiya fonida haqiqiy qolip (och) va tayyor mahsulot (grafit).
   // Rasmlar `public/images/site/home/*-hero.webp` (qolip/mahsulot kesmalaridan yig'ilgan, pastki qismi panel rangida).
-  const readyCount = getReadyModels().length;
   const panels = [
     {
       key: 'molds',
@@ -110,7 +106,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       points: p.home.split.moldsPoints,
       cta: p.home.split.moldsCta,
       img: '/images/site/home/molds-hero.webp',
-      meta: `${total} ${pluralModels(lang, total)}`,
+      meta: '',
     },
     {
       key: 'ready',
@@ -121,7 +117,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       points: p.home.split.readyPoints,
       cta: p.home.split.readyCta,
       img: '/images/site/home/ready-hero.webp',
-      meta: readyCount ? `${readyCount} ${pluralCategory(lang, readyCount, p.ready.productForms)}` : '',
+      meta: '',
     },
   ];
 
@@ -215,9 +211,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
                   <span className="hm-sec__body">
                     <span className="hm-sec__n">{String(i + 1).padStart(2, '0')}</span>
                     <b>{sectionLabel(s, lang)}</b>
-                    <span className="hm-sec__count">
-                      {counts[s]} {pluralModels(lang, counts[s])}
-                    </span>
                   </span>
                   <span className="hm-sec__go" aria-hidden="true">
                     <Icon.arrowRight width={18} height={18} strokeWidth={2} />
@@ -261,7 +254,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               <h2 className="h1">{p.home.catalogTitle}</h2>
             </div>
             <a className="sps-btn sps-btn--outline hide-m" href={`/${lang}/catalog`}>
-              {p.home.catalogAll} · {total} {pluralModels(lang, total)}
+              {p.home.catalogAll}
             </a>
           </div>
           <CatalogClient lang={lang} models={popular} variant="home" total={total} />

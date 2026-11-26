@@ -2282,6 +2282,11 @@
    "statusCode": 301
   },
   {
+   "source": "/catalog/pdf/sps-qoliplar-katalogi-2026.pdf",
+   "destination": "/catalog/pdf/sps-qoliplar-katalogi.pdf",
+   "statusCode": 301
+  },
+  {
    "source": "/uz/about",
    "destination": "/uz/production",
    "statusCode": 301

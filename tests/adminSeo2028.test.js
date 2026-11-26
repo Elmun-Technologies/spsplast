@@ -153,7 +153,8 @@ test('5. Matnlar (CMS): kalitlar lug\'atdan, saqlash/qaytarish, qoidalar, saytda
   const entries = content.contentEntries();
   assert.ok(entries.length > 400, `matnlar kam: ${entries.length}`);
   const h1 = entries.find((e) => e.key === 'pages.home.h1');
-  assert.ok(h1 && h1.template && h1.values.uz.includes('{1}') && h1.values.ru && h1.values.en, 'H1 shabloni {1} bilan');
+  assert.ok(h1 && h1.template && h1.values.uz && h1.values.ru && h1.values.en, 'H1 — shablon (2026-11-26 dan model sonisiz)');
+  assert.ok(entries.find((e) => e.key === 'pages.home.seoTitle')?.values.uz.includes('{1}'), 'seoTitle shabloni {1} bilan');
   assert.ok(entries.some((e) => e.key.startsWith('ui.header.')));
   assert.ok(entries.find((e) => e.key === 'pages.seo.geo.title')?.template, "geo sarlavhasi — shablon");
   assert.ok(!entries.some((e) => e.key === 'pages.seo.geo.faq'), "ro'yxat qaytaradigan funksiya — kod");

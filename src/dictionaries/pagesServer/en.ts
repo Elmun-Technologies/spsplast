@@ -142,8 +142,8 @@ export const pagesServerEn: PagesServerDictionary = {
       h1: (to: string) => `Paving slab molds with delivery ${to}`,
       description: (to: string, count: number) =>
         `${count} plastic mold models from our Tashkent factory, delivered ${to}. Export documents and packing are on us; a manager calculates the price.`,
-      lead: (to: string, count: number) =>
-        `${count} plastic mold models for paving slabs, facade and decor — directly from our factory in Tashkent. We ship ${to}: we prepare export documents and packing ourselves, and a manager calculates the mold count and price with delivery.`,
+      lead: (to: string, _count: number) =>
+        `Plastic molds for paving slabs, facade and decor — directly from our factory in Tashkent. We ship ${to}: we prepare export documents and packing ourselves, and a manager calculates the mold count and price with delivery.`,
       ctaLead: 'Get a quote with delivery',
       ctaWhatsapp: 'Message on WhatsApp',
       stepsTitle: 'How we work',

@@ -484,6 +484,9 @@ test('13. 301 migratsiya xaritasi: manzillar yangi marshrutlarga, status 301', a
     assert.strictEqual(r.statusCode, 301, `${r.source}: 301 emas (${r.statusCode})`);
     assert.ok(r.destination.startsWith('/'), `${r.source}: manzil / bilan boshlanmadi`);
 
+    // Nomi o'zgargan statik fayl (PDF katalog) — til prefiksisiz.
+    if (r.destination.startsWith('/catalog/pdf/')) continue;
+
     const first = r.destination.split('/')[1] || '';
     const langOk = validLangs.includes(first) || first.startsWith(':');
     assert.ok(langOk, `${r.source}: manzilda til prefiksi yo'q -> ${r.destination}`);

@@ -85,14 +85,15 @@ for k, e in enumerate(items, 1):
     m = re.search(r'/3d/(t\d+)/', e.get('qr', ''))
     if m: ID2K[m.group(1)] = k
 SCENES = {}
-for tid in ['t08', 't11', 't49', 't85']:   # 2026-11-25: t54 t57-t61 t63, Аллея t34 t71 t89 t73, Кабанчик t75, Николай t79 egasi so'rovi bilan asl holatida
+for tid in ['t08', 't49']:   # 2026-11-26: Сетка t11 / Орхидея t85 — egasi: eski katalog rasmi (render olib tashlandi)
+      # 2026-11-25: t54 t57-t61 t63, Аллея t34 t71 t89 t73, Кабанчик t75, Николай t79 egasi so'rovi bilan asl holatida
     if os.path.exists(S_(tid)): SCENES[page_of(ID2K[tid]) - 1] = S_(tid)
     else: print('YO\'Q', tid)
 for idx, nm in ((3, 'nv_antara'), (5, 'nv_nat1'), (6, 'nv_nat2'), (10, 'nv_labirint')):   # Antara: izlar qo'shni plitkada to'g'ri davom etadi (egasi tasdiqladi 2026-11-25)
     if os.path.exists(S_(nm)): SCENES[idx] = S_(nm)
     else: print('YO\'Q', nm)
 # 2026-11-25 kechki: egasi bergan yangi terilgan rasmlar (asl sifat, /tmp/nw/<tid>_<web|max>.jpg) — bet = katalog beti
-NEWSC = {'t34': 91, 't71': 92, 't89': 93, 't57': 98, 't58': 99, 't59': 100, 't61': 102, 't62': 103, 't63': 104, 't68': 105, 't83': 111, 't84': 112, 't42': 116}
+NEWSC = {'t34': 91, 't71': 92, 't89': 93, 't57': 98, 't58': 99, 't59': 100, 't61': 102, 't62': 103, 't68': 105, 't83': 111, 't84': 112}
 for tid, pgno in NEWSC.items():
     pth = f'/tmp/nw/{tid}_{VAR}.jpg'
     assert os.path.exists(pth), pth
@@ -104,6 +105,12 @@ NEWSC2 = {'t08': 29, 't10': 32, 'versal': 44, 'charogon-1': 45, 'charogon-2': 46
 for key, pgno in NEWSC2.items():
     pth = f'/tmp/nw2/{key}_{VAR}.jpg'; assert os.path.exists(pth), pth
     if key in ID2K: assert page_of(ID2K[key]) == pgno, (key, page_of(ID2K[key]), pgno)
+    SCENES[pgno - 1] = pth
+# 2026-11-26 (3-to'plam): egasining yana 7 ta terilgan rasmi, /tmp/nw3/<tid>_<web|max>.jpg (t42 — avvalgi rasm o'rniga "New diamond")
+NEWSC3 = {'t41': 115, 't42': 116, 't53': 96, 't54': 97, 't69': 106, 't81': 109, 't104': 118, 't63': 104}   # t63 Рокки — egasi taupe rasmini tanladi
+for tid, pgno in NEWSC3.items():
+    pth = f'/tmp/nw3/{tid}_{VAR}.jpg'; assert os.path.exists(pth), pth
+    assert page_of(ID2K[tid]) == pgno, (tid, page_of(ID2K[tid]), pgno)
     SCENES[pgno - 1] = pth
 SCN = {'bordA': S_('bordA') if os.path.exists(S_('bordA')) else 'bord_scene_A.jpg', 'bordB': S_('bordB') if os.path.exists(S_('bordB')) else 'bord_scene_B.jpg'}
 def kpage(title, sub): return [page_of(k) - 1 for k, e in enumerate(items, 1) if e['title'] == title and (e.get('sub') or '') == sub][0]
@@ -333,5 +340,15 @@ hh, ww = cv2.imread('bord_mold_B.jpg').shape[:2]; setimg(img, 'bord_mold_B.jpg',
 sc = [v for k, v in bp.Resources.XObject.items() if v.get('/Subtype') == '/Image'][0]; setscene(17, SCN['bordB'])
 for idx, path in sorted(SCENES.items()):
     setscene(idx, path); print('sahna', idx + 1, path.split('/')[-1])
+# 2026-11-26 (egasi): boshidagi 3 va oxirgi 3 bet qayta terildi (p9/build.py), novinka betlariga (4..20) osma «2027» belgisi
+subprocess.run(['python3', '/tmp/pdfw/p9/build.py', VAR], check=True)
+p9 = pikepdf.open(f'/tmp/pdfw/p9/pages9_{VAR}.pdf'); assert len(p9.pages) == 23
+_n = len(pdf.pages)
+for _s, _d in ((0, 0), (1, 1), (2, 2), (3, _n - 3), (4, _n - 2), (5, _n - 1)): pdf.pages[_d] = p9.pages[_s]
+for _k in range(17): pdf.pages[3 + _k].add_overlay(p9.pages[6 + _k])
+# 2026-11-26: hujjat nomida ham yil yo'q (egasi: "2026" ishlatilmaydi)
+_T = 'SPS Plast — Каталог форм для тротуарной плитки'
+pdf.docinfo['/Title'] = _T
+with pdf.open_metadata(set_pikepdf_as_editor=False) as _m: _m['dc:title'] = _T
 pdf.save(f'out7_{VAR}.pdf', linearize=True, object_stream_mode=pikepdf.ObjectStreamMode.generate)
 print('betlar', len(pdf.pages))

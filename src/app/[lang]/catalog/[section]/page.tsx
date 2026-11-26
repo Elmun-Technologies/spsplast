@@ -95,7 +95,7 @@ export default async function SectionPage({
         intro={o?.intro}
         catalog={catalogKeyForSection(sec)}
         pattern={sectionPattern(sec)}
-        lead={`${models.length} ${pluralModels(lang, models.length)} · ${t.header.catalog} ${getTotalCount()}. ${t.seo.leadCta}`}
+        lead={t.seo.leadCta}
       />
       <div className="wrap sec">
         <TagChips lang={lang} section={sec} />

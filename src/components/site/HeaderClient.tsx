@@ -141,7 +141,6 @@ export function HeaderClient({
             {tabs.map((tab) => (
               <a key={tab.href} href={tab.href} title={tab.full !== tab.label ? tab.full : undefined} aria-current={tab.active ? 'page' : undefined}>
                 {tab.label}
-                <span className="num">{tab.count}</span>
               </a>
             ))}
           </nav>
@@ -221,7 +220,7 @@ export function HeaderClient({
             <nav className="mm-nav" aria-label={t.a11y.mobileNav}>
               {tabs.map((tab) => (
                 <a key={tab.href} className="mm-link" href={tab.href} aria-current={tab.active ? 'page' : undefined}>
-                  {tab.full} <span className="mono">{tab.count}</span>
+                  {tab.full}
                 </a>
               ))}
               <div className="mm-sub">

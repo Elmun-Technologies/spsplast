@@ -602,7 +602,7 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     tuvak/stol → 1700×2400. GLB'siz novinkalar (Antara, Natsional 1/2, Labirint) — qolip suratidan olingan relyef + JSON tartib; bordyurlar —
     `kerb.html` (sun'iy shar butalar olib tashlandi, fon — HDRI). Resurslar repoda emas (`$SAHNA_ASSETS`), qayta yuklash README'da.
   - **9 ta** sahna almashtirildi (sayt + veb PDF + MAX PDF). Egasi so'rovi bilan **asl holatida qoldirilgan** (render ularni buzdi, 2026-11-25 07:17):
-    Азалия 2 (t54), Азия / 1 / 2 / 3 (t57–t60), Бухоро (t61), Рокки (t63), **Кабанчик 17,5 naqshli** (t75 — renderda naqsh uzoqdan ko'rinmadi), **Николай 3 гладкий** (t79 — `terilgan.glb` da 175×175 naqshli
+    Азия / 1 / 2 / 3 (t57–t60), Бухоро (t61), Рокки (t63), **Кабанчик 17,5 naqshli** (t75 — renderda naqsh uzoqdan ko'rinmadi), **Николай 3 гладкий** (t79 — `terilgan.glb` da 175×175 naqshli
     kvadrat yo'q, render qolipga mos kelmadi), **Аллея 1 / 2 / 3 / узор** (t34, t71, t89, t73 — 2026-11-25 kechki: GLB'da
     relyef faqat normal xaritada, render izni bermadi; chuqurcha-soya varianti ham, Азия 1 qayta renderi ham rad etildi) — bu modellar sahnasini 3D renderga almashtirmang.
     **2026-11-26: egasi bergan terilgan rasmlar** (asl ~1000×1400, katalog nisbati 0.708 ga markazdan kesilgan; `r_04.jpg` = 1700×2400 Lanczos, q95;
@@ -611,6 +611,9 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     **2-to'plam (egasining ZIP'i "Qolip_va_terim_13_model")**: Травертино №025 (t08), Занжир (t10), Версал, Чорогон 1/2, Гладкий 18×36 (t49), Орнамент 18×36
     (yangi sahna — `scripts/catalog-add-2026-11-26-sahna.json` refresh), Астана (t30), Юлдуз (t31), Томир 4, Бодом 3, Шерша 2 (t74), Кабанчик 17,5 (t75).
     Versal/Chorog'on sahnasining manbasi yo'q (fayl `catalog-add` da) — WebP to'g'ridan-to'g'ri qayta yozilgan, `public/3d/t105–t107/sahna.jpg` ham.
+    **3-to'plam (2026-11-26)**: Ромбик старый (t41), Ромбик новый (t42 — oldingi qizil yulduzli rasm o'rniga egasining "New diamond"i), Азалия 1 (t53),
+    Азалия 2 (t54; egasi 3 variant berdi, "quatrefoil-2" tanlandi), Рояль 2 (t69), Хоккей (t81), Афсона (t104 — WebP to'g'ridan-to'g'ri + `public/3d/t104/sahna.jpg`).
+    Egasi qarori (2026-11-26): **Рокки (t63)** — "Limestone and taupe" rasmi (oldingi o'rniga); **Сетка (t11)** va **Орхидея (t85)** — render olib tashlandi, eski katalog rasmi qaytarildi (PDF'da ham).
     ZIP'dagi `*_qolip.jpg` = katalogdagi qolip bilan bir xil (ma'lumot uchun), almashtirilmadi. Sahna WebP'lari
     endi **q92** (`SCENE_QUALITY` — `build_images_2027.py`; imzoga qo'shilgan, qolip/plitka q80 da qoladi).
     Madani katalogida bu modellarning aynan o'zi yo'q (eng yaqini: Беш панжа ≈ Азия 1, lekin boshqa qolip); ularning rasmlari ishlatilmaydi (logotip, suv belgisi).
@@ -628,6 +631,14 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
   - **PDF**: `scripts/pdf/build7-2026-11-25.py <web|max>` (ma'lumot uchun nusxa — kirish fayllari repoda emas; 2026-11-24 dagi usulning davomi): eski 38-bet (Kaliforniya) o'chadi, undan keyingi
     raqamlar −1 (Вегас 2 = №121, 129 bet); katalog betlarida nom = 15.33 Tf matn bloki olinib, ustiga shaffof qatlam; sahna = betdagi yagona
     Image XObject almashtiriladi (nisbat 0.708). Bosilgan nusxalarda №036 dan keyin raqamlar farq qiladi.
+  - **Old/oxirgi betlar + «Коллекция 2027» (2026-11-26, egasi)**: 1–3 (muqova — Афсона sahnasi + yulduz qolipi; «Завод в Ташкенте» — saytdagi haqiqiy
+    zavod surati; «Коллекция 2027» — to'q bet, 17 novinka sahnasi katakchalarda) va 127–129 (buyurtma, kontaktlar — WhatsApp/Telegram/sayt QR, orqa muqova)
+    qayta terildi: `scripts/pdf/pages9-2026-11-26.py` (+ `pages9-assets-…py`; HTML → Chromium, Inter woff2 — tizim OTF'i Type 3 bo'lib tushadi). Novinka
+    betlariga (4–20) osma qizil «НОВИНКА · 2027 · КОЛЛЕКЦИЯ» belgisi shaffof qatlam bilan qo'yiladi. Yangi novinka qo'shilsa `NV` ro'yxati va qatlamlar soni (17) yangilansin.
+    **Muqova (2-tahrir, o'sha kuni, egasi)**: rasmsiz tipografik — grafit fon + girih naqshi (`pages9-covbg-…py`), logo, «КАТАЛОГ», 4 raqam va eksport davlatlari
+    ro'yxati (zavod betida ham). **«2026» so'zi katalogda umuman ishlatilmaydi** (muqova, orqa muqova, fayl nomi: `sps-qoliplar-katalogi.pdf`, eski nomdan 301 —
+    `build_redirects_2027.py` 3b); novinkalar «Коллекция 2027» bo'lib qoladi. Muqobil muqovalar: `COVER=light|red` (ko'rish: `COVERS=1`).
+    Model SONI hech qayerda yozilmaydi (egasi: sonlar kerak emas) — saytda ham footer/menyu/bosh sahifa/katalog sarlavhalaridan olib tashlangan (meta title/description'da qolgan).
   - Antara eskizi PDF'da TIK olti burchak (190 eni × 290 bo'yi, tekis tepa/past) — qolip shunday; Antara 2 esa yotiq.
   - Ochiq: Цветок (egasi yangi rasm beradi); Сланец o'lchamlari; Николай nomlari; Эксклюзив (qolip surati ≠ 3D model); Zina 1, Ornament 18×36 (GLB yo'q).
 - **Trotuar PDF (veb nusxa) qo'lda yangilangan (2026-11-24)**: 7-bet (№004 Girih) — qolip va sahna rasmlari PDF ichida almashtirilgan (pikepdf,
@@ -647,7 +658,7 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
 - **Tayyor mahsulot rasmi grafit fonda** (`.sps-card--ready`, `.hm-secs--ready`, `.rd-gal__*`, `.rc--ready`): mahsulotlar och
   (krem, oq beton) — och fonda ko'rinmay qolardi; rasm `contain` (kesilmaydi).
 - **PDF kataloglar + varaqlagich (2026-11-16)**: `public/catalog/pdf/` — 3 ta ruscha yotiq PDF (trotuar 2026-11-23 dan — A5 bosma katalog 128 bet, veb nusxa ~39 MB; fayli eski nom
-  `sps-qoliplar-katalogi-2026.pdf` bilan, fasad, skameyka+yevrozabor; ~26 MB, linearized). Barcha "PDF katalog" havolalari
+  `sps-qoliplar-katalogi.pdf` (2026-11-26 dan; avval `…-2026.pdf`, 301 bor) bilan, fasad, skameyka+yevrozabor; ~26 MB, linearized). Barcha "PDF katalog" havolalari
   `flipHref()` (`src/lib/catalogPdf.ts`) orqali `/{lang}/catalog/flip[?c=fasad]` ga boradi — `FlipBook.tsx` (pdf.js legacy + page-flip,
   sahifalar Range bilan bo'laklab, faqat atrofdagilar chiziladi; worker `public/pdfjs/`, `?c=` brauzerda o'qiladi). Sahifa `noindex`.
   PDF yangilansa fayl nomini saqlang (yoki `CATALOG_PDFS` ni o'zgartiring). Katta (≥50 MB) PDF'lar repoga kirmaydi — yengil versiya.

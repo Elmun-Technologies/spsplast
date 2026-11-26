@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { SECTION_SLUGS, modelImage, modelName, sectionFromSlug, sectionLabel, getTotalCount } from '@/lib/catalog2027';
 import { isValidLocale, locales, type Locale } from '@/lib/i18n';
-import { getUi, pluralModels } from '@/lib/ui';
+import { getUi } from '@/lib/ui';
 import { getSitePages } from '@/lib/pagesServer';
 import { getSeoTags, isSeoTag, tagModels } from '@/lib/seoPages';
 import { CatalogClient } from '@/components/catalog2027/CatalogClient';
@@ -91,10 +91,7 @@ export default async function TagPage({ params }: { params: Promise<Params> }) {
             <h1 className="h1">{o?.h1 || copy.h1}</h1>
             <p className="lead muted">{o?.intro || copy.text}</p>
             <p className="seo-head__meta">
-              <b>
-                {models.length} {pluralModels(lang, models.length)}
-              </b>{' '}
-              · <a href={`/${lang}/catalog/${section}`}>{s.tagAllLink}</a>
+              <a href={`/${lang}/catalog/${section}`}>{s.tagAllLink}</a>
             </p>
           </div>
         </div>

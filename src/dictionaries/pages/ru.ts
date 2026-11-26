@@ -8,7 +8,7 @@ import type { PagesDictionary } from './uz';
 export const pagesRu: PagesDictionary = {
   home: {
     eyebrow: 'Завод форм · Ташкент',
-    h1: (n: number) => `Пластиковые формы для бетонной плитки и фасадов — ${n} моделей.`,
+    h1: (_n: number) => `Пластиковые формы для бетонной плитки и фасадов.`,
     seoTitle: (n: number) => `Формы для тротуарной плитки — ${n} моделей`,
     lead: 'Выберите модель и оставьте заявку — менеджер рассчитает количество форм и цену. Напрямую с завода, доставка в {countries} стран.',
     stats: [
@@ -89,7 +89,7 @@ export const pagesRu: PagesDictionary = {
     allTitle: 'Вся готовая продукция',
     specsTitle: 'Характеристики',
     related: 'Другие изделия раздела',
-    sectionLeadTemplate: 'Изделий: {n}. Оставьте заявку — менеджер назовёт цену и срок.',
+    sectionLeadTemplate: 'Оставьте заявку — менеджер назовёт цену и срок.',
     // Bo'lim matnlari — katalog agenti (SPS_sayt_katalog_1_fasad.zip, sections.json). Admin: pages.ready.sectionIntros.*
     sectionIntros: {
       tayyor_termopanel: 'Отделка и утепление фасада за один монтаж: декоративный лицевой слой на основе из пенопласта или базальта. Фактуры кирпича, камня, гладкие и геометрические. Применение: частные дома и коттеджи, коммерческие здания, обновление старых фасадов.',
