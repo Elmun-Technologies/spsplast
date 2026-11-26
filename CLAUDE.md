@@ -602,7 +602,7 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     tuvak/stol → 1700×2400. GLB'siz novinkalar (Antara, Natsional 1/2, Labirint) — qolip suratidan olingan relyef + JSON tartib; bordyurlar —
     `kerb.html` (sun'iy shar butalar olib tashlandi, fon — HDRI). Resurslar repoda emas (`$SAHNA_ASSETS`), qayta yuklash README'da.
   - **9 ta** sahna almashtirildi (sayt + veb PDF + MAX PDF). Egasi so'rovi bilan **asl holatida qoldirilgan** (render ularni buzdi, 2026-11-25 07:17):
-    Азалия 2 (t54), Азия / 1 / 2 / 3 (t57–t60), Бухоро (t61), Рокки (t63), **Кабанчик 17,5 naqshli** (t75 — renderda naqsh uzoqdan ko'rinmadi), **Николай 3 гладкий** (t79 — `terilgan.glb` da 175×175 naqshli
+    Азия / 1 / 2 / 3 (t57–t60), Бухоро (t61), Рокки (t63), **Кабанчик 17,5 naqshli** (t75 — renderda naqsh uzoqdan ko'rinmadi), **Николай 3 гладкий** (t79 — `terilgan.glb` da 175×175 naqshli
     kvadrat yo'q, render qolipga mos kelmadi), **Аллея 1 / 2 / 3 / узор** (t34, t71, t89, t73 — 2026-11-25 kechki: GLB'da
     relyef faqat normal xaritada, render izni bermadi; chuqurcha-soya varianti ham, Азия 1 qayta renderi ham rad etildi) — bu modellar sahnasini 3D renderga almashtirmang.
     **2026-11-26: egasi bergan terilgan rasmlar** (asl ~1000×1400, katalog nisbati 0.708 ga markazdan kesilgan; `r_04.jpg` = 1700×2400 Lanczos, q95;
@@ -611,6 +611,8 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     **2-to'plam (egasining ZIP'i "Qolip_va_terim_13_model")**: Травертино №025 (t08), Занжир (t10), Версал, Чорогон 1/2, Гладкий 18×36 (t49), Орнамент 18×36
     (yangi sahna — `scripts/catalog-add-2026-11-26-sahna.json` refresh), Астана (t30), Юлдуз (t31), Томир 4, Бодом 3, Шерша 2 (t74), Кабанчик 17,5 (t75).
     Versal/Chorog'on sahnasining manbasi yo'q (fayl `catalog-add` da) — WebP to'g'ridan-to'g'ri qayta yozilgan, `public/3d/t105–t107/sahna.jpg` ham.
+    **3-to'plam (2026-11-26)**: Ромбик старый (t41), Ромбик новый (t42 — oldingi qizil yulduzli rasm o'rniga egasining "New diamond"i), Азалия 1 (t53),
+    Азалия 2 (t54; egasi 3 variant berdi, "quatrefoil-2" tanlandi), Рояль 2 (t69), Хоккей (t81), Афсона (t104 — WebP to'g'ridan-to'g'ri + `public/3d/t104/sahna.jpg`).
     ZIP'dagi `*_qolip.jpg` = katalogdagi qolip bilan bir xil (ma'lumot uchun), almashtirilmadi. Sahna WebP'lari
     endi **q92** (`SCENE_QUALITY` — `build_images_2027.py`; imzoga qo'shilgan, qolip/plitka q80 da qoladi).
     Madani katalogida bu modellarning aynan o'zi yo'q (eng yaqini: Беш панжа ≈ Азия 1, lekin boshqa qolip); ularning rasmlari ishlatilmaydi (logotip, suv belgisi).

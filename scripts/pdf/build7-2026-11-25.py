@@ -92,7 +92,7 @@ for idx, nm in ((3, 'nv_antara'), (5, 'nv_nat1'), (6, 'nv_nat2'), (10, 'nv_labir
     if os.path.exists(S_(nm)): SCENES[idx] = S_(nm)
     else: print('YO\'Q', nm)
 # 2026-11-25 kechki: egasi bergan yangi terilgan rasmlar (asl sifat, /tmp/nw/<tid>_<web|max>.jpg) — bet = katalog beti
-NEWSC = {'t34': 91, 't71': 92, 't89': 93, 't57': 98, 't58': 99, 't59': 100, 't61': 102, 't62': 103, 't63': 104, 't68': 105, 't83': 111, 't84': 112, 't42': 116}
+NEWSC = {'t34': 91, 't71': 92, 't89': 93, 't57': 98, 't58': 99, 't59': 100, 't61': 102, 't62': 103, 't63': 104, 't68': 105, 't83': 111, 't84': 112}
 for tid, pgno in NEWSC.items():
     pth = f'/tmp/nw/{tid}_{VAR}.jpg'
     assert os.path.exists(pth), pth
@@ -104,6 +104,12 @@ NEWSC2 = {'t08': 29, 't10': 32, 'versal': 44, 'charogon-1': 45, 'charogon-2': 46
 for key, pgno in NEWSC2.items():
     pth = f'/tmp/nw2/{key}_{VAR}.jpg'; assert os.path.exists(pth), pth
     if key in ID2K: assert page_of(ID2K[key]) == pgno, (key, page_of(ID2K[key]), pgno)
+    SCENES[pgno - 1] = pth
+# 2026-11-26 (3-to'plam): egasining yana 7 ta terilgan rasmi, /tmp/nw3/<tid>_<web|max>.jpg (t42 — avvalgi rasm o'rniga "New diamond")
+NEWSC3 = {'t41': 115, 't42': 116, 't53': 96, 't54': 97, 't69': 106, 't81': 109, 't104': 118}
+for tid, pgno in NEWSC3.items():
+    pth = f'/tmp/nw3/{tid}_{VAR}.jpg'; assert os.path.exists(pth), pth
+    assert page_of(ID2K[tid]) == pgno, (tid, page_of(ID2K[tid]), pgno)
     SCENES[pgno - 1] = pth
 SCN = {'bordA': S_('bordA') if os.path.exists(S_('bordA')) else 'bord_scene_A.jpg', 'bordB': S_('bordB') if os.path.exists(S_('bordB')) else 'bord_scene_B.jpg'}
 def kpage(title, sub): return [page_of(k) - 1 for k, e in enumerate(items, 1) if e['title'] == title and (e.get('sub') or '') == sub][0]
