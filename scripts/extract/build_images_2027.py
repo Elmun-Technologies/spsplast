@@ -27,14 +27,22 @@ JOBS = os.path.join(ROOT, "data/image-jobs-2027.json")
 MODELS = os.path.join(ROOT, "data/models-2027.json")
 
 
+SCENE_QUALITY = 92  # 2026-11-25, egasi: "natija" sahnalari eng yuqori sifatda (hajm muhim emas); qolip/plitka 80 da qoladi
+
+
+def quality_for(dst: str) -> int:
+    return SCENE_QUALITY if "-scene" in os.path.basename(dst) else 80
+
+
 def convert(src: str, dst: str, width: int) -> bool:
+    q = quality_for(dst)
     src = os.path.join(ROOT, src)
     dst = os.path.join(ROOT, dst)
     if not os.path.exists(src):
         return False
     os.makedirs(os.path.dirname(dst), exist_ok=True)
     cmd = ["convert", src, "-auto-orient", "-resize", f"{width}x{width}>",
-           "-strip", "-quality", "80", "-define", "webp:method=6", dst]
+           "-strip", "-quality", str(q), "-define", "webp:method=6", dst]
     r = subprocess.run(cmd, capture_output=True)
     return r.returncode == 0 and os.path.exists(dst) and os.path.getsize(dst) > 500
 
@@ -49,12 +57,14 @@ def _sha(path):
         return hashlib.sha1(f.read()).hexdigest()[:16]
 
 
-def _signature(src, mask, width):
+def _signature(src, mask, width, dst=""):
     """Rasm imzosi: manba fayl + (bo'lsa) niqob + kenglik + pipeline versiyasi. Manba yo'q bo'lsa None."""
     src_abs = os.path.join(ROOT, src)
     if not os.path.isfile(src_abs):
         return None
     parts = [PIPELINE_VERSION, str(width), _sha(src_abs), _sha(mask) if mask else "-"]
+    if quality_for(dst) != 80:  # faqat sahnalar imzosi o'zgaradi — qolip/plitka qayta kodlanmaydi
+        parts.append(f"q{quality_for(dst)}")
     return ":".join(parts)
 
 
@@ -80,7 +90,7 @@ def main():
         if is_cutout_job(j["dst"]) and os.path.exists(mask) and not fresh:
             stale += 1
             print("NIQOB ESKIRGAN (npm run images:bg)", j["dst"], file=sys.stderr)
-        sig = _signature(src, mask if use_mask else None, j["w"])
+        sig = _signature(src, mask if use_mask else None, j["w"], j["dst"])
         if sig and encoded.get(j["dst"]) == sig and os.path.exists(dst_abs):
             ok += 1
             same += 1

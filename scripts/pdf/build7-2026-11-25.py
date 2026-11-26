@@ -85,12 +85,26 @@ for k, e in enumerate(items, 1):
     m = re.search(r'/3d/(t\d+)/', e.get('qr', ''))
     if m: ID2K[m.group(1)] = k
 SCENES = {}
-for tid in ['t08', 't11', 't49', 't75', 't79', 't85']:   # 2026-11-25: t54 t57-t61 t63, Аллея t34 t71 t89 t73 egasi so'rovi bilan asl holatida
+for tid in ['t08', 't11', 't49', 't85']:   # 2026-11-25: t54 t57-t61 t63, Аллея t34 t71 t89 t73, Кабанчик t75, Николай t79 egasi so'rovi bilan asl holatida
     if os.path.exists(S_(tid)): SCENES[page_of(ID2K[tid]) - 1] = S_(tid)
     else: print('YO\'Q', tid)
 for idx, nm in ((3, 'nv_antara'), (5, 'nv_nat1'), (6, 'nv_nat2'), (10, 'nv_labirint')):   # Antara: izlar qo'shni plitkada to'g'ri davom etadi (egasi tasdiqladi 2026-11-25)
     if os.path.exists(S_(nm)): SCENES[idx] = S_(nm)
     else: print('YO\'Q', nm)
+# 2026-11-25 kechki: egasi bergan yangi terilgan rasmlar (asl sifat, /tmp/nw/<tid>_<web|max>.jpg) — bet = katalog beti
+NEWSC = {'t34': 91, 't71': 92, 't89': 93, 't57': 98, 't58': 99, 't59': 100, 't61': 102, 't62': 103, 't63': 104, 't68': 105, 't83': 111, 't84': 112, 't42': 116}
+for tid, pgno in NEWSC.items():
+    pth = f'/tmp/nw/{tid}_{VAR}.jpg'
+    assert os.path.exists(pth), pth
+    assert page_of(ID2K[tid]) == pgno, (tid, page_of(ID2K[tid]), pgno)
+    SCENES[pgno - 1] = pth
+# 2026-11-26: egasining ZIP'i (Qolip_va_terim_13_model) — terilgan rasmlar, /tmp/nw2/<kalit>_<web|max>.jpg, kalit -> katalog beti
+NEWSC2 = {'t08': 29, 't10': 32, 'versal': 44, 'charogon-1': 45, 'charogon-2': 46, 't49': 60, 'ornament-18-36': 62, 't30': 74, 't31': 75,
+          'tomir-15-15': 79, 'bodom-15-15': 80, 't74': 81, 't75': 84}
+for key, pgno in NEWSC2.items():
+    pth = f'/tmp/nw2/{key}_{VAR}.jpg'; assert os.path.exists(pth), pth
+    if key in ID2K: assert page_of(ID2K[key]) == pgno, (key, page_of(ID2K[key]), pgno)
+    SCENES[pgno - 1] = pth
 SCN = {'bordA': S_('bordA') if os.path.exists(S_('bordA')) else 'bord_scene_A.jpg', 'bordB': S_('bordB') if os.path.exists(S_('bordB')) else 'bord_scene_B.jpg'}
 def kpage(title, sub): return [page_of(k) - 1 for k, e in enumerate(items, 1) if e['title'] == title and (e.get('sub') or '') == sub][0]
 CATPAGES = {kpage('ТОМИР', '20×20'): 'ТОМИР 1', kpage('ТОМИР', '20×20 Х1'): 'ТОМИР 2', kpage('ТОМИР', '20×20 Х2'): 'ТОМИР 3', kpage('ТОМИР', '15×15'): 'ТОМИР 4',

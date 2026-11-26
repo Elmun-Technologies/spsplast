@@ -5427,8 +5427,8 @@
    "specs": [],
    "sizeEstimated": false,
    "images": {
-    "scene": null,
-    "sceneSm": null,
+    "scene": "/catalog/2027/trotuar-ornament-18-36-scene.webp",
+    "sceneSm": "/catalog/2027/trotuar-ornament-18-36-scene-sm.webp",
     "molds": {
      "A": "/catalog/2027/trotuar-ornament-18-36-mold-a.webp"
     },
