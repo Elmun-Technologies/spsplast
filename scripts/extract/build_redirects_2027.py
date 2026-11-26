@@ -148,6 +148,12 @@ def main() -> None:
         "/wishlist": "/request",
         "/search": "/catalog",
     }
+    # 3b) Nomi o'zgargan statik fayllar (2026-11-26, egasi: katalogda "2026" ishlatilmaydi — PDF fayl nomidan ham olindi)
+    redirects.append({
+        "source": "/catalog/pdf/sps-qoliplar-katalogi-2026.pdf",
+        "destination": "/catalog/pdf/sps-qoliplar-katalogi.pdf",
+        "statusCode": 301,
+    })
     for lang in LOCALES:
         for src, dst in static_map.items():
             stats["static"] += 1

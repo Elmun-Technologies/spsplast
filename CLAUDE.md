@@ -635,6 +635,9 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
     zavod surati; «Коллекция 2027» — to'q bet, 17 novinka sahnasi katakchalarda) va 127–129 (buyurtma, kontaktlar — WhatsApp/Telegram/sayt QR, orqa muqova)
     qayta terildi: `scripts/pdf/pages9-2026-11-26.py` (+ `pages9-assets-…py`; HTML → Chromium, Inter woff2 — tizim OTF'i Type 3 bo'lib tushadi). Novinka
     betlariga (4–20) osma qizil «НОВИНКА · 2027 · КОЛЛЕКЦИЯ» belgisi shaffof qatlam bilan qo'yiladi. Yangi novinka qo'shilsa `NV` ro'yxati va qatlamlar soni (17) yangilansin.
+    **Muqova (2-tahrir, o'sha kuni, egasi)**: rasmsiz tipografik — grafit fon + girih naqshi (`pages9-covbg-…py`), logo, «КАТАЛОГ», 4 raqam va eksport davlatlari
+    ro'yxati (zavod betida ham). **«2026» so'zi katalogda umuman ishlatilmaydi** (muqova, orqa muqova, fayl nomi: `sps-qoliplar-katalogi.pdf`, eski nomdan 301 —
+    `build_redirects_2027.py` 3b); novinkalar «Коллекция 2027» bo'lib qoladi. Muqobil muqovalar: `COVER=light|red` (ko'rish: `COVERS=1`).
     Model SONI hech qayerda yozilmaydi (egasi: sonlar kerak emas) — saytda ham footer/menyu/bosh sahifa/katalog sarlavhalaridan olib tashlangan (meta title/description'da qolgan).
   - Antara eskizi PDF'da TIK olti burchak (190 eni × 290 bo'yi, tekis tepa/past) — qolip shunday; Antara 2 esa yotiq.
   - Ochiq: Цветок (egasi yangi rasm beradi); Сланец o'lchamlari; Николай nomlari; Эксклюзив (qolip surati ≠ 3D model); Zina 1, Ornament 18×36 (GLB yo'q).
@@ -655,7 +658,7 @@ Optional, env-gated: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GTM_ID`,
 - **Tayyor mahsulot rasmi grafit fonda** (`.sps-card--ready`, `.hm-secs--ready`, `.rd-gal__*`, `.rc--ready`): mahsulotlar och
   (krem, oq beton) — och fonda ko'rinmay qolardi; rasm `contain` (kesilmaydi).
 - **PDF kataloglar + varaqlagich (2026-11-16)**: `public/catalog/pdf/` — 3 ta ruscha yotiq PDF (trotuar 2026-11-23 dan — A5 bosma katalog 128 bet, veb nusxa ~39 MB; fayli eski nom
-  `sps-qoliplar-katalogi-2026.pdf` bilan, fasad, skameyka+yevrozabor; ~26 MB, linearized). Barcha "PDF katalog" havolalari
+  `sps-qoliplar-katalogi.pdf` (2026-11-26 dan; avval `…-2026.pdf`, 301 bor) bilan, fasad, skameyka+yevrozabor; ~26 MB, linearized). Barcha "PDF katalog" havolalari
   `flipHref()` (`src/lib/catalogPdf.ts`) orqali `/{lang}/catalog/flip[?c=fasad]` ga boradi — `FlipBook.tsx` (pdf.js legacy + page-flip,
   sahifalar Range bilan bo'laklab, faqat atrofdagilar chiziladi; worker `public/pdfjs/`, `?c=` brauzerda o'qiladi). Sahifa `noindex`.
   PDF yangilansa fayl nomini saqlang (yoki `CATALOG_PDFS` ni o'zgartiring). Katta (≥50 MB) PDF'lar repoga kirmaydi — yengil versiya.

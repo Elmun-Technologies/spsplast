@@ -346,5 +346,9 @@ p9 = pikepdf.open(f'/tmp/pdfw/p9/pages9_{VAR}.pdf'); assert len(p9.pages) == 23
 _n = len(pdf.pages)
 for _s, _d in ((0, 0), (1, 1), (2, 2), (3, _n - 3), (4, _n - 2), (5, _n - 1)): pdf.pages[_d] = p9.pages[_s]
 for _k in range(17): pdf.pages[3 + _k].add_overlay(p9.pages[6 + _k])
+# 2026-11-26: hujjat nomida ham yil yo'q (egasi: "2026" ishlatilmaydi)
+_T = 'SPS Plast — Каталог форм для тротуарной плитки'
+pdf.docinfo['/Title'] = _T
+with pdf.open_metadata(set_pikepdf_as_editor=False) as _m: _m['dc:title'] = _T
 pdf.save(f'out7_{VAR}.pdf', linearize=True, object_stream_mode=pikepdf.ObjectStreamMode.generate)
 print('betlar', len(pdf.pages))
